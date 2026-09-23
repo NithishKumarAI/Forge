@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #111827;
+  background: #f4f5f7;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+button, input { font: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 3px solid rgba(109, 94, 252, 0.35);
+  outline-offset: 2px;
+}
+
+.display { font-family: "Manrope", system-ui, sans-serif; }
+.progress-grid {
+  background-image: linear-gradient(to right, rgba(255,255,255,.6) 1px, transparent 1px);
+  background-size: 25% 100%;
+}
+
+.markdown p + p, .markdown pre + p, .markdown p + pre { margin-top: .75rem; }
+.markdown ul, .markdown ol { margin: .6rem 0; padding-left: 1.25rem; }
+.markdown ul { list-style: disc; }
+.markdown ol { list-style: decimal; }
+.markdown code { border-radius: .35rem; background: #eef0f4; padding: .1rem .3rem; font-size: .9em; }
+.markdown pre { overflow-x: auto; border-radius: .75rem; background: #111827; padding: .9rem; color: #f8fafc; }
+.markdown pre code { background: transparent; padding: 0; color: inherit; }
