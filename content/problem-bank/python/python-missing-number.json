@@ -1,0 +1,92 @@
+{
+  "key": "python-missing-number",
+  "title": "Missing number in range",
+  "track": "python",
+  "topic_tags": [
+    "arrays",
+    "math"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Write `missing_number(nums)` where list contains n distinct numbers from 0..n with one missing. Find it.",
+  "constraints": [
+    "List has size n."
+  ],
+  "examples": [
+    {
+      "input": "[3,0,1]",
+      "output": "2",
+      "explanation": "2 is missing from 0..3."
+    }
+  ],
+  "starter_code": "def missing_number(nums: list[int]) -> int:\n    pass",
+  "hints": [
+    "Calculate the expected sum using n*(n+1)//2."
+  ],
+  "explanation": "Compare the expected sum of 0..n with the actual sum of the array.",
+  "reference_solution": "def missing_number(nums: list[int]) -> int:\n    n = len(nums)\n    expected = n * (n + 1) // 2\n    return expected - sum(nums)",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "missing_number",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            3,
+            0,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 2
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            0,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 2
+      },
+      {
+        "name": "sample3",
+        "args": [
+          [
+            9,
+            6,
+            4,
+            2,
+            3,
+            5,
+            7,
+            0,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 8
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          [
+            0
+          ]
+        ],
+        "kwargs": {},
+        "expected": 1
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/arrays"
+}

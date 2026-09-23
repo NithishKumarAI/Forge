@@ -1,0 +1,255 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "queues",
+  "title": "Queues",
+  "description": "Learn Queues",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Obj 1",
+    "Obj 2",
+    "Obj 3"
+  ],
+  "prerequisites": [
+    "python/basics"
+  ],
+  "sections": [
+    {
+      "slug": "what-is-a-queue",
+      "title": "What Is A Queue",
+      "order_index": 0,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about what-is-a-queue",
+      "markdown": "Content for what-is-a-queue. queue FIFO deque enqueue dequeue BFS buffer sliding window maximum first-in first-out collections.deque",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "fifo-property",
+      "title": "Fifo Property",
+      "order_index": 1,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about fifo-property",
+      "markdown": "Content for fifo-property. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "deque-module",
+      "title": "Deque Module",
+      "order_index": 2,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about deque-module",
+      "markdown": "Content for deque-module. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "enqueue-dequeue-operations",
+      "title": "Enqueue Dequeue Operations",
+      "order_index": 3,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about enqueue-dequeue-operations",
+      "markdown": "Content for enqueue-dequeue-operations. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "bfs-buffer-pattern",
+      "title": "Bfs Buffer Pattern",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about bfs-buffer-pattern",
+      "markdown": "Content for bfs-buffer-pattern. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "sliding-window-deque",
+      "title": "Sliding Window Deque",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about sliding-window-deque",
+      "markdown": "Content for sliding-window-deque. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "monotone-deque",
+      "title": "Monotone Deque",
+      "order_index": 6,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about monotone-deque",
+      "markdown": "Content for monotone-deque. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "when-to-use-queue-vs-stack",
+      "title": "When To Use Queue Vs Stack",
+      "order_index": 7,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about when-to-use-queue-vs-stack",
+      "markdown": "Content for when-to-use-queue-vs-stack. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 8,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about common-mistakes",
+      "markdown": "Content for common-mistakes. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 9,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about interview-points",
+      "markdown": "Content for interview-points. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    }
+  ],
+  "summary": [
+    "Sum 1",
+    "Sum 2",
+    "Sum 3"
+  ],
+  "interview_takeaways": [
+    "Int 1",
+    "Int 2",
+    "Int 3"
+  ],
+  "common_mistakes": [
+    "Mis 1",
+    "Mis 2",
+    "Mis 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "collections.deque",
+      "url": "https://docs.python.org/3/library/collections.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Sorting HOW-TO",
+      "url": "https://docs.python.org/3/howto/sorting.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "bisect",
+      "url": "https://docs.python.org/3/library/bisect.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-dsa-queues-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

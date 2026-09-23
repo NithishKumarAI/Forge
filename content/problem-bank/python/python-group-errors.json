@@ -1,0 +1,36 @@
+{
+  "key": "python-group-errors",
+  "title": "Group API errors",
+  "track": "python",
+  "topic_tags": ["collections", "dictionaries"],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 35,
+  "statement_markdown": "Implement `group_errors(records)`. Return a dictionary mapping each integer status code to how many records contain it.",
+  "constraints": ["Each record contains an integer `status` key", "Return a normal dictionary with integer keys"],
+  "examples": [{"input": "[{'status': 404}, {'status': 500}, {'status': 404}]", "output": "{404: 2, 500: 1}"}],
+  "starter_code": "def group_errors(records):\n    pass",
+  "hints": ["Accumulate counts by key.", "`dict.get(key, 0)` avoids a separate membership branch."],
+  "explanation": "Walk through the records once and increment the count for each status.",
+  "reference_solution": "def group_errors(records):\n    counts = {}\n    for record in records:\n        status = record['status']\n        counts[status] = counts.get(status, 0) + 1\n    return counts",
+  "complexity": "O(n) time and O(k) space for k distinct statuses.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "group_errors",
+    "sample_tests": [{
+      "name": "sample", "args": [[{"status": 404}, {"status": 500}, {"status": 404}]], "kwargs": {},
+      "expected_typed": {"type": "dict", "value": [
+        {"key": {"type": "int", "value": 404}, "value": {"type": "int", "value": 2}},
+        {"key": {"type": "int", "value": 500}, "value": {"type": "int", "value": 1}}
+      ]}
+    }],
+    "hidden_tests": [
+      {"name": "empty", "args": [[]], "kwargs": {}, "expected": {}},
+      {"name": "single kind", "args": [[{"status": 200}, {"status": 200}]], "kwargs": {}, "expected_typed": {"type": "dict", "value": [{"key": {"type": "int", "value": 200}, "value": {"type": "int", "value": 2}}]}}
+    ],
+    "time_limit_ms": 3000
+  },
+  "source_type": "original",
+  "version": "1.0.1",
+  "mapped_topic": "python/collections"
+}

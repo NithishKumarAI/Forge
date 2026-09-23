@@ -1,0 +1,301 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "graphs",
+  "title": "Graphs",
+  "description": "Learn about graphs in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand graphs",
+    "Implement basic templates",
+    "Recognize in interviews",
+    "Write optimized code"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-a-graph",
+      "title": "What Is A Graph",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand what-is-a-graph deeply.",
+      "markdown": "This section covers what-is-a-graph in detail. \n\nKeywords to know: graph, vertex, edge, adjacency list, directed, undirected, weighted, BFS, DFS, connected component, cycle. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about what-is-a-graph."
+      ]
+    },
+    {
+      "slug": "vertices-and-edges",
+      "title": "Vertices And Edges",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand vertices-and-edges deeply.",
+      "markdown": "This section covers vertices-and-edges in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about vertices-and-edges."
+      ]
+    },
+    {
+      "slug": "directed-vs-undirected",
+      "title": "Directed Vs Undirected",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand directed-vs-undirected deeply.",
+      "markdown": "This section covers directed-vs-undirected in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about directed-vs-undirected."
+      ]
+    },
+    {
+      "slug": "weighted-edges",
+      "title": "Weighted Edges",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand weighted-edges deeply.",
+      "markdown": "This section covers weighted-edges in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about weighted-edges."
+      ]
+    },
+    {
+      "slug": "adjacency-list",
+      "title": "Adjacency List",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand adjacency-list deeply.",
+      "markdown": "This section covers adjacency-list in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about adjacency-list."
+      ]
+    },
+    {
+      "slug": "adjacency-matrix",
+      "title": "Adjacency Matrix",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand adjacency-matrix deeply.",
+      "markdown": "This section covers adjacency-matrix in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about adjacency-matrix."
+      ]
+    },
+    {
+      "slug": "graph-traversal",
+      "title": "Graph Traversal",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand graph-traversal deeply.",
+      "markdown": "This section covers graph-traversal in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about graph-traversal."
+      ]
+    },
+    {
+      "slug": "bfs-on-graph",
+      "title": "Bfs On Graph",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand bfs-on-graph deeply.",
+      "markdown": "This section covers bfs-on-graph in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about bfs-on-graph."
+      ]
+    },
+    {
+      "slug": "dfs-on-graph",
+      "title": "Dfs On Graph",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand dfs-on-graph deeply.",
+      "markdown": "This section covers dfs-on-graph in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about dfs-on-graph."
+      ]
+    },
+    {
+      "slug": "connected-components",
+      "title": "Connected Components",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand connected-components deeply.",
+      "markdown": "This section covers connected-components in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about connected-components."
+      ]
+    },
+    {
+      "slug": "cycle-detection",
+      "title": "Cycle Detection",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand cycle-detection deeply.",
+      "markdown": "This section covers cycle-detection in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about cycle-detection."
+      ]
+    },
+    {
+      "slug": "graph-in-python",
+      "title": "Graph In Python",
+      "order_index": 11,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand graph-in-python deeply.",
+      "markdown": "This section covers graph-in-python in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about graph-in-python."
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 12,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand interview-points deeply.",
+      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about interview-points."
+      ]
+    }
+  ],
+  "summary": [
+    "graphs is a key concept.",
+    "Mastering it helps in interviews.",
+    "Practice the templates."
+  ],
+  "interview_takeaways": [
+    "Recognize the pattern",
+    "Analyze complexity",
+    "Discuss tradeoffs"
+  ],
+  "common_mistakes": [
+    "Off by one errors",
+    "Forgetting base cases",
+    "Ignoring edge cases"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "heapq",
+      "url": "https://docs.python.org/3/library/heapq.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Tutorial - Data Structures",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "functools.lru_cache",
+      "url": "https://docs.python.org/3/library/functools.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-dsa-graphs-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

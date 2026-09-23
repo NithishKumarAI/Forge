@@ -1,0 +1,161 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "type-hints",
+  "title": "Mastering Type-Hints",
+  "description": "Learn about type-hints in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand type-hints",
+    "Apply in real-world",
+    "Prepare for interviews"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-are-type-hints",
+      "title": "What Are Type Hints",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn what-are-type-hints",
+      "markdown": "### What is this?\nThis section covers what are type hints.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "basic-annotations",
+      "title": "Basic Annotations",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn basic-annotations",
+      "markdown": "### What is this?\nThis section covers basic annotations.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "collections-generics",
+      "title": "Collections Generics",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn collections-generics",
+      "markdown": "### What is this?\nThis section covers collections generics.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "optional-type",
+      "title": "Optional Type",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn optional-type",
+      "markdown": "### What is this?\nThis section covers optional type.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "union-type",
+      "title": "Union Type",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn union-type",
+      "markdown": "### What is this?\nThis section covers union type.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "callable-type",
+      "title": "Callable Type",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn callable-type",
+      "markdown": "### What is this?\nThis section covers callable type.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "protocol-awareness",
+      "title": "Protocol Awareness",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn protocol-awareness",
+      "markdown": "### What is this?\nThis section covers protocol awareness.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "static-checking",
+      "title": "Static Checking",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn static-checking",
+      "markdown": "### What is this?\nThis section covers static checking.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "runtime-limits",
+      "title": "Runtime Limits",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn runtime-limits",
+      "markdown": "### What is this?\nThis section covers runtime limits.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn interview-points",
+      "markdown": "### What is this?\nThis section covers interview points.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    }
+  ],
+  "summary": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "interview_takeaways": [
+    "Takeaway 1",
+    "Takeaway 2",
+    "Takeaway 3"
+  ],
+  "common_mistakes": [
+    "Mistake 1",
+    "Mistake 2",
+    "Mistake 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Python Tutorial",
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-type-hints-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

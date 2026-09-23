@@ -1,10 +1,11 @@
-import { BookOpen, Gauge, GraduationCap, Settings, Sparkles } from "lucide-react";
+import { BookOpen, Code2, Gauge, GraduationCap, Settings, Sparkles } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 import { DoubtChat } from "./DoubtChat";
 
 const navigation = [
   { to: "/", label: "Dashboard", icon: Gauge },
   { to: "/curriculum", label: "Curriculum", icon: BookOpen },
+  { to: "/arena", label: "Coding Arena", icon: Code2 },
   { to: "/review", label: "Review", icon: Sparkles },
   { to: "/interview", label: "Interview", icon: GraduationCap },
   { to: "/settings", label: "Settings", icon: Settings },

@@ -1,0 +1,320 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "trees",
+  "title": "Trees",
+  "description": "Learn about trees in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand trees",
+    "Implement basic templates",
+    "Recognize in interviews",
+    "Write optimized code"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-a-tree",
+      "title": "What Is A Tree",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand what-is-a-tree deeply.",
+      "markdown": "This section covers what-is-a-tree in detail. \n\nKeywords to know: tree, binary tree, BST, root, leaf, height, traversal, in-order, pre-order, post-order, balance, recursion. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about what-is-a-tree."
+      ]
+    },
+    {
+      "slug": "tree-terminology",
+      "title": "Tree Terminology",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand tree-terminology deeply.",
+      "markdown": "This section covers tree-terminology in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about tree-terminology."
+      ]
+    },
+    {
+      "slug": "binary-tree",
+      "title": "Binary Tree",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand binary-tree deeply.",
+      "markdown": "This section covers binary-tree in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about binary-tree."
+      ]
+    },
+    {
+      "slug": "binary-search-tree",
+      "title": "Binary Search Tree",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand binary-search-tree deeply.",
+      "markdown": "This section covers binary-search-tree in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about binary-search-tree."
+      ]
+    },
+    {
+      "slug": "tree-node-class",
+      "title": "Tree Node Class",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand tree-node-class deeply.",
+      "markdown": "This section covers tree-node-class in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about tree-node-class."
+      ]
+    },
+    {
+      "slug": "in-order-traversal",
+      "title": "In Order Traversal",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand in-order-traversal deeply.",
+      "markdown": "This section covers in-order-traversal in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about in-order-traversal."
+      ]
+    },
+    {
+      "slug": "pre-order-traversal",
+      "title": "Pre Order Traversal",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand pre-order-traversal deeply.",
+      "markdown": "This section covers pre-order-traversal in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about pre-order-traversal."
+      ]
+    },
+    {
+      "slug": "post-order-traversal",
+      "title": "Post Order Traversal",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand post-order-traversal deeply.",
+      "markdown": "This section covers post-order-traversal in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about post-order-traversal."
+      ]
+    },
+    {
+      "slug": "tree-height",
+      "title": "Tree Height",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand tree-height deeply.",
+      "markdown": "This section covers tree-height in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about tree-height."
+      ]
+    },
+    {
+      "slug": "bst-search",
+      "title": "Bst Search",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand bst-search deeply.",
+      "markdown": "This section covers bst-search in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about bst-search."
+      ]
+    },
+    {
+      "slug": "bst-insert",
+      "title": "Bst Insert",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand bst-insert deeply.",
+      "markdown": "This section covers bst-insert in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about bst-insert."
+      ]
+    },
+    {
+      "slug": "balance-awareness",
+      "title": "Balance Awareness",
+      "order_index": 11,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand balance-awareness deeply.",
+      "markdown": "This section covers balance-awareness in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about balance-awareness."
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 12,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand common-mistakes deeply.",
+      "markdown": "This section covers common-mistakes in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about common-mistakes."
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 13,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand interview-points deeply.",
+      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about interview-points."
+      ]
+    }
+  ],
+  "summary": [
+    "trees is a key concept.",
+    "Mastering it helps in interviews.",
+    "Practice the templates."
+  ],
+  "interview_takeaways": [
+    "Recognize the pattern",
+    "Analyze complexity",
+    "Discuss tradeoffs"
+  ],
+  "common_mistakes": [
+    "Off by one errors",
+    "Forgetting base cases",
+    "Ignoring edge cases"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "heapq",
+      "url": "https://docs.python.org/3/library/heapq.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Tutorial - Data Structures",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "functools.lru_cache",
+      "url": "https://docs.python.org/3/library/functools.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-dsa-trees-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

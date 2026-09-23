@@ -2,10 +2,38 @@ export type ExerciseType = "multiple_choice" | "short_answer" | "python_code" | 
 
 export interface PythonTest {
   name: string;
-  args: unknown[];
-  kwargs: Record<string, unknown>;
+  args?: unknown[];
+  kwargs?: Record<string, unknown>;
   expected?: unknown;
+  expected_typed?: TypedValue;
   expected_exception?: string | null;
+  stdin?: string;
+  expected_stdout?: string;
+  secret?: boolean;
+}
+
+export interface TypedValue {
+  type: string;
+  display: string;
+  value: unknown;
+}
+
+export interface ExecutionTestResult {
+  test_index: number;
+  name: string;
+  passed: boolean;
+  input_display: string;
+  expected_value: TypedValue | null;
+  expected_type: string;
+  actual_value: TypedValue | null;
+  actual_type: string;
+  stdout: string;
+  stderr: string;
+  exception_type: string | null;
+  exception_message: string | null;
+  line_number: number | null;
+  duration_ms: number;
+  message: string;
 }
 
 export interface Exercise {
@@ -35,7 +63,7 @@ export interface ExecutionResult {
   status: "passed" | "failed" | "runtime_error" | "timeout";
   stdout: string;
   stderr: string;
-  tests: { name: string; passed: boolean; message: string }[];
+  tests: ExecutionTestResult[];
   duration_ms: number;
 }
 

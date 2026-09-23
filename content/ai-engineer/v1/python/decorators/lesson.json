@@ -1,0 +1,184 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "decorators",
+  "title": "Decorators",
+  "description": "Learn about closures and decorators in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand closures.",
+    "Write custom decorators.",
+    "Use functools.wraps."
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "functions-as-values",
+      "title": "Functions as Values",
+      "order_index": 0,
+      "estimated_minutes": 2,
+      "learning_objective": "Understand first-class functions.",
+      "markdown": "In Python, functions are first-class citizens, meaning they can be passed as functions as values to other functions and returned from them.",
+      "examples": [],
+      "key_points": [
+        "Functions as Values is a core concept to understand",
+        "Practice applying Functions in real code"
+      ]
+    },
+    {
+      "slug": "what-is-a-closure",
+      "title": "What is a Closure?",
+      "order_index": 1,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand closures.",
+      "markdown": "A closure occurs when a nested function captures and remembers the variables from its enclosing scope, even after the outer function finishes.",
+      "examples": [],
+      "key_points": [
+        "What is a Closure? is a core concept to understand",
+        "Practice applying What in real code"
+      ]
+    },
+    {
+      "slug": "what-is-a-decorator",
+      "title": "What is a Decorator?",
+      "order_index": 2,
+      "estimated_minutes": 3,
+      "learning_objective": "Define decorators.",
+      "markdown": "A decorator is a function that takes another function and extends its behavior without explicitly modifying it. It relies on a wrapper function.",
+      "examples": [],
+      "key_points": [
+        "What is a Decorator? is a core concept to understand",
+        "Practice applying What in real code"
+      ]
+    },
+    {
+      "slug": "basic-decorator-pattern",
+      "title": "Basic Decorator Pattern",
+      "order_index": 3,
+      "estimated_minutes": 4,
+      "learning_objective": "Learn the decorator syntax.",
+      "markdown": "The basic pattern involves an outer function, an inner wrapper function that modifies behavior, and returning the wrapper.",
+      "examples": [],
+      "key_points": [
+        "Basic Decorator Pattern is a core concept to understand",
+        "Practice applying Basic in real code"
+      ]
+    },
+    {
+      "slug": "functools-wraps",
+      "title": "Functools Wraps",
+      "order_index": 4,
+      "estimated_minutes": 2,
+      "learning_objective": "Use functools.wraps.",
+      "markdown": "Always use `functools.wraps` on the wrapper function to preserve the original function's metadata like its docstring and name.",
+      "examples": [],
+      "key_points": [
+        "Functools Wraps is a core concept to understand",
+        "Practice applying Functools in real code"
+      ]
+    },
+    {
+      "slug": "decorators-with-arguments",
+      "title": "Decorators with Arguments",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Pass arguments to decorators.",
+      "markdown": "To pass arguments to a decorator, you need another layer of nesting: a function that takes arguments and returns the actual decorator.",
+      "examples": [],
+      "key_points": [
+        "Decorators with Arguments is a core concept to understand",
+        "Practice applying Decorators in real code"
+      ]
+    },
+    {
+      "slug": "stacking-decorators",
+      "title": "Stacking Decorators",
+      "order_index": 6,
+      "estimated_minutes": 2,
+      "learning_objective": "Stack multiple decorators.",
+      "markdown": "Stacking allows multiple decorators on one function. They are applied from bottom to top.",
+      "examples": [],
+      "key_points": [
+        "Stacking Decorators is a core concept to understand",
+        "Practice applying Stacking in real code"
+      ]
+    },
+    {
+      "slug": "common-backend-uses",
+      "title": "Common Backend Uses",
+      "order_index": 7,
+      "estimated_minutes": 2,
+      "learning_objective": "See real-world usage.",
+      "markdown": "Some common backend uses of decorators include authentication checks, logging, caching, and rate limiting in web frameworks.",
+      "examples": [],
+      "key_points": [
+        "Common Backend Uses is a core concept to understand",
+        "Practice applying Common in real code"
+      ]
+    },
+    {
+      "slug": "class-decorators-awareness",
+      "title": "Class Decorators Awareness",
+      "order_index": 8,
+      "estimated_minutes": 2,
+      "learning_objective": "Know about class decorators.",
+      "markdown": "Besides functions, decorators can also be applied to classes to modify their behavior, such as registering them in a registry.",
+      "examples": [],
+      "key_points": [
+        "Class Decorators Awareness is a core concept to understand",
+        "Practice applying Class in real code"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 9,
+      "estimated_minutes": 2,
+      "learning_objective": "Avoid common mistakes.",
+      "markdown": "Forgetting to return the inner wrapper or not passing `*args, **kwargs` correctly are frequent pitfalls when writing decorators.",
+      "examples": [],
+      "key_points": [
+        "Common Mistakes is a core concept to understand",
+        "Practice applying Common in real code"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 10,
+      "estimated_minutes": 2,
+      "learning_objective": "Prepare for interviews.",
+      "markdown": "Be ready to write a basic decorator from scratch and explain the role of closures and `functools.wraps` in preserving metadata.",
+      "examples": [],
+      "key_points": [
+        "Interview Points is a core concept to understand",
+        "Practice applying Interview in real code"
+      ]
+    }
+  ],
+  "summary": [
+    "Decorators extend behavior.",
+    "Closures preserve state.",
+    "Use functools.wraps.",
+    "Stacking applies bottom-to-top."
+  ],
+  "interview_takeaways": [
+    "Write a decorator.",
+    "Explain wrapper.",
+    "Use functools.wraps."
+  ],
+  "common_mistakes": [
+    "Missing *args, **kwargs.",
+    "Forgetting return wrapper."
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "functools",
+      "url": "https://docs.python.org/3/library/functools.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-decorators-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

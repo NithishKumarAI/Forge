@@ -1,0 +1,275 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "sorting",
+  "title": "Sorting",
+  "description": "Learn Sorting",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Obj 1",
+    "Obj 2",
+    "Obj 3"
+  ],
+  "prerequisites": [
+    "python/basics"
+  ],
+  "sections": [
+    {
+      "slug": "why-sorting-matters",
+      "title": "Why Sorting Matters",
+      "order_index": 0,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about why-sorting-matters",
+      "markdown": "Content for why-sorting-matters. sorting comparison O(n log n) key function sorted sort counting sort stability built-in sort comparison sort",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "built-in-sort-python",
+      "title": "Built In Sort Python",
+      "order_index": 1,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about built-in-sort-python",
+      "markdown": "Content for built-in-sort-python. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "timsort-overview",
+      "title": "Timsort Overview",
+      "order_index": 2,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about timsort-overview",
+      "markdown": "Content for timsort-overview. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "key-function",
+      "title": "Key Function",
+      "order_index": 3,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about key-function",
+      "markdown": "Content for key-function. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "reverse-sort",
+      "title": "Reverse Sort",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about reverse-sort",
+      "markdown": "Content for reverse-sort. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "stability",
+      "title": "Stability",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about stability",
+      "markdown": "Content for stability. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "counting-sort-awareness",
+      "title": "Counting Sort Awareness",
+      "order_index": 6,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about counting-sort-awareness",
+      "markdown": "Content for counting-sort-awareness. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "comparison-sort-complexity",
+      "title": "Comparison Sort Complexity",
+      "order_index": 7,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about comparison-sort-complexity",
+      "markdown": "Content for comparison-sort-complexity. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "sorting-interview-patterns",
+      "title": "Sorting Interview Patterns",
+      "order_index": 8,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about sorting-interview-patterns",
+      "markdown": "Content for sorting-interview-patterns. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 9,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about common-mistakes",
+      "markdown": "Content for common-mistakes. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 10,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn about interview-points",
+      "markdown": "Content for interview-points. More markdown content to meet length requirements over 20 chars.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello')",
+          "expected_output": "hello",
+          "explanation": "test"
+        }
+      ],
+      "key_points": [
+        "Point 1",
+        "Point 2"
+      ]
+    }
+  ],
+  "summary": [
+    "Sum 1",
+    "Sum 2",
+    "Sum 3"
+  ],
+  "interview_takeaways": [
+    "Int 1",
+    "Int 2",
+    "Int 3"
+  ],
+  "common_mistakes": [
+    "Mis 1",
+    "Mis 2",
+    "Mis 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "collections.deque",
+      "url": "https://docs.python.org/3/library/collections.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Sorting HOW-TO",
+      "url": "https://docs.python.org/3/howto/sorting.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "bisect",
+      "url": "https://docs.python.org/3/library/bisect.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-dsa-sorting-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

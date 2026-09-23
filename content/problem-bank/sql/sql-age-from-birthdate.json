@@ -1,0 +1,94 @@
+{
+  "key": "sql-age-from-birthdate",
+  "title": "Calculate age in years",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on members(id, name, birth_year).",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['Charlie', 41], ['Alice', 36], ['Bob', 26], ['David', 16]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT name, (2026 - birth_year) AS age FROM members ORDER BY age DESC",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE members (id INT, name VARCHAR(50), birth_year INT); INSERT INTO members VALUES (1, 'Alice', 1990), (2, 'Bob', 2000), (3, 'Charlie', 1985), (4, 'David', 2010);",
+    "visible_tables": [
+      "members(id, name, birth_year)"
+    ],
+    "sample_rows": [
+      [
+        "Charlie",
+        41
+      ],
+      [
+        "Alice",
+        36
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "Charlie",
+        41
+      ],
+      [
+        "Alice",
+        36
+      ],
+      [
+        "Bob",
+        26
+      ],
+      [
+        "David",
+        16
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE members (id INT, name VARCHAR(50), birth_year INT); INSERT INTO members VALUES (1, 'Alice', 1990), (2, 'Bob', 2000), (3, 'Charlie', 1985), (4, 'David', 2010);",
+        "expected_rows": [
+          [
+            "Charlie",
+            41
+          ],
+          [
+            "Alice",
+            36
+          ],
+          [
+            "Bob",
+            26
+          ],
+          [
+            "David",
+            16
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

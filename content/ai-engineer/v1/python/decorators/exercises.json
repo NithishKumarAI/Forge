@@ -1,0 +1,115 @@
+[
+  {
+    "key": "dec-1",
+    "exercise_type": "multiple_choice",
+    "title": "Metadata Preservation",
+    "prompt_markdown": "Which utility helps preserve a wrapped function's metadata?",
+    "difficulty": "easy",
+    "hints": [
+      "It's in the functools module."
+    ],
+    "content": {
+      "choices": [
+        "functools.wraps",
+        "functools.preserve",
+        "functools.metadata",
+        "functools.keep"
+      ],
+      "correct_index": 0,
+      "explanation": "functools.wraps copies the docstring and name."
+    }
+  },
+  {
+    "key": "dec-2",
+    "exercise_type": "short_answer",
+    "title": "Stacking Order",
+    "prompt_markdown": "In what order are stacked decorators applied?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about proximity to the function."
+    ],
+    "content": {
+      "rubric": [
+        "bottom to top",
+        "closest first"
+      ],
+      "reference_answer": "They are applied from bottom to top, meaning the one closest to the function definition is applied first.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dec-3",
+    "exercise_type": "multiple_choice",
+    "title": "functools.wraps purpose",
+    "prompt_markdown": "Why is `@functools.wraps(fn)` commonly applied to the inner wrapper function of a custom decorator?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about function __name__ and docstrings."
+    ],
+    "content": {
+      "choices": [
+        "It compiles the wrapper function to C for faster execution.",
+        "It copies metadata like `__name__` and `__doc__` from the decorated function to the wrapper.",
+        "It enables the wrapper to accept asynchronous functions.",
+        "It prevents the decorated function from raising exceptions."
+      ],
+      "correct_index": 1,
+      "explanation": "Without `@functools.wraps`, the decorated function will report `wrapper` as its `__name__` and lose its original docstring, breaking introspection tools and doc generators."
+    }
+  },
+  {
+    "key": "dec-4",
+    "exercise_type": "multiple_choice",
+    "title": "Decorator evaluation order",
+    "prompt_markdown": "If a function is decorated with `@dec_a` above `@dec_b`, in what order are the decorators applied and executed?",
+    "difficulty": "easy",
+    "hints": [
+      "Remember @dec_a @dec_b def f(): ... equals f = dec_a(dec_b(f))."
+    ],
+    "content": {
+      "choices": [
+        "Applied from bottom to top (`dec_b` first); at runtime `dec_a` runs first.",
+        "Applied from top to bottom (`dec_a` first); at runtime `dec_b` runs first.",
+        "Both apply simultaneously in parallel.",
+        "Decorator order does not affect execution."
+      ],
+      "correct_index": 0,
+      "explanation": "Decorators are syntactic sugar: `f = dec_a(dec_b(f))`. Application happens inside-out (bottom-to-top), so `dec_b` wraps `f`, then `dec_a` wraps that. At call time, `dec_a` wrapper executes first."
+    }
+  },
+  {
+    "key": "dec-5",
+    "exercise_type": "short_answer",
+    "title": "Decorator with Arguments",
+    "prompt_markdown": "Explain the structure of a decorator that accepts configuration arguments, such as `@retry(times=3)`.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about 3 levels of nested functions."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions three levels of nested functions: factory/outer function, actual decorator, and wrapper function.",
+        "Explains that the outer function takes the arguments and returns the decorator."
+      ],
+      "reference_answer": "A decorator with arguments requires a 3-layer nested structure: an outer factory function that accepts the configuration parameters (e.g. `times=3`), an intermediate decorator function that takes the target function `fn`, and an innermost `wrapper(*args, **kwargs)` that executes the logic (e.g. loop up to 3 times) and returns the result.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dec-6",
+    "exercise_type": "short_answer",
+    "title": "Backend Use Cases for Decorators",
+    "prompt_markdown": "List three widespread production use cases for decorators in backend web frameworks like FastAPI or Flask.",
+    "difficulty": "medium",
+    "hints": [
+      "Authentication, caching, metrics, routing."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies at least two distinct cross-cutting concerns (e.g., authentication/permissions, caching/memoization, request timing/metrics, rate limiting)."
+      ],
+      "reference_answer": "Common backend use cases include: 1) Authentication & Authorization (verifying JWT tokens or user roles before executing the route handler); 2) Performance Caching (checking Redis or in-memory cache before recalculating costly queries); 3) Observability & Metrics (timing request execution and incrementing error metrics).",
+      "minimum_pass_score": 70
+    }
+  }
+]

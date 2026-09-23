@@ -1,0 +1,82 @@
+{
+  "key": "dsa-subarray-sum-equals-k",
+  "title": "Subarray sum equals k",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "hash-maps",
+    "prefix"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an array of integers `nums` and an integer `k`, return the total number of continuous subarrays whose sum equals to `k`.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "nums = [1,1,1], k = 2",
+      "output": "2",
+      "explanation": "[1,1] twice"
+    }
+  ],
+  "starter_code": "def subarray_sum_count(nums: list[int], k: int) -> int:\n    pass",
+  "hints": [
+    "Keep a running sum of elements.",
+    "Use a hash map to store frequencies of prefix sums."
+  ],
+  "explanation": "Maintain a running sum (prefix sum). If `prefix_sum - k` exists in the hash map, it means there is a subarray summing to `k`. Keep updating the hash map with the frequency of `prefix_sum`.",
+  "reference_solution": "def subarray_sum_count(nums: list[int], k: int) -> int:\n    count = 0\n    prefix_sum = 0\n    prefix_counts = {0: 1}\n    for num in nums:\n        prefix_sum += num\n        if prefix_sum - k in prefix_counts:\n            count += prefix_counts[prefix_sum - k]\n        prefix_counts[prefix_sum] = prefix_counts.get(prefix_sum, 0) + 1\n    return count",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "subarray_sum_count",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            1,
+            1
+          ],
+          2
+        ],
+        "kwargs": {},
+        "expected": 2
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          3
+        ],
+        "kwargs": {},
+        "expected": 2
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            1,
+            -1,
+            0
+          ],
+          0
+        ],
+        "kwargs": {},
+        "expected": 3
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

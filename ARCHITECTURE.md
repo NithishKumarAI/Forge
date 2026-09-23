@@ -113,6 +113,44 @@ Free-form evaluation returns scores for exactly the dimension names in the store
 
 `InterviewSession`, `InterviewQuestion`, `InterviewResponse`, and `InterviewReport` are additive tables. Sessions may be active, saved, completed, abandoned, or generation-failed. Completed responses are committed before the next question is generated, so provider failure cannot erase an answer; `/next` safely retries preparation. Tutor and doubt routers reject requests while a scored interview is active.
 
+## Static course architecture
+
+Authority is one-way:
+
+1. confirmed curriculum;
+2. versioned course coverage specification;
+3. accepted static course lesson and exercise bank;
+4. runtime AI.
+
+Runtime AI may explain levels 1–3 but cannot redefine them.
+
+Course build time: explicit vetted source URLs → conservative cached fetch → text extraction → Gemini structured synthesis → schema, coverage, source, structure, duplicate, and Python syntax validation → candidate file → deliberate promotion.
+
+Runtime: the disk course pack is canonical. Startup synchronizes lesson metadata and `source="course_pack"` exercises into SQLite and rebuilds a local FTS5 section index. Learn reads the pack directly; Tutor receives the selected authoritative section and deterministic outline; Doubts receives the current section plus a small FTS result set. `LessonSectionProgress` is deliberately separate from mastery evidence.
+
+## Interview-first curriculum V2
+
+The prior confirmed curriculum is retained. V2 is seeded as a separate confirmed version and becomes active when the prior default was active. `data/curriculum-migrations/v1-to-v2.json` records unambiguous topic mappings. Only learner-state summaries are copied into untouched V2 states; attempts and mastery evidence remain permanently associated with their original topic IDs.
+
+Priority tiers are code/data controlled: P0 Python, SQL/PostgreSQL, and DSA; P1 Backend, CS, LLM, and RAG; P2 ML and Production; P3 Frontend; Interview Engineering is ongoing. Planner target settings reserve configurable Python, SQL, and DSA practice before lower-priority recommendations.
+
+## Coding Arena
+
+```text
+Versioned static problem file
+        ↓ startup sync
+ArenaProblem metadata ─── ArenaAttempt / ArenaHintUse
+        ↓
+Python or DSA → Monaco → Pyodide worker → deterministic tests
+SQL           → Monaco → PGlite worker → fresh fixture DB → deterministic result comparison
+        ↓ first non-farmable pass
+MasteryEvidenceEvent(event_type="arena") → central mastery recalculation
+```
+
+Problem statements, fixtures, tests, explanations, and solutions are canonical disk content. SQLite is only the synchronized index and attempt history. Public problem responses remove reference solutions and hidden validation. Giving up reveals the solution but creates no mastery evidence. Every SQL execution constructs and discards an isolated PGlite database; Forge application data is never attached.
+
+Build-time problem tools create candidates, validate schemas and Python references, and require explicit promotion. A Node/PGlite validator executes accepted SQL reference solutions against sample and hidden datasets. Runtime Gemini does not generate or grade normal Arena work.
+
 The final report’s overall score is calculated from blueprint weights before Gemini may add a validated narrative. Reports always identify the result as a Forge rubric score and explicitly reject hiring-probability interpretation.
 
 ## Usage guardrails

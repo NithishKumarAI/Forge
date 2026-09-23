@@ -1,0 +1,95 @@
+{
+  "key": "sql-three-table-join",
+  "title": "Order details with customer and product",
+  "track": "sql",
+  "topic_tags": [
+    "joins"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on customers, products, orders, order_items.",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['Alice', 'P1', 2], ['Alice', 'P2', 1], ['Bob', 'P3', 5]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT c.name AS customer_name, p.name AS product_name, oi.quantity FROM customers c JOIN orders o ON o.customer_id = c.id JOIN order_items oi ON oi.order_id = o.id JOIN products p ON oi.product_id = p.id ORDER BY c.name",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50)); CREATE TABLE products (id INT, name VARCHAR(50), price INT); CREATE TABLE orders (id INT, customer_id INT, order_date DATE); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT); INSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob'); INSERT INTO products VALUES (1, 'P1', 10), (2, 'P2', 20), (3, 'P3', 30); INSERT INTO orders VALUES (1, 1, '2026-01-01'), (2, 2, '2026-01-02'); INSERT INTO order_items VALUES (1, 1, 1, 2), (2, 1, 2, 1), (3, 2, 3, 5);",
+    "visible_tables": [
+      "customers, products, orders, order_items"
+    ],
+    "sample_rows": [
+      [
+        "Alice",
+        "P1",
+        2
+      ],
+      [
+        "Alice",
+        "P2",
+        1
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "Alice",
+        "P1",
+        2
+      ],
+      [
+        "Alice",
+        "P2",
+        1
+      ],
+      [
+        "Bob",
+        "P3",
+        5
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50)); CREATE TABLE products (id INT, name VARCHAR(50), price INT); CREATE TABLE orders (id INT, customer_id INT, order_date DATE); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT); INSERT INTO customers VALUES (1, 'Alice'), (2, 'Bob'); INSERT INTO products VALUES (1, 'P1', 10), (2, 'P2', 20), (3, 'P3', 30); INSERT INTO orders VALUES (1, 1, '2026-01-01'), (2, 2, '2026-01-02'); INSERT INTO order_items VALUES (1, 1, 1, 2), (2, 1, 2, 1), (3, 2, 3, 5);",
+        "expected_rows": [
+          [
+            "Alice",
+            "P1",
+            2
+          ],
+          [
+            "Alice",
+            "P2",
+            1
+          ],
+          [
+            "Bob",
+            "P3",
+            5
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/joins"
+}

@@ -92,7 +92,10 @@ def _finish_current(session: Session, interview: InterviewSession, provider: Fak
 
 def test_interview_modes_and_blueprints_are_fixed() -> None:
     available = {item["mode"] for item in modes()}
-    assert available == {"quick", "full_ai_engineer", "python_backend", "llm_rag", "project_deep_dive", "system_design", "behavioral"}
+    assert available == {"quick", "full_ai_engineer", "python_backend", "llm_rag", "project_deep_dive", "system_design", "behavioral", "fresher_ai_engineer"}
+    fresher = BLUEPRINTS["fresher_ai_engineer"]
+    competencies = " ".join(slot["competency"].lower() for slot in fresher["slots"])
+    assert all(term in competencies for term in ("python", "sql", "problem solving", "backend", "llm", "project"))
     assert len(BLUEPRINTS["quick"]["slots"]) == 5
     assert {slot["section"] for slot in BLUEPRINTS["full_ai_engineer"]["slots"]} >= {"python_backend", "llm_rag", "coding", "project", "system_design", "behavioral"}
     assert sum(slot["weight"] for slot in BLUEPRINTS["full_ai_engineer"]["slots"]) == pytest.approx(1)

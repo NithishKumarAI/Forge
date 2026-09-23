@@ -1,0 +1,118 @@
+[
+  {
+    "key": "fn-1",
+    "exercise_type": "multiple_choice",
+    "title": "Variable positional args",
+    "prompt_markdown": "Which syntax is used for variable length positional arguments?",
+    "difficulty": "easy",
+    "hints": [
+      "It uses a single asterisk"
+    ],
+    "content": {
+      "choices": [
+        "**kwargs",
+        "*args",
+        "args[]",
+        "...args"
+      ],
+      "correct_index": 1,
+      "explanation": "*args packs remaining positional arguments into a tuple."
+    }
+  },
+  {
+    "key": "fn-2",
+    "exercise_type": "multiple_choice",
+    "title": "Return defaults",
+    "prompt_markdown": "What does a Python function return if there is no return statement?",
+    "difficulty": "easy",
+    "hints": [
+      "It doesn't return nothing, but it returns..."
+    ],
+    "content": {
+      "choices": [
+        "0",
+        "False",
+        "None",
+        "Error"
+      ],
+      "correct_index": 2,
+      "explanation": "Functions without an explicit return statement return None."
+    }
+  },
+  {
+    "key": "fn-3",
+    "exercise_type": "multiple_choice",
+    "title": "Lambda syntax",
+    "prompt_markdown": "How do you define a lambda function that adds 1 to x?",
+    "difficulty": "easy",
+    "hints": [
+      "Use the lambda keyword"
+    ],
+    "content": {
+      "choices": [
+        "lambda x: x + 1",
+        "lambda(x) { x + 1 }",
+        "def lambda(x): return x + 1",
+        "lambda x => x + 1"
+      ],
+      "correct_index": 0,
+      "explanation": "The syntax is lambda arguments: expression."
+    }
+  },
+  {
+    "key": "fn-4",
+    "exercise_type": "multiple_choice",
+    "title": "Scope acronym",
+    "prompt_markdown": "What does LEGB stand for in Python scope resolution?",
+    "difficulty": "easy",
+    "hints": [
+      "Local is first"
+    ],
+    "content": {
+      "choices": [
+        "Local, Enclosing, Global, Built-in",
+        "Logical, External, Global, Base",
+        "Local, External, Global, Built-in",
+        "List, Enum, Global, Boolean"
+      ],
+      "correct_index": 0,
+      "explanation": "It dictates the order Python resolves variable names."
+    }
+  },
+  {
+    "key": "fn-5",
+    "exercise_type": "short_answer",
+    "title": "Mutable Defaults",
+    "prompt_markdown": "Why is it dangerous to use a mutable object like a list as a default argument value?",
+    "difficulty": "medium",
+    "hints": [
+      "It evaluates only once"
+    ],
+    "content": {
+      "rubric": [
+        "Evaluated once at definition time",
+        "Shared across calls"
+      ],
+      "reference_answer": "Default arguments are evaluated only once at function definition time. If a mutable object is used, the same object is shared across all calls that use the default, leading to unexpected behavior.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "fn-6",
+    "exercise_type": "short_answer",
+    "title": "Pure functions",
+    "prompt_markdown": "What defines a 'pure function'?",
+    "difficulty": "medium",
+    "hints": [
+      "Side effects"
+    ],
+    "content": {
+      "rubric": [
+        "No side effects",
+        "Same output for same input"
+      ],
+      "reference_answer": "A pure function always returns the same output for the same input and has no observable side effects (like modifying global state or performing I/O).",
+      "minimum_pass_score": 70
+    }
+  }
+]

@@ -1,0 +1,202 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "file-handling",
+  "title": "File Handling",
+  "description": "Learn to read, write, and manage files in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Use open and with statements.",
+    "Understand file modes and text encoding.",
+    "Work with JSON and pathlib."
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "opening-files",
+      "title": "Opening Files",
+      "order_index": 0,
+      "estimated_minutes": 2,
+      "learning_objective": "Learn to open files.",
+      "markdown": "To work with files, you must use the `open` function which returns a file object.",
+      "examples": [],
+      "key_points": [
+        "Opening Files is a core concept to understand",
+        "Practice applying Opening in real code"
+      ]
+    },
+    {
+      "slug": "file-modes",
+      "title": "File Modes",
+      "order_index": 1,
+      "estimated_minutes": 2,
+      "learning_objective": "Understand file modes.",
+      "markdown": "Different modes like 'r' (read), 'w' (write), 'a' (append) specify how you intend to use the file.",
+      "examples": [],
+      "key_points": [
+        "File Modes is a core concept to understand",
+        "Practice applying File in real code"
+      ]
+    },
+    {
+      "slug": "reading-files",
+      "title": "Reading Files",
+      "order_index": 2,
+      "estimated_minutes": 2,
+      "learning_objective": "Learn to read files.",
+      "markdown": "You can read the entire file using `.read()`, or iterate over lines, or use `.readlines()`.",
+      "examples": [],
+      "key_points": [
+        "Reading Files is a core concept to understand",
+        "Practice applying Reading in real code"
+      ]
+    },
+    {
+      "slug": "writing-files",
+      "title": "Writing Files",
+      "order_index": 3,
+      "estimated_minutes": 2,
+      "learning_objective": "Learn to write to files.",
+      "markdown": "Writing involves opening in write or append mode and using `.write()` to read write content.",
+      "examples": [],
+      "key_points": [
+        "Writing Files is a core concept to understand",
+        "Practice applying Writing in real code"
+      ]
+    },
+    {
+      "slug": "with-context-manager",
+      "title": "With Context Manager",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Use the with statement.",
+      "markdown": "The `with` statement ensures the file is properly closed after its suite finishes, even if exceptions are raised.",
+      "examples": [],
+      "key_points": [
+        "With Context Manager is a core concept to understand",
+        "Practice applying With in real code"
+      ]
+    },
+    {
+      "slug": "text-encoding",
+      "title": "Text Encoding",
+      "order_index": 5,
+      "estimated_minutes": 2,
+      "learning_objective": "Understand text encoding.",
+      "markdown": "Always specify text encoding explicitly, usually `encoding='utf-8'`, to avoid platform-dependent bugs.",
+      "examples": [],
+      "key_points": [
+        "Text Encoding is a core concept to understand",
+        "Practice applying Text in real code"
+      ]
+    },
+    {
+      "slug": "pathlib-basics",
+      "title": "Pathlib Basics",
+      "order_index": 6,
+      "estimated_minutes": 3,
+      "learning_objective": "Use pathlib.",
+      "markdown": "The `pathlib` module provides an object-oriented interface for paths, making path manipulation easier than os.path.",
+      "examples": [],
+      "key_points": [
+        "Pathlib Basics is a core concept to understand",
+        "Practice applying Pathlib in real code"
+      ]
+    },
+    {
+      "slug": "reading-json",
+      "title": "Reading JSON",
+      "order_index": 7,
+      "estimated_minutes": 2,
+      "learning_objective": "Read JSON data.",
+      "markdown": "The `json` module provides `json.load()` to read JSON data directly from a file object.",
+      "examples": [],
+      "key_points": [
+        "Reading JSON is a core concept to understand",
+        "Practice applying Reading in real code"
+      ]
+    },
+    {
+      "slug": "writing-json",
+      "title": "Writing JSON",
+      "order_index": 8,
+      "estimated_minutes": 2,
+      "learning_objective": "Write JSON data.",
+      "markdown": "Similarly, `json.dump()` writes Python dictionaries directly into files as JSON.",
+      "examples": [],
+      "key_points": [
+        "Writing JSON is a core concept to understand",
+        "Practice applying Writing in real code"
+      ]
+    },
+    {
+      "slug": "csv-basics",
+      "title": "CSV Basics",
+      "order_index": 9,
+      "estimated_minutes": 2,
+      "learning_objective": "Handle CSV files.",
+      "markdown": "The `csv` module is used for reading and writing CSV formats.",
+      "examples": [],
+      "key_points": [
+        "CSV Basics is a core concept to understand",
+        "Practice applying CSV in real code"
+      ]
+    },
+    {
+      "slug": "error-handling-files",
+      "title": "Error Handling with Files",
+      "order_index": 10,
+      "estimated_minutes": 2,
+      "learning_objective": "Handle file errors.",
+      "markdown": "Proper error handling using try-except blocks is crucial for handling missing files or permission issues.",
+      "examples": [],
+      "key_points": [
+        "Error Handling with Files is a core concept to understand",
+        "Practice applying Error in real code"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 11,
+      "estimated_minutes": 2,
+      "learning_objective": "Prepare for interviews.",
+      "markdown": "Interviewers will expect you to use `with` statements naturally and know the difference between string and bytes.",
+      "examples": [],
+      "key_points": [
+        "Interview Points is a core concept to understand",
+        "Practice applying Interview in real code"
+      ]
+    }
+  ],
+  "summary": [
+    "Use with statement.",
+    "Always specify encoding.",
+    "Pathlib is preferred.",
+    "JSON module is built-in."
+  ],
+  "interview_takeaways": [
+    "Always use with open.",
+    "Specify utf-8 encoding."
+  ],
+  "common_mistakes": [
+    "Forgetting encoding.",
+    "Leaking file descriptors."
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Input and Output",
+      "url": "https://docs.python.org/3/tutorial/inputoutput.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "pathlib",
+      "url": "https://docs.python.org/3/library/pathlib.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-file-handling-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

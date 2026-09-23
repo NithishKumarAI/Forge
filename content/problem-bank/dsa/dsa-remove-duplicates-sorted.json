@@ -1,0 +1,93 @@
+{
+  "key": "dsa-remove-duplicates-sorted",
+  "title": "Remove duplicates from sorted array",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "two-pointers"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an integer array `nums` sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Return the first `k` unique elements as a list.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[1,1,2]",
+      "output": "[1,2]",
+      "explanation": "Unique elements."
+    }
+  ],
+  "starter_code": "def remove_duplicates(nums: list[int]) -> list[int]:\n    pass",
+  "hints": [
+    "Use a fast and slow pointer."
+  ],
+  "explanation": "Keep a `slow` pointer that indicates the position of the last unique element. Iterate through the array with a `fast` pointer. If `nums[fast] != nums[slow]`, increment `slow` and set `nums[slow] = nums[fast]`.",
+  "reference_solution": "def remove_duplicates(nums: list[int]) -> list[int]:\n    if not nums: return []\n    slow = 0\n    for fast in range(1, len(nums)):\n        if nums[fast] != nums[slow]:\n            slow += 1\n            nums[slow] = nums[fast]\n    return nums[:slow+1]",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "remove_duplicates",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            1,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            0,
+            0,
+            1,
+            1,
+            1,
+            2,
+            2,
+            3,
+            3,
+            4
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/two-pointers"
+}

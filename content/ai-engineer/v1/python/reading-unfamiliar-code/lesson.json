@@ -1,0 +1,186 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "reading-unfamiliar-code",
+  "title": "Reading Unfamiliar Code",
+  "description": "Strategies for quickly understanding large, undocumented, or unfamiliar codebases.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Identify entry points",
+    "Trace data and control flow",
+    "Spot boundaries and side effects",
+    "Use tests as specifications"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "start-at-entry-points",
+      "title": "Start at Entry Points",
+      "order_index": 0,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Start at Entry Points",
+      "markdown": "Begin by finding the application's entry points. In Python, this is often a `if __name__ == '__main__':` block or a router definition. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Start at Entry Points"
+      ]
+    },
+    {
+      "slug": "trace-control-flow",
+      "title": "Trace Control Flow",
+      "order_index": 1,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Trace Control Flow",
+      "markdown": "Control flow dictates the order in which statements are executed. Follow loops, conditionals, and function calls. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Trace Control Flow"
+      ]
+    },
+    {
+      "slug": "trace-data-flow",
+      "title": "Trace Data Flow",
+      "order_index": 2,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Trace Data Flow",
+      "markdown": "Data flow refers to how variables and state change as data moves through the application. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Trace Data Flow"
+      ]
+    },
+    {
+      "slug": "identify-types",
+      "title": "Identify Types",
+      "order_index": 3,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Identify Types",
+      "markdown": "Understanding the types of arguments and return values is crucial. Look for type hints or infer types from usage. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Identify Types"
+      ]
+    },
+    {
+      "slug": "spot-side-effects",
+      "title": "Spot Side Effects",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Spot Side Effects",
+      "markdown": "Side effects happen when a function modifies state outside its local environment, like writing to a database or mutating a global variable. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Spot Side Effects"
+      ]
+    },
+    {
+      "slug": "find-boundaries",
+      "title": "Find Boundaries",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Find Boundaries",
+      "markdown": "System boundaries are where the code interacts with external services, databases, or the filesystem. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Find Boundaries"
+      ]
+    },
+    {
+      "slug": "tests-as-specification",
+      "title": "Tests as Specification",
+      "order_index": 6,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Tests as Specification",
+      "markdown": "Well-written unit tests serve as executable documentation. Read tests as specification to understand intended behavior. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Tests as Specification"
+      ]
+    },
+    {
+      "slug": "incremental-tracing",
+      "title": "Incremental Tracing",
+      "order_index": 7,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Incremental Tracing",
+      "markdown": "Incremental tracing involves stepping through code execution with a debugger to confirm your mental model one step at a time. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Incremental Tracing"
+      ]
+    },
+    {
+      "slug": "predict-output",
+      "title": "Predict Output",
+      "order_index": 8,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Predict Output",
+      "markdown": "Before running the code, predict what it will do. If your prediction is wrong, refine your understanding. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Predict Output"
+      ]
+    },
+    {
+      "slug": "identify-bugs",
+      "title": "Identifying Bugs",
+      "order_index": 9,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Identifying Bugs",
+      "markdown": "When reading, actively look for unhandled edge cases or logical flaws. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Identifying Bugs"
+      ]
+    },
+    {
+      "slug": "refactor-approach",
+      "title": "Refactoring Approach",
+      "order_index": 10,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Refactoring Approach",
+      "markdown": "Before refactoring unfamiliar code, ensure you have sufficient test coverage to prevent regressions. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Refactoring Approach"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Takeaways",
+      "order_index": 11,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Interview Takeaways",
+      "markdown": "Code review rounds often evaluate your ability to quickly grok and critique unfamiliar code snippets. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Interview Takeaways"
+      ]
+    }
+  ],
+  "summary": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "interview_takeaways": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "common_mistakes": [
+    "Mistake 1",
+    "Mistake 2",
+    "Mistake 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "pdb",
+      "url": "https://docs.python.org/3/library/pdb.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-reading-unfamiliar-code-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

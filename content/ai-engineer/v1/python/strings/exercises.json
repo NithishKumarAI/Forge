@@ -1,0 +1,118 @@
+[
+  {
+    "key": "str-1",
+    "exercise_type": "multiple_choice",
+    "title": "Slicing",
+    "prompt_markdown": "What does `\"hello\"[1:3]` return?",
+    "difficulty": "easy",
+    "hints": [
+      "It is 0-indexed"
+    ],
+    "content": {
+      "choices": [
+        "he",
+        "el",
+        "ell",
+        "lo"
+      ],
+      "correct_index": 1,
+      "explanation": "Indices 1 up to but not including 3 are 'e' and 'l'."
+    }
+  },
+  {
+    "key": "str-2",
+    "exercise_type": "multiple_choice",
+    "title": "Immutability",
+    "prompt_markdown": "Can you change a character in a string via `s[0] = 'a'`?",
+    "difficulty": "easy",
+    "hints": [
+      "Strings are immutable"
+    ],
+    "content": {
+      "choices": [
+        "Yes",
+        "No",
+        "Sometimes",
+        "Only in Python 3"
+      ],
+      "correct_index": 1,
+      "explanation": "No, strings are immutable."
+    }
+  },
+  {
+    "key": "str-3",
+    "exercise_type": "multiple_choice",
+    "title": "String Methods",
+    "prompt_markdown": "Which method splits a string into a list?",
+    "difficulty": "easy",
+    "hints": [
+      "It divides it"
+    ],
+    "content": {
+      "choices": [
+        "divide()",
+        "partition()",
+        "split()",
+        "break()"
+      ],
+      "correct_index": 2,
+      "explanation": "split() is the standard method."
+    }
+  },
+  {
+    "key": "str-4",
+    "exercise_type": "multiple_choice",
+    "title": "F-strings",
+    "prompt_markdown": "How do you start an f-string?",
+    "difficulty": "easy",
+    "hints": [
+      "It's a prefix"
+    ],
+    "content": {
+      "choices": [
+        "$''",
+        "f''",
+        "format''",
+        "''f"
+      ],
+      "correct_index": 1,
+      "explanation": "Prefix the string with 'f' or 'F'."
+    }
+  },
+  {
+    "key": "str-5",
+    "exercise_type": "short_answer",
+    "title": "String Reversal",
+    "prompt_markdown": "How do you reverse a string `s` in Python cleanly using slicing?",
+    "difficulty": "medium",
+    "hints": [
+      "Step size of -1"
+    ],
+    "content": {
+      "rubric": [
+        "Use slicing",
+        "[::-1]"
+      ],
+      "reference_answer": "You can use `s[::-1]`.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "str-6",
+    "exercise_type": "short_answer",
+    "title": "Join explained",
+    "prompt_markdown": "Explain how the `join()` method works on strings.",
+    "difficulty": "medium",
+    "hints": [
+      "It's called on the separator"
+    ],
+    "content": {
+      "rubric": [
+        "Called on separator string",
+        "Takes iterable of strings"
+      ],
+      "reference_answer": "`join()` is called on a separator string and takes an iterable of strings, concatenating them with the separator in between.",
+      "minimum_pass_score": 70
+    }
+  }
+]

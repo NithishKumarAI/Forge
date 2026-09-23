@@ -1,0 +1,87 @@
+{
+  "key": "python-product-except-self",
+  "title": "Product of array except self",
+  "track": "python",
+  "topic_tags": [
+    "arrays",
+    "prefix"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 25,
+  "statement_markdown": "Write `product_except_self(nums)` to return an array where result[i] is the product of all elements except nums[i], without using division.",
+  "constraints": [
+    "Length is at least 2."
+  ],
+  "examples": [
+    {
+      "input": "[1,2,3,4]",
+      "output": "[24,12,8,6]",
+      "explanation": "24 = 2*3*4, etc."
+    }
+  ],
+  "starter_code": "def product_except_self(nums: list[int]) -> list[int]:\n    pass",
+  "hints": [
+    "Use prefix and suffix products arrays."
+  ],
+  "explanation": "Compute the prefix products moving forward, and suffix products moving backward.",
+  "reference_solution": "def product_except_self(nums: list[int]) -> list[int]:\n    n = len(nums)\n    res = [1] * n\n    left = 1\n    for i in range(n):\n        res[i] = left\n        left *= nums[i]\n    right = 1\n    for i in range(n - 1, -1, -1):\n        res[i] *= right\n        right *= nums[i]\n    return res",
+  "complexity": "O(n) time and O(1) space (ignoring output).",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "product_except_self",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          24,
+          12,
+          8,
+          6
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            2,
+            3
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          3,
+          2
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          [
+            1,
+            0
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/arrays"
+}

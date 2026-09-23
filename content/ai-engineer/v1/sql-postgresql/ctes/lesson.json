@@ -1,0 +1,193 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "sql-postgresql",
+  "topic_slug": "ctes",
+  "title": "Common Table Expressions",
+  "description": "Learn about Common Table Expressions",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Obj 1",
+    "Obj 2",
+    "Obj 3"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-cte",
+      "title": "What Is Cte",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about what-is-cte.",
+      "markdown": "This is the what-is-cte section. WITH common table expression multiple CTE readability recursive awareness reuse It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- what-is-cte",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for what-is-cte"
+      ]
+    },
+    {
+      "slug": "basic-with-clause",
+      "title": "Basic With Clause",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about basic-with-clause.",
+      "markdown": "This is the basic-with-clause section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- basic-with-clause",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for basic-with-clause"
+      ]
+    },
+    {
+      "slug": "multiple-ctes",
+      "title": "Multiple Ctes",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about multiple-ctes.",
+      "markdown": "This is the multiple-ctes section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- multiple-ctes",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for multiple-ctes"
+      ]
+    },
+    {
+      "slug": "cte-vs-subquery",
+      "title": "Cte Vs Subquery",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about cte-vs-subquery.",
+      "markdown": "This is the cte-vs-subquery section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- cte-vs-subquery",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for cte-vs-subquery"
+      ]
+    },
+    {
+      "slug": "readability-benefits",
+      "title": "Readability Benefits",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about readability-benefits.",
+      "markdown": "This is the readability-benefits section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- readability-benefits",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for readability-benefits"
+      ]
+    },
+    {
+      "slug": "recursive-cte-awareness",
+      "title": "Recursive Cte Awareness",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about recursive-cte-awareness.",
+      "markdown": "This is the recursive-cte-awareness section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- recursive-cte-awareness",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for recursive-cte-awareness"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about interview-points.",
+      "markdown": "This is the interview-points section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- interview-points",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for interview-points"
+      ]
+    },
+    {
+      "slug": "extra",
+      "title": "Extra",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about extra.",
+      "markdown": "This is the extra section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- extra",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for extra"
+      ]
+    }
+  ],
+  "summary": [
+    "Sum 1",
+    "Sum 2",
+    "Sum 3"
+  ],
+  "interview_takeaways": [
+    "Int 1",
+    "Int 2",
+    "Int 3"
+  ],
+  "common_mistakes": [
+    "Mis 1",
+    "Mis 2",
+    "Mis 3"
+  ],
+  "sources": [
+    {
+      "source_id": "postgresql-official-docs",
+      "title": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-sql-postgresql-ctes-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

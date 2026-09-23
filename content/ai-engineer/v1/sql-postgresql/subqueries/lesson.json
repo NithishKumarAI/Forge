@@ -1,0 +1,193 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "sql-postgresql",
+  "topic_slug": "subqueries",
+  "title": "Subqueries",
+  "description": "Learn about Subqueries",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Obj 1",
+    "Obj 2",
+    "Obj 3"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-subquery",
+      "title": "What Is Subquery",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about what-is-subquery.",
+      "markdown": "This is the what-is-subquery section. scalar subquery IN EXISTS correlated subquery nested query dependent It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- what-is-subquery",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for what-is-subquery"
+      ]
+    },
+    {
+      "slug": "scalar-subquery",
+      "title": "Scalar Subquery",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about scalar-subquery.",
+      "markdown": "This is the scalar-subquery section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- scalar-subquery",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for scalar-subquery"
+      ]
+    },
+    {
+      "slug": "in-subquery",
+      "title": "In Subquery",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about in-subquery.",
+      "markdown": "This is the in-subquery section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- in-subquery",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for in-subquery"
+      ]
+    },
+    {
+      "slug": "exists-subquery",
+      "title": "Exists Subquery",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about exists-subquery.",
+      "markdown": "This is the exists-subquery section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- exists-subquery",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for exists-subquery"
+      ]
+    },
+    {
+      "slug": "correlated-subquery",
+      "title": "Correlated Subquery",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about correlated-subquery.",
+      "markdown": "This is the correlated-subquery section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- correlated-subquery",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for correlated-subquery"
+      ]
+    },
+    {
+      "slug": "subquery-vs-join",
+      "title": "Subquery Vs Join",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about subquery-vs-join.",
+      "markdown": "This is the subquery-vs-join section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- subquery-vs-join",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for subquery-vs-join"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about common-mistakes.",
+      "markdown": "This is the common-mistakes section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- common-mistakes",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for common-mistakes"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about interview-points.",
+      "markdown": "This is the interview-points section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- interview-points",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for interview-points"
+      ]
+    }
+  ],
+  "summary": [
+    "Sum 1",
+    "Sum 2",
+    "Sum 3"
+  ],
+  "interview_takeaways": [
+    "Int 1",
+    "Int 2",
+    "Int 3"
+  ],
+  "common_mistakes": [
+    "Mis 1",
+    "Mis 2",
+    "Mis 3"
+  ],
+  "sources": [
+    {
+      "source_id": "postgresql-official-docs",
+      "title": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-sql-postgresql-subqueries-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

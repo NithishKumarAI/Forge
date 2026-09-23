@@ -1,14 +1,19 @@
 from sqlmodel import Session, select
 
 from ..config import settings
-from ..models import ChatMessage, Curriculum, LearnerTopicState, LearningSession, Topic, Track
+from ..models import ChatMessage, Curriculum, LearnerTopicState, LearningSession, Topic, Track, TutorSessionState
 from ..providers import LLMProvider
 from ..schemas.ai import TutorTurn
 from .catalog import topic_to_dict
 from .usage import record_usage
+from .course import CourseError, load_lesson_for_topic, progress
 
 
-TUTOR_POLICY = """You are Forge, an excellent practical technical tutor.
+TUTOR_POLICY = """You are Forge, a professor over an authoritative static lesson.
+The supplied Forge lesson is authoritative. Teach from it and never modify the syllabus.
+Do not introduce factual material outside the supplied course content as if it were part of the lesson.
+If a question is unsupported by the supplied course corpus, say so clearly.
+You may simplify, rephrase, use analogies, and add a tiny original example consistent with the lesson.
 Teach one manageable concept at a time using concise plain language before terminology.
 Use small runnable examples and relate ideas to backend or AI engineering when useful.
 After a meaningful concept, ask exactly one short understanding-check question and wait.
@@ -45,18 +50,28 @@ def _recent_messages(session: Session, session_id: int, limit: int = 10) -> str:
     return "\n".join(f"{message.role}: {message.content}" for message in messages)
 
 
+def _lesson_context(session: Session, topic: Topic, section_slug: str | None = None) -> tuple[object, object]:
+    lesson=load_lesson_for_topic(session,topic); state=progress(session,topic,lesson)
+    slug=section_slug or state["current_section_slug"]
+    section=next((s for s in lesson.sections if s.slug==slug),None)
+    if section is None: raise CourseError("Lesson section not found")
+    outline="\n".join(f"{s.order_index+1}. {s.title} ({s.slug})" for s in lesson.sections)
+    return lesson, section, f"Authoritative outline:\n{outline}\n\nCurrent section JSON:\n{section.model_dump_json()}\nLearning objectives: {lesson.learning_objectives}"
+
+
 def start_tutor_session(
-    session: Session, provider: LLMProvider, topic: Topic
+    session: Session, provider: LLMProvider, topic: Topic, section_slug: str | None = None
 ) -> tuple[LearningSession, TutorTurn]:
-    learning_session = LearningSession(topic_id=topic.id, mode="learn")
+    lesson, section, lesson_context = _lesson_context(session,topic,section_slug)
+    learning_session = LearningSession(topic_id=topic.id, mode="tutor")
     session.add(learning_session)
-    session.commit()
+    session.flush(); session.add(TutorSessionState(session_id=learning_session.id,lesson_version=lesson.version,section_slug=section.slug)); session.commit()
     session.refresh(learning_session)
     turn, result = provider.generate_structured(
         system_instruction=TUTOR_POLICY,
         prompt=(
-            f"{_topic_context(session, topic)}\n\n"
-            "Begin the lesson. Teach the first essential concept, give a tiny example, "
+            f"{_topic_context(session, topic)}\n\n{lesson_context}\n\n"
+            "Teach this current section, give a tiny example, "
             "and ask one short understanding-check question."
         ),
         thinking_level=settings.gemini_tutor_thinking,
@@ -88,7 +103,7 @@ def continue_tutor_session(
     learning_session: LearningSession,
     message: str,
 ) -> TutorTurn:
-    if learning_session.mode != "learn" or learning_session.topic_id is None:
+    if learning_session.mode != "tutor" or learning_session.topic_id is None:
         raise ValueError("This is not a tutor learning session")
     topic = session.get(Topic, learning_session.topic_id)
     if topic is None:
@@ -104,9 +119,11 @@ def continue_tutor_session(
     )
     session.commit()
     history = _recent_messages(session, learning_session.id)
+    tutor_state=session.get(TutorSessionState,learning_session.id)
+    _,_,lesson_context=_lesson_context(session,topic,tutor_state.section_slug if tutor_state else None)
     turn, result = provider.generate_structured(
         system_instruction=TUTOR_POLICY,
-        prompt=f"{_topic_context(session, topic)}\n\nRecent conversation:\n{history}",
+        prompt=f"{_topic_context(session, topic)}\n\n{lesson_context}\n\nRecent conversation:\n{history}",
         thinking_level=settings.gemini_tutor_thinking,
         response_model=TutorTurn,
     )
@@ -141,4 +158,3 @@ def get_session_messages(session: Session, session_id: int) -> list[ChatMessage]
             .order_by(ChatMessage.created_at)
         ).all()
     )
-

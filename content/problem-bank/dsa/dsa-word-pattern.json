@@ -1,0 +1,77 @@
+{
+  "key": "dsa-word-pattern",
+  "title": "Word pattern match",
+  "track": "dsa",
+  "topic_tags": [
+    "hash-maps",
+    "strings"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given a `pattern` and a string `s`, find if `s` follows the same pattern. There should be a bijection between a letter in `pattern` and a non-empty word in `s`.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "pattern = 'abba', s = 'dog cat cat dog'",
+      "output": "True",
+      "explanation": "a->dog, b->cat"
+    }
+  ],
+  "starter_code": "def word_pattern(pattern: str, s: str) -> bool:\n    pass",
+  "hints": [
+    "Similar to Isomorphic Strings, map letters to words."
+  ],
+  "explanation": "Split the string `s` into words. Check if the length of the pattern matches the number of words. Use two dictionaries to enforce a 1-to-1 mapping.",
+  "reference_solution": "def word_pattern(pattern: str, s: str) -> bool:\n    words = s.split()\n    if len(pattern) != len(words): return False\n    char_to_word, word_to_char = {}, {}\n    for c, w in zip(pattern, words):\n        if (c in char_to_word and char_to_word[c] != w) or (w in word_to_char and word_to_char[w] != c):\n            return False\n        char_to_word[c] = w\n        word_to_char[w] = c\n    return True",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "word_pattern",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "abba",
+          "dog cat cat dog"
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "abba",
+          "dog cat cat fish"
+        ],
+        "kwargs": {},
+        "expected": false
+      },
+      {
+        "name": "sample3",
+        "args": [
+          "aaaa",
+          "dog cat cat dog"
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          "abba",
+          "dog dog dog dog"
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

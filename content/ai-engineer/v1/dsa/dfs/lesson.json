@@ -1,0 +1,282 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "dfs",
+  "title": "Dfs",
+  "description": "Learn about dfs in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand dfs",
+    "Implement basic templates",
+    "Recognize in interviews",
+    "Write optimized code"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-dfs",
+      "title": "What Is Dfs",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand what-is-dfs deeply.",
+      "markdown": "This section covers what-is-dfs in detail. \n\nKeywords to know: DFS, depth-first search, recursive, iterative, stack, visited, pre-order, post-order, backtracking, connected. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about what-is-dfs."
+      ]
+    },
+    {
+      "slug": "recursive-dfs",
+      "title": "Recursive Dfs",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand recursive-dfs deeply.",
+      "markdown": "This section covers recursive-dfs in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about recursive-dfs."
+      ]
+    },
+    {
+      "slug": "iterative-dfs",
+      "title": "Iterative Dfs",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand iterative-dfs deeply.",
+      "markdown": "This section covers iterative-dfs in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about iterative-dfs."
+      ]
+    },
+    {
+      "slug": "pre-order-dfs",
+      "title": "Pre Order Dfs",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand pre-order-dfs deeply.",
+      "markdown": "This section covers pre-order-dfs in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about pre-order-dfs."
+      ]
+    },
+    {
+      "slug": "post-order-dfs",
+      "title": "Post Order Dfs",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand post-order-dfs deeply.",
+      "markdown": "This section covers post-order-dfs in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about post-order-dfs."
+      ]
+    },
+    {
+      "slug": "connected-components",
+      "title": "Connected Components",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand connected-components deeply.",
+      "markdown": "This section covers connected-components in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about connected-components."
+      ]
+    },
+    {
+      "slug": "cycle-detection",
+      "title": "Cycle Detection",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand cycle-detection deeply.",
+      "markdown": "This section covers cycle-detection in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about cycle-detection."
+      ]
+    },
+    {
+      "slug": "visited-tracking",
+      "title": "Visited Tracking",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand visited-tracking deeply.",
+      "markdown": "This section covers visited-tracking in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about visited-tracking."
+      ]
+    },
+    {
+      "slug": "dfs-on-graph",
+      "title": "Dfs On Graph",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand dfs-on-graph deeply.",
+      "markdown": "This section covers dfs-on-graph in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about dfs-on-graph."
+      ]
+    },
+    {
+      "slug": "when-to-use-dfs",
+      "title": "When To Use Dfs",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand when-to-use-dfs deeply.",
+      "markdown": "This section covers when-to-use-dfs in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about when-to-use-dfs."
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand common-mistakes deeply.",
+      "markdown": "This section covers common-mistakes in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about common-mistakes."
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 11,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand interview-points deeply.",
+      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about interview-points."
+      ]
+    }
+  ],
+  "summary": [
+    "dfs is a key concept.",
+    "Mastering it helps in interviews.",
+    "Practice the templates."
+  ],
+  "interview_takeaways": [
+    "Recognize the pattern",
+    "Analyze complexity",
+    "Discuss tradeoffs"
+  ],
+  "common_mistakes": [
+    "Off by one errors",
+    "Forgetting base cases",
+    "Ignoring edge cases"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "heapq",
+      "url": "https://docs.python.org/3/library/heapq.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Tutorial - Data Structures",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "functools.lru_cache",
+      "url": "https://docs.python.org/3/library/functools.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-dsa-dfs-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

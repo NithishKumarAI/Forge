@@ -1,0 +1,89 @@
+{
+  "key": "dsa-two-sum-indices",
+  "title": "Two sum indices",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "hash-maps"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an array of integers `nums` and an integer `target`, return the indices of the two numbers such that they add up to `target`. Return the smaller index first as a tuple.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[2,7,11,15], 9",
+      "output": "(0, 1)",
+      "explanation": "2 + 7 = 9"
+    }
+  ],
+  "starter_code": "def two_sum(nums: list[int], target: int) -> list[int]:\n    pass",
+  "hints": [
+    "Use a hash map."
+  ],
+  "explanation": "Iterate and keep track of seen numbers and their indices.",
+  "reference_solution": "def two_sum(nums: list[int], target: int) -> list[int]:\n    seen = {}\n    for i, num in enumerate(nums):\n        if target - num in seen:\n            return [seen[target - num], i]\n        seen[num] = i\n    return [0, 0]",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "two_sum",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            2,
+            7,
+            11,
+            15
+          ],
+          9
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            3,
+            2,
+            4
+          ],
+          6
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            3,
+            3
+          ],
+          6
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

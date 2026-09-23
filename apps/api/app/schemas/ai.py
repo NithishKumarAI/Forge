@@ -124,6 +124,10 @@ class TutorMessageRequest(BaseModel):
     message: str = Field(min_length=1, max_length=8000)
 
 
+class TutorStartRequest(BaseModel):
+    section_slug: str | None = None
+
+
 class ChatMessageRead(BaseModel):
     id: int
     role: str
@@ -135,6 +139,7 @@ class ChatMessageRead(BaseModel):
 class DoubtMessageRequest(BaseModel):
     session_id: int | None = None
     topic_id: int | None = None
+    section_slug: str | None = None
     message: str = Field(min_length=1, max_length=8000)
 
 

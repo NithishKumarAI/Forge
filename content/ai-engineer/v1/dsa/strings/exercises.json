@@ -1,0 +1,154 @@
+[
+  {
+    "key": "dsa-str-1",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 1",
+    "prompt_markdown": "What is the correct answer?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about it"
+    ],
+    "content": {
+      "choices": [
+        "option A",
+        "option B",
+        "option C",
+        "option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because B is correct."
+    }
+  },
+  {
+    "key": "dsa-str-2",
+    "exercise_type": "short_answer",
+    "title": "Exercise 2",
+    "prompt_markdown": "Explain this.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "This is the answer.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dsa-str-3",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 3",
+    "prompt_markdown": "What is the correct answer?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about it"
+    ],
+    "content": {
+      "choices": [
+        "option A",
+        "option B",
+        "option C",
+        "option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because B is correct."
+    }
+  },
+  {
+    "key": "dsa-str-4",
+    "exercise_type": "short_answer",
+    "title": "Exercise 4",
+    "prompt_markdown": "Explain this.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "This is the answer.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dsa-str-5",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 5",
+    "prompt_markdown": "What is the correct answer?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about it"
+    ],
+    "content": {
+      "choices": [
+        "option A",
+        "option B",
+        "option C",
+        "option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because B is correct."
+    }
+  },
+  {
+    "key": "dsa-str-6",
+    "exercise_type": "short_answer",
+    "title": "Exercise 6",
+    "prompt_markdown": "Explain this.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "This is the answer.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dsa-str-7",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 7",
+    "prompt_markdown": "What is the correct answer?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about it"
+    ],
+    "content": {
+      "choices": [
+        "option A",
+        "option B",
+        "option C",
+        "option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because B is correct."
+    }
+  },
+  {
+    "key": "dsa-str-8",
+    "exercise_type": "short_answer",
+    "title": "Exercise 8",
+    "prompt_markdown": "Explain this.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "This is the answer.",
+      "minimum_pass_score": 70
+    }
+  }
+]

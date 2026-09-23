@@ -1,0 +1,107 @@
+{
+  "key": "dsa-three-sum",
+  "title": "Three sum to zero",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "two-pointers",
+    "sorting"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`. The solution set must not contain duplicate triplets. Each triplet must be sorted, and the overall list of triplets must be sorted.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[-1,0,1,2,-1,-4]",
+      "output": "[[-1,-1,2], [-1,0,1]]",
+      "explanation": "The distinct triplets summing to 0."
+    }
+  ],
+  "starter_code": "def three_sum(nums: list[int]) -> list[list[int]]:\n    pass",
+  "hints": [
+    "Sort the array first.",
+    "Fix one number and use two pointers to find the other two."
+  ],
+  "explanation": "Sort the array. Iterate `i` from 0 to n-2. For each `i`, use two pointers `left = i+1` and `right = n-1` to find pairs that sum to `-nums[i]`. Skip duplicate elements to avoid duplicate triplets.",
+  "reference_solution": "def three_sum(nums: list[int]) -> list[list[int]]:\n    nums.sort()\n    res = []\n    for i in range(len(nums) - 2):\n        if i > 0 and nums[i] == nums[i-1]:\n            continue\n        l, r = i + 1, len(nums) - 1\n        while l < r:\n            s = nums[i] + nums[l] + nums[r]\n            if s < 0:\n                l += 1\n            elif s > 0:\n                r -= 1\n            else:\n                res.append([nums[i], nums[l], nums[r]])\n                while l < r and nums[l] == nums[l+1]:\n                    l += 1\n                while l < r and nums[r] == nums[r-1]:\n                    r -= 1\n                l += 1\n                r -= 1\n    return sorted(res)",
+  "complexity": "O(n^2) time and O(1) extra space (ignoring output).",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "three_sum",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            -1,
+            0,
+            1,
+            2,
+            -1,
+            -4
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            -1,
+            -1,
+            2
+          ],
+          [
+            -1,
+            0,
+            1
+          ]
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "name": "sample3",
+        "args": [
+          []
+        ],
+        "kwargs": {},
+        "expected": []
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            0,
+            1,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": []
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/two-pointers"
+}

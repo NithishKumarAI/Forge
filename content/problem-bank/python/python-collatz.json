@@ -1,0 +1,94 @@
+{
+  "key": "python-collatz",
+  "title": "Collatz conjecture steps",
+  "track": "python",
+  "topic_tags": [
+    "loops",
+    "math"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "The Collatz Conjecture or 3x+1 problem can be summarized as follows:\n\nTake any positive integer n. If n is even, divide n by 2 to get n / 2. If n is odd, multiply n by 3 and add 1 to get 3n + 1. Repeat the process indefinitely. The conjecture states that no matter which number you start with, you will always reach 1 eventually.\n\nGiven a number `n`, return the number of steps required to reach 1. If `n <= 0`, raise a `ValueError`.",
+  "constraints": [
+    "n is an integer."
+  ],
+  "examples": [
+    {
+      "input": "12",
+      "output": "9",
+      "explanation": "12 -> 6 -> 3 -> 10 -> 5 -> 16 -> 8 -> 4 -> 2 -> 1"
+    }
+  ],
+  "starter_code": "def collatz_steps(n: int) -> int:\n    pass",
+  "hints": [
+    "Use a while loop that continues as long as `n > 1`.",
+    "Don't forget to raise a `ValueError` if `n <= 0` initially."
+  ],
+  "explanation": "We can simulate the process using a loop. Keep a step counter, and as long as `n > 1`, apply the even/odd rules and increment the counter.",
+  "reference_solution": "def collatz_steps(n: int) -> int:\n    if n <= 0:\n        raise ValueError(\"Only positive integers are allowed\")\n    steps = 0\n    while n > 1:\n        if n % 2 == 0:\n            n = n // 2\n        else:\n            n = 3 * n + 1\n        steps += 1\n    return steps",
+  "complexity": "Time complexity depends on the number. Space complexity is O(1).",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "collatz_steps",
+    "sample_tests": [
+      {
+        "name": "sample_1",
+        "args": [
+          1
+        ],
+        "kwargs": {},
+        "expected": 0
+      },
+      {
+        "name": "sample_6",
+        "args": [
+          6
+        ],
+        "kwargs": {},
+        "expected": 8
+      },
+      {
+        "name": "sample_11",
+        "args": [
+          11
+        ],
+        "kwargs": {},
+        "expected": 14
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden_0",
+        "args": [
+          0
+        ],
+        "kwargs": {},
+        "expected_exception": "ValueError"
+      },
+      {
+        "name": "hidden_neg",
+        "args": [
+          -15
+        ],
+        "kwargs": {},
+        "expected_exception": "ValueError"
+      },
+      {
+        "name": "hidden_1000000",
+        "args": [
+          1000000
+        ],
+        "kwargs": {},
+        "expected": 152
+      }
+    ]
+  },
+  "source_type": "original",
+  "source_project": "exercism",
+  "source_exercise": "collatz-conjecture",
+  "license": "MIT",
+  "adapted": true,
+  "version": "1.0.0",
+  "mapped_topic": "python/control-flow"
+}

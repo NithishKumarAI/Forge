@@ -50,6 +50,8 @@ class PlannerItemRead(BaseModel):
 class PlannerSettings(BaseModel):
     daily_study_target: int
     dsa_daily_minimum: int
+    python_daily_minimum: int
+    sql_daily_minimum: int
     max_review_topics: int
     desired_retention: float
 
@@ -57,5 +59,7 @@ class PlannerSettings(BaseModel):
 class PlannerSettingsUpdate(BaseModel):
     daily_study_target: int | None = None
     dsa_daily_minimum: int | None = None
+    python_daily_minimum: int | None = None
+    sql_daily_minimum: int | None = None
     max_review_topics: int | None = None
     desired_retention: float | None = None

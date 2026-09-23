@@ -42,7 +42,8 @@ export function DoubtChat() {
     setSending(true);
     setError(null);
     try {
-      const response = await api.doubtMessage({ session_id: sessionId, topic_id: topicId, message: content });
+      const sectionSlug = topicId ? localStorage.getItem(`forge-course-section-${topicId}`) : null;
+      const response = await api.doubtMessage({ session_id: sessionId, topic_id: topicId, section_slug: sectionSlug, message: content });
       setSessionId(response.session_id);
       setMessages((current) => [...current, { role: "assistant", content: response.reply }]);
     } catch (reason) {

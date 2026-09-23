@@ -1,0 +1,86 @@
+{
+  "key": "sql-dept-avg-salary",
+  "title": "Average salary by department",
+  "track": "sql",
+  "topic_tags": [
+    "group-by"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on employees(id, name, department, salary).",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['Eng', 95000.0], ['Sales', 72500.0], ['HR', 60000.0]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT department, ROUND(AVG(salary), 2) AS avg_salary FROM employees GROUP BY department ORDER BY avg_salary DESC",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary DECIMAL); INSERT INTO employees VALUES (1, 'A', 'Eng', 90000), (2, 'B', 'Eng', 100000), (3, 'C', 'HR', 60000), (4, 'D', 'Sales', 70000), (5, 'E', 'Sales', 75000);",
+    "visible_tables": [
+      "employees(id, name, department, salary)"
+    ],
+    "sample_rows": [
+      [
+        "Eng",
+        95000.0
+      ],
+      [
+        "Sales",
+        72500.0
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "Eng",
+        95000.0
+      ],
+      [
+        "Sales",
+        72500.0
+      ],
+      [
+        "HR",
+        60000.0
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary DECIMAL); INSERT INTO employees VALUES (1, 'A', 'Eng', 90000), (2, 'B', 'Eng', 100000), (3, 'C', 'HR', 60000), (4, 'D', 'Sales', 70000), (5, 'E', 'Sales', 75000);",
+        "expected_rows": [
+          [
+            "Eng",
+            95000.0
+          ],
+          [
+            "Sales",
+            72500.0
+          ],
+          [
+            "HR",
+            60000.0
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/group-by"
+}

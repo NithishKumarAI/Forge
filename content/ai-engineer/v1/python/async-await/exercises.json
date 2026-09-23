@@ -1,0 +1,116 @@
+[
+  {
+    "key": "async-1",
+    "exercise_type": "multiple_choice",
+    "title": "Basic Concept",
+    "prompt_markdown": "What is a core concept of Async/Await in Python?",
+    "difficulty": "easy",
+    "hints": [
+      "Review the basics."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct because it aligns with the core principles."
+    }
+  },
+  {
+    "key": "async-2",
+    "exercise_type": "short_answer",
+    "title": "Explain the concept",
+    "prompt_markdown": "Explain how this concept applies in a real-world scenario.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about production environments."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions performance",
+        "Mentions scalability"
+      ],
+      "reference_answer": "It improves performance and scalability by optimizing resource usage.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "async-3",
+    "exercise_type": "multiple_choice",
+    "title": "Event loop blocking call",
+    "prompt_markdown": "What happens if you execute `time.sleep(5)` inside an `async def` function running in asyncio?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about single-threaded event loop behavior."
+    ],
+    "content": {
+      "choices": [
+        "Only that specific coroutine pauses; other coroutines continue running.",
+        "The entire event loop and thread block for 5 seconds, starving all coroutines.",
+        "Asyncio automatically converts it to asyncio.sleep(5).",
+        "A RuntimeError is immediately raised."
+      ],
+      "correct_index": 1,
+      "explanation": "time.sleep is synchronous and blocking. Because asyncio uses a single-threaded cooperative event loop, blocking the thread halts execution of all concurrent tasks."
+    }
+  },
+  {
+    "key": "async-4",
+    "exercise_type": "multiple_choice",
+    "title": "Concurrent execution with gather",
+    "prompt_markdown": "Which function is typically used to run multiple coroutines concurrently and collect their results?",
+    "difficulty": "easy",
+    "hints": [
+      "Look for the function that gathers results."
+    ],
+    "content": {
+      "choices": [
+        "asyncio.wait_all()",
+        "asyncio.gather()",
+        "asyncio.collect()",
+        "asyncio.run_parallel()"
+      ],
+      "correct_index": 1,
+      "explanation": "asyncio.gather(*aws) runs awaitable objects concurrently and returns a future aggregating results from the given coroutines."
+    }
+  },
+  {
+    "key": "async-5",
+    "exercise_type": "short_answer",
+    "title": "Async vs Multithreading",
+    "prompt_markdown": "In what scenarios does `asyncio` outperform standard OS threads, and when is it ineffective?",
+    "difficulty": "medium",
+    "hints": [
+      "Distinguish between I/O-bound with high concurrency and CPU-bound computation."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that asyncio is ideal for high-concurrency I/O-bound tasks (network sockets, web servers) with minimal memory overhead.",
+        "Explains that asyncio cannot speed up CPU-bound tasks because of the Python GIL and single-threaded cooperative loop."
+      ],
+      "reference_answer": "Asyncio excels at high-concurrency I/O-bound workloads (such as thousands of idle or fast web connections) because cooperative coroutines have very low memory and context-switching overhead compared to OS threads. However, it is ineffective for CPU-bound tasks (e.g. video processing or heavy math), where a long-running calculation will block the entire event loop unless offloaded to a ProcessPoolExecutor.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "async-6",
+    "exercise_type": "short_answer",
+    "title": "Timeout and cancellation pattern",
+    "prompt_markdown": "How should an API client guard an asynchronous external request against hanging indefinitely, and what exception is handled?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about asyncio.wait_for or asyncio.timeout."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions using asyncio.wait_for(coroutine, timeout=...) or asyncio.timeout context manager.",
+        "Mentions handling TimeoutError or asyncio.CancelledError."
+      ],
+      "reference_answer": "Use `asyncio.wait_for(coro, timeout=seconds)` or the Python 3.11+ `async with asyncio.timeout(seconds):` context manager. If the operation exceeds the deadline, a `TimeoutError` is raised and the underlying task is cancelled.",
+      "minimum_pass_score": 70
+    }
+  }
+]

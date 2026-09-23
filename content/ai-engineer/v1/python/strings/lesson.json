@@ -1,0 +1,179 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "strings",
+  "title": "Strings",
+  "description": "Learn to manipulate text in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand immutability",
+    "Master string methods",
+    "Use f-strings"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-a-string",
+      "title": "What is a String?",
+      "order_index": 0,
+      "estimated_minutes": 2,
+      "learning_objective": "Understand text representation.",
+      "markdown": "A string is a sequence of characters. In Python, they are enclosed in quotes.",
+      "examples": [],
+      "key_points": [
+        "What is a String? is a core concept to understand",
+        "Practice applying What in real code"
+      ]
+    },
+    {
+      "slug": "indexing-and-slicing",
+      "title": "Indexing and Slicing",
+      "order_index": 1,
+      "estimated_minutes": 4,
+      "learning_objective": "Access parts of a string.",
+      "markdown": "Strings support indexing (accessing single characters) and slicing (extracting substrings).",
+      "examples": [],
+      "key_points": [
+        "Indexing and Slicing is a core concept to understand",
+        "Practice applying Indexing in real code"
+      ]
+    },
+    {
+      "slug": "immutability",
+      "title": "Immutability",
+      "order_index": 2,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand that strings cannot be changed.",
+      "markdown": "Strings are immutable, meaning once created, they cannot be modified in place.",
+      "examples": [],
+      "key_points": [
+        "Immutability is a core concept to understand",
+        "Practice applying Immutability in real code"
+      ]
+    },
+    {
+      "slug": "string-methods",
+      "title": "String Methods",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Use built-in methods.",
+      "markdown": "Python provides many useful methods for transforming strings.",
+      "examples": [],
+      "key_points": [
+        "String Methods is a core concept to understand",
+        "Practice applying String in real code"
+      ]
+    },
+    {
+      "slug": "strip-split-join",
+      "title": "Strip, Split, Join",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Clean and combine strings.",
+      "markdown": "Use strip to remove whitespace, split to break into a list, and join to combine a list into a string.",
+      "examples": [],
+      "key_points": [
+        "Strip, Split, Join is a core concept to understand",
+        "Practice applying Strip, in real code"
+      ]
+    },
+    {
+      "slug": "replace-find-in",
+      "title": "Replace, Find, In",
+      "order_index": 5,
+      "estimated_minutes": 4,
+      "learning_objective": "Search and modify.",
+      "markdown": "Use replace to swap substrings, find to locate index, and 'in' for membership.",
+      "examples": [],
+      "key_points": [
+        "Replace, Find, In is a core concept to understand",
+        "Practice applying Replace, in real code"
+      ]
+    },
+    {
+      "slug": "f-strings-and-formatting",
+      "title": "F-strings and Formatting",
+      "order_index": 6,
+      "estimated_minutes": 4,
+      "learning_objective": "Format text dynamically.",
+      "markdown": "An f-string allows embedding expressions directly into string literals, replacing older formatting methods.",
+      "examples": [],
+      "key_points": [
+        "F-strings and Formatting is a core concept to understand",
+        "Practice applying F-strings in real code"
+      ]
+    },
+    {
+      "slug": "reverse-and-palindrome",
+      "title": "Reverse and Palindrome",
+      "order_index": 7,
+      "estimated_minutes": 3,
+      "learning_objective": "Common string operations.",
+      "markdown": "Reversing a string is easily done with slicing [::-1]. A palindrome reads the same forwards and backwards.",
+      "examples": [],
+      "key_points": [
+        "Reverse and Palindrome is a core concept to understand",
+        "Practice applying Reverse in real code"
+      ]
+    },
+    {
+      "slug": "anagram-pattern",
+      "title": "Anagram Pattern",
+      "order_index": 8,
+      "estimated_minutes": 4,
+      "learning_objective": "Solve anagram problems.",
+      "markdown": "An anagram is formed by rearranging letters. Often solved by sorting or using character counts.",
+      "examples": [],
+      "key_points": [
+        "Anagram Pattern is a core concept to understand",
+        "Practice applying Anagram in real code"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 9,
+      "estimated_minutes": 2,
+      "learning_objective": "Avoid pitfalls.",
+      "markdown": "Forgetting that string methods return new strings rather than mutating.",
+      "examples": [],
+      "key_points": [
+        "Common Mistakes is a core concept to understand",
+        "Practice applying Common in real code"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 10,
+      "estimated_minutes": 2,
+      "learning_objective": "Nail the interview.",
+      "markdown": "Be ready to implement a palindrome check, solve anagrams, or reverse strings in an interview setting.",
+      "examples": [],
+      "key_points": [
+        "Interview Points is a core concept to understand",
+        "Practice applying Interview in real code"
+      ]
+    }
+  ],
+  "summary": [
+    "Strings are text data",
+    "They are immutable"
+  ],
+  "interview_takeaways": [
+    "String algorithms are very common"
+  ],
+  "common_mistakes": [
+    "Mutating strings"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Text Sequence Type - str",
+      "url": "https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-strings-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

@@ -284,3 +284,70 @@ class InterviewReport(SQLModel, table=True):
     session_id: int = Field(foreign_key="interviewsession.id", unique=True, index=True)
     report_json: str = Field(sa_column=Column(Text, nullable=False))
     created_at: datetime = Field(default_factory=utc_now, index=True)
+
+
+class CourseLesson(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("topic_id", "content_version", name="uq_course_lesson_version"),)
+    id: int | None = Field(default=None, primary_key=True)
+    curriculum_id: int = Field(foreign_key="curriculum.id", index=True)
+    topic_id: int = Field(foreign_key="topic.id", index=True)
+    content_version: str = Field(index=True)
+    title: str
+    source_path: str
+    content_hash: str = Field(index=True)
+    active: bool = Field(default=True, index=True)
+    created_at: datetime = Field(default_factory=utc_now)
+
+
+class LessonSectionProgress(SQLModel, table=True):
+    topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    section_slug: str = Field(primary_key=True)
+    completed: bool = False
+    first_viewed_at: datetime = Field(default_factory=utc_now)
+    last_viewed_at: datetime = Field(default_factory=utc_now)
+    completed_at: datetime | None = None
+
+
+class TutorSessionState(SQLModel, table=True):
+    session_id: int = Field(foreign_key="learningsession.id", primary_key=True)
+    lesson_version: str
+    section_slug: str
+
+
+class ArenaProblem(SQLModel, table=True):
+    key: str = Field(primary_key=True)
+    track: str = Field(index=True)
+    title: str
+    difficulty: str = Field(index=True)
+    topic_tags_json: str = Field(default="[]", sa_column=Column(Text, nullable=False))
+    source_path: str
+    content_hash: str = Field(index=True)
+    version: str
+    active: bool = Field(default=True, index=True)
+    mapped_topic_id: int | None = Field(default=None, foreign_key="topic.id", index=True)
+
+
+class ArenaAttempt(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    problem_key: str = Field(foreign_key="arenaproblem.key", index=True)
+    track: str = Field(index=True)
+    submitted_source: str = Field(sa_column=Column(Text, nullable=False))
+    score: float = Field(ge=0, le=100)
+    passed: bool = Field(index=True)
+    gave_up: bool = False
+    hints_used: int = Field(default=0, ge=0)
+    runtime_ms: int | None = Field(default=None, ge=0)
+    result_json: str = Field(default="{}", sa_column=Column(Text, nullable=False))
+    created_at: datetime = Field(default_factory=utc_now, index=True)
+
+
+class ArenaHintUse(SQLModel, table=True):
+    problem_key: str = Field(foreign_key="arenaproblem.key", primary_key=True)
+    count: int = Field(default=0, ge=0)
+
+
+class TopicMigrationMap(SQLModel, table=True):
+    old_topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    new_topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    mapping_key: str = Field(index=True)
+    migrated_at: datetime = Field(default_factory=utc_now)

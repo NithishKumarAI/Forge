@@ -1,0 +1,187 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "control-flow",
+  "title": "Control Flow",
+  "description": "Learn how to direct the execution path of your programs.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand if, elif, else",
+    "Use for and while loops",
+    "Master truthiness and falsiness"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-control-flow",
+      "title": "What is Control Flow?",
+      "order_index": 0,
+      "estimated_minutes": 2,
+      "learning_objective": "Understand the concept of control flow.",
+      "markdown": "Control flow is the order in which individual statements, instructions, or function calls are executed or evaluated. By default, scripts execute from top to bottom, but we can change this using control structures.",
+      "examples": [],
+      "key_points": [
+        "Top to bottom default",
+        "Can branch or loop"
+      ]
+    },
+    {
+      "slug": "if-elif-else",
+      "title": "If, Elif, and Else",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Use conditional statements.",
+      "markdown": "We use if, elif, else to execute code only when certain conditions are met.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "x = 5\nif x > 0:\n    print('Positive')\nelif x == 0:\n    print('Zero')\nelse:\n    print('Negative')",
+          "expected_output": "Positive",
+          "explanation": "Branches based on condition"
+        }
+      ],
+      "key_points": [
+        "Condition evaluation",
+        "Exclusive branching"
+      ]
+    },
+    {
+      "slug": "truthiness-and-falsiness",
+      "title": "Truthiness and Falsiness",
+      "order_index": 2,
+      "estimated_minutes": 4,
+      "learning_objective": "Understand how Python evaluates boolean contexts.",
+      "markdown": "Every object in Python has a boolean value. Some are considered falsiness (like 0, empty lists, None) and others truthiness.",
+      "examples": [],
+      "key_points": [
+        "Empty is usually false",
+        "Everything else is true"
+      ]
+    },
+    {
+      "slug": "for-loops",
+      "title": "For Loops",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Iterate over sequences.",
+      "markdown": "A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string).",
+      "examples": [],
+      "key_points": [
+        "For Loops is a core concept to understand",
+        "Practice applying For in real code"
+      ]
+    },
+    {
+      "slug": "while-loops",
+      "title": "While Loops",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Loop while a condition is true.",
+      "markdown": "A while loop executes a set of statements as long as a condition is true.",
+      "examples": [],
+      "key_points": [
+        "While Loops is a core concept to understand",
+        "Practice applying While in real code"
+      ]
+    },
+    {
+      "slug": "range-function",
+      "title": "Range Function",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Generate sequences of numbers.",
+      "markdown": "The range function returns a sequence of numbers, starting from 0 by default, and increments by 1.",
+      "examples": [],
+      "key_points": [
+        "Range Function is a core concept to understand",
+        "Practice applying Range in real code"
+      ]
+    },
+    {
+      "slug": "break-and-continue",
+      "title": "Break and Continue",
+      "order_index": 6,
+      "estimated_minutes": 3,
+      "learning_objective": "Alter loop execution.",
+      "markdown": "Use break to exit a loop entirely. Use continue to skip the rest of the current iteration.",
+      "examples": [],
+      "key_points": [
+        "Break and Continue is a core concept to understand",
+        "Practice applying Break in real code"
+      ]
+    },
+    {
+      "slug": "nested-control-flow",
+      "title": "Nested Control Flow",
+      "order_index": 7,
+      "estimated_minutes": 3,
+      "learning_objective": "Combine control structures.",
+      "markdown": "You can place if statements inside loops, or loops inside other loops.",
+      "examples": [],
+      "key_points": [
+        "Nested Control Flow is a core concept to understand",
+        "Practice applying Nested in real code"
+      ]
+    },
+    {
+      "slug": "match-awareness",
+      "title": "Match Awareness",
+      "order_index": 8,
+      "estimated_minutes": 3,
+      "learning_objective": "Know about structural pattern matching.",
+      "markdown": "Python 3.10 introduced the match statement for structural pattern matching. Having match awareness is good for newer codebases.",
+      "examples": [],
+      "key_points": [
+        "Match Awareness is a core concept to understand",
+        "Practice applying Match in real code"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 9,
+      "estimated_minutes": 2,
+      "learning_objective": "Avoid common pitfalls.",
+      "markdown": "Off-by-one errors in range, forgetting colons.",
+      "examples": [],
+      "key_points": [
+        "Common Mistakes is a core concept to understand",
+        "Practice applying Common in real code"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 10,
+      "estimated_minutes": 2,
+      "learning_objective": "Prepare for interviews.",
+      "markdown": "Understanding loop complexities and early exits is crucial.",
+      "examples": [],
+      "key_points": [
+        "Interview Points is a core concept to understand",
+        "Practice applying Interview in real code"
+      ]
+    }
+  ],
+  "summary": [
+    "Control flow dictates execution",
+    "Loops iterate",
+    "Conditionals branch"
+  ],
+  "interview_takeaways": [
+    "Know your loop complexities"
+  ],
+  "common_mistakes": [
+    "Infinite loops"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Control Flow Tools",
+      "url": "https://docs.python.org/3/tutorial/controlflow.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-control-flow-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

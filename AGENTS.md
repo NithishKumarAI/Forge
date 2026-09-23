@@ -24,4 +24,12 @@ Forge V1 is intentionally small and local-first. Prefer simple, readable code an
 - Never reveal detailed interview feedback until the scored interview is complete.
 - Gemini cannot change blueprint competencies, rubric weights, or section weights.
 - Forge Interview Score is never a hiring probability, and behavioral scoring never modifies technical mastery.
+- Static accepted course content is authoritative; runtime AI cannot override the confirmed curriculum, coverage specification, or accepted lesson.
+- Normal Learn never calls Gemini. AI Tutor teaches only from the static lesson, and normal Practice prefers the static course bank.
+- Lesson progress never affects mastery. Runtime doubt retrieval stays within the local course corpus.
+- Never scrape prohibited, authenticated, or paid content; fetch only explicit registered source URLs and preserve attribution.
 - Use fixed rubrics, structured output, and at most one contextual follow-up per main question.
+- Python, SQL/PostgreSQL, and DSA are foundational P0 tracks; planner changes must preserve that priority while keeping every topic manually accessible.
+- Arena problems are original, static, versioned content. Never copy external challenge statements or expose reference solutions before pass or Give Up.
+- Python and SQL correctness is deterministic. Run Python in the Pyodide worker and SQL in a fresh isolated PGlite worker database; never execute learner input against Forge data.
+- Course reading is not mastery, and AI cannot replace independent coding evidence.

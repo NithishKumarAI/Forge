@@ -30,6 +30,7 @@ function createWorker() {
 export async function runPython(options: {
   code: string;
   functionName?: string;
+  judgeMode?: "function" | "stdin_stdout";
   tests: PythonTest[];
   timeoutMs?: number;
 }): Promise<ExecutionResult> {
@@ -53,6 +54,6 @@ export async function runPython(options: {
       resolve(event.data.result as ExecutionResult);
     };
     current.addEventListener("message", onMessage);
-    current.postMessage({ id, code: options.code, functionName: options.functionName, tests: options.tests });
+    current.postMessage({ id, code: options.code, functionName: options.functionName, judgeMode: options.judgeMode ?? "function", tests: options.tests });
   });
 }

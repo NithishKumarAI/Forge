@@ -1,0 +1,119 @@
+[
+  {
+    "key": "dbg-1",
+    "exercise_type": "multiple_choice",
+    "title": "Basic Concept",
+    "prompt_markdown": "What is a core concept of Debugging Python Applications?",
+    "difficulty": "easy",
+    "hints": [
+      "Review the basics."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct because it aligns with the core principles."
+    }
+  },
+  {
+    "key": "dbg-2",
+    "exercise_type": "short_answer",
+    "title": "Explain the concept",
+    "prompt_markdown": "Explain how this concept applies in a real-world scenario.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about production environments."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions performance",
+        "Mentions scalability"
+      ],
+      "reference_answer": "It improves performance and scalability by optimizing resource usage.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dbg-3",
+    "exercise_type": "multiple_choice",
+    "title": "PDB next vs step",
+    "prompt_markdown": "In Python debugger (`pdb`), what is the difference between `n` (next) and `s` (step)?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider entering into called functions."
+    ],
+    "content": {
+      "choices": [
+        "`n` steps into the called function, while `s` executes it completely.",
+        "`n` continues execution over function calls on the current line, while `s` steps inside the called function.",
+        "`n` steps backwards, while `s` evaluates a stack frame.",
+        "`n` prints next variable, while `s` evaluates an expression."
+      ],
+      "correct_index": 1,
+      "explanation": "`next` continues execution until the next line in the current function is reached (stepping over function calls), whereas `step` executes the current line and stops inside the called function."
+    }
+  },
+  {
+    "key": "dbg-4",
+    "exercise_type": "multiple_choice",
+    "title": "Reading Python Tracebacks",
+    "prompt_markdown": "When reading a standard Python traceback, where is the most recent call (the actual point of failure)?",
+    "difficulty": "easy",
+    "hints": [
+      "Tracebacks print chronological call progression."
+    ],
+    "content": {
+      "choices": [
+        "At the very top of the traceback output.",
+        "At the very bottom of the traceback output.",
+        "In the middle line.",
+        "In the system logging console only."
+      ],
+      "correct_index": 1,
+      "explanation": "Python tracebacks display calls in chronological order from root entry point down to the actual failing line, with the exception type and message printed at the very bottom."
+    }
+  },
+  {
+    "key": "dbg-5",
+    "exercise_type": "short_answer",
+    "title": "Scientific Debugging Method",
+    "prompt_markdown": "Describe the core steps of the scientific debugging method when addressing an elusive production bug.",
+    "difficulty": "medium",
+    "hints": [
+      "Reproduce, isolate, hypothesize, test, fix, verify."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions deterministic reproduction (creating a minimal reproducible example).",
+        "Mentions forming testable hypotheses regarding root cause.",
+        "Mentions verifying the fix with automated regression tests."
+      ],
+      "reference_answer": "The scientific debugging method consists of: 1) Reproducing the defect consistently with a minimal failing test case; 2) Inspecting logs, state, and telemetry to isolate the failure boundary; 3) Formulating a clear hypothesis about the root cause; 4) Testing the hypothesis by making minimal targeted changes or adding assertions; 5) Implementing the definitive fix and adding automated regression tests to prevent recurrence.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dbg-6",
+    "exercise_type": "short_answer",
+    "title": "Logging Levels in Backend Services",
+    "prompt_markdown": "Explain when a software engineer should use DEBUG, INFO, WARNING, and ERROR logging levels in a web API.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about volume and urgency."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies DEBUG for granular diagnostics during development.",
+        "Identifies INFO for normal milestone business events.",
+        "Identifies WARNING for unexpected conditions that do not break the request.",
+        "Identifies ERROR for failed operations requiring attention."
+      ],
+      "reference_answer": "DEBUG is for verbose internal diagnostics (function arguments, raw payloads) turned off in production. INFO records expected business lifecycle events (user registered, order placed). WARNING logs unexpected or degraded states that the system recovered from (cache miss, deprecated API hit). ERROR logs unhandled or failed operations where the immediate user action could not complete (database connection failure, 500 responses).",
+      "minimum_pass_score": 70
+    }
+  }
+]

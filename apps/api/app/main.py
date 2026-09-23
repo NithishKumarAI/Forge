@@ -15,8 +15,13 @@ from .routers.tutor import router as tutor_router
 from .routers.practice import router as practice_router
 from .routers.adaptive import router as adaptive_router
 from .routers.interviews import router as interviews_router
+from .routers.course import router as course_router
+from .routers.arena import router as arena_router
+from .services.course import sync_course_pack
+from .services.arena import sync_problem_bank
 from .schemas.api import HealthRead
 from .services.curriculum import seed_default_curriculum
+from .services.curriculum_migration import migrate_default_v2
 from .services.mastery import backfill_existing_attempts
 
 
@@ -24,8 +29,12 @@ from .services.mastery import backfill_existing_attempts
 async def lifespan(_: FastAPI):
     create_db_and_tables()
     with Session(engine) as session:
-        seed_default_curriculum(session, settings.curriculum_path)
+        old_default=seed_default_curriculum(session, settings.curriculum_path)
+        new_default=seed_default_curriculum(session, settings.curriculum_v2_path)
+        migrate_default_v2(session,old_default,new_default,settings.curriculum_migration_path)
         backfill_existing_attempts(session)
+        sync_course_pack(session)
+        sync_problem_bank(session)
     yield
 
 
@@ -46,6 +55,8 @@ def create_app() -> FastAPI:
     app.include_router(practice_router)
     app.include_router(adaptive_router)
     app.include_router(interviews_router)
+    app.include_router(course_router)
+    app.include_router(arena_router)
     app.include_router(router)
 
     @app.get("/health", response_model=HealthRead)

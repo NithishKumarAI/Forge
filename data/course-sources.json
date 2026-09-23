@@ -1,0 +1,79 @@
+{
+  "python": [
+    {
+      "id": "python-official-tutorial",
+      "name": "The Python Tutorial",
+      "base_url": "https://docs.python.org/3/tutorial/",
+      "source_type": "official_docs",
+      "enabled": true,
+      "allowed_paths": ["/3/tutorial/", "/3/library/", "/3/reference/", "/3/glossary.html"],
+      "license_note": "Python documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 100
+    },
+    {
+      "id": "python-language-reference",
+      "name": "Python Language Reference",
+      "base_url": "https://docs.python.org/3/reference/",
+      "source_type": "official_docs",
+      "enabled": true,
+      "allowed_paths": ["/3/reference/"],
+      "license_note": "Python documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 90
+    },
+    {
+      "id": "python-stdlib-docs",
+      "name": "Python Standard Library",
+      "base_url": "https://docs.python.org/3/library/",
+      "source_type": "official_docs",
+      "enabled": true,
+      "allowed_paths": ["/3/library/"],
+      "license_note": "Python documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 85
+    },
+    {
+      "id": "exercism-python",
+      "name": "Exercism Python Track",
+      "base_url": "https://exercism.org/tracks/python/",
+      "source_type": "open_educational",
+      "enabled": true,
+      "allowed_paths": ["/tracks/python/"],
+      "license_note": "MIT License. Copyright Exercism contributors. Adapted exercises must retain attribution. See LICENSES/exercism-mit.txt.",
+      "license": "MIT",
+      "priority": 70
+    }
+  ],
+  "sql-postgresql": [
+    {
+      "id": "postgresql-official-docs",
+      "name": "PostgreSQL Documentation",
+      "base_url": "https://www.postgresql.org/docs/current/",
+      "source_type": "official_docs",
+      "enabled": true,
+      "allowed_paths": ["/docs/current/"],
+      "license_note": "PostgreSQL documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 100
+    },
+    {
+      "id": "postgresql-tutorial",
+      "name": "PostgreSQL Tutorial",
+      "base_url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "source_type": "official_docs",
+      "enabled": true,
+      "allowed_paths": ["/docs/current/"],
+      "license_note": "PostgreSQL documentation; attribution retained.",
+      "priority": 95
+    }
+  ],
+  "dsa": [
+    {
+      "id": "python-stdlib-docs",
+      "name": "Python Standard Library",
+      "base_url": "https://docs.python.org/3/library/",
+      "source_type": "official_docs",
+      "enabled": true,
+      "allowed_paths": ["/3/library/", "/3/tutorial/"],
+      "license_note": "Python documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 90
+    }
+  ]
+}

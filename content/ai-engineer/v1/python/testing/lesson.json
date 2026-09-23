@@ -1,0 +1,186 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "testing",
+  "title": "Testing Python Code",
+  "description": "Learn how to write effective tests using pytest and standard library tools.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Write unit tests",
+    "Use pytest features like fixtures",
+    "Understand mocking boundaries",
+    "Differentiate integration tests"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "why-tests-exist",
+      "title": "Why Tests Exist",
+      "order_index": 0,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Why Tests Exist",
+      "markdown": "Automated tests ensure that your code works as expected and prevents regressions when changes are made. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Why Tests Exist"
+      ]
+    },
+    {
+      "slug": "what-is-a-unit-test",
+      "title": "What is a Unit Test?",
+      "order_index": 1,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand What is a Unit Test?",
+      "markdown": "Unit tests focus on a small, isolated piece of code, usually a single function or class method. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for What is a Unit Test?"
+      ]
+    },
+    {
+      "slug": "pytest-basics",
+      "title": "pytest Basics",
+      "order_index": 2,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand pytest Basics",
+      "markdown": "The `pytest` framework makes writing unit tests easy with minimal boilerplate. Just prefix functions with `test_`. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for pytest Basics"
+      ]
+    },
+    {
+      "slug": "assertions",
+      "title": "Assertions",
+      "order_index": 3,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Assertions",
+      "markdown": "Assertions verify that the actual output matches the expected output using the standard `assert` keyword in pytest. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Assertions"
+      ]
+    },
+    {
+      "slug": "fixtures",
+      "title": "Pytest Fixtures",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Pytest Fixtures",
+      "markdown": "Fixtures provide setup and teardown for your tests. They are reusable dependencies injected into test functions. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Pytest Fixtures"
+      ]
+    },
+    {
+      "slug": "parametrize",
+      "title": "Parametrization",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Parametrization",
+      "markdown": "Parametrization allows running the same test function with multiple sets of inputs and expected outputs. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Parametrization"
+      ]
+    },
+    {
+      "slug": "mocking-basics",
+      "title": "Mocking Boundaries",
+      "order_index": 6,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Mocking Boundaries",
+      "markdown": "Mocking boundaries means replacing external dependencies (like databases or APIs) with fake objects to isolate unit tests. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Mocking Boundaries"
+      ]
+    },
+    {
+      "slug": "test-determinism",
+      "title": "Test Determinism",
+      "order_index": 7,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Test Determinism",
+      "markdown": "Tests should be deterministic. A determinism lack leads to flaky tests, which erode trust in the test suite. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Test Determinism"
+      ]
+    },
+    {
+      "slug": "edge-cases",
+      "title": "Testing Edge Cases",
+      "order_index": 8,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Testing Edge Cases",
+      "markdown": "Always test boundaries: empty lists, null values, negative numbers, and extremely large inputs. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Testing Edge Cases"
+      ]
+    },
+    {
+      "slug": "integration-tests-awareness",
+      "title": "Integration Tests",
+      "order_index": 9,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Integration Tests",
+      "markdown": "Integration tests verify that different components of your system work together correctly, unlike isolated unit tests. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Integration Tests"
+      ]
+    },
+    {
+      "slug": "tdd-awareness",
+      "title": "Test-Driven Development (TDD)",
+      "order_index": 10,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Test-Driven Development (TDD)",
+      "markdown": "TDD is a methodology where you write tests before writing the actual implementation code. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Test-Driven Development (TDD)"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Takeaways",
+      "order_index": 11,
+      "estimated_minutes": 3,
+      "learning_objective": "Understand Interview Takeaways",
+      "markdown": "Interviewers may ask you to write tests for your code on a whiteboard or explain when to mock. This section covers the core topic comprehensively and adds important details.",
+      "examples": [],
+      "key_points": [
+        "Key point for Interview Takeaways"
+      ]
+    }
+  ],
+  "summary": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "interview_takeaways": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "common_mistakes": [
+    "Mistake 1",
+    "Mistake 2",
+    "Mistake 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "unittest",
+      "url": "https://docs.python.org/3/library/unittest.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-testing-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

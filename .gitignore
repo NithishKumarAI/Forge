@@ -11,3 +11,5 @@ dist/
 coverage/
 *.tsbuildinfo*
 .DS_Store
+data/source-cache/
+*.candidate.json

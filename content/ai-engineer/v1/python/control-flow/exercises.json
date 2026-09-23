@@ -1,0 +1,118 @@
+[
+  {
+    "key": "cf-1",
+    "exercise_type": "multiple_choice",
+    "title": "Truthiness check",
+    "prompt_markdown": "What does `bool([])` return?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider empty collections"
+    ],
+    "content": {
+      "choices": [
+        "True",
+        "False",
+        "None",
+        "Error"
+      ],
+      "correct_index": 1,
+      "explanation": "Empty collections evaluate to False."
+    }
+  },
+  {
+    "key": "cf-2",
+    "exercise_type": "multiple_choice",
+    "title": "Loop iteration",
+    "prompt_markdown": "Which statement exits a loop entirely?",
+    "difficulty": "easy",
+    "hints": [
+      "It 'breaks' the loop"
+    ],
+    "content": {
+      "choices": [
+        "continue",
+        "exit",
+        "break",
+        "pass"
+      ],
+      "correct_index": 2,
+      "explanation": "break exits the current loop."
+    }
+  },
+  {
+    "key": "cf-3",
+    "exercise_type": "multiple_choice",
+    "title": "Range semantics",
+    "prompt_markdown": "What does `range(3)` produce?",
+    "difficulty": "easy",
+    "hints": [
+      "It starts at 0"
+    ],
+    "content": {
+      "choices": [
+        "1,2,3",
+        "0,1,2",
+        "0,1,2,3",
+        "1,2"
+      ],
+      "correct_index": 1,
+      "explanation": "range(n) produces numbers from 0 up to n-1."
+    }
+  },
+  {
+    "key": "cf-4",
+    "exercise_type": "multiple_choice",
+    "title": "Conditional syntax",
+    "prompt_markdown": "Which keyword is used for alternative conditions?",
+    "difficulty": "easy",
+    "hints": [
+      "It's short for else if"
+    ],
+    "content": {
+      "choices": [
+        "elseif",
+        "else if",
+        "elif",
+        "case"
+      ],
+      "correct_index": 2,
+      "explanation": "elif is used in Python."
+    }
+  },
+  {
+    "key": "cf-5",
+    "exercise_type": "short_answer",
+    "title": "Truthiness explanation",
+    "prompt_markdown": "Explain the concept of truthiness in Python.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about non-boolean types"
+    ],
+    "content": {
+      "rubric": [
+        "Mention boolean context",
+        "Mention empty/zero values"
+      ],
+      "reference_answer": "Truthiness refers to how Python evaluates non-boolean values in a boolean context (like if statements). Empty collections and 0 evaluate to False, others to True.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "cf-6",
+    "exercise_type": "short_answer",
+    "title": "Break vs Continue",
+    "prompt_markdown": "What is the difference between break and continue?",
+    "difficulty": "medium",
+    "hints": [
+      "One stops entirely, one skips"
+    ],
+    "content": {
+      "rubric": [
+        "break stops the loop",
+        "continue skips to next iteration"
+      ],
+      "reference_answer": "break exits the loop entirely, while continue skips the remainder of the current iteration and proceeds to the next iteration.",
+      "minimum_pass_score": 70
+    }
+  }
+]

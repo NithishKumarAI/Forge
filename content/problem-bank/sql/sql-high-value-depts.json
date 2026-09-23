@@ -1,0 +1,78 @@
+{
+  "key": "sql-high-value-depts",
+  "title": "Departments with total salary above threshold",
+  "track": "sql",
+  "topic_tags": [
+    "group-by"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on employees(id, name, department, salary).",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['Eng', 160000], ['Sales', 160000]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT department, SUM(salary) AS total_salary FROM employees GROUP BY department HAVING SUM(salary) > 150000 ORDER BY department",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'A', 'Eng', 100000), (2, 'B', 'Eng', 60000), (3, 'C', 'HR', 50000), (4, 'D', 'Sales', 80000), (5, 'E', 'Sales', 80000);",
+    "visible_tables": [
+      "employees(id, name, department, salary)"
+    ],
+    "sample_rows": [
+      [
+        "Eng",
+        160000
+      ],
+      [
+        "Sales",
+        160000
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "Eng",
+        160000
+      ],
+      [
+        "Sales",
+        160000
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'A', 'Eng', 100000), (2, 'B', 'Eng', 60000), (3, 'C', 'HR', 50000), (4, 'D', 'Sales', 80000), (5, 'E', 'Sales', 80000);",
+        "expected_rows": [
+          [
+            "Eng",
+            160000
+          ],
+          [
+            "Sales",
+            160000
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/group-by"
+}

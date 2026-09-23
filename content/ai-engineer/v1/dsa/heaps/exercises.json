@@ -1,0 +1,162 @@
+[
+  {
+    "key": "heap-1",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 1 for heaps",
+    "prompt_markdown": "What is the core idea of heaps in exercise 1?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "heap-2",
+    "exercise_type": "short_answer",
+    "title": "Exercise 2 for heaps",
+    "prompt_markdown": "What is the core idea of heaps in exercise 2?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to heaps principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "heap-3",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 3 for heaps",
+    "prompt_markdown": "What is the core idea of heaps in exercise 3?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "heap-4",
+    "exercise_type": "short_answer",
+    "title": "Exercise 4 for heaps",
+    "prompt_markdown": "What is the core idea of heaps in exercise 4?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to heaps principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "heap-5",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 5 for heaps",
+    "prompt_markdown": "What is the core idea of heaps in exercise 5?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "heap-6",
+    "exercise_type": "short_answer",
+    "title": "Exercise 6 for heaps",
+    "prompt_markdown": "What is the core idea of heaps in exercise 6?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to heaps principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "heap-7",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 7 for heaps",
+    "prompt_markdown": "What is the core idea of heaps in exercise 7?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "heap-8",
+    "exercise_type": "short_answer",
+    "title": "Exercise 8 for heaps",
+    "prompt_markdown": "What is the core idea of heaps in exercise 8?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to heaps principles.",
+      "minimum_pass_score": 70
+    }
+  }
+]

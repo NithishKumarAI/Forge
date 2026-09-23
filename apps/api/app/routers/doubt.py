@@ -34,6 +34,7 @@ def message(
             session_id=request.session_id,
             topic_id=request.topic_id,
             message=request.message,
+            section_slug=request.section_slug,
         )
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc

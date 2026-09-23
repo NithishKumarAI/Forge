@@ -1,0 +1,263 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "backtracking",
+  "title": "Backtracking",
+  "description": "Learn about backtracking in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand backtracking",
+    "Implement basic templates",
+    "Recognize in interviews",
+    "Write optimized code"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-backtracking",
+      "title": "What Is Backtracking",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand what-is-backtracking deeply.",
+      "markdown": "This section covers what-is-backtracking in detail. \n\nKeywords to know: backtracking, state, explore, restore, pruning, decision tree, permutation, combination, subset. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about what-is-backtracking."
+      ]
+    },
+    {
+      "slug": "decision-tree-model",
+      "title": "Decision Tree Model",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand decision-tree-model deeply.",
+      "markdown": "This section covers decision-tree-model in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about decision-tree-model."
+      ]
+    },
+    {
+      "slug": "state-space",
+      "title": "State Space",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand state-space deeply.",
+      "markdown": "This section covers state-space in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about state-space."
+      ]
+    },
+    {
+      "slug": "explore-and-restore",
+      "title": "Explore And Restore",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand explore-and-restore deeply.",
+      "markdown": "This section covers explore-and-restore in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about explore-and-restore."
+      ]
+    },
+    {
+      "slug": "pruning",
+      "title": "Pruning",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand pruning deeply.",
+      "markdown": "This section covers pruning in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about pruning."
+      ]
+    },
+    {
+      "slug": "subsets-template",
+      "title": "Subsets Template",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand subsets-template deeply.",
+      "markdown": "This section covers subsets-template in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about subsets-template."
+      ]
+    },
+    {
+      "slug": "permutations-template",
+      "title": "Permutations Template",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand permutations-template deeply.",
+      "markdown": "This section covers permutations-template in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about permutations-template."
+      ]
+    },
+    {
+      "slug": "combinations-template",
+      "title": "Combinations Template",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand combinations-template deeply.",
+      "markdown": "This section covers combinations-template in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about combinations-template."
+      ]
+    },
+    {
+      "slug": "when-to-use",
+      "title": "When To Use",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand when-to-use deeply.",
+      "markdown": "This section covers when-to-use in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about when-to-use."
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand common-mistakes deeply.",
+      "markdown": "This section covers common-mistakes in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about common-mistakes."
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand interview-points deeply.",
+      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about interview-points."
+      ]
+    }
+  ],
+  "summary": [
+    "backtracking is a key concept.",
+    "Mastering it helps in interviews.",
+    "Practice the templates."
+  ],
+  "interview_takeaways": [
+    "Recognize the pattern",
+    "Analyze complexity",
+    "Discuss tradeoffs"
+  ],
+  "common_mistakes": [
+    "Off by one errors",
+    "Forgetting base cases",
+    "Ignoring edge cases"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "heapq",
+      "url": "https://docs.python.org/3/library/heapq.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Tutorial - Data Structures",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "functools.lru_cache",
+      "url": "https://docs.python.org/3/library/functools.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-dsa-backtracking-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

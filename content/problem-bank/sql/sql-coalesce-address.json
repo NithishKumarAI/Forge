@@ -1,0 +1,94 @@
+{
+  "key": "sql-coalesce-address",
+  "title": "Default address fallback",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on customers(id, name, shipping_address, billing_address).",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['Alice', '123 Ship St'], ['Bob', '789 Bill St'], ['Charlie', 'No address'], ['David', '321 Ship St']]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT name, COALESCE(shipping_address, billing_address, 'No address') AS address FROM customers ORDER BY name",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), shipping_address VARCHAR(100), billing_address VARCHAR(100)); INSERT INTO customers VALUES (1, 'Alice', '123 Ship St', '456 Bill St'), (2, 'Bob', NULL, '789 Bill St'), (3, 'Charlie', NULL, NULL), (4, 'David', '321 Ship St', NULL);",
+    "visible_tables": [
+      "customers(id, name, shipping_address, billing_address)"
+    ],
+    "sample_rows": [
+      [
+        "Alice",
+        "123 Ship St"
+      ],
+      [
+        "Bob",
+        "789 Bill St"
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "Alice",
+        "123 Ship St"
+      ],
+      [
+        "Bob",
+        "789 Bill St"
+      ],
+      [
+        "Charlie",
+        "No address"
+      ],
+      [
+        "David",
+        "321 Ship St"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), shipping_address VARCHAR(100), billing_address VARCHAR(100)); INSERT INTO customers VALUES (1, 'Alice', '123 Ship St', '456 Bill St'), (2, 'Bob', NULL, '789 Bill St'), (3, 'Charlie', NULL, NULL), (4, 'David', '321 Ship St', NULL);",
+        "expected_rows": [
+          [
+            "Alice",
+            "123 Ship St"
+          ],
+          [
+            "Bob",
+            "789 Bill St"
+          ],
+          [
+            "Charlie",
+            "No address"
+          ],
+          [
+            "David",
+            "321 Ship St"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

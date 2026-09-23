@@ -1,6 +1,40 @@
 # Forge
 
-Forge is a local-first adaptive AI tutoring system that builds, measures, and retains interview-ready engineering skills.
+Forge is a local-first engineering interview-preparation system that builds, measures, and retains job-ready foundations through deterministic evidence.
+
+## Interview-first core loop
+
+```text
+Learn → Guided Practice → Coding Arena → Mastery → Spaced Review → Mock Interview
+```
+
+The confirmed V2 default reflects 2026 job-search priorities. Python Programming and SQL + PostgreSQL are priority 100, DSA + Problem Solving is 98, Backend and practical CS follow, then LLM/RAG specialization, ML/production working knowledge, frontend basics, and ongoing interview communication. V1 remains in SQLite as curriculum history. An explicit migration map copies learner state only for unambiguous topics; historical evidence is never moved or rewritten.
+
+### Coding Arena
+
+Coding Arena is independent of course navigation and uses a canonical original problem bank under `content/problem-bank/{python,sql,dsa}`. The initial validated bank contains two problems per track. This deliberately small bank proves the architecture; the long-term target is 40 Python, 40 SQL, and 50 DSA problems after authored review.
+
+Python and DSA problems reuse Monaco and the timeout-controlled Pyodide Web Worker. SQL problems use `@electric-sql/pglite` in a separate Web Worker. Every query run creates a fresh ephemeral PostgreSQL-compatible database from the problem fixture, so learner SQL cannot access Forge SQLite. SELECT results are compared deterministically by columns and normalized rows, with optional ordering and alternate hidden datasets. Gemini never grades runtime Python or SQL.
+
+Solutions remain hidden until a successful submission or explicit Give Up. First successful solves append Arena mastery evidence to the mapped topic, with greater weight for medium problems and the existing assistance penalty for hints. Repeated success on the same problem does not create farmable evidence.
+
+Problem-bank commands, run from `apps/api`:
+
+```powershell
+python -m scripts.problem_builder.validate
+python -m scripts.problem_builder.validate --track sql
+python -m scripts.problem_builder.build --track python --topic strings --difficulty easy --key python-example --dry-run
+python -m scripts.problem_builder.build --track python --topic strings --difficulty easy --key python-example
+python -m scripts.problem_builder.promote --track python --problem python-example
+```
+
+Validate actual SQL reference queries through PGlite from `apps/web`:
+
+```powershell
+npm run validate:sql-problems
+```
+
+Arena problems must be original Forge-authored tasks. Do not copy third-party challenge statements.
 
 ## Problem
 
@@ -9,6 +43,34 @@ Interview preparation often separates teaching, coding practice, spaced review, 
 ## Solution
 
 Forge V1 combines a confirmed curriculum, contextual tutoring, deterministic coding practice, evidence-based mastery gates, FSRS review, an adaptive daily plan, and semi-structured mock interviews in one local application. Observable evidence remains authoritative; Gemini supplies validated teaching, question wording, and rubric-bound evaluation without controlling mastery, scheduling, curriculum structure, or interview weights.
+
+### Static course content
+
+Forge now separates course compilation from study. At build time, explicitly registered vetted sources are fetched conservatively, cached, extracted, synthesized into structured original Forge material, validated against a required-coverage contract, and written as a candidate. Existing accepted lessons are never overwritten without deliberate promotion.
+
+```text
+Vetted sources → Course Compiler → Gemini synthesis → Validation → Static Course Pack
+
+Static Course Pack
+├── Learn Course (offline, no Gemini)
+├── AI Tutor (grounded on the same lesson)
+├── Forge Doubts (current section + local FTS5 search)
+└── Static Practice Bank
+```
+
+The canonical pack is under `content/ai-engineer/v1`; SQLite stores synchronized metadata, exercise rows, local search, and reading progress. Reading progress is not mastery evidence. Python “Syntax and data types” is included as the deterministic fixture-backed accepted sample, including Boolean coverage and eight offline exercises. Complete required-coverage specifications exist for all 18 Python topics; the remaining topics require reviewed official-source fetching and build-time synthesis rather than fabricated research.
+
+Course builder commands (run from `apps/api` with its environment active):
+
+```powershell
+python -m scripts.course_builder.build --track python --topic syntax-data-types --dry-run
+python -m scripts.course_builder.build --track python --dry-run
+python -m scripts.course_builder.validate --track python --topic syntax-data-types
+python -m scripts.course_builder.validate --track python
+python -m scripts.course_builder.promote --track python --topic <topic-slug>
+```
+
+The non-dry build deliberately stops unless source snapshots and Gemini are configured, and still requires a reviewed topic URL plan. Runtime never crawls or browses the web.
 
 ## Philosophy
 

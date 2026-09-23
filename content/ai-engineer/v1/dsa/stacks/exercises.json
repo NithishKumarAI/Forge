@@ -1,0 +1,118 @@
+[
+  {
+    "key": "stk-1",
+    "exercise_type": "multiple_choice",
+    "title": "stacks MC 1",
+    "prompt_markdown": "Question?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because."
+    }
+  },
+  {
+    "key": "stk-2",
+    "exercise_type": "multiple_choice",
+    "title": "stacks MC 2",
+    "prompt_markdown": "Question?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because."
+    }
+  },
+  {
+    "key": "stk-3",
+    "exercise_type": "multiple_choice",
+    "title": "stacks MC 3",
+    "prompt_markdown": "Question?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because."
+    }
+  },
+  {
+    "key": "stk-4",
+    "exercise_type": "multiple_choice",
+    "title": "stacks MC 4",
+    "prompt_markdown": "Question?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because."
+    }
+  },
+  {
+    "key": "stk-5",
+    "exercise_type": "short_answer",
+    "title": "stacks SA 1",
+    "prompt_markdown": "Question?",
+    "difficulty": "medium",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "Answer",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "stk-6",
+    "exercise_type": "short_answer",
+    "title": "stacks SA 2",
+    "prompt_markdown": "Question?",
+    "difficulty": "medium",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "Answer",
+      "minimum_pass_score": 70
+    }
+  }
+]

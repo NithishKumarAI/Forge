@@ -1,0 +1,105 @@
+{
+  "key": "sql-top-customer-per-region",
+  "title": "Customers with orders and total",
+  "track": "sql",
+  "topic_tags": [
+    "joins"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on customers, orders.",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['A', 'North', 300], ['C', 'South', 150], ['B', 'North', 0], ['D', 'South', 0]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT c.name, c.region, COALESCE(SUM(o.amount), 0) AS total_orders_amount FROM customers c LEFT JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name, c.region ORDER BY total_orders_amount DESC",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), region VARCHAR(50)); CREATE TABLE orders (id INT, customer_id INT, amount INT); INSERT INTO customers VALUES (1, 'A', 'North'), (2, 'B', 'North'), (3, 'C', 'South'), (4, 'D', 'South'); INSERT INTO orders VALUES (1, 1, 100), (2, 1, 200), (3, 3, 150);",
+    "visible_tables": [
+      "customers, orders"
+    ],
+    "sample_rows": [
+      [
+        "A",
+        "North",
+        300
+      ],
+      [
+        "C",
+        "South",
+        150
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "A",
+        "North",
+        300
+      ],
+      [
+        "C",
+        "South",
+        150
+      ],
+      [
+        "B",
+        "North",
+        0
+      ],
+      [
+        "D",
+        "South",
+        0
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), region VARCHAR(50)); CREATE TABLE orders (id INT, customer_id INT, amount INT); INSERT INTO customers VALUES (1, 'A', 'North'), (2, 'B', 'North'), (3, 'C', 'South'), (4, 'D', 'South'); INSERT INTO orders VALUES (1, 1, 100), (2, 1, 200), (3, 3, 150);",
+        "expected_rows": [
+          [
+            "A",
+            "North",
+            300
+          ],
+          [
+            "C",
+            "South",
+            150
+          ],
+          [
+            "B",
+            "North",
+            0
+          ],
+          [
+            "D",
+            "South",
+            0
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/joins"
+}

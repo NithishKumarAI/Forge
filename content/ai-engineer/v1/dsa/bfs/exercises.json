@@ -1,0 +1,162 @@
+[
+  {
+    "key": "bfs-1",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 1 for bfs",
+    "prompt_markdown": "What is the core idea of bfs in exercise 1?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "bfs-2",
+    "exercise_type": "short_answer",
+    "title": "Exercise 2 for bfs",
+    "prompt_markdown": "What is the core idea of bfs in exercise 2?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to bfs principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bfs-3",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 3 for bfs",
+    "prompt_markdown": "What is the core idea of bfs in exercise 3?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "bfs-4",
+    "exercise_type": "short_answer",
+    "title": "Exercise 4 for bfs",
+    "prompt_markdown": "What is the core idea of bfs in exercise 4?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to bfs principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bfs-5",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 5 for bfs",
+    "prompt_markdown": "What is the core idea of bfs in exercise 5?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "bfs-6",
+    "exercise_type": "short_answer",
+    "title": "Exercise 6 for bfs",
+    "prompt_markdown": "What is the core idea of bfs in exercise 6?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to bfs principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bfs-7",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 7 for bfs",
+    "prompt_markdown": "What is the core idea of bfs in exercise 7?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "bfs-8",
+    "exercise_type": "short_answer",
+    "title": "Exercise 8 for bfs",
+    "prompt_markdown": "What is the core idea of bfs in exercise 8?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to bfs principles.",
+      "minimum_pass_score": 70
+    }
+  }
+]

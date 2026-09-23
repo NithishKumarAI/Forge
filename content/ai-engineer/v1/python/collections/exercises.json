@@ -1,0 +1,118 @@
+[
+  {
+    "key": "col-1",
+    "exercise_type": "multiple_choice",
+    "title": "Dict additions",
+    "prompt_markdown": "Which is the correct way to add a key to a dict `d`?",
+    "difficulty": "easy",
+    "hints": [
+      "Use assignment"
+    ],
+    "content": {
+      "choices": [
+        "d.add('k', 'v')",
+        "d.insert('k', 'v')",
+        "d['k'] = 'v'",
+        "d.append('k', 'v')"
+      ],
+      "correct_index": 2,
+      "explanation": "Assignment via index syntax adds or updates a key."
+    }
+  },
+  {
+    "key": "col-2",
+    "exercise_type": "multiple_choice",
+    "title": "Set features",
+    "prompt_markdown": "Which of the following is true about sets?",
+    "difficulty": "easy",
+    "hints": [
+      "Duplicates?"
+    ],
+    "content": {
+      "choices": [
+        "They maintain order",
+        "They allow duplicates",
+        "Elements must be hashable",
+        "They are immutable"
+      ],
+      "correct_index": 2,
+      "explanation": "Sets only store hashable (immutable) elements to ensure uniqueness."
+    }
+  },
+  {
+    "key": "col-3",
+    "exercise_type": "multiple_choice",
+    "title": "List vs Tuple",
+    "prompt_markdown": "What is a key difference between lists and tuples?",
+    "difficulty": "easy",
+    "hints": [
+      "Mutability"
+    ],
+    "content": {
+      "choices": [
+        "Lists are immutable",
+        "Tuples are immutable",
+        "Tuples use brackets []",
+        "Lists cannot be nested"
+      ],
+      "correct_index": 1,
+      "explanation": "Tuples cannot be changed once created."
+    }
+  },
+  {
+    "key": "col-4",
+    "exercise_type": "multiple_choice",
+    "title": "Dict fetching",
+    "prompt_markdown": "Which method avoids a KeyError if a key is missing?",
+    "difficulty": "easy",
+    "hints": [
+      "It 'gets' it safely"
+    ],
+    "content": {
+      "choices": [
+        "d.fetch(k)",
+        "d[k]",
+        "d.get(k)",
+        "d.has(k)"
+      ],
+      "correct_index": 2,
+      "explanation": "get() returns None instead of raising an error."
+    }
+  },
+  {
+    "key": "col-5",
+    "exercise_type": "short_answer",
+    "title": "Tuples as keys",
+    "prompt_markdown": "Explain why tuples are preferred over lists as dictionary keys.",
+    "difficulty": "medium",
+    "hints": [
+      "Hashability"
+    ],
+    "content": {
+      "rubric": [
+        "Tuples are immutable",
+        "Lists are not hashable"
+      ],
+      "reference_answer": "Dictionary keys must be hashable. Tuples are immutable and therefore hashable, whereas lists are mutable and cannot be used as keys.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "col-6",
+    "exercise_type": "short_answer",
+    "title": "Set vs List",
+    "prompt_markdown": "When should you use a set instead of a list?",
+    "difficulty": "medium",
+    "hints": [
+      "Uniqueness and lookup speed"
+    ],
+    "content": {
+      "rubric": [
+        "Fast lookups",
+        "Unique elements"
+      ],
+      "reference_answer": "Use a set when you need to ensure elements are unique, or when you need fast O(1) membership testing.",
+      "minimum_pass_score": 70
+    }
+  }
+]

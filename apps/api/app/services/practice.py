@@ -167,6 +167,7 @@ def start_practice(
         .order_by(Exercise.created_at.desc(), Exercise.id.desc())
     ).all()
     unused = [exercise for exercise in available if exercise.id not in successful]
+    unused.sort(key=lambda exercise: (exercise.source != "course_pack", -exercise.id))
     chosen = unused[:3]
     if len(chosen) < 3 and provider is not None:
         try:
@@ -176,7 +177,7 @@ def start_practice(
                 raise
     if not chosen:
         raise ProviderError(
-            "Gemini isn't configured or available, and no cached practice exists for this topic."
+            "There is no cached practice or validated static practice for this topic. Gemini fallback is unavailable."
         )
     chosen.sort(key=lambda exercise: exercise.id)
     practice_session = LearningSession(topic_id=topic.id, mode="practice")

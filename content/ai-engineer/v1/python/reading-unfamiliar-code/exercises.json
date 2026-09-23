@@ -1,0 +1,117 @@
+[
+  {
+    "key": "ruc-1",
+    "exercise_type": "multiple_choice",
+    "title": "Basic Concept",
+    "prompt_markdown": "What is a core concept of Reading Unfamiliar Code?",
+    "difficulty": "easy",
+    "hints": [
+      "Review the basics."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct because it aligns with the core principles."
+    }
+  },
+  {
+    "key": "ruc-2",
+    "exercise_type": "short_answer",
+    "title": "Explain the concept",
+    "prompt_markdown": "Explain how this concept applies in a real-world scenario.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about production environments."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions performance",
+        "Mentions scalability"
+      ],
+      "reference_answer": "It improves performance and scalability by optimizing resource usage.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "ruc-3",
+    "exercise_type": "multiple_choice",
+    "title": "Entry Points in Python Projects",
+    "prompt_markdown": "When onboarding to an unfamiliar Python backend repository, which files are the best starting entry points to trace control flow?",
+    "difficulty": "easy",
+    "hints": [
+      "Look for application setup and route definitions."
+    ],
+    "content": {
+      "choices": [
+        "`__pycache__` and `.gitignore`",
+        "`main.py`, `app.py`, route registries, or CLI command definitions",
+        "Internal database migration files exclusively",
+        "The lockfile alone"
+      ],
+      "correct_index": 1,
+      "explanation": "Application setup files (like `main.py`, `app.py`, FastAPI routers, or Celery task definitions) reveal the primary HTTP routes, dependencies, and execution lifecycles."
+    }
+  },
+  {
+    "key": "ruc-4",
+    "exercise_type": "multiple_choice",
+    "title": "Using Tests as Specifications",
+    "prompt_markdown": "Why are automated unit and integration tests often the most valuable documentation when reading complex legacy code?",
+    "difficulty": "easy",
+    "hints": [
+      "Tests show concrete inputs, outputs, and edge cases."
+    ],
+    "content": {
+      "choices": [
+        "Tests run faster than reading Python source code.",
+        "Tests show real-world input fixtures, expected return values, and edge cases that the author intentionally handled.",
+        "Tests replace the need for an interpreter.",
+        "Tests prevent the code from changing."
+      ],
+      "correct_index": 1,
+      "explanation": "Tests act as an executable specification. They illustrate how callers instantiate objects, invoke functions with concrete data, and what side-effects or return values are considered valid."
+    }
+  },
+  {
+    "key": "ruc-5",
+    "exercise_type": "short_answer",
+    "title": "Mental Model for Tracing Data Flow",
+    "prompt_markdown": "What structured approach should an engineer use to trace data flow through a multi-layered service?",
+    "difficulty": "medium",
+    "hints": [
+      "Input schema -> validation -> business logic -> database/external -> response schema."
+    ],
+    "content": {
+      "rubric": [
+        "Traces from the edge (API route / input model) inward to service domain logic.",
+        "Follows data transformations down to database models/I/O.",
+        "Identifies side effects and response serialization."
+      ],
+      "reference_answer": "Start at the boundary where external data enters (e.g. HTTP endpoint and Pydantic request schema). Follow the payload as it is validated, passed into the service/controller layer where business rules and transformations occur, inspect the database queries or external API calls made, and finally observe how the output is serialized into the response schema. Look out for side effects like event publishing or cache mutations along the path.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "ruc-6",
+    "exercise_type": "short_answer",
+    "title": "Hypothesis-Driven Code Reading",
+    "prompt_markdown": "Explain what hypothesis-driven code reading is and how to use assertions or print statements to verify assumptions.",
+    "difficulty": "medium",
+    "hints": [
+      "Predict the value before running."
+    ],
+    "content": {
+      "rubric": [
+        "Explains making a concrete prediction about what a variable or state should be before running.",
+        "Verifies using interactive debugging, breakpoints, or assertions rather than aimless browsing."
+      ],
+      "reference_answer": "Hypothesis-driven reading avoids passive scanning. Before running or stepping through unfamiliar code, the engineer explicitly writes down or hypothesizes what a variable, data structure, or branch condition should evaluate to. They then insert a temporary assertion, breakpoint, or test case to verify or refute the hypothesis, rapidly validating their mental model of the codebase.",
+      "minimum_pass_score": 70
+    }
+  }
+]

@@ -1,0 +1,77 @@
+{
+  "key": "dsa-isomorphic-strings",
+  "title": "Isomorphic strings",
+  "track": "dsa",
+  "topic_tags": [
+    "hash-maps",
+    "strings"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Two strings `s` and `t` are isomorphic if the characters in `s` can be replaced to get `t`. All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "s = 'egg', t = 'add'",
+      "output": "True",
+      "explanation": "e->a, g->d"
+    }
+  ],
+  "starter_code": "def is_isomorphic(s: str, t: str) -> bool:\n    pass",
+  "hints": [
+    "Use two hash maps to keep track of the character mappings from s to t and from t to s."
+  ],
+  "explanation": "Maintain two dictionaries to ensure a 1-to-1 mapping between characters in `s` and `t`. If there's a conflict, return False.",
+  "reference_solution": "def is_isomorphic(s: str, t: str) -> bool:\n    if len(s) != len(t): return False\n    s_to_t, t_to_s = {}, {}\n    for c1, c2 in zip(s, t):\n        if (c1 in s_to_t and s_to_t[c1] != c2) or (c2 in t_to_s and t_to_s[c2] != c1):\n            return False\n        s_to_t[c1] = c2\n        t_to_s[c2] = c1\n    return True",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "is_isomorphic",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "egg",
+          "add"
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "foo",
+          "bar"
+        ],
+        "kwargs": {},
+        "expected": false
+      },
+      {
+        "name": "sample3",
+        "args": [
+          "paper",
+          "title"
+        ],
+        "kwargs": {},
+        "expected": true
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          "badc",
+          "baba"
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

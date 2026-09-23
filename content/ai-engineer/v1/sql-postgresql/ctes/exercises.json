@@ -1,0 +1,154 @@
+[
+  {
+    "key": "cte-1",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 1",
+    "prompt_markdown": "Question goes here.",
+    "difficulty": "easy",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 0,
+      "explanation": "Because A."
+    }
+  },
+  {
+    "key": "cte-2",
+    "exercise_type": "short_answer",
+    "title": "Exercise 2",
+    "prompt_markdown": "Question goes here.",
+    "difficulty": "medium",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "Reference",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "cte-3",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 3",
+    "prompt_markdown": "Question goes here.",
+    "difficulty": "easy",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 0,
+      "explanation": "Because A."
+    }
+  },
+  {
+    "key": "cte-4",
+    "exercise_type": "short_answer",
+    "title": "Exercise 4",
+    "prompt_markdown": "Question goes here.",
+    "difficulty": "medium",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "Reference",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "cte-5",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 5",
+    "prompt_markdown": "Question goes here.",
+    "difficulty": "easy",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 0,
+      "explanation": "Because A."
+    }
+  },
+  {
+    "key": "cte-6",
+    "exercise_type": "short_answer",
+    "title": "Exercise 6",
+    "prompt_markdown": "Question goes here.",
+    "difficulty": "medium",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "Reference",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "cte-7",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 7",
+    "prompt_markdown": "Question goes here.",
+    "difficulty": "easy",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 0,
+      "explanation": "Because A."
+    }
+  },
+  {
+    "key": "cte-8",
+    "exercise_type": "short_answer",
+    "title": "Exercise 8",
+    "prompt_markdown": "Question goes here.",
+    "difficulty": "medium",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "Reference",
+      "minimum_pass_score": 70
+    }
+  }
+]

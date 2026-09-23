@@ -1,0 +1,71 @@
+{
+  "key": "sql-monthly-active-users",
+  "title": "Users who logged in this month",
+  "track": "sql",
+  "topic_tags": [
+    "joins"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on users, login_events.",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['Alice'], ['Bob']]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT DISTINCT u.name FROM users u JOIN login_events le ON le.user_id = u.id WHERE le.login_date >= '2026-01-01' AND le.login_date < '2026-02-01' ORDER BY u.name",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE users (id INT, name VARCHAR(50)); CREATE TABLE login_events (id INT, user_id INT, login_date DATE); INSERT INTO users VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie'), (4, 'David'); INSERT INTO login_events VALUES (1, 1, '2026-01-05'), (2, 1, '2026-01-10'), (3, 2, '2026-01-15'), (4, 3, '2025-12-31'), (5, 4, '2026-02-01');",
+    "visible_tables": [
+      "users, login_events"
+    ],
+    "sample_rows": [
+      [
+        "Alice"
+      ],
+      [
+        "Bob"
+      ]
+    ],
+    "expected_columns": [
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "Alice"
+      ],
+      [
+        "Bob"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE users (id INT, name VARCHAR(50)); CREATE TABLE login_events (id INT, user_id INT, login_date DATE); INSERT INTO users VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie'), (4, 'David'); INSERT INTO login_events VALUES (1, 1, '2026-01-05'), (2, 1, '2026-01-10'), (3, 2, '2026-01-15'), (4, 3, '2025-12-31'), (5, 4, '2026-02-01');",
+        "expected_rows": [
+          [
+            "Alice"
+          ],
+          [
+            "Bob"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/joins"
+}

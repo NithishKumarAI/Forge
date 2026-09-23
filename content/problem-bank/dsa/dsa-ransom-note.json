@@ -1,0 +1,77 @@
+{
+  "key": "dsa-ransom-note",
+  "title": "Ransom note from magazine",
+  "track": "dsa",
+  "topic_tags": [
+    "hash-maps",
+    "strings"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given two strings `ransom_note` and `magazine`, return `True` if `ransom_note` can be constructed by using the letters from `magazine` and `False` otherwise. Each letter in `magazine` can only be used once in `ransom_note`.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "ransom_note = 'a', magazine = 'b'",
+      "output": "False",
+      "explanation": "Cannot make 'a' from 'b'."
+    }
+  ],
+  "starter_code": "def can_construct(ransom_note: str, magazine: str) -> bool:\n    pass",
+  "hints": [
+    "Count the characters in both strings."
+  ],
+  "explanation": "Count character frequencies in the magazine. Subtract frequencies for each character in the ransom note. If a frequency drops below 0, return False.",
+  "reference_solution": "def can_construct(ransom_note: str, magazine: str) -> bool:\n    from collections import Counter\n    mag_counts = Counter(magazine)\n    for char in ransom_note:\n        if mag_counts[char] <= 0:\n            return False\n        mag_counts[char] -= 1\n    return True",
+  "complexity": "O(n + m) time and O(1) space (alphabet size).",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "can_construct",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "a",
+          "b"
+        ],
+        "kwargs": {},
+        "expected": false
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "aa",
+          "ab"
+        ],
+        "kwargs": {},
+        "expected": false
+      },
+      {
+        "name": "sample3",
+        "args": [
+          "aa",
+          "aab"
+        ],
+        "kwargs": {},
+        "expected": true
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          "",
+          "a"
+        ],
+        "kwargs": {},
+        "expected": true
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

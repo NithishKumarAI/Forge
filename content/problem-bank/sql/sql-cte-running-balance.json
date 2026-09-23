@@ -1,0 +1,95 @@
+{
+  "key": "sql-cte-running-balance",
+  "title": "Account balance with running total CTE",
+  "track": "sql",
+  "topic_tags": [
+    "ctes"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on transactions.",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['2026-01-01', 1000, 1000], ['2026-01-05', -200, 800], ['2026-01-10', 500, 1300]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT txn_date, amount, balance FROM (SELECT txn_date, amount, SUM(amount) OVER (ORDER BY txn_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS balance FROM transactions WHERE account_id = 1) ordered ORDER BY txn_date",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE transactions (id INT, account_id INT, amount INT, txn_date DATE); INSERT INTO transactions VALUES (1, 1, 1000, '2026-01-01'), (2, 1, -200, '2026-01-05'), (3, 1, 500, '2026-01-10');",
+    "visible_tables": [
+      "transactions"
+    ],
+    "sample_rows": [
+      [
+        "2026-01-01",
+        1000,
+        1000
+      ],
+      [
+        "2026-01-05",
+        -200,
+        800
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "2026-01-01",
+        1000,
+        1000
+      ],
+      [
+        "2026-01-05",
+        -200,
+        800
+      ],
+      [
+        "2026-01-10",
+        500,
+        1300
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE transactions (id INT, account_id INT, amount INT, txn_date DATE); INSERT INTO transactions VALUES (1, 1, 1000, '2026-01-01'), (2, 1, -200, '2026-01-05'), (3, 1, 500, '2026-01-10');",
+        "expected_rows": [
+          [
+            "2026-01-01",
+            1000,
+            1000
+          ],
+          [
+            "2026-01-05",
+            -200,
+            800
+          ],
+          [
+            "2026-01-10",
+            500,
+            1300
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/ctes"
+}

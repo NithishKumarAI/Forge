@@ -1,0 +1,161 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "comprehensions",
+  "title": "Mastering Comprehensions",
+  "description": "Learn about comprehensions in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand comprehensions",
+    "Apply in real-world",
+    "Prepare for interviews"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-a-comprehension",
+      "title": "What Is A Comprehension",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn what-is-a-comprehension",
+      "markdown": "### What is this?\nThis section covers what is a comprehension.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "list-comprehension-basics",
+      "title": "List Comprehension Basics",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn list-comprehension-basics",
+      "markdown": "### What is this?\nThis section covers list comprehension basics.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "set-comprehension",
+      "title": "Set Comprehension",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn set-comprehension",
+      "markdown": "### What is this?\nThis section covers set comprehension.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "dict-comprehension",
+      "title": "Dict Comprehension",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn dict-comprehension",
+      "markdown": "### What is this?\nThis section covers dict comprehension.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "conditional-comprehensions",
+      "title": "Conditional Comprehensions",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn conditional-comprehensions",
+      "markdown": "### What is this?\nThis section covers conditional comprehensions.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "nested-comprehensions",
+      "title": "Nested Comprehensions",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn nested-comprehensions",
+      "markdown": "### What is this?\nThis section covers nested comprehensions.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "generator-expressions",
+      "title": "Generator Expressions",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn generator-expressions",
+      "markdown": "### What is this?\nThis section covers generator expressions.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "readability-tradeoffs",
+      "title": "Readability Tradeoffs",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn readability-tradeoffs",
+      "markdown": "### What is this?\nThis section covers readability tradeoffs.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn common-mistakes",
+      "markdown": "### What is this?\nThis section covers common mistakes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn interview-points",
+      "markdown": "### What is this?\nThis section covers interview points.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: list comprehensions set comprehensions dict comprehensions conditions nested readability generator expressions\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    }
+  ],
+  "summary": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "interview_takeaways": [
+    "Takeaway 1",
+    "Takeaway 2",
+    "Takeaway 3"
+  ],
+  "common_mistakes": [
+    "Mistake 1",
+    "Mistake 2",
+    "Mistake 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Python Tutorial",
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-comprehensions-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

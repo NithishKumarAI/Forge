@@ -37,6 +37,15 @@ def _slot(section: str, competency: str, allowed: list[str], weight: float, seco
 
 
 BLUEPRINTS = {
+    "fresher_ai_engineer": {"title": "Fresher AI Engineer Interview", "target_minutes": 60, "slots": [
+        _slot("python", "Independent Python fundamentals and code reading", ["technical_short_answer", "scenario"], .15),
+        _slot("sql", "SQL live-query reasoning, joins, aggregation, and transactions", ["technical_short_answer", "scenario"], .15, 420),
+        _slot("problem_solving", "Python DSA problem solving", ["python_code", "python_debug"], .20, 900),
+        _slot("backend", "Backend fundamentals: HTTP, FastAPI, databases, reliability, and API design", ["technical_short_answer", "scenario"], .15),
+        _slot("ai_specialization", "Practical LLM and RAG engineering without framework trivia", ["technical_short_answer", "scenario"], .15),
+        _slot("project", "Project architecture and trade-offs using Robin or Cognitive Memory Engine", ["project"], .15, 300),
+        _slot("behavioral", "Ownership, debugging, learning, and communication", ["behavioral"], .05, 240),
+    ]},
     "quick": {"title": "Quick Mock", "target_minutes": 18, "slots": [
         _slot("python_backend", "Python and backend fundamentals", ["technical_short_answer", "scenario"], .25),
         _slot("llm_rag", "LLM or RAG engineering fundamentals", ["technical_short_answer", "scenario"], .20),

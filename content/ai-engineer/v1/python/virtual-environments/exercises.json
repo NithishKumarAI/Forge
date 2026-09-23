@@ -1,0 +1,117 @@
+[
+  {
+    "key": "venv-1",
+    "exercise_type": "multiple_choice",
+    "title": "Venv Module",
+    "prompt_markdown": "Which built-in module creates virtual environments?",
+    "difficulty": "easy",
+    "hints": [
+      "It stands for virtual environment."
+    ],
+    "content": {
+      "choices": [
+        "venv",
+        "virtualenv",
+        "env",
+        "pipenv"
+      ],
+      "correct_index": 0,
+      "explanation": "venv is built into the standard library."
+    }
+  },
+  {
+    "key": "venv-2",
+    "exercise_type": "short_answer",
+    "title": "Dependency File",
+    "prompt_markdown": "What is the standard filename for listing pip dependencies?",
+    "difficulty": "medium",
+    "hints": [
+      "It ends in .txt."
+    ],
+    "content": {
+      "rubric": [
+        "requirements.txt",
+        "requirements"
+      ],
+      "reference_answer": "requirements.txt",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "venv-3",
+    "exercise_type": "multiple_choice",
+    "title": "How venv isolates packages",
+    "prompt_markdown": "How does an activated virtual environment ensure that `python` and `pip` commands install packages locally rather than globally?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the PATH environment variable."
+    ],
+    "content": {
+      "choices": [
+        "It creates a lightweight Docker container for each process.",
+        "It prepends the virtual environment's `bin` (or `Scripts`) directory to the system `PATH` environment variable.",
+        "It compiles all Python source code to machine assembly.",
+        "It modifies the operating system kernel routing tables."
+      ],
+      "correct_index": 1,
+      "explanation": "Activation scripts modify the shell's `PATH` variable so the virtual environment's Python and Pip executables are found before any system-wide Python installation."
+    }
+  },
+  {
+    "key": "venv-4",
+    "exercise_type": "multiple_choice",
+    "title": "Reproducible Dependencies",
+    "prompt_markdown": "Which command is traditionally used to generate a pinned list of exact package versions currently installed in an active virtual environment?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about freezing requirements."
+    ],
+    "content": {
+      "choices": [
+        "pip list --all",
+        "pip freeze",
+        "pip export",
+        "pip snapshot"
+      ],
+      "correct_index": 1,
+      "explanation": "`pip freeze > requirements.txt` dumps all installed packages and their exact versions (e.g. `fastapi==0.115.0`) to allow deterministic replication."
+    }
+  },
+  {
+    "key": "venv-5",
+    "exercise_type": "short_answer",
+    "title": "Lockfiles vs Loose Version Constraints",
+    "prompt_markdown": "Why do modern production applications prefer lockfiles (e.g. Poetry, uv, Pipenv) over unpinned requirements files like `fastapi>=0.100`?",
+    "difficulty": "medium",
+    "hints": [
+      "Transient dependencies and unexpected sub-dependency upgrades breaking production."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that unpinned or loosely pinned requirements can pull in broken transitive dependency updates.",
+        "Explains that lockfiles freeze the entire dependency tree deterministically with cryptographic hashes."
+      ],
+      "reference_answer": "Loose constraints (e.g. `fastapi>=0.100`) only constrain direct dependencies; third-party transitive dependencies can update at any time and introduce breaking changes or security vulnerabilities into CI/CD builds. Lockfiles capture the exact resolved version and cryptographic hash of every direct and transitive dependency in the tree, guaranteeing 100% bit-for-bit reproducible environments across local development and cloud production.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "venv-6",
+    "exercise_type": "short_answer",
+    "title": "Why Gitignore the Virtual Environment",
+    "prompt_markdown": "Why should `.venv` directories never be committed to a Git repository?",
+    "difficulty": "medium",
+    "hints": [
+      "Platform specificity and repository bloat."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions platform-specific binary executables and C-extensions (Linux binaries fail on Windows/macOS).",
+        "Mentions repository size bloat from thousands of third-party files.",
+        "Explains that environments should be reconstructed deterministically from specification files (requirements.txt, pyproject.toml)."
+      ],
+      "reference_answer": "Virtual environments contain platform-specific binaries, symlinks, and C-extensions (e.g., compiled for Linux x86_64, which will fail on macOS ARM or Windows). In addition, committing thousands of third-party package files causes massive repository bloat. Repositories should only commit specification files (`pyproject.toml`, `requirements.txt`, lockfiles) so environments can be reconstructed cleanly on any machine.",
+      "minimum_pass_score": 70
+    }
+  }
+]

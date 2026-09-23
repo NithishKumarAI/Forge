@@ -1,4 +1,4 @@
-import { ArrowLeft, BookOpen, CheckCircle2, Clock3, Dumbbell, FlaskConical } from "lucide-react";
+import { ArrowLeft, BookOpen, CheckCircle2, Clock3, Dumbbell, FlaskConical, Sparkles } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
 import { ErrorState, LoadingState } from "../components/Status";
@@ -36,8 +36,9 @@ export function TopicPage() {
         <div className="rounded-2xl bg-slate-50 p-5">
           <h2 className="display font-bold">Choose how to study</h2><p className="mt-1 text-sm text-slate-500">You stay in control of your learning path.</p>
           <div className="mt-4 space-y-2">
-            <Link to={`/topics/${current.id}/learn`} className="flex w-full items-center gap-3 rounded-xl bg-accent p-3.5 text-left font-semibold text-white hover:bg-violet-700"><BookOpen size={18} /> Learn<span className="ml-auto text-xs font-normal text-violet-200">AI tutor</span></Link>
-            <Link to={`/topics/${current.id}/practice`} className="flex w-full items-center gap-3 rounded-xl border border-violet-200 bg-white p-3.5 text-left font-semibold text-accent hover:bg-accent-soft"><Dumbbell size={18} /> Practice<span className="ml-auto text-xs font-normal">Exercises</span></Link>
+            <Link to={`/topics/${current.id}/learn`} className="flex w-full items-center gap-3 rounded-xl bg-accent p-3.5 text-left font-semibold text-white hover:bg-violet-700"><BookOpen size={18} /> Learn Course<span className="ml-auto text-xs font-normal text-violet-200">Static lesson</span></Link>
+            <Link to={`/topics/${current.id}/tutor`} className="flex w-full items-center gap-3 rounded-xl border border-violet-200 bg-white p-3.5 text-left font-semibold text-accent hover:bg-accent-soft"><Sparkles size={18} /> AI Tutor<span className="ml-auto text-xs font-normal">Grounded professor</span></Link>
+            <Link to={`/topics/${current.id}/practice`} className="flex w-full items-center gap-3 rounded-xl border border-violet-200 bg-white p-3.5 text-left font-semibold text-accent hover:bg-accent-soft"><Dumbbell size={18} /> Guided Practice<span className="ml-auto text-xs font-normal">Lesson exercises</span></Link>
             {mastery.data?.transfer_eligible ? <Link to={`/topics/${current.id}/transfer`} className="flex w-full items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-3.5 text-left font-semibold text-emerald-800"><FlaskConical size={18} /> Transfer Check<span className="ml-auto text-xs font-normal">Unseen task</span></Link> : <button disabled className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 text-left font-semibold text-slate-400"><FlaskConical size={18} /> Transfer Check<span className="ml-auto text-xs font-normal">More mixed evidence needed</span></button>}
           </div>
         </div>

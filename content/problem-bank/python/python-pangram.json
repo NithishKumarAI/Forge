@@ -1,0 +1,84 @@
+{
+  "key": "python-pangram",
+  "title": "Pangram check",
+  "track": "python",
+  "topic_tags": [
+    "strings",
+    "sets"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Determine if a sentence is a pangram. A pangram is a sentence using every letter of the alphabet at least once. The check should be case-insensitive, and you should ignore any non-alphabetic characters.",
+  "constraints": [
+    "0 <= len(sentence) <= 10000"
+  ],
+  "examples": [
+    {
+      "input": "\"The quick brown fox jumps over the lazy dog\"",
+      "output": "True",
+      "explanation": "Uses every letter a-z."
+    },
+    {
+      "input": "\"hello world\"",
+      "output": "False",
+      "explanation": "Missing many letters."
+    }
+  ],
+  "starter_code": "def is_pangram(sentence: str) -> bool:\n    pass",
+  "hints": [
+    "Convert the string to lowercase first.",
+    "Use a `set` to collect all the unique alphabetic characters.",
+    "Check if the size of the set is 26."
+  ],
+  "explanation": "We convert the sentence to lowercase, iterate through it, and add every alphabetic character to a set. If the set's length becomes 26, it is a pangram.",
+  "reference_solution": "def is_pangram(sentence: str) -> bool:\n    letters = set(c.lower() for c in sentence if c.isalpha())\n    return len(letters) == 26",
+  "complexity": "O(N) time and O(1) space, where N is the length of the string.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "is_pangram",
+    "sample_tests": [
+      {
+        "name": "sample_quick",
+        "args": [
+          "The quick brown fox jumps over the lazy dog"
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "sample_hello",
+        "args": [
+          "hello world"
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden_empty",
+        "args": [
+          ""
+        ],
+        "kwargs": {},
+        "expected": false
+      },
+      {
+        "name": "hidden_numbers",
+        "args": [
+          "12345 The quick brown fox jumps over the lazy dog!!"
+        ],
+        "kwargs": {},
+        "expected": true
+      }
+    ]
+  },
+  "source_type": "original",
+  "source_project": "exercism",
+  "source_exercise": "pangram",
+  "license": "MIT",
+  "adapted": true,
+  "version": "1.0.0",
+  "mapped_topic": "python/strings"
+}

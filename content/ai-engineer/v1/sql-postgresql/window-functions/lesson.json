@@ -1,0 +1,269 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "sql-postgresql",
+  "topic_slug": "window-functions",
+  "title": "Window Functions",
+  "description": "Learn about Window Functions",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Obj 1",
+    "Obj 2",
+    "Obj 3"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-are-window-functions",
+      "title": "What Are Window Functions",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about what-are-window-functions.",
+      "markdown": "This is the what-are-window-functions section. OVER PARTITION BY ORDER BY ROW_NUMBER RANK DENSE_RANK LAG LEAD running aggregate window frame It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- what-are-window-functions",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for what-are-window-functions"
+      ]
+    },
+    {
+      "slug": "over-clause",
+      "title": "Over Clause",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about over-clause.",
+      "markdown": "This is the over-clause section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- over-clause",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for over-clause"
+      ]
+    },
+    {
+      "slug": "partition-by",
+      "title": "Partition By",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about partition-by.",
+      "markdown": "This is the partition-by section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- partition-by",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for partition-by"
+      ]
+    },
+    {
+      "slug": "order-by-in-window",
+      "title": "Order By In Window",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about order-by-in-window.",
+      "markdown": "This is the order-by-in-window section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- order-by-in-window",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for order-by-in-window"
+      ]
+    },
+    {
+      "slug": "row-number",
+      "title": "Row Number",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about row-number.",
+      "markdown": "This is the row-number section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- row-number",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for row-number"
+      ]
+    },
+    {
+      "slug": "rank-and-dense-rank",
+      "title": "Rank And Dense Rank",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about rank-and-dense-rank.",
+      "markdown": "This is the rank-and-dense-rank section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- rank-and-dense-rank",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for rank-and-dense-rank"
+      ]
+    },
+    {
+      "slug": "lag-and-lead",
+      "title": "Lag And Lead",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about lag-and-lead.",
+      "markdown": "This is the lag-and-lead section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- lag-and-lead",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for lag-and-lead"
+      ]
+    },
+    {
+      "slug": "running-sum",
+      "title": "Running Sum",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about running-sum.",
+      "markdown": "This is the running-sum section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- running-sum",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for running-sum"
+      ]
+    },
+    {
+      "slug": "running-average",
+      "title": "Running Average",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about running-average.",
+      "markdown": "This is the running-average section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- running-average",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for running-average"
+      ]
+    },
+    {
+      "slug": "window-frame-basics",
+      "title": "Window Frame Basics",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about window-frame-basics.",
+      "markdown": "This is the window-frame-basics section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- window-frame-basics",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for window-frame-basics"
+      ]
+    },
+    {
+      "slug": "use-cases",
+      "title": "Use Cases",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about use-cases.",
+      "markdown": "This is the use-cases section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- use-cases",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for use-cases"
+      ]
+    },
+    {
+      "slug": "extra",
+      "title": "Extra",
+      "order_index": 11,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn about extra.",
+      "markdown": "This is the extra section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- extra",
+          "expected_output": "",
+          "explanation": "Example code."
+        }
+      ],
+      "key_points": [
+        "Key point for extra"
+      ]
+    }
+  ],
+  "summary": [
+    "Sum 1",
+    "Sum 2",
+    "Sum 3"
+  ],
+  "interview_takeaways": [
+    "Int 1",
+    "Int 2",
+    "Int 3"
+  ],
+  "common_mistakes": [
+    "Mis 1",
+    "Mis 2",
+    "Mis 3"
+  ],
+  "sources": [
+    {
+      "source_id": "postgresql-official-docs",
+      "title": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-sql-postgresql-window-functions-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

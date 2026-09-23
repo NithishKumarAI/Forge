@@ -1,0 +1,78 @@
+{
+  "key": "sql-user-search",
+  "title": "User name search",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on users(id, username, email, active).",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[[1, 'alice'], [4, 'andy']]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT id, username FROM users WHERE active = true AND username LIKE 'a%' ORDER BY id",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE users (id INT, username VARCHAR(50), email VARCHAR(50), active BOOLEAN); INSERT INTO users VALUES (1, 'alice', 'a@e.com', true), (2, 'bob', 'b@e.com', true), (3, 'aaron', 'aa@e.com', false), (4, 'andy', 'and@e.com', true), (5, 'charlie', 'c@e.com', true);",
+    "visible_tables": [
+      "users(id, username, email, active)"
+    ],
+    "sample_rows": [
+      [
+        1,
+        "alice"
+      ],
+      [
+        4,
+        "andy"
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        1,
+        "alice"
+      ],
+      [
+        4,
+        "andy"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE users (id INT, username VARCHAR(50), email VARCHAR(50), active BOOLEAN); INSERT INTO users VALUES (1, 'alice', 'a@e.com', true), (2, 'bob', 'b@e.com', true), (3, 'aaron', 'aa@e.com', false), (4, 'andy', 'and@e.com', true), (5, 'charlie', 'c@e.com', true);",
+        "expected_rows": [
+          [
+            1,
+            "alice"
+          ],
+          [
+            4,
+            "andy"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

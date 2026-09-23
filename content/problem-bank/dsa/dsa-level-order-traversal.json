@@ -1,0 +1,119 @@
+{
+  "key": "dsa-level-order-traversal",
+  "title": "Level order traversal",
+  "track": "dsa",
+  "topic_tags": [
+    "trees",
+    "bfs"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given a binary tree encoded in level-order, return its level order traversal as a list of lists of values.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[3,9,20,None,None,15,7]",
+      "output": "[[3], [9,20], [15,7]]",
+      "explanation": "Level by level."
+    }
+  ],
+  "starter_code": "def level_order(values: list) -> list[list[int]]:\n    pass",
+  "hints": [
+    "Build tree, then use BFS with a queue to keep track of levels."
+  ],
+  "explanation": "Build tree from level-order encoding. Use a queue to traverse level by level, keeping track of how many nodes are at the current level.",
+  "reference_solution": "def level_order(values: list) -> list[list[int]]:\n    if not values: return []\n    class TreeNode:\n        def __init__(self, val=0, left=None, right=None):\n            self.val = val\n            self.left = left\n            self.right = right\n    nodes = [TreeNode(v) if v is not None else None for v in values]\n    kids = nodes[::-1]\n    root = kids.pop()\n    for node in nodes:\n        if node:\n            if kids: node.left = kids.pop()\n            if kids: node.right = kids.pop()\n    \n    from collections import deque\n    queue = deque([root])\n    res = []\n    while queue:\n        level_len = len(queue)\n        level = []\n        for _ in range(level_len):\n            curr = queue.popleft()\n            level.append(curr.val)\n            if curr.left: queue.append(curr.left)\n            if curr.right: queue.append(curr.right)\n        res.append(level)\n    return res",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "level_order",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            3,
+            9,
+            20,
+            null,
+            null,
+            15,
+            7
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            3
+          ],
+          [
+            9,
+            20
+          ],
+          [
+            15,
+            7
+          ]
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "name": "sample3",
+        "args": [
+          []
+        ],
+        "kwargs": {},
+        "expected": []
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            null,
+            null,
+            5
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/bfs"
+}

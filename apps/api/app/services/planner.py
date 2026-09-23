@@ -7,7 +7,7 @@ from .active_curriculum import get_active_curriculum
 from .mastery import transfer_eligible
 
 
-DEFAULT_SETTINGS = {"daily_study_target": "150", "dsa_daily_minimum": "30", "max_review_topics": "10", "desired_retention": "0.90"}
+DEFAULT_SETTINGS = {"daily_study_target": "150", "python_daily_minimum": "45", "sql_daily_minimum": "30", "dsa_daily_minimum": "30", "max_review_topics": "10", "desired_retention": "0.90"}
 
 
 def planner_settings(session: Session) -> dict:
@@ -15,11 +15,11 @@ def planner_settings(session: Session) -> dict:
     for key, default in DEFAULT_SETTINGS.items():
         setting = session.get(AppSetting, key)
         values[key] = setting.value if setting else default
-    return {"daily_study_target": int(values["daily_study_target"]), "dsa_daily_minimum": int(values["dsa_daily_minimum"]), "max_review_topics": int(values["max_review_topics"]), "desired_retention": float(values["desired_retention"])}
+    return {"daily_study_target": int(values["daily_study_target"]), "python_daily_minimum": int(values["python_daily_minimum"]), "sql_daily_minimum": int(values["sql_daily_minimum"]), "dsa_daily_minimum": int(values["dsa_daily_minimum"]), "max_review_topics": int(values["max_review_topics"]), "desired_retention": float(values["desired_retention"])}
 
 
 def update_planner_settings(session: Session, values: dict) -> dict:
-    limits = {"daily_study_target": (30, 480), "dsa_daily_minimum": (0, 120), "max_review_topics": (1, 30), "desired_retention": (0.70, 0.97)}
+    limits = {"daily_study_target": (30, 480), "python_daily_minimum": (0, 180), "sql_daily_minimum": (0, 180), "dsa_daily_minimum": (0, 120), "max_review_topics": (1, 30), "desired_retention": (0.70, 0.97)}
     for key, value in values.items():
         if value is None: continue
         low, high = limits[key]
@@ -52,12 +52,13 @@ def today_plan(session: Session, *, now: datetime | None = None) -> dict:
         for mistake in mistakes[:2]:
             if mistake.topic_id in used: continue
             topic = session.get(Topic, mistake.topic_id); _add(session, curriculum.id, day, topic, "practice", f"Recurring {mistake.description.lower()} ×{mistake.occurrence_count}.", min(35, topic.estimated_minutes), order); order += 1; minutes += min(35, topic.estimated_minutes); used.add(topic.id)
-        dsa_tracks = [track for track in tracks if "dsa" in track.slug.lower() or "algorithm" in track.name.lower()]
-        if settings["dsa_daily_minimum"] > 0 and dsa_tracks:
-            dsa_topics = [topic for topic in topics if topic.track_id in {track.id for track in dsa_tracks} and (session.get(LearnerTopicState, topic.id) or LearnerTopicState(topic_id=topic.id)).mastery_score < 70]
-            if dsa_topics:
-                topic = sorted(dsa_topics, key=lambda item: (-(item.priority), (session.get(LearnerTopicState, item.id) or LearnerTopicState(topic_id=item.id)).mastery_score))[0]
-                if topic.id not in used: _add(session, curriculum.id, day, topic, "practice", f"DSA daily minimum: {settings['dsa_daily_minimum']} minutes; topic is below strong.", settings["dsa_daily_minimum"], order); order += 1; minutes += settings["dsa_daily_minimum"]; used.add(topic.id)
+        foundations=[("Python",("python",),"python_daily_minimum"),("SQL",("sql","postgres"),"sql_daily_minimum"),("DSA",("dsa","algorithm"),"dsa_daily_minimum")]
+        for label,terms,setting_key in foundations:
+            target=settings[setting_key]; matching=[track for track in tracks if any(term in f"{track.slug} {track.name}".lower() for term in terms)]
+            foundation_topics=[topic for topic in topics if topic.track_id in {track.id for track in matching} and (session.get(LearnerTopicState,topic.id) or LearnerTopicState(topic_id=topic.id)).mastery_score<70]
+            if target and foundation_topics:
+                topic=sorted(foundation_topics,key=lambda item:(-item.priority,(session.get(LearnerTopicState,item.id) or LearnerTopicState(topic_id=item.id)).mastery_score,item.order_index))[0]
+                if topic.id not in used:_add(session,curriculum.id,day,topic,"arena",f"{label} foundational target: {target} minutes; mastery is below strong.",target,order);order+=1;minutes+=target;used.add(topic.id)
         candidates = []
         for topic in topics:
             if topic.id in used: continue
@@ -79,7 +80,7 @@ def today_plan(session: Session, *, now: datetime | None = None) -> dict:
     rows = []
     for item in existing:
         topic = session.get(Topic, item.topic_id) if item.topic_id else None; track = session.get(Track, topic.track_id) if topic else None
-        action = "/review" if item.item_type == "review" else f"/topics/{topic.id}/transfer" if item.item_type == "transfer" else f"/topics/{topic.id}"
+        action = "/review" if item.item_type == "review" else f"/topics/{topic.id}/transfer" if item.item_type == "transfer" else "/arena" if item.item_type == "arena" else f"/topics/{topic.id}"
         rows.append({"id": item.id, "topic_id": item.topic_id, "topic_name": topic.name if topic else None, "track_name": track.name if track else None, "item_type": item.item_type, "reason": item.reason, "estimated_minutes": item.estimated_minutes, "order_index": item.order_index, "status": item.status, "action_path": action})
     return {"date": day, "target_minutes": settings["daily_study_target"], "planned_minutes": sum(item.estimated_minutes for item in existing if item.status == "planned"), "items": rows}
 

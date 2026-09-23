@@ -1,0 +1,185 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "exceptions",
+  "title": "Mastering Exceptions",
+  "description": "Learn about exceptions in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand exceptions",
+    "Apply in real-world",
+    "Prepare for interviews"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-are-exceptions",
+      "title": "What Are Exceptions",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn what-are-exceptions",
+      "markdown": "### What is this?\nThis section covers what are exceptions.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "exception-hierarchy",
+      "title": "Exception Hierarchy",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn exception-hierarchy",
+      "markdown": "### What is this?\nThis section covers exception hierarchy.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "try-and-except",
+      "title": "Try And Except",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn try-and-except",
+      "markdown": "### What is this?\nThis section covers try and except.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "multiple-except-clauses",
+      "title": "Multiple Except Clauses",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn multiple-except-clauses",
+      "markdown": "### What is this?\nThis section covers multiple except clauses.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "else-clause",
+      "title": "Else Clause",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn else-clause",
+      "markdown": "### What is this?\nThis section covers else clause.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "finally-clause",
+      "title": "Finally Clause",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn finally-clause",
+      "markdown": "### What is this?\nThis section covers finally clause.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "raise",
+      "title": "Raise",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn raise",
+      "markdown": "### What is this?\nThis section covers raise.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "custom-exceptions",
+      "title": "Custom Exceptions",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn custom-exceptions",
+      "markdown": "### What is this?\nThis section covers custom exceptions.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "error-boundaries",
+      "title": "Error Boundaries",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn error-boundaries",
+      "markdown": "### What is this?\nThis section covers error boundaries.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "traceback-reading",
+      "title": "Traceback Reading",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn traceback-reading",
+      "markdown": "### What is this?\nThis section covers traceback reading.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn common-mistakes",
+      "markdown": "### What is this?\nThis section covers common mistakes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 11,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn interview-points",
+      "markdown": "### What is this?\nThis section covers interview points.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: try except else finally raise exception hierarchy custom exceptions error boundaries\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    }
+  ],
+  "summary": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "interview_takeaways": [
+    "Takeaway 1",
+    "Takeaway 2",
+    "Takeaway 3"
+  ],
+  "common_mistakes": [
+    "Mistake 1",
+    "Mistake 2",
+    "Mistake 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Python Tutorial",
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-exceptions-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

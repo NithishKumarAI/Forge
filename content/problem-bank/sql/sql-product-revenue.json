@@ -1,0 +1,86 @@
+{
+  "key": "sql-product-revenue",
+  "title": "Total revenue by product",
+  "track": "sql",
+  "topic_tags": [
+    "group-by"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on order_items, products.",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['Laptop', 3000], ['Keyboard', 100], ['Mouse', 100]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT p.name, SUM(oi.quantity * oi.unit_price) AS revenue FROM products p JOIN order_items oi ON oi.product_id = p.id GROUP BY p.name ORDER BY revenue DESC",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50)); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT, unit_price INT); INSERT INTO products VALUES (1, 'Laptop'), (2, 'Mouse'), (3, 'Keyboard'); INSERT INTO order_items VALUES (1, 1, 1, 2, 1000), (2, 1, 2, 5, 20), (3, 2, 1, 1, 1000), (4, 2, 3, 2, 50);",
+    "visible_tables": [
+      "order_items, products"
+    ],
+    "sample_rows": [
+      [
+        "Laptop",
+        3000
+      ],
+      [
+        "Keyboard",
+        100
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "Laptop",
+        3000
+      ],
+      [
+        "Keyboard",
+        100
+      ],
+      [
+        "Mouse",
+        100
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50)); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT, unit_price INT); INSERT INTO products VALUES (1, 'Laptop'), (2, 'Mouse'), (3, 'Keyboard'); INSERT INTO order_items VALUES (1, 1, 1, 2, 1000), (2, 1, 2, 5, 20), (3, 2, 1, 1, 1000), (4, 2, 3, 2, 50);",
+        "expected_rows": [
+          [
+            "Laptop",
+            3000
+          ],
+          [
+            "Keyboard",
+            100
+          ],
+          [
+            "Mouse",
+            100
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/group-by"
+}

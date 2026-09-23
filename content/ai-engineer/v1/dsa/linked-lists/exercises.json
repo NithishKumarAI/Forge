@@ -1,0 +1,118 @@
+[
+  {
+    "key": "ll-1",
+    "exercise_type": "multiple_choice",
+    "title": "linked-lists MC 1",
+    "prompt_markdown": "Question?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because."
+    }
+  },
+  {
+    "key": "ll-2",
+    "exercise_type": "multiple_choice",
+    "title": "linked-lists MC 2",
+    "prompt_markdown": "Question?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because."
+    }
+  },
+  {
+    "key": "ll-3",
+    "exercise_type": "multiple_choice",
+    "title": "linked-lists MC 3",
+    "prompt_markdown": "Question?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because."
+    }
+  },
+  {
+    "key": "ll-4",
+    "exercise_type": "multiple_choice",
+    "title": "linked-lists MC 4",
+    "prompt_markdown": "Question?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 1,
+      "explanation": "Because."
+    }
+  },
+  {
+    "key": "ll-5",
+    "exercise_type": "short_answer",
+    "title": "linked-lists SA 1",
+    "prompt_markdown": "Question?",
+    "difficulty": "medium",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "Answer",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "ll-6",
+    "exercise_type": "short_answer",
+    "title": "linked-lists SA 2",
+    "prompt_markdown": "Question?",
+    "difficulty": "medium",
+    "hints": [
+      "Hint"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "Answer",
+      "minimum_pass_score": 70
+    }
+  }
+]

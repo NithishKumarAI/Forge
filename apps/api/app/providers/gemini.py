@@ -68,13 +68,17 @@ class GeminiProvider(LLMProvider):
             except Exception as exc:  # SDK transports use several exception types.
                 last_error = exc
                 status = getattr(exc, "status_code", None) or getattr(exc, "code", None)
-                if status in {400, 401, 403, 404}:
-                    raise ProviderError(
-                        "Gemini rejected the request. Check GEMINI_API_KEY and model configuration."
-                    ) from exc
+                if status == 400:
+                    raise ProviderError("Gemini request was invalid. Check the configured model and request settings. [provider_category=invalid_request status=400]") from exc
+                if status == 401:
+                    raise ProviderError("Gemini authentication failed. Check the API key. [provider_category=authentication status=401]") from exc
+                if status == 403:
+                    raise ProviderError("Gemini access is restricted for this project. Check permissions or billing. [provider_category=permission status=403]") from exc
+                if status == 404:
+                    raise ProviderError("The configured Gemini model or endpoint is unavailable. [provider_category=not_found status=404]") from exc
                 if status == 429:
                     raise ProviderError(
-                        "Gemini API rate limit reached. Cached learning material remains available. Try again shortly."
+                        "Gemini API rate limit reached (or quota exhausted). Cached learning material remains available. Try again shortly. [provider_category=rate_limit status=429]"
                     ) from exc
                 transient = isinstance(exc, (TimeoutError, httpx.TransportError)) or (
                     isinstance(status, int) and status >= 500

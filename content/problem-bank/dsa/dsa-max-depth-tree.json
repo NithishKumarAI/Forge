@@ -1,0 +1,88 @@
+{
+  "key": "dsa-max-depth-tree",
+  "title": "Maximum depth of binary tree",
+  "track": "dsa",
+  "topic_tags": [
+    "trees",
+    "dfs",
+    "recursion"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given a binary tree encoded in level-order traversal (where `None` represents a missing node), find its maximum depth.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[3,9,20,None,None,15,7]",
+      "output": "3",
+      "explanation": "Depth is 3."
+    }
+  ],
+  "starter_code": "def max_depth(values: list) -> int:\n    pass",
+  "hints": [
+    "Build the tree first, then use recursion."
+  ],
+  "explanation": "Construct a binary tree from the list using BFS. Then write a recursive DFS function to calculate the maximum depth.",
+  "reference_solution": "def max_depth(values: list) -> int:\n    if not values: return 0\n    class TreeNode:\n        def __init__(self, val=0, left=None, right=None):\n            self.val = val\n            self.left = left\n            self.right = right\n    nodes = [TreeNode(v) if v is not None else None for v in values]\n    kids = nodes[::-1]\n    root = kids.pop()\n    for node in nodes:\n        if node:\n            if kids: node.left = kids.pop()\n            if kids: node.right = kids.pop()\n    def dfs(node):\n        if not node: return 0\n        return 1 + max(dfs(node.left), dfs(node.right))\n    return dfs(root)",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "max_depth",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            3,
+            9,
+            20,
+            null,
+            null,
+            15,
+            7
+          ]
+        ],
+        "kwargs": {},
+        "expected": 3
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            1,
+            null,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": 2
+      },
+      {
+        "name": "sample3",
+        "args": [
+          []
+        ],
+        "kwargs": {},
+        "expected": 0
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 1
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/trees"
+}

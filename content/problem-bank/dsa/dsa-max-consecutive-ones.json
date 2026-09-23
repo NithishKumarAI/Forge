@@ -1,0 +1,106 @@
+{
+  "key": "dsa-max-consecutive-ones",
+  "title": "Maximum consecutive ones with one flip",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "sliding-window"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given a binary array `nums` and an integer `k`, return the maximum number of consecutive 1s in the array if you can flip at most `k` 0s.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "nums = [1,1,1,0,1,1,1,1,0,1], k = 1",
+      "output": "8",
+      "explanation": "Flip the first zero to get 8 ones."
+    }
+  ],
+  "starter_code": "def max_ones_with_flip(nums: list[int], k: int) -> int:\n    pass",
+  "hints": [
+    "Use a sliding window. Keep track of the number of zeros in the window."
+  ],
+  "explanation": "Use a sliding window. Expand the right pointer. If you see a 0, increment the zero count. If zero count exceeds `k`, advance the left pointer until zero count is valid again.",
+  "reference_solution": "def max_ones_with_flip(nums: list[int], k: int) -> int:\n    left = 0\n    zero_count = 0\n    max_ones = 0\n    for right in range(len(nums)):\n        if nums[right] == 0:\n            zero_count += 1\n        while zero_count > k:\n            if nums[left] == 0:\n                zero_count -= 1\n            left += 1\n        max_ones = max(max_ones, right - left + 1)\n    return max_ones",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "max_ones_with_flip",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          1
+        ],
+        "kwargs": {},
+        "expected": 8
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            0,
+            0,
+            0
+          ],
+          0
+        ],
+        "kwargs": {},
+        "expected": 0
+      },
+      {
+        "name": "sample3",
+        "args": [
+          [
+            0,
+            0,
+            0
+          ],
+          2
+        ],
+        "kwargs": {},
+        "expected": 2
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          1
+        ],
+        "kwargs": {},
+        "expected": 5
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/sliding-window"
+}

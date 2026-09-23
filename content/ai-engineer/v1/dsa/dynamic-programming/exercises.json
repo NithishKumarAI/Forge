@@ -1,0 +1,162 @@
+[
+  {
+    "key": "dp-1",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 1 for dynamic-programming",
+    "prompt_markdown": "What is the core idea of dynamic-programming in exercise 1?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "dp-2",
+    "exercise_type": "short_answer",
+    "title": "Exercise 2 for dynamic-programming",
+    "prompt_markdown": "What is the core idea of dynamic-programming in exercise 2?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to dynamic-programming principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dp-3",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 3 for dynamic-programming",
+    "prompt_markdown": "What is the core idea of dynamic-programming in exercise 3?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "dp-4",
+    "exercise_type": "short_answer",
+    "title": "Exercise 4 for dynamic-programming",
+    "prompt_markdown": "What is the core idea of dynamic-programming in exercise 4?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to dynamic-programming principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dp-5",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 5 for dynamic-programming",
+    "prompt_markdown": "What is the core idea of dynamic-programming in exercise 5?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "dp-6",
+    "exercise_type": "short_answer",
+    "title": "Exercise 6 for dynamic-programming",
+    "prompt_markdown": "What is the core idea of dynamic-programming in exercise 6?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to dynamic-programming principles.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dp-7",
+    "exercise_type": "multiple_choice",
+    "title": "Exercise 7 for dynamic-programming",
+    "prompt_markdown": "What is the core idea of dynamic-programming in exercise 7?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct based on the lesson."
+    }
+  },
+  {
+    "key": "dp-8",
+    "exercise_type": "short_answer",
+    "title": "Exercise 8 for dynamic-programming",
+    "prompt_markdown": "What is the core idea of dynamic-programming in exercise 8?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about the definition.",
+      "Review the lesson templates."
+    ],
+    "content": {
+      "rubric": [
+        "Mention time complexity",
+        "Mention space complexity"
+      ],
+      "reference_answer": "The answer is related to dynamic-programming principles.",
+      "minimum_pass_score": 70
+    }
+  }
+]

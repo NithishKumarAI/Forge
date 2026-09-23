@@ -22,8 +22,20 @@ class Settings:
                 str(REPO_ROOT / "data" / "default-ai-engineer-curriculum.json"),
             )
         )
+        self.curriculum_v2_path = Path(
+            os.getenv("FORGE_CURRICULUM_V2_PATH", str(REPO_ROOT / "data" / "default-interview-curriculum-v2.json"))
+        )
+        self.curriculum_migration_path = Path(
+            os.getenv("FORGE_CURRICULUM_MIGRATION_PATH", str(REPO_ROOT / "data" / "curriculum-migrations" / "v1-to-v2.json"))
+        )
         self.projects_path = Path(
             os.getenv("FORGE_PROJECTS_PATH", str(REPO_ROOT / "data" / "default-projects.json"))
+        )
+        self.course_content_path = Path(
+            os.getenv("FORGE_COURSE_CONTENT_PATH", str(REPO_ROOT / "content" / "ai-engineer" / "v1"))
+        )
+        self.course_sources_path = Path(
+            os.getenv("FORGE_COURSE_SOURCES_PATH", str(REPO_ROOT / "data" / "course-sources.json"))
         )
         self.cors_origins = [
             origin.strip()

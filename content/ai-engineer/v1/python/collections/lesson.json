@@ -1,0 +1,232 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "collections",
+  "title": "Collections",
+  "description": "Learn lists, tuples, sets, and dicts.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand core structures",
+    "Know selection trade-offs",
+    "Perform iterations and mutations"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "which-collection-when",
+      "title": "Which Collection When",
+      "order_index": 0,
+      "estimated_minutes": 3,
+      "learning_objective": "Choose the right structure.",
+      "markdown": "Python has lists, tuples, dictionaries, and sets. Pick the right tool for the job.",
+      "examples": [],
+      "key_points": [
+        "Which Collection When is a core concept to understand",
+        "Practice applying Which in real code"
+      ]
+    },
+    {
+      "slug": "lists-basics",
+      "title": "Lists Basics",
+      "order_index": 1,
+      "estimated_minutes": 3,
+      "learning_objective": "Use lists.",
+      "markdown": "Lists are ordered, mutable sequences, supporting indexing and slicing.",
+      "examples": [],
+      "key_points": [
+        "Lists Basics is a core concept to understand",
+        "Practice applying Lists in real code"
+      ]
+    },
+    {
+      "slug": "list-mutation",
+      "title": "List Mutation",
+      "order_index": 2,
+      "estimated_minutes": 3,
+      "learning_objective": "Modify lists.",
+      "markdown": "Lists support mutation like append, extend, insert, pop, remove.",
+      "examples": [],
+      "key_points": [
+        "List Mutation is a core concept to understand",
+        "Practice applying List in real code"
+      ]
+    },
+    {
+      "slug": "list-slicing-copying",
+      "title": "List Slicing and Copying",
+      "order_index": 3,
+      "estimated_minutes": 3,
+      "learning_objective": "Slice lists.",
+      "markdown": "Slicing allows you to extract sub-lists. Remember it creates a shallow copy.",
+      "examples": [],
+      "key_points": [
+        "List Slicing and Copying is a core concept to understand",
+        "Practice applying List in real code"
+      ]
+    },
+    {
+      "slug": "tuples-basics",
+      "title": "Tuples Basics",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Use tuples.",
+      "markdown": "Tuples are ordered and immutable. Great for fixed collections.",
+      "examples": [],
+      "key_points": [
+        "Tuples Basics is a core concept to understand",
+        "Practice applying Tuples in real code"
+      ]
+    },
+    {
+      "slug": "tuple-packing-unpacking",
+      "title": "Tuple Packing and Unpacking",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Pack/unpack variables.",
+      "markdown": "Assigning multiple values packs them into a tuple; you can also unpack them into multiple variables.",
+      "examples": [],
+      "key_points": [
+        "Tuple Packing and Unpacking is a core concept to understand",
+        "Practice applying Tuple in real code"
+      ]
+    },
+    {
+      "slug": "sets-basics",
+      "title": "Sets Basics",
+      "order_index": 6,
+      "estimated_minutes": 3,
+      "learning_objective": "Use sets.",
+      "markdown": "Sets are unordered collections of unique elements. Fast membership testing.",
+      "examples": [],
+      "key_points": [
+        "Sets Basics is a core concept to understand",
+        "Practice applying Sets in real code"
+      ]
+    },
+    {
+      "slug": "set-operations",
+      "title": "Set Operations",
+      "order_index": 7,
+      "estimated_minutes": 3,
+      "learning_objective": "Perform set math.",
+      "markdown": "Union, intersection, difference, symmetric difference.",
+      "examples": [],
+      "key_points": [
+        "Set Operations is a core concept to understand",
+        "Practice applying Set in real code"
+      ]
+    },
+    {
+      "slug": "dict-basics",
+      "title": "Dict Basics",
+      "order_index": 8,
+      "estimated_minutes": 3,
+      "learning_objective": "Use dictionaries.",
+      "markdown": "Dictionaries are key-value mappings. Fast lookups.",
+      "examples": [],
+      "key_points": [
+        "Dict Basics is a core concept to understand",
+        "Practice applying Dict in real code"
+      ]
+    },
+    {
+      "slug": "dict-access-methods",
+      "title": "Dict Access Methods",
+      "order_index": 9,
+      "estimated_minutes": 3,
+      "learning_objective": "Access dict data.",
+      "markdown": "Use keys(), values(), items(), and get().",
+      "examples": [],
+      "key_points": [
+        "Dict Access Methods is a core concept to understand",
+        "Practice applying Dict in real code"
+      ]
+    },
+    {
+      "slug": "dict-iteration",
+      "title": "Dict Iteration",
+      "order_index": 10,
+      "estimated_minutes": 3,
+      "learning_objective": "Iterate over dicts.",
+      "markdown": "Standard iteration over a dict yields its keys.",
+      "examples": [],
+      "key_points": [
+        "Dict Iteration is a core concept to understand",
+        "Practice applying Dict in real code"
+      ]
+    },
+    {
+      "slug": "nested-collections",
+      "title": "Nested Collections",
+      "order_index": 11,
+      "estimated_minutes": 3,
+      "learning_objective": "Combine structures.",
+      "markdown": "Lists of dicts, dicts of lists.",
+      "examples": [],
+      "key_points": [
+        "Nested Collections is a core concept to understand",
+        "Practice applying Nested in real code"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 12,
+      "estimated_minutes": 3,
+      "learning_objective": "Avoid common traps.",
+      "markdown": "Modifying while iterating, mutable default arguments.",
+      "examples": [],
+      "key_points": [
+        "Common Mistakes is a core concept to understand",
+        "Practice applying Common in real code"
+      ]
+    },
+    {
+      "slug": "selection-trade-offs",
+      "title": "Selection Trade-offs",
+      "order_index": 13,
+      "estimated_minutes": 3,
+      "learning_objective": "Performance implications.",
+      "markdown": "List vs set lookup time (O(n) vs O(1)). Choose wisely.",
+      "examples": [],
+      "key_points": [
+        "Selection Trade-offs is a core concept to understand",
+        "Practice applying Selection in real code"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 14,
+      "estimated_minutes": 3,
+      "learning_objective": "Acing the interview.",
+      "markdown": "Always use a set/dict for O(1) membership checks.",
+      "examples": [],
+      "key_points": [
+        "Interview Points is a core concept to understand",
+        "Practice applying Interview in real code"
+      ]
+    }
+  ],
+  "summary": [
+    "Four core structures",
+    "Lists are mutable",
+    "Sets/Dicts are fast"
+  ],
+  "interview_takeaways": [
+    "Use dicts for caching/lookups"
+  ],
+  "common_mistakes": [
+    "Modifying collection while iterating"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Data Structures",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-collections-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

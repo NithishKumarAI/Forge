@@ -1,0 +1,81 @@
+{
+  "key": "python-valid-parentheses-string",
+  "title": "Minimum remove to make valid",
+  "track": "python",
+  "topic_tags": [
+    "stacks",
+    "strings"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write `min_remove_count(s)` to return the minimum number of parentheses to remove to make the string valid. Only '(' and ')' chars matter.",
+  "constraints": [
+    "String only contains parentheses."
+  ],
+  "examples": [
+    {
+      "input": "'())'",
+      "output": "1",
+      "explanation": "Remove one ')'."
+    }
+  ],
+  "starter_code": "def min_remove_count(s: str) -> int:\n    pass",
+  "hints": [
+    "Track unmatched open and unmatched close brackets."
+  ],
+  "explanation": "Iterate to count unmatched close brackets and unmatched open brackets.",
+  "reference_solution": "def min_remove_count(s: str) -> int:\n    unmatched_open = 0\n    unmatched_close = 0\n    for char in s:\n        if char == '(':\n            unmatched_open += 1\n        elif char == ')':\n            if unmatched_open > 0:\n                unmatched_open -= 1\n            else:\n                unmatched_close += 1\n    return unmatched_open + unmatched_close",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "min_remove_count",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "())"
+        ],
+        "kwargs": {},
+        "expected": 1
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "(()"
+        ],
+        "kwargs": {},
+        "expected": 1
+      },
+      {
+        "name": "sample3",
+        "args": [
+          "()"
+        ],
+        "kwargs": {},
+        "expected": 0
+      },
+      {
+        "name": "sample4",
+        "args": [
+          "))))"
+        ],
+        "kwargs": {},
+        "expected": 4
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          "((("
+        ],
+        "kwargs": {},
+        "expected": 3
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/stacks"
+}

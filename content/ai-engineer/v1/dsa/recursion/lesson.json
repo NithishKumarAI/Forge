@@ -1,0 +1,282 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "recursion",
+  "title": "Recursion",
+  "description": "Learn about recursion in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand recursion",
+    "Implement basic templates",
+    "Recognize in interviews",
+    "Write optimized code"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-recursion",
+      "title": "What Is Recursion",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand what-is-recursion deeply.",
+      "markdown": "This section covers what-is-recursion in detail. \n\nKeywords to know: recursion, base case, recursive case, call stack, stack overflow, memoization, tree recursion, backtracking, factorial, fibonacci. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about what-is-recursion."
+      ]
+    },
+    {
+      "slug": "base-case",
+      "title": "Base Case",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand base-case deeply.",
+      "markdown": "This section covers base-case in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about base-case."
+      ]
+    },
+    {
+      "slug": "recursive-case",
+      "title": "Recursive Case",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand recursive-case deeply.",
+      "markdown": "This section covers recursive-case in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about recursive-case."
+      ]
+    },
+    {
+      "slug": "call-stack-model",
+      "title": "Call Stack Model",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand call-stack-model deeply.",
+      "markdown": "This section covers call-stack-model in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about call-stack-model."
+      ]
+    },
+    {
+      "slug": "stack-overflow",
+      "title": "Stack Overflow",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand stack-overflow deeply.",
+      "markdown": "This section covers stack-overflow in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about stack-overflow."
+      ]
+    },
+    {
+      "slug": "fibonacci-example",
+      "title": "Fibonacci Example",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand fibonacci-example deeply.",
+      "markdown": "This section covers fibonacci-example in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about fibonacci-example."
+      ]
+    },
+    {
+      "slug": "tree-recursion",
+      "title": "Tree Recursion",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand tree-recursion deeply.",
+      "markdown": "This section covers tree-recursion in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about tree-recursion."
+      ]
+    },
+    {
+      "slug": "memoization-preview",
+      "title": "Memoization Preview",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand memoization-preview deeply.",
+      "markdown": "This section covers memoization-preview in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about memoization-preview."
+      ]
+    },
+    {
+      "slug": "tail-recursion-awareness",
+      "title": "Tail Recursion Awareness",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand tail-recursion-awareness deeply.",
+      "markdown": "This section covers tail-recursion-awareness in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about tail-recursion-awareness."
+      ]
+    },
+    {
+      "slug": "backtracking-preview",
+      "title": "Backtracking Preview",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand backtracking-preview deeply.",
+      "markdown": "This section covers backtracking-preview in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about backtracking-preview."
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand common-mistakes deeply.",
+      "markdown": "This section covers common-mistakes in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about common-mistakes."
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 11,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand interview-points deeply.",
+      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about interview-points."
+      ]
+    }
+  ],
+  "summary": [
+    "recursion is a key concept.",
+    "Mastering it helps in interviews.",
+    "Practice the templates."
+  ],
+  "interview_takeaways": [
+    "Recognize the pattern",
+    "Analyze complexity",
+    "Discuss tradeoffs"
+  ],
+  "common_mistakes": [
+    "Off by one errors",
+    "Forgetting base cases",
+    "Ignoring edge cases"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "heapq",
+      "url": "https://docs.python.org/3/library/heapq.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Tutorial - Data Structures",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "functools.lru_cache",
+      "url": "https://docs.python.org/3/library/functools.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-dsa-recursion-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

@@ -1,0 +1,118 @@
+[
+  {
+    "key": "test-1",
+    "exercise_type": "multiple_choice",
+    "title": "Basic Concept",
+    "prompt_markdown": "What is a core concept of Testing Python Code?",
+    "difficulty": "easy",
+    "hints": [
+      "Review the basics."
+    ],
+    "content": {
+      "choices": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "correct_index": 1,
+      "explanation": "Option B is correct because it aligns with the core principles."
+    }
+  },
+  {
+    "key": "test-2",
+    "exercise_type": "short_answer",
+    "title": "Explain the concept",
+    "prompt_markdown": "Explain how this concept applies in a real-world scenario.",
+    "difficulty": "medium",
+    "hints": [
+      "Think about production environments."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions performance",
+        "Mentions scalability"
+      ],
+      "reference_answer": "It improves performance and scalability by optimizing resource usage.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "test-3",
+    "exercise_type": "multiple_choice",
+    "title": "Pytest Fixtures Scope",
+    "prompt_markdown": "In pytest, what is the default scope of a `@pytest.fixture` if no `scope` argument is provided?",
+    "difficulty": "easy",
+    "hints": [
+      "Is it per session, per module, or per function?"
+    ],
+    "content": {
+      "choices": [
+        "\"session\"",
+        "\"module\"",
+        "\"class\"",
+        "\"function\""
+      ],
+      "correct_index": 3,
+      "explanation": "By default, pytest fixtures have `scope=\"function\"`, meaning they are re-created for every individual test function to ensure test isolation."
+    }
+  },
+  {
+    "key": "test-4",
+    "exercise_type": "multiple_choice",
+    "title": "Pytest Parametrization",
+    "prompt_markdown": "Which pytest decorator is used to execute a single test function across multiple sets of input arguments and expected outputs?",
+    "difficulty": "easy",
+    "hints": [
+      "Look for parametrize."
+    ],
+    "content": {
+      "choices": [
+        "@pytest.mark.repeat",
+        "@pytest.mark.parametrize",
+        "@pytest.mark.matrix",
+        "@pytest.mark.inputs"
+      ],
+      "correct_index": 1,
+      "explanation": "`@pytest.mark.parametrize(\"arg,expected\", [(1, 2), (2, 3)])` runs the test function once for each parameter tuple, reporting clear per-case test statuses."
+    }
+  },
+  {
+    "key": "test-5",
+    "exercise_type": "short_answer",
+    "title": "Deterministic Tests Rule in Forge",
+    "prompt_markdown": "Why must automated test suites never make live network calls to third-party APIs or Gemini LLMs?",
+    "difficulty": "medium",
+    "hints": [
+      "Flakiness, latency, cost, and AGENTS.md rule."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions test non-determinism/flakiness due to network and model variance.",
+        "Mentions cost, rate limits, and latency.",
+        "Mentions using mock objects or fake providers to test business logic deterministically."
+      ],
+      "reference_answer": "Live API calls introduce non-determinism: network latency, unexpected outages, API rate limits, and non-deterministic LLM responses can cause random test failures (flakiness). Furthermore, they incur dollar costs and leak secrets. In automated testing, engineers inject fake providers or mock responses to ensure 100% deterministic, instant, reproducible test verification of application logic.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "test-6",
+    "exercise_type": "short_answer",
+    "title": "Testing Boundary and Edge Conditions",
+    "prompt_markdown": "When testing a function that processes numerical intervals or string inputs, what specific boundary cases must always be included?",
+    "difficulty": "medium",
+    "hints": [
+      "Empty, zero, negative, off-by-one, None."
+    ],
+    "content": {
+      "rubric": [
+        "Lists empty inputs (empty string, empty list).",
+        "Lists null/None values or invalid data types.",
+        "Lists extreme boundary values (zero, negative numbers, max integer, exact boundary fence-posts)."
+      ],
+      "reference_answer": "Essential boundary cases include: 1) Empty inputs (empty string `\"\"`, empty list `[]`); 2) Zero and negative values (0, -1); 3) Exact boundary values (off-by-one points at minimum and maximum ranges, e.g. indices 0 and len-1); 4) Null/None or malformed data to ensure proper validation errors or graceful handling; 5) Single-element collections.",
+      "minimum_pass_score": 70
+    }
+  }
+]

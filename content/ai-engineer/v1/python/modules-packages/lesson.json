@@ -1,0 +1,185 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "modules-packages",
+  "title": "Modules and Packages",
+  "description": "Understand Python modules, packages, and imports.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand imports and modules.",
+    "Create packages with init files.",
+    "Differentiate absolute and relative imports.",
+    "Understand main guard and dependency boundaries."
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-a-module",
+      "title": "What is a Module?",
+      "order_index": 0,
+      "estimated_minutes": 2,
+      "learning_objective": "Define modules.",
+      "markdown": "In Python, modules are simply Python files with a `.py` extension containing definitions and statements.",
+      "examples": [],
+      "key_points": [
+        "What is a Module? is a core concept to understand",
+        "Practice applying What in real code"
+      ]
+    },
+    {
+      "slug": "import-basics",
+      "title": "Import Basics",
+      "order_index": 1,
+      "estimated_minutes": 2,
+      "learning_objective": "Learn basic imports.",
+      "markdown": "You can bring other modules into your namespace using imports.",
+      "examples": [],
+      "key_points": [
+        "Import Basics is a core concept to understand",
+        "Practice applying Import in real code"
+      ]
+    },
+    {
+      "slug": "from-import",
+      "title": "From Import",
+      "order_index": 2,
+      "estimated_minutes": 2,
+      "learning_objective": "Learn from imports.",
+      "markdown": "The `from ... import ...` syntax allows importing specific attributes from a module.",
+      "examples": [],
+      "key_points": [
+        "From Import is a core concept to understand",
+        "Practice applying From in real code"
+      ]
+    },
+    {
+      "slug": "aliases",
+      "title": "Aliases",
+      "order_index": 3,
+      "estimated_minutes": 2,
+      "learning_objective": "Use aliases.",
+      "markdown": "You can use `import ... as ...` to create aliases for imported modules or names.",
+      "examples": [],
+      "key_points": [
+        "Aliases is a core concept to understand",
+        "Practice applying Aliases in real code"
+      ]
+    },
+    {
+      "slug": "what-is-a-package",
+      "title": "What is a Package?",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Define packages.",
+      "markdown": "Packages are a way of structuring Python's module namespace using directory paths.",
+      "examples": [],
+      "key_points": [
+        "What is a Package? is a core concept to understand",
+        "Practice applying What in real code"
+      ]
+    },
+    {
+      "slug": "init-files",
+      "title": "Init Files",
+      "order_index": 5,
+      "estimated_minutes": 2,
+      "learning_objective": "Understand init files.",
+      "markdown": "Historically, packages required `__init__.py` (init files) to be treated as packages, although this is optional in Python 3.3+.",
+      "examples": [],
+      "key_points": [
+        "Init Files is a core concept to understand",
+        "Practice applying Init in real code"
+      ]
+    },
+    {
+      "slug": "absolute-and-relative-imports",
+      "title": "Absolute and Relative Imports",
+      "order_index": 6,
+      "estimated_minutes": 4,
+      "learning_objective": "Compare import types.",
+      "markdown": "Absolute imports specify the full path from the project root. Relative imports use dot notation relative to the current module.",
+      "examples": [],
+      "key_points": [
+        "Absolute and Relative Imports is a core concept to understand",
+        "Practice applying Absolute in real code"
+      ]
+    },
+    {
+      "slug": "main-guard",
+      "title": "Main Guard",
+      "order_index": 7,
+      "estimated_minutes": 2,
+      "learning_objective": "Understand the main guard.",
+      "markdown": "The main guard `if __name__ == '__main__':` prevents execution of code when the module is imported elsewhere.",
+      "examples": [],
+      "key_points": [
+        "Main Guard is a core concept to understand",
+        "Practice applying Main in real code"
+      ]
+    },
+    {
+      "slug": "dependency-boundaries",
+      "title": "Dependency Boundaries",
+      "order_index": 8,
+      "estimated_minutes": 3,
+      "learning_objective": "Architect dependencies.",
+      "markdown": "Clear dependency boundaries ensure that modules do not have tight coupling or circular imports, making maintenance easier.",
+      "examples": [],
+      "key_points": [
+        "Dependency Boundaries is a core concept to understand",
+        "Practice applying Dependency in real code"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 9,
+      "estimated_minutes": 2,
+      "learning_objective": "Avoid common import errors.",
+      "markdown": "Circular imports and shadowing standard library modules are common mistakes.",
+      "examples": [],
+      "key_points": [
+        "Common Mistakes is a core concept to understand",
+        "Practice applying Common in real code"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 10,
+      "estimated_minutes": 2,
+      "learning_objective": "Prepare for interviews.",
+      "markdown": "Be prepared to explain the difference between absolute imports and relative imports, and how the main guard works.",
+      "examples": [],
+      "key_points": [
+        "Interview Points is a core concept to understand",
+        "Practice applying Interview in real code"
+      ]
+    }
+  ],
+  "summary": [
+    "Modules are files.",
+    "Packages are directories.",
+    "Absolute imports are preferred.",
+    "Use main guards for scripts."
+  ],
+  "interview_takeaways": [
+    "Explain main guard.",
+    "Discuss circular imports.",
+    "Absolute vs relative imports."
+  ],
+  "common_mistakes": [
+    "Circular imports.",
+    "Shadowing standard libs."
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Modules",
+      "url": "https://docs.python.org/3/tutorial/modules.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-modules-packages-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

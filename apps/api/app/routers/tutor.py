@@ -9,6 +9,7 @@ from ..schemas.ai import (
     ChatMessageRead,
     TutorMessageRequest,
     TutorStartResponse,
+    TutorStartRequest,
     TutorTurn,
 )
 from ..services.tutor import (
@@ -34,6 +35,7 @@ def _provider_or_503(provider: LLMProvider | None) -> LLMProvider:
 @router.post("/topics/{topic_id}/start", response_model=TutorStartResponse)
 def start(
     topic_id: int,
+    request: TutorStartRequest = TutorStartRequest(),
     session: Session = Depends(get_session),
     provider: LLMProvider | None = Depends(get_llm_provider),
 ) -> dict:
@@ -46,8 +48,10 @@ def start(
         raise HTTPException(status_code=404, detail="Topic not found")
     try:
         learning_session, turn = start_tutor_session(
-            session, _provider_or_503(provider), topic
+            session, _provider_or_503(provider), topic, request.section_slug
         )
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
     except ProviderError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     return {"session_id": learning_session.id, "turn": turn}

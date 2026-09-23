@@ -2,6 +2,8 @@ import type { AIStatus, Curriculum, CurriculumProposal, CurriculumSummary, Dashb
 import type { Attempt, Exercise, PracticeHistory, PracticePack, PythonTest, ExecutionResult } from "../types/practice";
 import type { AdaptiveAttempt, AdaptiveSubmission, MasteryBreakdown, PlannerSettings, ReviewQueueItem, ReviewSessionItem, TodayPlan, TransferSession } from "../types/adaptive";
 import type { InterviewCodingSubmission, InterviewHistory, InterviewMode, InterviewReport, InterviewSession } from "../types/interview";
+import type { CourseTopic, LessonProgress } from "../types/course";
+import type { ArenaProblem, ArenaSummary, ArenaValidation } from "../types/arena";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
@@ -19,6 +21,13 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   dashboard: () => request<Dashboard>("/api/dashboard"),
+  arenaProblems: (params="") => request<ArenaProblem[]>(`/api/arena/problems${params}`),
+  arenaProblem: (key:string) => request<ArenaProblem>(`/api/arena/problems/${key}`),
+  arenaSummary: () => request<ArenaSummary>("/api/arena/summary"),
+  arenaValidation: (key:string) => request<ArenaValidation>(`/api/arena/problems/${key}/validation`),
+  arenaHint: (key:string) => request<{index:number;text:string}>(`/api/arena/problems/${key}/hint`,{method:"POST"}),
+  submitArena: (key:string,body:{source:string;passed:boolean;score:number;runtime_ms?:number;result?:Record<string,unknown>}) => request<{attempt_id:number;passed:boolean;score:number;solution?:string;explanation?:string;complexity?:string}>(`/api/arena/problems/${key}/submit`,{method:"POST",body:JSON.stringify(body)}),
+  giveUpArena: (key:string) => request<{solution:string;explanation:string;complexity:string}>(`/api/arena/problems/${key}/give-up`,{method:"POST"}),
   curricula: () => request<CurriculumSummary[]>("/api/curricula"),
   activeCurriculum: () => request<Curriculum>("/api/curricula/active"),
   curriculum: (id: number) => request<Curriculum>(`/api/curricula/${id}`),
@@ -30,9 +39,12 @@ export const api = {
   updateDraft: (id: number, proposal: CurriculumProposal, sourceRequirements = "") => request<Curriculum>(`/api/curricula/${id}/draft`, { method: "PUT", body: JSON.stringify({ proposal, source_requirements: sourceRequirements }) }),
   confirmCurriculum: (id: number) => request<Curriculum>(`/api/curricula/${id}/confirm`, { method: "POST" }),
   activateCurriculum: (id: number) => request<Curriculum>(`/api/curricula/${id}/activate`, { method: "POST" }),
-  startTutor: (topicId: number) => request<{ session_id: number; turn: TutorTurn }>(`/api/tutor/topics/${topicId}/start`, { method: "POST" }),
+  courseTopic: (topicId: number) => request<CourseTopic>(`/api/course/topics/${topicId}`),
+  viewCourseSection: (topicId:number, slug:string) => request<LessonProgress>(`/api/course/topics/${topicId}/sections/${slug}/view`, {method:"POST"}),
+  completeCourseSection: (topicId:number, slug:string) => request<LessonProgress>(`/api/course/topics/${topicId}/sections/${slug}/complete`, {method:"POST"}),
+  startTutor: (topicId: number, sectionSlug?:string) => request<{ session_id: number; turn: TutorTurn }>(`/api/tutor/topics/${topicId}/start`, { method: "POST", body: JSON.stringify({section_slug:sectionSlug}) }),
   tutorMessage: (sessionId: number, message: string) => request<TutorTurn>(`/api/tutor/sessions/${sessionId}/message`, { method: "POST", body: JSON.stringify({ message }) }),
-  doubtMessage: (body: { session_id: number | null; topic_id: number | null; message: string }) => request<{ session_id: number; reply: string }>("/api/doubt/message", { method: "POST", body: JSON.stringify(body) }),
+  doubtMessage: (body: { session_id: number | null; topic_id: number | null; section_slug?:string|null; message: string }) => request<{ session_id: number; reply: string }>("/api/doubt/message", { method: "POST", body: JSON.stringify(body) }),
   startPractice: (topicId: number) => request<PracticePack>(`/api/practice/topics/${topicId}/start`, { method: "POST" }),
   practiceSession: (id: number) => request<PracticePack>(`/api/practice/sessions/${id}`),
   practiceHistory: (topicId: number) => request<PracticeHistory>(`/api/practice/topics/${topicId}/history`),

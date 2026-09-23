@@ -1,0 +1,116 @@
+[
+  {
+    "key": "iter-1",
+    "exercise_type": "multiple_choice",
+    "title": "Question 1",
+    "prompt_markdown": "What is the answer?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 0,
+      "explanation": "A is correct."
+    }
+  },
+  {
+    "key": "iter-2",
+    "exercise_type": "short_answer",
+    "title": "Question 2",
+    "prompt_markdown": "Explain this.",
+    "difficulty": "medium",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "This is the answer.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "iter-3",
+    "exercise_type": "multiple_choice",
+    "title": "Question 3",
+    "prompt_markdown": "What is the answer?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 0,
+      "explanation": "A is correct."
+    }
+  },
+  {
+    "key": "iter-4",
+    "exercise_type": "short_answer",
+    "title": "Question 4",
+    "prompt_markdown": "Explain this.",
+    "difficulty": "medium",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "This is the answer.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "iter-5",
+    "exercise_type": "multiple_choice",
+    "title": "Question 5",
+    "prompt_markdown": "What is the answer?",
+    "difficulty": "easy",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "choices": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_index": 0,
+      "explanation": "A is correct."
+    }
+  },
+  {
+    "key": "iter-6",
+    "exercise_type": "short_answer",
+    "title": "Question 6",
+    "prompt_markdown": "Explain this.",
+    "difficulty": "medium",
+    "hints": [
+      "Hint 1"
+    ],
+    "content": {
+      "rubric": [
+        "Point 1",
+        "Point 2"
+      ],
+      "reference_answer": "This is the answer.",
+      "minimum_pass_score": 70
+    }
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "key": "sql-orders-with-no-items",
+  "title": "Orders with no line items",
+  "track": "sql",
+  "topic_tags": [
+    "joins"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on orders, order_items.",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[[2], [4]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT o.id FROM orders o LEFT JOIN order_items oi ON oi.order_id = o.id WHERE oi.id IS NULL ORDER BY o.id",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE orders (id INT, customer_id INT, order_date DATE); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT); INSERT INTO orders VALUES (1, 101, '2026-01-01'), (2, 102, '2026-01-02'), (3, 103, '2026-01-03'), (4, 104, '2026-01-04'); INSERT INTO order_items VALUES (1, 1, 1, 1), (2, 3, 2, 2);",
+    "visible_tables": [
+      "orders, order_items"
+    ],
+    "sample_rows": [
+      [
+        2
+      ],
+      [
+        4
+      ]
+    ],
+    "expected_columns": [
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        2
+      ],
+      [
+        4
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE orders (id INT, customer_id INT, order_date DATE); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT); INSERT INTO orders VALUES (1, 101, '2026-01-01'), (2, 102, '2026-01-02'), (3, 103, '2026-01-03'), (4, 104, '2026-01-04'); INSERT INTO order_items VALUES (1, 1, 1, 1), (2, 3, 2, 2);",
+        "expected_rows": [
+          [
+            2
+          ],
+          [
+            4
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/joins"
+}

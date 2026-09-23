@@ -1,0 +1,221 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "oop",
+  "title": "Mastering Oop",
+  "description": "Learn about oop in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand oop",
+    "Apply in real-world",
+    "Prepare for interviews"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-oop",
+      "title": "What Is Oop",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn what-is-oop",
+      "markdown": "### What is this?\nThis section covers what is oop.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "classes-and-instances",
+      "title": "Classes And Instances",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn classes-and-instances",
+      "markdown": "### What is this?\nThis section covers classes and instances.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "init-and-self",
+      "title": "Init And Self",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn init-and-self",
+      "markdown": "### What is this?\nThis section covers init and self.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "instance-attributes",
+      "title": "Instance Attributes",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn instance-attributes",
+      "markdown": "### What is this?\nThis section covers instance attributes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "instance-methods",
+      "title": "Instance Methods",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn instance-methods",
+      "markdown": "### What is this?\nThis section covers instance methods.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "class-attributes",
+      "title": "Class Attributes",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn class-attributes",
+      "markdown": "### What is this?\nThis section covers class attributes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "class-and-static-methods",
+      "title": "Class And Static Methods",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn class-and-static-methods",
+      "markdown": "### What is this?\nThis section covers class and static methods.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "inheritance-basics",
+      "title": "Inheritance Basics",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn inheritance-basics",
+      "markdown": "### What is this?\nThis section covers inheritance basics.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "composition-vs-inheritance",
+      "title": "Composition Vs Inheritance",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn composition-vs-inheritance",
+      "markdown": "### What is this?\nThis section covers composition vs inheritance.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "encapsulation",
+      "title": "Encapsulation",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn encapsulation",
+      "markdown": "### What is this?\nThis section covers encapsulation.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "dunder-methods",
+      "title": "Dunder Methods",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn dunder-methods",
+      "markdown": "### What is this?\nThis section covers dunder methods.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "property-awareness",
+      "title": "Property Awareness",
+      "order_index": 11,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn property-awareness",
+      "markdown": "### What is this?\nThis section covers property awareness.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "dataclasses-awareness",
+      "title": "Dataclasses Awareness",
+      "order_index": 12,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn dataclasses-awareness",
+      "markdown": "### What is this?\nThis section covers dataclasses awareness.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 13,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn common-mistakes",
+      "markdown": "### What is this?\nThis section covers common mistakes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 14,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn interview-points",
+      "markdown": "### What is this?\nThis section covers interview points.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    }
+  ],
+  "summary": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "interview_takeaways": [
+    "Takeaway 1",
+    "Takeaway 2",
+    "Takeaway 3"
+  ],
+  "common_mistakes": [
+    "Mistake 1",
+    "Mistake 2",
+    "Mistake 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Python Tutorial",
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-oop-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

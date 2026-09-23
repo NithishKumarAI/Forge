@@ -1,0 +1,117 @@
+[
+  {
+    "key": "gen-1",
+    "exercise_type": "multiple_choice",
+    "title": "Generator Keyword",
+    "prompt_markdown": "Which keyword is used to create a generator function?",
+    "difficulty": "easy",
+    "hints": [
+      "It replaces return."
+    ],
+    "content": {
+      "choices": [
+        "yield",
+        "return",
+        "generate",
+        "lazy"
+      ],
+      "correct_index": 0,
+      "explanation": "yield pauses the function."
+    }
+  },
+  {
+    "key": "gen-2",
+    "exercise_type": "short_answer",
+    "title": "Memory Efficiency",
+    "prompt_markdown": "Why are generators memory efficient?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about lazy evaluation."
+    ],
+    "content": {
+      "rubric": [
+        "lazy evaluation",
+        "yields one at a time"
+      ],
+      "reference_answer": "They use lazy evaluation and yield one item at a time.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "gen-3",
+    "exercise_type": "multiple_choice",
+    "title": "Yield vs Return",
+    "prompt_markdown": "What happens to a generator function when a `yield` statement is reached during iteration?",
+    "difficulty": "easy",
+    "hints": [
+      "Does the stack frame get destroyed or suspended?"
+    ],
+    "content": {
+      "choices": [
+        "The function terminates permanently and releases its local variables.",
+        "The function produces a value and suspends its execution state, which resumes on the next `next()` call.",
+        "The function branches into a background operating system thread.",
+        "The function resets its instruction pointer to line 0."
+      ],
+      "correct_index": 1,
+      "explanation": "`yield` returns a value to the caller and freezes execution, retaining all local variables and instruction pointers until the next item is requested."
+    }
+  },
+  {
+    "key": "gen-4",
+    "exercise_type": "multiple_choice",
+    "title": "Generator Expression Syntax",
+    "prompt_markdown": "What is the syntax difference between a list comprehension and a generator expression?",
+    "difficulty": "easy",
+    "hints": [
+      "Compare brackets vs parentheses."
+    ],
+    "content": {
+      "choices": [
+        "List comprehensions use `[]`, while generator expressions use `()`.",
+        "List comprehensions use `{}` while generator expressions use `[]`.",
+        "Generator expressions require the `async` keyword.",
+        "There is no syntax difference; Python infers based on variable type."
+      ],
+      "correct_index": 0,
+      "explanation": "`[x for x in data]` builds a list in memory immediately, whereas `(x for x in data)` returns a lazy generator iterator that computes values on demand."
+    }
+  },
+  {
+    "key": "gen-5",
+    "exercise_type": "short_answer",
+    "title": "Memory Footprint of Large Data Streams",
+    "prompt_markdown": "Why are generator pipelines preferred when streaming rows from a large database table to an HTTP response?",
+    "difficulty": "medium",
+    "hints": [
+      "Memory complexity O(1) vs O(N)."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions O(1) constant memory consumption regardless of dataset size.",
+        "Mentions streaming/pipelining where downstream consumers receive items immediately without waiting for full dataset aggregation."
+      ],
+      "reference_answer": "Generators yield one item at a time on demand, allowing the memory consumption of the Python process to remain O(1) constant regardless of whether there are 100 rows or 100 million rows. In addition, the consumer starts receiving and processing data immediately rather than waiting for the entire query to materialize in memory.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "gen-6",
+    "exercise_type": "short_answer",
+    "title": "Generator Exhaustion",
+    "prompt_markdown": "What happens if you iterate over an already-exhausted generator a second time, and how do you handle it?",
+    "difficulty": "medium",
+    "hints": [
+      "Can a generator rewind itself?"
+    ],
+    "content": {
+      "rubric": [
+        "Explains that generators are one-pass streams that cannot be reset.",
+        "Mentions that re-iterating yields nothing (or raises StopIteration).",
+        "Suggests recreating the generator or converting to a list if reuse is necessary."
+      ],
+      "reference_answer": "Generators are single-pass forward iterators. Once exhausted, subsequent calls to `next()` raise `StopIteration`, and a `for` loop over it will immediately exit without producing any values. To iterate multiple times, one must either instantiate a fresh generator or cast the generator to a persistent collection like a `list` (if memory allows).",
+      "minimum_pass_score": 70
+    }
+  }
+]

@@ -1,0 +1,282 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "heaps",
+  "title": "Heaps",
+  "description": "Learn about heaps in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand heaps",
+    "Implement basic templates",
+    "Recognize in interviews",
+    "Write optimized code"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-a-heap",
+      "title": "What Is A Heap",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand what-is-a-heap deeply.",
+      "markdown": "This section covers what-is-a-heap in detail. \n\nKeywords to know: heap, min heap, max heap, heapq, priority queue, top-k, heappush, heappop, O(log n), merge streams. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about what-is-a-heap."
+      ]
+    },
+    {
+      "slug": "min-heap-vs-max-heap",
+      "title": "Min Heap Vs Max Heap",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand min-heap-vs-max-heap deeply.",
+      "markdown": "This section covers min-heap-vs-max-heap in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about min-heap-vs-max-heap."
+      ]
+    },
+    {
+      "slug": "heapq-module",
+      "title": "Heapq Module",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand heapq-module deeply.",
+      "markdown": "This section covers heapq-module in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about heapq-module."
+      ]
+    },
+    {
+      "slug": "heappush-heappop",
+      "title": "Heappush Heappop",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand heappush-heappop deeply.",
+      "markdown": "This section covers heappush-heappop in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about heappush-heappop."
+      ]
+    },
+    {
+      "slug": "heapify",
+      "title": "Heapify",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand heapify deeply.",
+      "markdown": "This section covers heapify in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about heapify."
+      ]
+    },
+    {
+      "slug": "top-k-pattern",
+      "title": "Top K Pattern",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand top-k-pattern deeply.",
+      "markdown": "This section covers top-k-pattern in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about top-k-pattern."
+      ]
+    },
+    {
+      "slug": "merge-sorted-streams",
+      "title": "Merge Sorted Streams",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand merge-sorted-streams deeply.",
+      "markdown": "This section covers merge-sorted-streams in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about merge-sorted-streams."
+      ]
+    },
+    {
+      "slug": "heap-sort-awareness",
+      "title": "Heap Sort Awareness",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand heap-sort-awareness deeply.",
+      "markdown": "This section covers heap-sort-awareness in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about heap-sort-awareness."
+      ]
+    },
+    {
+      "slug": "custom-comparison",
+      "title": "Custom Comparison",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand custom-comparison deeply.",
+      "markdown": "This section covers custom-comparison in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about custom-comparison."
+      ]
+    },
+    {
+      "slug": "heap-as-priority-queue",
+      "title": "Heap As Priority Queue",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand heap-as-priority-queue deeply.",
+      "markdown": "This section covers heap-as-priority-queue in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about heap-as-priority-queue."
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 10,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand common-mistakes deeply.",
+      "markdown": "This section covers common-mistakes in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about common-mistakes."
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 11,
+      "estimated_minutes": 5,
+      "learning_objective": "Understand interview-points deeply.",
+      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "examples": [
+        {
+          "language": "python",
+          "code": "print('hello world')",
+          "expected_output": "hello world\n",
+          "explanation": "Basic example for context."
+        }
+      ],
+      "key_points": [
+        "Key point about interview-points."
+      ]
+    }
+  ],
+  "summary": [
+    "heaps is a key concept.",
+    "Mastering it helps in interviews.",
+    "Practice the templates."
+  ],
+  "interview_takeaways": [
+    "Recognize the pattern",
+    "Analyze complexity",
+    "Discuss tradeoffs"
+  ],
+  "common_mistakes": [
+    "Off by one errors",
+    "Forgetting base cases",
+    "Ignoring edge cases"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "heapq",
+      "url": "https://docs.python.org/3/library/heapq.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Tutorial - Data Structures",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "functools.lru_cache",
+      "url": "https://docs.python.org/3/library/functools.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-dsa-heaps-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

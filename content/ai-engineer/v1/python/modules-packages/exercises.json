@@ -1,0 +1,117 @@
+[
+  {
+    "key": "mod-1",
+    "exercise_type": "multiple_choice",
+    "title": "Main Guard",
+    "prompt_markdown": "Which check prevents code from running on import?",
+    "difficulty": "easy",
+    "hints": [
+      "It checks __name__."
+    ],
+    "content": {
+      "choices": [
+        "if __name__ == '__main__':",
+        "if __main__:",
+        "if name == main:",
+        "if run:"
+      ],
+      "correct_index": 0,
+      "explanation": "This is the standard main guard."
+    }
+  },
+  {
+    "key": "mod-2",
+    "exercise_type": "short_answer",
+    "title": "Package Initialization",
+    "prompt_markdown": "What file makes a directory a Python package?",
+    "difficulty": "medium",
+    "hints": [
+      "It has dunder underscores."
+    ],
+    "content": {
+      "rubric": [
+        "__init__.py",
+        "init file"
+      ],
+      "reference_answer": "__init__.py",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "mod-3",
+    "exercise_type": "multiple_choice",
+    "title": "Role of __name__ == __main__",
+    "prompt_markdown": "What is the standard purpose of `if __name__ == \"__main__\":` in a Python script?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider importing vs executing directly."
+    ],
+    "content": {
+      "choices": [
+        "It defines the primary class of an object-oriented file.",
+        "It prevents code from executing when the file is imported as a module by another script.",
+        "It enforces Python type checking during module compilation.",
+        "It optimizes module loading speed by caching bytecode in __pycache__."
+      ],
+      "correct_index": 1,
+      "explanation": "When a file is run directly, `__name__` is set to `\"__main__\"`. When imported into another module, `__name__` is the module name, allowing scripts to provide reusable functions without running CLI commands upon import."
+    }
+  },
+  {
+    "key": "mod-4",
+    "exercise_type": "multiple_choice",
+    "title": "Python sys.path and imports",
+    "prompt_markdown": "Where does Python look first when executing an `import my_module` statement?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about built-in modules vs filesystem."
+    ],
+    "content": {
+      "choices": [
+        "In `sys.modules` (already loaded modules cache), then built-in modules, then directories in `sys.path`.",
+        "Only in the current directory.",
+        "In the global site-packages directory exclusively.",
+        "On PyPI via an internet lookup."
+      ],
+      "correct_index": 0,
+      "explanation": "Python checks `sys.modules` cache first. If absent, it checks built-in modules, and then searches directories listed in `sys.path` (starting with the directory of the running script)."
+    }
+  },
+  {
+    "key": "mod-5",
+    "exercise_type": "short_answer",
+    "title": "Circular Imports Problem and Solutions",
+    "prompt_markdown": "What causes a circular import error in Python, and what are two architectural techniques to resolve it?",
+    "difficulty": "medium",
+    "hints": [
+      "Module A imports B, while module B imports A."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that module A imports B while B simultaneously imports A during module initialization.",
+        "Provides at least two remediation methods: refactoring shared types/functions into a third module, importing inside a function/method, or using typing.TYPE_CHECKING."
+      ],
+      "reference_answer": "A circular import occurs when Module A imports Module B at top-level, while Module B also imports Module A, creating a deadlock where one module is accessed before its attributes are defined. Remediation techniques include: 1) Extracting shared models or utilities into a separate common module (e.g. `models.py` or `constants.py`); 2) Moving the import statement inside the specific function or method where it is used; 3) Using `from typing import TYPE_CHECKING` so the import only occurs during static analysis, not runtime.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "mod-6",
+    "exercise_type": "short_answer",
+    "title": "__init__.py in Modern Python",
+    "prompt_markdown": "What is the role of `__init__.py` in Python packages, and why is it still recommended in professional codebases despite implicit namespace packages?",
+    "difficulty": "medium",
+    "hints": [
+      "PEP 420 introduced namespace packages, but __init__.py defines public API export."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that __init__.py marks a directory as a regular Python package.",
+        "Explains its role in defining package-level public APIs via __all__ and explicit re-exports.",
+        "Mentions that tools (linters, pytest, typecheckers) rely on it for root detection."
+      ],
+      "reference_answer": "Although Python 3.3+ supports namespace packages without `__init__.py`, including an explicit `__init__.py` is best practice because: 1) It serves as the package entry point to define clean public exports (using `__all__` or exposing key classes so users can write `from pkg import Model` instead of deep internal paths); 2) Static analysis tools, IDEs, and test runners like pytest use it to unambiguously determine package roots and module hierarchies.",
+      "minimum_pass_score": 70
+    }
+  }
+]

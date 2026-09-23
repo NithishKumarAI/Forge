@@ -1,0 +1,124 @@
+{
+  "key": "python-implement-queue",
+  "title": "Queue using two stacks",
+  "track": "python",
+  "topic_tags": [
+    "stacks",
+    "queues",
+    "oop"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 25,
+  "statement_markdown": "Implement a first-in-first-out (FIFO) queue using only two stacks (Python lists).\n\nThe implemented queue should support all the functions of a normal queue (`enqueue`, `peek`, `dequeue`, and `is_empty`).\n\nFor testing purposes, write a function `run_queue_ops(operations: list[tuple]) -> list` that processes a series of operations and returns a list of results for each operation.\n\nOperations can be:\n- `('enqueue', val)`: enqueues `val`, returns `None`.\n- `('dequeue',)`: dequeues and returns the element at the front. Returns `None` if empty.\n- `('peek',)`: returns the element at the front. Returns `None` if empty.\n- `('is_empty',)`: returns `True` if empty, `False` otherwise.",
+  "constraints": [
+    "You must use exactly two lists internally to simulate stacks (append, pop).",
+    "1 <= operations.length <= 100"
+  ],
+  "examples": [
+    {
+      "input": "[('enqueue', 1), ('enqueue', 2), ('peek',), ('dequeue',), ('is_empty',)]",
+      "output": "[None, None, 1, 1, False]",
+      "explanation": "enqueue 1 (None), enqueue 2 (None), peek front -> 1, dequeue front -> 1, is_empty -> False."
+    }
+  ],
+  "starter_code": "def run_queue_ops(operations: list[tuple]) -> list:\n    pass",
+  "hints": [
+    "Keep one stack for enqueuing and one stack for dequeuing.",
+    "When dequeuing or peeking, if the dequeue stack is empty, pop all elements from the enqueue stack and push them into the dequeue stack. This reverses their order to match FIFO."
+  ],
+  "explanation": "We can construct a class `MyQueue` with two lists, `s1` and `s2`. When we enqueue, we append to `s1`. When we need to dequeue or peek, we need the oldest element, which is at the bottom of `s1`. If `s2` is empty, we transfer all elements from `s1` to `s2` by popping from `s1` and appending to `s2`. This reverses the order, making the oldest element the top of `s2`. We can then just peek or pop from `s2` in O(1) amortized time.",
+  "reference_solution": "def run_queue_ops(operations: list[tuple]) -> list:\n    class MyQueue:\n        def __init__(self):\n            self.s1 = []\n            self.s2 = []\n        def enqueue(self, val):\n            self.s1.append(val)\n        def _transfer(self):\n            if not self.s2:\n                while self.s1:\n                    self.s2.append(self.s1.pop())\n        def dequeue(self):\n            self._transfer()\n            return self.s2.pop() if self.s2 else None\n        def peek(self):\n            self._transfer()\n            return self.s2[-1] if self.s2 else None\n        def is_empty(self):\n            return not self.s1 and not self.s2\n            \n    q = MyQueue()\n    res = []\n    for op in operations:\n        if op[0] == 'enqueue':\n            q.enqueue(op[1])\n            res.append(None)\n        elif op[0] == 'dequeue':\n            res.append(q.dequeue())\n        elif op[0] == 'peek':\n            res.append(q.peek())\n        elif op[0] == 'is_empty':\n            res.append(q.is_empty())\n    return res",
+  "complexity": "Amortized O(1) time for each operation. O(N) space overall.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "run_queue_ops",
+    "sample_tests": [
+      {
+        "name": "sample_basic",
+        "args": [
+          [
+            [
+              "enqueue",
+              1
+            ],
+            [
+              "enqueue",
+              2
+            ],
+            [
+              "peek"
+            ],
+            [
+              "dequeue"
+            ],
+            [
+              "is_empty"
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          null,
+          null,
+          1,
+          1,
+          false
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden_complex",
+        "args": [
+          [
+            [
+              "is_empty"
+            ],
+            [
+              "enqueue",
+              5
+            ],
+            [
+              "enqueue",
+              6
+            ],
+            [
+              "dequeue"
+            ],
+            [
+              "is_empty"
+            ],
+            [
+              "peek"
+            ],
+            [
+              "dequeue"
+            ],
+            [
+              "is_empty"
+            ],
+            [
+              "dequeue"
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          true,
+          null,
+          null,
+          5,
+          false,
+          6,
+          6,
+          true,
+          null
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/oop"
+}

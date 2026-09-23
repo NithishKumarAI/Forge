@@ -1,0 +1,101 @@
+{
+  "key": "dsa-fruit-into-baskets",
+  "title": "Longest subarray with at most 2 distinct values",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "sliding-window",
+    "hash-maps"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "You have an array `fruits` where `fruits[i]` is the type of fruit the `i`-th tree produces. Return the maximum length of a contiguous subarray that contains at most 2 distinct types of fruits.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[1,2,1]",
+      "output": "3",
+      "explanation": "We can pick from all 3 trees."
+    }
+  ],
+  "starter_code": "def max_fruits(fruits: list[int]) -> int:\n    pass",
+  "hints": [
+    "Use sliding window and a hash map for counts."
+  ],
+  "explanation": "Use a sliding window. Add fruits to the window and maintain their counts in a hash map. If the hash map size exceeds 2, shrink the window from the left until it is 2 again.",
+  "reference_solution": "def max_fruits(fruits: list[int]) -> int:\n    counts = {}\n    left = 0\n    max_len = 0\n    for right, fruit in enumerate(fruits):\n        counts[fruit] = counts.get(fruit, 0) + 1\n        while len(counts) > 2:\n            counts[fruits[left]] -= 1\n            if counts[fruits[left]] == 0:\n                del counts[fruits[left]]\n            left += 1\n        max_len = max(max_len, right - left + 1)\n    return max_len",
+  "complexity": "O(n) time and O(1) space (at most 3 elements in map).",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "max_fruits",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            2,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 3
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            0,
+            1,
+            2,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": 3
+      },
+      {
+        "name": "sample3",
+        "args": [
+          [
+            1,
+            2,
+            3,
+            2,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": 4
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            3,
+            3,
+            3,
+            1,
+            2,
+            1,
+            1,
+            2,
+            3,
+            3,
+            4
+          ]
+        ],
+        "kwargs": {},
+        "expected": 5
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/sliding-window"
+}

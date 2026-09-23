@@ -1,0 +1,158 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "virtual-environments",
+  "title": "Virtual Environments",
+  "description": "Learn to manage isolated environments.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand environment isolation.",
+    "Use venv and pip.",
+    "Create requirements files.",
+    "Understand interpreter selection."
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "why-isolation",
+      "title": "Why Isolation?",
+      "order_index": 0,
+      "estimated_minutes": 2,
+      "learning_objective": "Understand the need for isolation.",
+      "markdown": "Global package installations can cause dependency conflicts. Environment isolation solves this by keeping dependencies separate for each project.",
+      "examples": [],
+      "key_points": [
+        "Why Isolation? is a core concept to understand",
+        "Practice applying Why in real code"
+      ]
+    },
+    {
+      "slug": "creating-a-venv",
+      "title": "Creating a venv",
+      "order_index": 1,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn to create a venv.",
+      "markdown": "You can create a virtual environment using the built-in `venv` module by running `python -m venv env_name`.",
+      "examples": [],
+      "key_points": [
+        "Creating a venv is a core concept to understand",
+        "Practice applying Creating in real code"
+      ]
+    },
+    {
+      "slug": "activating-venv",
+      "title": "Activating a venv",
+      "order_index": 2,
+      "estimated_minutes": 2,
+      "learning_objective": "Learn to activate a venv.",
+      "markdown": "Activation changes your shell's PATH to use the virtual environment's Python and pip.",
+      "examples": [],
+      "key_points": [
+        "Activating a venv is a core concept to understand",
+        "Practice applying Activating in real code"
+      ]
+    },
+    {
+      "slug": "pip-install",
+      "title": "Pip Install",
+      "order_index": 3,
+      "estimated_minutes": 2,
+      "learning_objective": "Install packages.",
+      "markdown": "Once activated, you can use `pip install` to add packages specific to your environment.",
+      "examples": [],
+      "key_points": [
+        "Pip Install is a core concept to understand",
+        "Practice applying Pip in real code"
+      ]
+    },
+    {
+      "slug": "requirements-txt",
+      "title": "Requirements.txt",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Manage requirements.",
+      "markdown": "The `requirements.txt` file (or simply requirements) tracks your exact dependencies for sharing.",
+      "examples": [],
+      "key_points": [
+        "Requirements.txt is a core concept to understand",
+        "Practice applying Requirements.txt in real code"
+      ]
+    },
+    {
+      "slug": "reproducibility",
+      "title": "Reproducibility",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Ensure reproducibility.",
+      "markdown": "By pinning exact versions in your requirements, you ensure reproducibility across different machines.",
+      "examples": [],
+      "key_points": [
+        "Reproducibility is a core concept to understand",
+        "Practice applying Reproducibility in real code"
+      ]
+    },
+    {
+      "slug": "interpreter-selection",
+      "title": "Interpreter Selection",
+      "order_index": 6,
+      "estimated_minutes": 2,
+      "learning_objective": "Select the right interpreter.",
+      "markdown": "IDEs often require manual interpreter selection to ensure they provide completions based on your virtual environment.",
+      "examples": [],
+      "key_points": [
+        "Interpreter Selection is a core concept to understand",
+        "Practice applying Interpreter in real code"
+      ]
+    },
+    {
+      "slug": "project-structure",
+      "title": "Project Structure",
+      "order_index": 7,
+      "estimated_minutes": 2,
+      "learning_objective": "Structure projects.",
+      "markdown": "A standard project structure usually places the venv folder in the root and ignores it in version control.",
+      "examples": [],
+      "key_points": [
+        "Project Structure is a core concept to understand",
+        "Practice applying Project in real code"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 8,
+      "estimated_minutes": 2,
+      "learning_objective": "Prepare for interviews.",
+      "markdown": "Interviewers might ask how you manage dependencies and handle conflicts using isolated environments.",
+      "examples": [],
+      "key_points": [
+        "Interview Points is a core concept to understand",
+        "Practice applying Interview in real code"
+      ]
+    }
+  ],
+  "summary": [
+    "Virtual environments isolate dependencies.",
+    "Use venv to create them.",
+    "Pip manages packages.",
+    "Requirements ensure reproducibility."
+  ],
+  "interview_takeaways": [
+    "Explain isolation.",
+    "Understand how pip and venv interact."
+  ],
+  "common_mistakes": [
+    "Committing the venv folder to git.",
+    "Forgetting to activate the venv."
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Virtual Environments",
+      "url": "https://docs.python.org/3/tutorial/venv.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-virtual-environments-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

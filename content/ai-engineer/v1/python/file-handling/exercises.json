@@ -1,0 +1,116 @@
+[
+  {
+    "key": "fh-1",
+    "exercise_type": "multiple_choice",
+    "title": "Context Managers",
+    "prompt_markdown": "Which statement safely closes files automatically?",
+    "difficulty": "easy",
+    "hints": [
+      "It manages context."
+    ],
+    "content": {
+      "choices": [
+        "with",
+        "try",
+        "auto",
+        "close"
+      ],
+      "correct_index": 0,
+      "explanation": "The with statement handles resource cleanup."
+    }
+  },
+  {
+    "key": "fh-2",
+    "exercise_type": "short_answer",
+    "title": "Encoding",
+    "prompt_markdown": "Why should you specify encoding when opening a file?",
+    "difficulty": "medium",
+    "hints": [
+      "Different OS defaults."
+    ],
+    "content": {
+      "rubric": [
+        "platform independence",
+        "prevent bugs"
+      ],
+      "reference_answer": "To ensure platform independence since different operating systems have different default encodings.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "fh-3",
+    "exercise_type": "multiple_choice",
+    "title": "Context manager file guarantee",
+    "prompt_markdown": "What is the primary architectural advantage of using `with open(...) as f:` over calling `f = open(...)` and `f.close()`?",
+    "difficulty": "easy",
+    "hints": [
+      "What happens if an exception occurs mid-write?"
+    ],
+    "content": {
+      "choices": [
+        "It automatically compresses the file upon exit.",
+        "It guarantees `f.close()` is called even if an unhandled exception is raised inside the block.",
+        "It bypasses OS file locking mechanisms.",
+        "It enables multithreaded file access."
+      ],
+      "correct_index": 1,
+      "explanation": "The context manager invokes `__exit__`, which ensures the file descriptor is released and buffers flushed even when unexpected exceptions occur."
+    }
+  },
+  {
+    "key": "fh-4",
+    "exercise_type": "multiple_choice",
+    "title": "Pathlib Path composition",
+    "prompt_markdown": "Using `pathlib.Path`, what operator is used to construct path subdirectories in a cross-platform manner?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about division slash."
+    ],
+    "content": {
+      "choices": [
+        "+",
+        "/",
+        "%",
+        ">>"
+      ],
+      "correct_index": 1,
+      "explanation": "`pathlib.Path` overloads the `/` division operator (e.g. `Path(\"/var\") / \"log\" / \"app.log\"`) to join path components cleanly regardless of OS separators."
+    }
+  },
+  {
+    "key": "fh-5",
+    "exercise_type": "short_answer",
+    "title": "Processing Massive Files in Memory",
+    "prompt_markdown": "How should an engineer process a 50GB log file on a server with only 4GB of RAM without crashing with an OutOfMemoryError?",
+    "difficulty": "medium",
+    "hints": [
+      "Do not use read() or readlines()."
+    ],
+    "content": {
+      "rubric": [
+        "Explains iterating line-by-line over the file object directly (`for line in f:`).",
+        "Mentions that file objects are lazy iterators that buffer only a chunk at a time."
+      ],
+      "reference_answer": "Never use `f.read()` or `f.readlines()`, which read the entire file into memory at once. Instead, stream the file line-by-line by iterating over the file handle directly: `for line in f: process(line)`. In Python, the file object is a generator/iterator that reads from disk in small buffered chunks, consuming minimal RAM.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "fh-6",
+    "exercise_type": "short_answer",
+    "title": "Encoding Pitfalls in Python 3",
+    "prompt_markdown": "Why should code always specify `encoding=\"utf-8\"` when calling `open()`, rather than relying on default system behavior?",
+    "difficulty": "medium",
+    "hints": [
+      "Consider Windows vs Linux default encodings."
+    ],
+    "content": {
+      "rubric": [
+        "Mentions that default encoding depends on platform (e.g. cp1252 on Windows vs UTF-8 on Linux).",
+        "Explains that omitting encoding causes UnicodeDecodeError or silent data corruption across deployment environments."
+      ],
+      "reference_answer": "In Python prior to PEP 686 (Python 3.15), `open()` defaults to the system locale encoding (e.g. CP1252 on Windows, UTF-8 on Linux). If an application written on Linux runs on Windows, reading UTF-8 characters will raise `UnicodeDecodeError` or corrupt data. Explicitly specifying `encoding=\"utf-8\"` guarantees identical, deterministic behavior across all OS environments.",
+      "minimum_pass_score": 70
+    }
+  }
+]

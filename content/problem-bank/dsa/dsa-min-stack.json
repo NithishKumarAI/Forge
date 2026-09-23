@@ -1,0 +1,120 @@
+{
+  "key": "dsa-min-stack",
+  "title": "Stack with minimum",
+  "track": "dsa",
+  "topic_tags": [
+    "stacks",
+    "design"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Design a stack that supports push, pop, top, and retrieving the minimum element in constant time. Given a list of operations, simulate the stack and return a list of results. Return `None` for operations that do not return a value.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[('push',5), ('get_min',)]",
+      "output": "[None, 5]",
+      "explanation": "Get min returns 5."
+    }
+  ],
+  "starter_code": "def min_stack_ops(operations: list[list]) -> list:\n    pass",
+  "hints": [
+    "Keep track of the minimum value at each level of the stack.",
+    "You can use a stack of tuples (value, min_so_far)."
+  ],
+  "explanation": "Use a stack where each element stores a tuple: `(value, minimum_at_this_point)`. This allows `get_min` to be O(1).",
+  "reference_solution": "def min_stack_ops(operations: list[list]) -> list:\n    stack = []\n    res = []\n    for op in operations:\n        if op[0] == 'push':\n            val = op[1]\n            current_min = min(val, stack[-1][1]) if stack else val\n            stack.append((val, current_min))\n            res.append(None)\n        elif op[0] == 'pop':\n            if stack: stack.pop()\n            res.append(None)\n        elif op[0] == 'top':\n            res.append(stack[-1][0] if stack else None)\n        elif op[0] == 'get_min':\n            res.append(stack[-1][1] if stack else None)\n    return res",
+  "complexity": "O(1) time per operation and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "min_stack_ops",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            [
+              "push",
+              5
+            ],
+            [
+              "push",
+              3
+            ],
+            [
+              "push",
+              7
+            ],
+            [
+              "get_min"
+            ],
+            [
+              "pop"
+            ],
+            [
+              "get_min"
+            ],
+            [
+              "top"
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          null,
+          null,
+          null,
+          3,
+          null,
+          3,
+          3
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            [
+              "push",
+              0
+            ],
+            [
+              "push",
+              1
+            ],
+            [
+              "push",
+              0
+            ],
+            [
+              "get_min"
+            ],
+            [
+              "pop"
+            ],
+            [
+              "get_min"
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          null,
+          null,
+          null,
+          0,
+          null,
+          0
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/stacks"
+}

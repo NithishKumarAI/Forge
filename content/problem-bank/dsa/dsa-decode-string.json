@@ -1,0 +1,73 @@
+{
+  "key": "dsa-decode-string",
+  "title": "Decode encoded string",
+  "track": "dsa",
+  "topic_tags": [
+    "stacks",
+    "strings"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an encoded string, return its decoded string. The encoding rule is: `k[encoded_string]`, where the `encoded_string` inside the square brackets is being repeated exactly `k` times. `k` is guaranteed to be a positive integer.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "'3[a]2[bc]'",
+      "output": "'aaabcbc'",
+      "explanation": "Decoded."
+    }
+  ],
+  "starter_code": "def decode_string(s: str) -> str:\n    pass",
+  "hints": [
+    "Use two stacks, one for counts and one for strings, or a single stack holding tuples."
+  ],
+  "explanation": "Iterate through the string. Use a stack to track the current string builder and the multiplier `k`. When you encounter a `]`, pop the `k` and the previous string builder, multiply the current string, and append it to the previous string.",
+  "reference_solution": "def decode_string(s: str) -> str:\n    stack = []\n    curr_str = ''\n    curr_num = 0\n    for char in s:\n        if char.isdigit():\n            curr_num = curr_num * 10 + int(char)\n        elif char == '[':\n            stack.append((curr_str, curr_num))\n            curr_str = ''\n            curr_num = 0\n        elif char == ']':\n            prev_str, num = stack.pop()\n            curr_str = prev_str + num * curr_str\n        else:\n            curr_str += char\n    return curr_str",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "decode_string",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "3[a]2[bc]"
+        ],
+        "kwargs": {},
+        "expected": "aaabcbc"
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "3[a2[c]]"
+        ],
+        "kwargs": {},
+        "expected": "accaccacc"
+      },
+      {
+        "name": "sample3",
+        "args": [
+          "2[abc]3[cd]ef"
+        ],
+        "kwargs": {},
+        "expected": "abcabccdcdcdef"
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          "abc3[cd]xyz"
+        ],
+        "kwargs": {},
+        "expected": "abccdcdcdxyz"
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/stacks"
+}

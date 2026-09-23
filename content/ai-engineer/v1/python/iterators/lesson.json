@@ -1,0 +1,161 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "iterators",
+  "title": "Mastering Iterators",
+  "description": "Learn about iterators in Python.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand iterators",
+    "Apply in real-world",
+    "Prepare for interviews"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-an-iterable",
+      "title": "What Is An Iterable",
+      "order_index": 0,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn what-is-an-iterable",
+      "markdown": "### What is this?\nThis section covers what is an iterable.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "what-is-an-iterator",
+      "title": "What Is An Iterator",
+      "order_index": 1,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn what-is-an-iterator",
+      "markdown": "### What is this?\nThis section covers what is an iterator.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "iter-and-next",
+      "title": "Iter And Next",
+      "order_index": 2,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn iter-and-next",
+      "markdown": "### What is this?\nThis section covers iter and next.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "stopiteration",
+      "title": "Stopiteration",
+      "order_index": 3,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn stopiteration",
+      "markdown": "### What is this?\nThis section covers stopiteration.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "iterator-protocol",
+      "title": "Iterator Protocol",
+      "order_index": 4,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn iterator-protocol",
+      "markdown": "### What is this?\nThis section covers iterator protocol.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "custom-iterator",
+      "title": "Custom Iterator",
+      "order_index": 5,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn custom-iterator",
+      "markdown": "### What is this?\nThis section covers custom iterator.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "lazy-traversal",
+      "title": "Lazy Traversal",
+      "order_index": 6,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn lazy-traversal",
+      "markdown": "### What is this?\nThis section covers lazy traversal.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "common-uses",
+      "title": "Common Uses",
+      "order_index": 7,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn common-uses",
+      "markdown": "### What is this?\nThis section covers common uses.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 8,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn common-mistakes",
+      "markdown": "### What is this?\nThis section covers common mistakes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 9,
+      "estimated_minutes": 5,
+      "learning_objective": "Learn interview-points",
+      "markdown": "### What is this?\nThis section covers interview points.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: iterable iterator iter next StopIteration iterator protocol lazy traversal\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
+      "examples": [],
+      "key_points": [
+        "Key 1"
+      ]
+    }
+  ],
+  "summary": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "interview_takeaways": [
+    "Takeaway 1",
+    "Takeaway 2",
+    "Takeaway 3"
+  ],
+  "common_mistakes": [
+    "Mistake 1",
+    "Mistake 2",
+    "Mistake 3"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Python Tutorial",
+      "url": "https://docs.python.org/3/tutorial/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-python-iterators-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}

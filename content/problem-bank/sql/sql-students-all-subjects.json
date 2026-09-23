@@ -1,0 +1,62 @@
+{
+  "key": "sql-students-all-subjects",
+  "title": "Students enrolled in all subjects",
+  "track": "sql",
+  "topic_tags": [
+    "joins"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on students, subjects, enrollments.",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['A']]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT s.name FROM students s JOIN enrollments e ON e.student_id = s.id GROUP BY s.id, s.name HAVING COUNT(DISTINCT e.subject_id) = (SELECT COUNT(*) FROM subjects) ORDER BY s.name",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE students (id INT, name VARCHAR(50)); CREATE TABLE subjects (id INT, name VARCHAR(50)); CREATE TABLE enrollments (student_id INT, subject_id INT); INSERT INTO students VALUES (1, 'A'), (2, 'B'), (3, 'C'); INSERT INTO subjects VALUES (1, 'Math'), (2, 'Science'), (3, 'History'); INSERT INTO enrollments VALUES (1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (3, 3);",
+    "visible_tables": [
+      "students, subjects, enrollments"
+    ],
+    "sample_rows": [
+      [
+        "A"
+      ]
+    ],
+    "expected_columns": [
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "A"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE students (id INT, name VARCHAR(50)); CREATE TABLE subjects (id INT, name VARCHAR(50)); CREATE TABLE enrollments (student_id INT, subject_id INT); INSERT INTO students VALUES (1, 'A'), (2, 'B'), (3, 'C'); INSERT INTO subjects VALUES (1, 'Math'), (2, 'Science'), (3, 'History'); INSERT INTO enrollments VALUES (1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (3, 3);",
+        "expected_rows": [
+          [
+            "A"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/joins"
+}

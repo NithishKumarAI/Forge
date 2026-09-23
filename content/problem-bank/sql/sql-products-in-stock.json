@@ -1,0 +1,86 @@
+{
+  "key": "sql-products-in-stock",
+  "title": "Products with stock above threshold",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a query to find information based on products(id, name, category, stock_qty, price).",
+  "constraints": [
+    "Use PostgreSQL compatible syntax."
+  ],
+  "examples": [
+    {
+      "input": "Sample data provided in database",
+      "output": "[['Chair', 20], ['Mouse', 15], ['Keyboard', 12]]"
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Review the problem statement and expected output."
+  ],
+  "explanation": "Use appropriate SQL clauses.",
+  "reference_solution": "SELECT name, stock_qty FROM products WHERE stock_qty > 10 ORDER BY stock_qty DESC",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50), category VARCHAR(50), stock_qty INT, price DECIMAL); INSERT INTO products VALUES (1, 'Laptop', 'Tech', 5, 1000), (2, 'Mouse', 'Tech', 15, 20), (3, 'Keyboard', 'Tech', 12, 50), (4, 'Desk', 'Furniture', 2, 200), (5, 'Chair', 'Furniture', 20, 100);",
+    "visible_tables": [
+      "products(id, name, category, stock_qty, price)"
+    ],
+    "sample_rows": [
+      [
+        "Chair",
+        20
+      ],
+      [
+        "Mouse",
+        15
+      ]
+    ],
+    "expected_columns": [
+      "result_col",
+      "result_col"
+    ],
+    "expected_rows": [
+      [
+        "Chair",
+        20
+      ],
+      [
+        "Mouse",
+        15
+      ],
+      [
+        "Keyboard",
+        12
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50), category VARCHAR(50), stock_qty INT, price DECIMAL); INSERT INTO products VALUES (1, 'Laptop', 'Tech', 5, 1000), (2, 'Mouse', 'Tech', 15, 20), (3, 'Keyboard', 'Tech', 12, 50), (4, 'Desk', 'Furniture', 2, 200), (5, 'Chair', 'Furniture', 20, 100);",
+        "expected_rows": [
+          [
+            "Chair",
+            20
+          ],
+          [
+            "Mouse",
+            15
+          ],
+          [
+            "Keyboard",
+            12
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

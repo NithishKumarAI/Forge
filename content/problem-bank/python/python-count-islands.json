@@ -1,0 +1,105 @@
+{
+  "key": "python-count-islands",
+  "title": "Count connected regions",
+  "track": "python",
+  "topic_tags": [
+    "graphs",
+    "dfs"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write `count_regions(grid)` to count 4-directionally connected regions of 1s in a binary grid.",
+  "constraints": [
+    "Grid can be empty.",
+    "Grid elements are 0 or 1."
+  ],
+  "examples": [
+    {
+      "input": "[[1,0],[0,1]]",
+      "output": "2",
+      "explanation": "Two disconnected 1s."
+    }
+  ],
+  "starter_code": "def count_regions(grid: list[list[int]]) -> int:\n    pass",
+  "hints": [
+    "Use DFS or BFS to traverse connected components."
+  ],
+  "explanation": "Iterate through the grid. When encountering a 1, increment region count and use DFS to mark all connected 1s as visited.",
+  "reference_solution": "def count_regions(grid: list[list[int]]) -> int:\n    if not grid:\n        return 0\n    regions = 0\n    rows, cols = len(grid), len(grid[0])\n    visited = set()\n    def dfs(r, c):\n        if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] == 0 or (r, c) in visited:\n            return\n        visited.add((r, c))\n        dfs(r + 1, c)\n        dfs(r - 1, c)\n        dfs(r, c + 1)\n        dfs(r, c - 1)\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == 1 and (r, c) not in visited:\n                regions += 1\n                dfs(r, c)\n    return regions",
+  "complexity": "O(m*n) time and O(m*n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "count_regions",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": 2
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": 1
+      },
+      {
+        "name": "sample3",
+        "args": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": 0
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": 1
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/graphs"
+}

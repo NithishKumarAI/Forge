@@ -1,0 +1,247 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "sql-postgresql",
+  "topic_slug": "aggregation",
+  "title": "Aggregation",
+  "description": "Learn about Aggregation in PostgreSQL.",
+  "version": "1.0.0",
+  "learning_objectives": [
+    "Understand aggregation concepts",
+    "Write SQL",
+    "Avoid mistakes"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "what-is-aggregation",
+      "title": "What Is Aggregation",
+      "order_index": 0,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn what-is-aggregation",
+      "markdown": "This section covers what-is-aggregation. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\n1. What is this? (plain English)\n2. Why do we need it? (analogy)\n3. Basic syntax (SQL)\n4. Small example (show tables and output)\n5. Step-by-step explanation\n6. Real engineering example (application/backend context)\n7. Common mistakes\n8. Interview points\n9. Quick check\n10. Practice next\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "count-function",
+      "title": "Count Function",
+      "order_index": 1,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn count-function",
+      "markdown": "This section covers count-function. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "sum-avg-min-max",
+      "title": "Sum Avg Min Max",
+      "order_index": 2,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn sum-avg-min-max",
+      "markdown": "This section covers sum-avg-min-max. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "group-by-basics",
+      "title": "Group By Basics",
+      "order_index": 3,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn group-by-basics",
+      "markdown": "This section covers group-by-basics. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "group-by-multiple-columns",
+      "title": "Group By Multiple Columns",
+      "order_index": 4,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn group-by-multiple-columns",
+      "markdown": "This section covers group-by-multiple-columns. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "having-clause",
+      "title": "Having Clause",
+      "order_index": 5,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn having-clause",
+      "markdown": "This section covers having-clause. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "null-in-aggregates",
+      "title": "Null In Aggregates",
+      "order_index": 6,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn null-in-aggregates",
+      "markdown": "This section covers null-in-aggregates. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "distinct-in-aggregates",
+      "title": "Distinct In Aggregates",
+      "order_index": 7,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn distinct-in-aggregates",
+      "markdown": "This section covers distinct-in-aggregates. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "common-mistakes",
+      "title": "Common Mistakes",
+      "order_index": 8,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn common-mistakes",
+      "markdown": "This section covers common-mistakes. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    },
+    {
+      "slug": "interview-points",
+      "title": "Interview Points",
+      "order_index": 9,
+      "estimated_minutes": 3,
+      "learning_objective": "Learn interview-points",
+      "markdown": "This section covers interview-points. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
+          "expected_output": "id\n--\n1",
+          "explanation": "Simple select example with table creation."
+        }
+      ],
+      "key_points": [
+        "Key 1",
+        "Key 2"
+      ]
+    }
+  ],
+  "summary": [
+    "Point 1",
+    "Point 2",
+    "Point 3"
+  ],
+  "interview_takeaways": [
+    "Takeaway 1",
+    "Takeaway 2",
+    "Takeaway 3"
+  ],
+  "common_mistakes": [
+    "Mistake 1",
+    "Mistake 2",
+    "Mistake 3"
+  ],
+  "sources": [
+    {
+      "source_id": "postgresql-official-docs",
+      "title": "PostgreSQL Tutorial",
+      "url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "postgresql-official-docs",
+      "title": "PostgreSQL SQL Commands",
+      "url": "https://www.postgresql.org/docs/current/sql-commands.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "fixture-sql-postgresql-aggregation-v1",
+  "generated_at": "2026-09-23T00:00:00Z"
+}
