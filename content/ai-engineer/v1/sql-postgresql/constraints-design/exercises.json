@@ -1,153 +1,140 @@
 [
   {
-    "key": "cd-1",
+    "key": "cd-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "Question goes here.",
+    "title": "Primary key vs unique constraint",
+    "prompt_markdown": "What is a key difference between a `PRIMARY KEY` and a `UNIQUE` constraint in PostgreSQL?",
     "difficulty": "easy",
     "hints": [
-      "Hint 1"
+      "Consider how many can exist per table and how nulls are treated."
     ],
     "content": {
       "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
+        "A UNIQUE constraint automatically creates a hash index, while PRIMARY KEY creates a GiST index",
+        "A table can have only one PRIMARY KEY, whereas it can have multiple UNIQUE constraints",
+        "UNIQUE constraints cannot be referenced by foreign keys in child tables",
+        "PRIMARY KEY allows NULL values as long as only one row contains NULL"
       ],
-      "correct_index": 0,
-      "explanation": "Because A."
+      "correct_index": 1,
+      "explanation": "A relation can declare only one PRIMARY KEY (which enforces non-null uniqueness as the canonical row identity), but it can declare multiple independent UNIQUE constraints."
     }
   },
   {
-    "key": "cd-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Question goes here.",
+    "key": "cd-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Condition violating First Normal Form (1NF)",
+    "prompt_markdown": "Which of the following database design choices directly violates First Normal Form (1NF)?",
+    "difficulty": "easy",
+    "hints": [
+      "1NF demands atomic scalar values in each column."
+    ],
+    "content": {
+      "choices": [
+        "Using an auto-incrementing integer as the primary key",
+        "Storing a comma-separated string of user tags or phone numbers in a single varchar column",
+        "Joining two tables using an explicit INNER JOIN ON condition",
+        "Adding a NOT NULL constraint to an email address column"
+      ],
+      "correct_index": 1,
+      "explanation": "First Normal Form (1NF) requires that all column values are atomic. Storing multi-valued comma-separated lists or arrays inside a single column violates 1NF."
+    }
+  },
+  {
+    "key": "cd-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Definition of Third Normal Form (3NF)",
+    "prompt_markdown": "A relational schema is in Third Normal Form (3NF) if it is in 2NF and has no:",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Think about transitive functional dependencies."
+    ],
+    "content": {
+      "choices": [
+        "Composite primary keys with more than two columns",
+        "Transitive dependencies (non-key attributes depending on other non-key attributes)",
+        "Foreign keys referencing tables in other schemas",
+        "Indexes with a fill factor lower than 100%"
+      ],
+      "correct_index": 1,
+      "explanation": "3NF requires that the schema is in 2NF and contains no transitive functional dependencies, meaning every non-prime attribute must depend directly on the primary key, the whole key, and nothing but the key."
+    }
+  },
+  {
+    "key": "cd-short-predict-constraint-violation",
+    "exercise_type": "short_answer",
+    "title": "Predict database response to CHECK constraint violation",
+    "prompt_markdown": "Given this table definition:\n\n```sql\nCREATE TABLE bank_accounts (\n    id INT PRIMARY KEY,\n    holder VARCHAR(50) NOT NULL,\n    balance NUMERIC(10,2) CHECK (balance >= 0.00)\n);\n```\nPredict what happens when an application executes:\n`INSERT INTO bank_accounts VALUES (1, 'Alice', -50.00);`",
+    "difficulty": "medium",
+    "hints": [
+      "Evaluate the CHECK predicate against -50.00."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Identifies that the insertion fails and is rejected by PostgreSQL",
+        "Explains that -50.00 evaluates to FALSE under the `balance >= 0.00` CHECK constraint",
+        "States that PostgreSQL aborts the statement with a check_violation error and writes zero rows"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "Result: The statement fails immediately and PostgreSQL raises a `check_violation` error (SQLSTATE 23514).\n\nExplanation: The column `balance` has a CHECK constraint `CHECK (balance >= 0.00)`. Because `-50.00 >= 0.00` evaluates to FALSE, PostgreSQL rejects the transaction, preventing the insertion of invalid state into the database.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "cd-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "cd-4",
+    "key": "cd-short-fix-unnormalized-design",
     "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "medium",
+    "title": "Diagnose and fix 1NF and transitive dependency violations",
+    "prompt_markdown": "This unnormalized table stores student enrollments:\n\n```sql\nCREATE TABLE student_enrollments (\n    student_id INT,\n    course_id INT,\n    student_name VARCHAR(100),\n    student_phones VARCHAR(255), -- stores '555-0101, 555-0102'\n    department_id INT,\n    department_name VARCHAR(100),\n    PRIMARY KEY (student_id, course_id)\n);\n```\nIdentify the normalization violations and show the refactored 3NF table schemas.",
+    "difficulty": "hard",
     "hints": [
-      "Hint 1"
+      "Identify non-atomic phones (1NF), partial dependencies on student_id (2NF), and department_name depending on department_id (3NF)."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Identifies 1NF violation: `student_phones` stores non-atomic comma-separated values",
+        "Identifies 2NF violation: `student_name` and `department_id` depend only on `student_id`, not the composite key `(student_id, course_id)`",
+        "Identifies 3NF violation: `department_name` transitively depends on `department_id`",
+        "Provides clean normalized schemas: students, student_phones, departments, courses, and enrollments"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "Violations:\n1. 1NF Violation: `student_phones` stores multiple phone numbers in one column (non-atomic).\n2. 2NF Violation: `student_name` and `department_id` depend only on `student_id`, a subset of the composite primary key `(student_id, course_id)` (partial dependency).\n3. 3NF Violation: `department_name` depends on `department_id`, which is a non-key attribute (transitive dependency).\n\nNormalized 3NF Architecture:\n```sql\nCREATE TABLE departments (\n    department_id INT PRIMARY KEY,\n    department_name VARCHAR(100) NOT NULL\n);\n\nCREATE TABLE students (\n    student_id INT PRIMARY KEY,\n    student_name VARCHAR(100) NOT NULL,\n    department_id INT NOT NULL REFERENCES departments(department_id)\n);\n\nCREATE TABLE student_phones (\n    phone_id INT PRIMARY KEY,\n    student_id INT NOT NULL REFERENCES students(student_id),\n    phone_number VARCHAR(20) NOT NULL\n);\n\nCREATE TABLE enrollments (\n    student_id INT NOT NULL REFERENCES students(student_id),\n    course_id INT NOT NULL,\n    PRIMARY KEY (student_id, course_id)\n);\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "cd-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "cd-6",
+    "key": "cd-short-implement-ecom-schema",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Question goes here.",
+    "title": "Implement relational order schema with constraints",
+    "prompt_markdown": "Write DDL creating an `orders` table and an `order_items` table. Requirements:\n1. `orders`: `order_id` (PRIMARY KEY), `customer_id` (INT NOT NULL), `status` (CHECK in 'pending', 'paid', 'shipped'), `created_at` (TIMESTAMPTZ default now).\n2. `order_items`: `item_id` (PRIMARY KEY), `order_id` (FOREIGN KEY with cascading delete), `unit_price` (NUMERIC NOT NULL, CHECK > 0), `quantity` (INT NOT NULL, CHECK >= 1).",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Include PRIMARY KEY, FOREIGN KEY REFERENCES with ON DELETE CASCADE, and CHECK expressions."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Declares orders table with PRIMARY KEY and status CHECK constraint",
+        "Declares order_items table with PRIMARY KEY and FOREIGN KEY referencing orders(order_id) ON DELETE CASCADE",
+        "Adds CHECK constraints on unit_price > 0 and quantity >= 1",
+        "All syntax is valid PostgreSQL DDL"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "```sql\nCREATE TABLE orders (\n    order_id INT PRIMARY KEY,\n    customer_id INT NOT NULL,\n    status VARCHAR(20) NOT NULL CHECK (status IN ('pending', 'paid', 'shipped')),\n    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE TABLE order_items (\n    item_id INT PRIMARY KEY,\n    order_id INT NOT NULL REFERENCES orders(order_id) ON DELETE CASCADE,\n    unit_price NUMERIC(10,2) NOT NULL CHECK (unit_price > 0),\n    quantity INT NOT NULL CHECK (quantity >= 1)\n);\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "cd-7",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 7",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "cd-8",
+    "key": "cd-short-explain-normalization-tradeoffs",
     "exercise_type": "short_answer",
-    "title": "Exercise 8",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "medium",
+    "title": "Explain normalization vs denormalization in system design interviews",
+    "prompt_markdown": "In a backend engineering system design interview, explain the trade-offs between a fully normalized 3NF database schema and a denormalized schema. When would you choose one over the other?",
+    "difficulty": "hard",
     "hints": [
-      "Hint 1"
+      "Contrast write integrity vs read latency; discuss OLTP vs OLAP workloads."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains 3NF advantages: eliminates data anomalies, minimizes data duplication, ensures transactional data consistency (OLTP)",
+        "Explains 3NF drawbacks: requires expensive multi-table JOINs, impacting read latency at high scale",
+        "Explains denormalization advantages: optimizes read queries by pre-joining data and caching aggregated metrics (OLAP / read caches)",
+        "Explains denormalization drawbacks: risk of inconsistent state (update anomalies), write amplification, increased storage overhead"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "1. Normalized Schemas (3NF):\n- Core Purpose: Designed for Online Transaction Processing (OLTP) where high-concurrency writes, updates, and deletes occur constantly.\n- Pros: Eliminates update and deletion anomalies; guarantees strict referential and entity integrity; updates touch exactly one canonical row without risk of data drift.\n- Cons: Answering complex business questions requires joining 5-10 tables, which introduces significant memory and CPU overhead at scale.\n\n2. Denormalized Schemas:\n- Core Purpose: Designed for Online Analytical Processing (OLAP), reporting, and read-heavy distributed APIs.\n- Pros: Minimizes or eliminates expensive relational JOINs by co-locating related attributes (e.g. embedding user name in orders); delivers predictable, low-latency reads.\n- Cons: Introduces significant risk of update anomalies if one copy of the data changes but another does not; requires write-amplification mechanisms (triggers, CDC pipelines, or batch syncs); increases storage footprint.\n\nConclusion: Start with a clean 3NF relational schema to safeguard data integrity. Selectively denormalize read-heavy bottlenecks only after profiling real query execution plans.",
       "minimum_pass_score": 70
     }
   }

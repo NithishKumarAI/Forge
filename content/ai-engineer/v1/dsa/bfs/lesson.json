@@ -2,262 +2,152 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "dsa",
   "topic_slug": "bfs",
-  "title": "Bfs",
-  "description": "Learn about bfs in Python.",
-  "version": "1.0.0",
+  "title": "Breadth-First Search (BFS), Level-Order Traversal, and Shortest Paths",
+  "description": "Master Breadth-First Search (BFS): queue frontier mechanics, layer-by-layer level order traversal, unweighted shortest path guarantees, and visited set cycle prevention.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand bfs",
-    "Implement basic templates",
-    "Recognize in interviews",
-    "Write optimized code"
+    "Traverse tree and graph data structures layer by layer using a FIFO queue buffer",
+    "Guarantee shortest path discovery in unweighted graphs and grids",
+    "Manage visited state collections to prevent cycles and duplicate node processing",
+    "Implement multi-source BFS for simultaneous frontier propagation"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "queues",
+    "big-o"
+  ],
   "sections": [
     {
-      "slug": "what-is-bfs",
-      "title": "What Is Bfs",
+      "slug": "bfs-foundations-and-queue",
+      "title": "Breadth-First Search mechanics and the FIFO queue buffer",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand what-is-bfs deeply.",
-      "markdown": "This section covers what-is-bfs in detail. \n\nKeywords to know: BFS, breadth-first search, level order, queue, shortest path, unweighted, visited, neighbors, layer. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Model layer-by-layer exploration using a queue.",
+      "markdown": "## When to recognize this pattern\nShortest path in unweighted graphs or grids, level-order traversal, finding minimum steps to transform a state, or multi-source spread.\n\n## Core idea\n`Breadth-First Search` (`BFS`) is an algorithm for traversing or searching tree or graph data structures. It starts at a source node and explores all immediate `neighbors` at distance 1 before moving on to neighbors at distance 2. To coordinate this exploration, `BFS` maintains a First-In First-Out `queue` buffer. When a node is dequeued, all its unvisited `neighbors` are pushed to the back of the `queue`. This guarantees that nodes are evaluated in non-decreasing order of their distance from the source.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "from collections import deque\n\ndef bfs_traversal(graph, start):\n    visited = {start}\n    queue = deque([start])\n    order = []\n    while queue:\n        node = queue.popleft()\n        order.append(node)\n        for neighbor in graph[node]:\n            if neighbor not in visited:\n                visited.add(neighbor)\n                queue.append(neighbor)\n    return order\n\ngraph = {'A': ['B', 'C'], 'B': ['D'], 'C': ['E'], 'D': [], 'E': []}\nprint(bfs_traversal(graph, 'A'))",
+          "explanation": "Explores neighbors layer by layer using a FIFO queue and visited set.",
+          "expected_output": "['A', 'B', 'C', 'D', 'E']"
         }
       ],
       "key_points": [
-        "Key point about what-is-bfs."
-      ]
+        "BFS requires a FIFO queue (collections.deque) to enforce level-order ordering.",
+        "Mark nodes as visited immediately upon enqueuing to prevent duplicate queue entries."
+      ],
+      "checkpoint": "What happens if a neighbor is marked visited when dequeued rather than when enqueued?"
     },
     {
-      "slug": "level-order-traversal",
-      "title": "Level Order Traversal",
+      "slug": "level-order-and-layers",
+      "title": "Level-order batch processing: Snapshotting layers",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand level-order-traversal deeply.",
-      "markdown": "This section covers level-order-traversal in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Group nodes by depth layer using the queue size snapshot technique.",
+      "markdown": "## Naive approach\nUsing DFS or unweighted Dijkstra to find shortest paths visits suboptimal deep paths first, requiring expensive path relaxation.\n\n## Better approach\nMany interview problems require `level order` grouping (e.g. 'Binary Tree Level Order Traversal' or counting the minimum number of steps to reach a target). To process an entire `layer` together, snapshot the queue length at the start of each level loop: `for _ in range(len(queue)):`. All nodes currently in the queue belong to the current `layer`; any newly discovered children appended during the loop belong strictly to the subsequent `layer`.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "from collections import deque\n\ndef bfs_layers(graph, start):\n    visited = {start}\n    queue = deque([start])\n    layers = []\n    while queue:\n        current_layer = []\n        for _ in range(len(queue)):\n            node = queue.popleft()\n            current_layer.append(node)\n            for neighbor in graph.get(node, []):\n                if neighbor not in visited:\n                    visited.add(neighbor)\n                    queue.append(neighbor)\n        layers.append(current_layer)\n    return layers\n\ngraph = {0: [1, 2], 1: [3], 2: [3, 4], 3: [], 4: []}\nprint(bfs_layers(graph, 0))",
+          "explanation": "Batches nodes by layer distance from start node using len(queue) snapshotting.",
+          "expected_output": "[[0], [1, 2], [3, 4]]"
         }
       ],
       "key_points": [
-        "Key point about level-order-traversal."
-      ]
+        "len(queue) snapshots exactly how many nodes belong to the active distance layer.",
+        "Increment step/distance counter once per layer iteration."
+      ],
+      "checkpoint": "How do you modify the layer loop to return the maximum width of a tree?"
     },
     {
-      "slug": "queue-based-bfs",
-      "title": "Queue Based Bfs",
+      "slug": "shortest-path-unweighted",
+      "title": "Shortest path in unweighted graphs and grids",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand queue-based-bfs deeply.",
-      "markdown": "This section covers queue-based-bfs in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Prove and apply the unweighted shortest path guarantee of BFS.",
+      "markdown": "## Python implementation\nStandard BFS uses a collections.deque and a visited set to process vertices level by level.\n\n## Step-by-step example\nThe defining algorithmic guarantee of BFS is finding the `shortest path` in any `unweighted` graph or grid. Because BFS expands uniformly like ripples in a pond, every node at distance $d$ is evaluated before any node at distance $d+1$. The very first time the destination node is dequeued or enqueued, the number of layers traversed is guaranteed to be the minimal edge count. In 2D grid pathfinding (e.g. 'Shortest Path in Binary Matrix'), explore the 4 or 8 cardinal directions while respecting obstacle bounds.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "from collections import deque\n\ndef shortest_path_grid(grid):\n    R, C = len(grid), len(grid[0])\n    if grid[0][0] != 0 or grid[R-1][C-1] != 0:\n        return -1\n    queue = deque([(0, 0, 1)])  # (r, c, distance)\n    visited = {(0, 0)}\n    while queue:\n        r, c, dist = queue.popleft()\n        if r == R - 1 and c == C - 1:\n            return dist\n        for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:\n            nr, nc = r + dr, c + dc\n            if 0 <= nr < R and 0 <= nc < C and grid[nr][nc] == 0 and (nr, nc) not in visited:\n                visited.add((nr, nc))\n                queue.append((nr, nc, dist + 1))\n    return -1\n\ngrid = [[0, 0, 0], [1, 1, 0], [1, 1, 0]]\nprint(shortest_path_grid(grid))",
+          "explanation": "Finds shortest unweighted path in 2D grid from top-left to bottom-right.",
+          "expected_output": "5"
         }
       ],
       "key_points": [
-        "Key point about queue-based-bfs."
-      ]
+        "BFS guarantees the shortest path in unweighted graphs.",
+        "Dijkstra's algorithm is only needed when edges carry unequal non-negative weights."
+      ],
+      "checkpoint": "Why does BFS fail to guarantee shortest path if edges have varying weights (e.g. weight 5 vs weight 1)?"
     },
     {
-      "slug": "visited-set",
-      "title": "Visited Set",
+      "slug": "multi-source-bfs",
+      "title": "Multi-source BFS and simultaneous propagation",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand visited-set deeply.",
-      "markdown": "This section covers visited-set in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Propagate frontiers simultaneously from multiple source nodes.",
+      "markdown": "## Time complexity\nO(V + E) on general graphs, or O(R * C) on 2D grids, visiting each vertex and edge at most once.\n\n## Space complexity\nO(V) auxiliary space to store the visited set and the FIFO queue frontier.\n\n## Common mistakes\nIn standard BFS, the queue starts with a single source node. In `multi-source BFS` (e.g. 'Rotting Oranges', '01 Matrix', 'Pacific Atlantic Water Flow'), multiple nodes start at distance 0 simultaneously. We initialize the queue containing ALL source nodes at once and mark them all `visited`. The algorithm then radiates outwards in concentric waves from all sources concurrently, delivering an optimal $O(R \\times C)$ or $O(V + E)$ solution without running separate BFS passes per source.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "from collections import deque\n\n# Multi-source BFS: Distance to nearest 0 in matrix\ndef update_matrix(mat):\n    R, C = len(mat), len(mat[0])\n    dist = [[-1] * C for _ in range(R)]\n    queue = deque()\n    # Enqueue ALL sources (0s) simultaneously\n    for r in range(R):\n        for c in range(C):\n            if mat[r][c] == 0:\n                dist[r][c] = 0\n                queue.append((r, c))\n    while queue:\n        r, c = queue.popleft()\n        for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:\n            nr, nc = r + dr, c + dc\n            if 0 <= nr < R and 0 <= nc < C and dist[nr][nc] == -1:\n                dist[nr][nc] = dist[r][c] + 1\n                queue.append((nr, nc))\n    return dist\n\nprint(update_matrix([[0, 0, 0], [0, 1, 0], [1, 1, 1]]))",
+          "explanation": "Calculates nearest zero distances using multi-source BFS in O(R * C) time.",
+          "expected_output": "[[0, 0, 0], [0, 1, 0], [1, 2, 1]]"
         }
       ],
       "key_points": [
-        "Key point about visited-set."
-      ]
+        "Multi-source BFS seeds the queue with all initial origin nodes before starting the loop.",
+        "Eliminates running N individual BFS passes, reducing O(N * (V + E)) to O(V + E)."
+      ],
+      "checkpoint": "How do you determine if any fresh oranges remain unreachable in the 'Rotting Oranges' problem?"
     },
     {
-      "slug": "shortest-path-property",
-      "title": "Shortest Path Property",
+      "slug": "arena-transfer",
+      "title": "BFS interview check and Arena practice",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand shortest-path-property deeply.",
-      "markdown": "This section covers shortest-path-property in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Excel in BFS graph and grid interview questions.",
+      "markdown": "## Arena reference\nPractice with `dsa-number-of-islands-bfs` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nBFS is a high-frequency interview topic for testing graph traversals and search optimization.\n\n### Common Interview Questions\n1. *When should you choose BFS over DFS?*\n   *(Choose BFS when you need the shortest path in an unweighted graph, when the target is expected to be close to the source, or when traversing level-by-level. Choose DFS when searching complete paths, topological sort, or detecting connected components with low memory).* \n2. *What is the time and space complexity of BFS?*\n   *(Time: O(V + E) where V is vertices and E is edges. Space: O(V) to store queue nodes and the visited set).* \n3. *How do you prevent memory exhaustion during BFS on very wide trees?*\n   *(Bi-directional BFS: search forward from start and backward from target simultaneously, meeting in the middle to reduce branching factor from B^D to 2 * B^(D/2))*.\n\n### Arena Practice Problems\n- `dsa-level-order-traversal`: Standard level-order binary tree queue processing\n- `dsa-number-of-islands-bfs`: Connected component flood fill\n- `dsa-word-ladder`: Shortest transformation sequence using unweighted graph BFS",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "# Number of islands via BFS component exploration\ndef num_islands_bfs(grid):\n    if not grid: return 0\n    R, C = len(grid), len(grid[0])\n    visited = set()\n    islands = 0\n    for r in range(R):\n        for c in range(C):\n            if grid[r][c] == '1' and (r, c) not in visited:\n                islands += 1\n                q = deque([(r, c)])\n                visited.add((r, c))\n                while q:\n                    cr, cc = q.popleft()\n                    for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:\n                        nr, nc = cr + dr, cc + dc\n                        if 0 <= nr < R and 0 <= nc < C and grid[nr][nc] == '1' and (nr, nc) not in visited:\n                            visited.add((nr, nc))\n                            q.append((nr, nc))\n    return islands\n\ng = [['1','1','0'],['1','1','0'],['0','0','1']]\nprint(num_islands_bfs(g))",
+          "explanation": "Counts connected components by exploring islands using BFS flood fill.",
+          "expected_output": "2"
         }
       ],
       "key_points": [
-        "Key point about shortest-path-property."
-      ]
-    },
-    {
-      "slug": "bfs-on-graph",
-      "title": "Bfs On Graph",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand bfs-on-graph deeply.",
-      "markdown": "This section covers bfs-on-graph in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
+        "BFS explores all connected vertices in a single component in O(V + E) time.",
+        "Always check grid bounds (0 <= nr < R and 0 <= nc < C) before inspecting grid cells."
       ],
-      "key_points": [
-        "Key point about bfs-on-graph."
-      ]
-    },
-    {
-      "slug": "bfs-template",
-      "title": "Bfs Template",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand bfs-template deeply.",
-      "markdown": "This section covers bfs-template in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about bfs-template."
-      ]
-    },
-    {
-      "slug": "when-to-use-bfs",
-      "title": "When To Use Bfs",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand when-to-use-bfs deeply.",
-      "markdown": "This section covers when-to-use-bfs in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about when-to-use-bfs."
-      ]
-    },
-    {
-      "slug": "bfs-vs-dfs",
-      "title": "Bfs Vs Dfs",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand bfs-vs-dfs deeply.",
-      "markdown": "This section covers bfs-vs-dfs in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about bfs-vs-dfs."
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand common-mistakes deeply.",
-      "markdown": "This section covers common-mistakes in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about common-mistakes."
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand interview-points deeply.",
-      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about interview-points."
-      ]
+      "checkpoint": "What is the worst-case space complexity of BFS on a complete binary tree with N leaves?"
     }
   ],
   "summary": [
-    "bfs is a key concept.",
-    "Mastering it helps in interviews.",
-    "Practice the templates."
+    "BFS utilizes a FIFO queue to explore vertices layer by layer in order of distance.",
+    "Guarantees finding the shortest path in unweighted graphs the first time destination is reached.",
+    "Snapshotting queue size (`len(queue)`) groups nodes cleanly into discrete distance layers.",
+    "Multi-source BFS propagates frontiers from multiple origins simultaneously in optimal linear time.",
+    "Marking nodes as visited upon enqueuing prevents duplicate insertion and memory blowup."
   ],
   "interview_takeaways": [
-    "Recognize the pattern",
-    "Analyze complexity",
-    "Discuss tradeoffs"
+    "Emphasize the unweighted shortest path guarantee whenever proposing BFS.",
+    "Always mark nodes visited at the exact point of enqueuing, never waiting until dequeueing.",
+    "Mention bi-directional BFS as an optimization for large search spaces to impress senior interviewers."
   ],
   "common_mistakes": [
-    "Off by one errors",
-    "Forgetting base cases",
-    "Ignoring edge cases"
+    "Marking a node as visited when it is popped rather than when pushed, causing duplicate queue entries",
+    "Using a Python list as a queue (`pop(0)`), creating an accidental O(N^2) bottleneck",
+    "Applying BFS to graphs with varying edge weights expecting shortest paths (requires Dijkstra)",
+    "Forgetting to check boundary conditions (row and col limits) in 2D grid matrix traversals"
   ],
   "sources": [
     {
       "source_id": "python-stdlib-docs",
-      "title": "heapq",
-      "url": "https://docs.python.org/3/library/heapq.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
-    },
-    {
-      "source_id": "python-stdlib-docs",
-      "title": "Python Tutorial - Data Structures",
-      "url": "https://docs.python.org/3/tutorial/datastructures.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
-    },
-    {
-      "source_id": "python-stdlib-docs",
-      "title": "functools.lru_cache",
-      "url": "https://docs.python.org/3/library/functools.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "Python collections.deque Documentation",
+      "url": "https://docs.python.org/3/library/collections.html#collections.deque",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-dsa-bfs-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "9a203ec7b39582fd17d6ef060deb31dcc932022ddabb6d3df5e0754b2c7bfc7a",
+  "generated_at": "2026-09-24T08:45:12.007023+00:00"
 }

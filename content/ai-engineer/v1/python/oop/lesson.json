@@ -2,220 +2,180 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "oop",
-  "title": "Mastering Oop",
-  "description": "Learn about oop in Python.",
-  "version": "1.0.0",
+  "title": "Object-Oriented Programming and Data Model",
+  "description": "Master class design, instance binding, inheritance vs composition, encapsulation principles, and Python dunder methods.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand oop",
-    "Apply in real-world",
-    "Prepare for interviews"
+    "Design classes with explicit instance initialization (__init__) and self binding",
+    "Differentiate instance attributes, class attributes, class methods, and static methods",
+    "Apply composition over inheritance to avoid fragile class hierarchies",
+    "Implement Python data model dunder methods (__repr__, __str__, __eq__, __len__)"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "functions",
+    "collections"
+  ],
   "sections": [
     {
-      "slug": "what-is-oop",
-      "title": "What Is Oop",
-      "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn what-is-oop",
-      "markdown": "### What is this?\nThis section covers what is oop.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
       "slug": "classes-and-instances",
-      "title": "Classes And Instances",
+      "title": "Class definition, instances, and self binding",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Instantiate objects and bind state using __init__ and self.",
+      "markdown": "A class serves as a blueprint for creating objects. Calling a class creates an instance; Python calls `__init__` to initialize its attributes. The first parameter of every instance method is conventionally named `self`. When calling `obj.method(arg)`, Python automatically passes `obj` as `self`. Instance attributes defined inside `__init__` as `self.attr = val` belong strictly to that instance, ensuring encapsulated state across distinct objects.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class BankAccount:\n    def __init__(self, owner: str, initial_balance: float = 0.0):\n        self.owner = owner\n        self.balance = initial_balance\n\n    def deposit(self, amount: float) -> None:\n        if amount <= 0:\n            raise ValueError('Deposit must be positive')\n        self.balance += amount\n\nacc = BankAccount('Dev', 100.0)\nacc.deposit(50.0)\nprint(f'{acc.owner}: ${acc.balance:.2f}')",
+          "explanation": "BankAccount encapsulates owner and balance; self.balance retains state across deposits.",
+          "expected_output": "Dev: $150.00"
+        }
+      ],
+      "key_points": [
+        "Classes instantiate objects; __init__ initializes instance state.",
+        "self represents the current instance and is passed implicitly on method calls."
+      ],
+      "checkpoint": "What is the difference between defining x inside __init__(self) versus defining x directly in the class body?"
+    },
+    {
+      "slug": "attributes-and-encapsulation",
+      "title": "Class attributes vs instance attributes and encapsulation",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn classes-and-instances",
-      "markdown": "### What is this?\nThis section covers classes and instances.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Differentiate shared class state from per-instance state and apply properties.",
+      "markdown": "Attributes defined directly in the class body are class attributes, shared across all instances. Modifying a mutable class attribute (like a list) modifies it for every instance! Instance attributes defined on `self` are distinct per object. Python relies on naming conventions for encapsulation: a leading underscore `_attr` signals internal implementation details that external code should not touch. Use the `@property` decorator to expose getter and setter interfaces with clean attribute syntax while validating invariants.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class Temperature:\n    def __init__(self, celsius: float):\n        self._celsius = celsius\n\n    @property\n    def celsius(self) -> float:\n        return self._celsius\n\n    @celsius.setter\n    def celsius(self, value: float) -> None:\n        if value < -273.15:\n            raise ValueError('Below absolute zero')\n        self._celsius = value\n\nt = Temperature(25.0)\nt.celsius = 30.0\nprint(f'Current temp: {t.celsius} C')",
+          "explanation": "@property wraps attribute access in validation logic without breaking public attribute syntax.",
+          "expected_output": "Current temp: 30.0 C"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
+        "Class attributes are shared; mutable class attributes affect all instances.",
+        "@property enables validated access without changing the caller's dot-syntax."
+      ],
+      "checkpoint": "Why is defining a mutable default like 'tags = []' as a class attribute dangerous in multi-user applications?"
     },
     {
-      "slug": "init-and-self",
-      "title": "Init And Self",
+      "slug": "inheritance-and-super",
+      "title": "Inheritance mechanics and super()",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn init-and-self",
-      "markdown": "### What is this?\nThis section covers init and self.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Extend base classes and invoke parent behavior using super().",
+      "markdown": "Inheritance models an \"is-a\" relationship where a subclass inherits methods and attributes from a base class. Use `super().__init__(...)` in the subclass initializer to guarantee that parent setup executes correctly. Subclasses can override methods to customize behavior. While inheritance promotes code reuse, deep inheritance hierarchies create fragile base class couplings where changes to a root class break downstream subclasses unpredictably.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class Employee:\n    def __init__(self, name: str, salary: float):\n        self.name = name\n        self.salary = salary\n\n    def compensation(self) -> float:\n        return self.salary\n\nclass Manager(Employee):\n    def __init__(self, name: str, salary: float, bonus: float):\n        super().__init__(name, salary)\n        self.bonus = bonus\n\n    def compensation(self) -> float:\n        return self.salary + self.bonus\n\nmgr = Manager('Amina', 120000.0, 20000.0)\nprint(f'{mgr.name} compensation: ${mgr.compensation():.2f}')",
+          "explanation": "Manager inherits name and salary setup from Employee via super(), overriding compensation().",
+          "expected_output": "Amina compensation: $140000.00"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
+        "Inheritance extends behavior; super() delegates initialization to base classes.",
+        "Subclasses override methods to specialize behavior while preserving the base interface."
+      ],
+      "checkpoint": "Explain what happens if a subclass defines __init__ but forgets to call super().__init__()."
     },
     {
-      "slug": "instance-attributes",
-      "title": "Instance Attributes",
+      "slug": "composition-over-inheritance",
+      "title": "Composition over inheritance",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn instance-attributes",
-      "markdown": "### What is this?\nThis section covers instance attributes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Assemble complex behavior using object composition.",
+      "markdown": "The software engineering principle \"composition over inheritance\" states that classes should achieve polymorphic behavior by containing instances of other classes (\"has-a\") rather than inheriting their implementation (\"is-a\"). Composition decouples subsystems: a `NotificationService` contains an `EmailSender` or `SmsSender` component. This enables swapping strategies at runtime, testing components in isolation with mocks, and avoiding rigid multi-inheritance hierarchies.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class ConsoleLogger:\n    def log(self, msg: str) -> None:\n        print(f'[LOG] {msg}')\n\nclass OrderProcessor:\n    def __init__(self, logger):\n        self.logger = logger  # Composition\n\n    def process_order(self, order_id: int) -> None:\n        self.logger.log(f'Processing order {order_id}')\n\nprocessor = OrderProcessor(ConsoleLogger())\nprocessor.process_order(101)",
+          "explanation": "OrderProcessor contains a logger instance rather than inheriting from a logging base class.",
+          "expected_output": "[LOG] Processing order 101"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "instance-methods",
-      "title": "Instance Methods",
-      "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn instance-methods",
-      "markdown": "### What is this?\nThis section covers instance methods.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "class-attributes",
-      "title": "Class Attributes",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn class-attributes",
-      "markdown": "### What is this?\nThis section covers class attributes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "class-and-static-methods",
-      "title": "Class And Static Methods",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn class-and-static-methods",
-      "markdown": "### What is this?\nThis section covers class and static methods.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "inheritance-basics",
-      "title": "Inheritance Basics",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn inheritance-basics",
-      "markdown": "### What is this?\nThis section covers inheritance basics.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "composition-vs-inheritance",
-      "title": "Composition Vs Inheritance",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn composition-vs-inheritance",
-      "markdown": "### What is this?\nThis section covers composition vs inheritance.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "encapsulation",
-      "title": "Encapsulation",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn encapsulation",
-      "markdown": "### What is this?\nThis section covers encapsulation.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
+        "Composition connects independent components through references rather than type inheritance.",
+        "Enables runtime dependency swapping and isolated unit testing."
+      ],
+      "checkpoint": "Provide an example where modeling an entity with inheritance fails when requirements evolve."
     },
     {
       "slug": "dunder-methods",
-      "title": "Dunder Methods",
-      "order_index": 10,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn dunder-methods",
-      "markdown": "### What is this?\nThis section covers dunder methods.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "title": "Python data model: Special (dunder) methods",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Integrate custom classes with Python protocols using dunder methods.",
+      "markdown": "Python's data model relies on special \"dunder\" (double underscore) methods to hook into built-in operators and protocols. Implement `__str__` for human-readable string representations and `__repr__` for unambiguous developer representations. Implement `__eq__` for value-based equality checking. Implement `__len__` to integrate with `len(obj)` and truthiness checking. Implement `__getitem__` to support bracket indexing. By implementing these protocols, custom classes behave like native Python types.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class Point:\n    def __init__(self, x: int, y: int):\n        self.x = x\n        self.y = y\n\n    def __repr__(self) -> str:\n        return f'Point({self.x}, {self.y})'\n\n    def __eq__(self, other) -> bool:\n        if not isinstance(other, Point):\n            return False\n        return self.x == other.x and self.y == other.y\n\np1 = Point(3, 4)\np2 = Point(3, 4)\nprint(repr(p1))\nprint(p1 == p2)",
+          "explanation": "__repr__ gives unambiguous inspection text; __eq__ enables value equality over identity check.",
+          "expected_output": "Point(3, 4)\nTrue"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
+        "__repr__ provides formal debugging representation; __str__ provides user-facing text.",
+        "__eq__ enables value comparison between instances.",
+        "Dunder methods allow custom classes to integrate seamlessly with Python built-ins."
+      ],
+      "checkpoint": "What happens if a class defines __eq__ without defining __hash__ when stored in a set?"
     },
     {
-      "slug": "property-awareness",
-      "title": "Property Awareness",
-      "order_index": 11,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn property-awareness",
-      "markdown": "### What is this?\nThis section covers property awareness.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 5,
+      "estimated_minutes": 8,
+      "learning_objective": "Review OOP interview questions and practice object modeling in Coding Arena.",
+      "markdown": "Object-oriented design questions test your understanding of state boundaries, memory lifecycle, and clean abstraction.\n\n### Oral Interview Questions\n1. *What is the difference between `__str__` and `__repr__` in Python?*\n   *(`__repr__` should be unambiguous, developer-focused, and ideally runnable Python; `__str__` is a friendly string representation for end users).*\n2. *How does Python resolve method calls in multiple inheritance? (Method Resolution Order using the C3 linearization algorithm via Class.mro()).*\n3. *Why is composition preferred over inheritance in modern backend architecture?*\n\n### Code Trace Challenge\nTrace this class attribute behavior:\n```python\nclass Service:\n    registry = []\ns1 = Service(); s2 = Service()\ns1.registry.append('auth')\nprint(s2.registry)\n```\nBecause `registry` is a class attribute holding a mutable list, `s2.registry` outputs `['auth']`! This is a classic production bug.\n\n### Common Interview Trap\nUsing inheritance purely to reuse a few utility methods. If Class B inherits from Class A simply to call `helper_func()`, B inherits A's entire interface and internal state contracts. Use composition or standalone utility functions instead.\n\n### Arena Practice Problems\nPractice object-oriented design in Coding Arena:\n- `python-implement-queue`: Encapsulating queue operations with two stacks\n- `dsa-min-stack`: Designing an object maintaining an internal minimum invariant",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class Stack:\n    def __init__(self):\n        self._items = []\n    def push(self, val):\n        self._items.append(val)\n    def pop(self):\n        return self._items.pop()\n    def __len__(self):\n        return len(self._items)\n\ns = Stack()\ns.push(10); s.push(20)\nprint(f'Length: {len(s)}, Popped: {s.pop()}')",
+          "explanation": "Custom Stack wraps a private list and implements __len__ for native Python integration.",
+          "expected_output": "Length: 2, Popped: 20"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "dataclasses-awareness",
-      "title": "Dataclasses Awareness",
-      "order_index": 12,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn dataclasses-awareness",
-      "markdown": "### What is this?\nThis section covers dataclasses awareness.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 13,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn common-mistakes",
-      "markdown": "### What is this?\nThis section covers common mistakes.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 14,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn interview-points",
-      "markdown": "### What is this?\nThis section covers interview points.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: classes instances attributes methods init inheritance composition encapsulation dunder methods\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
+        "Understand the difference between class-level and instance-level attributes.",
+        "Know how dunder methods hook into Python built-in operations."
+      ],
+      "checkpoint": "Demonstrate how to write a @classmethod factory method that constructs an instance from a JSON string."
     }
   ],
   "summary": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "Classes define reusable abstractions; __init__ and self bind per-instance state.",
+    "Encapsulation conventions (_private) and @property protect class invariants.",
+    "Inheritance provides hierarchical specialization, while super() chains constructors.",
+    "Composition models modular 'has-a' relationships that are easier to test and evolve.",
+    "Dunder methods integrate custom objects cleanly with Python's operators and protocols."
   ],
   "interview_takeaways": [
-    "Takeaway 1",
-    "Takeaway 2",
-    "Takeaway 3"
+    "Default to composition over inheritance unless an unambiguous 'is-a' hierarchy exists.",
+    "Never use mutable objects as class attributes unless intentional shared cache state.",
+    "Always implement __repr__ on custom classes for inspectable debugging."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Defining mutable class attributes shared across all instances accidentally",
+    "Overriding __init__ in a subclass without calling super().__init__()",
+    "Using deep inheritance hierarchies when simple composition would be decoupled",
+    "Confusing __repr__ and __str__ purposes"
   ],
   "sources": [
     {
       "source_id": "python-official-tutorial",
-      "title": "Python Tutorial",
-      "url": "https://docs.python.org/3/tutorial/index.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "The Python Tutorial \u2014 Classes",
+      "url": "https://docs.python.org/3/tutorial/classes.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-language-reference",
+      "title": "Python Language Reference \u2014 Special method names",
+      "url": "https://docs.python.org/3/reference/datamodel.html#special-method-names",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-oop-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "100e20a27758a27f0b1c9341b4bc784500432523ce48a0f94c045b75c22fa75c",
+  "generated_at": "2026-09-24T08:23:03.509371+00:00"
 }

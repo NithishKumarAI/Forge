@@ -1,115 +1,138 @@
 [
   {
-    "key": "qb-1",
+    "key": "qb-mcq-execution-order",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "What is the correct answer?",
+    "title": "Logical query execution order",
+    "prompt_markdown": "In what order does a relational database logically execute the clauses of a standard query?",
     "difficulty": "easy",
     "hints": [
-      "Think about it"
+      "Which runs first: FROM, WHERE, SELECT, or ORDER BY?"
     ],
     "content": {
       "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
+        "SELECT -> FROM -> WHERE -> ORDER BY -> LIMIT",
+        "FROM -> WHERE -> SELECT -> ORDER BY -> LIMIT",
+        "WHERE -> FROM -> ORDER BY -> SELECT -> LIMIT",
+        "FROM -> SELECT -> WHERE -> LIMIT -> ORDER BY"
       ],
       "correct_index": 1,
-      "explanation": "Because it is correct."
+      "explanation": "SQL engines execute FROM/JOIN first to determine the working dataset, then WHERE to filter rows, then SELECT to project columns, then ORDER BY to sort, and finally LIMIT/OFFSET to truncate."
     }
   },
   {
-    "key": "qb-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Explain this.",
+    "key": "qb-mcq-between-bounds",
+    "exercise_type": "multiple_choice",
+    "title": "BETWEEN boundary inclusivity",
+    "prompt_markdown": "If a query filters `WHERE score BETWEEN 80 AND 90`, which scores are included in the result set?",
+    "difficulty": "easy",
+    "hints": [
+      "Is BETWEEN inclusive or exclusive of the bounds?"
+    ],
+    "content": {
+      "choices": [
+        "Only scores strictly greater than 80 and strictly less than 90 (81-89)",
+        "Scores from 80 through 90, inclusive of both 80 and 90",
+        "Scores starting at 80 up to 89 (inclusive of 80, exclusive of 90)",
+        "Scores between 81 and 90 (exclusive of 80, inclusive of 90)"
+      ],
+      "correct_index": 1,
+      "explanation": "In standard SQL, the `BETWEEN` operator is inclusive of both boundary values, desugaring to `score >= 80 AND score <= 90`."
+    }
+  },
+  {
+    "key": "qb-mcq-precedence-trap",
+    "exercise_type": "multiple_choice",
+    "title": "Operator precedence of AND vs OR",
+    "prompt_markdown": "How does SQL evaluate the predicate `WHERE dept = 'Sales' OR dept = 'Marketing' AND active = true` without parentheses?",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Which operator has higher precedence: AND or OR?"
+    ],
+    "content": {
+      "choices": [
+        "`(dept = 'Sales' OR dept = 'Marketing') AND active = true`",
+        "`dept = 'Sales' OR (dept = 'Marketing' AND active = true)`",
+        "It raises an ambiguous syntax error",
+        "It evaluates strictly left to right regardless of operators"
+      ],
+      "correct_index": 1,
+      "explanation": "In SQL operator precedence, `AND` takes precedence over `OR`. The database evaluates `dept = 'Marketing' AND active = true` first, meaning any employee in 'Sales' matches regardless of their active status!"
+    }
+  },
+  {
+    "key": "qb-short-predict-like",
+    "exercise_type": "short_answer",
+    "title": "Predict pattern matching with LIKE",
+    "prompt_markdown": "Given this table of usernames:\n```\n('admin'), ('ad_user'), ('adam'), ('a_1')\n```\nPredict the matching names for the query `SELECT name FROM users WHERE name LIKE 'ad_m';` versus `SELECT name FROM users WHERE name LIKE 'ad%m';`.",
+    "difficulty": "medium",
+    "hints": [
+      "_ matches exactly one character; % matches zero or more characters."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Identifies that `'ad_m'` matches only `'adam'` because `_` represents exactly one character",
+        "Identifies that `'ad%m'` matches `'adam'` (and would match any string starting with 'ad' and ending with 'm')",
+        "Notes that neither pattern matches 'admin' or 'ad_user'"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "1. `WHERE name LIKE 'ad_m'`: Matches only `'adam'`. The underscore `_` represents exactly one character, matching 'a' between 'ad' and 'm'.\n2. `WHERE name LIKE 'ad%m'`: Matches `'adam'`. The percent sign `%` matches zero or more characters between 'ad' and 'm'. Neither matches 'admin' (ends in 'n') or 'ad_user' (ends in 'r').",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "qb-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because it is correct."
-    }
-  },
-  {
-    "key": "qb-4",
+    "key": "qb-short-fix-alias-in-where",
     "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Explain this.",
+    "title": "Diagnose alias in WHERE clause error",
+    "prompt_markdown": "A backend query fails with `column \"annual_pay\" does not exist`:\n\n```sql\nSELECT name, monthly_salary * 12 AS annual_pay\nFROM staff\nWHERE annual_pay > 100000;\n```\nExplain why this error occurs based on SQL logical execution order and write the corrected query.",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Does WHERE execute before or after SELECT?"
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains that the `WHERE` clause executes before the `SELECT` clause projects aliases",
+        "Explains that `annual_pay` is not yet defined when `WHERE` evaluates",
+        "Rewrites query repeating the expression `monthly_salary * 12 > 100000` or using a CTE/subquery"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Defect: Under SQL's logical execution order, the `WHERE` clause executes *before* the `SELECT` projection. Consequently, the alias `annual_pay` has not been evaluated yet when `WHERE` runs, causing the database to reject the column reference.\nCorrected query:\n```sql\nSELECT name, monthly_salary * 12 AS annual_pay\nFROM staff\nWHERE (monthly_salary * 12) > 100000;\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "qb-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because it is correct."
-    }
-  },
-  {
-    "key": "qb-6",
+    "key": "qb-short-implement-pagination",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Explain this.",
+    "title": "Write paginated query with deterministic sorting",
+    "prompt_markdown": "Write a query to retrieve Page 4 of active products (`is_active = true`), with a page size of 25 items per page. Results must be ordered from highest price to lowest price, using product `id` as a deterministic tie-breaker.",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Page 4 with size 25 skips 75 items (OFFSET 75) and takes 25 (LIMIT 25)."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Filters with `WHERE is_active = true`",
+        "Orders by `price DESC, id ASC`",
+        "Specifies `LIMIT 25`",
+        "Specifies `OFFSET 75` (calculated as `(4 - 1) * 25`)"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "```sql\nSELECT id, name, price\nFROM products\nWHERE is_active = true\nORDER BY price DESC, id ASC\nLIMIT 25 OFFSET 75;\n```\nOFFSET 75 skips the first 3 pages (75 rows), and LIMIT 25 retrieves page 4.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "qb-short-explain-keyset",
+    "exercise_type": "short_answer",
+    "title": "Explain keyset pagination vs OFFSET in interviews",
+    "prompt_markdown": "Why do high-scale web platforms prohibit deep OFFSET pagination (e.g. `OFFSET 500000`)? Explain the algorithmic difference between OFFSET pagination and keyset (cursor-based) pagination.",
+    "difficulty": "medium",
+    "hints": [
+      "How many index entries does the database read during OFFSET 500000 vs WHERE id > last_seen?"
+    ],
+    "content": {
+      "rubric": [
+        "Explains that `OFFSET N` forces the database engine to traverse and discard N rows, running in O(N) linear time",
+        "Explains that keyset pagination uses `WHERE id > last_id ORDER BY id LIMIT K`",
+        "Notes that keyset pagination seeks directly to the target record via B-tree index in O(log N) time"
+      ],
+      "reference_answer": "1. OFFSET Flaw: `OFFSET 500000` is O(N) complexity. The database engine must scan and sort all 500,000 preceding rows in memory or disk buffers before discarding them to return the next 10 rows, leading to high latency and database CPU spikes.\n2. Keyset (Cursor) Pagination: Keyset pagination records the last seen key from the previous page: `WHERE (created_at, id) < (:last_created_at, :last_id) ORDER BY created_at DESC, id DESC LIMIT 10`. The database performs an instant B-tree index seek in O(log N) time, directly accessing the 10 target rows with constant speed regardless of page depth.",
       "minimum_pass_score": 70
     }
   }

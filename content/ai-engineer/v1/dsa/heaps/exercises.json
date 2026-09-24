@@ -1,161 +1,140 @@
 [
   {
-    "key": "heap-1",
+    "key": "heaps-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1 for heaps",
-    "prompt_markdown": "What is the core idea of heaps in exercise 1?",
-    "difficulty": "easy",
+    "title": "heapq.heapify time complexity",
+    "prompt_markdown": "What is the time complexity of converting an unsorted array of $N$ elements into a heap using `heapq.heapify()` in Python?",
+    "difficulty": "medium",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Consider bottom-up sifting across tree levels."
     ],
     "content": {
       "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
+        "O(1)",
+        "O(N)",
+        "O(N log N)",
+        "O(N^2)"
       ],
       "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
+      "explanation": "heapq.heapify() implements Floyd's heap construction algorithm by sifting down nodes bottom-up. Because most nodes reside near the bottom where tree height is small, the summation converges to O(N) linear time."
     }
   },
   {
-    "key": "heap-2",
+    "key": "heaps-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Simulating a Max Heap in Python",
+    "prompt_markdown": "How do Python developers implement a `max heap` using the standard library `heapq` module?",
+    "difficulty": "easy",
+    "hints": [
+      "heapq only provides a min heap."
+    ],
+    "content": {
+      "choices": [
+        "By passing `reverse=True` to `heapq.heapify(nums, reverse=True)`",
+        "By multiplying numerical values by -1 before pushing, and negating them back when popping",
+        "By importing `heapq.maxheap` from the collections module",
+        "By reversing the list after each heappush"
+      ],
+      "correct_index": 1,
+      "explanation": "Because heapq only provides a min heap, developers negate values by multiplying by -1. The largest original number becomes the most negative number, placing it at the root of the min heap."
+    }
+  },
+  {
+    "key": "heaps-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Optimal data structure for Kth Largest Element",
+    "prompt_markdown": "To find the $K$-th largest element in an incoming stream of numbers, what data structure provides the optimal time and auxiliary space complexity?",
+    "difficulty": "easy",
+    "hints": [
+      "You want to keep the K largest, and easily evict the smallest of those."
+    ],
+    "content": {
+      "choices": [
+        "A max heap of size N",
+        "A min heap of size K",
+        "A doubly linked list of size K",
+        "A stack of size N"
+      ],
+      "correct_index": 1,
+      "explanation": "A min heap of size K retains the top K elements. The root is the minimum among the top K (the Kth largest element overall). Each incoming number is processed in O(log K) time with O(K) space."
+    }
+  },
+  {
+    "key": "heaps-short-predict-heapify",
     "exercise_type": "short_answer",
-    "title": "Exercise 2 for heaps",
-    "prompt_markdown": "What is the core idea of heaps in exercise 2?",
+    "title": "Predict heap array order after heapify",
+    "prompt_markdown": "Given list `nums = [10, 4, 8, 2, 7, 3]`. Trace the element at `nums[0]` immediately after executing `heapq.heapify(nums)`, and state the sequence of elements returned by two consecutive `heapq.heappop(nums)` calls.",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "The root nums[0] is always the global minimum."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Identifies that nums[0] is 2 after heapify",
+        "Identifies first popped element is 2",
+        "Identifies second popped element is 3",
+        "Explains that heappop restores the min-heap invariant in O(log n)"
       ],
-      "reference_answer": "The answer is related to heaps principles.",
+      "reference_answer": "1. `nums[0]` after `heapify`: `2` (the global minimum element is always moved to index 0).\n2. First `heapq.heappop(nums)`: returns `2`.\n3. Second `heapq.heappop(nums)`: returns `3`.\n\nExplanation: In a min heap, index 0 is guaranteed to be the minimum. Each `heappop()` removes the root, places the last array element at the root, and sifts it down to restore the invariant in $O(\\log n)$ time.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "heap-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3 for heaps",
-    "prompt_markdown": "What is the core idea of heaps in exercise 3?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "heap-4",
+    "key": "heaps-short-fix-tiebreaker-bug",
     "exercise_type": "short_answer",
-    "title": "Exercise 4 for heaps",
-    "prompt_markdown": "What is the core idea of heaps in exercise 4?",
+    "title": "Fix unhashable / uncomparable tie-breaker crash in priority queue",
+    "prompt_markdown": "A task worker pushes custom non-comparable task objects into a priority queue:\n\n```python\nclass Task:\n    def __init__(self, name):\n        self.name = name\n\nq = []\nheapq.heappush(q, (1, Task(\"A\")))\nheapq.heappush(q, (1, Task(\"B\")))  # Crashes with TypeError: '<' not supported!\n```\nExplain why Python crashes on the second push, and fix the priority queue tuple structure.",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "When priorities tie, Python compares the second tuple element. Use an auto-incrementing integer."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Explains that when priorities match (both priority 1), Python tries to compare `Task('A') < Task('B')`, which raises a TypeError",
+        "Solves by introducing a unique auto-incrementing counter as the middle tuple element: `(priority, count, task)`",
+        "Shows that the counter breaks ties before the Task object is ever compared"
       ],
-      "reference_answer": "The answer is related to heaps principles.",
+      "reference_answer": "Diagnosis: Python compares tuples element-by-element. When two tuples share the same priority (here, `1 == 1`), Python attempts to compare the second element: `Task('A') < Task('B')`. Because `Task` does not implement `<` (`__lt__`), Python raises `TypeError: '<' not supported between instances of 'Task' and 'Task'`.\n\nFix (Tie-Breaker Counter):\nInsert an auto-incrementing integer counter as a tie-breaker so Python never compares the Task objects:\n```python\nimport itertools\n\ncounter = itertools.count()\nq = []\n# Tuple structure: (priority, tie_breaker_count, task)\nheapq.heappush(q, (1, next(counter), Task(\"A\")))\nheapq.heappush(q, (1, next(counter), Task(\"B\")))  # Works cleanly!\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "heap-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5 for heaps",
-    "prompt_markdown": "What is the core idea of heaps in exercise 5?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "heap-6",
+    "key": "heaps-short-implement-kth-largest",
     "exercise_type": "short_answer",
-    "title": "Exercise 6 for heaps",
-    "prompt_markdown": "What is the core idea of heaps in exercise 6?",
+    "title": "Write Kth Largest Element using bounded min heap",
+    "prompt_markdown": "Write a Python function `find_kth_largest(nums: list[int], k: int) -> int` that returns the $k$-th largest element in an unsorted list. The function must maintain a min heap of size at most $k$ and execute in $O(n \\log k)$ time.",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Push onto min heap. If len > k, pop. Root is the answer."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Imports and uses heapq",
+        "Maintains min heap of size k",
+        "Evicts smallest element when heap size exceeds k",
+        "Returns heap[0] in O(n log k) time"
       ],
-      "reference_answer": "The answer is related to heaps principles.",
+      "reference_answer": "```python\nimport heapq\n\ndef find_kth_largest(nums: list[int], k: int) -> int:\n    min_heap = []\n    for x in nums:\n        heapq.heappush(min_heap, x)\n        if len(min_heap) > k:\n            heapq.heappop(min_heap)\n    return min_heap[0]\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "heap-7",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 7 for heaps",
-    "prompt_markdown": "What is the core idea of heaps in exercise 7?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "heap-8",
+    "key": "heaps-short-explain-median-finder",
     "exercise_type": "short_answer",
-    "title": "Exercise 8 for heaps",
-    "prompt_markdown": "What is the core idea of heaps in exercise 8?",
-    "difficulty": "medium",
+    "title": "Explain continuous median stream two-heap architecture in interviews",
+    "prompt_markdown": "In a senior coding interview, you are asked: 'Design a data structure that accepts a continuous stream of numbers and returns the running median in O(1) time.' Explain the two-heap architecture and balance invariants.",
+    "difficulty": "hard",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Use a max heap for the small half and a min heap for the large half."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Defines the two heaps: `small` (max heap storing lower half) and `large` (min heap storing upper half)",
+        "Explains the order invariant: every element in `small` <= every element in `large`",
+        "Explains the size balance invariant: `len(small)` equals `len(large)` or `len(small) == len(large) + 1`",
+        "Explains O(1) median retrieval: if sizes differ, root of `small`; if equal, average of roots of `small` and `large`"
       ],
-      "reference_answer": "The answer is related to heaps principles.",
+      "reference_answer": "1. Two-Heap Architecture:\nTo find the median in $O(1)$ time, partition incoming numbers into two equal halves:\n- `small` (Max Heap): Stores the smaller half of numbers (e.g. $[1, 2, 3]$). In Python, store negated values.\n- `large` (Min Heap): Stores the larger half of numbers (e.g. $[4, 5, 6]$).\n\n2. Key Invariants:\n- Order Invariant: The maximum element of `small` must be $\\le$ the minimum element of `large` (`-small[0] <= large[0]`).\n- Balance Invariant: The sizes of the two heaps must differ by at most 1 element:\n  $$\\text{len}(small) = \\text{len}(large) \\quad \\text{or} \\quad \\text{len}(small) = \\text{len}(large) + 1$$\n\n3. Operations:\n- `addNum(x)` (Time $O(\\log n)$):\n  Push $x$ onto `small`, then pop the maximum from `small` and push it to `large`. If `len(large) > len(small)`, pop the minimum from `large` and push it back to `small` to preserve balance.\n- `findMedian()` (Time $O(1)$):\n  - If `len(small) > len(large)`: The median is `-small[0]`.\n  - If `len(small) == len(large)`: The median is `(-small[0] + large[0]) / 2.0`.",
       "minimum_pass_score": 70
     }
   }

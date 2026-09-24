@@ -1,116 +1,139 @@
 [
   {
-    "key": "ruc-1",
+    "key": "read-mcq-entry-point",
     "exercise_type": "multiple_choice",
-    "title": "Basic Concept",
-    "prompt_markdown": "What is a core concept of Reading Unfamiliar Code?",
+    "title": "Identifying entry points in web applications",
+    "prompt_markdown": "When exploring an unfamiliar FastAPI repository, which file or variable represents the primary application entry point where routes and middleware are wired?",
     "difficulty": "easy",
     "hints": [
-      "Review the basics."
+      "Look for the core FastAPI instance declaration."
     ],
     "content": {
       "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
+        "The `requirements.txt` file",
+        "The `app = FastAPI()` instance in `app/main.py` or equivalent root module",
+        "The `tests/conftest.py` fixture file",
+        "The `.gitignore` file"
       ],
       "correct_index": 1,
-      "explanation": "Option B is correct because it aligns with the core principles."
+      "explanation": "In FastAPI services, the root application instance `app = FastAPI()` (typically in `main.py`) registers all routers, middleware, and startup lifecycle hooks, defining the entry point."
     }
   },
   {
-    "key": "ruc-2",
-    "exercise_type": "short_answer",
-    "title": "Explain the concept",
-    "prompt_markdown": "Explain how this concept applies in a real-world scenario.",
+    "key": "read-mcq-tests-as-spec",
+    "exercise_type": "multiple_choice",
+    "title": "Why tests serve as living specification",
+    "prompt_markdown": "Why are unit tests often more reliable than README markdown documents when trying to understand an unfamiliar codebase?",
+    "difficulty": "easy",
+    "hints": [
+      "What happens to markdown documentation when code changes?"
+    ],
+    "content": {
+      "choices": [
+        "Markdown documents are encrypted by Git",
+        "Unit tests must execute and pass in CI/CD, guaranteeing they reflect current executable reality while docs can be stale",
+        "Tests cannot contain comments",
+        "Python ignores documentation comments"
+      ],
+      "correct_index": 1,
+      "explanation": "Documentation easily becomes outdated as code evolves. Unit tests are actively verified by CI/CD on every pull request, ensuring they reflect current, working system contracts and boundary behaviors."
+    }
+  },
+  {
+    "key": "read-mcq-side-effect-definition",
+    "exercise_type": "multiple_choice",
+    "title": "Identifying side effects",
+    "prompt_markdown": "Which of the following operations represents an external side effect rather than a pure functional transformation?",
     "difficulty": "medium",
     "hints": [
-      "Think about production environments."
+      "Does it modify state outside the local function frame?"
+    ],
+    "content": {
+      "choices": [
+        "Converting an integer string to an int: `int('42')`",
+        "Sorting a list copy with `sorted(data)`",
+        "Writing a transaction record to a PostgreSQL database",
+        "Calculating string length: `len(name)`"
+      ],
+      "correct_index": 2,
+      "explanation": "Writing to a database modifies external persistent system state outside the function scope, which is a side effect. Conversions, calculations, and pure sorting produce new values without altering external state."
+    }
+  },
+  {
+    "key": "read-short-predict-dataflow",
+    "exercise_type": "short_answer",
+    "title": "Trace data transformation pipeline",
+    "prompt_markdown": "Trace the data flow through these functions and state the final return value for input `raw = {'email': '  ALICE@CORP.TEST  ', 'age': '28'}`:\n\n```python\ndef sanitize(raw: dict) -> dict:\n    return {'email': raw['email'].strip().lower(), 'age': int(raw['age'])}\n\ndef tag_user(user: dict) -> dict:\n    tier = 'senior' if user['age'] >= 25 else 'junior'\n    return {**user, 'tier': tier}\n\nresult = tag_user(sanitize(raw))\nprint(result)\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Follow strip/lower on email, int conversion on age, and the ternary tier check."
     ],
     "content": {
       "rubric": [
-        "Mentions performance",
-        "Mentions scalability"
+        "States the correct output: `{'email': 'alice@corp.test', 'age': 28, 'tier': 'senior'}`",
+        "Traces email stripping and lowercasing in sanitize()",
+        "Traces integer age conversion (28 >= 25) resulting in tier='senior'"
       ],
-      "reference_answer": "It improves performance and scalability by optimizing resource usage.",
+      "reference_answer": "Output: `{'email': 'alice@corp.test', 'age': 28, 'tier': 'senior'}`.\nExplanation: `sanitize()` strips whitespace and lowercases the email to `'alice@corp.test'`, and casts `'28'` to integer `28`. `tag_user()` evaluates `28 >= 25`, assigning `tier = 'senior'`, and unpacks the dictionary with the new key.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "ruc-3",
-    "exercise_type": "multiple_choice",
-    "title": "Entry Points in Python Projects",
-    "prompt_markdown": "When onboarding to an unfamiliar Python backend repository, which files are the best starting entry points to trace control flow?",
-    "difficulty": "easy",
-    "hints": [
-      "Look for application setup and route definitions."
-    ],
-    "content": {
-      "choices": [
-        "`__pycache__` and `.gitignore`",
-        "`main.py`, `app.py`, route registries, or CLI command definitions",
-        "Internal database migration files exclusively",
-        "The lockfile alone"
-      ],
-      "correct_index": 1,
-      "explanation": "Application setup files (like `main.py`, `app.py`, FastAPI routers, or Celery task definitions) reveal the primary HTTP routes, dependencies, and execution lifecycles."
-    }
-  },
-  {
-    "key": "ruc-4",
-    "exercise_type": "multiple_choice",
-    "title": "Using Tests as Specifications",
-    "prompt_markdown": "Why are automated unit and integration tests often the most valuable documentation when reading complex legacy code?",
-    "difficulty": "easy",
-    "hints": [
-      "Tests show concrete inputs, outputs, and edge cases."
-    ],
-    "content": {
-      "choices": [
-        "Tests run faster than reading Python source code.",
-        "Tests show real-world input fixtures, expected return values, and edge cases that the author intentionally handled.",
-        "Tests replace the need for an interpreter.",
-        "Tests prevent the code from changing."
-      ],
-      "correct_index": 1,
-      "explanation": "Tests act as an executable specification. They illustrate how callers instantiate objects, invoke functions with concrete data, and what side-effects or return values are considered valid."
-    }
-  },
-  {
-    "key": "ruc-5",
+    "key": "read-short-fix-hidden-mutation",
     "exercise_type": "short_answer",
-    "title": "Mental Model for Tracing Data Flow",
-    "prompt_markdown": "What structured approach should an engineer use to trace data flow through a multi-layered service?",
+    "title": "Diagnose hidden in-place dictionary mutation",
+    "prompt_markdown": "In an unfamiliar codebase, a function modifies an input dictionary in-place, causing unexpected side effects in other modules. Identify the mutating line and rewrite it as a pure function.\n\n```python\ndef calculate_invoice(order: dict) -> dict:\n    order['tax'] = order['subtotal'] * 0.10\n    order['total'] = order['subtotal'] + order['tax']\n    return order\n```",
     "difficulty": "medium",
     "hints": [
-      "Input schema -> validation -> business logic -> database/external -> response schema."
+      "Return a new dictionary copy rather than mutating order directly."
     ],
     "content": {
       "rubric": [
-        "Traces from the edge (API route / input model) inward to service domain logic.",
-        "Follows data transformations down to database models/I/O.",
-        "Identifies side effects and response serialization."
+        "Identifies that mutating `order['tax']` and `order['total']` alters the caller's dictionary reference",
+        "Explains that callers holding `order` observe unexpected state changes",
+        "Rewrites the function to construct and return a new dictionary using `{**order, ...}` or `.copy()`"
       ],
-      "reference_answer": "Start at the boundary where external data enters (e.g. HTTP endpoint and Pydantic request schema). Follow the payload as it is validated, passed into the service/controller layer where business rules and transformations occur, inspect the database queries or external API calls made, and finally observe how the output is serialized into the response schema. Look out for side effects like event publishing or cache mutations along the path.",
+      "reference_answer": "Defect: Direct key assignments (`order['tax'] = ...`) mutate the caller's dictionary in-place. If the caller reuses the dictionary, it now contains unexpected mutation side effects.\nPure implementation:\n```python\ndef calculate_invoice(order: dict) -> dict:\n    tax = order['subtotal'] * 0.10\n    total = order['subtotal'] + tax\n    return {**order, 'tax': tax, 'total': total}\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "ruc-6",
+    "key": "read-short-implement-inspection",
     "exercise_type": "short_answer",
-    "title": "Hypothesis-Driven Code Reading",
-    "prompt_markdown": "Explain what hypothesis-driven code reading is and how to use assertions or print statements to verify assumptions.",
+    "title": "Write an object introspection probe",
+    "prompt_markdown": "Write a diagnostic helper function `inspect_object(obj)` that prints the object's type name, its non-dunder attributes/methods, and whether it is callable.",
     "difficulty": "medium",
     "hints": [
-      "Predict the value before running."
+      "Use type(obj).__name__, callable(obj), and dir(obj) filtering out names starting with '__'."
     ],
     "content": {
       "rubric": [
-        "Explains making a concrete prediction about what a variable or state should be before running.",
-        "Verifies using interactive debugging, breakpoints, or assertions rather than aimless browsing."
+        "Extracts type name using `type(obj).__name__`",
+        "Filters `dir(obj)` to keep only attributes where `not attr.startswith('__')`",
+        "Checks if object is callable using `callable(obj)`",
+        "Prints or returns the diagnostic information"
       ],
-      "reference_answer": "Hypothesis-driven reading avoids passive scanning. Before running or stepping through unfamiliar code, the engineer explicitly writes down or hypothesizes what a variable, data structure, or branch condition should evaluate to. They then insert a temporary assertion, breakpoint, or test case to verify or refute the hypothesis, rapidly validating their mental model of the codebase.",
+      "reference_answer": "```python\ndef inspect_object(obj) -> dict:\n    public_attrs = [attr for attr in dir(obj) if not attr.startswith('__')]\n    return {\n        'type': type(obj).__name__,\n        'is_callable': callable(obj),\n        'public_attributes': public_attrs,\n    }\n```\nThis probe inspects unfamiliar live objects during debugging sessions.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "read-short-explain-codebase-navigation",
+    "exercise_type": "short_answer",
+    "title": "Explain first-week codebase navigation strategy",
+    "prompt_markdown": "In a senior engineering interview, you are asked: 'How do you orient yourself when joining a team with a 200,000-line legacy Python codebase on Day 1?' Provide a structured 4-step framework.",
+    "difficulty": "medium",
+    "hints": [
+      "Discuss entry points, tests, local environment running, and tracing single transactions."
+    ],
+    "content": {
+      "rubric": [
+        "Step 1: Setup and run the test suite locally to verify determinism and inspect entry points/conftest",
+        "Step 2: Trace one vertical slice (one API endpoint from HTTP router to DB and back)",
+        "Step 3: Read data models (schemas, entities) to understand domain nouns and relationships",
+        "Step 4: Use git log to see hot spots and recent PRs to identify active development areas"
+      ],
+      "reference_answer": "1. Run the Test Suite: Run `pytest` locally to confirm test determinism. Inspect `conftest.py` and unit tests to see how dependencies and mock environments are configured.\n2. Trace a Single Vertical Slice: Pick one representative endpoint. Trace its complete lifecycle: router -> validation schema -> service logic -> database repository -> response formatting.\n3. Map Domain Entities: Study the database models and schemas to understand core business nouns and their foreign-key relationships.\n4. Git History Analysis: Use `git log` and inspect recent pull requests to see where active changes occur and identify system architectural conventions.",
       "minimum_pass_score": 70
     }
   }

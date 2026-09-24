@@ -1,153 +1,140 @@
 [
   {
-    "key": "cte-1",
+    "key": "cte-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "Question goes here.",
+    "title": "Purpose of the WITH clause",
+    "prompt_markdown": "What is the primary role of the `WITH` clause in standard SQL?",
     "difficulty": "easy",
     "hints": [
-      "Hint 1"
+      "Think about named temporary result sets scoped to a single query."
     ],
     "content": {
       "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
+        "To create a permanent indexed view in the database catalog",
+        "To define one or more common table expressions (CTEs) scoped to the query",
+        "To lock table rows with an exclusive write lock during transaction processing",
+        "To grant role permissions to a database user for specific tables"
       ],
-      "correct_index": 0,
-      "explanation": "Because A."
+      "correct_index": 1,
+      "explanation": "The WITH clause defines common table expressions (CTEs), providing temporary named result sets that exist only during the execution of the enclosing SQL statement."
     }
   },
   {
-    "key": "cte-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Question goes here.",
+    "key": "cte-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Multiple CTE declaration syntax",
+    "prompt_markdown": "Which of the following is the correct syntax for declaring multiple CTEs in a single query?",
+    "difficulty": "easy",
+    "hints": [
+      "Only one WITH keyword is used at the start."
+    ],
+    "content": {
+      "choices": [
+        "WITH cte_a AS (...), WITH cte_b AS (...) SELECT ...",
+        "WITH cte_a AS (...) AND cte_b AS (...) SELECT ...",
+        "WITH cte_a AS (...), cte_b AS (...) SELECT ...",
+        "CREATE CTE cte_a AS (...); CREATE CTE cte_b AS (...); SELECT ..."
+      ],
+      "correct_index": 2,
+      "explanation": "Multiple CTEs are separated by commas under a single initial WITH keyword. Subsequent CTEs can reference prior CTEs."
+    }
+  },
+  {
+    "key": "cte-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Recursive CTE termination mechanism",
+    "prompt_markdown": "How does PostgreSQL determine when to terminate execution of a `WITH RECURSIVE` query?",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Consider what happens when an iteration returns empty rows."
+    ],
+    "content": {
+      "choices": [
+        "It automatically stops after exactly 10 iterations unless MAX_LOOPS is configured",
+        "It stops when the recursive member query returns zero rows for an iteration",
+        "It requires an explicit BREAK command inside a PL/pgSQL block",
+        "It terminates only when a primary key collision is detected in the working table"
+      ],
+      "correct_index": 1,
+      "explanation": "A recursive CTE evaluates iteratively. In each step, the recursive query runs against the rows produced by the previous step. When that query returns zero rows, recursion halts."
+    }
+  },
+  {
+    "key": "cte-short-predict-chained",
+    "exercise_type": "short_answer",
+    "title": "Predict output of multi-stage aggregation CTE",
+    "prompt_markdown": "Given table `sales (rep_id, amount)` with rows: `(1, 100), (1, 300), (2, 50), (2, 150)`. Predict the output of this query:\n\n```sql\nWITH rep_totals AS (\n    SELECT rep_id, SUM(amount) AS total\n    FROM sales\n    GROUP BY rep_id\n),\ntarget_reps AS (\n    SELECT rep_id, total\n    FROM rep_totals\n    WHERE total >= 300\n)\nSELECT rep_id, total FROM target_reps;\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Calculate total for rep 1 and rep 2 first, then filter total >= 300."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Calculates rep 1 total as 400 (100 + 300)",
+        "Calculates rep 2 total as 200 (50 + 150)",
+        "Identifies that only rep 1 meets the condition total >= 300",
+        "Outputs row: rep_id 1, total 400"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "Output: rep_id 1 with total 400.\nExplanation:\n1. The `rep_totals` CTE groups by rep_id: rep 1 has 100 + 300 = 400, rep 2 has 50 + 150 = 200.\n2. The `target_reps` CTE filters `WHERE total >= 300`, excluding rep 2 and keeping rep 1.\n3. The final SELECT returns `(1, 400)`.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "cte-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "cte-4",
+    "key": "cte-short-fix-syntax-error",
     "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Question goes here.",
+    "title": "Fix malformed multiple CTE syntax",
+    "prompt_markdown": "Identify the syntax errors in this query and provide the corrected version:\n\n```sql\nWITH high_earners AS (\n    SELECT id, name, salary FROM employees WHERE salary > 100000\n),\nWITH bonus_pool AS (\n    SELECT id, salary * 0.15 AS bonus FROM high_earners\n)\nSELECT h.name, b.bonus\nFROM high_earners h JOIN bonus_pool b ON h.id = b.id;\n```",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Notice the repeated WITH keyword."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Identifies that repeating the WITH keyword before bonus_pool is invalid SQL syntax",
+        "Removes the second WITH keyword while maintaining comma separation",
+        "Provides valid executable SQL"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "Syntax error: The second `WITH` keyword before `bonus_pool` is illegal in SQL. Multiple CTEs must be declared under a single `WITH` keyword, separated by commas.\n\nCorrected query:\n```sql\nWITH high_earners AS (\n    SELECT id, name, salary FROM employees WHERE salary > 100000\n),\nbonus_pool AS (\n    SELECT id, salary * 0.15 AS bonus FROM high_earners\n)\nSELECT h.name, b.bonus\nFROM high_earners h JOIN bonus_pool b ON h.id = b.id;\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "cte-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "cte-6",
+    "key": "cte-short-implement-above-avg-depts",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Question goes here.",
+    "title": "Implement department vs company average CTE",
+    "prompt_markdown": "Write a query using multiple CTEs to find all departments whose average employee salary is strictly greater than the overall company average salary. Table: `employees (id, name, department, salary)`.",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Define dept_avg first, then company_avg, then join or filter."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Creates a CTE calculating AVG(salary) per department",
+        "Creates a CTE or scalar subquery calculating overall company AVG(salary)",
+        "Filters departments where dept_avg > company_avg",
+        "Returns department name and its average salary"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "```sql\nWITH dept_averages AS (\n    SELECT department, AVG(salary) AS avg_dept_salary\n    FROM employees\n    GROUP BY department\n),\ncompany_average AS (\n    SELECT AVG(salary) AS avg_company_salary\n    FROM employees\n)\nSELECT d.department, d.avg_dept_salary\nFROM dept_averages d\nCROSS JOIN company_average c\nWHERE d.avg_dept_salary > c.avg_company_salary;\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "cte-7",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 7",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "cte-8",
+    "key": "cte-short-explain-readability-optimization",
     "exercise_type": "short_answer",
-    "title": "Exercise 8",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "medium",
+    "title": "Explain CTE readability vs performance in interviews",
+    "prompt_markdown": "In a senior engineering interview, you are asked: 'Why should we prefer CTEs over nested derived tables, and does using a CTE hurt query performance in modern PostgreSQL?' Explain both aspects thoroughly.",
+    "difficulty": "hard",
     "hints": [
-      "Hint 1"
+      "Discuss linear top-down reading flow, named abstractions, and PostgreSQL 12 CTE inlining."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains readability benefits: top-down data flow, named abstractions, easier unit testing/debugging",
+        "Contrasts with nested subqueries: avoiding deeply indented inside-out parenthesis blocks",
+        "Addresses performance: PostgreSQL 12+ inlines non-recursive CTEs into the main query plan automatically, removing the historical optimization fence penalty",
+        "Mentions MATERIALIZED keyword when explicit fence behavior is intentionally desired"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "1. Readability & Maintainability: CTEs structure queries linearly from top to bottom, much like functions in code. Each CTE encapsulates a clear transformation step with a descriptive identifier. Nested derived tables (subqueries in FROM) require readers to parse inside-out, making complex logic hard to review and debug.\n2. Performance in Modern PostgreSQL: Historically (prior to Postgres 12), CTEs were strict optimization fences\u2014Postgres materialized the CTE into a temporary memory table, blocking the optimizer from pushing WHERE predicates into the subquery. In PostgreSQL 12+, non-recursive CTEs are inlined by default. The optimizer treats them identically to subqueries, pushing down predicates and selecting optimal join algorithms. If developers explicitly wish to prevent inlining (e.g. to avoid recomputing an expensive function), they can specify `WITH name AS MATERIALIZED (...)`.",
       "minimum_pass_score": 70
     }
   }

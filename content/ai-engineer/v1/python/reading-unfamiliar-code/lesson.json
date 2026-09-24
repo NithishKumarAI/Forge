@@ -2,185 +2,179 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "reading-unfamiliar-code",
-  "title": "Reading Unfamiliar Code",
-  "description": "Strategies for quickly understanding large, undocumented, or unfamiliar codebases.",
-  "version": "1.0.0",
+  "title": "Reading Unfamiliar Code and System Tracing",
+  "description": "Master techniques for orienting in large unfamiliar codebases: finding entry points, mapping control flow, tracing data flow, inspecting types, isolating side effects, and using tests as specification.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Identify entry points",
-    "Trace data and control flow",
-    "Spot boundaries and side effects",
-    "Use tests as specifications"
+    "Locate system entry points and architecture boundaries in unfamiliar repositories",
+    "Trace control flow and data transformations from input request to output response",
+    "Read unit tests and type annotations as authoritative living specification",
+    "Identify external side effects and navigate complex legacy systems incrementally"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "modules-packages",
+    "testing"
+  ],
   "sections": [
     {
-      "slug": "start-at-entry-points",
-      "title": "Start at Entry Points",
+      "slug": "finding-entry-points",
+      "title": "Finding entry points and system boundaries",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Start at Entry Points",
-      "markdown": "Begin by finding the application's entry points. In Python, this is often a `if __name__ == '__main__':` block or a router definition. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Quickly identify where execution begins in an unfamiliar codebase.",
+      "markdown": "When handed a large, unfamiliar repository in an interview or on the job, avoid reading files randomly. Locate the system entry points first. For web applications, look for FastAPI `app = FastAPI()`, Flask `app = Flask(__name__)`, or Django `wsgi.py/asgi.py`. For CLI tools, inspect `pyproject.toml` scripts, `setup.cfg`, or search for `if __name__ == '__main__':`. For worker pipelines, find the Celery task definitions or queue consumer loops. Finding the entry points immediately establishes the high-level architecture and system boundaries.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Common pattern: entry point defines router boundaries\ndef discover_entry_point(manifest: dict) -> str:\n    if 'app' in manifest:\n        return f\"Web service initialized via {manifest['app']}\"\n    elif 'main' in manifest:\n        return f\"CLI entry point: {manifest['main']}\"\n    return 'Worker / library root'\n\nprint(discover_entry_point({'app': 'app.main:app'}))\nprint(discover_entry_point({'main': 'cli.py:run'}))",
+          "explanation": "Entry point inspection identifies whether code runs as a web service, CLI, or library.",
+          "expected_output": "Web service initialized via app.main:app\nCLI entry point: cli.py:run"
+        }
+      ],
       "key_points": [
-        "Key point for Start at Entry Points"
-      ]
+        "Locate entry points first (app.py, main.py, routers, CLI definitions).",
+        "Entry points define the system boundaries and external interfaces."
+      ],
+      "checkpoint": "In a FastAPI application, how do you locate all available HTTP endpoints in under 60 seconds?"
     },
     {
-      "slug": "trace-control-flow",
-      "title": "Trace Control Flow",
+      "slug": "control-flow-and-data-flow",
+      "title": "Tracing control flow and data flow",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Trace Control Flow",
-      "markdown": "Control flow dictates the order in which statements are executed. Follow loops, conditionals, and function calls. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Follow state transformations through a complete request lifecycle.",
+      "markdown": "Navigating unfamiliar code requires separating `control flow` (the sequence of function calls and branching decisions) from `data flow` (how inputs are parsed, validated, transformed, and returned). Follow a single representative payload through the pipeline: Input Payload -> Validation Schema (e.g. Pydantic) -> Business Logic Service -> Data Access Layer -> Database. Sketch the lifecycle on paper: note where data transforms from raw dicts to domain entities and back to serialized responses.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def parse_request(raw: dict) -> dict:\n    return {'user_id': int(raw['id']), 'amount': float(raw['val'])}\n\ndef apply_business_rule(data: dict) -> dict:\n    # Data flow: adds fee calculation\n    return {**data, 'fee': round(data['amount'] * 0.02, 2)}\n\nraw_payload = {'id': '101', 'val': '500.0'}\nvalidated = parse_request(raw_payload)\nresult = apply_business_rule(validated)\nprint('Data flow transformation:', result)",
+          "explanation": "Traces input transformation from raw string payload to typed domain values.",
+          "expected_output": "Data flow transformation: {'user_id': 101, 'amount': 500.0, 'fee': 10.0}"
+        }
+      ],
       "key_points": [
-        "Key point for Trace Control Flow"
-      ]
-    },
-    {
-      "slug": "trace-data-flow",
-      "title": "Trace Data Flow",
-      "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Trace Data Flow",
-      "markdown": "Data flow refers to how variables and state change as data moves through the application. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Trace Data Flow"
-      ]
-    },
-    {
-      "slug": "identify-types",
-      "title": "Identify Types",
-      "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Identify Types",
-      "markdown": "Understanding the types of arguments and return values is crucial. Look for type hints or infer types from usage. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Identify Types"
-      ]
-    },
-    {
-      "slug": "spot-side-effects",
-      "title": "Spot Side Effects",
-      "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Spot Side Effects",
-      "markdown": "Side effects happen when a function modifies state outside its local environment, like writing to a database or mutating a global variable. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Spot Side Effects"
-      ]
-    },
-    {
-      "slug": "find-boundaries",
-      "title": "Find Boundaries",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Find Boundaries",
-      "markdown": "System boundaries are where the code interacts with external services, databases, or the filesystem. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Find Boundaries"
-      ]
+        "Control flow traces call hierarchies; data flow traces input transformations.",
+        "Track where types change (raw JSON -> validated object -> persistence record)."
+      ],
+      "checkpoint": "Why is tracing data flow usually more informative than reading class inheritance diagrams?"
     },
     {
       "slug": "tests-as-specification",
-      "title": "Tests as Specification",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Tests as Specification",
-      "markdown": "Well-written unit tests serve as executable documentation. Read tests as specification to understand intended behavior. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "title": "Using tests as living specification and types",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Read unit tests and type annotations to understand intended behavior.",
+      "markdown": "Documentation is often outdated, but tests and type annotations reflect reality. In an unfamiliar codebase, head straight to `tests/`. Unit test names describe intended behavior (e.g. `test_cannot_withdraw_more_than_balance`). Test fixtures show realistic input objects, while assertions demonstrate valid output shapes and boundary error conditions. Reading `tests as specification` answers \"how is this code actually supposed to be used?\" faster than reading complex implementation logic.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Tests reveal the specification:\ndef test_specification_example():\n    # Test documents that negative transfers raise ValueError\n    try:\n        amount = -50\n        if amount <= 0:\n            raise ValueError('Must be positive')\n    except ValueError as exc:\n        print('Specification verified:', exc)\n\ntest_specification_example()",
+          "explanation": "Reading test assertions exposes domain constraints and error handling contracts.",
+          "expected_output": "Specification verified: Must be positive"
+        }
+      ],
       "key_points": [
-        "Key point for Tests as Specification"
-      ]
+        "Tests provide authoritative living specification for intended behavior.",
+        "Fixtures reveal realistic data shapes; assertions reveal boundary rules."
+      ],
+      "checkpoint": "How do unit test assertions clarify function edge-case behavior faster than reading 200 lines of implementation?"
     },
     {
-      "slug": "incremental-tracing",
-      "title": "Incremental Tracing",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Incremental Tracing",
-      "markdown": "Incremental tracing involves stepping through code execution with a debugger to confirm your mental model one step at a time. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "slug": "spotting-side-effects",
+      "title": "Spotting side effects and boundary isolation",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Distinguish pure functional transformations from stateful side effects.",
+      "markdown": "A `side effects` operation modifies state outside its local scope: writing to a database, emitting network HTTP requests, updating shared global variables, or writing files to disk. In unfamiliar code, identify which functions are pure (deterministic, no side effects) and which perform I/O. Isolate operations at `boundaries`: look for database transaction commits, message queue publishers, and cache updates. When debugging production issues, side effects are where 90% of concurrency and consistency bugs originate.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Pure calculation (no side effects)\ndef calculate_interest(balance: float, rate: float) -> float:\n    return balance * rate\n\n# Stateful side effect\naudit_trail = []\ndef log_audit(action: str) -> None:\n    audit_trail.append(action)  # Modifies external state\n\ninterest = calculate_interest(1000.0, 0.05)\nlog_audit(f'Calculated interest: {interest}')\nprint(f'Pure: {interest}, Side effect state: {audit_trail}')",
+          "explanation": "Separates pure mathematical calculation from state-mutating audit logging.",
+          "expected_output": "Pure: 50.0, Side effect state: ['Calculated interest: 50.0']"
+        }
+      ],
       "key_points": [
-        "Key point for Incremental Tracing"
-      ]
+        "Pure functions have no side effects and are easy to reason about.",
+        "Side effects (DB, disk, network, globals) represent state mutations and boundary points."
+      ],
+      "checkpoint": "Name three distinct side effects that a web checkout endpoint performs."
     },
     {
-      "slug": "predict-output",
-      "title": "Predict Output",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Predict Output",
-      "markdown": "Before running the code, predict what it will do. If your prediction is wrong, refine your understanding. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "slug": "incremental-tracing-techniques",
+      "title": "Incremental tracing and interactive inspection",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Debug unfamiliar systems incrementally using breakpoints and focused probes.",
+      "markdown": "Do not attempt to understand an entire 100,000-line repository at once. Use `incremental tracing`: isolate the minimal slice of code responsible for the feature or defect. Set an interactive breakpoint using `breakpoint()` (standard library since Python 3.7) or run a focused single test: `pytest tests/test_payment.py::test_card_declined -s`. Step through instructions with `n` (next), inspect variables with `p variable`, and evaluate expressions dynamically to build confidence.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def process_pipeline(items: list[int]) -> list[int]:\n    # Incremental probe: print or breakpoint\n    filtered = [x for x in items if x > 0]\n    # probe: inspect intermediate state\n    doubled = [x * 2 for x in filtered]\n    return doubled\n\nprint('Processed slice:', process_pipeline([-2, 0, 5, 10]))",
+          "explanation": "Incremental tracing verifies intermediate state after each transformation step.",
+          "expected_output": "Processed slice: [10, 20]"
+        }
+      ],
       "key_points": [
-        "Key point for Predict Output"
-      ]
+        "Use incremental tracing: isolate minimal code slices and run single tests.",
+        "Use breakpoint() and pytest -s to inspect live execution state interactively."
+      ],
+      "checkpoint": "What is the difference between stepping over (n) and stepping into (s) in pdb?"
     },
     {
-      "slug": "identify-bugs",
-      "title": "Identifying Bugs",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Identifying Bugs",
-      "markdown": "When reading, actively look for unhandled edge cases or logical flaws. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 5,
+      "estimated_minutes": 8,
+      "learning_objective": "Review code reading interview questions and practice algorithmic tracing in Coding Arena.",
+      "markdown": "Technical interviews frequently present unfamiliar code snippets for bug diagnosis or refactoring.\n\n### Oral Interview Questions\n1. *When handed a 50,000-line codebase on your first day, what is your step-by-step strategy for understanding it?*\n   *(Find entry points -> read unit tests and README -> trace one core request lifecycle -> inspect data models and boundary side effects).* \n2. *How do type annotations and Pydantic models help engineers navigate unfamiliar repositories?*\n3. *Why is reading tests often more reliable than reading developer documentation?*\n\n### Code Trace Challenge\nTrace this matrix traversal:\n```python\nm = [[1, 2], [3, 4]]\nflat = [x for row in m for x in row]\nprint(flat)\n```\nThe outer loop iterates rows `[1, 2]` then `[3, 4]`, and inner loop extracts integers, producing `[1, 2, 3, 4]`.\n\n### Common Interview Trap\nGetting bogged down in implementation minutiae. When interviewing, zoom out: explain the data flow, name the boundary side effects, and state the function invariants before obsessing over syntax.\n\n### Arena Practice Problems\nPractice tracing complex unfamiliar logic in Coding Arena:\n- `python-matrix-spiral`: Multi-directional grid state transitions\n- `python-product-except-self`: Prefix/suffix state tracking\n- `python-longest-increasing-subseq`: Tracing dynamic programming recurrence",
+      "examples": [
+        {
+          "language": "python",
+          "code": "data = {'headers': {'auth': 'token_123'}, 'body': {'user': 'sam'}}\n# Tracing nested dictionary lookup\nuser = data.get('body', {}).get('user')\nprint('Extracted user:', user)",
+          "explanation": "Traces defensive nested dictionary access commonly seen in API gateways.",
+          "expected_output": "Extracted user: sam"
+        }
+      ],
       "key_points": [
-        "Key point for Identifying Bugs"
-      ]
-    },
-    {
-      "slug": "refactor-approach",
-      "title": "Refactoring Approach",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Refactoring Approach",
-      "markdown": "Before refactoring unfamiliar code, ensure you have sufficient test coverage to prevent regressions. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Refactoring Approach"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Takeaways",
-      "order_index": 11,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Interview Takeaways",
-      "markdown": "Code review rounds often evaluate your ability to quickly grok and critique unfamiliar code snippets. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Interview Takeaways"
-      ]
+        "Zoom out: explain architecture and data flow before diving into micro-optimizations.",
+        "Use Coding Arena to build fluency in tracing complex multi-step algorithms."
+      ],
+      "checkpoint": "Demonstrate how to run a single pytest test function with verbose output and stdout capture disabled."
     }
   ],
   "summary": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "Locate entry points first (routers, main, workers) to establish system boundaries.",
+    "Differentiate control flow (call hierarchy) from data flow (input transformations).",
+    "Read unit tests and type annotations as authoritative living specifications.",
+    "Isolate side effects (database, network, disk) from pure business logic.",
+    "Use incremental tracing and breakpoint() to inspect unfamiliar systems systematically."
   ],
   "interview_takeaways": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "In code-reading interviews, trace one representative input from boundary to boundary.",
+    "Check tests/ to discover intended behavior and realistic data fixtures.",
+    "Look for where data transforms between raw dictionaries, domain entities, and responses."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Reading files randomly without finding the main entry points first",
+    "Trusting outdated documentation over actual executable tests and type definitions",
+    "Conflating pure business logic with stateful database/network side effects",
+    "Trying to understand an entire monolithic codebase instead of tracing focused vertical slices"
   ],
   "sources": [
     {
-      "source_id": "python-stdlib-docs",
-      "title": "pdb",
+      "source_id": "python-official-tutorial",
+      "title": "Python Standard Library \u2014 pdb \u2014 The Python Debugger",
       "url": "https://docs.python.org/3/library/pdb.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Standard Library \u2014 inspect \u2014 Inspect live objects",
+      "url": "https://docs.python.org/3/library/inspect.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-reading-unfamiliar-code-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "f1168508e048950c9cffdf40cbc7350209b457d36cf80756cc81c4304bf5ba0e",
+  "generated_at": "2026-09-24T08:26:46.498707+00:00"
 }

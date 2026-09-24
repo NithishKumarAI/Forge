@@ -2,230 +2,159 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "indexes",
-  "title": "Indexes",
-  "description": "Learn about Indexes",
-  "version": "1.0.0",
+  "title": "Database Indexing, B-Trees, and Query Plan Optimization",
+  "description": "Master indexing mechanics: B-tree indexed lookup, composite indexes, column order, write cost overhead, EXPLAIN query plan analysis, and index trade-offs.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Obj 1",
-    "Obj 2",
-    "Obj 3"
+    "Explain internal B-tree index structures and contrast indexed lookup against full sequential table scans",
+    "Design composite indexes adhering to the leftmost prefix rule and optimal column order",
+    "Evaluate index trade-offs including storage footprint and mutation write cost on INSERT, UPDATE, and DELETE",
+    "Analyze query execution performance using EXPLAIN and EXPLAIN ANALYZE to inspect query plan operations"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "relational-foundations",
+    "query-basics"
+  ],
   "sections": [
     {
-      "slug": "why-indexes",
-      "title": "Why Indexes",
+      "slug": "btree-fundamentals",
+      "title": "B-tree mechanics: Indexed lookup vs sequential scan",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about why-indexes.",
-      "markdown": "This is the why-indexes section. B-tree indexed lookup write cost composite index column order EXPLAIN query plan index trade-offs It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Understand how B-tree indexes accelerate search from O(N) to O(log N).",
+      "markdown": "A database index is an auxiliary data structure that accelerates data retrieval. The default and most versatile index type in PostgreSQL is the balanced tree (`B-tree`). Without an index, finding a row requires a sequential scan (`Seq Scan`), reading every disk page in the table in $O(N)$ time. A `B-tree` index organizes sorted keys in a multi-level balanced tree, enabling an `indexed lookup` in $O(\\log N)$ disk page accesses. The leaf nodes contain pointers (tuple IDs or TIDs) pointing directly to physical table heap pages.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- why-indexes",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "CREATE TABLE customers (\n    id INT PRIMARY KEY,\n    email VARCHAR(100),\n    signup_date DATE\n);\n\n-- Create explicit B-tree index on email for fast lookups\nCREATE INDEX idx_customers_email ON customers USING btree (email);\n\n-- Direct indexed lookup replaces sequential scan\nSELECT id, signup_date FROM customers WHERE email = 'user@example.com';",
+          "explanation": "Creates a B-tree index on the email column, enabling instant log-time lookups.",
+          "expected_output": "| id | signup_date |\n|---|---|\n| 1 | 2026-09-24 |"
         }
       ],
       "key_points": [
-        "Key point for why-indexes"
-      ]
+        "B-tree indexes maintain balanced sorted keys, supporting equality and range queries (<, <=, =, >=, >).",
+        "Indexed lookups navigate from root to leaf in O(log N) page reads, bypassing full table scans."
+      ],
+      "checkpoint": "Why are B-tree indexes suitable for both equality (=) and range (<, BETWEEN) operators?"
     },
     {
-      "slug": "b-tree-index",
-      "title": "B Tree Index",
+      "slug": "composite-indexes-and-column-order",
+      "title": "Composite indexes: Leftmost prefix rule and column order",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about b-tree-index.",
-      "markdown": "This is the b-tree-index section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Construct composite indexes taking column order and query patterns into account.",
+      "markdown": "A `composite index` (or multicolumn index) indexes multiple columns together: `CREATE INDEX idx_orders_cust_date ON orders (customer_id, order_date)`. The `column order` is critical due to the leftmost prefix rule. Keys are sorted primarily by the first column, and secondarily by the second column. As a result, this index can accelerate queries filtering on `customer_id` alone, or `customer_id` AND `order_date`. However, it cannot be used efficiently for a query filtering only on `order_date` without `customer_id`!",
       "examples": [
         {
           "language": "sql",
-          "code": "-- b-tree-index",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "CREATE TABLE orders (\n    id INT PRIMARY KEY,\n    customer_id INT,\n    order_date DATE,\n    total_amount NUMERIC(10,2)\n);\n\n-- Composite index ordered by (customer_id, order_date)\nCREATE INDEX idx_orders_cust_date ON orders (customer_id, order_date);\n\n-- Uses index efficiently (matches leading column)\nSELECT id, total_amount FROM orders \nWHERE customer_id = 101 AND order_date >= '2026-01-01';",
+          "explanation": "Optimizes a multi-attribute filter using a single composite index.",
+          "expected_output": "| id | total_amount |\n|---|---|\n| 5 | 120.00 |"
         }
       ],
       "key_points": [
-        "Key point for b-tree-index"
-      ]
+        "The leftmost prefix rule requires queries to filter on the leading columns of a composite index.",
+        "Place the column with highest equality filter frequency as the first column in the index definition."
+      ],
+      "checkpoint": "Can an index on (A, B, C) be used for a query WHERE B = 5 AND C = 10? Why or why not?"
     },
     {
-      "slug": "how-lookup-works",
-      "title": "How Lookup Works",
+      "slug": "write-cost-and-index-tradeoffs",
+      "title": "Index trade-offs: Query acceleration vs write cost",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about how-lookup-works.",
-      "markdown": "This is the how-lookup-works section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Quantify storage overhead and write amplification caused by excessive indexing.",
+      "markdown": "While indexes accelerate SELECT queries, they are not free. Every index introduces significant `index trade-offs`. First is the `write cost`: whenever you perform an `INSERT`, `UPDATE`, or `DELETE`, PostgreSQL must update not only the base table heap, but also every single index on that table. If a table has 10 indexes, a single row insertion results in 11 separate write operations, increasing disk I/O, write-ahead logging (WAL), and lock contention. Second, indexes consume substantial RAM (buffer cache) and disk space.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- how-lookup-works",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "-- Inspecting index sizes in PostgreSQL\nSELECT relname AS index_name, pg_size_pretty(pg_relation_size(indexrelid)) AS index_size\nFROM pg_stat_user_indexes\nWHERE relname = 'idx_orders_cust_date';",
+          "explanation": "Monitors disk usage of secondary indexes to prevent bloated storage costs.",
+          "expected_output": "| index_name | index_size |\n|---|---|\n| idx_orders_cust_date | 16 kB |"
         }
       ],
       "key_points": [
-        "Key point for how-lookup-works"
-      ]
+        "Indexes speed up reads but penalize writes (INSERT, UPDATE, DELETE write cost).",
+        "Unused or duplicate indexes waste RAM buffer cache and degrade database throughput."
+      ],
+      "checkpoint": "What happens to indexes when you UPDATE a column that is NOT included in any index? (Hint: HOT updates)"
     },
     {
-      "slug": "index-vs-table-scan",
-      "title": "Index Vs Table Scan",
+      "slug": "explain-and-query-plans",
+      "title": "Query plan analysis: EXPLAIN and EXPLAIN ANALYZE",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about index-vs-table-scan.",
-      "markdown": "This is the index-vs-table-scan section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Interpret query execution plans to identify scans, joins, and bottlenecks.",
+      "markdown": "To see whether the PostgreSQL optimizer actually uses your index, run `EXPLAIN` before your query. `EXPLAIN` outputs the estimated `query plan` produced by the cost-based optimizer without running the query. `EXPLAIN ANALYZE` actually executes the query, outputting real execution times, buffer cache hits, and row counts. Key plan nodes include: `Seq Scan` (full table read), `Index Scan` (navigates index then fetches heap row), `Index Only Scan` (all needed columns exist inside index leaves, zero heap fetches!), and `Bitmap Index Scan` (gathers heap page locations before bulk fetching).",
       "examples": [
         {
           "language": "sql",
-          "code": "-- index-vs-table-scan",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "-- Inspect execution plan for customer order query\nEXPLAIN SELECT id, total_amount FROM orders WHERE customer_id = 101;",
+          "explanation": "Generates the query plan revealing whether an Index Scan or Seq Scan is scheduled.",
+          "expected_output": "Index Scan using idx_orders_cust_date on orders  (cost=0.15..8.17 rows=1 width=36)\n  Index Cond: (customer_id = 101)"
         }
       ],
       "key_points": [
-        "Key point for index-vs-table-scan"
-      ]
+        "EXPLAIN displays the estimated optimizer cost and execution nodes without executing the query.",
+        "EXPLAIN ANALYZE runs the query to report actual execution time in milliseconds and memory usage.",
+        "Index Only Scan is the highest-performance access method, reading zero heap pages."
+      ],
+      "checkpoint": "What causes the optimizer to pick a Seq Scan over an Index Scan even when an index exists on the column?"
     },
     {
-      "slug": "write-cost",
-      "title": "Write Cost",
+      "slug": "interview-check",
+      "title": "Index optimization interview check and practice",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about write-cost.",
-      "markdown": "This is the write-cost section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Solve database performance tuning and indexing interview scenarios.",
+      "markdown": "Indexing and query optimization questions appear in nearly all senior backend and database engineering interviews.\n\n### Core Interview Questions\n1. *Why doesn't the database use an index when you write `WHERE UPPER(email) = 'ALICE@EXAMPLE.COM'`?*\n   *(Because the index stores raw email strings, not the evaluated function result. The engine must evaluate UPPER() on every row, forcing a full Seq Scan. Fix: create an expression/functional index `CREATE INDEX idx_upper_email ON customers (UPPER(email))`)*. \n2. *What is an Index Only Scan, and what is the `COVERING` or `INCLUDE` clause?*\n   *(An Index Only Scan satisfies the entire query from the index leaves without touching the table heap. The `INCLUDE` clause adds payload columns to index leaf pages without sorting on them).* \n3. *Why should you index foreign key columns?*\n   *(PostgreSQL does NOT automatically index foreign keys. Without an index on the child table's foreign key, deleting a row in the parent table forces a sequential scan across the child table to check for orphans!)* \n\n### Arena Practice Problems\n- `sql-optimize-slow-query`: Replacing Seq Scan with composite index\n- `sql-covering-index-design`: Crafting an Index Only Scan using INCLUDE\n- `sql-foreign-key-indexing`: Preventing cascade deletion table locks with FK indexes",
       "examples": [
         {
           "language": "sql",
-          "code": "-- write-cost",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "-- Expression / functional index for case-insensitive searches\nCREATE INDEX idx_customers_upper_email ON customers (UPPER(email));\n\nEXPLAIN SELECT id FROM customers WHERE UPPER(email) = 'ALICE@EXAMPLE.COM';",
+          "explanation": "Demonstrates an expression index that enables indexed lookup on transformed predicates.",
+          "expected_output": "Bitmap Heap Scan on customers ...\n  Recheck Cond: (upper((email)::text) = 'ALICE@EXAMPLE.COM'::text)"
         }
       ],
       "key_points": [
-        "Key point for write-cost"
-      ]
-    },
-    {
-      "slug": "composite-index",
-      "title": "Composite Index",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about composite-index.",
-      "markdown": "This is the composite-index section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- composite-index",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
+        "Always check for unindexed foreign keys in child tables.",
+        "Avoid wrapping indexed columns in functions within WHERE clauses unless you use functional indexes."
       ],
-      "key_points": [
-        "Key point for composite-index"
-      ]
-    },
-    {
-      "slug": "column-order",
-      "title": "Column Order",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about column-order.",
-      "markdown": "This is the column-order section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- column-order",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for column-order"
-      ]
-    },
-    {
-      "slug": "explain-basics",
-      "title": "Explain Basics",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about explain-basics.",
-      "markdown": "This is the explain-basics section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- explain-basics",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for explain-basics"
-      ]
-    },
-    {
-      "slug": "when-not-to-index",
-      "title": "When Not To Index",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about when-not-to-index.",
-      "markdown": "This is the when-not-to-index section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- when-not-to-index",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for when-not-to-index"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about interview-points.",
-      "markdown": "This is the interview-points section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- interview-points",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for interview-points"
-      ]
+      "checkpoint": "Why is indexing a boolean column with a 50/50 distribution almost always useless to the optimizer?"
     }
   ],
   "summary": [
-    "Sum 1",
-    "Sum 2",
-    "Sum 3"
+    "B-tree indexes accelerate searches from O(N) sequential scans down to O(log N) indexed lookups.",
+    "Composite indexes must be designed around the leftmost prefix rule and query column order.",
+    "Indexes involve direct engineering trade-offs: faster reads vs higher write cost on mutations and disk space.",
+    "EXPLAIN and EXPLAIN ANALYZE reveal the optimizer query plan: Seq Scan, Index Scan, and Index Only Scan.",
+    "Foreign key columns must be indexed manually in PostgreSQL to prevent full table scans during parent deletes."
   ],
   "interview_takeaways": [
-    "Int 1",
-    "Int 2",
-    "Int 3"
+    "In performance interviews, immediately mention EXPLAIN ANALYZE to identify sequential scans.",
+    "Explain the leftmost prefix rule and why column ordering in composite indexes matters.",
+    "Remind interviewers that wrapping columns in functions (e.g. UPPER(col)) invalidates standard B-tree indexes."
   ],
   "common_mistakes": [
-    "Mis 1",
-    "Mis 2",
-    "Mis 3"
+    "Applying functions to indexed columns in WHERE predicates (e.g. WHERE YEAR(date) = 2026), disabling the index",
+    "Forgetting to create indexes on foreign key columns, causing parent DELETE operations to freeze",
+    "Over-indexing tables with 15+ indexes, causing insert and update throughput to collapse",
+    "Assuming PostgreSQL automatically uses an index for low-cardinality columns (e.g. boolean flags)"
   ],
   "sources": [
     {
       "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL Documentation",
-      "url": "https://www.postgresql.org/docs/current/index.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "PostgreSQL Documentation \u2014 Indexes (B-tree, Multicolumn, EXPLAIN)",
+      "url": "https://www.postgresql.org/docs/current/indexes.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "postgresql-tutorial",
+      "title": "PostgreSQL Indexes Tutorial",
+      "url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-indexes-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "1ffababceea371814f291ba7d0e9b744292bf250e99681c49be84171b4a02666",
+  "generated_at": "2026-09-24T08:36:06.701372+00:00"
 }

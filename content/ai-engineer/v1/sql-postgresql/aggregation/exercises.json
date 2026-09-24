@@ -1,115 +1,139 @@
 [
   {
-    "key": "agg-1",
+    "key": "agg-mcq-count-difference",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "What is the correct answer?",
+    "title": "COUNT(*) vs COUNT(column)",
+    "prompt_markdown": "A table `survey` has 10 rows. Column `feedback` is NULL in 3 rows and contains text in 7 rows. What do `COUNT(*)` and `COUNT(feedback)` return?",
     "difficulty": "easy",
     "hints": [
-      "Think about it"
+      "Does COUNT(column) count NULLs?"
     ],
     "content": {
       "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
+        "COUNT(*) returns 7; COUNT(feedback) returns 10",
+        "COUNT(*) returns 10; COUNT(feedback) returns 7",
+        "Both return 10",
+        "Both return 7"
       ],
       "correct_index": 1,
-      "explanation": "Because it is correct."
+      "explanation": "`COUNT(*)` counts total rows in the table (10). `COUNT(feedback)` counts only rows where the `feedback` column is NOT NULL (7)."
     }
   },
   {
-    "key": "agg-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Explain this.",
+    "key": "agg-mcq-where-vs-having",
+    "exercise_type": "multiple_choice",
+    "title": "WHERE vs HAVING placement",
+    "prompt_markdown": "Why can an aggregate function like `COUNT(*)` be used in a `HAVING` clause but NOT in a `WHERE` clause?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider logical query execution order."
+    ],
+    "content": {
+      "choices": [
+        "WHERE is reserved exclusively for primary keys",
+        "The WHERE clause filters individual rows before grouping occurs, so aggregate totals do not exist yet",
+        "HAVING is an older deprecated keyword",
+        "PostgreSQL enforces this to save disk space"
+      ],
+      "correct_index": 1,
+      "explanation": "In SQL logical execution order, `WHERE` filters individual rows *before* rows are grouped and aggregated. Aggregates are computed during `GROUP BY`, making aggregate values available only to `HAVING`."
+    }
+  },
+  {
+    "key": "agg-mcq-group-by-constraint",
+    "exercise_type": "multiple_choice",
+    "title": "Columns allowed in SELECT with GROUP BY",
+    "prompt_markdown": "Given `SELECT dept, role, AVG(salary) FROM staff GROUP BY dept;`, why does PostgreSQL reject this query with an error?",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Is 'role' in GROUP BY or wrapped in an aggregate?"
+    ],
+    "content": {
+      "choices": [
+        "AVG cannot be used on salary",
+        "`role` is neither included in the `GROUP BY` clause nor wrapped in an aggregate function",
+        "GROUP BY requires an ORDER BY clause",
+        "dept is a reserved keyword"
+      ],
+      "correct_index": 1,
+      "explanation": "Every non-aggregated column in the `SELECT` list must appear in the `GROUP BY` clause. Because multiple roles can exist in a single department, the database cannot pick which role to display."
+    }
+  },
+  {
+    "key": "agg-short-predict-null-average",
+    "exercise_type": "short_answer",
+    "title": "Predict AVG() with NULL values",
+    "prompt_markdown": "Given the table `metrics (val INT)` with rows: `(10), (20), (NULL), (30)`:\n1. What does `SELECT AVG(val) FROM metrics;` return?\n2. What does `SELECT AVG(COALESCE(val, 0)) FROM metrics;` return?",
+    "difficulty": "medium",
+    "hints": [
+      "Does AVG() divide by 3 or by 4 when NULL is present?"
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "States that `AVG(val)` returns 20 (60 / 3)",
+        "Explains that `AVG(val)` ignores the NULL row, dividing sum 60 by 3 non-null rows",
+        "States that `AVG(COALESCE(val, 0))` returns 15 (60 / 4) because NULL is coerced to 0"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "1. `AVG(val)` returns `20.0` (sum = 60, non-null count = 3, 60/3 = 20.0). The NULL row is completely ignored.\n2. `AVG(COALESCE(val, 0))` returns `15.0` (sum = 60, count = 4, 60/4 = 15.0) because the NULL row is replaced by 0 and included in the count.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "agg-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because it is correct."
-    }
-  },
-  {
-    "key": "agg-4",
+    "key": "agg-short-fix-having-performance",
     "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Explain this.",
+    "title": "Diagnose inefficient HAVING usage",
+    "prompt_markdown": "A query runs slowly on a 50-million-row `orders` table:\n\n```sql\nSELECT store_id, SUM(amount) AS total\nFROM orders\nGROUP BY store_id\nHAVING store_id = 42;\n```\nExplain why this query is algorithmically inefficient and rewrite it optimally.",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Filter store_id in WHERE before GROUP BY."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains that filtering `store_id = 42` in `HAVING` forces the engine to group and aggregate all 50 million rows across all stores first",
+        "Explains that moving the filter to `WHERE` uses an index to filter rows before grouping, drastically reducing work",
+        "Provides the optimized query with `WHERE store_id = 42`"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Defect: Placing `store_id = 42` in `HAVING` forces PostgreSQL to sort, group, and calculate sums across all 50 million rows for *every* store in the database before discarding non-42 stores.\nOptimized query:\n```sql\nSELECT store_id, SUM(amount) AS total\nFROM orders\nWHERE store_id = 42\nGROUP BY store_id;\n```\nBy moving the predicate to `WHERE`, the engine uses an index on `store_id` to read only the rows belonging to store 42.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "agg-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because it is correct."
-    }
-  },
-  {
-    "key": "agg-6",
+    "key": "agg-short-implement-conditional-count",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Explain this.",
+    "title": "Write conditional count query",
+    "prompt_markdown": "Write a query on `users (id, status, country)` that returns a summary row with: total users (`total_count`), total active users (`active_count` where `status = 'active'`), and total US users (`us_count` where `country = 'US'`) in a single table scan.",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Use COUNT(*) FILTER (WHERE cond) or COUNT(CASE WHEN cond THEN 1 END)."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Computes `COUNT(*) AS total_count`",
+        "Computes active count using `COUNT(*) FILTER (WHERE status = 'active')` or `COUNT(CASE WHEN status = 'active' THEN 1 END)`",
+        "Computes US count using `COUNT(*) FILTER (WHERE country = 'US')` or equivalent CASE",
+        "Operates on a single table scan without subqueries"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "```sql\nSELECT \n    COUNT(*) AS total_count,\n    COUNT(*) FILTER (WHERE status = 'active') AS active_count,\n    COUNT(*) FILTER (WHERE country = 'US') AS us_count\nFROM users;\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "agg-short-explain-empty-sum",
+    "exercise_type": "short_answer",
+    "title": "Explain NULL return from SUM() on empty sets",
+    "prompt_markdown": "If a query executes `SELECT SUM(salary) FROM employees WHERE department = 'Robotics'` on a table where no employees work in 'Robotics', what does the query return? Why does it return this instead of 0, and how do you safeguard against it?",
+    "difficulty": "medium",
+    "hints": [
+      "SUM on zero matching rows returns NULL. Use COALESCE."
+    ],
+    "content": {
+      "rubric": [
+        "States that the query returns `NULL` (a single row containing NULL)",
+        "Explains that standard SQL defines `SUM()` over an empty set as NULL because no values exist to sum",
+        "Explains that frontend applications expecting numbers crash with TypeError or null dereference",
+        "Safeguards with `COALESCE(SUM(salary), 0)` to guarantee returning 0"
+      ],
+      "reference_answer": "1. Result: The query returns a single row containing `NULL`.\n2. Rationale: In SQL standard specification, aggregating an empty set of rows returns `NULL` (except `COUNT`, which returns 0). The database interprets the sum of zero values as unknown.\n3. Safeguard: Wrap the aggregate in `COALESCE`: `SELECT COALESCE(SUM(salary), 0) FROM employees WHERE department = 'Robotics'`. This guarantees an integer `0` is returned to downstream application code.",
       "minimum_pass_score": 70
     }
   }

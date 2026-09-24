@@ -2,160 +2,152 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "dsa",
   "topic_slug": "sets",
-  "title": "Sets & Uniqueness",
-  "description": "Learn about Sets & Uniqueness.",
-  "version": "1.0.0",
+  "title": "Sets, Hash Tables, and High-Speed Membership Testing",
+  "description": "Master set data structures: O(1) average membership lookups, deduplication, set theory operations (union, intersection, difference), and interview patterns.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand the core concept",
-    "Analyze time and space complexity",
-    "Apply patterns to solve problems"
+    "Leverage set hashing mechanics to execute O(1) average time membership checks",
+    "Apply sets for linear-time data deduplication while reasoning about ordering guarantees",
+    "Execute set algebraic operations: union, intersection, and symmetric difference",
+    "Identify canonical interview use cases where sets eliminate quadratic lookup loops"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "big-o",
+    "arrays"
+  ],
   "sections": [
     {
-      "slug": "what-is-a-set",
-      "title": "What Is A Set",
+      "slug": "set-foundations-and-membership",
+      "title": "Set foundations and O(1) membership testing",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand what-is-a-set",
-      "markdown": "Section about what-is-a-set. 1. WHAT IS THIS? (plain English).\n\nHere are the required keywords to cover: set membership O(1) deduplication intersection union difference interview use uniqueness. Also need minimum 100 characters to pass validation. Adding some padding text to ensure it reaches at least 100 characters length...",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Understand how hash tables enable O(1) average membership operations in sets.",
+      "markdown": "## When to recognize this pattern\nDeduplication, existence checks in O(1), finding unique elements, intersection, union, or subset membership.\n\n## Core idea\nA `set` is an unordered collection of distinct, hashable elements. Under the hood, Python sets are implemented as open-addressing hash tables. While testing element `membership` in an unsorted list (`x in my_list`) requires a sequential $O(n)$ search, testing `membership` in a set (`x in my_set`) computes the element's hash code and inspects the hash bucket directly in `O(1)` average time. This difference transforms nested searching algorithms from quadratic $O(n^2)$ down to linear $O(n)$.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Membership lookup comparison: List O(n) vs Set O(1)\nlarge_list = list(range(100000))\nlarge_set = set(large_list)\n\n# O(1) instant lookup regardless of collection size\nprint(99999 in large_set)\nprint(-1 in large_set)",
+          "explanation": "Demonstrates instant O(1) average membership validation using a Python set.",
+          "expected_output": "True\nFalse"
+        }
+      ],
       "key_points": [
-        "Key point about what-is-a-set"
-      ]
+        "Sets provide O(1) average time complexity for add(), remove(), and in membership checks.",
+        "Elements must be hashable and immutable (e.g. numbers, strings, tuples; not lists or dicts)."
+      ],
+      "checkpoint": "What happens when you try to add a Python list to a set? Why?"
     },
     {
-      "slug": "membership-test",
-      "title": "Membership Test",
+      "slug": "deduplication-and-uniqueness",
+      "title": "Deduplication and preserving element uniqueness",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand membership-test",
-      "markdown": "Section about membership-test. 2. WHEN DO YOU RECOGNIZE IT? (interview signal). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Eliminate duplicates and enforce uniqueness constraints efficiently.",
+      "markdown": "## Naive approach\nSearching for membership in a list requires an O(N) linear scan, turning nested lookups into an O(N^2) bottleneck.\n\n## Better approach\nA primary utility of sets is `deduplication`. Converting a collection with duplicate elements to a set (`set(items)`) immediately isolates unique items in $O(n)$ time. However, sets do NOT preserve element insertion order. If preserving the original encounter order during deduplication is required, use a combination of a visited `set` with a list comprehension, or `dict.fromkeys(items)` (which retains insertion order in modern Python). Sets guarantee strict `uniqueness` across all stored members.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Deduplication while preserving original encounter order\ndef deduplicate_preserve_order(items):\n    seen = set()\n    result = []\n    for item in items:\n        if item not in seen:\n            seen.add(item)\n            result.append(item)\n    return result\n\nprint(deduplicate_preserve_order([4, 1, 2, 1, 4, 3, 2]))",
+          "explanation": "Combines a set for O(1) seen lookups with a list to preserve original element ordering.",
+          "expected_output": "[4, 1, 2, 3]"
+        }
+      ],
       "key_points": [
-        "Key point about membership-test"
-      ]
+        "set(items) deduplicates in O(n) time but discards original order.",
+        "Tracking seen items with a set enables order-preserving deduplication in linear time."
+      ],
+      "checkpoint": "Why is seen.add(x) O(1) while list.append(x) is also O(1), yet item in seen is much faster than item in list?"
     },
     {
-      "slug": "o1-lookup",
-      "title": "O1 Lookup",
+      "slug": "set-algebraic-operations",
+      "title": "Set algebra: Union, intersection, and difference",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand o1-lookup",
-      "markdown": "Section about o1-lookup. 3. CORE IDEA (the mental model). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Execute mathematical set algebra operations in optimal linear time.",
+      "markdown": "## Python implementation\nHash set lookups and insertions achieve O(1) average time via hash table buckets.\n\n## Step-by-step example\nPython provides native operators and methods for set algebra:\n1. `intersection` (`A & B` or `A.intersection(B)`): Returns elements common to both sets in $O(\\min(|A|, |B|))$ time.\n2. `union` (`A | B` or `A.union(B)`): Combines elements from both sets in $O(|A| + |B|)$ time.\n3. `difference` (`A - B` or `A.difference(B)`): Returns elements in A that are not in B in $O(|A|)$ time.\n4. Symmetric Difference (`A ^ B`): Returns elements in either set, but not in both.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "backend_devs = {\"Alice\", \"Bob\", \"Charlie\"}\nfrontend_devs = {\"Bob\", \"David\", \"Eve\"}\n\n# Intersection: Full-stack developers present in both teams\nprint(sorted(backend_devs & frontend_devs))\n\n# Difference: Devs working exclusively on backend\nprint(sorted(backend_devs - frontend_devs))\n\n# Union: All unique developers across company\nprint(sorted(backend_devs | frontend_devs))",
+          "explanation": "Executes intersection, difference, and union operations across developer rosters.",
+          "expected_output": "['Bob']\n['Alice', 'Charlie']\n['Alice', 'Bob', 'Charlie', 'David', 'Eve']"
+        }
+      ],
       "key_points": [
-        "Key point about o1-lookup"
-      ]
-    },
-    {
-      "slug": "deduplication-pattern",
-      "title": "Deduplication Pattern",
-      "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand deduplication-pattern",
-      "markdown": "Section about deduplication-pattern. 4. TEMPLATE / MENTAL MODEL (Python code). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about deduplication-pattern"
-      ]
-    },
-    {
-      "slug": "set-operations",
-      "title": "Set Operations",
-      "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand set-operations",
-      "markdown": "Section about set-operations. 5. SMALL WORKED EXAMPLE (trace through). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about set-operations"
-      ]
-    },
-    {
-      "slug": "intersection-and-union",
-      "title": "Intersection And Union",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand intersection-and-union",
-      "markdown": "Section about intersection-and-union. 6. COMPLEXITY ANALYSIS (time and space). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about intersection-and-union"
-      ]
-    },
-    {
-      "slug": "difference",
-      "title": "Difference",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand difference",
-      "markdown": "Section about difference. 7. COMMON MISTAKES. Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about difference"
-      ]
+        "Intersection A & B iterates over the smaller set, giving O(min(|A|, |B|)) runtime.",
+        "Difference A - B finds elements unique to the left set."
+      ],
+      "checkpoint": "What is the time complexity of computing the intersection of a set of size 10 and a set of size 1,000,000?"
     },
     {
       "slug": "interview-use-cases",
-      "title": "Interview Use Cases",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand interview-use-cases",
-      "markdown": "Section about interview-use-cases. 8. INTERVIEW POINTS. Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
+      "title": "Interview use: Eliminating nested loops and cycle detection",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Recognize interview scenarios where sets transform quadratic algorithms into linear solutions.",
+      "markdown": "## Time complexity\nO(1) average membership, insertion, and deletion; O(N) worst case under pathological hash collisions.\n\n## Space complexity\nO(N) memory overhead for hash table buckets and collision chaining.\n\n## Common mistakes\nFor `interview use`, sets frequently unlock the difference between a failing brute force and an optimal solution:\n1. **Two Sum Complement Check**: While scanning `nums`, check if `target - num` exists in a seen set in $O(1)$ time.\n2. **Longest Consecutive Sequence**: Insert all numbers into a set. A number $x$ is the start of a sequence only if `x - 1 not in set`. Then, count forward `x + 1, x + 2 ...`. Because each sequence is explored once, this achieves $O(n)$ time on unsorted data!\n3. **Cycle Detection**: Track visited nodes or numbers in an auxiliary set to detect infinite loops in $O(1)$ lookup time.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Longest Consecutive Sequence in O(n) using a set\ndef longest_consecutive(nums: list[int]) -> int:\n    num_set = set(nums)\n    longest = 0\n    for x in num_set:\n        # Check if x is the start of a streak\n        if x - 1 not in num_set:\n            current_num = x\n            current_streak = 1\n            while current_num + 1 in num_set:\n                current_num += 1\n                current_streak += 1\n            longest = max(longest, current_streak)\n    return longest\n\nprint(longest_consecutive([100, 4, 200, 1, 3, 2]))",
+          "explanation": "Achieves O(n) consecutive sequence discovery on unsorted numbers without sorting.",
+          "expected_output": "4"
+        }
+      ],
       "key_points": [
-        "Key point about interview-use-cases"
-      ]
+        "In Longest Consecutive Sequence, the condition `x - 1 not in set` ensures linear O(n) total work.",
+        "Sets eliminate O(n) nested lookups, collapsing overall algorithm complexity to linear time."
+      ],
+      "checkpoint": "Why does the while loop inside longest_consecutive not cause O(n^2) overall runtime?"
     },
     {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand common-mistakes",
-      "markdown": "Section about common-mistakes. 9. QUICK CHECK. Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
+      "slug": "arena-transfer",
+      "title": "Set interview check and Arena practice",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Apply set algorithms to pass Coding Arena challenges.",
+      "markdown": "## Arena reference\nPractice with `dsa-longest-consecutive` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nSet interview questions test your ability to trade modest auxiliary memory for massive runtime acceleration.\n\n### Common Interview Questions\n1. *Can a set contain unhashable types like lists or dicts?*\n   *(No. Set elements must be hashable [implementing __hash__ and __eq__]. To store collections, use immutable tuples or frozensets).* \n2. *What is the difference between set and frozenset?*\n   *(A set is mutable and cannot be used as a dictionary key or an element of another set. A frozenset is immutable and hashable).* \n3. *How do you find if an array contains duplicates in O(n) time and O(n) space?*\n   *(Compare `len(nums) != len(set(nums))`)*. \n\n### Arena Practice Problems\n- `dsa-longest-consecutive`: Set-based linear consecutive streak discovery\n- `dsa-ransom-note`: Character availability verification\n- `dsa-intersection-two-arrays`: Computing distinct intersection elements",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Instant duplicate detection\ndef contains_duplicate(nums):\n    return len(nums) != len(set(nums))\n\nprint(contains_duplicate([1, 2, 3, 1]))\nprint(contains_duplicate([1, 2, 3, 4]))",
+          "explanation": "Detects duplicates in O(n) time by comparing original list length against set size.",
+          "expected_output": "True\nFalse"
+        }
+      ],
       "key_points": [
-        "Key point about common-mistakes"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand interview-points",
-      "markdown": "Section about interview-points. 10. PRACTICE NEXT. Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about interview-points"
-      ]
+        "Practice set membership shortcuts like len(nums) != len(set(nums)).",
+        "Be ready to discuss hash table collision resolution and worst-case complexities."
+      ],
+      "checkpoint": "What is the worst-case time complexity of adding N elements to a set if all elements collide?"
     }
   ],
   "summary": [
-    "Key point 1",
-    "Key point 2",
-    "Key point 3"
+    "Sets provide O(1) average time complexity for membership testing, additions, and deletions.",
+    "Deduplication with set(items) operates in linear O(n) time, though element ordering is discarded.",
+    "Set operations (intersection, union, difference) implement set algebra in optimal linear time.",
+    "In interview problems, sets eliminate O(n) scanning loops, enabling linear-time consecutive sequences.",
+    "Set elements must be immutable and hashable; use frozenset for nested sets."
   ],
   "interview_takeaways": [
-    "Takeaway 1",
-    "Takeaway 2",
-    "Takeaway 3"
+    "Mention that 'in' on a set is O(1) while 'in' on a list is O(n) to highlight data structure mastery.",
+    "Use sets for visited states in BFS/DFS graph traversals to prevent infinite loops.",
+    "Explain that frozenset provides an immutable, hashable set suitable for dictionary keys."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Attempting to add mutable objects (lists, dictionaries) to a set, raising TypeError: unhashable type",
+    "Assuming sets preserve insertion order (unlike dictionaries, set ordering is arbitrary)",
+    "Using list membership testing `x in list` inside a loop instead of converting the list to a set first",
+    "Modifying an object while it resides inside a set, corrupting hash bucket indexing"
   ],
   "sources": [
     {
       "source_id": "python-stdlib-docs",
-      "title": "Python Data Structures",
-      "url": "https://docs.python.org/3/tutorial/datastructures.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "Python Standard Library \u2014 Set Types",
+      "url": "https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-dsa-sets-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "3fe5bd41aafecff442420ecc3c9f3b41bde75c933edec01cbc31d0faec6a41ba",
+  "generated_at": "2026-09-24T08:40:52.375689+00:00"
 }

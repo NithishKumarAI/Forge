@@ -1,161 +1,140 @@
 [
   {
-    "key": "bfs-1",
+    "key": "bfs-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1 for bfs",
-    "prompt_markdown": "What is the core idea of bfs in exercise 1?",
+    "title": "BFS shortest path guarantee condition",
+    "prompt_markdown": "Under what condition is Breadth-First Search (BFS) guaranteed to find the shortest path between two vertices?",
     "difficulty": "easy",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Consider edge weights."
     ],
     "content": {
       "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
+        "Only in directed acyclic graphs (DAGs)",
+        "In any graph where all edges have equal non-negative weight (unweighted)",
+        "Only if the graph has no cycles and is a binary tree",
+        "Only if edge weights are negative"
       ],
       "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
+      "explanation": "BFS explores vertices in order of layer distance (1 step, 2 steps, etc.). Therefore, in an unweighted graph where every edge has equal cost, the first time target is reached is guaranteed to be the shortest path."
     }
   },
   {
-    "key": "bfs-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2 for bfs",
-    "prompt_markdown": "What is the core idea of bfs in exercise 2?",
+    "key": "bfs-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Timing of visited set marking",
+    "prompt_markdown": "Why must a neighbor node be added to the `visited` set immediately upon being *enqueued*, rather than waiting until it is *dequeued*?",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "What happens if two parent nodes share the same unvisited neighbor?"
+    ],
+    "content": {
+      "choices": [
+        "To satisfy Python interpreter syntax requirements",
+        "To prevent other concurrently processed nodes from enqueuing the exact same neighbor multiple times",
+        "Because Python deques cannot store unvisited elements",
+        "To sort the queue automatically"
+      ],
+      "correct_index": 1,
+      "explanation": "If node C is a neighbor of both A and B, and A enqueues C without marking it visited, B will also enqueue C. Marking visited upon enqueuing guarantees each node enters the queue exactly once."
+    }
+  },
+  {
+    "key": "bfs-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "BFS time complexity on graph",
+    "prompt_markdown": "What is the time complexity of Breadth-First Search on a graph with $V$ vertices and $E$ edges represented as an adjacency list?",
+    "difficulty": "easy",
+    "hints": [
+      "Every vertex is enqueued once; every edge is inspected once."
+    ],
+    "content": {
+      "choices": [
+        "O(V)",
+        "O(E)",
+        "O(V + E)",
+        "O(V * E)"
+      ],
+      "correct_index": 2,
+      "explanation": "BFS visits every reachable vertex once (O(V)) and scans each outgoing edge in the adjacency list once (O(E)), resulting in O(V + E) overall runtime."
+    }
+  },
+  {
+    "key": "bfs-short-predict-layers",
+    "exercise_type": "short_answer",
+    "title": "Predict layer-by-layer exploration order",
+    "prompt_markdown": "Given undirected graph: `0 -- 1`, `0 -- 2`, `1 -- 3`, `2 -- 3`, `2 -- 4`. Trace the nodes processed in each distance layer when BFS starts at node 0.",
+    "difficulty": "medium",
+    "hints": [
+      "Distance 0: {0}. Neighbors of 0 are distance 1. Neighbors of distance 1 are distance 2."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Layer 0 (dist 0): [0]",
+        "Layer 1 (dist 1): [1, 2]",
+        "Layer 2 (dist 2): [3, 4]",
+        "Correctly notes that node 3 is visited from layer 1 and not re-added when exploring node 2"
       ],
-      "reference_answer": "The answer is related to bfs principles.",
+      "reference_answer": "Layer Trace:\n- Layer 0 (Distance 0): `[0]`\n- Layer 1 (Distance 1): `[1, 2]` (direct neighbors of 0)\n- Layer 2 (Distance 2): `[3, 4]` (3 is neighbor of 1 and 2; 4 is neighbor of 2)\nResulting layer grouping: `[[0], [1, 2], [3, 4]]`.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "bfs-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3 for bfs",
-    "prompt_markdown": "What is the core idea of bfs in exercise 3?",
+    "key": "bfs-short-fix-queue-pop-bug",
+    "exercise_type": "short_answer",
+    "title": "Fix O(n^2) list pop performance trap in BFS",
+    "prompt_markdown": "A backend engineer implements BFS using a Python list:\n\n```python\ndef bfs_shortest_distance(graph, start, target):\n    queue = [start]\n    visited = {start}\n    dist = 0\n    while queue:\n        for _ in range(len(queue)):\n            curr = queue.pop(0)  # Performance bottleneck\n            if curr == target: return dist\n            for neighbor in graph[curr]:\n                if neighbor not in visited:\n                    visited.add(neighbor)\n                    queue.append(neighbor)\n        dist += 1\n    return -1\n```\nExplain the performance degradation caused by `queue.pop(0)` and provide the optimal refactor.",
     "difficulty": "easy",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "bfs-4",
-    "exercise_type": "short_answer",
-    "title": "Exercise 4 for bfs",
-    "prompt_markdown": "What is the core idea of bfs in exercise 4?",
-    "difficulty": "medium",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Use collections.deque."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Explains that `queue.pop(0)` takes O(N) time on a list, shifting elements and making BFS quadratic O(V^2 + E)",
+        "Replaces list with `collections.deque` and uses `popleft()`",
+        "Achieves true O(V + E) linear runtime"
       ],
-      "reference_answer": "The answer is related to bfs principles.",
+      "reference_answer": "Performance Bottleneck:\nIn Python, `list.pop(0)` shifts all remaining $N-1$ elements in memory by one slot, taking $O(N)$ time. In a BFS with $V$ vertices, executing $V$ pops takes $O(V^2)$ time, degrading linear graph search into a quadratic bottleneck.\n\nOptimal Refactor:\n```python\nfrom collections import deque\n\ndef bfs_shortest_distance(graph, start, target):\n    queue = deque([start])\n    visited = {start}\n    dist = 0\n    while queue:\n        for _ in range(len(queue)):\n            curr = queue.popleft()  # O(1) constant time\n            if curr == target: \n                return dist\n            for neighbor in graph[curr]:\n                if neighbor not in visited:\n                    visited.add(neighbor)\n                    queue.append(neighbor)\n        dist += 1\n    return -1\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "bfs-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5 for bfs",
-    "prompt_markdown": "What is the core idea of bfs in exercise 5?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "bfs-6",
+    "key": "bfs-short-implement-multi-source",
     "exercise_type": "short_answer",
-    "title": "Exercise 6 for bfs",
-    "prompt_markdown": "What is the core idea of bfs in exercise 6?",
-    "difficulty": "medium",
+    "title": "Implement multi-source BFS for Rotting Oranges",
+    "prompt_markdown": "Write a Python function `oranges_rotting(grid: list[list[int]]) -> int` that calculates the minimum minutes until no fresh orange (1) remains adjacent to a rotten orange (2). Empty cells are 0. Use multi-source BFS.",
+    "difficulty": "hard",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Enqueue all initially rotten oranges (2). Track count of fresh oranges (1). Decrement fresh on infection."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Finds all rotten oranges (value 2) and enqueues them in queue",
+        "Counts total fresh oranges (value 1)",
+        "Executes multi-source BFS layer-by-layer, converting adjacent fresh oranges to rotten",
+        "Returns minutes if fresh == 0, else -1"
       ],
-      "reference_answer": "The answer is related to bfs principles.",
+      "reference_answer": "```python\nfrom collections import deque\n\ndef oranges_rotting(grid: list[list[int]]) -> int:\n    R, C = len(grid), len(grid[0])\n    queue = deque()\n    fresh_count = 0\n    for r in range(R):\n        for c in range(C):\n            if grid[r][c] == 2:\n                queue.append((r, c))\n            elif grid[r][c] == 1:\n                fresh_count += 1\n                \n    if fresh_count == 0:\n        return 0\n        \n    minutes = 0\n    while queue and fresh_count > 0:\n        minutes += 1\n        for _ in range(len(queue)):\n            r, c = queue.popleft()\n            for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:\n                nr, nc = r + dr, c + dc\n                if 0 <= nr < R and 0 <= nc < C and grid[nr][nc] == 1:\n                    grid[nr][nc] = 2\n                    fresh_count -= 1\n                    queue.append((nr, nc))\n                    \n    return minutes if fresh_count == 0 else -1\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "bfs-7",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 7 for bfs",
-    "prompt_markdown": "What is the core idea of bfs in exercise 7?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "bfs-8",
+    "key": "bfs-short-explain-bidirectional",
     "exercise_type": "short_answer",
-    "title": "Exercise 8 for bfs",
-    "prompt_markdown": "What is the core idea of bfs in exercise 8?",
-    "difficulty": "medium",
+    "title": "Explain bidirectional BFS in interviews",
+    "prompt_markdown": "In a system design or algorithmic interview for Word Ladder or route planning, the interviewer asks: 'Standard BFS runs out of memory on large graphs. How does Bi-directional BFS reduce memory and time complexity?' Provide a mathematical explanation.",
+    "difficulty": "hard",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Compare branching factor b^d vs 2 * b^(d/2)."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Defines Bi-directional BFS: searches simultaneously forward from start and backward from target",
+        "Explains the frontier meeting condition: stops when the forward and backward frontiers intersect",
+        "Analyzes complexity difference: branching factor b to depth d takes O(b^d) nodes; bi-directional meets at d/2, taking O(2 * b^(d/2))",
+        "Gives concrete numeric comparison (e.g. b=10, d=6 -> 1,000,000 nodes vs 2,000 nodes)"
       ],
-      "reference_answer": "The answer is related to bfs principles.",
+      "reference_answer": "1. Core Mechanism:\nInstead of expanding a single BFS tree from `start` all the way to `target` across depth $d$, Bi-directional BFS maintains two simultaneous frontiers:\n- Forward frontier originating from `start`\n- Backward frontier originating from `target`\nAt each step, expand the smaller of the two frontiers. When an expanded node intersects with the opposing visited set, the shortest path is found.\n\n2. Mathematical Complexity Reduction:\nAssume every node has an average branching factor of $b$ neighbors, and the shortest path has distance $d$.\n- Standard BFS explores nodes down to depth $d$:\n  $$\\text{Total Nodes} = b^0 + b^1 + \\dots + b^d \\approx O(b^d)$$\n- Bi-directional BFS expands both trees only to the midpoint depth $d / 2$:\n  $$\\text{Total Nodes} = 2 \\times O(b^{d/2})$$\n\n3. Practical Impact:\nIf branching factor $b = 10$ and distance $d = 6$:\n- Standard BFS must explore $10^6 = 1,000,000$ states (frequently causing Out-Of-Memory errors).\n- Bi-directional BFS explores $2 \\times 10^3 = 2,000$ states!\nThis cuts search space and memory consumption by several orders of magnitude.",
       "minimum_pass_score": 70
     }
   }

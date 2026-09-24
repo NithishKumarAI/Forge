@@ -1,116 +1,137 @@
 [
   {
-    "key": "venv-1",
+    "key": "ve-mcq-creation-command",
     "exercise_type": "multiple_choice",
-    "title": "Venv Module",
-    "prompt_markdown": "Which built-in module creates virtual environments?",
+    "title": "Standard venv creation command",
+    "prompt_markdown": "What standard library command creates a virtual environment named `.venv` in the current directory?",
     "difficulty": "easy",
     "hints": [
-      "It stands for virtual environment."
+      "Review the standard Python module for virtual environments."
     ],
     "content": {
       "choices": [
-        "venv",
-        "virtualenv",
-        "env",
-        "pipenv"
+        "python -m venv .venv",
+        "pip install venv .venv",
+        "virtualenv --create .venv",
+        "python --make-isolated .venv"
       ],
       "correct_index": 0,
-      "explanation": "venv is built into the standard library."
+      "explanation": "`python -m venv .venv` invokes the standard library `venv` module to create an isolated environment in the specified `.venv` folder."
     }
   },
   {
-    "key": "venv-2",
-    "exercise_type": "short_answer",
-    "title": "Dependency File",
-    "prompt_markdown": "What is the standard filename for listing pip dependencies?",
+    "key": "ve-mcq-activation-action",
+    "exercise_type": "multiple_choice",
+    "title": "What activation scripts modify",
+    "prompt_markdown": "What does running an activation script (such as `source .venv/bin/activate`) primarily do in the shell?",
+    "difficulty": "easy",
+    "hints": [
+      "How does the shell know where to find the 'python' command?"
+    ],
+    "content": {
+      "choices": [
+        "Compiles all Python files into shared C libraries",
+        "Prepends the virtual environment's bin/Scripts directory to the shell's PATH environment variable",
+        "Locks the directory with administrator privileges",
+        "Sends a telemetry signal to the Python Package Index"
+      ],
+      "correct_index": 1,
+      "explanation": "Activation scripts simply prepend the virtual environment's binary directory to the shell's `PATH` environment variable so typing `python` or `pip` resolves to the venv's binaries."
+    }
+  },
+  {
+    "key": "ve-mcq-git-exclusion",
+    "exercise_type": "multiple_choice",
+    "title": "Why .venv should not be committed",
+    "prompt_markdown": "Why should the `.venv` directory always be added to `.gitignore` and never committed to Git?",
     "difficulty": "medium",
     "hints": [
-      "It ends in .txt."
+      "Consider operating system binaries and absolute path symlinks."
+    ],
+    "content": {
+      "choices": [
+        "Git refuses to track directories starting with a dot",
+        "Virtual environments contain platform-specific binaries, compiled C-extensions, and absolute path symlinks that break on other machines",
+        "Virtual environments exceed GitHub's maximum file size limit automatically",
+        "Python licenses forbid redistributing the venv folder"
+      ],
+      "correct_index": 1,
+      "explanation": "Virtual environments contain platform-specific machine code, C-extensions, and hardcoded absolute paths that do not function across different machines or operating systems. Instead, commit `requirements.txt` to recreate the environment."
+    }
+  },
+  {
+    "key": "ve-short-predict-prefix",
+    "exercise_type": "short_answer",
+    "title": "Predict virtual environment detection",
+    "prompt_markdown": "Predict the printed output and explain how Python programmatically detects if it is running inside an active virtual environment:\n\n```python\nimport sys\nprint('In venv:', sys.prefix != sys.base_prefix)\n```",
+    "difficulty": "medium",
+    "hints": [
+      "sys.prefix points to the active environment; sys.base_prefix points to system Python."
     ],
     "content": {
       "rubric": [
-        "requirements.txt",
-        "requirements"
+        "States that the output is `In venv: True` when running inside a virtual environment",
+        "Explains that `sys.prefix` points to the isolated venv directory",
+        "Explains that `sys.base_prefix` points to the original root Python installation directory"
       ],
-      "reference_answer": "requirements.txt",
+      "reference_answer": "Output: `In venv: True` (inside a venv) or `In venv: False` (in global Python).\nExplanation: When Python boots inside a virtual environment, it sets `sys.prefix` to the directory containing `pyvenv.cfg` (the `.venv` folder), while `sys.base_prefix` records the root host Python installation. If they differ, the process is running inside an isolated virtual environment.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "venv-3",
-    "exercise_type": "multiple_choice",
-    "title": "How venv isolates packages",
-    "prompt_markdown": "How does an activated virtual environment ensure that `python` and `pip` commands install packages locally rather than globally?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the PATH environment variable."
-    ],
-    "content": {
-      "choices": [
-        "It creates a lightweight Docker container for each process.",
-        "It prepends the virtual environment's `bin` (or `Scripts`) directory to the system `PATH` environment variable.",
-        "It compiles all Python source code to machine assembly.",
-        "It modifies the operating system kernel routing tables."
-      ],
-      "correct_index": 1,
-      "explanation": "Activation scripts modify the shell's `PATH` variable so the virtual environment's Python and Pip executables are found before any system-wide Python installation."
-    }
-  },
-  {
-    "key": "venv-4",
-    "exercise_type": "multiple_choice",
-    "title": "Reproducible Dependencies",
-    "prompt_markdown": "Which command is traditionally used to generate a pinned list of exact package versions currently installed in an active virtual environment?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about freezing requirements."
-    ],
-    "content": {
-      "choices": [
-        "pip list --all",
-        "pip freeze",
-        "pip export",
-        "pip snapshot"
-      ],
-      "correct_index": 1,
-      "explanation": "`pip freeze > requirements.txt` dumps all installed packages and their exact versions (e.g. `fastapi==0.115.0`) to allow deterministic replication."
-    }
-  },
-  {
-    "key": "venv-5",
+    "key": "ve-short-fix-unpinned-requirements",
     "exercise_type": "short_answer",
-    "title": "Lockfiles vs Loose Version Constraints",
-    "prompt_markdown": "Why do modern production applications prefer lockfiles (e.g. Poetry, uv, Pipenv) over unpinned requirements files like `fastapi>=0.100`?",
+    "title": "Diagnose CI/CD failure from unpinned dependencies",
+    "prompt_markdown": "A project's `requirements.txt` contains:\n```\nhttpx\npydantic\n```\nSix months later, deploying the project fails in CI/CD because a major release of `pydantic` introduced breaking API changes. Explain how to fix `requirements.txt` to achieve reproducible builds.",
     "difficulty": "medium",
     "hints": [
-      "Transient dependencies and unexpected sub-dependency upgrades breaking production."
+      "Use exact version pins or lockfiles."
     ],
     "content": {
       "rubric": [
-        "Explains that unpinned or loosely pinned requirements can pull in broken transitive dependency updates.",
-        "Explains that lockfiles freeze the entire dependency tree deterministically with cryptographic hashes."
+        "Explains that unpinned dependencies install the latest version, exposing builds to breaking upstream releases",
+        "Recommends pinning exact versions using `==` (e.g. `pydantic==2.8.0`)",
+        "Mentions using `pip freeze` or a lockfile tool (pip-tools, uv, poetry) for deterministic sub-dependencies"
       ],
-      "reference_answer": "Loose constraints (e.g. `fastapi>=0.100`) only constrain direct dependencies; third-party transitive dependencies can update at any time and introduce breaking changes or security vulnerabilities into CI/CD builds. Lockfiles capture the exact resolved version and cryptographic hash of every direct and transitive dependency in the tree, guaranteeing 100% bit-for-bit reproducible environments across local development and cloud production.",
+      "reference_answer": "Defect: Without version constraints, `pip install -r requirements.txt` downloads the latest release on every build. When upstream libraries release breaking major versions, builds fail unexpectedly.\nFix: Pin exact tested versions using `==`:\n```\nhttpx==0.27.0\npydantic==2.8.2\n```\nFor enterprise reproducibility, generate a fully resolved lockfile using `pip-tools` or `uv pip compile` to pin all direct and transitive dependencies.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "venv-6",
+    "key": "ve-short-implement-direct-execution",
     "exercise_type": "short_answer",
-    "title": "Why Gitignore the Virtual Environment",
-    "prompt_markdown": "Why should `.venv` directories never be committed to a Git repository?",
+    "title": "Write crontab/systemd direct invocation",
+    "prompt_markdown": "Write the command to execute a script `/srv/app/worker.py` using a virtual environment located at `/srv/app/.venv` without activating the environment in the shell.",
     "difficulty": "medium",
     "hints": [
-      "Platform specificity and repository bloat."
+      "Invoke the interpreter binary directly via its absolute path."
     ],
     "content": {
       "rubric": [
-        "Mentions platform-specific binary executables and C-extensions (Linux binaries fail on Windows/macOS).",
-        "Mentions repository size bloat from thousands of third-party files.",
-        "Explains that environments should be reconstructed deterministically from specification files (requirements.txt, pyproject.toml)."
+        "Specifies direct path to the python binary: `/srv/app/.venv/bin/python`",
+        "Appends the script path: `/srv/app/worker.py`",
+        "Explains that running the venv binary directly automatically runs inside the virtual environment without needing `activate`"
       ],
-      "reference_answer": "Virtual environments contain platform-specific binaries, symlinks, and C-extensions (e.g., compiled for Linux x86_64, which will fail on macOS ARM or Windows). In addition, committing thousands of third-party package files causes massive repository bloat. Repositories should only commit specification files (`pyproject.toml`, `requirements.txt`, lockfiles) so environments can be reconstructed cleanly on any machine.",
+      "reference_answer": "```bash\n/srv/app/.venv/bin/python /srv/app/worker.py\n```\nExplanation: Direct invocation of the venv interpreter automatically sets `sys.prefix` and uses the venv's `site-packages` without needing shell activation scripts, making it the ideal pattern for cron jobs, Dockerfiles, and systemd services.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "ve-short-explain-docker-venv",
+    "exercise_type": "short_answer",
+    "title": "Explain virtual environment utility inside Docker containers",
+    "prompt_markdown": "In interviews, candidates often debate: 'Do you need a virtual environment inside a Docker container?' Explain the arguments for using a virtual environment inside Docker (PEP 668, separation from OS packages).",
+    "difficulty": "medium",
+    "hints": [
+      "Discuss system package managers (apt) vs pip, and modern PEP 668."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that base Linux images (Ubuntu, Debian) use system Python for OS utilities",
+        "Mentions PEP 668 'externally-managed-environment' preventing pip from overwriting system packages",
+        "Explains that installing into a dedicated `/opt/venv` keeps application dependencies cleanly isolated from system libraries"
+      ],
+      "reference_answer": "While Docker provides container-level isolation, using a virtual environment inside Docker is a best practice for two reasons:\n1. OS Protection (PEP 668): Modern base images (Debian 12, Ubuntu 24.04) mark system Python as externally managed, blocking global `pip install` to prevent breaking OS tools that rely on specific Python versions.\n2. Clean Image Layering: Installing dependencies into a dedicated `/opt/venv` allows multi-stage Docker builds to copy just the compiled venv directory from a builder image to a minimal runtime image, keeping final image sizes small.",
       "minimum_pass_score": 70
     }
   }

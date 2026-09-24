@@ -2,183 +2,178 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "decorators",
-  "title": "Decorators",
-  "description": "Learn about closures and decorators in Python.",
-  "version": "1.0.0",
+  "title": "Decorators, Closures, and Function Wrapping",
+  "description": "Master first-class functions, lexical closures, function wrappers, functools.wraps metadata preservation, decorator arguments, and stacking.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand closures.",
-    "Write custom decorators.",
-    "Use functools.wraps."
+    "Leverage functions as first-class objects and state-capturing lexical closures",
+    "Construct function wrappers using functools.wraps to preserve function metadata",
+    "Design multi-level decorator factories that accept configuration arguments",
+    "Stack multiple decorators deterministically and apply them to backend cross-cutting concerns"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "functions"
+  ],
   "sections": [
     {
-      "slug": "functions-as-values",
-      "title": "Functions as Values",
+      "slug": "functions-as-values-and-closures",
+      "title": "Functions as values and lexical closures",
       "order_index": 0,
-      "estimated_minutes": 2,
-      "learning_objective": "Understand first-class functions.",
-      "markdown": "In Python, functions are first-class citizens, meaning they can be passed as functions as values to other functions and returned from them.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Treat functions as first-class objects and capture enclosing scope in closures.",
+      "markdown": "In Python, functions are first-class citizens: they can be assigned to variables, passed as arguments to other functions, stored in data structures, and returned from functions. A `closure` is an inner function that retains access to variables from its enclosing lexical scope even after the outer function has finished executing. The inner function \"closes over\" the outer variables, storing them in its `__closure__` attribute. This capability forms the technical foundation of decorators.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def make_multiplier(factor: int):\n    def multiply(x: int) -> int:\n        return x * factor  # Captures 'factor' from enclosing scope\n    return multiply\n\ndouble = make_multiplier(2)\ntriple = make_multiplier(3)\nprint(double(5), triple(5))",
+          "explanation": "multiply captures factor in a closure; double and triple retain separate factor values.",
+          "expected_output": "10 15"
+        }
+      ],
       "key_points": [
-        "Functions as Values is a core concept to understand",
-        "Practice applying Functions in real code"
-      ]
+        "Functions are first-class values that can be passed and returned.",
+        "Closures capture and retain enclosing scope variables on the heap."
+      ],
+      "checkpoint": "Inspect double.__closure__[0].cell_contents to observe the captured closure value."
     },
     {
-      "slug": "what-is-a-closure",
-      "title": "What is a Closure?",
+      "slug": "basic-wrapper-and-wraps",
+      "title": "Function wrappers and metadata preservation with functools.wraps",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand closures.",
-      "markdown": "A closure occurs when a nested function captures and remembers the variables from its enclosing scope, even after the outer function finishes.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Write transparent function decorators that preserve function signatures and docstrings.",
+      "markdown": "A decorator is a callable that takes a function as an argument and returns a replacement wrapper function. Syntax `@my_decorator` placed above `def func():` is syntactic sugar for `func = my_decorator(func)`. A naive wrapper replaces the original function with an inner function, accidentally wiping out its `__name__`, `__doc__`, and parameter signature! To fix this, always decorate the inner wrapper with `@functools.wraps(func)`. This copies introspective metadata, keeping debugging tools, documentation generators, and test frameworks working correctly.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import functools\n\ndef audit_log(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        print(f'Executing {func.__name__}...')\n        return func(*args, **kwargs)\n    return wrapper\n\n@audit_log\ndef query_db(query_id: int) -> str:\n    \"\"\"Fetches query by ID.\"\"\"\n    return f'Result for {query_id}'\n\nprint(query_db(42))\nprint(f'Name: {query_db.__name__}, Doc: {query_db.__doc__}')",
+          "explanation": "functools.wraps preserves query_db's original name and docstring despite the wrapper.",
+          "expected_output": "Executing query_db...\nResult for 42\nName: query_db, Doc: Fetches query by ID."
+        }
+      ],
       "key_points": [
-        "What is a Closure? is a core concept to understand",
-        "Practice applying What in real code"
-      ]
-    },
-    {
-      "slug": "what-is-a-decorator",
-      "title": "What is a Decorator?",
-      "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Define decorators.",
-      "markdown": "A decorator is a function that takes another function and extends its behavior without explicitly modifying it. It relies on a wrapper function.",
-      "examples": [],
-      "key_points": [
-        "What is a Decorator? is a core concept to understand",
-        "Practice applying What in real code"
-      ]
-    },
-    {
-      "slug": "basic-decorator-pattern",
-      "title": "Basic Decorator Pattern",
-      "order_index": 3,
-      "estimated_minutes": 4,
-      "learning_objective": "Learn the decorator syntax.",
-      "markdown": "The basic pattern involves an outer function, an inner wrapper function that modifies behavior, and returning the wrapper.",
-      "examples": [],
-      "key_points": [
-        "Basic Decorator Pattern is a core concept to understand",
-        "Practice applying Basic in real code"
-      ]
-    },
-    {
-      "slug": "functools-wraps",
-      "title": "Functools Wraps",
-      "order_index": 4,
-      "estimated_minutes": 2,
-      "learning_objective": "Use functools.wraps.",
-      "markdown": "Always use `functools.wraps` on the wrapper function to preserve the original function's metadata like its docstring and name.",
-      "examples": [],
-      "key_points": [
-        "Functools Wraps is a core concept to understand",
-        "Practice applying Functools in real code"
-      ]
+        "@my_decorator is syntactic sugar for func = my_decorator(func).",
+        "Always use @functools.wraps(func) on wrapper functions to preserve __name__ and __doc__."
+      ],
+      "checkpoint": "What bug occurs in logging frameworks if a decorator omits @functools.wraps?"
     },
     {
       "slug": "decorators-with-arguments",
-      "title": "Decorators with Arguments",
+      "title": "Configurable decorators with arguments",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Create multi-level decorator factories accepting configuration parameters.",
+      "markdown": "When a decorator needs configuration arguments (like `@retry(max_attempts=3)` or `@rate_limit(calls=10)`), it requires three levels of nested functions:\n1. Outer function: receives the decorator configuration arguments and returns the decorator.\n2. Middle function: receives the target function to decorate.\n3. Inner wrapper: receives `*args` and `**kwargs`, executes cross-cutting logic, and calls the target function.\n\nEvaluating `@retry(max_attempts=3)` first executes the outer factory, which produces the actual decorator applied to the function.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import functools\n\ndef repeat(num_times: int):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            result = None\n            for _ in range(num_times):\n                result = func(*args, **kwargs)\n            return result\n        return wrapper\n    return decorator\n\ncall_count = 0\n@repeat(num_times=3)\ndef greet():\n    global call_count\n    call_count += 1\n\ngreet()\nprint(f'Total executions: {call_count}')",
+          "explanation": "repeat(num_times=3) configures the execution loop count inside the wrapper closure.",
+          "expected_output": "Total executions: 3"
+        }
+      ],
+      "key_points": [
+        "Decorators with arguments are decorator factories requiring three nested levels.",
+        "The outer function captures configuration parameters for the inner wrapper."
+      ],
+      "checkpoint": "Diagram the call sequence when Python evaluates @timeout(seconds=5) above a function definition."
+    },
+    {
+      "slug": "stacking-and-execution-order",
+      "title": "Stacking multiple decorators and execution order",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Predict and control the ordering of stacked decorators.",
+      "markdown": "Multiple decorators can be stacked on a single function:\n```python\n@dec_a\n@dec_b\ndef target(): pass\n```\nThis evaluates from bottom to top during definition: `target = dec_a(dec_b(target))`. `dec_b` wraps `target` first, and `dec_a` wraps the resulting wrapper. At runtime when `target()` is called, execution flows from top to bottom: `dec_a` executes first, calls `dec_b`, which calls `target()`. Understanding this ordering is critical when combining authentication, caching, and timing decorators.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import functools\n\ndef wrap_alpha(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        return f'[ALPHA {func(*args, **kwargs)} ALPHA]'\n    return wrapper\n\ndef wrap_beta(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        return f'(BETA {func(*args, **kwargs)} BETA)'\n    return wrapper\n\n@wrap_alpha\n@wrap_beta\ndef message():\n    return 'payload'\n\nprint(message())",
+          "explanation": "wrap_beta wraps message first; wrap_alpha wraps the outer result, producing the nested structure.",
+          "expected_output": "[ALPHA (BETA payload BETA) ALPHA]"
+        }
+      ],
+      "key_points": [
+        "Decorators are applied from bottom-up at definition time.",
+        "Wrappers execute from top-down at runtime call time."
+      ],
+      "checkpoint": "In what order should an @auth_required and @cache decorator be stacked, and why?"
+    },
+    {
+      "slug": "backend-patterns",
+      "title": "Common backend uses: Timing, caching, retries, and auth",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Apply decorators to cross-cutting backend concerns.",
+      "markdown": "In production backend engineering, decorators isolate cross-cutting concerns from core business logic:\n- **Timing**: Measures execution duration using `time.perf_counter()` and emits metrics.\n- **Caching/Memoization**: Checks an in-memory cache or Redis before computing expensive results (e.g. `functools.lru_cache`).\n- **Retries**: Intercepts transient network exceptions and retries with exponential backoff.\n- **Authentication & RBAC**: Verifies tokens and user permissions before allowing endpoint execution in frameworks like FastAPI and Flask.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import functools\n\ndef memoize(func):\n    cache = {}\n    @functools.wraps(func)\n    def wrapper(*args):\n        if args not in cache:\n            cache[args] = func(*args)\n        return cache[args]\n    return wrapper\n\n@memoize\ndef square(n: int) -> int:\n    return n * n\n\nprint(square(4), square(4))",
+          "explanation": "Memoize decorator stores results in a dictionary closure, avoiding redundant calculations.",
+          "expected_output": "16 16"
+        }
+      ],
+      "key_points": [
+        "Decorators isolate cross-cutting concerns from core business logic.",
+        "Common backend uses include timing, caching, rate limiting, and permission verification."
+      ],
+      "checkpoint": "Why should database transactions be wrapped in decorators with care regarding commit/rollback boundaries?"
+    },
+    {
+      "slug": "interview-check",
+      "title": "Interview check and practice",
       "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Pass arguments to decorators.",
-      "markdown": "To pass arguments to a decorator, you need another layer of nesting: a function that takes arguments and returns the actual decorator.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Review decorator interview questions and practice wrapping in Coding Arena.",
+      "markdown": "Decorators are among the most frequently asked Python-specific technical screen topics.\n\n### Oral Interview Questions\n1. *How does the @decorator syntax desugar in Python?*\n   *(`@dec def foo(): pass` desugars exactly to `foo = dec(foo)`).* \n2. *Why is functools.wraps mandatory in production decorators?*\n   *(Without it, wrapper metadata overwrites `__name__`, `__doc__`, and signature annotations, breaking reflection and logging).* \n3. *How do you write a decorator that works on both functions and class methods?*\n\n### Code Trace Challenge\nTrace this decorator:\n```python\ndef twice(func):\n    def wrapper(*args, **kwargs):\n        func(*args, **kwargs)\n        return func(*args, **kwargs)\n    return wrapper\n@twice\ndef greet(name):\n    print('Hi', name)\ngreet('Sam')\n```\nIt executes `greet('Sam')` twice, printing 'Hi Sam' on two consecutive lines.\n\n### Common Interview Trap\nWriting a decorator factory but forgetting the middle decorator function (e.g. attempting to define a 2-level function when arguments are required). If a decorator takes arguments `@dec(x=1)`, the outer function MUST return a callable that takes `func`.\n\n### Arena Practice Problems\nPractice function wrapping and transformations in Coding Arena:\n- `python-normalize-name`: Formatting and string transformation functions\n- `python-celsius-to-fahrenheit`: Value scaling and conversion functions\n- `python-two-fer`: Function argument defaults and wrapping",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def double_result(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        return func(*args, **kwargs) * 2\n    return wrapper\n\n@double_result\ndef add(a: int, b: int) -> int:\n    return a + b\n\nprint('Doubled sum:', add(3, 4))",
+          "explanation": "Calls the wrapped add function and doubles the returned value.",
+          "expected_output": "Doubled sum: 14"
+        }
+      ],
       "key_points": [
-        "Decorators with Arguments is a core concept to understand",
-        "Practice applying Decorators in real code"
-      ]
-    },
-    {
-      "slug": "stacking-decorators",
-      "title": "Stacking Decorators",
-      "order_index": 6,
-      "estimated_minutes": 2,
-      "learning_objective": "Stack multiple decorators.",
-      "markdown": "Stacking allows multiple decorators on one function. They are applied from bottom to top.",
-      "examples": [],
-      "key_points": [
-        "Stacking Decorators is a core concept to understand",
-        "Practice applying Stacking in real code"
-      ]
-    },
-    {
-      "slug": "common-backend-uses",
-      "title": "Common Backend Uses",
-      "order_index": 7,
-      "estimated_minutes": 2,
-      "learning_objective": "See real-world usage.",
-      "markdown": "Some common backend uses of decorators include authentication checks, logging, caching, and rate limiting in web frameworks.",
-      "examples": [],
-      "key_points": [
-        "Common Backend Uses is a core concept to understand",
-        "Practice applying Common in real code"
-      ]
-    },
-    {
-      "slug": "class-decorators-awareness",
-      "title": "Class Decorators Awareness",
-      "order_index": 8,
-      "estimated_minutes": 2,
-      "learning_objective": "Know about class decorators.",
-      "markdown": "Besides functions, decorators can also be applied to classes to modify their behavior, such as registering them in a registry.",
-      "examples": [],
-      "key_points": [
-        "Class Decorators Awareness is a core concept to understand",
-        "Practice applying Class in real code"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 9,
-      "estimated_minutes": 2,
-      "learning_objective": "Avoid common mistakes.",
-      "markdown": "Forgetting to return the inner wrapper or not passing `*args, **kwargs` correctly are frequent pitfalls when writing decorators.",
-      "examples": [],
-      "key_points": [
-        "Common Mistakes is a core concept to understand",
-        "Practice applying Common in real code"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 2,
-      "learning_objective": "Prepare for interviews.",
-      "markdown": "Be ready to write a basic decorator from scratch and explain the role of closures and `functools.wraps` in preserving metadata.",
-      "examples": [],
-      "key_points": [
-        "Interview Points is a core concept to understand",
-        "Practice applying Interview in real code"
-      ]
+        "Understand the exact desugaring of @decorator.",
+        "Ensure wrapper functions use *args, **kwargs to accept arbitrary function signatures."
+      ],
+      "checkpoint": "Show how to write a timing decorator that prints elapsed milliseconds using time.perf_counter()."
     }
   ],
   "summary": [
-    "Decorators extend behavior.",
-    "Closures preserve state.",
-    "Use functools.wraps.",
-    "Stacking applies bottom-to-top."
+    "Functions are first-class objects that can be passed, returned, and closed over state.",
+    "A decorator wraps a callable: @dec def f(): ... desugars to f = dec(f).",
+    "Always apply @functools.wraps(func) to wrappers to preserve introspection metadata.",
+    "Decorators with arguments require a 3-level nesting factory structure.",
+    "Stacked decorators apply bottom-up at definition and execute top-down at runtime."
   ],
   "interview_takeaways": [
-    "Write a decorator.",
-    "Explain wrapper.",
-    "Use functools.wraps."
+    "Decorators separate cross-cutting concerns (auth, caching, timing, retries) from business logic.",
+    "Remember that stacked decorators evaluate from bottom to top.",
+    "Always forward *args and **kwargs in wrappers to support any wrapped function signature."
   ],
   "common_mistakes": [
-    "Missing *args, **kwargs.",
-    "Forgetting return wrapper."
+    "Omitting @functools.wraps, losing original function __name__ and docstrings",
+    "Confusing definition-time bottom-up wrapping with runtime top-down execution",
+    "Writing a decorator factory with only 2 nesting levels instead of 3",
+    "Mutating arguments in wrappers unexpectedly, introducing subtle bugs"
   ],
   "sources": [
     {
+      "source_id": "python-official-tutorial",
+      "title": "Python Language Reference \u2014 Function definitions",
+      "url": "https://docs.python.org/3/reference/compound_stmts.html#function-definitions",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
       "source_id": "python-stdlib-docs",
-      "title": "functools",
-      "url": "https://docs.python.org/3/library/functools.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "Python Standard Library \u2014 functools.wraps",
+      "url": "https://docs.python.org/3/library/functools.html#functools.wraps",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-decorators-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "2d102d7f88c8b5f1922ced83f651d793a97c35ac7abd6e7805b3ff3e01c0168f",
+  "generated_at": "2026-09-24T08:24:58.392713+00:00"
 }

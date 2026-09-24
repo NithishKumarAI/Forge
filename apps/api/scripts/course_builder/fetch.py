@@ -13,6 +13,8 @@ def robots_allows(url: str, robots_text: str) -> bool:
 
 def fetch_url(url:str, source:dict, cache_dir:Path, *, client:httpx.Client|None=None, robots_text:str|None=None) -> dict:
     parsed=urlparse(url)
+    if source.get("category") == "reference_only" or not source.get("enabled", True):
+        raise PermissionError(f"Reference-only source '{source.get('id')}' cannot be fetched or scraped as a copyable corpus.")
     if parsed.scheme != "https" or not any(parsed.path.startswith(p) for p in source["allowed_paths"]): raise ValueError("URL is outside the registered source scope")
     if robots_text is not None and not robots_allows(url,robots_text): raise PermissionError("robots.txt disallows this URL")
     key=hashlib.sha256(url.encode()).hexdigest(); target=cache_dir/f"{key}.json"

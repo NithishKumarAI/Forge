@@ -1,161 +1,139 @@
 [
   {
-    "key": "rec-1",
+    "key": "rec-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1 for recursion",
-    "prompt_markdown": "What is the core idea of recursion in exercise 1?",
+    "title": "Primary cause of stack overflow in recursion",
+    "prompt_markdown": "What is the primary cause of a `RecursionError: maximum recursion depth exceeded` in Python?",
     "difficulty": "easy",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Consider what stops recursion."
     ],
     "content": {
       "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
+        "The computer CPU clock speed is too slow",
+        "The recursive function lacks a valid base case or arguments fail to converge, exhausting stack memory",
+        "The function returns a floating-point number instead of an integer",
+        "Python does not support functions calling themselves"
       ],
       "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
+      "explanation": "If a recursive function lacks a reachable base case or arguments fail to converge, recursive calls deepen indefinitely until Python's call stack limit is breached, raising RecursionError."
     }
   },
   {
-    "key": "rec-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2 for recursion",
-    "prompt_markdown": "What is the core idea of recursion in exercise 2?",
+    "key": "rec-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Naive recursive Fibonacci complexity",
+    "prompt_markdown": "What is the time complexity of the naive recursive Fibonacci algorithm `fib(n) = fib(n-1) + fib(n-2)` without memoization?",
+    "difficulty": "easy",
+    "hints": [
+      "Each call branches into two recursive sub-calls."
+    ],
+    "content": {
+      "choices": [
+        "O(N)",
+        "O(N log N)",
+        "O(N^2)",
+        "O(2^N)"
+      ],
+      "correct_index": 3,
+      "explanation": "Because each call branches into two recursive calls forming a binary tree of depth N, total operations grow exponentially as O(2^N)."
+    }
+  },
+  {
+    "key": "rec-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Python Tail Call Optimization behavior",
+    "prompt_markdown": "Does the standard CPython interpreter perform Tail Call Optimization (TCO) on recursive functions?",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Consider Python's traceback debugging philosophy."
+    ],
+    "content": {
+      "choices": [
+        "Yes, any tail-recursive function runs in O(1) space automatically",
+        "No, Python does not optimize tail calls; each call allocates a stack frame to preserve full tracebacks",
+        "Yes, but only if the @tco decorator is imported from itertools",
+        "Only on 64-bit operating systems"
+      ],
+      "correct_index": 1,
+      "explanation": "Guido van Rossum deliberately chose not to include TCO in Python in order to preserve complete and accurate stack tracebacks for debugging."
+    }
+  },
+  {
+    "key": "rec-short-predict-unwind",
+    "exercise_type": "short_answer",
+    "title": "Predict print order during call stack unwind",
+    "prompt_markdown": "Predict the exact console output of calling `mystery(3)`:\n\n```python\ndef mystery(n):\n    if n <= 0:\n        return\n    print(f\"Pre: {n}\")\n    mystery(n - 1)\n    print(f\"Post: {n}\")\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Pre prints on the way down the stack; Post prints on the way back up during the unwind phase."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Identifies pre-calls order: Pre: 3, Pre: 2, Pre: 1",
+        "Identifies base case hit at n=0",
+        "Identifies post-calls order during stack unwind: Post: 1, Post: 2, Post: 3"
       ],
-      "reference_answer": "The answer is related to recursion principles.",
+      "reference_answer": "Console Output:\nPre: 3\nPre: 2\nPre: 1\nPost: 1\nPost: 2\nPost: 3\n\nExplanation: As the call stack deepens, `Pre:` prints in descending order (3, 2, 1). Once `n=0` hits the base case, the functions return, unwinding the call stack in reverse LIFO order. `Post:` prints in ascending order (1, 2, 3).",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "rec-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3 for recursion",
-    "prompt_markdown": "What is the core idea of recursion in exercise 3?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "rec-4",
+    "key": "rec-short-fix-missing-return",
     "exercise_type": "short_answer",
-    "title": "Exercise 4 for recursion",
-    "prompt_markdown": "What is the core idea of recursion in exercise 4?",
+    "title": "Fix missing return bug in recursive search",
+    "prompt_markdown": "A student writes this recursive function to search for a key in a nested dictionary, but it unexpectedly returns `None` even when the key exists:\n\n```python\ndef find_key(data, target):\n    if target in data:\n        return data[target]\n    for k, v in data.items():\n        if isinstance(v, dict):\n            find_key(v, target)  # Bug here!\n    return None\n```\nIdentify the bug and provide the fix.",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "What happens to the value returned by find_key(v, target) in the loop?"
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Explains that `find_key(v, target)` computes the result but ignores its return value without returning it up the call chain",
+        "Shows that execution falls through to `return None`",
+        "Fixes by capturing `result = find_key(v, target)` and returning `result` if not None"
       ],
-      "reference_answer": "The answer is related to recursion principles.",
+      "reference_answer": "Bug: Inside the recursive loop, `find_key(v, target)` is called, but its return value is discarded! The caller function ignores the found value and proceeds to line 7 (`return None`).\n\nCorrected Code:\n```python\ndef find_key(data, target):\n    if target in data:\n        return data[target]\n    for k, v in data.items():\n        if isinstance(v, dict):\n            result = find_key(v, target)\n            if result is not None:\n                return result\n    return None\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "rec-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5 for recursion",
-    "prompt_markdown": "What is the core idea of recursion in exercise 5?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "rec-6",
+    "key": "rec-short-implement-memoized-climb-stairs",
     "exercise_type": "short_answer",
-    "title": "Exercise 6 for recursion",
-    "prompt_markdown": "What is the core idea of recursion in exercise 6?",
+    "title": "Implement memoized Climbing Stairs recursion",
+    "prompt_markdown": "You are climbing a staircase with $n$ steps. Each time you can climb 1 or 2 steps. Write a recursive function `climb_stairs(n: int, memo=None) -> int` that returns the number of distinct ways to reach the top. It must use memoization to execute in $O(n)$ time.",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Base cases: n=1 -> 1, n=2 -> 2. Transition: climb(n-1) + climb(n-2)."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Handles base cases (e.g. n <= 2)",
+        "Initializes and consults memoization dictionary",
+        "Computes recursive step: climb(n-1) + climb(n-2)",
+        "Stores in memo before returning in O(n) time"
       ],
-      "reference_answer": "The answer is related to recursion principles.",
+      "reference_answer": "```python\ndef climb_stairs(n: int, memo=None) -> int:\n    if memo is None:\n        memo = {}\n    if n <= 2:\n        return n\n    if n in memo:\n        return memo[n]\n        \n    memo[n] = climb_stairs(n - 1, memo) + climb_stairs(n - 2, memo)\n    return memo[n]\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "rec-7",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 7 for recursion",
-    "prompt_markdown": "What is the core idea of recursion in exercise 7?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
-    ],
-    "content": {
-      "choices": [
-        "Option A",
-        "Option B",
-        "Option C",
-        "Option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Option B is correct based on the lesson."
-    }
-  },
-  {
-    "key": "rec-8",
+    "key": "rec-short-explain-call-stack-memory",
     "exercise_type": "short_answer",
-    "title": "Exercise 8 for recursion",
-    "prompt_markdown": "What is the core idea of recursion in exercise 8?",
-    "difficulty": "medium",
+    "title": "Explain call stack space complexity in technical interviews",
+    "prompt_markdown": "In an interview, you write a recursive tree traversal that does not allocate any lists or dictionaries. The interviewer asks: 'What is the auxiliary space complexity of this function, and why isn't it O(1)?' Explain call stack mechanics.",
+    "difficulty": "hard",
     "hints": [
-      "Think about the definition.",
-      "Review the lesson templates."
+      "Explain activation records, return addresses, and maximum recursion depth."
     ],
     "content": {
       "rubric": [
-        "Mention time complexity",
-        "Mention space complexity"
+        "Explains that even without heap data structures, every active function call allocates a stack frame in RAM",
+        "Details frame contents: return memory address, parameters, local variables",
+        "States that the number of simultaneous active frames equals the maximum depth of the call tree",
+        "Concludes space complexity is O(H) where H is tree height (O(log N) for balanced trees, O(N) for skewed trees)"
       ],
-      "reference_answer": "The answer is related to recursion principles.",
+      "reference_answer": "1. Why Recursion is Not O(1) Space:\nEven if an algorithm allocates zero auxiliary data structures on the heap, recursive calls are not free. Memory must be allocated on the execution `call stack` for every currently pending function call.\n\n2. Anatomy of a Stack Frame (Activation Record):\nEach recursive invocation pushes a stack frame to memory containing:\n- Return address (where in memory to resume execution upon returning)\n- Function parameter values\n- Local variables and intermediate expression states\n\n3. Space Complexity Calculation:\n- The maximum auxiliary memory consumed at any single moment equals the maximum depth of the call tree (the number of concurrently open stack frames).\n- For a binary tree with $N$ nodes:\n  - In a balanced tree, maximum depth is $O(\\log N)$, so auxiliary space is $O(\\log N)$.\n  - In a degenerate/skewed tree (effectively a linked list), maximum depth is $O(N)$, consuming $O(N)$ auxiliary stack memory.\n\nTherefore, reporting $O(1)$ space for recursion is inaccurate unless Tail Call Optimization is active.",
       "minimum_pass_score": 70
     }
   }

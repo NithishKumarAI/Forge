@@ -2,286 +2,180 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "query-basics",
-  "title": "Query Basics",
-  "description": "Learn about Query Basics in PostgreSQL.",
-  "version": "1.0.0",
+  "title": "Query Basics: SELECT, Filtering, and Sorting",
+  "description": "Master SQL query fundamentals: SELECT column projection, WHERE clause filtering, comparison operators, AND/OR/NOT logic, IN, BETWEEN, LIKE pattern matching, ORDER BY sorting, LIMIT, and OFFSET.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand query-basics concepts",
-    "Write SQL",
-    "Avoid mistakes"
+    "Construct SELECT queries projecting specific columns and deduplicating rows with DISTINCT",
+    "Filter data using comparison operators, boolean logic (AND, OR, NOT), IN, and BETWEEN",
+    "Perform pattern matching using LIKE and ILIKE wildcard operators",
+    "Order query result sets deterministically with ORDER BY and implement pagination with LIMIT and OFFSET"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "relational-foundations"
+  ],
   "sections": [
     {
-      "slug": "select-basics",
-      "title": "Select Basics",
+      "slug": "select-and-distinct",
+      "title": "SELECT projection and DISTINCT deduplication",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn select-basics",
-      "markdown": "This section covers select-basics. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\n1. What is this? (plain English)\n2. Why do we need it? (analogy)\n3. Basic syntax (SQL)\n4. Small example (show tables and output)\n5. Step-by-step explanation\n6. Real engineering example (application/backend context)\n7. Common mistakes\n8. Interview points\n9. Quick check\n10. Practice next\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Project specific columns and eliminate duplicate result rows.",
+      "markdown": "A query begins with `SELECT`, specifying which columns to retrieve. In production engineering, always project specific column names (e.g. `SELECT id, name`) rather than using `SELECT *`. Explicit projection reduces network bandwidth, avoids deserialization overhead, and protects against schema changes. Use `SELECT DISTINCT column` to eliminate duplicate rows from the projected result set, keeping only unique value combinations.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE employees (\n    id INT,\n    name VARCHAR(50),\n    department VARCHAR(50),\n    salary INT\n);\nINSERT INTO employees VALUES \n(1, 'Ana', 'AI', 60000),\n(2, 'Ravi', 'Backend', 50000),\n(3, 'John', 'AI', 65000);\n\nSELECT DISTINCT department FROM employees;",
+          "explanation": "Extracts unique department names, deduplicating the AI department entries.",
+          "expected_output": "| department |\n|---|\n| AI |\n| Backend |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Always name columns explicitly in SELECT; avoid SELECT * in production.",
+        "DISTINCT eliminates duplicate rows across all projected columns."
+      ],
+      "checkpoint": "What is the computational and memory cost of SELECT DISTINCT on a table with 10 million rows?"
     },
     {
-      "slug": "select-star-vs-columns",
-      "title": "Select Star Vs Columns",
+      "slug": "where-filtering-and-logic",
+      "title": "WHERE filtering and boolean logic (AND, OR, NOT)",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn select-star-vs-columns",
-      "markdown": "This section covers select-star-vs-columns. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Filter rows using relational comparisons and compound boolean operators.",
+      "markdown": "The `WHERE` clause filters rows before aggregation or projection. Relational comparison operators include `=`, `!=` (or `<>`), `<`, `<=`, `>`, and `>=`. Compound filters combine expressions using `AND` (both must be true), `OR` (at least one must be true), and `NOT` (inverts truth). In SQL, `AND` has higher operator precedence than `OR`. Always use parentheses `(A OR B) AND C` to guarantee evaluation order and prevent accidental logic leaks.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT name, department, salary \nFROM employees \nWHERE (department = 'AI' OR department = 'Backend') AND salary >= 55000;",
+          "explanation": "Parentheses enforce that the salary threshold applies to both departments.",
+          "expected_output": "| name | department | salary |\n|---|---|---|\n| Ana | AI | 60000 |\n| John | AI | 65000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "WHERE evaluates row-by-row predicates to filter candidates.",
+        "AND takes precedence over OR; always wrap OR conditions in parentheses."
+      ],
+      "checkpoint": "Explain why WHERE department = 'AI' OR department = 'Backend' AND salary > 80000 yields unexpected results without parentheses."
     },
     {
-      "slug": "distinct",
-      "title": "Distinct",
+      "slug": "in-between-and-like",
+      "title": "Set membership, ranges, and patterns: IN, BETWEEN, and LIKE",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn distinct",
-      "markdown": "This section covers distinct. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Express set membership, numerical ranges, and wildcard string filters.",
+      "markdown": "SQL provides specialized operators for clean predicates:\n- `IN (val1, val2, ...)`: checks if a value exists within a discrete set (replacing long chains of `OR`).\n- `BETWEEN low AND high`: checks if a value falls in an inclusive range (`val >= low AND val <= high`).\n- `LIKE 'pattern'`: pattern matching using `%` (matches zero or more characters) and `_` (matches exactly one character). In PostgreSQL, use `ILIKE` for case-insensitive pattern matching.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT name, salary \nFROM employees \nWHERE salary BETWEEN 50000 AND 62000 \n  AND name LIKE 'A%';",
+          "explanation": "Matches salaries between 50k and 62k inclusive for employees whose name starts with 'A'.",
+          "expected_output": "| name | salary |\n|---|---|\n| Ana | 60000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "IN (list) tests discrete set membership cleanly.",
+        "BETWEEN is inclusive of both the lower and upper bounds.",
+        "LIKE uses % (multiple chars) and _ (single char); ILIKE is case-insensitive in PostgreSQL."
+      ],
+      "checkpoint": "Write a predicate matching email addresses that end with '@corp.com' using LIKE."
     },
     {
-      "slug": "where-clause",
-      "title": "Where Clause",
+      "slug": "order-by-and-nulls",
+      "title": "Sorting with ORDER BY and NULL positioning",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn where-clause",
-      "markdown": "This section covers where-clause. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Sort result sets deterministically and control NULL placement.",
+      "markdown": "Without an explicit `ORDER BY` clause, a relational database makes zero guarantees about row ordering: results may appear in arbitrary order based on disk page layouts. Specify `ORDER BY column ASC` (default) or `DESC` for descending order. You can sort by multiple columns: `ORDER BY department ASC, salary DESC`. In PostgreSQL, NULLs sort highest by default in `ASC` order. Use `NULLS FIRST` or `NULLS LAST` to control where null values appear deterministically.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT name, salary \nFROM employees \nORDER BY salary DESC, name ASC;",
+          "explanation": "Sorts highest salary first; breaks ties alphabetically by employee name.",
+          "expected_output": "| name | salary |\n|---|---|\n| John | 65000 |\n| Ana | 60000 |\n| Ravi | 50000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Result set order is non-deterministic without an explicit ORDER BY.",
+        "Combine multiple sort keys to establish deterministic tie-breaking.",
+        "Use NULLS FIRST / NULLS LAST to place null values precisely."
+      ],
+      "checkpoint": "Why is adding a unique tie-breaker (like id) to ORDER BY essential when paginating query results?"
     },
     {
-      "slug": "comparison-operators",
-      "title": "Comparison Operators",
+      "slug": "limit-and-offset-pagination",
+      "title": "Result pagination with LIMIT and OFFSET",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn comparison-operators",
-      "markdown": "This section covers comparison-operators. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Implement bounded result sets and analyze offset pagination performance.",
+      "markdown": "To restrict the number of rows returned, use `LIMIT n`. To skip an initial number of rows before returning results, use `OFFSET m`. Combined with `ORDER BY`, `LIMIT 10 OFFSET 20` retrieves page 3 of a paginated list. However, engineers must understand the performance trade-off: `OFFSET 1000000` forces the database to read and discard one million rows before returning row 1,000,001! For high-throughput pagination, prefer keyset pagination (`WHERE id > last_seen_id ORDER BY id LIMIT 10`).",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT name, salary \nFROM employees \nORDER BY salary DESC \nLIMIT 2 OFFSET 1;",
+          "explanation": "Skips the highest earner (OFFSET 1) and returns the next 2 highest earners.",
+          "expected_output": "| name | salary |\n|---|---|\n| Ana | 60000 |\n| Ravi | 50000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "LIMIT caps the returned row count; OFFSET skips preceding rows.",
+        "High OFFSET values cause linear performance degradation; prefer keyset pagination for deep pages."
+      ],
+      "checkpoint": "Explain why OFFSET pagination becomes slow on large tables."
     },
     {
-      "slug": "and-or-not",
-      "title": "And Or Not",
+      "slug": "interview-check",
+      "title": "Interview check and practice",
       "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn and-or-not",
-      "markdown": "This section covers and-or-not. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Review query interview questions and practice basic queries in Coding Arena.",
+      "markdown": "Basic query syntax forms the foundation of all SQL interview rounds.\n\n### Oral Interview Questions\n1. *What is the logical query execution order in SQL?*\n   *(SQL engines execute FROM/JOIN first, then WHERE, then GROUP BY, then HAVING, then SELECT, then DISTINCT, then ORDER BY, and finally LIMIT/OFFSET).* \n2. *Why cannot a WHERE clause reference an alias defined in the SELECT clause?*\n   *(Because WHERE is evaluated before the SELECT projection step).* \n3. *What is the difference between WHERE and HAVING?*\n\n### Query Trace Challenge\nTrace this query on employees:\n```sql\nSELECT name FROM employees WHERE salary > 55000 ORDER BY name LIMIT 1;\n```\nEligible names are 'Ana' (60k) and 'John' (65k). Alphabetical ordering places 'Ana' first, returning a single row: `'Ana'`.\n\n### Common Interview Trap\nOmitting parentheses when mixing AND with OR in WHERE clauses. `WHERE role = 'admin' OR role = 'staff' AND active = true` evaluates as `role = 'admin' OR (role = 'staff' AND active = true)`, unintentionally returning inactive admins! Always write `WHERE (role = 'admin' OR role = 'staff') AND active = true`.\n\n### Arena Practice Problems\nPractice query basics in Coding Arena:\n- `sql-products-in-stock`: Filtering on threshold and sorting\n- `sql-active-users`: Date range filtering and multi-column ordering\n- `sql-recent-orders`: BETWEEN range predicates and LIMIT\n- `sql-user-search`: Pattern matching with LIKE and ordering",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT name, salary FROM employees WHERE salary >= 60000 ORDER BY salary DESC LIMIT 1;",
+          "explanation": "Returns the single highest earning employee.",
+          "expected_output": "| name | salary |\n|---|---|\n| John | 65000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "in-and-between",
-      "title": "In And Between",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn in-and-between",
-      "markdown": "This section covers in-and-between. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
+        "Remember the SQL execution order: FROM -> WHERE -> SELECT -> ORDER BY -> LIMIT.",
+        "Always wrap OR conditions in parentheses when combined with AND."
       ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "like-pattern-matching",
-      "title": "Like Pattern Matching",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn like-pattern-matching",
-      "markdown": "This section covers like-pattern-matching. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "order-by",
-      "title": "Order By",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn order-by",
-      "markdown": "This section covers order-by. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "limit-and-offset",
-      "title": "Limit And Offset",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn limit-and-offset",
-      "markdown": "This section covers limit-and-offset. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "combining-filters",
-      "title": "Combining Filters",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn combining-filters",
-      "markdown": "This section covers combining-filters. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 11,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn interview-points",
-      "markdown": "This section covers interview-points. Here are some terms we must mention just in case: SELECT WHERE ORDER BY LIMIT DISTINCT OFFSET comparison AND OR NOT IN BETWEEN LIKE.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+      "checkpoint": "State the complete SQL execution order from FROM to LIMIT."
     }
   ],
   "summary": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "SELECT projects explicit columns; DISTINCT removes duplicate rows across projections.",
+    "WHERE filters rows before projection using comparison operators and boolean logic.",
+    "IN checks discrete sets; BETWEEN checks inclusive ranges; LIKE matches text patterns.",
+    "ORDER BY sorts rows deterministically; NULLS FIRST/LAST controls null placement.",
+    "LIMIT and OFFSET paginate results; keyset pagination is preferred for deep offsets."
   ],
   "interview_takeaways": [
-    "Takeaway 1",
-    "Takeaway 2",
-    "Takeaway 3"
+    "Memorize the logical query execution order: FROM -> WHERE -> SELECT -> ORDER BY -> LIMIT.",
+    "Never rely on default database row ordering without an explicit ORDER BY clause.",
+    "Always parenthesize OR conditions when combined with AND."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Referencing a SELECT column alias inside the WHERE clause",
+    "Forgetting that BETWEEN is inclusive of both boundary values",
+    "Mixing AND and OR without parentheses, causing unintended operator precedence logic leaks",
+    "Using SELECT * in production codebases instead of naming explicit columns"
   ],
   "sources": [
     {
       "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL Tutorial",
-      "url": "https://www.postgresql.org/docs/current/tutorial.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "PostgreSQL Documentation \u2014 Queries: SELECT, WHERE, ORDER BY",
+      "url": "https://www.postgresql.org/docs/current/queries-select-lists.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     },
     {
-      "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL SQL Commands",
-      "url": "https://www.postgresql.org/docs/current/sql-commands.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "source_id": "postgresql-tutorial",
+      "title": "PostgreSQL Documentation \u2014 Sorting Rows (ORDER BY)",
+      "url": "https://www.postgresql.org/docs/current/queries-order.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-query-basics-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "1bf1505586c2877f07eac340f84b7c178c2465ea28dc6c7c91d635c79fb71b8d",
+  "generated_at": "2026-09-24T08:30:21.639711+00:00"
 }

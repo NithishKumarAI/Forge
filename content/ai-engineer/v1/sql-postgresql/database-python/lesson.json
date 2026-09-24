@@ -2,230 +2,171 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "database-python",
-  "title": "Database with Python",
-  "description": "Learn about Database with Python",
-  "version": "1.0.0",
+  "title": "Database Integration with Python: Connections, Cursors, ORMs, and Security",
+  "description": "Master Python database connectivity, parameterized queries, preventing SQL injection, raw SQL vs ORM with SQLAlchemy, sessions, transaction boundaries, and cursors.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Obj 1",
-    "Obj 2",
-    "Obj 3"
+    "Manage client connection lifecycles, connection pooling, and cursor execution protocols",
+    "Defeat SQL injection vulnerabilities completely using parameterized query execution",
+    "Manage explicit transaction boundaries (commit, rollback, context managers) across business operations",
+    "Evaluate architectural trade-offs between raw SQL drivers and Object-Relational Mappers (ORM) like SQLAlchemy"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "relational-foundations",
+    "query-basics"
+  ],
   "sections": [
     {
-      "slug": "database-drivers",
-      "title": "Database Drivers",
+      "slug": "connections-and-cursors",
+      "title": "Client connections, cursor protocol, and query execution",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about database-drivers.",
-      "markdown": "This is the database-drivers section. parameterized query SQL injection connection session ORM SQLAlchemy raw SQL transaction boundaries cursor It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Establish database connections and execute commands through cursor objects.",
+      "markdown": "Python applications interact with PostgreSQL following the Python Database API Specification (PEP 249 / DB-API 2.0). A `connection` object represents an open TCP socket to the database server. Within a connection, you create a `cursor` object, which acts as a pointer managing the execution context, transmitting SQL commands, and iterating over fetched row results (`fetchone()`, `fetchall()`). In high-traffic services, establishing a new connection per request is prohibitive; connection pools (e.g. psycopg_pool) maintain warm pre-authenticated connections for instant reuse.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- database-drivers",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "CREATE TABLE app_users (\n    id SERIAL PRIMARY KEY,\n    email TEXT UNIQUE NOT NULL,\n    status TEXT DEFAULT 'active'\n);",
+          "explanation": "Target schema table created in PostgreSQL before Python client connection.",
+          "expected_output": "CREATE TABLE"
+        },
+        {
+          "language": "python",
+          "code": "import psycopg\n\n# Open connection and acquire cursor via context manager\nwith psycopg.connect(\"dbname=forge user=postgres\") as conn:\n    with conn.cursor() as cur:\n        cur.execute(\"SELECT 1 AS num, 'active' AS status;\")\n        row = cur.fetchone()\n        print(f\"Result: {row}\")",
+          "explanation": "Demonstrates connection and cursor lifecycle management using Python context managers.",
+          "expected_output": "Result: (1, 'active')"
         }
       ],
       "key_points": [
-        "Key point for database-drivers"
-      ]
+        "Connection represents the physical database session; Cursor executes commands and fetches rows.",
+        "Always wrap connections and cursors in context managers (with statements) to ensure clean socket closure."
+      ],
+      "checkpoint": "What happens if a Python backend opens a new connection per HTTP request without pooling under load?"
     },
     {
-      "slug": "connection-and-cursor",
-      "title": "Connection And Cursor",
+      "slug": "parameterized-queries-and-security",
+      "title": "Parameterized query execution: Defeating SQL injection",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about connection-and-cursor.",
-      "markdown": "This is the connection-and-cursor section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Execute safe parameterized queries and prevent critical SQL injection attacks.",
+      "markdown": "The number one security vulnerability in database programming is `SQL injection`. This occurs when developer code dynamically concatenates untrusted user input directly into SQL strings using Python f-strings or `.format()`. To defeat injection permanently, always use a `parameterized query`. In a parameterized query, the SQL command template and the query parameters are transmitted to PostgreSQL separately. The database engine parses and compiles the query plan *before* substituting parameter values, making it mathematically impossible for attacker input to alter query syntax.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- connection-and-cursor",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "SELECT id, name FROM users WHERE email = 'alice@example.com';",
+          "explanation": "Target compiled SQL query evaluated safely by the database engine.",
+          "expected_output": "id | name\n---+------\n 1 | Alice"
+        },
+        {
+          "language": "python",
+          "code": "# SECURE: Parameterized query passing user values as a tuple\nuser_email = \"alice@example.com\"\ncur.execute(\n    \"SELECT id, name FROM users WHERE email = %s;\",\n    (user_email,)\n)\nuser = cur.fetchone()",
+          "explanation": "Separates SQL statement from parameters, preventing SQL injection completely.",
+          "expected_output": "(1, 'Alice')"
         }
       ],
       "key_points": [
-        "Key point for connection-and-cursor"
-      ]
+        "NEVER use Python f-strings or string concatenation to build SQL statements with user input.",
+        "Parameterized queries compile the query plan independently of parameter data, neutralizing injection."
+      ],
+      "checkpoint": "Why does using %s in psycopg.execute() prevent SQL injection while string % formatting does not?"
     },
     {
-      "slug": "parameterized-queries",
-      "title": "Parameterized Queries",
+      "slug": "transaction-boundaries",
+      "title": "Managing transaction boundaries: Commit, rollback, and contexts",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about parameterized-queries.",
-      "markdown": "This is the parameterized-queries section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Control ACID transaction boundaries in Python to prevent partial write failures.",
+      "markdown": "Managing `transaction boundaries` is critical when a business operation spans multiple mutations (e.g. transferring money from Account A to Account B). By default in DB-API, a connection starts a transaction automatically upon the first query. Changes are NOT permanent until you explicitly invoke `conn.commit()`. If an exception occurs, you must execute `conn.rollback()` to discard intermediate mutations. Modern drivers like psycopg 3 bind `conn` to a context manager: on exit without error it automatically commits; on unhandled exception it automatically rolls back.",
       "examples": [
         {
-          "language": "sql",
-          "code": "-- parameterized-queries",
-          "expected_output": "",
-          "explanation": "Example code."
+          "language": "python",
+          "code": "# Atomic bank transfer across strict transaction boundaries\nwith conn.transaction():\n    cur.execute(\"UPDATE accounts SET balance = balance - 100 WHERE id = 1;\")\n    cur.execute(\"UPDATE accounts SET balance = balance + 100 WHERE id = 2;\")\n    # Commits automatically on block exit; rolls back on exception",
+          "explanation": "Encapsulates two balance mutations inside an atomic transaction boundary.",
+          "expected_output": "Transactions committed atomically."
         }
       ],
       "key_points": [
-        "Key point for parameterized-queries"
-      ]
+        "Multiple related mutations must be wrapped within a single atomic transaction.",
+        "Uncommitted mutations are rolled back automatically when a connection closes or encounters an unhandled exception."
+      ],
+      "checkpoint": "What happens if a Python script terminates abruptly due to power failure mid-transaction?"
     },
     {
-      "slug": "sql-injection",
-      "title": "Sql Injection",
+      "slug": "orm-and-sqlalchemy",
+      "title": "Object-Relational Mapping: SQLAlchemy, sessions, and raw SQL",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about sql-injection.",
-      "markdown": "This is the sql-injection section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Architect Python applications using SQLAlchemy ORM and compare against raw SQL.",
+      "markdown": "An `ORM` (Object-Relational Mapper) maps database tables to Python classes and rows to model instances. `SQLAlchemy` is the industry-standard Python ORM. It provides an abstraction called a `session` (the Unit of Work pattern) that tracks object state changes and synchronizes them to the database on commit. While ORMs speed up CRUD development and handle schema migrations via Alembic, high-throughput systems often blend ORM models with `raw SQL` queries for complex aggregations and bulk reporting to avoid ORM serialization overhead and the infamous N+1 query problem.",
       "examples": [
         {
-          "language": "sql",
-          "code": "-- sql-injection",
-          "expected_output": "",
-          "explanation": "Example code."
+          "language": "python",
+          "code": "from sqlalchemy import create_engine, select\nfrom sqlalchemy.orm import Session\n\n# SQLAlchemy Session executing type-safe queries\nengine = create_engine(\"postgresql+psycopg://postgres@localhost/forge\")\nwith Session(engine) as session:\n    # Can execute ORM queries or raw SQL via session.execute(text(...))\n    stmt = select(User).where(User.is_active == True)\n    active_users = session.scalars(stmt).all()",
+          "explanation": "Demonstrates SQLAlchemy Engine, Session lifecycle, and select execution.",
+          "expected_output": "[<User(id=1, name='Alice')>]"
         }
       ],
       "key_points": [
-        "Key point for sql-injection"
-      ]
+        "SQLAlchemy ORM maps database tables to Python classes and tracks mutations in a Session.",
+        "Beware the N+1 query problem: always eager-load relationships using joinedload/selectinload.",
+        "Use raw SQL when complex queries, CTEs, or window functions exceed ORM query ergonomics."
+      ],
+      "checkpoint": "What is the N+1 query problem in ORMs, and how do you resolve it in SQLAlchemy?"
     },
     {
-      "slug": "connection-pooling",
-      "title": "Connection Pooling",
+      "slug": "interview-check",
+      "title": "Python database engineering interview check and practice",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about connection-pooling.",
-      "markdown": "This is the connection-pooling section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Excel in Python backend database engineering and security interview questions.",
+      "markdown": "Python database interview questions evaluate your architecture skills, security awareness, and performance tuning capabilities.\n\n### Common Interview Questions\n1. *Explain how SQL injection works and why parameterized queries are immune to it.*\n   *(SQL injection treats untrusted input as executable SQL code. In a parameterized query, the SQL string is pre-compiled by the database parser into an execution tree. User parameters are supplied later into bound value slots; they are treated strictly as data literals and can never alter AST structure).* \n2. *What is connection pooling, and why is it essential for FastAPI / Flask applications?*\n   *(Opening a PostgreSQL TCP connection requires process forking, memory allocation, and SSL handshakes taking 20-50ms. A connection pool holds pre-warmed connections, serving requests in <1ms and bounding total concurrent connections).* \n3. *When would you choose raw SQL over SQLAlchemy ORM in production?*\n\n### Arena Practice Problems\n- `sql-python-parameterized-auth`: Implementing secure parameterized authentication checks\n- `sql-python-transaction-manager`: Context manager executing multi-step bank transfers\n- `sql-python-connection-pool`: Simulating worker thread connection leasing and release",
       "examples": [
         {
-          "language": "sql",
-          "code": "-- connection-pooling",
-          "expected_output": "",
-          "explanation": "Example code."
+          "language": "python",
+          "code": "# Defense against injection: parameterization prevents quote breakout\nmalicious_input = \"' OR '1'='1\"\n# Safely executes as a literal string search\ncur.execute(\"SELECT * FROM users WHERE username = %s;\", (malicious_input,))",
+          "explanation": "Demonstrates that dangerous SQL syntax characters are treated harmlessly as data literals.",
+          "expected_output": "None"
         }
       ],
       "key_points": [
-        "Key point for connection-pooling"
-      ]
-    },
-    {
-      "slug": "orm-concepts",
-      "title": "Orm Concepts",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about orm-concepts.",
-      "markdown": "This is the orm-concepts section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- orm-concepts",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
+        "Always emphasize parameterized queries as the gold standard for SQL injection defense.",
+        "Discuss connection pools when describing scalable backend service architectures."
       ],
-      "key_points": [
-        "Key point for orm-concepts"
-      ]
-    },
-    {
-      "slug": "sqlalchemy-basics",
-      "title": "Sqlalchemy Basics",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about sqlalchemy-basics.",
-      "markdown": "This is the sqlalchemy-basics section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- sqlalchemy-basics",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for sqlalchemy-basics"
-      ]
-    },
-    {
-      "slug": "session-and-transaction",
-      "title": "Session And Transaction",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about session-and-transaction.",
-      "markdown": "This is the session-and-transaction section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- session-and-transaction",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for session-and-transaction"
-      ]
-    },
-    {
-      "slug": "raw-sql-vs-orm",
-      "title": "Raw Sql Vs Orm",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about raw-sql-vs-orm.",
-      "markdown": "This is the raw-sql-vs-orm section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- raw-sql-vs-orm",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for raw-sql-vs-orm"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about interview-points.",
-      "markdown": "This is the interview-points section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- interview-points",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for interview-points"
-      ]
+      "checkpoint": "Can a parameterized query protect against injection if table names or column names are passed dynamically?"
     }
   ],
   "summary": [
-    "Sum 1",
-    "Sum 2",
-    "Sum 3"
+    "DB-API 2.0 defines Connection and Cursor abstractions for Python relational database access.",
+    "Always use parameterized queries (%s placeholders) to eliminate SQL injection vulnerabilities permanently.",
+    "Transactions must be explicitly managed; unhandled exceptions trigger automatic rollbacks.",
+    "SQLAlchemy provides powerful ORM models, Unit of Work Sessions, and migration capabilities.",
+    "Balance ORMs with raw SQL: use ORMs for transactional CRUD and raw SQL for complex reporting."
   ],
   "interview_takeaways": [
-    "Int 1",
-    "Int 2",
-    "Int 3"
+    "Explain that parameterized queries compile the query plan before binding values, preventing injection.",
+    "Discuss connection pooling (e.g. pgpool, psycopg_pool, PgBouncer) as standard architecture in production.",
+    "Articulate the N+1 query problem and demonstrate knowledge of eager loading techniques."
   ],
   "common_mistakes": [
-    "Mis 1",
-    "Mis 2",
-    "Mis 3"
+    "Building SQL queries with Python f-strings (f'SELECT * FROM users WHERE id = {user_id}'), creating catastrophic SQL injection flaws",
+    "Opening a fresh database connection per request without connection pooling, exhausting database memory",
+    "Forgetting to commit transactions, leaving client mutations unpersisted or holding open locks",
+    "Triggering N+1 queries in ORMs by iterating over related models in Python loops without eager loading"
   ],
   "sources": [
     {
       "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL Documentation",
-      "url": "https://www.postgresql.org/docs/current/index.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "PostgreSQL Documentation \u2014 Client Interfaces & Python DB-API",
+      "url": "https://www.postgresql.org/docs/current/external-interfaces.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python PEP 249 \u2014 Database API Specification v2.0",
+      "url": "https://peps.python.org/pep-0249/",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-database-python-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "90c80556de783771dcaf2dda6b3058d9de05f432a5c63b6ffb5cf11befffee48",
+  "generated_at": "2026-09-24T08:36:06.705367+00:00"
 }

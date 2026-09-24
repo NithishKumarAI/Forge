@@ -2,274 +2,152 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "dsa",
   "topic_slug": "stacks",
-  "title": "Stacks",
-  "description": "Learn Stacks",
-  "version": "1.0.0",
+  "title": "Stack Data Structures, Monotonic Stacks, and LIFO Evaluation",
+  "description": "Master stack data structures: LIFO mechanics, push/pop/peek operations, bracket matching, call stack recursion, expression evaluation, and monotonic stack patterns.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Obj 1",
-    "Obj 2",
-    "Obj 3"
+    "Explain Last-In First-Out (LIFO) semantics and implement O(1) push, pop, and peek operations",
+    "Solve nested hierarchy challenges including bracket matching and call stack tracing",
+    "Evaluate arithmetic expressions formatted in Reverse Polish Notation (RPN)",
+    "Apply monotonic stack techniques to solve Next Greater Element and histogram problems in O(n) time"
   ],
   "prerequisites": [
-    "python/basics"
+    "big-o",
+    "arrays"
   ],
   "sections": [
     {
-      "slug": "what-is-a-stack",
-      "title": "What Is A Stack",
+      "slug": "stack-foundations-and-lifo",
+      "title": "Stack fundamentals: LIFO operations and implementation",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about what-is-a-stack",
-      "markdown": "Content for what-is-a-stack. stack LIFO push pop peek monotone stack bracket matching last-in first-out call stack implementation",
+      "estimated_minutes": 8,
+      "learning_objective": "Understand LIFO mechanics and implement an efficient stack.",
+      "markdown": "## When to recognize this pattern\nLast-in-first-out (LIFO) order, nested parentheses matching, undo history, expression parsing, or next-greater-element queries.\n\n## Core idea\nA `stack` is a linear data structure governed by `LIFO` (`last-in first-out`) semantics: the most recently added element is always the first element removed. Think of a physical stack of cafeteria trays. The primary operations are `push` (add to top), `pop` (remove and return from top), and `peek` (inspect top without removing). In Python, a standard `list` provides an optimal `implementation`: `list.append(x)` acts as `push` in $O(1)$ amortized time, `list.pop()` acts as `pop` in $O(1)$ time, and `list[-1]` acts as `peek` in $O(1)$ time.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "# Python Stack Implementation using list\nstack = []\n# Push operations: O(1)\nstack.append(\"first\")\nstack.append(\"second\")\nstack.append(\"third\")\n\n# Peek operation: O(1)\nprint(f\"Peek top: {stack[-1]}\")\n\n# Pop operations: O(1) LIFO order\nprint(f\"Popped: {stack.pop()}\")\nprint(f\"Popped: {stack.pop()}\")\nprint(f\"Remaining stack: {stack}\")",
+          "explanation": "Demonstrates O(1) push, peek, and LIFO pop operations using a Python list.",
+          "expected_output": "Peek top: third\nPopped: third\nPopped: second\nRemaining stack: ['first']"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "LIFO semantics ensure the most recently pushed element is the first popped.",
+        "Python list .append() and .pop() deliver O(1) time complexity at the end of the array."
+      ],
+      "checkpoint": "Why should you never use list.insert(0, x) or list.pop(0) to implement a stack?"
     },
     {
-      "slug": "lifo-property",
-      "title": "Lifo Property",
+      "slug": "bracket-matching-and-nesting",
+      "title": "Bracket matching and nested syntax validation",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about lifo-property",
-      "markdown": "Content for lifo-property. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 8,
+      "learning_objective": "Validate nested delimiter hierarchies using stack tracking.",
+      "markdown": "## Naive approach\nScanning backwards repeatedly through an array to find previous greater or matching elements takes O(N^2) time.\n\n## Better approach\nStacks are uniquely suited for validating nested grammar structures such as code syntax, XML tags, and `bracket matching` (e.g. 'Valid Parentheses'). When iterating through a string, whenever an opening bracket (`(`, `[`, `{`) is encountered, we `push` it onto the stack. When a closing bracket (`)`, `]`, `}`) is encountered, the stack's top must contain the corresponding matching opening bracket. If the stack is empty when a closer arrives, or if the top does not match, the expression is invalid. Upon reaching the end, the stack must be completely empty.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "def is_valid_parentheses(s: str) -> bool:\n    mapping = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n    stack = []\n    for char in s:\n        if char in mapping:\n            top_element = stack.pop() if stack else '#'\n            if mapping[char] != top_element:\n                return False\n        else:\n            stack.append(char)\n    return len(stack) == 0\n\nprint(is_valid_parentheses(\"()[]{}\"))\nprint(is_valid_parentheses(\"(]\"))\nprint(is_valid_parentheses(\"([)]\"))",
+          "explanation": "Validates nested bracket syntax in O(n) time and O(n) auxiliary space using a stack.",
+          "expected_output": "True\nFalse\nFalse"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Opening brackets are pushed; closing brackets must match and pop the top element.",
+        "Check for empty stack on closing bracket, and assert empty stack at completion."
+      ],
+      "checkpoint": "What happens in is_valid_parentheses if the input is simply '('?"
     },
     {
-      "slug": "python-list-as-stack",
-      "title": "Python List As Stack",
+      "slug": "call-stack-and-rpn-evaluation",
+      "title": "Call stack execution and Reverse Polish Notation (RPN)",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about python-list-as-stack",
-      "markdown": "Content for python-list-as-stack. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 8,
+      "learning_objective": "Trace call stack execution and evaluate postfix arithmetic expressions.",
+      "markdown": "## Python implementation\nPython dynamic lists provide efficient O(1) append() and pop() operations for stack simulations.\n\n## Step-by-step example\nUnder the hood, computer architectures use a `call stack` to track function invocations. Each function call pushes an activation frame (local variables, return address); returning pops the frame. Stacks also evaluate postfix arithmetic expressions (Reverse Polish Notation or RPN). In RPN, operands precede their operator (e.g. `['2', '1', '+', '3', '*']` represents `(2 + 1) * 3`). We push numbers onto the stack. When an operator is encountered, we pop the two most recent operands, apply the operator, and push the result back onto the stack.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "def eval_rpn(tokens: list[str]) -> int:\n    stack = []\n    for token in tokens:\n        if token in {\"+\", \"-\", \"*\", \"/\"}:\n            b = stack.pop()\n            a = stack.pop()\n            if token == \"+\": stack.append(a + b)\n            elif token == \"-\": stack.append(a - b)\n            elif token == \"*\": stack.append(a * b)\n            elif token == \"/\": stack.append(int(a / b))  # truncate toward zero\n        else:\n            stack.append(int(token))\n    return stack[0]\n\nprint(eval_rpn([\"2\", \"1\", \"+\", \"3\", \"*\"]))\nprint(eval_rpn([\"4\", \"13\", \"5\", \"/\", \"+\"]))",
+          "explanation": "Evaluates postfix RPN expressions using a stack in O(n) time and O(n) space.",
+          "expected_output": "9\n6"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "The computer call stack executes function recursion via hardware LIFO mechanics.",
+        "In RPN evaluation, pop order matters: first pop is right operand b; second pop is left operand a."
+      ],
+      "checkpoint": "Why must subtraction in RPN be evaluated as a - b rather than b - a?"
     },
     {
-      "slug": "push-pop-peek",
-      "title": "Push Pop Peek",
+      "slug": "monotonic-stack-patterns",
+      "title": "The Monotonic Stack: Next Greater Element in O(n)",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about push-pop-peek",
-      "markdown": "Content for push-pop-peek. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 8,
+      "learning_objective": "Eliminate quadratic scans using monotonic increasing or decreasing stacks.",
+      "markdown": "## Time complexity\nO(1) push and pop operations; amortized O(N) total time across all elements in monotonic stack scans.\n\n## Space complexity\nO(N) auxiliary space in the worst case when all elements are pushed onto the stack.\n\n## Common mistakes\nA `monotone stack` is an advanced pattern where elements in the stack are strictly ordered (either monotonically decreasing or increasing). It is the canonical solution for 'Next Greater Element' and 'Daily Temperatures'. Naively finding the next greater element for each item takes $O(n^2)$. Using a `monotone stack` of decreasing indices, we iterate through the array. While the current element is larger than the element at the stack's top index, we pop the index and resolve its next greater element! Because each index is pushed once and popped at most once, total runtime is strictly `O(n)`.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "def daily_temperatures(temperatures: list[int]) -> list[int]:\n    n = len(temperatures)\n    answer = [0] * n\n    stack = []  # stores indices of unresolved temperatures\n    for current_day, current_temp in enumerate(temperatures):\n        while stack and temperatures[stack[-1]] < current_temp:\n            prev_day = stack.pop()\n            answer[prev_day] = current_day - prev_day\n        stack.append(current_day)\n    return answer\n\nprint(daily_temperatures([73, 74, 75, 71, 69, 72, 76, 73]))",
+          "explanation": "Monotonic decreasing stack finds wait times until warmer temperatures in linear O(n) time.",
+          "expected_output": "[1, 1, 4, 2, 1, 1, 0, 0]"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Monotonic decreasing stack resolves Next Greater Element queries in linear time.",
+        "Store indices rather than raw values on the stack to calculate distances and intervals."
+      ],
+      "checkpoint": "Why is daily_temperatures O(n) despite containing a nested while loop inside the for loop?"
     },
     {
-      "slug": "bracket-matching-example",
-      "title": "Bracket Matching Example",
+      "slug": "arena-transfer",
+      "title": "Stack interview check and Arena practice",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about bracket-matching-example",
-      "markdown": "Content for bracket-matching-example. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 8,
+      "learning_objective": "Excel in stack interview questions and solve Coding Arena challenges.",
+      "markdown": "## Arena reference\nPractice with `dsa-min-stack` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nStack problems test your ability to maintain local invariants and eliminate nested scans.\n\n### Common Interview Questions\n1. *How do you design a MinStack that supports push, pop, top, and retrieving the minimum element in O(1) time?*\n   *(Maintain an auxiliary stack tracking the minimum value seen so far, or push (val, current_min) tuples).* \n2. *How do you implement a Queue using two Stacks?*\n   *(Use an in_stack for push, and an out_stack for pop. When out_stack is empty, transfer all elements from in_stack to out_stack, reversing their order to achieve FIFO in amortized O(1) time).* \n3. *When should you reach for a monotonic stack?*\n   *(Whenever the prompt asks for 'next greater', 'previous smaller', or finding bounding boundaries like largest rectangle in histogram)*. \n\n### Arena Practice Problems\n- `dsa-min-stack`: Designing O(1) minimum retrieval stack\n- `dsa-daily-temperatures`: Monotonic decreasing stack wait time resolution\n- `dsa-evaluate-rpn`: Postfix arithmetic stack evaluation\n- `dsa-decode-string`: Nested repetition string decoding using dual stacks",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "# MinStack implementation\nclass MinStack:\n    def __init__(self):\n        self.stack = []\n        self.min_stack = []\n        \n    def push(self, val: int) -> None:\n        self.stack.append(val)\n        current_min = min(val, self.min_stack[-1] if self.min_stack else val)\n        self.min_stack.append(current_min)\n        \n    def pop(self) -> None:\n        self.stack.pop()\n        self.min_stack.pop()\n        \n    def top(self) -> int:\n        return self.stack[-1]\n        \n    def getMin(self) -> int:\n        return self.min_stack[-1]\n\nms = MinStack()\nms.push(-2); ms.push(0); ms.push(-3)\nprint(f\"Current Min: {ms.getMin()}\")\nms.pop()\nprint(f\"Min after pop: {ms.getMin()}\")",
+          "explanation": "Demonstrates O(1) minimum retrieval using an auxiliary min_stack tracking state.",
+          "expected_output": "Current Min: -3\nMin after pop: -2"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "monotone-stack-concept",
-      "title": "Monotone Stack Concept",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about monotone-stack-concept",
-      "markdown": "Content for monotone-stack-concept. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
+        "Practice MinStack to master dual-stack state tracking.",
+        "Remember that popping from an empty stack raises an IndexError; always guard with `if stack:`."
       ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "next-greater-element-pattern",
-      "title": "Next Greater Element Pattern",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about next-greater-element-pattern",
-      "markdown": "Content for next-greater-element-pattern. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "call-stack-analogy",
-      "title": "Call Stack Analogy",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about call-stack-analogy",
-      "markdown": "Content for call-stack-analogy. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "iterative-dfs-with-stack",
-      "title": "Iterative Dfs With Stack",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about iterative-dfs-with-stack",
-      "markdown": "Content for iterative-dfs-with-stack. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about common-mistakes",
-      "markdown": "Content for common-mistakes. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about interview-points",
-      "markdown": "Content for interview-points. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+      "checkpoint": "What is the space complexity of MinStack when storing N elements?"
     }
   ],
   "summary": [
-    "Sum 1",
-    "Sum 2",
-    "Sum 3"
+    "Stacks enforce Last-In First-Out (LIFO) semantics with O(1) push, pop, and peek operations.",
+    "Python list append() and pop() provide an efficient native stack implementation.",
+    "Bracket matching and parsing problems naturally map to stack pushes and pops.",
+    "Monotonic stacks eliminate quadratic brute force scans, solving Next Greater Element in O(n) time.",
+    "MinStack demonstrates tracking auxiliary running minimums across stack mutations in O(1) time."
   ],
   "interview_takeaways": [
-    "Int 1",
-    "Int 2",
-    "Int 3"
+    "State LIFO semantics clearly and mention that Python lists serve as optimal stacks at the end of array.",
+    "Highlight that monotonic stacks execute in O(n) total time because each element is pushed and popped at most once.",
+    "Always check for empty stack before calling pop() or inspecting `stack[-1]` to prevent runtime IndexErrors."
   ],
   "common_mistakes": [
-    "Mis 1",
-    "Mis 2",
-    "Mis 3"
+    "Using list.pop(0) to remove elements, which shifts the entire array in O(n) time instead of O(1)",
+    "Forgetting to check if stack is empty before popping when processing closing brackets",
+    "Popping operands in the wrong order during RPN division or subtraction (evaluating b - a instead of a - b)",
+    "Failing to check whether the stack is completely empty after finishing bracket matching loops"
   ],
   "sources": [
     {
       "source_id": "python-stdlib-docs",
-      "title": "collections.deque",
-      "url": "https://docs.python.org/3/library/collections.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
-    },
-    {
-      "source_id": "python-stdlib-docs",
-      "title": "Python Sorting HOW-TO",
-      "url": "https://docs.python.org/3/howto/sorting.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
-    },
-    {
-      "source_id": "python-stdlib-docs",
-      "title": "bisect",
-      "url": "https://docs.python.org/3/library/bisect.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "Python Data Structures \u2014 Using Lists as Stacks",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html#using-lists-as-stacks",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-dsa-stacks-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "a19581e3180b136d1580c72f2af2e71d4457c041553f3dd30214ade548f01c75",
+  "generated_at": "2026-09-24T08:42:13.791144+00:00"
 }

@@ -2,160 +2,179 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "type-hints",
-  "title": "Mastering Type-Hints",
-  "description": "Learn about type-hints in Python.",
-  "version": "1.0.0",
+  "title": "Type Hints and Static Checking",
+  "description": "Master Python type annotations, built-in generics, Union and Optional types, Callable, structural subtyping with Protocols, and runtime limits.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand type-hints",
-    "Apply in real-world",
-    "Prepare for interviews"
+    "Annotate function signatures and data structures using built-in generics (PEP 585)",
+    "Model nullable and polymorphic values using union and optional syntax (PEP 604)",
+    "Annotate higher-order functions with Callable and structural contracts with protocol awareness",
+    "Explain the boundary between static checking (mypy, pyright) and Python runtime limits"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "syntax-data-types",
+    "functions"
+  ],
   "sections": [
     {
-      "slug": "what-are-type-hints",
-      "title": "What Are Type Hints",
+      "slug": "annotations-and-built-in-generics",
+      "title": "Type annotations and built-in generics (PEP 585)",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn what-are-type-hints",
-      "markdown": "### What is this?\nThis section covers what are type hints.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Annotate variables and parameters using native collection types.",
+      "markdown": "Python type annotations communicate developer intent to static analysis tools and IDEs without impacting runtime execution speed. In modern Python (PEP 585), use standard built-in generics directly: `list[str]`, `dict[str, int]`, `set[int]`, and `tuple[int, str]`. Variable annotations use `name: type = value`, and function annotations use `def func(param: type) -> return_type:`. Annotations act as machine-verifiable documentation that catches type mismatch bugs before deployment.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def calculate_totals(items: list[dict[str, float]]) -> float:\n    return sum(item['price'] for item in items)\n\ncart: list[dict[str, float]] = [{'price': 19.99}, {'price': 5.50}]\nprint(f'Total: ${calculate_totals(cart):.2f}')",
+          "explanation": "Uses standard list and dict generics to document nested data structures cleanly.",
+          "expected_output": "Total: $25.49"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
+        "Modern Python uses standard collection names list[], dict[], set[], tuple[] as generics.",
+        "Type annotations do not change runtime bytecode or enforce types automatically."
+      ],
+      "checkpoint": "Explain the difference between tuple[int, ...] and tuple[int, str] in type annotations."
     },
     {
-      "slug": "basic-annotations",
-      "title": "Basic Annotations",
+      "slug": "union-and-optional",
+      "title": "Union, Optional, and nullability (PEP 604)",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn basic-annotations",
-      "markdown": "### What is this?\nThis section covers basic annotations.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Model nullable parameters and multi-type inputs cleanly.",
+      "markdown": "Functions frequently accept or return `None` or multiple distinct types. Modern Python expresses union types with the pipe operator `|`: `int | float` replaces `Union[int, float]`. A nullable value is represented as `str | None` instead of `Optional[str]`. When working with nullable types, static type checkers force developers to write explicit `if val is not None:` guards before calling methods on the underlying object, preventing `AttributeError: 'NoneType' object has no attribute` in production.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def find_user_id(email: str, users: dict[str, int]) -> int | None:\n    return users.get(email)\n\nregistry: dict[str, int] = {'alice@corp.test': 101}\nuid = find_user_id('bob@corp.test', registry)\nif uid is not None:\n    print(f'Found: {uid}')\nelse:\n    print('User not found')",
+          "explanation": "Returning int | None forces callers to handle the None branch explicitly.",
+          "expected_output": "User not found"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
+        "Use type | None to model nullable parameters and returns.",
+        "Static checkers enforce checking is not None before dereferencing optional values."
+      ],
+      "checkpoint": "Why is Optional[int] identical to Union[int, None] in Python type theory?"
     },
     {
-      "slug": "collections-generics",
-      "title": "Collections Generics",
+      "slug": "callable-and-higher-order",
+      "title": "Callable types for higher-order functions",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn collections-generics",
-      "markdown": "### What is this?\nThis section covers collections generics.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Annotate function arguments, callbacks, and transformation pipelines.",
+      "markdown": "Higher-order functions that accept callbacks or return decorators require `Callable[[ArgTypes...], ReturnType]` from `collections.abc` (or `typing`). For example, a function accepting a predicate and a string is typed as `Callable[[str], bool]`. If a callback accepts arbitrary arguments or parameter counts vary, use `Callable[..., ReturnType]` with an ellipsis. This ensures caller callbacks fulfill the expected signature contract.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from collections.abc import Callable\n\ndef apply_filter(items: list[str], predicate: Callable[[str], bool]) -> list[str]:\n    return [item for item in items if predicate(item)]\n\nwords: list[str] = ['forge', 'engine', 'ai', 'scale']\nshort_words = apply_filter(words, lambda w: len(w) <= 3)\nprint(short_words)",
+          "explanation": "Callable[[str], bool] verifies that the lambda takes a string and returns a boolean.",
+          "expected_output": "['ai']"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "optional-type",
-      "title": "Optional Type",
-      "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn optional-type",
-      "markdown": "### What is this?\nThis section covers optional type.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "union-type",
-      "title": "Union Type",
-      "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn union-type",
-      "markdown": "### What is this?\nThis section covers union type.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "callable-type",
-      "title": "Callable Type",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn callable-type",
-      "markdown": "### What is this?\nThis section covers callable type.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
+        "Callable[[Arg1, Arg2], ReturnType] specifies parameter and return type contracts.",
+        "Use Callable[..., ReturnType] when argument signatures are dynamic or variable."
+      ],
+      "checkpoint": "Write the type annotation for a decorator that takes a function and returns a function of the same signature."
     },
     {
       "slug": "protocol-awareness",
-      "title": "Protocol Awareness",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn protocol-awareness",
-      "markdown": "### What is this?\nThis section covers protocol awareness.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "title": "Structural subtyping with protocol awareness",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Implement duck typing using typing.Protocol.",
+      "markdown": "Python's idiomatic \"duck typing\" is formalized in static typing through `typing.Protocol` (PEP 544). Instead of requiring a class to explicitly inherit from a nominal base class, a Protocol declares required methods and attributes. Any class that implements those methods structurally matches the Protocol, even without explicit inheritance. Maintain `protocol awareness` when writing modular libraries, decoupling consumers from specific concrete classes.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from typing import Protocol\n\nclass Renderable(Protocol):\n    def render(self) -> str:\n        ...\n\nclass UserCard:\n    def __init__(self, name: str):\n        self.name = name\n    def render(self) -> str:\n        return f'<div>{self.name}</div>'\n\ndef display(widget: Renderable) -> str:\n    return widget.render()\n\nprint(display(UserCard('Ada')))",
+          "explanation": "UserCard matches Renderable structurally without inheriting from Renderable directly.",
+          "expected_output": "<div>Ada</div>"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
+        "Protocols enable static checking for duck typing without nominal subclassing.",
+        "Any object with matching method signatures satisfies the Protocol."
+      ],
+      "checkpoint": "Contrast nominal typing (subclassing ABC) with structural subtyping (typing.Protocol)."
     },
     {
-      "slug": "static-checking",
-      "title": "Static Checking",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn static-checking",
-      "markdown": "### What is this?\nThis section covers static checking.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "slug": "static-checking-and-runtime-limits",
+      "title": "Static checking vs runtime limits",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Identify what type hints can and cannot enforce at runtime.",
+      "markdown": "A critical mental model is understanding runtime limits: Python does NOT enforce type hints at runtime. Running `x: int = 'hello'` executes without raising an exception! Type hints exist for `static checking` performed by tools like Mypy, Pyright, or IDE type linters before execution. If runtime validation is needed at boundaries (e.g. parsing HTTP request payloads or database JSON), use data-validation libraries like Pydantic or manual `isinstance()` checks.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def add_numbers(a: int, b: int) -> int:\n    return a + b\n\n# Python runtime does NOT enforce type annotations!\nruntime_result = add_numbers('hello ', 'world')  # type: ignore\nprint(f'Runtime returned: {runtime_result} ({type(runtime_result).__name__})')",
+          "explanation": "Demonstrates that the Python runtime executes without error even when types violate annotations.",
+          "expected_output": "Runtime returned: hello world (str)"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
+        "Python does not perform runtime type checking; annotations are metadata.",
+        "Static checking occurs out-of-band via tools like mypy and pyright."
+      ],
+      "checkpoint": "Why must an API endpoint perform runtime data validation even if all request models have type hints?"
     },
     {
-      "slug": "runtime-limits",
-      "title": "Runtime Limits",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn runtime-limits",
-      "markdown": "### What is this?\nThis section covers runtime limits.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 5,
+      "estimated_minutes": 8,
+      "learning_objective": "Review type system interview questions and practice typed patterns in Coding Arena.",
+      "markdown": "Type hints are frequently tested in engineering interviews to assess code quality and architectural maturity.\n\n### Oral Interview Questions\n1. *Does Python's type hinting impact runtime performance?*\n   *(No. Aside from negligible module load time to evaluate annotation dictionaries, type hints are stripped by the compiler and produce no runtime overhead).* \n2. *What is the difference between typing.Any and object?*\n   *(`object` is the root of the class hierarchy; static checkers enforce that you cannot perform arbitrary operations on it without narrowing. `Any` turns off type checking entirely, allowing any operation).* \n3. *How does typing.TypeVar enable generic reusable functions?*\n\n### Code Trace Challenge\nTrace this generic function:\n```python\nfrom typing import TypeVar\nT = TypeVar('T')\ndef first_item(items: list[T]) -> T | None:\n    return items[0] if items else None\n```\nPassing `[1, 2, 3]` returns `1` typed as `int | None`. Passing `['a', 'b']` returns `'a'` typed as `str | None`.\n\n### Common Interview Trap\nConfusing type hints with runtime validation. For instance, expecting `def create_user(age: int):` to reject `create_user('twenty')` at runtime. Without Pydantic or `isinstance(age, int)` assertions, Python happily passes the string into the function.\n\n### Arena Practice Problems\nPractice typed data manipulation in Coding Arena:\n- `python-two-sum`: Type-annotated hash map lookups\n- `python-merge-sorted-lists`: Type annotations on list arguments\n- `python-valid-sudoku-row`: Validating typed grid subsets",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from typing import TypeVar\nT = TypeVar('T')\ndef get_first(elements: list[T]) -> T | None:\n    return elements[0] if elements else None\n\nprint(get_first([10, 20]), get_first([]))",
+          "explanation": "Generic function preserves the inner type T across inputs while safely returning T | None.",
+          "expected_output": "10 None"
+        }
+      ],
       "key_points": [
-        "Key 1"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn interview-points",
-      "markdown": "### What is this?\nThis section covers interview points.\n\n### Why do we need it?\nIt helps write better Python.\n\n### Basic syntax\n```python\npass\n```\n\n### Small example\nExample code goes here.\n\n### Step-by-step explanation\nWe break it down.\n\n### Real engineering example\nIn FastAPI, we use this often.\n\n### Common mistakes\nDon't do it wrong.\n\n### Interview points\nImportant for interviews. Concepts: annotations built-in generics union optional callable protocol awareness static checking runtime limits\n\n### Quick check\nDoes it work? Yes.\n\n### Practice next\nMove to the next section.",
-      "examples": [],
-      "key_points": [
-        "Key 1"
-      ]
+        "Use TypeVar or modern generic syntax def func[T](...) for reusable typed algorithms.",
+        "Differentiate Any (untyped escape hatch) from object (safe base type)."
+      ],
+      "checkpoint": "Show how to define a generic dictionary mapping strings to an arbitrary type T."
     }
   ],
   "summary": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "Type annotations communicate intent and enable out-of-band static checking via mypy/pyright.",
+    "Built-in generics list[T], dict[K, V], set[T], tuple[...] replace obsolete typing aliases.",
+    "The pipe operator | cleanly represents Union and nullable (str | None) types.",
+    "Protocols formalize duck typing with structural subtyping without rigid inheritance.",
+    "Python runtime does not enforce type annotations; runtime validation requires explicit code."
   ],
   "interview_takeaways": [
-    "Takeaway 1",
-    "Takeaway 2",
-    "Takeaway 3"
+    "Type hints improve maintainability without adding runtime overhead.",
+    "Avoid using Any; prefer Union, Protocol, or generics (TypeVar) to preserve type safety.",
+    "Validate boundary data (JSON, HTTP, DB) at runtime using Pydantic or isinstance()."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Assuming Python enforces type hints at runtime automatically",
+    "Overusing Any and disabling the benefits of static analysis",
+    "Using Optional without checking for None before accessing attributes",
+    "Importing legacy typing.List and typing.Dict instead of built-in list and dict in Python 3.9+"
   ],
   "sources": [
     {
-      "source_id": "python-official-tutorial",
-      "title": "Python Tutorial",
-      "url": "https://docs.python.org/3/tutorial/index.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "source_id": "python-stdlib-docs",
+      "title": "Python Standard Library \u2014 typing Support for type hints",
+      "url": "https://docs.python.org/3/library/typing.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-language-reference",
+      "title": "PEP 585 \u2014 Type Hinting Generics In Standard Collections",
+      "url": "https://peps.python.org/pep-0585/",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-type-hints-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "d96ee6139e0b3d371b8757748394a3cbbb018df839106274d16026f485a0417d",
+  "generated_at": "2026-09-24T08:24:58.388512+00:00"
 }

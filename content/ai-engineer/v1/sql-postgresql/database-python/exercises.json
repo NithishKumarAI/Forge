@@ -1,153 +1,139 @@
 [
   {
-    "key": "dbpy-1",
+    "key": "dbpy-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "Question goes here.",
+    "title": "Primary defense against SQL injection",
+    "prompt_markdown": "What is the primary, production-grade defense against SQL injection in Python database programming?",
     "difficulty": "easy",
     "hints": [
-      "Hint 1"
+      "Consider how queries are compiled vs how parameters are transmitted."
     ],
     "content": {
       "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
+        "Running regex string replacement on single quote characters in Python",
+        "Using parameterized queries where SQL syntax and data parameters are sent separately to the engine",
+        "Wrapping the query inside a try...except Exception block in Python",
+        "Converting all integer arguments to strings using str()"
       ],
-      "correct_index": 0,
-      "explanation": "Because A."
+      "correct_index": 1,
+      "explanation": "Parameterized queries compile the SQL query plan before binding data values. This ensures that user input is treated strictly as literal data, making SQL injection impossible."
     }
   },
   {
-    "key": "dbpy-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Question goes here.",
+    "key": "dbpy-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Role of a database cursor",
+    "prompt_markdown": "What is the primary role of a `cursor` object in Python DB-API (PEP 249)?",
+    "difficulty": "easy",
+    "hints": [
+      "It executes queries and manages result fetching."
+    ],
+    "content": {
+      "choices": [
+        "It maintains the physical TCP socket and SSL certificate validation",
+        "It manages the execution of SQL commands and acts as an iterator over returned rows",
+        "It automatically compiles Python code into PostgreSQL C extensions",
+        "It serializes database tables into JSON files on the local disk"
+      ],
+      "correct_index": 1,
+      "explanation": "A cursor is used to execute SQL statements and fetch row data (`fetchone()`, `fetchall()`) from the database server, operating within an active connection."
+    }
+  },
+  {
+    "key": "dbpy-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "The N+1 query problem in ORMs",
+    "prompt_markdown": "What is the 'N+1 query problem' commonly encountered with ORMs like SQLAlchemy?",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Think of 1 query for parents, then N separate queries for children in a loop."
+    ],
+    "content": {
+      "choices": [
+        "When a query fails N times and succeeds on the N+1 retry attempt",
+        "When loading 1 parent list executes 1 query, but accessing related child records inside a loop triggers N additional individual queries",
+        "When a table schema has N columns plus 1 primary key index",
+        "When an ORM generates queries that exceed the database connection timeout by 1 second"
+      ],
+      "correct_index": 1,
+      "explanation": "The N+1 query problem occurs when loading a collection of parent entities runs 1 query, but lazily loading a related child attribute inside an iteration loop fires an additional query for every single parent, causing N+1 database round trips."
+    }
+  },
+  {
+    "key": "dbpy-short-predict-sqli-vulnerability",
+    "exercise_type": "short_answer",
+    "title": "Predict SQL injection exploit in vulnerable f-string query",
+    "prompt_markdown": "A login endpoint runs this vulnerable Python code:\n\n```python\nquery = f\"SELECT id, username FROM users WHERE username = '{username}' AND password = '{password}';\"\ncur.execute(query)\nuser = cur.fetchone()\n```\nPredict what happens if an attacker inputs `username = \"admin' --\"` with an arbitrary password, and explain why the authentication check is bypassed.",
+    "difficulty": "medium",
+    "hints": [
+      "What does -- do in SQL syntax?"
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Expands the resulting query string: `SELECT id, username FROM users WHERE username = 'admin' --' AND password = '...';`",
+        "Explains that `--` comments out the remainder of the SQL query, including the password check",
+        "Concludes that the query successfully authenticates as admin without requiring a valid password"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "Result: The authentication check is completely bypassed, and the attacker logs in as the `admin` user.\n\nExplanation: Substituting `admin' --` into the f-string produces:\n`SELECT id, username FROM users WHERE username = 'admin' --' AND password = '...';`\nIn SQL, `--` denotes a line comment. The database engine truncates evaluation right after `username = 'admin'`, ignoring the `AND password = ...` check completely. The query returns the admin user record, allowing unauthorized access.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dbpy-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "Question goes here.",
+    "key": "dbpy-short-fix-parameterization",
+    "exercise_type": "short_answer",
+    "title": "Refactor unsafe concatenated SQL into safe parameterized query",
+    "prompt_markdown": "Refactor this unsafe Python code snippet to use a secure parameterized query:\n\n```python\ndef update_user_bio(conn, user_id, bio):\n    cur = conn.cursor()\n    sql = f\"UPDATE users SET bio = '{bio}' WHERE id = {user_id};\"\n    cur.execute(sql)\n    conn.commit()\n    cur.close()\n```",
     "difficulty": "easy",
     "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "dbpy-4",
-    "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "medium",
-    "hints": [
-      "Hint 1"
+      "Use %s placeholders and context managers for clean cursor handling."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Replaces f-string with a parameterized SQL template using `%s` placeholders",
+        "Passes `(bio, user_id)` as a parameter tuple to `cur.execute()`",
+        "Uses context manager `with conn.cursor() as cur:` for resource cleanup"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "Refactored Safe Code:\n```python\ndef update_user_bio(conn, user_id, bio):\n    with conn.cursor() as cur:\n        sql = \"UPDATE users SET bio = %s WHERE id = %s;\"\n        cur.execute(sql, (bio, user_id))\n        conn.commit()\n```\nExplanation: Passing `(bio, user_id)` as the second argument to `cur.execute()` ensures the parameters are transmitted as bound literals, permanently neutralizing SQL injection risks.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dbpy-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "dbpy-6",
+    "key": "dbpy-short-implement-transaction-manager",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Question goes here.",
+    "title": "Implement atomic fund transfer function with transaction rollback",
+    "prompt_markdown": "Write a Python function `transfer_funds(conn, sender_id, receiver_id, amount)` that atomically transfers funds between two bank accounts. Requirements:\n1. Open a transaction boundary.\n2. Deduct `amount` from `sender_id` (checking balance >= amount).\n3. Add `amount` to `receiver_id`.\n4. Commit if both operations succeed, or rollback and raise an exception if either fails.",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Use conn.transaction() or explicit try/except with conn.commit() and conn.rollback()."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Manages transaction boundaries with commit and rollback",
+        "Executes UPDATE on sender deducting amount with a balance >= amount guard",
+        "Executes UPDATE on receiver crediting amount",
+        "Raises error and rolls back if sender does not have sufficient funds or if an error occurs"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "```python\ndef transfer_funds(conn, sender_id, receiver_id, amount):\n    if amount <= 0:\n        raise ValueError(\"Amount must be positive\")\n        \n    with conn.transaction():\n        with conn.cursor() as cur:\n            # Deduct from sender with guard\n            cur.execute(\n                \"\"\"UPDATE accounts \n                   SET balance = balance - %s \n                   WHERE id = %s AND balance >= %s \n                   RETURNING id;\"\"\",\n                (amount, sender_id, amount)\n            )\n            if cur.fetchone() is None:\n                raise ValueError(\"Insufficient funds or invalid sender account\")\n                \n            # Credit receiver\n            cur.execute(\n                \"UPDATE accounts SET balance = balance + %s WHERE id = %s;\",\n                (amount, receiver_id)\n            )\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dbpy-7",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 7",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "dbpy-8",
+    "key": "dbpy-short-explain-orm-tradeoffs",
     "exercise_type": "short_answer",
-    "title": "Exercise 8",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "medium",
+    "title": "Explain ORM vs raw SQL trade-offs in backend interviews",
+    "prompt_markdown": "In a backend architecture interview, compare using an ORM (like SQLAlchemy) versus raw SQL (via psycopg). In what scenarios would you advocate for each?",
+    "difficulty": "hard",
     "hints": [
-      "Hint 1"
+      "Discuss productivity, type safety, query optimization, N+1 risk, and performance overhead."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains ORM strengths: rapid CRUD development, domain model encapsulation, automated migration tooling (Alembic), database vendor agnosticism",
+        "Explains ORM weaknesses: object mapping serialization overhead, hidden query generation (N+1 hazard), awkward syntax for complex analytical queries",
+        "Explains raw SQL strengths: complete execution plan control, full access to database features (CTEs, window functions, JSONB operators), maximum throughput",
+        "Advocates hybrid approach: ORMs for OLTP transactional endpoints; raw SQL for analytical, reporting, or high-throughput batch pipelines"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "1. ORM (SQLAlchemy) Advantages & Use Cases:\n- Advantages: Dramatically increases developer velocity for standard CRUD operations; provides typed domain models with validation; integrates seamlessly with automated database schema migration tools like Alembic; prevents trivial SQL injection errors.\n- Best for: Core transactional API endpoints (user authentication, profile updates, order placement) where domain logic is tightly coupled to application objects.\n\n2. Raw SQL (psycopg) Advantages & Use Cases:\n- Advantages: Eliminates object hydration overhead; gives engineers 100% control over the generated query plan; fully unlocks engine-specific features (PostgreSQL CTEs, window functions, JSONB operators, advanced joins) without fighting ORM query abstractions; prevents insidious N+1 query performance traps.\n- Best for: High-throughput ingestion pipelines, analytical reporting dashboards, complex batch migrations, and queries demanding sub-millisecond execution.\n\nConclusion: Mature backend engineering teams adopt a hybrid strategy: use SQLAlchemy ORM for entity lifecycle management and CRUD, while falling back to raw parameterized SQL for complex, performance-critical queries.",
       "minimum_pass_score": 70
     }
   }

@@ -2,281 +2,152 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "dsa",
   "topic_slug": "heaps",
-  "title": "Heaps",
-  "description": "Learn about heaps in Python.",
-  "version": "1.0.0",
+  "title": "Heaps, Priority Queues, Top-K Filtering, and heapq Internals",
+  "description": "Master binary heaps: min heap vs max heap invariants, Python heapq module, priority queue operations, top-k element selection, and merging sorted streams.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand heaps",
-    "Implement basic templates",
-    "Recognize in interviews",
-    "Write optimized code"
+    "Explain binary heap tree structures and array index mapping formulas",
+    "Execute O(log n) insertions and removals using heapq.heappush and heapq.heappop",
+    "Solve Top-K frequent and Kth largest element problems in O(n log k) time",
+    "Merge K sorted data streams in O(n log k) time using a min heap"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "big-o",
+    "arrays"
+  ],
   "sections": [
     {
-      "slug": "what-is-a-heap",
-      "title": "What Is A Heap",
+      "slug": "heap-foundations-and-heapq",
+      "title": "Binary heap mechanics and Python's heapq module",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand what-is-a-heap deeply.",
-      "markdown": "This section covers what-is-a-heap in detail. \n\nKeywords to know: heap, min heap, max heap, heapq, priority queue, top-k, heappush, heappop, O(log n), merge streams. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Understand binary heap invariants and navigate Python heapq.",
+      "markdown": "## When to recognize this pattern\nPriority queues, continuous tracking of minimum or maximum, Top-K elements, or merging K sorted streams.\n\n## Core idea\nA `heap` is a complete binary tree that satisfies the heap invariant. In a `min heap`, every parent node is $\\le$ its children, guaranteeing that the smallest element is always at the root (`heap[0]`). In a `max heap`, parents are $\\ge$ children. Because heaps are complete binary trees, they are stored compactly in a standard array: for a node at index $i$, its left child is at $2i + 1$, right child is at $2i + 2$, and parent is at $(i - 1) // 2$. Python's `heapq` module implements a `min heap` directly on standard lists: `heappush` and `heappop` execute in `O(log n)` time.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "import heapq\n\n# Python heapq implements a MIN HEAP on standard lists\nnums = [5, 1, 8, 3, 2]\nheapq.heapify(nums)  # Transforms list into heap in O(n) linear time\nprint(f\"Heapified array (root is min): {nums}\")\n\n# heappush and heappop operate in O(log n)\nheapq.heappush(nums, 0)\nprint(f\"Smallest popped: {heapq.heappop(nums)}\")\nprint(f\"Next smallest: {heapq.heappop(nums)}\")",
+          "explanation": "Demonstrates O(n) heapify, O(log n) heappush, and O(log n) min extraction.",
+          "expected_output": "Heapified array (root is min): [1, 2, 8, 3, 5]\nSmallest popped: 0\nNext smallest: 1"
         }
       ],
       "key_points": [
-        "Key point about what-is-a-heap."
-      ]
+        "Python's heapq is strictly a min heap; heap[0] is always the minimum element.",
+        "To simulate a max heap in Python, invert values by multiplying by -1."
+      ],
+      "checkpoint": "What is the time complexity of heapq.heapify(list) on an array of N elements?"
     },
     {
-      "slug": "min-heap-vs-max-heap",
-      "title": "Min Heap Vs Max Heap",
+      "slug": "priority-queues-and-max-heaps",
+      "title": "Priority queue patterns and simulating max heaps",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand min-heap-vs-max-heap deeply.",
-      "markdown": "This section covers min-heap-vs-max-heap in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Build priority queues and simulate max heap behavior in Python.",
+      "markdown": "## Naive approach\nSorting the entire array of size N takes O(N log N) time, which is inefficient when only the top K elements are required (K << N).\n\n## Better approach\nA `priority queue` is an abstract data type where each element has an associated priority; elements with higher priority are dequeued before lower priority elements. In Python, we implement priority queues by pushing `(priority, item)` tuples into `heapq`. Because Python compares tuples element-by-element, the priority integer controls heap ordering. To simulate a `max heap` where the largest value is extracted first, negate the numeric key: push `(-value, item)` and negate back upon `heappop`.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "import heapq\n\n# Priority Queue storing task urgency\ntasks = []\nheapq.heappush(tasks, (1, \"write tests\"))      # Priority 1 (highest)\nheapq.heappush(tasks, (3, \"update docs\"))      # Priority 3 (lowest)\nheapq.heappush(tasks, (2, \"fix security bug\")) # Priority 2\n\nwhile tasks:\n    priority, task_name = heapq.heappop(tasks)\n    print(f\"Processing [Priority {priority}]: {task_name}\")",
+          "explanation": "Executes tasks in priority order using a min heap of priority tuples.",
+          "expected_output": "Processing [Priority 1]: write tests\nProcessing [Priority 2]: fix security bug\nProcessing [Priority 3]: update docs"
         }
       ],
       "key_points": [
-        "Key point about min-heap-vs-max-heap."
-      ]
+        "Tuple comparisons in heapq order primarily by the first element (priority).",
+        "Simulate a max heap by pushing negative values (-x)."
+      ],
+      "checkpoint": "What happens if two tasks have identical priority values and task_name is uncomparable?"
     },
     {
-      "slug": "heapq-module",
-      "title": "Heapq Module",
+      "slug": "top-k-elements-pattern",
+      "title": "The Top-K pattern: O(n log k) heap filtering",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand heapq-module deeply.",
-      "markdown": "This section covers heapq-module in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Solve top-k element queries in O(n log k) time using bounded heaps.",
+      "markdown": "## Python implementation\nPython's heapq module provides heappush(), heappop(), and heapify() over standard lists to maintain min-heap order.\n\n## Step-by-step example\nA classic interview problem is finding the `top-k` largest or most frequent elements (e.g. 'Kth Largest Element in an Array', 'Top K Frequent Elements'). While sorting the entire array takes $O(n \\log n)$, using a min heap of bounded size $k$ solves this in optimal `O(n log k)` time. Maintain a min heap of size $k$. For every incoming element, push it onto the heap; if the heap exceeds size $k$, pop the minimum. When finished, the heap contains the $k$ largest elements, and the root `heap[0]` is the exact $k$-th largest!",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "import heapq\n\ndef find_kth_largest(nums: list[int], k: int) -> int:\n    # Maintain a min heap of size k\n    min_heap = []\n    for num in nums:\n        heapq.heappush(min_heap, num)\n        if len(min_heap) > k:\n            heapq.heappop(min_heap)  # Evict smallest\n    return min_heap[0]  # Root is the Kth largest\n\nprint(find_kth_largest([3, 2, 1, 5, 6, 4], 2))\nprint(find_kth_largest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4))",
+          "explanation": "Finds Kth largest element in O(n log k) time and O(k) auxiliary space.",
+          "expected_output": "5\n4"
         }
       ],
       "key_points": [
-        "Key point about heapq-module."
-      ]
+        "To find the K largest elements, use a MIN heap of size K.",
+        "To find the K smallest elements, use a MAX heap of size K."
+      ],
+      "checkpoint": "Why do we use a MIN heap to find the K LARGEST elements?"
     },
     {
-      "slug": "heappush-heappop",
-      "title": "Heappush Heappop",
+      "slug": "merge-k-sorted-streams",
+      "title": "Merging K sorted streams in O(n log k)",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand heappush-heappop deeply.",
-      "markdown": "This section covers heappush-heappop in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Merge multiple sorted arrays or linked lists using a min heap.",
+      "markdown": "## Time complexity\nO(N log K) time when maintaining a min-heap of size K across N items, or O(N) to build a heap via heapify.\n\n## Space complexity\nO(K) auxiliary space to store the top K elements in the heap data structure.\n\n## Common mistakes\nWhen you have $k$ sorted lists containing a total of $n$ elements, merging them sequentially takes $O(n \\cdot k)$. We can optimize this to `merge streams` in $O(n \\log k)$ time using a min heap. Insert the first element of each of the $k$ lists into the min heap along with pointers identifying the stream. Pop the minimum element, append it to the result, and push the next element from that specific list into the heap. Because the heap never exceeds size $k$, each of the $n$ elements is pushed and popped in $O(\\log k)$ time.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "import heapq\n\ndef merge_k_sorted(lists: list[list[int]]) -> list[int]:\n    heap = []\n    # Seed heap with (first_val, list_index, element_index)\n    for i, lst in enumerate(lists):\n        if lst:\n            heapq.heappush(heap, (lst[0], i, 0))\n    result = []\n    while heap:\n        val, list_idx, elem_idx = heapq.heappop(heap)\n        result.append(val)\n        if elem_idx + 1 < len(lists[list_idx]):\n            next_val = lists[list_idx][elem_idx + 1]\n            heapq.heappush(heap, (next_val, list_idx, elem_idx + 1))\n    return result\n\nprint(merge_k_sorted([[1, 4, 7], [2, 5, 8], [3, 6, 9]]))",
+          "explanation": "Merges 3 sorted lists into a single sorted list in O(n log k) time.",
+          "expected_output": "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
         }
       ],
       "key_points": [
-        "Key point about heappush-heappop."
-      ]
+        "Merging K sorted lists takes O(n log k) time where k is stream count.",
+        "Including list_index and element_index in tuples breaks ties and tracks pointers."
+      ],
+      "checkpoint": "How does heapq.merge(*iterables) in the standard library implement this pattern?"
     },
     {
-      "slug": "heapify",
-      "title": "Heapify",
+      "slug": "arena-transfer",
+      "title": "Heap interview check and Arena practice",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand heapify deeply.",
-      "markdown": "This section covers heapify in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Excel in heap and priority queue interview challenges.",
+      "markdown": "## Arena reference\nPractice with `dsa-top-k-frequent` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nHeaps are the data structure of choice whenever an interview question mentions dynamic medians or top-k filtering.\n\n### Common Interview Questions\n1. *How do you design a data structure that finds the running median from a continuous data stream in O(1) time?*\n   *(Use two heaps: a max heap for the lower half of numbers, and a min heap for the upper half of numbers. Balance them so sizes differ by at most 1. The median is either the root of the larger heap or the average of both roots).* \n2. *What is the difference in time complexity between building a heap with N heappush calls vs heapq.heapify?*\n   *(N successive heappush calls take O(N log N) time. heapq.heapify converts an existing list into a heap in-place in linear O(N) time).* \n3. *When is Quickselect preferred over a min heap for Kth largest element?*\n   *(Quickselect runs in O(N) average time, but O(N^2) worst case. A min heap guarantees O(N log K) worst case and works on streaming data).* \n\n### Arena Practice Problems\n- `dsa-kth-largest`: Finding Kth largest element via bounded min heap\n- `dsa-top-k-frequent`: Bucket sort vs frequency min heap\n- `dsa-merge-two-sorted-lists`: Multi-stream priority merging",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "# Top K Frequent Elements using heapq\nfrom collections import Counter\nimport heapq\n\ndef top_k_frequent(nums, k):\n    counts = Counter(nums)\n    # nlargest operates in O(n log k)\n    return [item for item, count in heapq.nlargest(k, counts.items(), key=lambda x: x[1])]\n\nprint(top_k_frequent([1, 1, 1, 2, 2, 3], 2))",
+          "explanation": "Identifies top K frequent items using Counter and heapq.nlargest.",
+          "expected_output": "[1, 2]"
         }
       ],
       "key_points": [
-        "Key point about heapify."
-      ]
-    },
-    {
-      "slug": "top-k-pattern",
-      "title": "Top K Pattern",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand top-k-pattern deeply.",
-      "markdown": "This section covers top-k-pattern in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
+        "heapq.heapify is O(N) linear time; building with heappush is O(N log N).",
+        "Two-heap median maintenance is a classic senior interview question."
       ],
-      "key_points": [
-        "Key point about top-k-pattern."
-      ]
-    },
-    {
-      "slug": "merge-sorted-streams",
-      "title": "Merge Sorted Streams",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand merge-sorted-streams deeply.",
-      "markdown": "This section covers merge-sorted-streams in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about merge-sorted-streams."
-      ]
-    },
-    {
-      "slug": "heap-sort-awareness",
-      "title": "Heap Sort Awareness",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand heap-sort-awareness deeply.",
-      "markdown": "This section covers heap-sort-awareness in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about heap-sort-awareness."
-      ]
-    },
-    {
-      "slug": "custom-comparison",
-      "title": "Custom Comparison",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand custom-comparison deeply.",
-      "markdown": "This section covers custom-comparison in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about custom-comparison."
-      ]
-    },
-    {
-      "slug": "heap-as-priority-queue",
-      "title": "Heap As Priority Queue",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand heap-as-priority-queue deeply.",
-      "markdown": "This section covers heap-as-priority-queue in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about heap-as-priority-queue."
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 10,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand common-mistakes deeply.",
-      "markdown": "This section covers common-mistakes in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about common-mistakes."
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 11,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand interview-points deeply.",
-      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about interview-points."
-      ]
+      "checkpoint": "Why is heapq.heapify O(N) instead of O(N log N)?"
     }
   ],
   "summary": [
-    "heaps is a key concept.",
-    "Mastering it helps in interviews.",
-    "Practice the templates."
+    "A binary heap is an array-backed complete binary tree enforcing the parent <= child min-heap invariant.",
+    "Python's heapq module provides O(log n) heappush and heappop operations on native lists.",
+    "To find the K largest elements, maintain a MIN heap of size K in O(n log k) time.",
+    "Merging K sorted streams takes O(n log k) time using a priority queue of stream heads.",
+    "heapq.heapify builds an in-place heap in linear O(n) time."
   ],
   "interview_takeaways": [
-    "Recognize the pattern",
-    "Analyze complexity",
-    "Discuss tradeoffs"
+    "Highlight that heapq.heapify is O(n) linear time, not O(n log n).",
+    "Explain why a MIN heap is used for K largest (the root holds the threshold minimum of the top K).",
+    "Describe the two-heap technique (max-heap + min-heap) for finding the running median of a data stream."
   ],
   "common_mistakes": [
-    "Off by one errors",
-    "Forgetting base cases",
-    "Ignoring edge cases"
+    "Assuming Python's heapq has a max-heap option; you must negate numbers (-x) to simulate a max-heap",
+    "Using N successive heappush calls instead of heapq.heapify, turning O(n) heap construction into O(n log n)",
+    "Pushing objects with identical priorities into a heap without a secondary tie-breaker, raising TypeError",
+    "Modifying elements inside a heap in-place without re-heapifying, corrupting the heap invariant"
   ],
   "sources": [
     {
       "source_id": "python-stdlib-docs",
-      "title": "heapq",
+      "title": "Python Standard Library \u2014 heapq module",
       "url": "https://docs.python.org/3/library/heapq.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
-    },
-    {
-      "source_id": "python-stdlib-docs",
-      "title": "Python Tutorial - Data Structures",
-      "url": "https://docs.python.org/3/tutorial/datastructures.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
-    },
-    {
-      "source_id": "python-stdlib-docs",
-      "title": "functools.lru_cache",
-      "url": "https://docs.python.org/3/library/functools.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-dsa-heaps-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "322db7501f4cfe0c31d1782d4346660a6ec70666b42dda9b2aacc4825dc860c8",
+  "generated_at": "2026-09-24T08:45:12.009023+00:00"
 }

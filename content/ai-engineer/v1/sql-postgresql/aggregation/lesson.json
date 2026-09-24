@@ -2,246 +2,157 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "aggregation",
-  "title": "Aggregation",
-  "description": "Learn about Aggregation in PostgreSQL.",
-  "version": "1.0.0",
+  "title": "Aggregation, GROUP BY, and HAVING",
+  "description": "Master SQL aggregate functions (COUNT, SUM, AVG, MIN, MAX), GROUP BY multi-column grouping, HAVING post-aggregation filtering, and NULL handling in aggregates.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand aggregation concepts",
-    "Write SQL",
-    "Avoid mistakes"
+    "Calculate summary statistics using standard aggregate functions (COUNT, SUM, AVG, MIN, MAX)",
+    "Group records by discrete categories and dimensional hierarchies using GROUP BY",
+    "Filter aggregated metrics using the HAVING clause, differentiating it from WHERE",
+    "Explain NULL handling differences between COUNT(*) and COUNT(column)"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "query-basics"
+  ],
   "sections": [
     {
-      "slug": "what-is-aggregation",
-      "title": "What Is Aggregation",
+      "slug": "aggregate-functions",
+      "title": "Aggregate functions: COUNT, SUM, AVG, MIN, and MAX",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn what-is-aggregation",
-      "markdown": "This section covers what-is-aggregation. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\n1. What is this? (plain English)\n2. Why do we need it? (analogy)\n3. Basic syntax (SQL)\n4. Small example (show tables and output)\n5. Step-by-step explanation\n6. Real engineering example (application/backend context)\n7. Common mistakes\n8. Interview points\n9. Quick check\n10. Practice next\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Compute summary statistics across row sets.",
+      "markdown": "An `aggregate function` collapses multiple rows into a single summary scalar. Standard functions include:\n- `COUNT(*)`: counts all rows in the group, including nulls.\n- `COUNT(column)`: counts only rows where `column` is NOT NULL.\n- `SUM(column)`: calculates the total arithmetic sum (skips nulls).\n- `AVG(column)`: calculates the arithmetic mean (sum / non-null count).\n- `MIN(column)` and `MAX(column)`: find the minimum and maximum values.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE sales (\n    id INT,\n    rep VARCHAR(50),\n    amount NUMERIC(10, 2)\n);\nINSERT INTO sales VALUES \n(1, 'Ana', 1000.00),\n(2, 'Ana', 2000.00),\n(3, 'Ravi', NULL),\n(4, 'Ravi', 3000.00);\n\nSELECT \n    COUNT(*) AS total_rows,\n    COUNT(amount) AS non_null_sales,\n    SUM(amount) AS total_revenue,\n    AVG(amount) AS avg_sale\nFROM sales;",
+          "explanation": "COUNT(*) counts 4 rows; COUNT(amount) counts 3 non-null amounts; AVG computes 6000 / 3 = 2000.",
+          "expected_output": "| total_rows | non_null_sales | total_revenue | avg_sale |\n|---|---|---|---|\n| 4 | 3 | 6000.00 | 2000.00 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "COUNT(*) counts all rows; COUNT(column) ignores NULLs.",
+        "SUM and AVG ignore NULLs; if all values are NULL, SUM returns NULL."
+      ],
+      "checkpoint": "Why does AVG(col) equal SUM(col) / COUNT(col) rather than SUM(col) / COUNT(*)?"
     },
     {
-      "slug": "count-function",
-      "title": "Count Function",
+      "slug": "group-by-partitioning",
+      "title": "Categorical grouping with GROUP BY",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn count-function",
-      "markdown": "This section covers count-function. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Group rows by discrete categories and dimensional attributes.",
+      "markdown": "The `GROUP BY` clause divides rows into buckets sharing the same values in the grouped columns. When `GROUP BY` is present, every column in the `SELECT` list must either be listed in the `GROUP BY` clause or be wrapped in an aggregate function. Attempting to select an un-aggregated, un-grouped column raises `ERROR: column must appear in the GROUP BY clause or be used in an aggregate function`.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE employees (\n    id INT,\n    name VARCHAR(50),\n    dept VARCHAR(50),\n    salary INT\n);\nINSERT INTO employees VALUES \n(1, 'Ana', 'AI', 60000),\n(2, 'Sam', 'AI', 80000),\n(3, 'Ravi', 'Backend', 50000);\n\nSELECT dept, COUNT(*) AS headcount, AVG(salary) AS avg_sal\nFROM employees\nGROUP BY dept\nORDER BY avg_sal DESC;",
+          "explanation": "Buckets employees by department, calculating headcount and average salary per bucket.",
+          "expected_output": "| dept | headcount | avg_sal |\n|---|---|---|\n| AI | 2 | 70000 |\n| Backend | 1 | 50000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "GROUP BY buckets rows into categories for per-group aggregation.",
+        "Any column in SELECT must either be in GROUP BY or wrapped in an aggregate function."
+      ],
+      "checkpoint": "Why does SELECT dept, name, AVG(salary) FROM employees GROUP BY dept cause an error?"
     },
     {
-      "slug": "sum-avg-min-max",
-      "title": "Sum Avg Min Max",
+      "slug": "having-vs-where",
+      "title": "Filtering groups: HAVING vs WHERE",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn sum-avg-min-max",
-      "markdown": "This section covers sum-avg-min-max. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Differentiate row-level pre-filtering from aggregate post-filtering.",
+      "markdown": "A critical distinction in SQL is `WHERE` vs `HAVING`:\n- `WHERE` filters individual rows *before* grouping occurs. It cannot contain aggregate functions like `WHERE SUM(val) > 100`.\n- `HAVING` filters aggregated groups *after* `GROUP BY` has collapsed rows. It evaluates conditions on aggregate metrics: `HAVING COUNT(*) >= 5`.\n\nOptimal query performance pre-filters unneeded rows in `WHERE` first to reduce the volume of data passed to `GROUP BY`.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT dept, COUNT(*) AS staff_count, AVG(salary) AS avg_salary\nFROM employees\nWHERE salary > 40000          -- Filter individual rows BEFORE grouping\nGROUP BY dept\nHAVING COUNT(*) >= 2          -- Filter aggregated groups AFTER grouping;",
+          "explanation": "WHERE filters out salaries <= 40k; HAVING filters out departments with fewer than 2 qualifying staff.",
+          "expected_output": "| dept | staff_count | avg_salary |\n|---|---|---|\n| AI | 2 | 70000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "WHERE filters individual rows before grouping; cannot contain aggregates.",
+        "HAVING filters groups after aggregation based on aggregate metrics."
+      ],
+      "checkpoint": "Can a HAVING clause filter on a non-aggregated column that is in the GROUP BY clause?"
     },
     {
-      "slug": "group-by-basics",
-      "title": "Group By Basics",
+      "slug": "null-handling-in-aggregation",
+      "title": "NULL handling in aggregates and conditional counting",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn group-by-basics",
-      "markdown": "This section covers group-by-basics. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Manage null values during aggregation and implement conditional counts.",
+      "markdown": "Aggregates handle nulls according to strict rules:\n1. `SUM`, `AVG`, `MIN`, `MAX` discard NULLs. If all rows in a group are NULL, `SUM` and `AVG` return `NULL` (use `COALESCE(SUM(val), 0)` to guarantee a number).\n2. `GROUP BY` treats all `NULL` values as belonging to a single group.\n3. **Conditional Aggregation**: Use `FILTER (WHERE condition)` in modern PostgreSQL or `COUNT(CASE WHEN cond THEN 1 END)` to aggregate specific subsets cleanly in a single pass.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT \n    COUNT(*) AS total_staff,\n    COUNT(*) FILTER (WHERE salary >= 60000) AS high_earners,\n    COALESCE(SUM(salary), 0) AS total_payroll\nFROM employees;",
+          "explanation": "FILTER (WHERE condition) counts specific subsets in a single table scan.",
+          "expected_output": "| total_staff | high_earners | total_payroll |\n|---|---|---|\n| 3 | 2 | 190000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Use COALESCE(SUM(col), 0) to avoid nulls when groups may be empty.",
+        "Use COUNT(*) FILTER (WHERE cond) for clean conditional aggregation in PostgreSQL."
+      ],
+      "checkpoint": "Show how to calculate the percentage of high earners in a single SQL query."
     },
     {
-      "slug": "group-by-multiple-columns",
-      "title": "Group By Multiple Columns",
+      "slug": "interview-check",
+      "title": "Interview check and practice",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn group-by-multiple-columns",
-      "markdown": "This section covers group-by-multiple-columns. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Review aggregation interview questions and practice grouping in Coding Arena.",
+      "markdown": "Aggregation is tested in nearly every SQL technical screen.\n\n### Oral Interview Questions\n1. *What is the difference between COUNT(*), COUNT(1), and COUNT(column)?*\n   *(`COUNT(*)` and `COUNT(1)` count all rows in the partition. `COUNT(column)` only counts rows where that specific column is NOT NULL).* \n2. *Why does `AVG()` ignore NULL values, and how does that distort business averages if NULL means zero?*\n   *(If 2 out of 4 users spent $100 and 2 spent NULL, AVG() returns $100. If NULL represents $0, the true average is $50. Use `AVG(COALESCE(val, 0))` to fix this).* \n3. *Can you use an aggregate function inside a WHERE clause?*\n\n### Query Trace Challenge\nTrace this aggregation on 3 employees:\n```sql\nSELECT dept, COUNT(*) FROM employees GROUP BY dept HAVING AVG(salary) > 65000;\n```\nAI dept has salaries 60k and 80k (avg = 70k, >65k). Backend has 50k (avg = 50k, <=65k). HAVING retains only AI, returning `AI | 2`.\n\n### Common Interview Trap\nUsing `HAVING` where `WHERE` was appropriate. For example: `GROUP BY dept HAVING dept = 'AI'`. This forces the database to group every row in the entire table before discarding all non-AI groups! Always place non-aggregate filters in `WHERE` to minimize grouping overhead.\n\n### Arena Practice Problems\nPractice aggregation and grouping in Coding Arena:\n- `sql-dept-avg-salary`: Computing average salary per department\n- `sql-daily-sales`: Daily revenue totals with GROUP BY\n- `sql-order-count-by-status`: Categorical status distribution counts\n- `sql-high-value-depts`: Filtering groups with HAVING\n- `sql-product-revenue`: Revenue aggregation across products",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT dept, MAX(salary) AS top_salary FROM employees GROUP BY dept ORDER BY top_salary DESC LIMIT 1;",
+          "explanation": "Calculates maximum salary per department and extracts the highest department.",
+          "expected_output": "| dept | top_salary |\n|---|---|\n| AI | 80000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "having-clause",
-      "title": "Having Clause",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn having-clause",
-      "markdown": "This section covers having-clause. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
+        "Filter rows with WHERE before grouping to optimize database CPU and memory.",
+        "Always wrap nullable sums in COALESCE(SUM(val), 0)."
       ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "null-in-aggregates",
-      "title": "Null In Aggregates",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn null-in-aggregates",
-      "markdown": "This section covers null-in-aggregates. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "distinct-in-aggregates",
-      "title": "Distinct In Aggregates",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn distinct-in-aggregates",
-      "markdown": "This section covers distinct-in-aggregates. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn common-mistakes",
-      "markdown": "This section covers common-mistakes. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn interview-points",
-      "markdown": "This section covers interview-points. Here are some terms we must mention just in case: COUNT SUM AVG MIN MAX GROUP BY HAVING aggregate NULL handling.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+      "checkpoint": "Write a query finding all departments having at least 3 employees with average salary > 60000."
     }
   ],
   "summary": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "Aggregate functions collapse rows into scalar summaries (COUNT, SUM, AVG, MIN, MAX).",
+    "GROUP BY partitions rows into categorical buckets for group-level calculations.",
+    "Non-aggregated columns in SELECT must appear in the GROUP BY clause.",
+    "WHERE filters rows before grouping; HAVING filters groups after aggregation.",
+    "COUNT(*) counts all rows; COUNT(col) and other aggregates ignore NULL values."
   ],
   "interview_takeaways": [
-    "Takeaway 1",
-    "Takeaway 2",
-    "Takeaway 3"
+    "Differentiate COUNT(*) from COUNT(col); COUNT(col) excludes NULL values.",
+    "Use WHERE to filter individual rows before GROUP BY; use HAVING only for aggregate metrics.",
+    "Use COALESCE(SUM(col), 0) to avoid returning NULL when zero matching rows exist."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Attempting to use aggregate functions in the WHERE clause (e.g. WHERE AVG(sal) > 50000)",
+    "Selecting un-aggregated columns that are not listed in the GROUP BY clause",
+    "Filtering categorical columns in HAVING instead of WHERE, destroying query performance",
+    "Assuming AVG() counts NULL rows as zero"
   ],
   "sources": [
     {
       "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL Tutorial",
-      "url": "https://www.postgresql.org/docs/current/tutorial.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "PostgreSQL Documentation \u2014 Aggregate Functions",
+      "url": "https://www.postgresql.org/docs/current/functions-aggregate.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     },
     {
-      "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL SQL Commands",
-      "url": "https://www.postgresql.org/docs/current/sql-commands.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "source_id": "postgresql-tutorial",
+      "title": "PostgreSQL Documentation \u2014 Grouping (GROUP BY and HAVING)",
+      "url": "https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-GROUP",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-aggregation-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "6c60ca6dce9b06d173f427994917e105b547ffd41609c4f9cd62456839f50d65",
+  "generated_at": "2026-09-24T08:30:21.641715+00:00"
 }

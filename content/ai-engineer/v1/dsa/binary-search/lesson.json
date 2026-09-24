@@ -2,294 +2,152 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "dsa",
   "topic_slug": "binary-search",
-  "title": "Binary Search",
-  "description": "Learn Binary Search",
-  "version": "1.0.0",
+  "title": "Binary Search, Invariants, and Monotonic Search Spaces",
+  "description": "Master binary search: O(log n) logarithmic reduction, loop invariants, lo/hi/mid pointers, left/right boundary templates, and searching across monotone solution spaces.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Obj 1",
-    "Obj 2",
-    "Obj 3"
+    "Explain logarithmic search space reduction from N to 1 in O(log n) time",
+    "Implement bug-free binary search templates using explicit lo, hi, and mid pointer invariants",
+    "Differentiate exact-match, leftmost-boundary, and rightmost-boundary search variants",
+    "Apply binary search on monotone answer spaces (binary search on answer)"
   ],
   "prerequisites": [
-    "python/basics"
+    "big-o",
+    "arrays"
   ],
   "sections": [
     {
-      "slug": "what-is-binary-search",
-      "title": "What Is Binary Search",
+      "slug": "binary-search-foundations",
+      "title": "Search space halving and the O(log n) bound",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about what-is-binary-search",
-      "markdown": "Content for what-is-binary-search. binary search sorted lo hi mid O(log n) template monotone search space invariant",
+      "estimated_minutes": 8,
+      "learning_objective": "Derive logarithmic search complexity from repeated problem halving.",
+      "markdown": "## When to recognize this pattern\nOrdered arrays, logarithmic query limits, or monotonic boolean predicates over an answer space.\n\n## Core idea\n`Binary search` is a divide-and-conquer algorithm that finds target values in a `sorted` array in `O(log n)` time. At each step, it compares the target with the middle element `mid`. If the middle element does not match, the entire half of the array that cannot contain the target is eliminated. Halving the `search space` on every step reduces $N$ candidate elements to 1 in at most $\\lceil \\log_2 N \\rceil$ comparisons. For $N = 1,000,000,000$, binary search guarantees finding the answer in at most 30 comparisons!",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "def binary_search_exact(nums: list[int], target: int) -> int:\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n\nprint(binary_search_exact([2, 5, 8, 12, 16, 23, 38, 56, 72, 91], 23))\nprint(binary_search_exact([2, 5, 8, 12, 16, 23, 38, 56, 72, 91], 50))",
+          "explanation": "Executes exact-match binary search across sorted integers in O(log n) time.",
+          "expected_output": "5\n-1"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Precondition: Data must be sorted or exhibit a monotonic boolean predicate property.",
+        "Calculate mid as `lo + (hi - lo) // 2` to prevent integer overflow in fixed-width languages."
+      ],
+      "checkpoint": "How many comparisons does binary search require to search 1,048,576 elements in the worst case?"
     },
     {
-      "slug": "sorted-requirement",
-      "title": "Sorted Requirement",
+      "slug": "invariants-and-boundary-templates",
+      "title": "Loop invariants and left/right boundary templates",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about sorted-requirement",
-      "markdown": "Content for sorted-requirement. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 8,
+      "learning_objective": "Master robust binary search templates that eliminate off-by-one errors and infinite loops.",
+      "markdown": "## Naive approach\nLinear scanning checks elements sequentially in O(N) time, which times out when queries are frequent or N >= 10^6.\n\n## Better approach\nOff-by-one errors and infinite loops are the most frequent bugs in binary search. To eliminate them, maintain an unambiguous `invariant`: a mathematical truth that holds before and after each iteration. For finding boundaries (e.g. `bisect_left` / first occurrence of target or first element $\\ge$ target), use the standard `template`:\n- Boundary: `lo, hi = 0, len(nums)` (search space is half-open `[lo, hi)`).\n- Condition: `while lo < hi:`\n- Transition: If `nums[mid] < target`, target cannot be in left half, so `lo = mid + 1`. Otherwise, `hi = mid`. Upon loop termination, `lo == hi` points to the exact leftmost insertion index.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "# Leftmost insertion index (bisect_left template)\ndef lower_bound(nums: list[int], target: int) -> int:\n    lo, hi = 0, len(nums)\n    while lo < hi:\n        mid = lo + (hi - lo) // 2\n        if nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo\n\nprint(lower_bound([1, 2, 4, 4, 4, 7, 9], 4))  # First index of 4\nprint(lower_bound([1, 2, 4, 4, 4, 7, 9], 5))  # Insertion index for 5",
+          "explanation": "Standard lower_bound template reliably finds the first valid index without infinite loops.",
+          "expected_output": "2\n5"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Half-open template [lo, hi) terminates when lo == hi, eliminating off-by-one boundary ambiguity.",
+        "Never write mid = (lo + hi) // 2 when hi can be large in compiled environments."
+      ],
+      "checkpoint": "What does lower_bound return if all elements in nums are strictly less than target?"
     },
     {
-      "slug": "lo-hi-mid-template",
-      "title": "Lo Hi Mid Template",
+      "slug": "binary-search-on-answer",
+      "title": "Monotonicity and binary search on solution space",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about lo-hi-mid-template",
-      "markdown": "Content for lo-hi-mid-template. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 8,
+      "learning_objective": "Apply binary search across abstract monotonic solution spaces.",
+      "markdown": "## Python implementation\nClean binary search maintains explicit half-open [lo, hi) or closed [lo, hi] pointer invariants without off-by-one errors.\n\n## Step-by-step example\nBinary search is NOT limited to searching physical arrays. It applies to any problem with a `monotone` feasibility function: a boolean predicate `is_valid(x)` that transitions from `False` to `True` (or vice-versa) at a single threshold (e.g. F, F, F, T, T, T). In 'Binary Search on Answer' (e.g. Koko Eating Bananas, Capacity to Ship Packages), we define the `search space` $[\\text{lo}, \\text{hi}]$ over possible candidate answers, evaluate feasibility in $O(n)$ time, and binary search for the minimum viable value in $O(n \\log(\\text{range}))$ time.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "# Integer Square Root: Binary search on monotone answer space [0, x]\ndef my_sqrt(x: int) -> int:\n    if x < 2:\n        return x\n    lo, hi = 1, x // 2\n    ans = 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if mid * mid <= x:\n            ans = mid\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return ans\n\nprint(my_sqrt(16))\nprint(my_sqrt(26))",
+          "explanation": "Finds floor integer square root by binary searching over candidate integers 1..x//2.",
+          "expected_output": "4\n5"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Recognize monotonicity: if speed K works, all speeds > K also work.",
+        "Binary search on answer finds the optimal threshold in O(validation_cost * log(search_space))."
+      ],
+      "checkpoint": "Identify the monotone predicate in the 'Capacity to Ship Packages within D Days' problem."
     },
     {
-      "slug": "off-by-one-pitfalls",
-      "title": "Off By One Pitfalls",
+      "slug": "rotated-and-modified-arrays",
+      "title": "Searching rotated and partitioned arrays",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about off-by-one-pitfalls",
-      "markdown": "Content for off-by-one-pitfalls. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 8,
+      "learning_objective": "Solve modified binary search on rotated sorted arrays.",
+      "markdown": "## Time complexity\nO(log N) runtime bound derived from repeatedly halving the search space.\n\n## Space complexity\nO(1) auxiliary space for iterative binary search; O(log N) stack frames for recursive implementations.\n\n## Common mistakes\nA classic interview problem is searching a `rotated` sorted array (e.g. `[4, 5, 6, 7, 0, 1, 2]`). Even when rotated, one half of the array divided at `mid` is ALWAYS normally sorted! We identify which half is sorted by comparing `nums[lo]` with `nums[mid]`:\n1. If `nums[lo] <= nums[mid]`, the left half is sorted. We check if target falls within `[nums[lo], nums[mid]]`. If so, search left (`hi = mid - 1`); otherwise search right (`lo = mid + 1`).\n2. If the right half is sorted, we perform the symmetric range check. This maintains the $O(\\log n)$ runtime invariant.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "def search_rotated(nums: list[int], target: int) -> int:\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if nums[mid] == target:\n            return mid\n        # Left half is sorted\n        if nums[lo] <= nums[mid]:\n            if nums[lo] <= target < nums[mid]:\n                hi = mid - 1\n            else:\n                lo = mid + 1\n        # Right half is sorted\n        else:\n            if nums[mid] < target <= nums[hi]:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n    return -1\n\nprint(search_rotated([4, 5, 6, 7, 0, 1, 2], 0))\nprint(search_rotated([4, 5, 6, 7, 0, 1, 2], 3))",
+          "explanation": "Navigates rotated sorted array by determining which sub-half preserves sorted ordering.",
+          "expected_output": "4\n-1"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "In a rotated sorted array, at least one half (left or right of mid) is always normally sorted.",
+        "Check whether the target lies within the boundaries of the sorted half to pick the next branch."
+      ],
+      "checkpoint": "What happens in a rotated sorted array if duplicates are present (e.g. [1, 0, 1, 1, 1])?"
     },
     {
-      "slug": "search-left-boundary",
-      "title": "Search Left Boundary",
+      "slug": "arena-transfer",
+      "title": "Binary search interview check and Arena practice",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about search-left-boundary",
-      "markdown": "Content for search-left-boundary. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 8,
+      "learning_objective": "Transfer binary search patterns directly to Arena problems.",
+      "markdown": "## Arena reference\nPractice with `dsa-search-insert-position` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nBinary search is tested heavily in algorithmic interviews due to its strict correctness requirements.\n\n### Common Interview Questions\n1. *Why does binary search fail if `mid = (lo + hi) // 2` is used with two elements under `while lo < hi`?*\n   *(When lo = 0 and hi = 1, mid = 0. If your logic sets `lo = mid`, lo remains 0, resulting in an infinite loop! Always ensure either lo advances (`lo = mid + 1`) or use upper mid `(lo + hi + 1) // 2`)*. \n2. *How do you find the first and last position of an element in a sorted array?*\n   *(Run two binary searches: one lower_bound for `target`, and one lower_bound for `target + 1` minus 1)*. \n3. *When should you suspect a problem can be solved with Binary Search on Answer?*\n   *(When the prompt asks for 'minimum maximum' or 'maximum minimum' and verifying a solution takes polynomial time)*. \n\n### Arena Practice Problems\n- `dsa-search-insert-position`: Canonical lower bound index insertion\n- `dsa-first-last-position`: Dual boundary binary search on duplicates\n- `dsa-find-in-rotated`: Searching partitioned rotated arrays\n- `dsa-sqrt-integer`: Binary search on monotone answer space",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "# First and last position via reusable lower_bound template\ndef search_range(nums: list[int], target: int) -> list[int]:\n    left_idx = lower_bound(nums, target)\n    if left_idx == len(nums) or nums[left_idx] != target:\n        return [-1, -1]\n    right_idx = lower_bound(nums, target + 1) - 1\n    return [left_idx, right_idx]\n\nprint(search_range([5, 7, 7, 8, 8, 10], 8))\nprint(search_range([5, 7, 7, 8, 8, 10], 6))",
+          "explanation": "Executes dual binary searches to identify target boundaries in O(log n) time.",
+          "expected_output": "[3, 4]\n[-1, -1]"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "search-right-boundary",
-      "title": "Search Right Boundary",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about search-right-boundary",
-      "markdown": "Content for search-right-boundary. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
+        "Practice boundary templates until you can write them without looking at references.",
+        "Always check edge cases: empty array, 1-element array, target smaller than nums[0], target larger than nums[-1]."
       ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "monotone-condition",
-      "title": "Monotone Condition",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about monotone-condition",
-      "markdown": "Content for monotone-condition. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "bisect-module",
-      "title": "Bisect Module",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about bisect-module",
-      "markdown": "Content for bisect-module. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "applications",
-      "title": "Applications",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about applications",
-      "markdown": "Content for applications. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "invariant-thinking",
-      "title": "Invariant Thinking",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about invariant-thinking",
-      "markdown": "Content for invariant-thinking. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about common-mistakes",
-      "markdown": "Content for common-mistakes. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 11,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about interview-points",
-      "markdown": "Content for interview-points. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+      "checkpoint": "What does search_range return for target 8 in [8, 8, 8, 8]?"
     }
   ],
   "summary": [
-    "Sum 1",
-    "Sum 2",
-    "Sum 3"
+    "Binary search reduces candidate elements by half at each step, delivering O(log n) runtime.",
+    "Preconditions require sorted data or a monotonic boolean feasibility function.",
+    "Loop invariants prevent infinite loops: specify whether interval is closed [lo, hi] or half-open [lo, hi).",
+    "Binary Search on Answer finds optimal thresholds across abstract monotonic solution spaces.",
+    "Rotated sorted arrays maintain at least one sorted half, preserving logarithmic lookup efficiency."
   ],
   "interview_takeaways": [
-    "Int 1",
-    "Int 2",
-    "Int 3"
+    "State your search space interval [lo, hi] and loop invariant explicitly to the interviewer before coding.",
+    "Use `mid = lo + (hi - lo) // 2` to demonstrate software engineering rigor regarding integer overflow.",
+    "When you hear 'find the minimum capacity' or 'find the maximum allocation', immediately think Binary Search on Answer."
   ],
   "common_mistakes": [
-    "Mis 1",
-    "Mis 2",
-    "Mis 3"
+    "Using `lo = mid` in a `while lo < hi` loop without upper-mid bias, creating an infinite loop on 2-element arrays",
+    "Assuming binary search only works on static arrays, missing Binary Search on Answer opportunities",
+    "Calculating `mid = (lo + hi) // 2` in languages with 32-bit signed integers where lo + hi overflows",
+    "Forgetting to check if the found index matches the target before returning in boundary searches"
   ],
   "sources": [
     {
       "source_id": "python-stdlib-docs",
-      "title": "collections.deque",
-      "url": "https://docs.python.org/3/library/collections.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
-    },
-    {
-      "source_id": "python-stdlib-docs",
-      "title": "Python Sorting HOW-TO",
-      "url": "https://docs.python.org/3/howto/sorting.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
-    },
-    {
-      "source_id": "python-stdlib-docs",
-      "title": "bisect",
+      "title": "Python Standard Library \u2014 bisect module",
       "url": "https://docs.python.org/3/library/bisect.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-dsa-binary-search-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "bf2819f4c4f7532f5d3bcf0c95aa6ff2d98412d2e091ad68a45cb1571edbc8f7",
+  "generated_at": "2026-09-24T08:42:13.790146+00:00"
 }

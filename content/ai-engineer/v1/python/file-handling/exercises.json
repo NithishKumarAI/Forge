@@ -1,115 +1,138 @@
 [
   {
-    "key": "fh-1",
+    "key": "fh-mcq-fd-leak",
     "exercise_type": "multiple_choice",
-    "title": "Context Managers",
-    "prompt_markdown": "Which statement safely closes files automatically?",
+    "title": "Consequence of unclosed files",
+    "prompt_markdown": "What operating system error occurs when a long-running Python service repeatedly calls `open()` in a loop without closing files or using context managers?",
     "difficulty": "easy",
     "hints": [
-      "It manages context."
+      "Operating systems enforce per-process limits on file handles."
     ],
     "content": {
       "choices": [
-        "with",
-        "try",
-        "auto",
-        "close"
+        "MemoryError: Out of RAM",
+        "OSError: [Errno 24] Too many open files",
+        "PermissionError: Access Denied",
+        "RuntimeError: Maximum recursion depth exceeded"
       ],
-      "correct_index": 0,
-      "explanation": "The with statement handles resource cleanup."
+      "correct_index": 1,
+      "explanation": "Each unclosed file retains an open operating system file descriptor. When the process reaches its OS-imposed file descriptor limit, subsequent open calls fail with `OSError: Too many open files`."
     }
   },
   {
-    "key": "fh-2",
-    "exercise_type": "short_answer",
-    "title": "Encoding",
-    "prompt_markdown": "Why should you specify encoding when opening a file?",
+    "key": "fh-mcq-encoding-importance",
+    "exercise_type": "multiple_choice",
+    "title": "Reason for explicit encoding='utf-8'",
+    "prompt_markdown": "Why is `with open('data.txt', 'r', encoding='utf-8') as f:` strongly preferred over `with open('data.txt', 'r') as f:`?",
+    "difficulty": "easy",
+    "hints": [
+      "What happens on different operating systems when encoding is omitted?"
+    ],
+    "content": {
+      "choices": [
+        "Without encoding='utf-8', Python opens the file in binary mode",
+        "Omitting encoding causes Python to use platform-dependent defaults (e.g. Windows-1252 on Windows), causing UnicodeDecodeError when reading non-ASCII characters",
+        "Encoding is required by the Python compiler; omitting it causes a SyntaxError",
+        "It compresses the file on disk during read operations"
+      ],
+      "correct_index": 1,
+      "explanation": "If encoding is unspecified, Python falls back to platform defaults (like CP1252 or Windows-1252 on Windows). Specifying `encoding='utf-8'` ensures cross-platform consistency and flawless Unicode reading."
+    }
+  },
+  {
+    "key": "fh-mcq-streaming-method",
+    "exercise_type": "multiple_choice",
+    "title": "Optimal method for reading 10GB log file",
+    "prompt_markdown": "Which pattern processes a 10GB log file with the lowest memory consumption?",
     "difficulty": "medium",
     "hints": [
-      "Different OS defaults."
+      "Which method streams lines lazily instead of buffering the whole file?"
+    ],
+    "content": {
+      "choices": [
+        "lines = f.readlines(); for line in lines: ...",
+        "content = f.read(); for line in content.split('\\n'): ...",
+        "for line in f: ...",
+        "data = json.load(f); for row in data: ..."
+      ],
+      "correct_index": 2,
+      "explanation": "`for line in f:` uses Python's built-in file iterator, reading and buffering one line at a time in O(1) memory, unlike `f.read()` or `f.readlines()` which allocate the entire 10GB file on the heap."
+    }
+  },
+  {
+    "key": "fh-short-predict-json-error",
+    "exercise_type": "short_answer",
+    "title": "Predict JSON parsing error and recovery",
+    "prompt_markdown": "Predict what happens when executing the code below, identifying the exception raised and how the except block responds:\n\n```python\nimport json\n\nraw_data = \"{'user': 'alice', 'active': True}\"\ntry:\n    config = json.loads(raw_data)\n    print('Parsed:', config['user'])\nexcept json.JSONDecodeError:\n    print('Invalid JSON format: single quotes used')\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Does valid JSON permit single quotes around keys or strings?"
     ],
     "content": {
       "rubric": [
-        "platform independence",
-        "prevent bugs"
+        "Identifies that valid JSON specification strictly requires double quotes for strings and keys",
+        "States that `json.loads` raises `json.JSONDecodeError` because single quotes were used",
+        "States the correct printed output 'Invalid JSON format: single quotes used'"
       ],
-      "reference_answer": "To ensure platform independence since different operating systems have different default encodings.",
+      "reference_answer": "Output: `Invalid JSON format: single quotes used`.\nExplanation: The JSON specification (RFC 8259) strictly requires double quotes for strings and object keys. In `raw_data`, single quotes were used, causing `json.loads` to raise `json.JSONDecodeError`, which is intercepted and printed by the except block.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "fh-3",
-    "exercise_type": "multiple_choice",
-    "title": "Context manager file guarantee",
-    "prompt_markdown": "What is the primary architectural advantage of using `with open(...) as f:` over calling `f = open(...)` and `f.close()`?",
-    "difficulty": "easy",
-    "hints": [
-      "What happens if an exception occurs mid-write?"
-    ],
-    "content": {
-      "choices": [
-        "It automatically compresses the file upon exit.",
-        "It guarantees `f.close()` is called even if an unhandled exception is raised inside the block.",
-        "It bypasses OS file locking mechanisms.",
-        "It enables multithreaded file access."
-      ],
-      "correct_index": 1,
-      "explanation": "The context manager invokes `__exit__`, which ensures the file descriptor is released and buffers flushed even when unexpected exceptions occur."
-    }
-  },
-  {
-    "key": "fh-4",
-    "exercise_type": "multiple_choice",
-    "title": "Pathlib Path composition",
-    "prompt_markdown": "Using `pathlib.Path`, what operator is used to construct path subdirectories in a cross-platform manner?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about division slash."
-    ],
-    "content": {
-      "choices": [
-        "+",
-        "/",
-        "%",
-        ">>"
-      ],
-      "correct_index": 1,
-      "explanation": "`pathlib.Path` overloads the `/` division operator (e.g. `Path(\"/var\") / \"log\" / \"app.log\"`) to join path components cleanly regardless of OS separators."
-    }
-  },
-  {
-    "key": "fh-5",
+    "key": "fh-short-fix-leaked-descriptor",
     "exercise_type": "short_answer",
-    "title": "Processing Massive Files in Memory",
-    "prompt_markdown": "How should an engineer process a 50GB log file on a server with only 4GB of RAM without crashing with an OutOfMemoryError?",
+    "title": "Diagnose and fix file descriptor leak",
+    "prompt_markdown": "A data loader function opens files without closing them if an exception occurs mid-function. Refactor it using an idiomatic context manager.\n\n```python\ndef parse_records(filepath: str) -> list[str]:\n    f = open(filepath, 'r')\n    records = []\n    for line in f:\n        if 'CRITICAL' in line:\n            raise ValueError('Encountered critical error in log')\n        records.append(line.strip())\n    f.close()\n    return records\n```",
     "difficulty": "medium",
     "hints": [
-      "Do not use read() or readlines()."
+      "Wrap the file handling in a `with open(filepath, 'r', encoding='utf-8') as f:` block."
     ],
     "content": {
       "rubric": [
-        "Explains iterating line-by-line over the file object directly (`for line in f:`).",
-        "Mentions that file objects are lazy iterators that buffer only a chunk at a time."
+        "Identifies that if `ValueError` is raised, `f.close()` is skipped, leaking a file descriptor",
+        "Replaces manual `open()` and `f.close()` with `with open(filepath, 'r', encoding='utf-8') as f:`",
+        "Explains that context managers guarantee file closure even when exceptions are raised"
       ],
-      "reference_answer": "Never use `f.read()` or `f.readlines()`, which read the entire file into memory at once. Instead, stream the file line-by-line by iterating over the file handle directly: `for line in f: process(line)`. In Python, the file object is a generator/iterator that reads from disk in small buffered chunks, consuming minimal RAM.",
+      "reference_answer": "Defect: If `'CRITICAL'` is encountered, the function raises `ValueError` before reaching `f.close()`, permanently leaking the open file descriptor.\nRefactored implementation:\n```python\ndef parse_records(filepath: str) -> list[str]:\n    records = []\n    with open(filepath, 'r', encoding='utf-8') as f:\n        for line in f:\n            if 'CRITICAL' in line:\n                raise ValueError('Encountered critical error in log')\n            records.append(line.strip())\n    return records\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "fh-6",
+    "key": "fh-short-implement-pathlib-scan",
     "exercise_type": "short_answer",
-    "title": "Encoding Pitfalls in Python 3",
-    "prompt_markdown": "Why should code always specify `encoding=\"utf-8\"` when calling `open()`, rather than relying on default system behavior?",
+    "title": "Implement pathlib directory scanning and counting",
+    "prompt_markdown": "Write a function `count_json_files(directory_path: str) -> int` using `pathlib.Path` that recursively counts all `.json` files in the directory. Ensure it handles non-existent paths by returning 0.",
     "difficulty": "medium",
     "hints": [
-      "Consider Windows vs Linux default encodings."
+      "Use Path.exists(), Path.is_dir(), and Path.rglob('*.json')."
     ],
     "content": {
       "rubric": [
-        "Mentions that default encoding depends on platform (e.g. cp1252 on Windows vs UTF-8 on Linux).",
-        "Explains that omitting encoding causes UnicodeDecodeError or silent data corruption across deployment environments."
+        "Constructs `p = Path(directory_path)`",
+        "Checks `p.exists()` and `p.is_dir()`, returning 0 if invalid",
+        "Uses `p.rglob('*.json')` or `p.glob('**/*.json')` to recursively find matching files",
+        "Sums or counts the matching files and returns the integer total"
       ],
-      "reference_answer": "In Python prior to PEP 686 (Python 3.15), `open()` defaults to the system locale encoding (e.g. CP1252 on Windows, UTF-8 on Linux). If an application written on Linux runs on Windows, reading UTF-8 characters will raise `UnicodeDecodeError` or corrupt data. Explicitly specifying `encoding=\"utf-8\"` guarantees identical, deterministic behavior across all OS environments.",
+      "reference_answer": "```python\nfrom pathlib import Path\n\ndef count_json_files(directory_path: str) -> int:\n    p = Path(directory_path)\n    if not p.exists() or not p.is_dir():\n        return 0\n    return sum(1 for f in p.rglob('*.json') if f.is_file())\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "fh-short-explain-atomic-writes",
+    "exercise_type": "short_answer",
+    "title": "Explain atomic file writes in backend systems",
+    "prompt_markdown": "Explain how writing directly to `config.json` with `open('config.json', 'w')` risks file corruption if the server crashes or loses power mid-write. How does the 'write to temporary file + atomic rename' pattern resolve this?",
+    "difficulty": "medium",
+    "hints": [
+      "Discuss truncate operation and os.replace atomicity."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that opening in 'w' mode truncates the file to 0 bytes immediately upon opening",
+        "Explains that an unexpected server crash or power failure mid-write leaves a half-written corrupted file",
+        "Explains that writing to a temporary file on the same filesystem and calling `os.replace` guarantees an atomic rename that either fully succeeds or leaves the old file untouched"
+      ],
+      "reference_answer": "1. Risk: Opening a file with `'w'` mode immediately truncates the existing file to 0 bytes. If the process is killed, the server loses power, or disk space runs out mid-write, the existing file is destroyed and left partially written and unparseable.\n2. Solution: The atomic write pattern writes new content to a temporary file on the same filesystem (e.g. `config.json.tmp`). Once the temporary file is flushed and closed, it calls `os.replace('config.json.tmp', 'config.json')`. Operating systems guarantee that filesystem renames are atomic: other processes either observe the original file or the new file in full, never a partially written intermediate state.",
       "minimum_pass_score": 70
     }
   }

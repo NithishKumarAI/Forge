@@ -2,266 +2,159 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "values-expressions",
-  "title": "Values and Expressions",
-  "description": "Learn about Values and Expressions in PostgreSQL.",
-  "version": "1.0.0",
+  "title": "Values, Expressions, NULLs, and Transformations",
+  "description": "Master SQL expressions, column aliases, NULL handling with IS NULL and COALESCE, conditional branching with CASE, string functions, numeric functions, date manipulation, and CAST conversions.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand values-expressions concepts",
-    "Write SQL",
-    "Avoid mistakes"
+    "Manipulate column projections using aliases and calculated expressions",
+    "Handle three-valued logic and missing data using IS NULL, IS NOT NULL, and COALESCE",
+    "Implement conditional business logic within queries using CASE statements",
+    "Transform scalar values using CAST, string functions, numeric arithmetic, and date calculations"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "query-basics"
+  ],
   "sections": [
     {
-      "slug": "column-aliases",
-      "title": "Column Aliases",
+      "slug": "aliases-and-expressions",
+      "title": "Calculated expressions and column aliases",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn column-aliases",
-      "markdown": "This section covers column-aliases. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\n1. What is this? (plain English)\n2. Why do we need it? (analogy)\n3. Basic syntax (SQL)\n4. Small example (show tables and output)\n5. Step-by-step explanation\n6. Real engineering example (application/backend context)\n7. Common mistakes\n8. Interview points\n9. Quick check\n10. Practice next\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Compute dynamic expressions and name projected columns cleanly.",
+      "markdown": "A SQL query does not merely fetch stored columns; it computes new values on the fly. An `expression` combines column values, constants, and operators (e.g. `price * quantity * (1 - discount)`). Use the `AS alias_name` syntax to assign human-readable names to calculated columns. Aliases cannot be referenced in the same query's `WHERE` clause due to execution order, but they can be referenced in `ORDER BY`.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE order_items (\n    id INT,\n    item_name VARCHAR(50),\n    unit_price NUMERIC(10, 2),\n    quantity INT\n);\nINSERT INTO order_items VALUES (1, 'Server Rack', 250.00, 4);\n\nSELECT item_name, unit_price * quantity AS subtotal\nFROM order_items;",
+          "explanation": "Calculates subtotal expression and assigns a clean alias.",
+          "expected_output": "| item_name | subtotal |\n|---|---|\n| Server Rack | 1000.00 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Expressions compute values dynamically in the SELECT projection.",
+        "Use AS alias to name computed columns for API and caller consumption."
+      ],
+      "checkpoint": "Can a column alias be referenced in the ORDER BY clause? Why?"
     },
     {
-      "slug": "null-concept",
-      "title": "Null Concept",
+      "slug": "null-handling-and-coalesce",
+      "title": "Three-valued logic: NULL, IS NULL, and COALESCE",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn null-concept",
-      "markdown": "This section covers null-concept. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Navigate SQL's three-valued logic and provide fallback defaults for nulls.",
+      "markdown": "In SQL, `NULL` represents the absence of a value or unknown state. SQL uses three-valued logic (`TRUE`, `FALSE`, `UNKNOWN`). Because NULL represents an unknown value, comparing `col = NULL` or `col != NULL` evaluates to `UNKNOWN`, never `TRUE`! To test for nullness, you must use `IS NULL` or `IS NOT NULL`. To provide a default fallback value when a column is null, use `COALESCE(col1, col2, fallback)`. `COALESCE` returns the first non-null argument in its list.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE clients (\n    id INT,\n    name VARCHAR(50),\n    phone VARCHAR(20),\n    email VARCHAR(50)\n);\nINSERT INTO clients VALUES \n(1, 'Alice', NULL, 'alice@work.test'),\n(2, 'Bob', '555-0199', NULL),\n(3, 'Charlie', NULL, NULL);\n\nSELECT name, COALESCE(phone, email, 'No contact provided') AS primary_contact\nFROM clients;",
+          "explanation": "COALESCE evaluates arguments sequentially, returning the first non-null contact method.",
+          "expected_output": "| name | primary_contact |\n|---|---|\n| Alice | alice@work.test |\n| Bob | 555-0199 |\n| Charlie | No contact provided |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Never use = NULL; always use IS NULL or IS NOT NULL.",
+        "COALESCE(val1, val2, default) returns the first non-null value.",
+        "NULL comparisons produce UNKNOWN, which causes WHERE to filter the row out."
+      ],
+      "checkpoint": "What is the evaluated boolean result of NULL = NULL in SQL?"
     },
     {
-      "slug": "is-null-is-not-null",
-      "title": "Is Null Is Not Null",
+      "slug": "conditional-case-statements",
+      "title": "Conditional branching with CASE expressions",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn is-null-is-not-null",
-      "markdown": "This section covers is-null-is-not-null. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Implement multi-branch conditional logic inside queries.",
+      "markdown": "The `CASE` expression is SQL's if-then-else construct. It evaluates conditions sequentially and returns a result value when the first matching `WHEN` condition is met:\n```sql\nCASE \n    WHEN condition1 THEN result1\n    WHEN condition2 THEN result2\n    ELSE fallback_result\nEND\n```\nIf no condition matches and `ELSE` is omitted, the expression returns `NULL`. `CASE` expressions can appear in `SELECT` projections, `WHERE` clauses, and aggregation functions (conditional aggregation).",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE employees (\n    id INT,\n    name VARCHAR(50),\n    salary INT\n);\nINSERT INTO employees VALUES (1, 'Ana', 85000), (2, 'Ravi', 50000), (3, 'Sam', 35000);\n\nSELECT name, salary,\n    CASE \n        WHEN salary >= 80000 THEN 'Senior / Lead'\n        WHEN salary >= 45000 THEN 'Mid-Level'\n        ELSE 'Junior'\n    END AS tier\nFROM employees;",
+          "explanation": "Classifies salary ranges into tier categories using sequential CASE branching.",
+          "expected_output": "| name | salary | tier |\n|---|---|---|\n| Ana | 85000 | Senior / Lead |\n| Ravi | 50000 | Mid-Level |\n| Sam | 35000 | Junior |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "CASE expressions provide if-then-else branching directly inside SQL queries.",
+        "Always provide an ELSE clause to prevent unexpected NULL values."
+      ],
+      "checkpoint": "Show how to use CASE inside a SUM() function to count only active users."
     },
     {
-      "slug": "coalesce",
-      "title": "Coalesce",
+      "slug": "string-numeric-date-functions",
+      "title": "String, numeric, date, and CAST functions",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn coalesce",
-      "markdown": "This section covers coalesce. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Transform scalar text, numbers, dates, and types with standard library functions.",
+      "markdown": "PostgreSQL provides scalar functions for data transformation:\n- **Strings**: `UPPER(s)`, `LOWER(s)`, `LENGTH(s)`, `SUBSTRING(s, start, len)`, `CONCAT(a, b)` (or `a || b`), `TRIM(s)`\n- **Numeric**: `ROUND(val, decimals)`, `FLOOR(val)`, `CEIL(val)`, `ABS(val)`\n- **Date/Time**: `NOW()`, `CURRENT_DATE`, `AGE(timestamp)`, `EXTRACT(YEAR FROM date)`, date arithmetic (`date + INTERVAL '7 days'`)\n- **Type Casting**: `CAST(val AS type)` or PostgreSQL shorthand `val::type` (e.g. `'42'::INT`).",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT \n    UPPER('forge') || '_PROD' AS env_name,\n    ROUND(12.3456, 2) AS rounded_val,\n    CAST('2026-01-01' AS DATE) + INTERVAL '30 days' AS future_date;",
+          "explanation": "Demonstrates string concatenation, numeric rounding, and interval date arithmetic.",
+          "expected_output": "| env_name | rounded_val | future_date |\n|---|---|---|\n| FORGE_PROD | 12.35 | 2026-01-31 00:00:00 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Use string functions to sanitize input and format text.",
+        "Use CAST(val AS type) or PostgreSQL val::type for explicit conversion.",
+        "Perform date arithmetic using INTERVAL keywords."
+      ],
+      "checkpoint": "What is the difference between CAST('2026-01-01' AS DATE) and '2026-01-01'::DATE?"
     },
     {
-      "slug": "case-expression",
-      "title": "Case Expression",
+      "slug": "interview-check",
+      "title": "Interview check and practice",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn case-expression",
-      "markdown": "This section covers case-expression. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Review values and expressions interview questions and practice in Coding Arena.",
+      "markdown": "Expression and null-handling questions assess defensive coding and SQL fluency.\n\n### Oral Interview Questions\n1. *Why does `SELECT * FROM users WHERE status != 'active'` exclude users with NULL status?*\n   *(Because `NULL != 'active'` evaluates to UNKNOWN. WHERE filters require condition to evaluate strictly to TRUE to include the row).* \n2. *What is the difference between COALESCE and NULLIF?*\n   *(`COALESCE` returns the first non-null value; `NULLIF(a, b)` returns NULL if a equals b, otherwise returns a, preventing division-by-zero).* \n3. *How does the || operator behave when concatenating a string with NULL?*\n   *(In standard SQL, `'hello ' || NULL` evaluates to NULL! Use `CONCAT('hello ', NULL)` to treat nulls as empty strings).* \n\n### Query Trace Challenge\nTrace this expression:\n```sql\nSELECT 100 / NULLIF(0, 0);\n```\n`NULLIF(0, 0)` returns `NULL`. Division by null returns `NULL` rather than raising a fatal `division by zero` exception!\n\n### Common Interview Trap\nWriting `WHERE col NOT IN (1, 2, NULL)`. If the subquery or list passed to `NOT IN` contains a single `NULL`, the entire `NOT IN` predicate evaluates to `UNKNOWN` or `FALSE` for every single row, returning 0 rows! Always filter out NULLs or use `NOT EXISTS`.\n\n### Arena Practice Problems\nPractice values, expressions, and null handling in Coding Arena:\n- `sql-coalesce-address`: Default address fallbacks with COALESCE\n- `sql-employee-bonus`: Multi-tier bonus calculation with CASE\n- `sql-null-email`: Querying missing data with IS NULL\n- `sql-age-from-birthdate`: Date calculations and interval functions",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "SELECT COALESCE(NULL, 'fallback') AS resolved, NULLIF(10, 10) AS zero_guarded;",
+          "explanation": "COALESCE recovers from null; NULLIF returns null on identical inputs.",
+          "expected_output": "| resolved | zero_guarded |\n|---|---|\n| fallback | null |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "string-functions",
-      "title": "String Functions",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn string-functions",
-      "markdown": "This section covers string-functions. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
+        "NOT IN with a NULL in the list evaluates to UNKNOWN for all rows.",
+        "Use NULLIF(divisor, 0) to avoid division by zero runtime exceptions."
       ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "numeric-functions",
-      "title": "Numeric Functions",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn numeric-functions",
-      "markdown": "This section covers numeric-functions. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "date-functions",
-      "title": "Date Functions",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn date-functions",
-      "markdown": "This section covers date-functions. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "cast",
-      "title": "Cast",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn cast",
-      "markdown": "This section covers cast. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "expressions-in-select",
-      "title": "Expressions In Select",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn expressions-in-select",
-      "markdown": "This section covers expressions-in-select. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn interview-points",
-      "markdown": "This section covers interview-points. Here are some terms we must mention just in case: aliases NULL IS NULL COALESCE CASE string functions numeric functions date CAST expressions.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+      "checkpoint": "Show how to prevent division by zero using NULLIF in SELECT revenue / units_sold."
     }
   ],
   "summary": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "Expressions compute dynamic values in projections; AS assigns column aliases.",
+    "SQL uses three-valued logic; test for absence using IS NULL and IS NOT NULL.",
+    "COALESCE returns the first non-null argument, supplying fallback defaults.",
+    "CASE expressions provide structured multi-branch conditional transformations.",
+    "Scalar string, numeric, date, and CAST functions transform values across data types."
   ],
   "interview_takeaways": [
-    "Takeaway 1",
-    "Takeaway 2",
-    "Takeaway 3"
+    "Remember that NULL = NULL is UNKNOWN, not TRUE.",
+    "Use NULLIF(val, 0) in denominators to prevent division-by-zero crashes.",
+    "Never use NOT IN if the subquery can contain NULL; use NOT EXISTS instead."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Using = NULL or != NULL instead of IS NULL / IS NOT NULL",
+    "Concatenating strings with || when values can be null, turning the whole string null",
+    "Using NOT IN with a subquery containing NULL values, causing zero rows to match",
+    "Omitting an ELSE branch in CASE expressions, causing unintended NULL values"
   ],
   "sources": [
     {
       "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL Tutorial",
-      "url": "https://www.postgresql.org/docs/current/tutorial.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "PostgreSQL Documentation \u2014 Value Expressions and Operators",
+      "url": "https://www.postgresql.org/docs/current/sql-expressions.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     },
     {
-      "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL SQL Commands",
-      "url": "https://www.postgresql.org/docs/current/sql-commands.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "source_id": "postgresql-tutorial",
+      "title": "PostgreSQL Documentation \u2014 Conditional Expressions (CASE, COALESCE, NULLIF)",
+      "url": "https://www.postgresql.org/docs/current/functions-conditional.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-values-expressions-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "7551051c0df4ae2e2aed594c94252bdea48e14b766d7e8f51655932f6fdc5e5e",
+  "generated_at": "2026-09-24T08:30:21.640711+00:00"
 }

@@ -1,117 +1,137 @@
 [
   {
-    "key": "cf-1",
+    "key": "cf-mcq-truthiness",
     "exercise_type": "multiple_choice",
-    "title": "Truthiness check",
-    "prompt_markdown": "What does `bool([])` return?",
+    "title": "Evaluate truthiness of mixed values",
+    "prompt_markdown": "Which of the following expressions evaluates to True in Python?",
     "difficulty": "easy",
     "hints": [
-      "Consider empty collections"
+      "Review falsiness rules for empty containers and singletons."
+    ],
+    "content": {
+      "choices": [
+        "bool([])",
+        "bool(0.0)",
+        "bool('False')",
+        "bool(None)"
+      ],
+      "correct_index": 2,
+      "explanation": "Any non-empty string evaluates to True, including the text 'False'. Empty collections, 0.0, and None are falsy."
+    }
+  },
+  {
+    "key": "cf-mcq-loop-else",
+    "exercise_type": "multiple_choice",
+    "title": "Behavior of the loop-else clause",
+    "prompt_markdown": "When does the else block of a for loop execute in Python?",
+    "difficulty": "medium",
+    "hints": [
+      "Consider how break interacts with the loop lifecycle."
+    ],
+    "content": {
+      "choices": [
+        "Only if the loop encounters a break statement",
+        "Whenever the loop iterates at least once",
+        "Only if the loop completes all iterations without hitting break",
+        "Every time an iteration completes"
+      ],
+      "correct_index": 2,
+      "explanation": "In Python, a loop else block runs only if the loop finishes normally without being terminated by a break statement."
+    }
+  },
+  {
+    "key": "cf-mcq-short-circuit",
+    "exercise_type": "multiple_choice",
+    "title": "Short-circuit evaluation result",
+    "prompt_markdown": "What is the evaluated result of the expression `[] or 0 or 'backend' or True`?",
+    "difficulty": "medium",
+    "hints": [
+      "or returns the first truthy operand encountered."
     ],
     "content": {
       "choices": [
         "True",
-        "False",
-        "None",
-        "Error"
+        "'backend'",
+        "0",
+        "[]"
       ],
       "correct_index": 1,
-      "explanation": "Empty collections evaluate to False."
+      "explanation": "The or operator evaluates left-to-right, discarding falsy operands [] and 0, and returns the first truthy value 'backend' without converting to bool."
     }
   },
   {
-    "key": "cf-2",
-    "exercise_type": "multiple_choice",
-    "title": "Loop iteration",
-    "prompt_markdown": "Which statement exits a loop entirely?",
-    "difficulty": "easy",
-    "hints": [
-      "It 'breaks' the loop"
-    ],
-    "content": {
-      "choices": [
-        "continue",
-        "exit",
-        "break",
-        "pass"
-      ],
-      "correct_index": 2,
-      "explanation": "break exits the current loop."
-    }
-  },
-  {
-    "key": "cf-3",
-    "exercise_type": "multiple_choice",
-    "title": "Range semantics",
-    "prompt_markdown": "What does `range(3)` produce?",
-    "difficulty": "easy",
-    "hints": [
-      "It starts at 0"
-    ],
-    "content": {
-      "choices": [
-        "1,2,3",
-        "0,1,2",
-        "0,1,2,3",
-        "1,2"
-      ],
-      "correct_index": 1,
-      "explanation": "range(n) produces numbers from 0 up to n-1."
-    }
-  },
-  {
-    "key": "cf-4",
-    "exercise_type": "multiple_choice",
-    "title": "Conditional syntax",
-    "prompt_markdown": "Which keyword is used for alternative conditions?",
-    "difficulty": "easy",
-    "hints": [
-      "It's short for else if"
-    ],
-    "content": {
-      "choices": [
-        "elseif",
-        "else if",
-        "elif",
-        "case"
-      ],
-      "correct_index": 2,
-      "explanation": "elif is used in Python."
-    }
-  },
-  {
-    "key": "cf-5",
+    "key": "cf-short-predict-trace",
     "exercise_type": "short_answer",
-    "title": "Truthiness explanation",
-    "prompt_markdown": "Explain the concept of truthiness in Python.",
+    "title": "Trace while loop state with break condition",
+    "prompt_markdown": "Predict the final printed output of this code snippet and trace the values of `x` and `total` through each iteration:\n\n```python\nx = 1\ntotal = 0\nwhile x < 10:\n    if x % 3 == 0:\n        x += 2\n        continue\n    total += x\n    if total > 10:\n        break\n    x += 2\nprint(f'{x}:{total}')\n```",
     "difficulty": "medium",
     "hints": [
-      "Think about non-boolean types"
+      "Track x starting at 1, step by 2, and monitor when total exceeds 10."
     ],
     "content": {
       "rubric": [
-        "Mention boolean context",
-        "Mention empty/zero values"
+        "Accurately traces intermediate values of x and total on each step",
+        "Identifies the iteration where the break condition fires",
+        "States the correct final printed output '7:16'"
       ],
-      "reference_answer": "Truthiness refers to how Python evaluates non-boolean values in a boolean context (like if statements). Empty collections and 0 evaluate to False, others to True.",
+      "reference_answer": "Iteration 1: x=1, total becomes 1, x increments to 3. Iteration 2: x=3 (3%3==0), x increments to 5, continue skips addition. Iteration 3: x=5, total becomes 6, x increments to 7. Iteration 4: x=7, total becomes 13 (>10), break fires immediately before x changes. Final output: 7:16.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "cf-6",
+    "key": "cf-short-fix-boundary",
     "exercise_type": "short_answer",
-    "title": "Break vs Continue",
-    "prompt_markdown": "What is the difference between break and continue?",
+    "title": "Diagnose and fix zero-value falsiness bug",
+    "prompt_markdown": "A payment service calculates shipping fees using the function below. When an order has `discount_amount = 0`, it incorrectly applies the default discount of 10. Diagnose the root cause and provide the minimal corrected implementation.\n\n```python\ndef apply_discount(subtotal: float, discount_amount: float | None = None) -> float:\n    if not discount_amount:\n        discount_amount = 10.0\n    return max(0.0, subtotal - discount_amount)\n```",
     "difficulty": "medium",
     "hints": [
-      "One stops entirely, one skips"
+      "Compare `if not discount_amount:` with an explicit `is None` check."
     ],
     "content": {
       "rubric": [
-        "break stops the loop",
-        "continue skips to next iteration"
+        "Identifies that 0 evaluates to falsy under `not discount_amount`",
+        "Proposes using `if discount_amount is None:` to distinguish presence from value",
+        "Demonstrates the corrected function body"
       ],
-      "reference_answer": "break exits the loop entirely, while continue skips the remainder of the current iteration and proceeds to the next iteration.",
+      "reference_answer": "The defect occurs because `not 0` evaluates to True, causing valid 0-dollar discounts to be overwritten by the 10.0 default. Fix: replace `if not discount_amount:` with `if discount_amount is None:`. This explicitly checks whether an argument was provided, preserving 0 as a valid numeric discount.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "cf-short-implement-guard",
+    "exercise_type": "short_answer",
+    "title": "Write early return guard clauses",
+    "prompt_markdown": "Refactor the deeply nested function below to use early guard clauses instead of nested if-else blocks. Explain why guard clauses improve code maintainability.\n\n```python\ndef process_transaction(user, balance, amount):\n    if user is not None:\n        if user.is_active:\n            if balance >= amount:\n                return 'approved'\n            else:\n                return 'insufficient_funds'\n        else:\n            return 'inactive_user'\n    else:\n        return 'missing_user'\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Invert conditions to return early when validation fails."
+    ],
+    "content": {
+      "rubric": [
+        "Implements guard returns for user is None, not user.is_active, and balance < amount",
+        "Leaves the successful 'approved' outcome at the base indentation level",
+        "Explains that early returns eliminate nested indentation and simplify mental tracking"
+      ],
+      "reference_answer": "Refactored implementation:\n```python\ndef process_transaction(user, balance, amount):\n    if user is None:\n        return 'missing_user'\n    if not user.is_active:\n        return 'inactive_user'\n    if balance < amount:\n        return 'insufficient_funds'\n    return 'approved'\n```\nGuard clauses validate failure preconditions up front and return immediately, keeping the primary execution path unnested and making preconditions inspectable.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "cf-short-explain-mutation-trap",
+    "exercise_type": "short_answer",
+    "title": "Explain loop list mutation hazard",
+    "prompt_markdown": "Explain why mutating a list while iterating over it with a for loop leads to skipped elements or bugs in Python. Write a small code example showing the bug and the idiomatic resolution.",
+    "difficulty": "medium",
+    "hints": [
+      "Explain how Python tracks internal iteration indices over the mutating list."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that for loops maintain an internal integer index counter",
+        "Shows that removing an element shifts subsequent items left, causing the next item to be skipped",
+        "Provides the resolution: iterating over a slice copy `items[:]` or using a list comprehension"
+      ],
+      "reference_answer": "Python's for loop maintains an internal index offset into the list. If an item at index 0 is removed, the item formerly at index 1 shifts to index 0. On the next iteration, the loop advances its pointer to index 1, completely skipping the newly shifted element. Example bug: `items = [1, 2, 3]; for x in items: items.remove(x)`. Resolution: either iterate over a shallow copy `for x in items[:]:` or use a list comprehension: `items = [x for x in items if keep(x)]`.",
       "minimum_pass_score": 70
     }
   }

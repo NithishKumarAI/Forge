@@ -1,116 +1,139 @@
 [
   {
-    "key": "gen-1",
+    "key": "gen-mcq-execution-start",
     "exercise_type": "multiple_choice",
-    "title": "Generator Keyword",
-    "prompt_markdown": "Which keyword is used to create a generator function?",
+    "title": "When does generator code execute?",
+    "prompt_markdown": "Consider this code:\n\n```python\ndef log_stream():\n    print('INITIALIZING')\n    yield 1\n\ng = log_stream()\n```\nWhat is printed to stdout when `g = log_stream()` is evaluated?",
     "difficulty": "easy",
     "hints": [
-      "It replaces return."
+      "Does calling a generator function execute its body?"
     ],
     "content": {
       "choices": [
-        "yield",
-        "return",
-        "generate",
-        "lazy"
+        "'INITIALIZING'",
+        "1",
+        "Nothing is printed",
+        "None"
       ],
-      "correct_index": 0,
-      "explanation": "yield pauses the function."
+      "correct_index": 2,
+      "explanation": "Calling a generator function does not execute any code inside its body. It creates and returns a generator object. Code execution only begins when `next(g)` or iteration commences."
     }
   },
   {
-    "key": "gen-2",
-    "exercise_type": "short_answer",
-    "title": "Memory Efficiency",
-    "prompt_markdown": "Why are generators memory efficient?",
+    "key": "gen-mcq-yield-from-purpose",
+    "exercise_type": "multiple_choice",
+    "title": "Purpose of yield from",
+    "prompt_markdown": "What is the primary architectural purpose of the `yield from` syntax in Python?",
     "difficulty": "medium",
     "hints": [
-      "Think about lazy evaluation."
-    ],
-    "content": {
-      "rubric": [
-        "lazy evaluation",
-        "yields one at a time"
-      ],
-      "reference_answer": "They use lazy evaluation and yield one item at a time.",
-      "minimum_pass_score": 70
-    }
-  },
-  {
-    "key": "gen-3",
-    "exercise_type": "multiple_choice",
-    "title": "Yield vs Return",
-    "prompt_markdown": "What happens to a generator function when a `yield` statement is reached during iteration?",
-    "difficulty": "easy",
-    "hints": [
-      "Does the stack frame get destroyed or suspended?"
+      "Think about delegating to inner subgenerators."
     ],
     "content": {
       "choices": [
-        "The function terminates permanently and releases its local variables.",
-        "The function produces a value and suspends its execution state, which resumes on the next `next()` call.",
-        "The function branches into a background operating system thread.",
-        "The function resets its instruction pointer to line 0."
+        "It spawns an asynchronous OS thread to run the generator concurrently",
+        "It delegates execution to an inner iterable or subgenerator, passing values and exceptions transparently",
+        "It permanently prevents the generator from raising StopIteration",
+        "It caches yielded values to allow rewinding"
       ],
       "correct_index": 1,
-      "explanation": "`yield` returns a value to the caller and freezes execution, retaining all local variables and instruction pointers until the next item is requested."
+      "explanation": "`yield from` delegates iteration to a subgenerator or iterable, forwarding yielded values directly to the caller and routing `send()` and exceptions directly to the subgenerator."
     }
   },
   {
-    "key": "gen-4",
+    "key": "gen-mcq-memory-complexity",
     "exercise_type": "multiple_choice",
-    "title": "Generator Expression Syntax",
-    "prompt_markdown": "What is the syntax difference between a list comprehension and a generator expression?",
-    "difficulty": "easy",
+    "title": "Space complexity of an infinite generator",
+    "prompt_markdown": "What is the auxiliary memory (space) complexity of an infinite Fibonacci generator yielding numbers one by one?",
+    "difficulty": "medium",
     "hints": [
-      "Compare brackets vs parentheses."
+      "How many numbers are stored simultaneously in memory?"
     ],
     "content": {
       "choices": [
-        "List comprehensions use `[]`, while generator expressions use `()`.",
-        "List comprehensions use `{}` while generator expressions use `[]`.",
-        "Generator expressions require the `async` keyword.",
-        "There is no syntax difference; Python infers based on variable type."
+        "O(N) where N is the number of items generated so far",
+        "O(1) constant auxiliary space",
+        "O(log N) due to recursive frame stack growth",
+        "Infinite memory, triggering MemoryError"
       ],
-      "correct_index": 0,
-      "explanation": "`[x for x in data]` builds a list in memory immediately, whereas `(x for x in data)` returns a lazy generator iterator that computes values on demand."
+      "correct_index": 1,
+      "explanation": "The generator only retains its two local tracking variables `a` and `b` in the suspended frame, consuming O(1) constant auxiliary memory regardless of how many items are requested."
     }
   },
   {
-    "key": "gen-5",
+    "key": "gen-short-predict-send",
     "exercise_type": "short_answer",
-    "title": "Memory Footprint of Large Data Streams",
-    "prompt_markdown": "Why are generator pipelines preferred when streaming rows from a large database table to an HTTP response?",
+    "title": "Predict generator send() execution",
+    "prompt_markdown": "Predict the printed output and explain how data flows through `yield` in this snippet:\n\n```python\ndef accumulator():\n    total = 0\n    while True:\n        val = yield total\n        if val is None:\n            break\n        total += val\n\nacc = accumulator()\nprint('Init:', next(acc))\nprint('Step 1:', acc.send(10))\nprint('Step 2:', acc.send(25))\n```",
     "difficulty": "medium",
     "hints": [
-      "Memory complexity O(1) vs O(N)."
+      "next() primes the generator, reaching the first yield; send() resumes and updates total."
     ],
     "content": {
       "rubric": [
-        "Mentions O(1) constant memory consumption regardless of dataset size.",
-        "Mentions streaming/pipelining where downstream consumers receive items immediately without waiting for full dataset aggregation."
+        "States the correct printed outputs ('Init: 0', 'Step 1: 10', 'Step 2: 35')",
+        "Explains that `next(acc)` runs to the first `yield total` (0) and suspends",
+        "Explains that `acc.send(10)` assigns 10 to `val`, adds to total, loops, and yields 10",
+        "Explains that `acc.send(25)` adds 25 to 10 and yields 35"
       ],
-      "reference_answer": "Generators yield one item at a time on demand, allowing the memory consumption of the Python process to remain O(1) constant regardless of whether there are 100 rows or 100 million rows. In addition, the consumer starts receiving and processing data immediately rather than waiting for the entire query to materialize in memory.",
+      "reference_answer": "Output:\n```\nInit: 0\nStep 1: 10\nStep 2: 35\n```\nExplanation: Calling `next(acc)` primes the generator: it initializes `total = 0` and pauses at `val = yield total`, returning 0. `acc.send(10)` resumes execution, assigning `val = 10`. It updates `total = 10`, loops back, and pauses at yield, outputting 10. `acc.send(25)` assigns `val = 25`, updates `total = 35`, and yields 35.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "gen-6",
+    "key": "gen-short-fix-unprimed-send",
     "exercise_type": "short_answer",
-    "title": "Generator Exhaustion",
-    "prompt_markdown": "What happens if you iterate over an already-exhausted generator a second time, and how do you handle it?",
+    "title": "Diagnose unprimed generator send error",
+    "prompt_markdown": "Executing `g = my_coroutine(); g.send('data')` fails immediately with `TypeError: can't send non-None value to a just-started generator`. Diagnose the cause and demonstrate the correct sequence.",
     "difficulty": "medium",
     "hints": [
-      "Can a generator rewind itself?"
+      "A generator must be advanced to its first yield before accepting data."
     ],
     "content": {
       "rubric": [
-        "Explains that generators are one-pass streams that cannot be reset.",
-        "Mentions that re-iterating yields nothing (or raises StopIteration).",
-        "Suggests recreating the generator or converting to a list if reuse is necessary."
+        "Identifies that a just-started generator has not reached its first `yield` expression yet",
+        "Explains that `next(g)` or `g.send(None)` must be invoked first to prime the generator",
+        "Shows the corrected code advancing the generator before sending 'data'"
       ],
-      "reference_answer": "Generators are single-pass forward iterators. Once exhausted, subsequent calls to `next()` raise `StopIteration`, and a `for` loop over it will immediately exit without producing any values. To iterate multiple times, one must either instantiate a fresh generator or cast the generator to a persistent collection like a `list` (if memory allows).",
+      "reference_answer": "Defect: A newly instantiated generator has not started executing and has no active `yield` waiting to receive an incoming value. Sending a non-None value before reaching a yield raises a TypeError.\nCorrected sequence:\n```python\ng = my_coroutine()\nnext(g)  # Prime the generator to reach the first yield\ng.send('data')  # Now safely delivers data\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "gen-short-implement-chunking",
+    "exercise_type": "short_answer",
+    "title": "Implement batch chunking generator",
+    "prompt_markdown": "Implement a generator function `batch_stream(iterable, batch_size: int)` that yields elements in sub-lists of size `batch_size`. The final chunk may be smaller if elements run out. Maintain O(batch_size) memory.",
+    "difficulty": "medium",
+    "hints": [
+      "Accumulate items into a chunk list, yield and clear when len(chunk) == batch_size."
+    ],
+    "content": {
+      "rubric": [
+        "Defines generator function with `yield` inside",
+        "Accumulates items into a current batch list",
+        "Yields batch when `len(batch) == batch_size` and resets batch",
+        "Yields any remaining items after the iteration loop completes"
+      ],
+      "reference_answer": "```python\ndef batch_stream(iterable, batch_size: int):\n    batch = []\n    for item in iterable:\n        batch.append(item)\n        if len(batch) == batch_size:\n            yield batch\n            batch = []\n    if batch:\n        yield batch\n```\nThis lazily consumes the input iterable and produces discrete batches in O(batch_size) memory.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "gen-short-explain-pipelines",
+    "exercise_type": "short_answer",
+    "title": "Explain generator pipeline composability",
+    "prompt_markdown": "Explain how generator composability solves the 'intermediate materialization' problem in large-scale data processing pipelines. Give an example with reading, filtering, and transforming.",
+    "difficulty": "medium",
+    "hints": [
+      "Compare memory usage between sequential list comprehensions and chained generator expressions."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that chaining list operations creates intermediate full-sized lists on heap",
+        "Explains that generator pipelines pass items one-at-a-time across pipeline stages",
+        "Provides a concrete 3-stage pipeline example (source -> filter -> transform)"
+      ],
+      "reference_answer": "In multi-step data pipelines, using list comprehensions at each stage forces Python to allocate full intermediate lists on the heap for every step (e.g. raw_data -> filtered_list -> parsed_list -> aggregated_list), multiplying peak RAM usage. With generator pipelines, elements are pulled on-demand through the stages one at a time. Example:\n```python\nlines = (line.strip() for line in file_stream)\nvalid = (line for line in lines if not line.startswith('#'))\npairs = (line.split('=') for line in valid)\n```\nPeak memory is O(1) because only a single record flows through the pipeline at any given microsecond.",
       "minimum_pass_score": 70
     }
   }

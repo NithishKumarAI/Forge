@@ -2,170 +2,179 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "generators",
-  "title": "Generators",
-  "description": "Learn about generators and lazy evaluation in Python.",
-  "version": "1.0.0",
+  "title": "Generators and Data Streaming Pipelines",
+  "description": "Master yield semantics, generator functions, generator expressions, lazy evaluation, send awareness, and memory trade-offs in streaming pipelines.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand generator functions and the yield keyword.",
-    "Differentiate between generators and lists.",
-    "Grasp lazy evaluation and its memory trade-offs."
+    "Implement generator functions using yield to pause and resume execution state",
+    "Compose lazy streaming data pipelines using generator expressions with O(1) memory",
+    "Delegate sub-generator execution cleanly using yield from",
+    "Evaluate bidirectional communication using generator send awareness"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "iterators",
+    "functions"
+  ],
   "sections": [
     {
-      "slug": "what-is-a-generator",
-      "title": "What is a Generator?",
+      "slug": "yield-and-generator-functions",
+      "title": "The yield statement and generator functions",
       "order_index": 0,
-      "estimated_minutes": 2,
-      "learning_objective": "Understand the concept of a generator.",
-      "markdown": "A generator is a special type of iterator that allows you to iterate over a sequence of values without storing them all in memory at once.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Write functions that produce sequence streams using yield.",
+      "markdown": "A generator function is a function that contains one or more `yield` expressions. When called, it does not execute the function body immediately; instead, it returns a generator object. When `next()` is called on the generator, execution begins and continues until it encounters a `yield`. The yielded value is returned to the caller, and the function's entire execution frame (local variables, instruction pointer) is frozen. Subsequent calls resume immediately after the yield.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def count_up_to(limit: int):\n    count = 1\n    while count <= limit:\n        yield count\n        count += 1\n\ngen = count_up_to(3)\nprint(type(gen).__name__)\nprint(next(gen), next(gen), next(gen))",
+          "explanation": "Calling count_up_to returns a generator; each next() call resumes execution until the next yield.",
+          "expected_output": "generator\n1 2 3"
+        }
+      ],
       "key_points": [
-        "What is a Generator? is a core concept to understand",
-        "Practice applying What in real code"
-      ]
+        "yield pauses execution and preserves local state until the next request.",
+        "Generator functions return generator objects conforming to the iterator protocol."
+      ],
+      "checkpoint": "Contrast return (which terminates a function frame) with yield (which suspends it)."
     },
     {
-      "slug": "yield-keyword",
-      "title": "The Yield Keyword",
+      "slug": "lazy-evaluation-and-memory",
+      "title": "Lazy evaluation and memory trade-offs",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn how to use the yield keyword.",
-      "markdown": "The `yield` keyword is used in generator functions to return a value and pause execution until the next value is requested.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Analyze memory consumption and pipeline throughput.",
+      "markdown": "Generators enable lazy evaluation: values are produced strictly on demand. In large-scale systems, memory trade-offs dictate choosing generators over lists. A list of one million records requires continuous heap allocation for all elements. A generator function yielding records maintains only the current record in memory, achieving an O(1) auxiliary memory footprint. However, because generators evaluate on demand, you cannot access items by index (`gen[5]`) or determine their length without exhausting them.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def fibonacci_stream():\n    a, b = 0, 1\n    while True:\n        yield a\n        a, b = b, a + b\n\nfib = fibonacci_stream()\nfirst_six = [next(fib) for _ in range(6)]\nprint('Fibonacci:', first_six)",
+          "explanation": "Generates an infinite mathematical sequence in O(1) memory space.",
+          "expected_output": "Fibonacci: [0, 1, 1, 2, 3, 5]"
+        }
+      ],
       "key_points": [
-        "The Yield Keyword is a core concept to understand",
-        "Practice applying The in real code"
-      ]
-    },
-    {
-      "slug": "generator-function-vs-list",
-      "title": "Generator Function vs List",
-      "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Compare generator functions to standard functions returning lists.",
-      "markdown": "A standard function computes all results and returns a list. A generator function computes one result at a time, saving memory.",
-      "examples": [],
-      "key_points": [
-        "Generator Function vs List is a core concept to understand",
-        "Practice applying Generator in real code"
-      ]
+        "Generators maintain O(1) memory footprint for unbounded or massive sequences.",
+        "Trade-off: no indexing, slicing, len(), or random access without consuming items."
+      ],
+      "checkpoint": "Why can an infinite generator safely exist in Python without causing a MemoryError?"
     },
     {
       "slug": "generator-expressions",
-      "title": "Generator Expressions",
+      "title": "Generator expressions in data pipelines",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Chain transformations without intermediate list allocations.",
+      "markdown": "Generator expressions allow inline creation of generators using comprehension-like syntax: `(transform(x) for x in stream if filter(x))`. Chaining generator expressions constructs powerful processing pipelines: read raw stream -> filter invalid records -> parse JSON -> compute metrics. Data flows through the pipeline element-by-element without materializing intermediate lists at each stage.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "raw_logs = ['INFO: 200', 'ERROR: 500', 'INFO: 200', 'ERROR: 503']\nerrors = (line for line in raw_logs if line.startswith('ERROR'))\ncodes = (line.split(': ')[1] for line in errors)\nprint('Chained pipeline output:', list(codes))",
+          "explanation": "Chained generator expressions filter and transform elements one at a time.",
+          "expected_output": "Chained pipeline output: ['500', '503']"
+        }
+      ],
+      "key_points": [
+        "Generator expressions chain data transformations without allocating intermediate arrays.",
+        "Execution is deferred until a terminal consumer (e.g. list(), sum(), for loop) drives the pipeline."
+      ],
+      "checkpoint": "Explain what happens in memory when chaining three generator expressions together."
+    },
+    {
+      "slug": "yield-from-delegation",
+      "title": "Subgenerator delegation with yield from",
       "order_index": 3,
-      "estimated_minutes": 2,
-      "learning_objective": "Use generator expressions for concise syntax.",
-      "markdown": "Generator expressions are similar to list comprehensions but use parentheses instead of square brackets. This is a concise way to create generators.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Delegate to subgenerators cleanly without manual loops.",
+      "markdown": "The `yield from <iterable>` syntax delegates the iteration directly to a subgenerator or nested iterable. Instead of writing `for item in subgen: yield item`, `yield from subgen` transparently passes all yielded values directly to the caller. Furthermore, `yield from` handles bidirectional value transmission (via `.send()`) and exception propagation between the caller and the active subgenerator.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def flatten_nested(nested_lists):\n    for sublist in nested_lists:\n        yield from sublist\n\ntree = [[1, 2], [3, 4], [5]]\nprint(list(flatten_nested(tree)))",
+          "explanation": "yield from delegates directly to each sublist, yielding items without manual inner loops.",
+          "expected_output": "[1, 2, 3, 4, 5]"
+        }
+      ],
       "key_points": [
-        "Generator Expressions is a core concept to understand",
-        "Practice applying Generator in real code"
-      ]
+        "yield from subgen delegates iteration to an inner iterable transparently.",
+        "Establishes a transparent bidirectional channel for send() and exceptions."
+      ],
+      "checkpoint": "Show how yield from simplifies traversing nodes in a binary tree."
     },
     {
-      "slug": "lazy-evaluation",
-      "title": "Lazy Evaluation",
+      "slug": "send-awareness-coroutine",
+      "title": "Bidirectional communication: send awareness",
       "order_index": 4,
-      "estimated_minutes": 2,
-      "learning_objective": "Understand lazy evaluation.",
-      "markdown": "Generators use lazy evaluation, meaning they generate values only when needed rather than upfront. This drastically reduces memory consumption.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Transmit values into a running generator using send().",
+      "markdown": "Generators are not limited to producing values; they can also receive data via `generator.send(value)`. Inside the generator function, `received = yield output` captures the incoming value. Calling `send(val)` resumes the generator, making the `yield` expression evaluate to `val`. Before sending non-None data, a generator must be primed by advancing it to the first yield using `next(gen)` or `gen.send(None)`. Maintain `send awareness` as this mechanism was the foundation of Python coroutines.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def running_average():\n    total = 0.0\n    count = 0\n    avg = 0.0\n    while True:\n        val = yield avg\n        if val is None:\n            break\n        total += val\n        count += 1\n        avg = total / count\n\navg_gen = running_average()\nnext(avg_gen)  # Prime the generator\nprint('Avg after 10:', avg_gen.send(10))\nprint('Avg after 20:', avg_gen.send(20))\nprint('Avg after 30:', avg_gen.send(30))",
+          "explanation": "send() passes new numbers into the paused generator, recalculating the running average dynamically.",
+          "expected_output": "Avg after 10: 10.0\nAvg after 20: 15.0\nAvg after 30: 20.0"
+        }
+      ],
       "key_points": [
-        "Lazy Evaluation is a core concept to understand",
-        "Practice applying Lazy in real code"
-      ]
+        "gen.send(value) passes data back into the paused yield expression.",
+        "A generator must be primed with next(gen) before receiving non-None values via send()."
+      ],
+      "checkpoint": "What exception is raised if you call gen.send('data') on an unprimed generator?"
     },
     {
-      "slug": "send-and-throw-awareness",
-      "title": "Send and Throw Awareness",
+      "slug": "interview-check",
+      "title": "Interview check and practice",
       "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Be aware of advanced generator methods.",
-      "markdown": "Generators have send awareness; you can send data into a generator using `.send()`. You can also raise exceptions inside them using `.throw()`.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Review generator interview questions and practice streaming in Coding Arena.",
+      "markdown": "Generators test your mastery of control flow suspension, memory profiling, and streaming patterns.\n\n### Oral Interview Questions\n1. *What happens to local variables inside a generator function when it yields?*\n   *(They remain intact in the suspended frame on the heap, retaining their exact state until execution resumes).* \n2. *Can a generator function return a value with return?*\n   *(Yes. In Python 3, a return value inside a generator function is attached to the StopIteration(value) exception raised upon exhaustion).* \n3. *Why do generators improve memory footprints in backend microservices?*\n\n### Code Trace Challenge\nTrace this generator:\n```python\ndef demo():\n    yield 'A'\n    return 'Finished'\ng = demo()\nprint(next(g))\ntry:\n    next(g)\nexcept StopIteration as e:\n    print('Return value:', e.value)\n```\nThe first next() yields 'A'. The second next() encounters `return 'Finished'`, raising `StopIteration('Finished')`!\n\n### Common Interview Trap\nCalling a generator function and expecting it to execute immediately without calling `next()`. Calling `my_gen()` only returns the unstarted generator object; none of the code inside runs until the first iteration request.\n\n### Arena Practice Problems\nPractice generator and sequence streaming in Coding Arena:\n- `python-running-sum`: Running prefix calculations\n- `python-climbing-stairs`: Step sequences and recurrence relations\n- `python-collatz`: Sequence generation and termination checking",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def gen_with_return():\n    yield 1\n    return 'Done'\n\ng = gen_with_return()\nprint('Yielded:', next(g))\ntry:\n    next(g)\nexcept StopIteration as exc:\n    print('StopIteration payload:', exc.value)",
+          "explanation": "A return statement in a generator attaches its payload to the StopIteration exception.",
+          "expected_output": "Yielded: 1\nStopIteration payload: Done"
+        }
+      ],
       "key_points": [
-        "Send and Throw Awareness is a core concept to understand",
-        "Practice applying Send in real code"
-      ]
-    },
-    {
-      "slug": "memory-trade-offs",
-      "title": "Memory Trade-offs",
-      "order_index": 6,
-      "estimated_minutes": 2,
-      "learning_objective": "Evaluate memory trade-offs of generators.",
-      "markdown": "While generators save memory, they can be slower to access repeatedly since memory trade-offs favor low footprint over speed for multiple traversals.",
-      "examples": [],
-      "key_points": [
-        "Memory Trade-offs is a core concept to understand",
-        "Practice applying Memory in real code"
-      ]
-    },
-    {
-      "slug": "common-uses",
-      "title": "Common Uses",
-      "order_index": 7,
-      "estimated_minutes": 2,
-      "learning_objective": "See where generators are used.",
-      "markdown": "Generators are commonly used for reading large files, generating infinite sequences, and handling streaming data efficiently.",
-      "examples": [],
-      "key_points": [
-        "Common Uses is a core concept to understand",
-        "Practice applying Common in real code"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 8,
-      "estimated_minutes": 2,
-      "learning_objective": "Avoid common pitfalls.",
-      "markdown": "A common mistake is trying to iterate over a generator multiple times. Once exhausted, it yields nothing and must be recreated.",
-      "examples": [],
-      "key_points": [
-        "Common Mistakes is a core concept to understand",
-        "Practice applying Common in real code"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 9,
-      "estimated_minutes": 2,
-      "learning_objective": "Prepare for interviews.",
-      "markdown": "Interviewers often ask about the difference between `yield` and `return`, and how generators help with memory management in large datasets.",
-      "examples": [],
-      "key_points": [
-        "Interview Points is a core concept to understand",
-        "Practice applying Interview in real code"
-      ]
+        "Calling a generator function returns an unstarted generator object.",
+        "Return statements inside generators attach their value to StopIteration."
+      ],
+      "checkpoint": "Show how to iterate over a generator using a standard for loop without manual next() calls."
     }
   ],
   "summary": [
-    "Generators produce items lazily.",
-    "yield replaces return.",
-    "Generator expressions save memory.",
-    "They can receive data via send awareness."
+    "The yield statement suspends execution and preserves local frame state across requests.",
+    "Generators implement lazy evaluation, enabling constant O(1) memory pipelines.",
+    "Chained generator expressions filter and map data streams without intermediate allocations.",
+    "yield from delegates execution to subgenerators and establishes bidirectional communication.",
+    "gen.send(value) allows passing data into a suspended generator coroutine."
   ],
   "interview_takeaways": [
-    "Know yield.",
-    "Explain lazy evaluation.",
-    "Discuss memory trade-offs."
+    "Use generators for large datasets or streaming data where list materialization causes memory spikes.",
+    "A generator function does not execute until iterated; calling it merely returns a generator instance.",
+    "yield from eliminates nested for-loops when delegating to subgenerators."
   ],
   "common_mistakes": [
-    "Reusing a generator.",
-    "Confusing list comps with generator expressions."
+    "Calling a generator function and assuming its side effects ran without iterating",
+    "Attempting to slice or index a generator directly with gen[0]",
+    "Calling send(val) on a generator before priming it with next()",
+    "Materializing a generator with list() prematurely, defeating memory benefits"
   ],
   "sources": [
     {
       "source_id": "python-official-tutorial",
-      "title": "Classes",
-      "url": "https://docs.python.org/3/tutorial/classes.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "The Python Tutorial \u2014 Generators and Generator Expressions",
+      "url": "https://docs.python.org/3/tutorial/classes.html#generators",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-language-reference",
+      "title": "Python Language Reference \u2014 Yield expressions",
+      "url": "https://docs.python.org/3/reference/expressions.html#yield-expressions",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-generators-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "c9d50da60fc935e2548e29d4156b9ab2136546cff602eb4cc08434d8b8c6df0c",
+  "generated_at": "2026-09-24T08:24:58.391725+00:00"
 }

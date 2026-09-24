@@ -1,117 +1,141 @@
 [
   {
-    "key": "stk-1",
+    "key": "stacks-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "stacks MC 1",
-    "prompt_markdown": "Question?",
+    "title": "Stack operational semantics",
+    "prompt_markdown": "What fundamental data ordering principle governs a `stack` data structure?",
     "difficulty": "easy",
     "hints": [
-      "Hint"
+      "Think of plates stacked on a table."
     ],
     "content": {
       "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
+        "FIFO (First-In First-Out)",
+        "LIFO (Last-In First-Out)",
+        "Priority Order (Smallest Element First)",
+        "Random Access Insertion"
       ],
       "correct_index": 1,
-      "explanation": "Because."
+      "explanation": "A stack operates on LIFO (Last-In First-Out) semantics: the element most recently pushed onto the stack is the first element popped off."
     }
   },
   {
-    "key": "stk-2",
+    "key": "stacks-mcq-2",
     "exercise_type": "multiple_choice",
-    "title": "stacks MC 2",
-    "prompt_markdown": "Question?",
-    "difficulty": "easy",
-    "hints": [
-      "Hint"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because."
-    }
-  },
-  {
-    "key": "stk-3",
-    "exercise_type": "multiple_choice",
-    "title": "stacks MC 3",
-    "prompt_markdown": "Question?",
-    "difficulty": "easy",
-    "hints": [
-      "Hint"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because."
-    }
-  },
-  {
-    "key": "stk-4",
-    "exercise_type": "multiple_choice",
-    "title": "stacks MC 4",
-    "prompt_markdown": "Question?",
-    "difficulty": "easy",
-    "hints": [
-      "Hint"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because."
-    }
-  },
-  {
-    "key": "stk-5",
-    "exercise_type": "short_answer",
-    "title": "stacks SA 1",
-    "prompt_markdown": "Question?",
+    "title": "Amortized complexity of monotonic stack algorithm",
+    "prompt_markdown": "What is the total time complexity of running a monotonic stack algorithm across an array of length $N$?",
     "difficulty": "medium",
     "hints": [
-      "Hint"
+      "How many times can each individual element be pushed and popped?"
+    ],
+    "content": {
+      "choices": [
+        "O(N)",
+        "O(N log N)",
+        "O(N^2)",
+        "O(2^N)"
+      ],
+      "correct_index": 0,
+      "explanation": "Even though a while loop is nested inside a for loop, every single index is pushed onto the stack exactly once and popped at most once across the entire algorithm execution. Total operations: at most 2N = O(N)."
+    }
+  },
+  {
+    "key": "stacks-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "RPN operand ordering",
+    "prompt_markdown": "When evaluating Reverse Polish Notation (RPN), if stack contains `[10, 2]` and operator `-` is encountered, what is the correct calculation?",
+    "difficulty": "easy",
+    "hints": [
+      "The first popped value is the second operand."
+    ],
+    "content": {
+      "choices": [
+        "2 - 10 = -8",
+        "10 - 2 = 8",
+        "10 / 2 = 5",
+        "-(10 + 2) = -12"
+      ],
+      "correct_index": 1,
+      "explanation": "In RPN evaluation, popping yields `b = 2` (right operand) and `a = 10` (left operand). The expression is `a - b`, which is `10 - 2 = 8`."
+    }
+  },
+  {
+    "key": "stacks-short-predict-temperatures",
+    "exercise_type": "short_answer",
+    "title": "Predict monotonic stack contents during Daily Temperatures",
+    "prompt_markdown": "Given temperatures `[73, 74, 71, 69, 72]`, trace the state of the monotonic stack (storing indices) after processing each temperature index 0 through 4.",
+    "difficulty": "medium",
+    "hints": [
+      "Stack stores indices. While current temp > stack top temp, pop and record distance."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Index 0 (73): stack=[0]",
+        "Index 1 (74): 74 > 73 -> pops 0 (res[0]=1), pushes 1 -> stack=[1]",
+        "Index 2 (71): 71 < 74 -> pushes 2 -> stack=[1, 2]",
+        "Index 3 (69): 69 < 71 -> pushes 3 -> stack=[1, 2, 3]",
+        "Index 4 (72): 72 > 69 -> pops 3 (res[3]=1); 72 > 71 -> pops 2 (res[2]=2); 72 < 74 -> pushes 4 -> stack=[1, 4]"
       ],
-      "reference_answer": "Answer",
+      "reference_answer": "State Trace of Stack (storing indices):\n- i=0 (73): `stack = [0]`\n- i=1 (74): 74 > temp[0] (73) -> pop 0, wait time = 1. `stack = [1]`\n- i=2 (71): 71 < temp[1] (74) -> push 2. `stack = [1, 2]`\n- i=3 (69): 69 < temp[2] (71) -> push 3. `stack = [1, 2, 3]`\n- i=4 (72):\n  - 72 > temp[3] (69) -> pop 3, wait time for day 3 = 4 - 3 = 1\n  - 72 > temp[2] (71) -> pop 2, wait time for day 2 = 4 - 2 = 2\n  - 72 < temp[1] (74) -> stop popping. Push 4.\n  - Final `stack = [1, 4]`",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "stk-6",
+    "key": "stacks-short-fix-bracket-validator",
     "exercise_type": "short_answer",
-    "title": "stacks SA 2",
-    "prompt_markdown": "Question?",
+    "title": "Fix unhandled empty stack and residual elements bugs",
+    "prompt_markdown": "This bracket validator has two critical bugs that cause crashes on `\"]\"` and false positives on `\"(\"`:\n\n```python\ndef is_valid(s: str) -> bool:\n    pairs = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n    stack = []\n    for char in s:\n        if char in pairs.values():\n            stack.append(char)\n        elif char in pairs:\n            if stack.pop() != pairs[char]:\n                return False\n    return True\n```\nIdentify both bugs and provide the corrected code.",
     "difficulty": "medium",
     "hints": [
-      "Hint"
+      "What happens if stack is empty when calling pop()? What if opening brackets remain unclosed at the end?"
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Identifies that calling `stack.pop()` on an empty stack raises an IndexError on inputs like `\"]\"`",
+        "Identifies that returning `True` unconditionally fails to detect unclosed brackets like `\"(\"`",
+        "Provides corrected code with empty check before popping and `return len(stack) == 0`"
       ],
-      "reference_answer": "Answer",
+      "reference_answer": "Bugs:\n1. Empty Stack Crash: On input `\"]\"`, the stack is empty. Calling `stack.pop()` raises `IndexError: pop from empty list`.\n2. Residual Brackets Bug: On input `\"(\"`, the opening bracket is pushed and never closed. The function reaches `return True` without checking if the stack was fully emptied!\n\nCorrected Code:\n```python\ndef is_valid(s: str) -> bool:\n    pairs = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n    stack = []\n    for char in s:\n        if char in pairs.values():\n            stack.append(char)\n        elif char in pairs:\n            if not stack or stack.pop() != pairs[char]:\n                return False\n    return len(stack) == 0\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "stacks-short-implement-min-stack",
+    "exercise_type": "short_answer",
+    "title": "Write O(1) MinStack implementation",
+    "prompt_markdown": "Implement a `MinStack` class supporting `push(val)`, `pop()`, `top()`, and `getMin()` where every operation executes in strictly $O(1)$ time complexity.",
+    "difficulty": "medium",
+    "hints": [
+      "Store either tuples of (val, min_so_far) or use a secondary min_stack."
+    ],
+    "content": {
+      "rubric": [
+        "Initializes storage for main stack and minimum tracking",
+        "Implements push(val) updating the minimum in O(1)",
+        "Implements pop() removing top and updating minimum in O(1)",
+        "Implements top() and getMin() in O(1)"
+      ],
+      "reference_answer": "```python\nclass MinStack:\n    def __init__(self):\n        self.stack = []\n        self.min_stack = []\n        \n    def push(self, val: int) -> None:\n        self.stack.append(val)\n        new_min = min(val, self.min_stack[-1] if self.min_stack else val)\n        self.min_stack.append(new_min)\n        \n    def pop(self) -> None:\n        self.stack.pop()\n        self.min_stack.pop()\n        \n    def top(self) -> int:\n        return self.stack[-1]\n        \n    def getMin(self) -> int:\n        return self.min_stack[-1]\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "stacks-short-explain-monotonic-amortized",
+    "exercise_type": "short_answer",
+    "title": "Explain monotonic stack amortized complexity in interviews",
+    "prompt_markdown": "In an interview, you write a monotonic stack solution containing a `while` loop nested inside a `for` loop. The interviewer asks: 'Doesn't that nested loop make your solution quadratic $O(n^2)$?' How do you rigorously prove to them that it runs in linear $O(n)$ time?",
+    "difficulty": "hard",
+    "hints": [
+      "Use aggregate amortized analysis counting push and pop operations per item."
+    ],
+    "content": {
+      "rubric": [
+        "Rebuts the naive assumption that nested loops automatically imply O(n^2)",
+        "Uses aggregate analysis: each element in the input is pushed onto the stack exactly once",
+        "Explains that an element can be popped from the stack at most once in its entire lifetime",
+        "Proves that total inner while loop iterations across the entire algorithm are bounded by N, giving O(N) total time"
+      ],
+      "reference_answer": "1. Why Nested Loops Do Not Mean Quadratic:\nA nested loop is only quadratic if the inner loop performs $O(n)$ work for *every* iteration of the outer loop. In a monotonic stack, work is not independent across iterations.\n\n2. The Aggregate Amortized Proof:\n- Consider the lifecycle of any individual index $i$ in the array:\n  - Element $i$ is pushed onto the stack exactly once (in the outer for-loop).\n  - Element $i$ can be popped from the stack at most once (inside the inner while-loop). Once popped, it is gone forever and cannot be re-examined.\n- Therefore, across the entire execution of the program over an array of size $N$:\n  $$\\text{Total Pushes} = N$$\n  $$\\text{Total Pops} \\le N$$\n- The body of the inner `while` loop executes only when an element is popped. Since at most $N$ pops can ever occur, the inner loop body executes at most $N$ times *in total across all outer loop iterations combined*.\n\nConclusion: Total operations = $N \\text{ pushes} + N \\text{ pops} = 2N = O(N)$ linear time.",
       "minimum_pass_score": 70
     }
   }

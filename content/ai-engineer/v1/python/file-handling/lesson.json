@@ -2,201 +2,179 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "file-handling",
-  "title": "File Handling",
-  "description": "Learn to read, write, and manage files in Python.",
-  "version": "1.0.0",
+  "title": "File Handling and Serialization",
+  "description": "Master file open modes, with context managers, explicit text encoding, modern pathlib usage, streaming I/O, JSON serialization, and error handling.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Use open and with statements.",
-    "Understand file modes and text encoding.",
-    "Work with JSON and pathlib."
+    "Manage file lifecycles deterministically using open and with context managers",
+    "Prevent cross-platform encoding bugs using explicit text encoding (UTF-8)",
+    "Read, write, and stream large files line-by-line without high memory consumption",
+    "Manipulate filesystem paths cleanly using modern pathlib and serialize JSON data safely"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "syntax-data-types",
+    "exceptions"
+  ],
   "sections": [
     {
-      "slug": "opening-files",
-      "title": "Opening Files",
+      "slug": "with-statement-and-modes",
+      "title": "The with statement and file open modes",
       "order_index": 0,
-      "estimated_minutes": 2,
-      "learning_objective": "Learn to open files.",
-      "markdown": "To work with files, you must use the `open` function which returns a file object.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Open and close files safely using context managers.",
+      "markdown": "Always open files using the `with` statement: `with open(filepath, mode) as f:`. The with context manager guarantees that the file descriptor is closed immediately upon exiting the block, even if an unhandled exception or return statement occurs inside. File open modes define operations:\n- `'r'`: Read text (default; raises `FileNotFoundError` if missing)\n- `'w'`: Write text (truncates existing file or creates new)\n- `'a'`: Append text (writes to end of file)\n- `'rb'` / `'wb'`: Read / write raw binary bytes\n- `'r+'`: Read and write without truncating.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import tempfile\n\nwith tempfile.NamedTemporaryFile(mode='w+', delete=False) as tmp:\n    tmp.write('line 1\\nline 2\\n')\n    tmp_path = tmp.name\n\nwith open(tmp_path, mode='r') as reader:\n    content = reader.read()\nprint(content.strip())",
+          "explanation": "Context manager with open ensures temporary file descriptor closes cleanly after reading.",
+          "expected_output": "line 1\nline 2"
+        }
+      ],
       "key_points": [
-        "Opening Files is a core concept to understand",
-        "Practice applying Opening in real code"
-      ]
+        "Always use 'with open(...)' to prevent file descriptor leaks.",
+        "Choose explicit modes: 'r' for reading, 'w' for truncating write, 'a' for appending."
+      ],
+      "checkpoint": "What happens if a long-running service opens files without with and without calling f.close()?"
     },
     {
-      "slug": "file-modes",
-      "title": "File Modes",
+      "slug": "text-encoding-utf8",
+      "title": "Text encoding: The UTF-8 rule",
       "order_index": 1,
-      "estimated_minutes": 2,
-      "learning_objective": "Understand file modes.",
-      "markdown": "Different modes like 'r' (read), 'w' (write), 'a' (append) specify how you intend to use the file.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Prevent cross-platform character corruption with explicit encoding.",
+      "markdown": "A critical software defect in cross-platform systems is omitting the `encoding` parameter. If `encoding` is unspecified, Python defaults to `locale.getpreferredencoding()`, which is UTF-8 on modern Linux/macOS but often Windows-1252 or CP1252 on Windows! This discrepancy causes mysterious `UnicodeDecodeError` or corrupted text when deploying code to production servers. Always specify `encoding='utf-8'` whenever opening text files.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import tempfile\n\nwith tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False) as tmp:\n    tmp.write('Unicode: \u00f1, \u00e9, \ud83d\ude80')\n    tmp_name = tmp.name\n\nwith open(tmp_name, mode='r', encoding='utf-8') as f:\n    text = f.read()\nprint(text)",
+          "explanation": "Explicit encoding='utf-8' guarantees flawless preservation of Unicode and emoji characters.",
+          "expected_output": "Unicode: \u00f1, \u00e9, \ud83d\ude80"
+        }
+      ],
       "key_points": [
-        "File Modes is a core concept to understand",
-        "Practice applying File in real code"
-      ]
+        "Always specify encoding='utf-8' when opening text files.",
+        "Omitting encoding causes Windows-1252 vs UTF-8 cross-platform corruption."
+      ],
+      "checkpoint": "What causes UnicodeDecodeError: 'charmap' codec can't decode byte on Windows systems?"
     },
     {
-      "slug": "reading-files",
-      "title": "Reading Files",
+      "slug": "streaming-read-write",
+      "title": "Reading and writing files: Streaming line-by-line",
       "order_index": 2,
-      "estimated_minutes": 2,
-      "learning_objective": "Learn to read files.",
-      "markdown": "You can read the entire file using `.read()`, or iterate over lines, or use `.readlines()`.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Stream multi-gigabyte files without memory spikes.",
+      "markdown": "Python provides three primary text reading methods:\n1. `f.read()`: Reads the entire file into a single string in memory. Use only for small config files.\n2. `f.readlines()`: Reads all lines into a Python list of strings. Still loads the entire file into memory.\n3. `for line in f:`: Streams the file line-by-line using an internal buffer. Memory usage remains constant O(1), regardless of whether the file is 10 KB or 100 GB. For writing, use `f.write(string)` or `f.writelines(iterable_of_strings)`. Core read write operations include reading fixed byte blocks and streaming structured records.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import io\n\nvirtual_file = io.StringIO('error: 404\\nok: 200\\nerror: 500\\n')\n# Streaming line-by-line\nerror_count = sum(1 for line in virtual_file if line.startswith('error'))\nprint('Total errors:', error_count)",
+          "explanation": "Iterates line-by-line, consuming each string on demand without holding all lines in memory.",
+          "expected_output": "Total errors: 2"
+        }
+      ],
       "key_points": [
-        "Reading Files is a core concept to understand",
-        "Practice applying Reading in real code"
-      ]
+        "Use 'for line in f:' to stream text files in O(1) memory.",
+        "Avoid f.read() and f.readlines() on unbounded or large files."
+      ],
+      "checkpoint": "Contrast f.readlines() with for line in f: regarding memory consumption on a 10GB file."
     },
     {
-      "slug": "writing-files",
-      "title": "Writing Files",
+      "slug": "modern-pathlib",
+      "title": "Modern filesystem paths with pathlib",
       "order_index": 3,
-      "estimated_minutes": 2,
-      "learning_objective": "Learn to write to files.",
-      "markdown": "Writing involves opening in write or append mode and using `.write()` to read write content.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Manipulate filesystem paths using object-oriented pathlib.Path.",
+      "markdown": "Python 3 replaces legacy `os.path` functions with the object-oriented `pathlib.Path`. Pathlib represents paths as objects, using the `/` division operator for clean cross-platform path joining (handling Windows backslashes and Unix slashes automatically). Helpful methods include `.exists()`, `.is_file()`, `.is_dir()`, `.mkdir(parents=True, exist_ok=True)`, `.read_text(encoding='utf-8')`, and `.write_text(content, encoding='utf-8')` for rapid small-file I/O.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from pathlib import Path\n\nbase = Path('/tmp/app')\nconfig_file = base / 'configs' / 'app.json'\nprint('Path object:', config_file.as_posix())\nprint('Suffix:', config_file.suffix)\nprint('Parent:', config_file.parent.name)",
+          "explanation": "pathlib constructs clean paths with / and provides properties like suffix and parent.",
+          "expected_output": "Path object: /tmp/app/configs/app.json\nSuffix: .json\nParent: configs"
+        }
+      ],
       "key_points": [
-        "Writing Files is a core concept to understand",
-        "Practice applying Writing in real code"
-      ]
+        "Use pathlib.Path instead of legacy os.path string manipulation.",
+        "The / operator joins paths cleanly across operating systems."
+      ],
+      "checkpoint": "Show how Path.read_text(encoding='utf-8') eliminates open() and close() boilerplate for small files."
     },
     {
-      "slug": "with-context-manager",
-      "title": "With Context Manager",
+      "slug": "json-serialization-and-errors",
+      "title": "Structured data: JSON serialization and error handling",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Use the with statement.",
-      "markdown": "The `with` statement ensures the file is properly closed after its suite finishes, even if exceptions are raised.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Serialize and deserialize structured JSON data with defensive error handling.",
+      "markdown": "JSON is the standard format for web APIs and configuration. Python's built-in `json` module provides:\n- `json.loads(string)`: Parses JSON string to Python dictionary/list (raises `json.JSONDecodeError` on malformed text).\n- `json.dumps(obj, indent=2)`: Serializes Python dict/list to formatted JSON string.\n- `json.load(file)` and `json.dump(obj, file)`: Read and write directly to file streams.\n\nRobust error handling wraps `json.loads` in `try...except (json.JSONDecodeError, OSError):` to guard against corrupt files.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import json\n\npayload = {'service': 'auth', 'port': 8080, 'active': True}\njson_str = json.dumps(payload, indent=2)\nparsed = json.loads(json_str)\nprint(f'{parsed[\"service\"]} on port {parsed[\"port\"]}')\ntry:\n    json.loads('{bad_json: True}')\nexcept json.JSONDecodeError as err:\n    print('Caught invalid JSON:', err.msg)",
+          "explanation": "Serializes and deserializes JSON, demonstrating explicit handling of JSONDecodeError.",
+          "expected_output": "auth on port 8080\nCaught invalid JSON: Expecting property name enclosed in double quotes"
+        }
+      ],
       "key_points": [
-        "With Context Manager is a core concept to understand",
-        "Practice applying With in real code"
-      ]
+        "json.loads/dumps operate on strings; json.load/dump operate on file streams.",
+        "Catch json.JSONDecodeError when parsing external or untrusted JSON payloads."
+      ],
+      "checkpoint": "Why can't sets or datetime objects be serialized directly by json.dumps() without a custom encoder?"
     },
     {
-      "slug": "text-encoding",
-      "title": "Text Encoding",
+      "slug": "interview-check",
+      "title": "Interview check and practice",
       "order_index": 5,
-      "estimated_minutes": 2,
-      "learning_objective": "Understand text encoding.",
-      "markdown": "Always specify text encoding explicitly, usually `encoding='utf-8'`, to avoid platform-dependent bugs.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Review file handling interview questions and practice parsing in Coding Arena.",
+      "markdown": "File handling questions evaluate your practical backend hygiene: resource leakage, stream parsing, and error recovery.\n\n### Oral Interview Questions\n1. *What is a file descriptor leak and how does the with statement prevent it?*\n   *(Operating systems enforce a maximum open file descriptor limit per process. If files are not closed, descriptors leak until the process crashes with `OSError: Too many open files`. Context managers guarantee `close()` execution even on error).* \n2. *Why should encoding='utf-8' always be explicitly specified?*\n3. *How do you atomically write a file in Python to avoid reading half-written data during unexpected server crashes?*\n\n### Code Trace Challenge\nTrace this line-by-line parser:\n```python\nimport io\ns = io.StringIO('user1,10\\nuser2,20\\n')\ntotal = sum(int(line.strip().split(',')[1]) for line in s if line.strip())\nprint('Total:', total)\n```\nIt streams lines, splits on commas, converts the second column to integers, and sums them to produce `30`.\n\n### Common Interview Trap\nUsing `f.read().splitlines()` on an unknown file. If the file is 20 GB, `read()` consumes 20 GB of memory and `splitlines()` creates another 20 GB list, killing the process with an OOM error. Always iterate `for line in f:` directly.\n\n### Arena Practice Problems\nPractice file and string stream handling in Coding Arena:\n- `python-group-errors`: Parsing and categorizing structured log records\n- `python-word-count`: Tokenizing and tallying words from text streams\n- `python-raindrops`: Formatting and rule-based text mapping",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import io\n\ns = io.StringIO('user1,10\\nuser2,20\\n')\ntotal = sum(int(line.strip().split(',')[1]) for line in s if line.strip())\nprint('Total:', total)",
+          "explanation": "Calculates sum across CSV stream lines without allocating intermediate arrays.",
+          "expected_output": "Total: 30"
+        }
+      ],
       "key_points": [
-        "Text Encoding is a core concept to understand",
-        "Practice applying Text in real code"
-      ]
-    },
-    {
-      "slug": "pathlib-basics",
-      "title": "Pathlib Basics",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Use pathlib.",
-      "markdown": "The `pathlib` module provides an object-oriented interface for paths, making path manipulation easier than os.path.",
-      "examples": [],
-      "key_points": [
-        "Pathlib Basics is a core concept to understand",
-        "Practice applying Pathlib in real code"
-      ]
-    },
-    {
-      "slug": "reading-json",
-      "title": "Reading JSON",
-      "order_index": 7,
-      "estimated_minutes": 2,
-      "learning_objective": "Read JSON data.",
-      "markdown": "The `json` module provides `json.load()` to read JSON data directly from a file object.",
-      "examples": [],
-      "key_points": [
-        "Reading JSON is a core concept to understand",
-        "Practice applying Reading in real code"
-      ]
-    },
-    {
-      "slug": "writing-json",
-      "title": "Writing JSON",
-      "order_index": 8,
-      "estimated_minutes": 2,
-      "learning_objective": "Write JSON data.",
-      "markdown": "Similarly, `json.dump()` writes Python dictionaries directly into files as JSON.",
-      "examples": [],
-      "key_points": [
-        "Writing JSON is a core concept to understand",
-        "Practice applying Writing in real code"
-      ]
-    },
-    {
-      "slug": "csv-basics",
-      "title": "CSV Basics",
-      "order_index": 9,
-      "estimated_minutes": 2,
-      "learning_objective": "Handle CSV files.",
-      "markdown": "The `csv` module is used for reading and writing CSV formats.",
-      "examples": [],
-      "key_points": [
-        "CSV Basics is a core concept to understand",
-        "Practice applying CSV in real code"
-      ]
-    },
-    {
-      "slug": "error-handling-files",
-      "title": "Error Handling with Files",
-      "order_index": 10,
-      "estimated_minutes": 2,
-      "learning_objective": "Handle file errors.",
-      "markdown": "Proper error handling using try-except blocks is crucial for handling missing files or permission issues.",
-      "examples": [],
-      "key_points": [
-        "Error Handling with Files is a core concept to understand",
-        "Practice applying Error in real code"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 11,
-      "estimated_minutes": 2,
-      "learning_objective": "Prepare for interviews.",
-      "markdown": "Interviewers will expect you to use `with` statements naturally and know the difference between string and bytes.",
-      "examples": [],
-      "key_points": [
-        "Interview Points is a core concept to understand",
-        "Practice applying Interview in real code"
-      ]
+        "Stream files line by line using for line in f:.",
+        "Use atomic file replacement (writing to a temp file and os.replace) for crash consistency."
+      ],
+      "checkpoint": "Show how os.replace(temp_path, final_path) achieves atomic file replacement on POSIX and Windows."
     }
   ],
   "summary": [
-    "Use with statement.",
-    "Always specify encoding.",
-    "Pathlib is preferred.",
-    "JSON module is built-in."
+    "The with open(...) context manager guarantees timely file descriptor cleanup.",
+    "Always specify encoding='utf-8' to prevent Windows vs Linux Unicode decoding bugs.",
+    "Stream large files using 'for line in f:' to maintain constant O(1) memory usage.",
+    "pathlib.Path provides clean, cross-platform, object-oriented filesystem manipulation.",
+    "json.loads/dumps handle structured data with defensive JSONDecodeError interception."
   ],
   "interview_takeaways": [
-    "Always use with open.",
-    "Specify utf-8 encoding."
+    "Never use f.read() or f.readlines() on files of unknown size in production.",
+    "Always specify encoding='utf-8' explicitly.",
+    "Write to a temporary file and atomically rename (os.replace) to ensure write durability."
   ],
   "common_mistakes": [
-    "Forgetting encoding.",
-    "Leaking file descriptors."
+    "Opening files without context managers, causing open file descriptor exhaustion",
+    "Omitting encoding='utf-8' and encountering UnicodeDecodeError across environments",
+    "Reading multi-gigabyte log files completely into memory with f.read()",
+    "Failing to catch json.JSONDecodeError when parsing client-provided payload files"
   ],
   "sources": [
     {
       "source_id": "python-official-tutorial",
-      "title": "Input and Output",
-      "url": "https://docs.python.org/3/tutorial/inputoutput.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "The Python Tutorial \u2014 Reading and Writing Files",
+      "url": "https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     },
     {
       "source_id": "python-stdlib-docs",
-      "title": "pathlib",
+      "title": "Python Standard Library \u2014 pathlib \u2014 Object-oriented filesystem paths",
       "url": "https://docs.python.org/3/library/pathlib.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-file-handling-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "442862090ea7e6f5d586ae1245b7ecde0ad8d480c2c75ceb33d74c3960c459a9",
+  "generated_at": "2026-09-24T08:24:58.393712+00:00"
 }

@@ -2,266 +2,155 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "relational-foundations",
-  "title": "Relational Foundations",
-  "description": "Learn about Relational Foundations in PostgreSQL.",
-  "version": "1.0.0",
+  "title": "Relational Foundations and Database Architecture",
+  "description": "Master relational model principles, database and schema organization, tables, rows, columns, data types, primary keys, foreign keys, relationships, and normalization intuition.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand relational-foundations concepts",
-    "Write SQL",
-    "Avoid mistakes"
+    "Explain the relational model structure: databases, schemas, tables, rows, and columns",
+    "Select appropriate relational data types and enforce entity integrity with primary keys",
+    "Model one-to-one, one-to-many, and many-to-many relationships using foreign keys",
+    "Apply normalization principles (1NF, 2NF, 3NF) to eliminate data duplication and update anomalies"
   ],
   "prerequisites": [],
   "sections": [
     {
-      "slug": "what-is-a-database",
-      "title": "What Is A Database",
+      "slug": "relational-model-hierarchy",
+      "title": "The relational model: Databases, schemas, tables, and rows",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn what-is-a-database",
-      "markdown": "This section covers what-is-a-database. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\n1. What is this? (plain English)\n2. Why do we need it? (analogy)\n3. Basic syntax (SQL)\n4. Small example (show tables and output)\n5. Step-by-step explanation\n6. Real engineering example (application/backend context)\n7. Common mistakes\n8. Interview points\n9. Quick check\n10. Practice next\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Map database storage hierarchy from cluster down to discrete table attributes.",
+      "markdown": "In the relational model, a PostgreSQL database cluster contains independent databases. Within a database, a `schema` acts as a logical namespace (defaulting to `public`), grouping related tables. A `table` (relation) consists of an unordered set of `rows` (tuples), where each row contains typed data values corresponding to defined `columns` (attributes). Unlike spreadsheets or unstructured document stores, every row strictly conforms to the table's declared schema.",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE employees (\n    id INT PRIMARY KEY,\n    name VARCHAR(50) NOT NULL,\n    department VARCHAR(50) NOT NULL,\n    salary INT NOT NULL\n);\nINSERT INTO employees VALUES (1, 'Ana', 'AI', 60000), (2, 'Ravi', 'Backend', 50000);\nSELECT id, name, department, salary FROM employees;",
+          "explanation": "Creates a structured relation with 4 typed columns and inserts two discrete rows.",
+          "expected_output": "| id | name | department | salary |\n|---|---|---|---|\n| 1 | Ana | AI | 60000 |\n| 2 | Ravi | Backend | 50000 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Databases contain schemas; schemas contain tables; tables store rows and columns.",
+        "Every row in a relational table strictly adheres to the table's column definitions."
+      ],
+      "checkpoint": "Explain the difference between a PostgreSQL database and a schema."
     },
     {
-      "slug": "tables-rows-columns",
-      "title": "Tables Rows Columns",
+      "slug": "data-types-and-columns",
+      "title": "Relational data types and storage alignment",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn tables-rows-columns",
-      "markdown": "This section covers tables-rows-columns. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Select correct primitive types for performance, precision, and storage.",
+      "markdown": "Choosing the correct data types prevents truncation bugs and minimizes disk I/O. Key PostgreSQL data types include:\n- Integers: `SMALLINT` (2 bytes), `INT` (4 bytes), `BIGINT` (8 bytes)\n- Decimals: `NUMERIC` / `DECIMAL` for exact financial calculations; `REAL` / `DOUBLE PRECISION` for scientific floats\n- Text: `VARCHAR(n)` for length-constrained strings, `TEXT` for unbounded text\n- Date/Time: `TIMESTAMPTZ` (timezone-aware timestamp), `DATE`, `INTERVAL`\n- Booleans: `BOOLEAN` (`TRUE`, `FALSE`, or `NULL`).",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE accounts (\n    account_id INT PRIMARY KEY,\n    balance NUMERIC(12, 2) NOT NULL,\n    is_verified BOOLEAN NOT NULL,\n    opened_at TIMESTAMPTZ NOT NULL\n);\nINSERT INTO accounts VALUES (101, 15420.50, TRUE, '2026-01-15 10:00:00+00');\nSELECT account_id, balance, is_verified FROM accounts;",
+          "explanation": "Uses exact numeric precision for currency and boolean flags for state verification.",
+          "expected_output": "| account_id | balance | is_verified |\n|---|---|---|\n| 101 | 15420.50 | true |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Use NUMERIC for financial amounts to avoid floating-point rounding errors.",
+        "Always prefer TIMESTAMPTZ over TIMESTAMP to store timezone-aware UTC points in time."
+      ],
+      "checkpoint": "Why should financial monetary amounts never be stored as REAL or FLOAT?"
     },
     {
-      "slug": "data-types-overview",
-      "title": "Data Types Overview",
+      "slug": "keys-and-relationships",
+      "title": "Primary keys, foreign keys, and relationships",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn data-types-overview",
-      "markdown": "This section covers data-types-overview. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Enforce entity integrity and model relational links between tables.",
+      "markdown": "A `primary key` uniquely identifies each row in a table; it must be unique and cannot contain `NULL`. A `foreign key` is a column that references the primary key of another table, enforcing referential integrity. Relationships fall into three categories:\n1. **One-to-Many (1:N)**: Storing `department_id` in an `employees` table.\n2. **One-to-One (1:1)**: Storing a foreign key with a `UNIQUE` constraint.\n3. **Many-to-Many (M:N)**: Using a junction table (e.g. `student_courses` linking `students` and `courses`).",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE departments (\n    id INT PRIMARY KEY,\n    dept_name VARCHAR(50) NOT NULL\n);\nCREATE TABLE staff (\n    staff_id INT PRIMARY KEY,\n    name VARCHAR(50) NOT NULL,\n    dept_id INT REFERENCES departments(id)\n);\nINSERT INTO departments VALUES (10, 'Engineering');\nINSERT INTO staff VALUES (1, 'Kiran', 10);\nSELECT staff.name, departments.dept_name FROM staff JOIN departments ON staff.dept_id = departments.id;",
+          "explanation": "Enforces referential integrity: staff.dept_id must exist in departments.id.",
+          "expected_output": "| name | dept_name |\n|---|---|\n| Kiran | Engineering |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "Primary keys uniquely identify rows and cannot be NULL.",
+        "Foreign keys prevent orphan records and enforce referential integrity."
+      ],
+      "checkpoint": "What happens if you attempt to insert a row into staff with a dept_id that does not exist in departments?"
     },
     {
-      "slug": "primary-keys",
-      "title": "Primary Keys",
+      "slug": "normalization-intuition",
+      "title": "Database normalization: 1NF, 2NF, and 3NF intuition",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn primary-keys",
-      "markdown": "This section covers primary-keys. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Eliminate insertion, update, and deletion anomalies via normalization.",
+      "markdown": "Normalization is the systematic process of organizing tables to eliminate data redundancy and prevent anomalies:\n- **First Normal Form (1NF)**: Atomic values (no comma-separated lists in a single cell) and unique primary key.\n- **Second Normal Form (2NF)**: 1NF + no partial dependencies (every non-key column depends on the *entire* primary key, relevant for composite keys).\n- **Third Normal Form (3NF)**: 2NF + no transitive dependencies (non-key columns must not depend on other non-key columns; \"depend on the key, the whole key, and nothing but the key\").",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "-- 3NF compliant design separating departments from employee records\nCREATE TABLE depts (id INT PRIMARY KEY, name VARCHAR(50), building VARCHAR(50));\nCREATE TABLE workers (id INT PRIMARY KEY, name VARCHAR(50), dept_id INT REFERENCES depts(id));\nINSERT INTO depts VALUES (1, 'AI Lab', 'Tower B');\nINSERT INTO workers VALUES (101, 'Maya', 1);\nSELECT workers.name, depts.building FROM workers JOIN depts ON workers.dept_id = depts.id;",
+          "explanation": "Building location depends on department, not worker ID. Normalizing into depts prevents update anomalies.",
+          "expected_output": "| name | building |\n|---|---|\n| Maya | Tower B |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+        "1NF requires atomic values; 2NF removes partial key dependencies; 3NF removes transitive dependencies.",
+        "Normalization prevents update anomalies where changing a department name requires updating 10,000 rows."
+      ],
+      "checkpoint": "Explain the update anomaly that occurs if an employee table stores department_building directly in every employee row."
     },
     {
-      "slug": "foreign-keys",
-      "title": "Foreign Keys",
+      "slug": "interview-check",
+      "title": "Interview check and practice",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn foreign-keys",
-      "markdown": "This section covers foreign-keys. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
+      "estimated_minutes": 8,
+      "learning_objective": "Review relational foundations interview questions and practice in Coding Arena.",
+      "markdown": "Relational modeling questions assess your database schema design and data modeling maturity.\n\n### Oral Interview Questions\n1. *What is the difference between a natural key and a surrogate key?*\n   *(A natural key is a real-world unique attribute like an email or SSN; a surrogate key is an arbitrary system-generated integer or UUID. Surrogate keys decouple internal relationships from volatile real-world attributes).* \n2. *What are the trade-offs of denormalization in read-heavy analytical databases?*\n   *(Denormalization speeds up queries by eliminating expensive multi-table JOINs, but introduces redundant data, higher storage, and the risk of update anomalies).* \n3. *How does ON DELETE CASCADE behave on foreign keys?*\n\n### Query Trace Challenge\nTrace this schema constraint:\n```sql\nCREATE TABLE parent (id INT PRIMARY KEY);\nCREATE TABLE child (id INT PRIMARY KEY, p_id INT REFERENCES parent(id) ON DELETE CASCADE);\nINSERT INTO parent VALUES (1); INSERT INTO child VALUES (10, 1);\nDELETE FROM parent WHERE id = 1;\nSELECT COUNT(*) FROM child;\n```\nDeleting parent row 1 triggers cascading deletion of child row 10, returning `0`.\n\n### Common Interview Trap\nUsing a single table with comma-separated IDs (violating 1NF) instead of a junction table for many-to-many relationships. Searching or joining comma-delimited strings requires slow regex scans and breaks foreign key integrity.\n\n### Arena Practice Problems\nPractice relational schema and filtering in Coding Arena:\n- `sql-products-in-stock`: Querying single-table schema with type filtering\n- `sql-distinct-cities`: Extracting discrete relational values\n- `sql-active-users`: Filtering on dates and state flags",
       "examples": [
         {
           "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
+          "code": "CREATE TABLE inventory (\n    sku VARCHAR(20) PRIMARY KEY,\n    stock INT NOT NULL,\n    status VARCHAR(20) NOT NULL\n);\nINSERT INTO inventory VALUES ('SKU-01', 15, 'available'), ('SKU-02', 0, 'out_of_stock');\nSELECT sku, stock FROM inventory WHERE status = 'available';",
+          "explanation": "Selects rows matching the status predicate from the inventory relation.",
+          "expected_output": "| sku | stock |\n|---|---|\n| SKU-01 | 15 |"
         }
       ],
       "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "schemas",
-      "title": "Schemas",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn schemas",
-      "markdown": "This section covers schemas. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
+        "Use surrogate keys (BIGINT or UUID) for robust, immutable identity.",
+        "Model many-to-many relationships with dedicated junction tables."
       ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "relationships",
-      "title": "Relationships",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn relationships",
-      "markdown": "This section covers relationships. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "relational-model-intuition",
-      "title": "Relational Model Intuition",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn relational-model-intuition",
-      "markdown": "This section covers relational-model-intuition. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "normalization-preview",
-      "title": "Normalization Preview",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn normalization-preview",
-      "markdown": "This section covers normalization-preview. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn common-mistakes",
-      "markdown": "This section covers common-mistakes. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn interview-points",
-      "markdown": "This section covers interview-points. Here are some terms we must mention just in case: database schema table row column data types primary key foreign key relationship relational model normalization.\n\nThis extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. This extra text is to make sure the markdown field is at least 100 characters long to pass validations. ",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "CREATE TABLE users (id INT); INSERT INTO users VALUES (1); SELECT * FROM users;",
-          "expected_output": "id\n--\n1",
-          "explanation": "Simple select example with table creation."
-        }
-      ],
-      "key_points": [
-        "Key 1",
-        "Key 2"
-      ]
+      "checkpoint": "Show the table schema for a student-course enrollment junction table enforcing unique enrollment."
     }
   ],
   "summary": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "Relational databases organize data into schemas, tables, rows, and strongly typed columns.",
+    "Primary keys guarantee row uniqueness; foreign keys enforce referential integrity across tables.",
+    "Normalization (1NF, 2NF, 3NF) removes redundancy and update anomalies.",
+    "Exact types (NUMERIC, TIMESTAMPTZ) protect against precision and timezone bugs.",
+    "Foreign key cascade policies (RESTRICT, CASCADE, SET NULL) define referential deletion behavior."
   ],
   "interview_takeaways": [
-    "Takeaway 1",
-    "Takeaway 2",
-    "Takeaway 3"
+    "In schema design interviews, identify entity relationships (1:1, 1:N, M:N) before writing CREATE TABLE.",
+    "Prefer surrogate integer/UUID primary keys over mutable natural keys like email addresses.",
+    "Explain normalization up to 3NF, then articulate when deliberate denormalization is justified for read performance."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Storing comma-delimited lists in a text column, violating First Normal Form (1NF)",
+    "Using FLOAT or REAL for monetary currency calculations instead of NUMERIC",
+    "Omitting foreign key constraints and allowing orphaned records to accumulate in the database",
+    "Using TIMESTAMP WITHOUT TIME ZONE in distributed global applications"
   ],
   "sources": [
     {
       "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL Tutorial",
-      "url": "https://www.postgresql.org/docs/current/tutorial.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "PostgreSQL Documentation \u2014 The Relational Data Model",
+      "url": "https://www.postgresql.org/docs/current/tutorial-start.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     },
     {
-      "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL SQL Commands",
-      "url": "https://www.postgresql.org/docs/current/sql-commands.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "source_id": "postgresql-tutorial",
+      "title": "PostgreSQL Documentation \u2014 DDL Basics and Constraints",
+      "url": "https://www.postgresql.org/docs/current/ddl-constraints.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-relational-foundations-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "9cefbc985876975925508cb973dc8b3d91cec83a33da07392b0b3e96282edfbf",
+  "generated_at": "2026-09-24T08:30:21.637715+00:00"
 }

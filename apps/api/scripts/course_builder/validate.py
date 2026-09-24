@@ -6,13 +6,36 @@ from app.schemas.course import StaticLesson
 
 
 QUALITY_TARGETS = {
-    ("python", "syntax-data-types"), ("python", "collections"),
-    ("python", "functions"), ("python", "async-await"),
-    ("python", "debugging"), ("sql-postgresql", "window-functions"),
-    ("sql-postgresql", "transactions"), ("dsa", "arrays"),
-    ("dsa", "hash-maps"), ("dsa", "two-pointers"),
-    ("dsa", "sliding-window"), ("dsa", "trees"),
-    ("dsa", "dynamic-programming"),
+    # Python (19)
+    ("python", "async-await"), ("python", "collections"),
+    ("python", "comprehensions"), ("python", "control-flow"),
+    ("python", "debugging"), ("python", "decorators"),
+    ("python", "exceptions"), ("python", "file-handling"),
+    ("python", "functions"), ("python", "generators"),
+    ("python", "iterators"), ("python", "modules-packages"),
+    ("python", "oop"), ("python", "reading-unfamiliar-code"),
+    ("python", "strings"), ("python", "syntax-data-types"),
+    ("python", "testing"), ("python", "type-hints"),
+    ("python", "virtual-environments"),
+    # SQL (14)
+    ("sql-postgresql", "aggregation"), ("sql-postgresql", "constraints-design"),
+    ("sql-postgresql", "ctes"), ("sql-postgresql", "data-modification"),
+    ("sql-postgresql", "database-python"), ("sql-postgresql", "indexes"),
+    ("sql-postgresql", "joins"), ("sql-postgresql", "postgresql-practicals"),
+    ("sql-postgresql", "query-basics"), ("sql-postgresql", "relational-foundations"),
+    ("sql-postgresql", "subqueries"), ("sql-postgresql", "transactions"),
+    ("sql-postgresql", "values-expressions"), ("sql-postgresql", "window-functions"),
+    # DSA (20)
+    ("dsa", "arrays"), ("dsa", "backtracking"),
+    ("dsa", "bfs"), ("dsa", "big-o"),
+    ("dsa", "binary-search"), ("dsa", "dfs"),
+    ("dsa", "dynamic-programming"), ("dsa", "graphs"),
+    ("dsa", "hash-maps"), ("dsa", "heaps"),
+    ("dsa", "linked-lists"), ("dsa", "queues"),
+    ("dsa", "recursion"), ("dsa", "sets"),
+    ("dsa", "sliding-window"), ("dsa", "sorting"),
+    ("dsa", "stacks"), ("dsa", "strings"),
+    ("dsa", "trees"), ("dsa", "two-pointers"),
 }
 
 PLACEHOLDER_PHRASES = (

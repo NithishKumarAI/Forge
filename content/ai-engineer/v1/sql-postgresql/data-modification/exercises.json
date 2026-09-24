@@ -1,153 +1,139 @@
 [
   {
-    "key": "dm-1",
+    "key": "dml-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "Question goes here.",
+    "title": "Effect of UPDATE without WHERE",
+    "prompt_markdown": "What happens if you execute `UPDATE users SET status = 'active';` without a `WHERE` clause?",
     "difficulty": "easy",
     "hints": [
-      "Hint 1"
+      "SQL statements apply to all rows unless explicitly filtered."
     ],
     "content": {
       "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
+        "PostgreSQL halts with a syntax error requiring an explicit WHERE predicate",
+        "Only the first row or currently active user row is updated",
+        "Every single row in the users table is updated to status = 'active'",
+        "The query fails if the table contains more than 100 records"
       ],
-      "correct_index": 0,
-      "explanation": "Because A."
+      "correct_index": 2,
+      "explanation": "In standard SQL, omitting the WHERE clause in an UPDATE statement causes the modification to be applied unconditionally to every row in the table."
     }
   },
   {
-    "key": "dm-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Question goes here.",
+    "key": "dml-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Function of the RETURNING clause",
+    "prompt_markdown": "What is the primary architectural advantage of using `RETURNING` in an `INSERT` statement?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about race conditions and network round-trips."
+    ],
+    "content": {
+      "choices": [
+        "It causes the database to roll back the insert if any warning occurs",
+        "It atomically returns newly created columns (like generated IDs) in the same call without race conditions",
+        "It converts the inserted table data directly into a JSON file on disk",
+        "It automatically indexes the inserted rows before committing"
+      ],
+      "correct_index": 1,
+      "explanation": "RETURNING allows clients to retrieve inserted or modified data (such as auto-generated IDs or timestamps) immediately from the mutation statement, avoiding extra round trips and race conditions."
+    }
+  },
+  {
+    "key": "dml-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "DELETE vs TRUNCATE behavior",
+    "prompt_markdown": "How does `TRUNCATE TABLE` differ fundamentally from `DELETE FROM table`?",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Consider disk page deallocation vs row-level scanning and triggers."
+    ],
+    "content": {
+      "choices": [
+        "DELETE drops the table schema, whereas TRUNCATE preserves the table schema",
+        "TRUNCATE scans row-by-row firing triggers, whereas DELETE immediately drops the data files",
+        "TRUNCATE quickly reclaims storage by deallocating data pages directly without row triggers, whereas DELETE logs each row individually",
+        "DELETE cannot be executed inside a transaction block, whereas TRUNCATE can"
+      ],
+      "correct_index": 2,
+      "explanation": "TRUNCATE operates at the storage page level, quickly deallocating data blocks without firing individual row DELETE triggers, making it vastly faster for large table cleanups."
+    }
+  },
+  {
+    "key": "dml-short-predict-returning",
+    "exercise_type": "short_answer",
+    "title": "Predict output of UPDATE with RETURNING",
+    "prompt_markdown": "Given table `employees (id, name, department, salary)` with rows:\n`(1, 'Ana', 'AI', 80000), (2, 'Bob', 'HR', 50000), (3, 'Charlie', 'AI', 70000)`.\nPredict the result set returned by this query:\n\n```sql\nUPDATE employees\nSET salary = salary + 5000\nWHERE department = 'AI'\nRETURNING name, salary;\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Only rows with department = 'AI' are updated and returned with their new salaries."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Identifies that only Ana (id 1) and Charlie (id 3) match department = 'AI'",
+        "Calculates Ana's new salary as 85000",
+        "Calculates Charlie's new salary as 75000",
+        "Outputs the two returned rows: Ana (85000) and Charlie (75000)"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "Returned result set:\n- `('Ana', 85000)`\n- `('Charlie', 75000)`\n\nExplanation: The WHERE clause filters exclusively for rows where `department = 'AI'`. Bob in HR is untouched. Ana's salary increases from 80000 to 85000, and Charlie's from 70000 to 75000. The `RETURNING name, salary` clause immediately yields both updated records.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dm-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "dm-4",
+    "key": "dml-short-fix-race-condition",
     "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Question goes here.",
+    "title": "Fix dangerous race condition in inventory decrement",
+    "prompt_markdown": "A web store backend executes this unsafe code:\n\n```sql\n-- Step 1: Check stock\nSELECT stock FROM inventory WHERE product_id = 42;\n-- Step 2: (Application checks if stock > 0, then executes)\nUPDATE inventory SET stock = stock - 1 WHERE product_id = 42;\n```\nExplain why this introduces a race condition during concurrent checkouts, and rewrite it as a single atomic SQL statement.",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Combine the check and decrement into an atomic WHERE clause with RETURNING."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains the race condition: between SELECT and UPDATE, another transaction can decrement stock, leading to negative inventory (overselling)",
+        "Provides an atomic UPDATE query with `WHERE product_id = 42 AND stock >= 1`",
+        "Includes `RETURNING stock` to verify whether the decrement succeeded"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "Vulnerability: This is a classic check-then-act race condition (Time-of-Check to Time-of-Use). If stock is 1 and two users check out simultaneously, both read `stock = 1`, both pass the application check, and both run UPDATE, dropping inventory to `-1` (overselling).\n\nAtomic SQL Fix:\n```sql\nUPDATE inventory\nSET stock = stock - 1\nWHERE product_id = 42 AND stock >= 1\nRETURNING stock;\n```\nIf stock is 0, the WHERE predicate evaluates FALSE, zero rows are modified, and the client knows the item is out of stock.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dm-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "dm-6",
+    "key": "dml-short-implement-batch-insert",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Question goes here.",
+    "title": "Write batch INSERT with RETURNING clause",
+    "prompt_markdown": "Write a single SQL statement that inserts 3 new records into `tasks (title, priority)` where priority is 'high', 'medium', and 'low'. Have the query immediately return the system-generated `id` and `created_at` timestamp for all inserted rows.",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Use multi-row VALUES separated by commas and append RETURNING id, created_at."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Uses a single `INSERT INTO tasks (title, priority) VALUES ...` syntax",
+        "Includes 3 comma-separated value tuples for 'high', 'medium', and 'low'",
+        "Appends `RETURNING id, created_at` to the statement"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "```sql\nINSERT INTO tasks (title, priority) VALUES\n('Task 1', 'high'),\n('Task 2', 'medium'),\n('Task 3', 'low')\nRETURNING id, created_at;\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dm-7",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 7",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "Because A."
-    }
-  },
-  {
-    "key": "dm-8",
+    "key": "dml-short-explain-delete-truncate-drop",
     "exercise_type": "short_answer",
-    "title": "Exercise 8",
-    "prompt_markdown": "Question goes here.",
-    "difficulty": "medium",
+    "title": "Explain DELETE vs TRUNCATE vs DROP in technical interviews",
+    "prompt_markdown": "An interviewer asks you to compare `DELETE`, `TRUNCATE`, and `DROP` in PostgreSQL across performance, logging, rollback capability, and trigger activation. Provide a structured comparison.",
+    "difficulty": "hard",
     "hints": [
-      "Hint 1"
+      "Structure your response around logging overhead, trigger execution, transaction rollback, and catalog impact."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Compares DELETE: operates row-by-row, logs every row change, fires ON DELETE triggers, slower on large tables, fully rollable back",
+        "Compares TRUNCATE: DDL-like data purge, deallocates storage pages directly, minimal WAL logging, does not fire row triggers, rollable back in PostgreSQL",
+        "Compares DROP: destroys table schema, indexes, constraints, and data entirely from the database catalog",
+        "Notes that all three can be rolled back inside a PostgreSQL transaction"
       ],
-      "reference_answer": "Reference",
+      "reference_answer": "1. DELETE:\n- Granularity: Operates row-by-row with optional WHERE filter.\n- Triggers & Constraints: Fires row-level triggers and strictly enforces foreign key constraints.\n- Performance & WAL: Generates WAL records for every modified row, making it slow for massive tables.\n- Transaction: Fully rollable back inside a transaction.\n\n2. TRUNCATE:\n- Granularity: Purges all rows from the table; cannot filter with WHERE.\n- Triggers & Constraints: Does not fire individual row triggers (only statement-level truncate triggers). Fails if referenced by foreign keys unless CASCADE is specified.\n- Performance & WAL: Reclaims storage pages directly; vastly faster with minimal logging.\n- Transaction: In PostgreSQL, TRUNCATE is transaction-safe and can be rolled back.\n\n3. DROP TABLE:\n- Granularity: Removes the entire table definition, schema catalog entry, indexes, triggers, and physical files.\n- Transaction: Transaction-safe in PostgreSQL; rollable back if executed inside an active BEGIN/COMMIT block.",
       "minimum_pass_score": 70
     }
   }

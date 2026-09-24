@@ -1,115 +1,139 @@
 [
   {
-    "key": "rf-1",
+    "key": "rel-mcq-pk-rules",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "What is the correct answer?",
+    "title": "Primary key constraints",
+    "prompt_markdown": "What two fundamental constraints are automatically enforced on any column declared as `PRIMARY KEY` in PostgreSQL?",
     "difficulty": "easy",
     "hints": [
-      "Think about it"
+      "Can a primary key have duplicates or missing values?"
     ],
     "content": {
       "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
+        "CHECK (value > 0) and DEFAULT 0",
+        "UNIQUE and NOT NULL",
+        "FOREIGN KEY and INDEX",
+        "AUTO_INCREMENT and BINARY"
       ],
       "correct_index": 1,
-      "explanation": "Because it is correct."
+      "explanation": "A primary key constraint uniquely identifies each row in a table. It strictly enforces both `UNIQUE` (no duplicate values) and `NOT NULL` (no missing values)."
     }
   },
   {
-    "key": "rf-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Explain this.",
+    "key": "rel-mcq-many-to-many",
+    "exercise_type": "multiple_choice",
+    "title": "Modeling Many-to-Many relationships",
+    "prompt_markdown": "How is a Many-to-Many relationship (e.g. Students and Courses) properly modeled in a relational database?",
+    "difficulty": "easy",
+    "hints": [
+      "Can a foreign key point to multiple rows simultaneously?"
+    ],
+    "content": {
+      "choices": [
+        "By storing an array of course IDs in the students table",
+        "By using an intermediary junction (bridge) table containing foreign keys to both tables",
+        "By duplicating the student row for every course enrolled",
+        "By combining both tables into one wide denormalized view"
+      ],
+      "correct_index": 1,
+      "explanation": "In relational theory, Many-to-Many relationships require a junction table (e.g. `student_courses`) containing foreign keys referencing both participating tables, preserving 1NF and referential integrity."
+    }
+  },
+  {
+    "key": "rel-mcq-transitive-dependency",
+    "exercise_type": "multiple_choice",
+    "title": "Third Normal Form violation",
+    "prompt_markdown": "A table `orders` has columns `(order_id PK, customer_id, customer_city)`. Why does this violate Third Normal Form (3NF)?",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Does customer_city depend on order_id or on customer_id?"
+    ],
+    "content": {
+      "choices": [
+        "order_id is not a numeric type",
+        "`customer_city` depends on `customer_id`, which in turn depends on `order_id` (a transitive dependency)",
+        "It violates 1NF because city names contain text",
+        "Foreign keys are forbidden in 3NF"
+      ],
+      "correct_index": 1,
+      "explanation": "3NF requires that non-key attributes depend only on the primary key. Here, `customer_city` depends on `customer_id` (a non-key column). This transitive dependency causes update anomalies if a customer's city changes."
+    }
+  },
+  {
+    "key": "rel-short-predict-cascade",
+    "exercise_type": "short_answer",
+    "title": "Predict ON DELETE CASCADE behavior",
+    "prompt_markdown": "Given this schema and data, predict the result of the final query and explain the mechanism:\n\n```sql\nCREATE TABLE teams (id INT PRIMARY KEY, name TEXT);\nCREATE TABLE players (id INT PRIMARY KEY, team_id INT REFERENCES teams(id) ON DELETE CASCADE);\nINSERT INTO teams VALUES (1, 'Warriors'), (2, 'Lakers');\nINSERT INTO players VALUES (10, 1), (11, 1), (12, 2);\nDELETE FROM teams WHERE id = 1;\nSELECT COUNT(*) FROM players;\n```",
+    "difficulty": "medium",
+    "hints": [
+      "What happens to players with team_id = 1 when team 1 is deleted?"
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "States the correct final count `1`",
+        "Explains that deleting team 1 triggers `ON DELETE CASCADE` on `players`",
+        "Identifies that players 10 and 11 are deleted, leaving only player 12"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Output: `1`.\nExplanation: Deleting the team row with `id = 1` activates the `ON DELETE CASCADE` rule on the foreign key. PostgreSQL automatically deletes all child rows in `players` where `team_id = 1` (players 10 and 11). Only player 12 (associated with team 2) remains, yielding a count of 1.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "rf-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because it is correct."
-    }
-  },
-  {
-    "key": "rf-4",
+    "key": "rel-short-fix-non-atomic",
     "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Explain this.",
+    "title": "Diagnose and fix 1NF non-atomic violation",
+    "prompt_markdown": "A legacy table `articles` stores tags as comma-separated text: `(id INT, title TEXT, tags TEXT)` e.g. `(1, 'AI Trends', 'python,ml,sql')`. Explain two major query problems caused by this design and write the normalized 1NF schema.",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "How do you query for an exact tag without regex? Split into articles, tags, and article_tags."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Identifies that searching for a tag requires slow `LIKE '%tag%'` pattern matching that cannot use indexes",
+        "Identifies that foreign key integrity cannot prevent misspelled tag entries",
+        "Provides the normalized junction table design: `articles`, `tags`, and `article_tags`"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Defects: 1. Inefficient querying: Finding articles with tag 'sql' requires `LIKE '%sql%'` full-table scans that cannot use B-tree indexes and risk false positives (e.g. matching 'nosql'). 2. Integrity: The database cannot enforce foreign keys on individual tags.\nNormalized 1NF Schema:\n```sql\nCREATE TABLE articles (id INT PRIMARY KEY, title TEXT NOT NULL);\nCREATE TABLE tags (id INT PRIMARY KEY, name TEXT UNIQUE NOT NULL);\nCREATE TABLE article_tags (\n    article_id INT REFERENCES articles(id) ON DELETE CASCADE,\n    tag_id INT REFERENCES tags(id) ON DELETE CASCADE,\n    PRIMARY KEY (article_id, tag_id)\n);\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "rf-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because it is correct."
-    }
-  },
-  {
-    "key": "rf-6",
+    "key": "rel-short-implement-junction",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Explain this.",
+    "title": "Implement user-role junction table design",
+    "prompt_markdown": "Write the SQL `CREATE TABLE user_roles` junction table linking `users(id)` and `roles(id)`. Ensure that a user cannot be assigned the same role twice, and that deleting a user or role automatically cleans up the junction records.",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Use composite primary key (user_id, role_id) and ON DELETE CASCADE on both foreign keys."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Declares `user_id INT REFERENCES users(id) ON DELETE CASCADE`",
+        "Declares `role_id INT REFERENCES roles(id) ON DELETE CASCADE`",
+        "Declares composite `PRIMARY KEY (user_id, role_id)` preventing duplicate assignments",
+        "Adds optional `granted_at TIMESTAMPTZ DEFAULT NOW()` timestamp"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "```sql\nCREATE TABLE user_roles (\n    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,\n    role_id INT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,\n    granted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n    PRIMARY KEY (user_id, role_id)\n);\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "rel-short-explain-anomalies",
+    "exercise_type": "short_answer",
+    "title": "Explain insertion, update, and deletion anomalies",
+    "prompt_markdown": "Explain what 'update anomalies', 'insertion anomalies', and 'deletion anomalies' mean in database design. Provide a concrete scenario demonstrating all three in an un-normalized table.",
+    "difficulty": "medium",
+    "hints": [
+      "Consider a table storing student, course, and instructor_phone in one row."
+    ],
+    "content": {
+      "rubric": [
+        "Defines update anomaly: updating data in one row leaves conflicting old data in duplicate rows",
+        "Defines insertion anomaly: unable to record an entity without creating a dummy unrelated entity",
+        "Defines deletion anomaly: deleting one entity accidentally destroys data about an unrelated entity",
+        "Provides a clear concrete example (e.g. Course-Instructor table)"
+      ],
+      "reference_answer": "Scenario: Table `course_enrollment (student_id, course_name, instructor_phone)`.\n1. Update Anomaly: If the instructor's phone changes, we must update 500 enrolled student rows. Missing one row leaves contradictory phone numbers in the database.\n2. Insertion Anomaly: If the university creates a new course that has no students enrolled yet, we cannot record the course and instructor phone because `student_id` is part of the primary key and cannot be NULL.\n3. Deletion Anomaly: If the only student enrolled in a course drops out, deleting that student's row inadvertently destroys the record of the course and the instructor's phone number.",
       "minimum_pass_score": 70
     }
   }

@@ -2,186 +2,200 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "control-flow",
-  "title": "Control Flow",
-  "description": "Learn how to direct the execution path of your programs.",
-  "version": "1.0.0",
+  "title": "Control Flow and Conditionals",
+  "description": "Master branching, truthiness evaluation, iteration protocols, loop control mechanics, and structural pattern matching.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand if, elif, else",
-    "Use for and while loops",
-    "Master truthiness and falsiness"
+    "Structure multi-branch conditional logic using if, elif, and else with precise boolean guards",
+    "Apply Python truthiness and falsiness rules safely across scalar and container boundaries",
+    "Control loop execution using for, while, range, break, continue, and loop else clauses",
+    "Evaluate structural pattern matching with modern match awareness"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "syntax-data-types"
+  ],
   "sections": [
     {
-      "slug": "what-is-control-flow",
-      "title": "What is Control Flow?",
+      "slug": "conditional-branching",
+      "title": "Conditional branching with if, elif, and else",
       "order_index": 0,
-      "estimated_minutes": 2,
-      "learning_objective": "Understand the concept of control flow.",
-      "markdown": "Control flow is the order in which individual statements, instructions, or function calls are executed or evaluated. By default, scripts execute from top to bottom, but we can change this using control structures.",
-      "examples": [],
-      "key_points": [
-        "Top to bottom default",
-        "Can branch or loop"
-      ]
-    },
-    {
-      "slug": "if-elif-else",
-      "title": "If, Elif, and Else",
-      "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Use conditional statements.",
-      "markdown": "We use if, elif, else to execute code only when certain conditions are met.",
+      "estimated_minutes": 8,
+      "learning_objective": "Structure clean conditional trees without redundant checks or dead code.",
+      "markdown": "Python executes code sequentially until it reaches a branching construct. An `if` statement evaluates an expression's boolean value. If the expression evaluates to `True`, the indented block runs and subsequent branches are skipped. If false, Python tests each `elif` branch in top-down order before falling back to the optional `else` block. Good engineering favors early guard clauses: return or fail fast rather than nesting multiple levels of conditions.",
       "examples": [
         {
           "language": "python",
-          "code": "x = 5\nif x > 0:\n    print('Positive')\nelif x == 0:\n    print('Zero')\nelse:\n    print('Negative')",
-          "expected_output": "Positive",
-          "explanation": "Branches based on condition"
+          "code": "status_code = 404\nif status_code < 400:\n    category = 'success'\nelif status_code < 500:\n    category = 'client_error'\nelse:\n    category = 'server_error'\nprint(category)",
+          "explanation": "Branches evaluate top-down; once the 404 matches the second condition, Python skips the else clause.",
+          "expected_output": "client_error"
         }
       ],
       "key_points": [
-        "Condition evaluation",
-        "Exclusive branching"
-      ]
+        "Only the first branch whose condition evaluates to True executes.",
+        "Use early guard returns to prevent deeply nested if-statements."
+      ],
+      "checkpoint": "Explain why reordering branches from most specific to least specific is critical to avoid unreachable conditions."
     },
     {
       "slug": "truthiness-and-falsiness",
-      "title": "Truthiness and Falsiness",
+      "title": "Truthiness and falsiness evaluation",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Differentiate between explicit boolean values and implicit container emptiness.",
+      "markdown": "Every Python object has an intrinsic boolean truth value evaluated by `bool()`. Built-in falsiness applies to numeric zeros (`0`, `0.0`), boolean `False`, `None`, and all empty collections (`\"\"`, `[]`, `()`, `{}`, `set()`). All other objects evaluate to truthiness. In conditional expressions, `and` and `or` short-circuit and return the operand that decided the outcome, not a coerced boolean. Be cautious when `0` or `False` represents a valid domain value; always use `is not None` when checking for presence.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "active_users = []\nthreshold = 0\nprint(bool(active_users), bool(threshold))\nuser_input = active_users or ['guest']\nprint(user_input)",
+          "explanation": "Empty list and zero are falsy; the short-circuiting or operator falls back to the right-hand operand.",
+          "expected_output": "False False\n['guest']"
+        }
+      ],
+      "key_points": [
+        "Empty sequences and zero evaluate to falsy; non-empty collections evaluate to truthy.",
+        "Short-circuit operators and and or return the decisive operand rather than converting to bool."
+      ],
+      "checkpoint": "Why is 'if count:' a bug when count = 0 represents a valid zero count?"
+    },
+    {
+      "slug": "for-loops-and-range",
+      "title": "Iteration with for loops and range",
       "order_index": 2,
-      "estimated_minutes": 4,
-      "learning_objective": "Understand how Python evaluates boolean contexts.",
-      "markdown": "Every object in Python has a boolean value. Some are considered falsiness (like 0, empty lists, None) and others truthiness.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Iterate deterministically over sequences and arithmetic ranges.",
+      "markdown": "Python's `for` loop is an iterator-consumer rather than a C-style counting loop. It requests items one at a time from any iterable object until the sequence is exhausted. The built-in `range(start, stop, step)` generates an immutable arithmetic sequence on demand without materializing all numbers in memory. For zero-indexed counting, `range(n)` yields `0` through `n-1`. Pair loops with `enumerate(iterable)` when index tracking is needed, avoiding manual index increments.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "items = ['auth', 'billing', 'notifications']\nfor idx, service in enumerate(items, start=1):\n    print(f'{idx}:{service}')",
+          "explanation": "enumerate cleanly generates 1-based index and value tuples during iteration.",
+          "expected_output": "1:auth\n2:billing\n3:notifications"
+        }
+      ],
       "key_points": [
-        "Empty is usually false",
-        "Everything else is true"
-      ]
+        "for loops consume items through the iterable protocol.",
+        "range generates numbers lazily with O(1) space complexity."
+      ],
+      "checkpoint": "What are the start, stop, and step values in range(10, 0, -2) and what numbers are produced?"
     },
     {
-      "slug": "for-loops",
-      "title": "For Loops",
+      "slug": "while-loops-and-invariants",
+      "title": "While loops and termination invariants",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Iterate over sequences.",
-      "markdown": "A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string).",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Write converging while loops with clear termination conditions.",
+      "markdown": "A `while` loop repeatedly executes as long as its condition remains true. It is suited for state-driven loops where the number of iterations cannot be known upfront, such as reading network streams, binary search halving, or convergence checks in algorithms. Every while loop requires an invariant progress statement inside the body that drives state toward the termination condition. Failing to update loop variables creates infinite loops that exhaust system CPU.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "remaining = 8\nhalves = 0\nwhile remaining > 1:\n    remaining //= 2\n    halves += 1\nprint(f'Halved {halves} times to {remaining}')",
+          "explanation": "Integer division halves the value on every step until remaining reaches 1, terminating the loop.",
+          "expected_output": "Halved 3 times to 1"
+        }
+      ],
       "key_points": [
-        "For Loops is a core concept to understand",
-        "Practice applying For in real code"
-      ]
+        "while loops require state changes inside the body to ensure progress toward termination.",
+        "State invariants explicitly define why the loop will safely terminate."
+      ],
+      "checkpoint": "Identify the termination invariant in a binary search loop condition."
     },
     {
-      "slug": "while-loops",
-      "title": "While Loops",
+      "slug": "loop-control-break-continue",
+      "title": "Loop control: break, continue, and loop-else",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Loop while a condition is true.",
-      "markdown": "A while loop executes a set of statements as long as a condition is true.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Interrupt and skip loop iterations deterministically.",
+      "markdown": "Python provides `break` to exit the innermost loop immediately and `continue` to abandon the remainder of the current iteration and advance to the next element. Python also supports an `else` clause attached directly to `for` or `while` loops. The loop `else` executes only if the loop completed naturally without encountering a `break`. This pattern elegantly eliminates boolean search flags when finding items in sequences.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "targets = [12, 17, 19, 24]\nfor n in targets:\n    if n % 2 == 0 and n > 20:\n        print(f'Found: {n}')\n        break\nelse:\n    print('No match found')",
+          "explanation": "The loop scans items; 24 meets both criteria, prints, and breaks, preventing the else block from executing.",
+          "expected_output": "Found: 24"
+        }
+      ],
       "key_points": [
-        "While Loops is a core concept to understand",
-        "Practice applying While in real code"
-      ]
+        "break terminates loop execution immediately.",
+        "continue skips to the next iteration.",
+        "The loop else block runs only if no break was hit during iteration."
+      ],
+      "checkpoint": "Contrast the loop else clause with a function early return inside a loop."
     },
     {
-      "slug": "range-function",
-      "title": "Range Function",
+      "slug": "pattern-matching",
+      "title": "Modern structural pattern matching",
       "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Generate sequences of numbers.",
-      "markdown": "The range function returns a sequence of numbers, starting from 0 by default, and increments by 1.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Evaluate shapes and values with match and case statements.",
+      "markdown": "Introduced in Python 3.10, structural pattern matching with `match` and `case` goes beyond C-style switch statements. Pattern matching checks both value equality and structural shape (sequences, mappings, classes) while unpacking values directly into local variables. Guards using `if` add conditional constraints to individual cases. Maintain `match awareness` for clean command parsers and API response handling, using `case _:` as the catch-all wildcard.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "event = ('order', 450, 'express')\nmatch event:\n    case ('order', amount, 'express') if amount > 100:\n        priority = 'urgent'\n    case ('order', _, _):\n        priority = 'standard'\n    case _:\n        priority = 'unknown'\nprint(priority)",
+          "explanation": "The structural tuple unpacks amount and speed, evaluates the guard, and assigns urgent priority.",
+          "expected_output": "urgent"
+        }
+      ],
       "key_points": [
-        "Range Function is a core concept to understand",
-        "Practice applying Range in real code"
-      ]
+        "match statements unpack structure and bind variables simultaneously.",
+        "Guards with if refine cases; case _ acts as a default catch-all."
+      ],
+      "checkpoint": "When does structural pattern matching improve clarity over a chain of isinstance() checks?"
     },
     {
-      "slug": "break-and-continue",
-      "title": "Break and Continue",
+      "slug": "interview-check",
+      "title": "Interview questions and practice",
       "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Alter loop execution.",
-      "markdown": "Use break to exit a loop entirely. Use continue to skip the rest of the current iteration.",
-      "examples": [],
+      "estimated_minutes": 8,
+      "learning_objective": "Answer verbal control flow questions and link concepts to Arena challenges.",
+      "markdown": "In engineering interviews, control flow questions assess your awareness of edge cases, short-circuit evaluation, and time complexity within loops.\n\n### Oral Interview Questions\n1. *How does the loop else construct work in Python, and when should you prefer it over a flag variable?*\n2. *What is the difference between checking 'if not collection:' versus 'if collection is None:'?*\n3. *How do short-circuit boolean operators evaluate compound expressions with side effects?*\n\n### Code Trace Challenge\nTrace this loop: `total = 0; for i in range(1, 6): if i % 2 == 0: continue; total += i`. Step through odd values 1, 3, 5 yielding total = 9.\n\n### Common Interview Trap\nMutating a list while iterating over it with a for loop. Appending or deleting elements changes the underlying index offsets, skipping items or creating an infinite loop. Always iterate over a copy (`for item in items[:]`) or build a new list.\n\n### Arena Practice Problems\nTest your control flow fluency in Coding Arena:\n- `python-collatz`: Model step convergence with while loops\n- `python-fizzbuzz`: Clean multi-branch conditional checks\n- `python-leap-year`: Boolean guard logic with nested constraints\n- `python-celsius-to-fahrenheit`: Input range validation",
+      "examples": [
+        {
+          "language": "python",
+          "code": "total = 0\nfor i in range(1, 6):\n    if i % 2 == 0:\n        continue\n    total += i\nprint(f'Sum of odds: {total}')",
+          "explanation": "continue bypasses even numbers 2 and 4, accumulating 1 + 3 + 5 = 9.",
+          "expected_output": "Sum of odds: 9"
+        }
+      ],
       "key_points": [
-        "Break and Continue is a core concept to understand",
-        "Practice applying Break in real code"
-      ]
-    },
-    {
-      "slug": "nested-control-flow",
-      "title": "Nested Control Flow",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Combine control structures.",
-      "markdown": "You can place if statements inside loops, or loops inside other loops.",
-      "examples": [],
-      "key_points": [
-        "Nested Control Flow is a core concept to understand",
-        "Practice applying Nested in real code"
-      ]
-    },
-    {
-      "slug": "match-awareness",
-      "title": "Match Awareness",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Know about structural pattern matching.",
-      "markdown": "Python 3.10 introduced the match statement for structural pattern matching. Having match awareness is good for newer codebases.",
-      "examples": [],
-      "key_points": [
-        "Match Awareness is a core concept to understand",
-        "Practice applying Match in real code"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 9,
-      "estimated_minutes": 2,
-      "learning_objective": "Avoid common pitfalls.",
-      "markdown": "Off-by-one errors in range, forgetting colons.",
-      "examples": [],
-      "key_points": [
-        "Common Mistakes is a core concept to understand",
-        "Practice applying Common in real code"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 2,
-      "learning_objective": "Prepare for interviews.",
-      "markdown": "Understanding loop complexities and early exits is crucial.",
-      "examples": [],
-      "key_points": [
-        "Interview Points is a core concept to understand",
-        "Practice applying Interview in real code"
-      ]
+        "Never mutate a collection while iterating directly over it.",
+        "Trace index boundaries and loop variables when diagnosing off-by-one errors."
+      ],
+      "checkpoint": "Demonstrate the safe way to filter a list without modifying it during active iteration."
     }
   ],
   "summary": [
-    "Control flow dictates execution",
-    "Loops iterate",
-    "Conditionals branch"
+    "Structured if, elif, else statements provide deterministic branching with early guard returns.",
+    "Truthiness protocols evaluate container emptiness, zero values, and boolean singletons.",
+    "for and while loops offer sequence consumption and invariant-driven iterations.",
+    "Loop control statements break, continue, and loop-else eliminate redundant flags.",
+    "Modern match and case constructs enable expressive structural pattern matching."
   ],
   "interview_takeaways": [
-    "Know your loop complexities"
+    "Avoid nested if-statements by validating preconditions with early returns.",
+    "Differentiate None checks from falsiness checks to prevent zero-value bugs.",
+    "Do not mutate sequences in place while looping over them."
   ],
   "common_mistakes": [
-    "Infinite loops"
+    "Using if value: when value = 0 or False is valid domain data",
+    "Mutating a list while iterating over it in a for loop",
+    "Omitting a progress step in a while loop resulting in an infinite execution",
+    "Misunderstanding the loop-else clause as running when a break occurs"
   ],
   "sources": [
     {
       "source_id": "python-official-tutorial",
-      "title": "Control Flow Tools",
+      "title": "The Python Tutorial \u2014 More Control Flow Tools",
       "url": "https://docs.python.org/3/tutorial/controlflow.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-language-reference",
+      "title": "Python Language Reference \u2014 Compound statements",
+      "url": "https://docs.python.org/3/reference/compound_stmts.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-control-flow-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "82bbda4c27ea04e0ee53c6ec2ac5a3d4ceade841ab88ff02d544a2fa62312943",
+  "generated_at": "2026-09-24T08:21:20.761057+00:00"
 }

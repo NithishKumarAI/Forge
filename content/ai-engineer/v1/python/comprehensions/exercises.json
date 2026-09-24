@@ -1,115 +1,138 @@
 [
   {
-    "key": "comp-1",
+    "key": "comp-mcq-conditional-position",
     "exercise_type": "multiple_choice",
-    "title": "Question 1",
-    "prompt_markdown": "What is the answer?",
+    "title": "Placement of if-else in comprehensions",
+    "prompt_markdown": "Which comprehension correctly replaces negative numbers with 0 while keeping positive numbers?",
     "difficulty": "easy",
     "hints": [
-      "Hint 1"
+      "Review ternary conditional mapping vs trailing filtering."
     ],
     "content": {
       "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
+        "[x for x in nums if x >= 0 else 0]",
+        "[x if x >= 0 else 0 for x in nums]",
+        "[x for x in nums else 0 if x >= 0]",
+        "[(x >= 0) ? x : 0 for x in nums]"
       ],
-      "correct_index": 0,
-      "explanation": "A is correct."
+      "correct_index": 1,
+      "explanation": "When transforming every element with an if-else decision, use the ternary expression `expr_if_true if cond else expr_if_false` before the `for` clause."
     }
   },
   {
-    "key": "comp-2",
-    "exercise_type": "short_answer",
-    "title": "Question 2",
-    "prompt_markdown": "Explain this.",
+    "key": "comp-mcq-memory-difference",
+    "exercise_type": "multiple_choice",
+    "title": "Memory model: List comp vs Gen exp",
+    "prompt_markdown": "What is the primary operational difference between `[x*2 for x in data]` and `(x*2 for x in data)`?",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Compare eager allocation to lazy streaming."
+    ],
+    "content": {
+      "choices": [
+        "The generator expression is immutable while the list comprehension is mutable",
+        "The list comprehension materializes all elements in memory immediately; the generator yields elements lazily on demand",
+        "Generator expressions run in parallel on multi-core CPUs",
+        "The list comprehension can only contain integers, while generators accept any type"
+      ],
+      "correct_index": 1,
+      "explanation": "List comprehensions allocate a full list upfront (O(n) memory), whereas generator expressions create an iterator yielding elements one at a time (O(1) memory)."
+    }
+  },
+  {
+    "key": "comp-mcq-scope-leak",
+    "exercise_type": "multiple_choice",
+    "title": "Loop variable scope in Python 3",
+    "prompt_markdown": "What happens to the variable `k` after executing `[k * 2 for k in range(5)]` in Python 3?",
+    "difficulty": "medium",
+    "hints": [
+      "Python 3 gave comprehensions their own isolated scope."
+    ],
+    "content": {
+      "choices": [
+        "k equals 4 in the enclosing scope",
+        "k equals 8 in the enclosing scope",
+        "k is not defined in the enclosing scope unless it was previously assigned",
+        "k remains as an active iterator object"
+      ],
+      "correct_index": 2,
+      "explanation": "In Python 3, comprehensions execute in their own separate local scope. The iteration variable does not leak into the enclosing namespace."
+    }
+  },
+  {
+    "key": "comp-short-predict-matrix",
+    "exercise_type": "short_answer",
+    "title": "Predict nested comprehension output",
+    "prompt_markdown": "Predict the printed output of this nested comprehension and explain the order of execution:\n\n```python\nmatrix = [[1, 2], [3, 4]]\nresult = [x * 10 for row in matrix for x in row if x % 2 == 0]\nprint(result)\n```",
+    "difficulty": "medium",
+    "hints": [
+      "The first for clause corresponds to the outer loop; the second to the inner loop."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "States the correct output `[20, 40]`",
+        "Explains that `for row in matrix` evaluates first, followed by `for x in row`",
+        "Notes that the trailing if filters only even elements before multiplying by 10"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Output: `[20, 40]`.\nExplanation: The first clause `for row in matrix` iterates over `[1, 2]` then `[3, 4]`. The second clause `for x in row` inspects each integer. The trailing `if x % 2 == 0` filters out 1 and 3. The remaining values 2 and 4 are multiplied by 10, producing `[20, 40]`.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "comp-3",
-    "exercise_type": "multiple_choice",
-    "title": "Question 3",
-    "prompt_markdown": "What is the answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "A is correct."
-    }
-  },
-  {
-    "key": "comp-4",
+    "key": "comp-short-fix-side-effect",
     "exercise_type": "short_answer",
-    "title": "Question 4",
-    "prompt_markdown": "Explain this.",
+    "title": "Diagnose comprehension side-effect anti-pattern",
+    "prompt_markdown": "A backend service contains this line to publish telemetry metrics:\n\n```python\n[metrics_client.send(metric) for metric in metric_batch]\n```\nExplain why this is an anti-pattern, identify the wasted resources, and write the idiomatic replacement.",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "What happens to the returned list when the comprehension finishes?"
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains that comprehensions are meant for creating collections, not performing side effects",
+        "Identifies that an unnecessary list of return values is allocated and immediately discarded",
+        "Writes the idiomatic standard for-loop replacement"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Anti-pattern: Using a comprehension solely for side effects allocates an entire temporary list of return values (e.g. `[None, None, ...]`) in memory only to immediately discard it. It miscommunicates intent to readers expecting a transformation.\nIdiomatic replacement:\n```python\nfor metric in metric_batch:\n    metrics_client.send(metric)\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "comp-5",
-    "exercise_type": "multiple_choice",
-    "title": "Question 5",
-    "prompt_markdown": "What is the answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Hint 1"
-    ],
-    "content": {
-      "choices": [
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "correct_index": 0,
-      "explanation": "A is correct."
-    }
-  },
-  {
-    "key": "comp-6",
+    "key": "comp-short-implement-dict-comp",
     "exercise_type": "short_answer",
-    "title": "Question 6",
-    "prompt_markdown": "Explain this.",
+    "title": "Write dict comprehension with filtering",
+    "prompt_markdown": "Given a dictionary of server health checks `status = {'web': 'healthy', 'db': 'degraded', 'cache': 'healthy', 'queue': 'down'}`, write a dict comprehension that extracts only servers whose status is NOT 'healthy', converting the keys to uppercase.",
     "difficulty": "medium",
     "hints": [
-      "Hint 1"
+      "Iterate over status.items(), filter on value, and apply .upper() to keys."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Uses dict comprehension syntax `{k: v for ...}`",
+        "Applies `.upper()` to server names",
+        "Iterates over `status.items()` and filters with `if state != 'healthy'`",
+        "Produces `{'DB': 'degraded', 'QUEUE': 'down'}`"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "```python\nunhealthy = {name.upper(): state for name, state in status.items() if state != 'healthy'}\n```\nThis iterates key-value pairs, skips 'healthy' servers, and maps uppercase keys to their failure states in a single readable line.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "comp-short-explain-boundaries",
+    "exercise_type": "short_answer",
+    "title": "Explain nested readability boundaries in code review",
+    "prompt_markdown": "During a pull request review, an engineer submits a 4-line list comprehension containing 3 nested loops and 2 ternary operators. Explain how you would articulate the 'nested readability boundary' rule to guide their refactoring.",
+    "difficulty": "medium",
+    "hints": [
+      "Discuss cognitive load, testability, and debugging difficulties."
+    ],
+    "content": {
+      "rubric": [
+        "Defines the nested readability boundary (comprehensions should not exceed one transformation and one optional filter)",
+        "Explains that deeply nested comprehensions prevent setting debugger breakpoints and obscure stack traces",
+        "Recommends refactoring into standard loops or extracting helper generator functions"
+      ],
+      "reference_answer": "Comprehensions exist to simplify common mapping and filtering operations. When a comprehension nests multiple loops and conditionals, cognitive load increases dramatically. It cannot be easily debugged with line breakpoints, error stack traces become difficult to localize, and unit testing individual transformation steps is impossible. The rule: limit comprehensions to at most one loop and one filter. Refactor complex logic into a standard nested for-loop or a dedicated generator function.",
       "minimum_pass_score": 70
     }
   }

@@ -1,115 +1,138 @@
 [
   {
-    "key": "join-1",
+    "key": "join-mcq-left-join-nulls",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "What is the correct answer?",
+    "title": "LEFT JOIN unmatched column value",
+    "prompt_markdown": "In a query `SELECT a.name, b.order_date FROM customers a LEFT JOIN orders b ON a.id = b.customer_id;`, what value appears in `b.order_date` for a customer who has never placed an order?",
     "difficulty": "easy",
     "hints": [
-      "Think about it"
+      "What does an outer join pad missing columns with?"
     ],
     "content": {
       "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
+        "'1970-01-01'",
+        "NULL",
+        "The row is excluded from the result",
+        "Raises a QueryExecutionError"
       ],
       "correct_index": 1,
-      "explanation": "Because it is correct."
+      "explanation": "A `LEFT JOIN` preserves all rows from the left table. If no matching record exists in the right table, all projected right-table columns (`b.order_date`) are populated with `NULL`."
     }
   },
   {
-    "key": "join-2",
-    "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Explain this.",
+    "key": "join-mcq-where-converts-inner",
+    "exercise_type": "multiple_choice",
+    "title": "WHERE clause converting LEFT JOIN to INNER JOIN",
+    "prompt_markdown": "Why does adding `WHERE orders.status = 'shipped'` convert a `customers LEFT JOIN orders` query into an `INNER JOIN` in practice?",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "What does NULL = 'shipped' evaluate to for customers without orders?"
+    ],
+    "content": {
+      "choices": [
+        "PostgreSQL optimizes all WHERE clauses to INNER JOINs",
+        "For customers without orders, `orders.status` is NULL; `NULL = 'shipped'` evaluates to UNKNOWN, discarding all unmatched customers",
+        "The status column must be a boolean",
+        "Foreign keys forbid filtering in WHERE"
+      ],
+      "correct_index": 1,
+      "explanation": "For customers with no orders, `orders.status` is padded with `NULL`. Evaluating `NULL = 'shipped'` yields `UNKNOWN`, which the `WHERE` clause discards. This eliminates all unmatched customers, effectively turning the query into an INNER JOIN."
+    }
+  },
+  {
+    "key": "join-mcq-cartesian-cause",
+    "exercise_type": "multiple_choice",
+    "title": "Cause of Cartesian product",
+    "prompt_markdown": "What causes a query joining Table A (1,000 rows) and Table B (1,000 rows) to return 1,000,000 rows?",
+    "difficulty": "easy",
+    "hints": [
+      "What happens when the ON condition is missing?"
+    ],
+    "content": {
+      "choices": [
+        "Both tables have identical primary keys",
+        "The join condition was omitted (producing a CROSS JOIN / Cartesian product where every row in A pairs with every row in B)",
+        "The database buffer cache overflowed",
+        "An index was created on both tables"
+      ],
+      "correct_index": 1,
+      "explanation": "Omitting an `ON` condition or writing `FROM table_a, table_b` without a join predicate produces a Cartesian product (CROSS JOIN), multiplying row counts: 1,000 * 1,000 = 1,000,000 rows."
+    }
+  },
+  {
+    "key": "join-short-predict-anti-join",
+    "exercise_type": "short_answer",
+    "title": "Predict anti-join query output",
+    "prompt_markdown": "Predict the printed output of this query:\n\n```sql\nCREATE TABLE depts (id INT, name TEXT);\nCREATE TABLE staff (id INT, dept_id INT);\nINSERT INTO depts VALUES (1, 'Engineering'), (2, 'Marketing'), (3, 'HR');\nINSERT INTO staff VALUES (101, 1), (102, 1), (103, 2);\n\nSELECT depts.name \nFROM depts \nLEFT JOIN staff ON depts.id = staff.dept_id \nWHERE staff.id IS NULL;\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Which department has no matching staff entries?"
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "States the correct output `'HR'`",
+        "Explains that depts 1 (Engineering) and 2 (Marketing) have matching staff records",
+        "Explains that dept 3 (HR) has NULL staff.id from the LEFT JOIN, satisfying `WHERE staff.id IS NULL`"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Output: `HR`.\nExplanation: This implements the anti-join pattern. The `LEFT JOIN` preserves all three departments. Engineering and Marketing have staff rows (`staff.id` is non-null). For HR, no staff rows match, so `staff.id` is `NULL`. The `WHERE staff.id IS NULL` filter retains only HR.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "join-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because it is correct."
-    }
-  },
-  {
-    "key": "join-4",
+    "key": "join-short-fix-on-vs-where",
     "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Explain this.",
+    "title": "Fix outer join predicate placement",
+    "prompt_markdown": "A query is intended to return ALL departments, showing counts of active employees (`status = 'active'`). But departments with zero active employees are currently disappearing from the output:\n\n```sql\nSELECT depts.name, COUNT(staff.id) AS active_headcount\nFROM depts\nLEFT JOIN staff ON depts.id = staff.dept_id\nWHERE staff.status = 'active'\nGROUP BY depts.name;\n```\nDiagnose why empty departments disappear and provide the corrected query.",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Move the status check from WHERE into the ON clause."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains that `WHERE staff.status = 'active'` discards departments where `staff.status` is NULL",
+        "Moves `AND staff.status = 'active'` into the `LEFT JOIN ... ON` clause",
+        "Explains that this allows departments without active staff to be preserved with count 0"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Defect: Placing `WHERE staff.status = 'active'` filters the result *after* the join. For departments with no active staff, `staff.status` is NULL, so `WHERE NULL = 'active'` evaluates to UNKNOWN and discards those departments entirely.\nCorrected query:\n```sql\nSELECT depts.name, COUNT(staff.id) AS active_headcount\nFROM depts\nLEFT JOIN staff ON depts.id = staff.dept_id AND staff.status = 'active'\nGROUP BY depts.name;\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "join-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because it is correct."
-    }
-  },
-  {
-    "key": "join-6",
+    "key": "join-short-implement-self-join",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Explain this.",
+    "title": "Implement hierarchical self join",
+    "prompt_markdown": "Given table `employees (id INT, name TEXT, manager_id INT)`, write a query returning each employee's name and their manager's name as `manager_name`. The CEO has `manager_id = NULL` and must still appear in the output with `'No Manager'` as their manager name.",
     "difficulty": "medium",
     "hints": [
-      "Think deeper"
+      "Use LEFT JOIN employees mgr ON emp.manager_id = mgr.id and COALESCE."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Selects `emp.name AS employee_name`",
+        "Uses `LEFT JOIN employees mgr ON emp.manager_id = mgr.id`",
+        "Uses `COALESCE(mgr.name, 'No Manager') AS manager_name`",
+        "Uses distinct aliases `emp` and `mgr` for the self join"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "```sql\nSELECT \n    emp.name AS employee_name,\n    COALESCE(mgr.name, 'No Manager') AS manager_name\nFROM employees emp\nLEFT JOIN employees mgr ON emp.manager_id = mgr.id;\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "join-short-explain-join-algorithms",
+    "exercise_type": "short_answer",
+    "title": "Explain Nested Loop, Hash Join, and Merge Join in interviews",
+    "prompt_markdown": "In systems and database interviews, explain how PostgreSQL's query optimizer chooses between Nested Loop Join, Hash Join, and Merge Join. Describe the algorithmic mechanism and ideal scenario for each.",
+    "difficulty": "medium",
+    "hints": [
+      "Nested loop = index seek per outer row; Hash join = in-memory hash table; Merge join = sorted merge."
+    ],
+    "content": {
+      "rubric": [
+        "Explains Nested Loop Join: iterates outer table and probes an inner index; ideal when outer table is very small and inner table has an index",
+        "Explains Hash Join: builds in-memory hash table on the smaller table, scans larger table; ideal for large unsorted datasets",
+        "Explains Merge Join: steps through two pre-sorted inputs simultaneously like merge sort; ideal when inputs are already sorted by indexes"
+      ],
+      "reference_answer": "1. Nested Loop Join: For every row in the outer table, it scans or probes the inner table. Ideal when the outer table is very small (< 100 rows) and the inner table has an index on the join key (O(M * log N)).\n2. Hash Join: Scans the smaller table and builds an in-memory hash table of join keys in RAM (`work_mem`). Then scans the larger table, performing constant-time O(1) hash probes. Ideal for large, unsorted joins where no indexes exist.\n3. Merge Join: Pre-sorts both tables (or uses B-tree index order) and steps through both inputs concurrently like merge-sort. Ideal when both large tables are already ordered by the join keys.",
       "minimum_pass_score": 70
     }
   }

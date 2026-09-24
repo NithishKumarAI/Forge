@@ -2,268 +2,160 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "constraints-design",
-  "title": "Constraints and Database Design",
-  "description": "Learn about Constraints and Database Design",
-  "version": "1.0.0",
+  "title": "Database Constraints, Relational Design, and Normalization",
+  "description": "Enforce domain and referential integrity using NOT NULL, UNIQUE, CHECK, PRIMARY KEY, and FOREIGN KEY constraints, and apply 1NF, 2NF, and 3NF normalization rules.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Obj 1",
-    "Obj 2",
-    "Obj 3"
+    "Enforce entity and domain integrity using NOT NULL, UNIQUE, and CHECK constraints",
+    "Establish referential integrity between tables using PRIMARY KEY and FOREIGN KEY relationships with cascade rules",
+    "Apply database normalization principles (1NF, 2NF, 3NF) to eliminate insertion, update, and deletion anomalies",
+    "Evaluate engineering trade-offs between normalized relational schemas and denormalized analytical representations"
   ],
-  "prerequisites": [],
+  "prerequisites": [
+    "relational-foundations"
+  ],
   "sections": [
     {
-      "slug": "why-constraints",
-      "title": "Why Constraints",
+      "slug": "column-and-table-constraints",
+      "title": "Domain integrity: NOT NULL, UNIQUE, and CHECK constraints",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about why-constraints.",
-      "markdown": "This is the why-constraints section. NOT NULL UNIQUE CHECK PRIMARY KEY FOREIGN KEY 1NF 2NF 3NF normalization referential integrity It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Validate data boundaries at the database engine level using domain constraints.",
+      "markdown": "Relational databases enforce data quality at the storage engine level through constraints. A `NOT NULL` constraint prevents absent values from entering mandatory attributes. A `UNIQUE` constraint guarantees that all non-null values in a column or column group are distinct. A `CHECK` constraint tests arbitrary boolean expressions before allowing a row insertion or update (e.g. `CHECK (age >= 18 AND salary > 0)`). Engine-level constraints protect against bugs in application code.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- why-constraints",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "CREATE TABLE accounts (\n    id INT PRIMARY KEY,\n    email VARCHAR(100) NOT NULL UNIQUE,\n    balance NUMERIC(12,2) NOT NULL CHECK (balance >= 0),\n    status VARCHAR(20) NOT NULL CHECK (status IN ('active', 'suspended', 'closed'))\n);\n\nINSERT INTO accounts VALUES (1, 'user@example.com', 100.50, 'active');\nSELECT email, balance, status FROM accounts;",
+          "explanation": "Defines an accounts table with NOT NULL, UNIQUE, and CHECK domain constraints.",
+          "expected_output": "| email | balance | status |\n|---|---|---|\n| user@example.com | 100.50 | active |"
         }
       ],
       "key_points": [
-        "Key point for why-constraints"
-      ]
+        "NOT NULL disallows missing values for required attributes.",
+        "UNIQUE creates an implicit unique B-tree index ensuring distinct values.",
+        "CHECK evaluates boolean expressions to block invalid state transitions."
+      ],
+      "checkpoint": "Does a UNIQUE constraint in PostgreSQL allow multiple rows to have NULL values?"
     },
     {
-      "slug": "not-null",
-      "title": "Not Null",
+      "slug": "keys-and-referential-integrity",
+      "title": "Keys and referential integrity: PRIMARY KEY and FOREIGN KEY",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about not-null.",
-      "markdown": "This is the not-null section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Link relational entities using PRIMARY KEY and FOREIGN KEY constraints with cascade rules.",
+      "markdown": "A `PRIMARY KEY` uniquely identifies each row in a relation, combining `NOT NULL` and `UNIQUE` guarantees into a single canonical identifier. A `FOREIGN KEY` references a primary or unique key in another table, enforcing `referential integrity`: the database blocks any child record pointing to a non-existent parent ID. You can configure referential actions on parent deletion or update: `ON DELETE RESTRICT` (default: block deletion), `ON DELETE CASCADE` (automatically delete orphaned children), or `ON DELETE SET NULL`.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- not-null",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "CREATE TABLE customers (\n    id INT PRIMARY KEY,\n    name VARCHAR(50) NOT NULL\n);\nCREATE TABLE customer_orders (\n    order_id INT PRIMARY KEY,\n    customer_id INT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,\n    amount NUMERIC(10,2) NOT NULL\n);\n\nINSERT INTO customers VALUES (1, 'Alice');\nINSERT INTO customer_orders VALUES (101, 1, 250.00);\n\n-- Deleting Alice cascades and deletes order 101 automatically\nDELETE FROM customers WHERE id = 1;\nSELECT COUNT(*) AS remaining_orders FROM customer_orders;",
+          "explanation": "Demonstrates referential integrity and automated cascading deletion of child records.",
+          "expected_output": "| remaining_orders |\n|---|\n| 0 |"
         }
       ],
       "key_points": [
-        "Key point for not-null"
-      ]
+        "PRIMARY KEY enforces entity identity (unique and strictly non-null).",
+        "FOREIGN KEY preserves referential integrity by rejecting orphan records.",
+        "ON DELETE CASCADE propagates parent deletions to child records automatically."
+      ],
+      "checkpoint": "Why should ON DELETE CASCADE be used with extreme caution on critical production tables?"
     },
     {
-      "slug": "unique-constraint",
-      "title": "Unique Constraint",
+      "slug": "normalization-foundations",
+      "title": "Normalization intuition: 1NF, 2NF, and 3NF",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about unique-constraint.",
-      "markdown": "This is the unique-constraint section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Apply 1NF, 2NF, and 3NF normalization rules to eliminate data duplication.",
+      "markdown": "Database `normalization` is the systematic process of organizing relation schemas to minimize redundancy and prevent insertion, update, and deletion anomalies:\n1. **First Normal Form (`1NF`)**: Each table cell must contain a single atomic value (no comma-delimited lists or nested arrays), and each record must be uniquely identifiable.\n2. **Second Normal Form (`2NF`)**: Satisfies 1NF, and every non-key attribute must be fully functionally dependent on the entire primary key (eliminating partial dependencies on composite keys).\n3. **Third Normal Form (`3NF`)**: Satisfies 2NF, and no non-key attribute may depend on another non-key attribute (eliminating transitive dependencies like `dept_name` depending on `dept_id` which depends on `emp_id`).",
       "examples": [
         {
           "language": "sql",
-          "code": "-- unique-constraint",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "-- 3NF Design: Normalized Departments and Employees\nCREATE TABLE departments (\n    dept_id INT PRIMARY KEY,\n    dept_name VARCHAR(50) NOT NULL UNIQUE\n);\nCREATE TABLE company_staff (\n    emp_id INT PRIMARY KEY,\n    emp_name VARCHAR(50) NOT NULL,\n    dept_id INT NOT NULL REFERENCES departments(dept_id)\n);\n\nINSERT INTO departments VALUES (10, 'Engineering');\nINSERT INTO company_staff VALUES (1, 'Maya', 10);\n\nSELECT e.emp_name, d.dept_name\nFROM company_staff e\nJOIN departments d ON e.dept_id = d.dept_id;",
+          "explanation": "Separates department data into its own relation, achieving 3NF by removing transitive dependency.",
+          "expected_output": "| emp_name | dept_name |\n|---|---|\n| Maya | Engineering |"
         }
       ],
       "key_points": [
-        "Key point for unique-constraint"
-      ]
+        "1NF: Atomic values only; no repeating groups or comma-separated lists in single columns.",
+        "2NF: No partial dependencies; all attributes depend on the complete primary key.",
+        "3NF: No transitive dependencies; attributes depend only on the primary key, directly."
+      ],
+      "checkpoint": "If a table contains (student_id, course_id, student_email, grade), why does it violate 2NF?"
     },
     {
-      "slug": "check-constraint",
-      "title": "Check Constraint",
+      "slug": "denormalization-tradeoffs",
+      "title": "Denormalization trade-offs in high-scale systems",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about check-constraint.",
-      "markdown": "This is the check-constraint section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Evaluate engineering trade-offs between normalized transactional schemas and denormalization.",
+      "markdown": "While normalization prevents data anomalies in OLTP (Online Transaction Processing) systems, extreme normalization requires many relational JOINs to answer business queries. In high-scale analytical databases (OLAP) and high-throughput read workloads, teams intentionally apply denormalization\u2014duplicating specific read-heavy columns or pre-computing aggregates. The trade-off is clear: denormalization accelerates read queries at the expense of higher storage, increased write latency, and the ongoing risk of update anomalies if data synchronizations fail.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- check-constraint",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "-- Denormalized order summary caching customer_name directly for fast reads\nCREATE TABLE fast_orders (\n    order_id INT PRIMARY KEY,\n    customer_id INT NOT NULL,\n    cached_customer_name VARCHAR(50) NOT NULL,\n    order_total NUMERIC(10,2) NOT NULL\n);\nINSERT INTO fast_orders VALUES (1, 101, 'Alice', 150.00);\nSELECT order_id, cached_customer_name, order_total FROM fast_orders;",
+          "explanation": "Denormalizes customer name directly into order records to eliminate joins in read queries.",
+          "expected_output": "| order_id | cached_customer_name | order_total |\n|---|---|---|\n| 1 | Alice | 150.00 |"
         }
       ],
       "key_points": [
-        "Key point for check-constraint"
-      ]
+        "Normalize for transactional systems (OLTP) to guarantee data integrity and prevent update anomalies.",
+        "Denormalize selectively for analytical systems (OLAP) or read-heavy caches to minimize expensive joins."
+      ],
+      "checkpoint": "What is an update anomaly, and how does denormalization increase the risk of it occurring?"
     },
     {
-      "slug": "primary-key",
-      "title": "Primary Key",
+      "slug": "interview-check",
+      "title": "Database design interview check and practice",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about primary-key.",
-      "markdown": "This is the primary-key section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 8,
+      "learning_objective": "Excel in relational schema design and normalization interview questions.",
+      "markdown": "Relational schema design is a core component of both SQL technical interviews and System Design interviews.\n\n### Core Interview Topics\n1. *Explain the progression from 1NF to 3NF with a practical example.*\n   *(Start with a table containing comma-separated phone numbers [violating 1NF]. Break into atomic rows. Show composite key table where student_name depends only on student_id [violating 2NF]. Show transitive dependency where zip_code determines city [violating 3NF]).* \n2. *What is the difference between PRIMARY KEY and UNIQUE NOT NULL?*\n   *(A table can have only one PRIMARY KEY, which conventionally acts as the canonical entity identity and default clustering key. A table can have multiple UNIQUE constraints).* \n3. *When should you intentionally denormalize a database schema?*\n\n### Arena Practice Problems\n- `sql-schema-constraint-validation`: Building schemas with domain CHECK and FOREIGN KEY constraints\n- `sql-refactor-unnormalized-table`: Decomposing an unnormalized table into 3NF\n- `sql-cascade-referential-actions`: Testing ON DELETE CASCADE vs RESTRICT behaviors",
       "examples": [
         {
           "language": "sql",
-          "code": "-- primary-key",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "-- Verifying CHECK constraint enforcement\n-- Attempting to insert invalid status will raise a constraint violation error\nSELECT conname, contype \nFROM pg_constraint \nWHERE conrelid = 'accounts'::regclass;",
+          "explanation": "Queries PostgreSQL catalog to inspect active table constraints.",
+          "expected_output": "| conname | contype |\n|---|---|\n| accounts_pkey | p |\n| accounts_email_key | u |\n| accounts_balance_check | c |"
         }
       ],
       "key_points": [
-        "Key point for primary-key"
-      ]
-    },
-    {
-      "slug": "foreign-key",
-      "title": "Foreign Key",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about foreign-key.",
-      "markdown": "This is the foreign-key section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- foreign-key",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
+        "Be ready to articulate 1NF, 2NF, and 3NF definitions clearly and concisely without hesitation.",
+        "Discuss engineering trade-offs: data integrity vs read performance when deciding to normalize."
       ],
-      "key_points": [
-        "Key point for foreign-key"
-      ]
-    },
-    {
-      "slug": "referential-integrity",
-      "title": "Referential Integrity",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about referential-integrity.",
-      "markdown": "This is the referential-integrity section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- referential-integrity",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for referential-integrity"
-      ]
-    },
-    {
-      "slug": "first-normal-form",
-      "title": "First Normal Form",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about first-normal-form.",
-      "markdown": "This is the first-normal-form section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- first-normal-form",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for first-normal-form"
-      ]
-    },
-    {
-      "slug": "second-normal-form",
-      "title": "Second Normal Form",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about second-normal-form.",
-      "markdown": "This is the second-normal-form section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- second-normal-form",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for second-normal-form"
-      ]
-    },
-    {
-      "slug": "third-normal-form",
-      "title": "Third Normal Form",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about third-normal-form.",
-      "markdown": "This is the third-normal-form section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- third-normal-form",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for third-normal-form"
-      ]
-    },
-    {
-      "slug": "design-trade-offs",
-      "title": "Design Trade Offs",
-      "order_index": 10,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about design-trade-offs.",
-      "markdown": "This is the design-trade-offs section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- design-trade-offs",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for design-trade-offs"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 11,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about interview-points.",
-      "markdown": "This is the interview-points section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- interview-points",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for interview-points"
-      ]
+      "checkpoint": "What is Boyce-Codd Normal Form (BCNF), and when does 3NF differ from BCNF?"
     }
   ],
   "summary": [
-    "Sum 1",
-    "Sum 2",
-    "Sum 3"
+    "Domain constraints (NOT NULL, UNIQUE, CHECK) protect data integrity at the database engine level.",
+    "PRIMARY KEY and FOREIGN KEY enforce relational entity and referential integrity across tables.",
+    "1NF requires atomic values; 2NF eliminates partial dependencies; 3NF eliminates transitive dependencies.",
+    "Normalization eliminates insertion, update, and deletion anomalies in transactional workloads.",
+    "Denormalization trades storage and write consistency risk for accelerated read and reporting queries."
   ],
   "interview_takeaways": [
-    "Int 1",
-    "Int 2",
-    "Int 3"
+    "In system design interviews, always start with a clean 3NF normalized relational schema.",
+    "Proactively discuss ON DELETE options (RESTRICT vs CASCADE vs SET NULL) to demonstrate production maturity.",
+    "Highlight CHECK constraints as the strongest line of defense against corrupted data states."
   ],
   "common_mistakes": [
-    "Mis 1",
-    "Mis 2",
-    "Mis 3"
+    "Storing comma-delimited strings in a single column instead of a child relation (violating 1NF)",
+    "Over-using ON DELETE CASCADE on financial or auditing tables, causing accidental data destruction",
+    "Relying solely on frontend validation for domain integrity while omitting database-level CHECK constraints",
+    "Prematurely denormalizing schemas before identifying actual query performance bottlenecks"
   ],
   "sources": [
     {
       "source_id": "postgresql-official-docs",
-      "title": "PostgreSQL Documentation",
-      "url": "https://www.postgresql.org/docs/current/index.html",
-      "retrieved_at": "2026-09-23T00:00:00Z"
+      "title": "PostgreSQL Documentation \u2014 Constraints (PRIMARY KEY, FOREIGN KEY, CHECK)",
+      "url": "https://www.postgresql.org/docs/current/ddl-constraints.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "postgresql-tutorial",
+      "title": "PostgreSQL Tutorial \u2014 Table Constraints",
+      "url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-constraints-design-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "8c4b261d0f252f81880efbae1ff3b0acebf3cce2e54aa72b87d2dd4027e4b835",
+  "generated_at": "2026-09-24T08:34:57.186570+00:00"
 }

@@ -1,153 +1,140 @@
 [
   {
-    "key": "dsa-set-1",
+    "key": "sets-mcq-1",
     "exercise_type": "multiple_choice",
-    "title": "Exercise 1",
-    "prompt_markdown": "What is the correct answer?",
+    "title": "Set membership lookup time complexity",
+    "prompt_markdown": "What is the average time complexity of checking membership (`x in my_set`) in a Python set containing $N$ elements?",
     "difficulty": "easy",
     "hints": [
-      "Think about it"
+      "Python sets use hash tables."
     ],
     "content": {
       "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
+        "O(1)",
+        "O(log N)",
+        "O(N)",
+        "O(N^2)"
       ],
-      "correct_index": 1,
-      "explanation": "Because B is correct."
+      "correct_index": 0,
+      "explanation": "Because Python sets are implemented as hash tables, checking membership computes the hash of x and inspects the bucket in O(1) average time."
     }
   },
   {
-    "key": "dsa-set-2",
+    "key": "sets-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Hashable types requirement",
+    "prompt_markdown": "Which of the following objects CANNOT be added as an element to a Python `set`?",
+    "difficulty": "easy",
+    "hints": [
+      "Look for the mutable data type."
+    ],
+    "content": {
+      "choices": [
+        "A string: 'interview'",
+        "An integer: 42",
+        "A tuple containing integers: (1, 2, 3)",
+        "A list containing integers: [1, 2, 3]"
+      ],
+      "correct_index": 3,
+      "explanation": "Set elements must be immutable and hashable. Lists are mutable and unhashable, so attempting to add a list raises a TypeError: unhashable type: 'list'."
+    }
+  },
+  {
+    "key": "sets-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Set intersection operator",
+    "prompt_markdown": "Which Python operator computes the `intersection` of two sets `A` and `B`?",
+    "difficulty": "easy",
+    "hints": [
+      "Think of the bitwise AND symbol."
+    ],
+    "content": {
+      "choices": [
+        "A | B",
+        "A & B",
+        "A - B",
+        "A ^ B"
+      ],
+      "correct_index": 1,
+      "explanation": "`A & B` computes the intersection (common elements). `A | B` is union, `A - B` is difference, and `A ^ B` is symmetric difference."
+    }
+  },
+  {
+    "key": "sets-short-predict-streak",
     "exercise_type": "short_answer",
-    "title": "Exercise 2",
-    "prompt_markdown": "Explain this.",
+    "title": "Predict execution of Longest Consecutive Sequence",
+    "prompt_markdown": "Given input array `nums = [100, 4, 200, 1, 3, 2]`, trace how the set-based algorithm determines which numbers initiate a sequence streak. List all numbers that pass the `x - 1 not in num_set` condition.",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition"
+      "Only numbers whose predecessor is NOT in the set start a streak."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Identifies that 100 passes because 99 is not in set (streak: [100], len=1)",
+        "Identifies that 200 passes because 199 is not in set (streak: [200], len=1)",
+        "Identifies that 1 passes because 0 is not in set (streak: [1, 2, 3, 4], len=4)",
+        "Explains why 2, 3, and 4 are skipped (their predecessors exist in set)"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Numbers initiating a streak (where `x - 1 not in num_set`):\n1. `100`: `99` not in set -> explores [100] (length 1)\n2. `200`: `199` not in set -> explores [200] (length 1)\n3. `1`: `0` not in set -> explores [1, 2, 3, 4] (length 4)\n\nNumbers skipped: `2`, `3`, and `4` are skipped because their predecessors (`1`, `2`, `3`) exist in the set. This check guarantees that every sequence is traversed only once, maintaining strict $O(N)$ runtime.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dsa-set-3",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 3",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because B is correct."
-    }
-  },
-  {
-    "key": "dsa-set-4",
+    "key": "sets-short-fix-quadratic-lookup",
     "exercise_type": "short_answer",
-    "title": "Exercise 4",
-    "prompt_markdown": "Explain this.",
+    "title": "Diagnose and fix quadratic list membership lookup",
+    "prompt_markdown": "This function checks if all elements in query list `queries` exist in target list `corpus`:\n\n```python\ndef check_all_present(corpus: list[int], queries: list[int]) -> bool:\n    for q in queries:\n        if q not in corpus:\n            return False\n    return True\n```\nExplain why this function runs in quadratic $O(M \\times N)$ time, and rewrite it to execute in linear $O(M + N)$ time.",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition"
+      "Convert corpus to a set before checking membership."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains that `q not in corpus` takes O(N) linear time on a list for each of the M queries",
+        "Converts corpus to a set in O(N) time upfront",
+        "Performs O(1) set lookups for all M queries, achieving O(M + N) total time"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "Diagnosis: In Python, `q not in corpus` performs a linear search over `corpus` taking $O(N)$ time. Executing this inside a loop over $M$ queries results in $O(M \\times N)$ quadratic runtime.\n\nOptimal $O(M + N)$ Refactor:\n```python\ndef check_all_present(corpus: list[int], queries: list[int]) -> bool:\n    corpus_set = set(corpus)  # O(N) conversion\n    for q in queries:         # M iterations\n        if q not in corpus_set:  # O(1) average lookup\n            return False\n    return True\n```\nConverting `corpus` to `corpus_set` takes $O(N)$ time. Each query check takes $O(1)$ time, yielding $O(N + M)$ total time.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dsa-set-5",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 5",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because B is correct."
-    }
-  },
-  {
-    "key": "dsa-set-6",
+    "key": "sets-short-implement-intersection",
     "exercise_type": "short_answer",
-    "title": "Exercise 6",
-    "prompt_markdown": "Explain this.",
+    "title": "Write intersection of two integer arrays without built-in & operator",
+    "prompt_markdown": "Write a Python function `intersection(nums1: list[int], nums2: list[int]) -> list[int]` that returns a list of unique elements present in both arrays. Do NOT use the built-in `&` operator; implement the logic using explicit set iteration and membership testing.",
     "difficulty": "medium",
     "hints": [
-      "Think about the definition"
+      "Convert smaller array to a set, then iterate over the other or vice versa."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Converts one of the arrays to a set",
+        "Iterates over the other array collecting matching elements in a seen or result set",
+        "Returns unique matching elements as a list",
+        "Executes in O(N + M) time"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "```python\ndef intersection(nums1: list[int], nums2: list[int]) -> list[int]:\n    # Convert smaller array to set to minimize memory\n    if len(nums1) > len(nums2):\n        nums1, nums2 = nums2, nums1\n    \n    set1 = set(nums1)\n    result = set()\n    for x in nums2:\n        if x in set1:\n            result.add(x)\n    return list(result)\n```",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "dsa-set-7",
-    "exercise_type": "multiple_choice",
-    "title": "Exercise 7",
-    "prompt_markdown": "What is the correct answer?",
-    "difficulty": "easy",
-    "hints": [
-      "Think about it"
-    ],
-    "content": {
-      "choices": [
-        "option A",
-        "option B",
-        "option C",
-        "option D"
-      ],
-      "correct_index": 1,
-      "explanation": "Because B is correct."
-    }
-  },
-  {
-    "key": "dsa-set-8",
+    "key": "sets-short-explain-hash-collisions",
     "exercise_type": "short_answer",
-    "title": "Exercise 8",
-    "prompt_markdown": "Explain this.",
-    "difficulty": "medium",
+    "title": "Explain hash table collisions and set worst-case complexity in interviews",
+    "prompt_markdown": "In an interview, you state that set lookups are $O(1)$. The interviewer asks: 'Can a set lookup ever take $O(n)$ time, and what causes that to happen?' Explain hash collision mechanics and open addressing.",
+    "difficulty": "hard",
     "hints": [
-      "Think about the definition"
+      "Discuss hash collisions, bucket scanning, and adversarial input."
     ],
     "content": {
       "rubric": [
-        "Point 1",
-        "Point 2"
+        "Explains that set lookup is O(1) on average, but worst-case time is O(n)",
+        "Explains hash collisions: two different keys hash to the same table slot or cluster",
+        "Explains open addressing resolution: Python probes through alternative slots in the array until the target or an empty slot is found",
+        "Concludes that if all n elements collide into the same probe sequence, finding an element requires scanning all n slots"
       ],
-      "reference_answer": "This is the answer.",
+      "reference_answer": "1. Worst-Case Runtime:\nWhile set operations are $O(1)$ on average, the theoretical worst-case time complexity is $O(n)$.\n\n2. Hash Collisions & Probe Chains:\n- Python sets use an open-addressing hash table with perturbation probing.\n- When an element is added, Python computes `slot = hash(key) & mask`. If that slot is already occupied by a different key (a hash collision), Python calculates a probe sequence to find the next available slot.\n- During a lookup (`key in my_set`), Python visits slots along that probe sequence until it either finds the key or encounters an empty slot.\n\n3. How $O(n)$ Worst-Case Occurs:\nIf an adversarial input is constructed where all $n$ elements produce hash codes that collide onto the exact same probe sequence, the hash table degrades into a linked list. Every membership check must probe through all $n$ occupied slots, degrading lookup time from $O(1)$ to $O(n)$.\n\nPython mitigates this in production using SIPHASH (with a randomized salt per process) to prevent hash flooding attacks.",
       "minimum_pass_score": 70
     }
   }
