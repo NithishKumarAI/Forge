@@ -2,197 +2,122 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "functions",
-  "title": "Functions",
-  "description": "Learn to write reusable code blocks.",
-  "version": "1.0.0",
+  "title": "Python Functions",
+  "description": "Design functions with explicit inputs, useful return values, predictable scope, and maintainable signatures.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Define functions",
-    "Understand scope",
-    "Master arguments and kwargs"
+    "Define functions and distinguish parameters from arguments",
+    "Use return values, defaults, keywords, *args, and **kwargs",
+    "Reason about scope and pure functions"
   ],
   "prerequisites": [],
   "sections": [
     {
-      "slug": "what-is-a-function",
-      "title": "What is a Function?",
+      "slug": "mental-model",
+      "title": "Core mental model",
       "order_index": 0,
-      "estimated_minutes": 2,
-      "learning_objective": "Understand function purpose.",
-      "markdown": "A function is a block of code which only runs when it is called. You can pass data into a function.",
-      "examples": [],
+      "estimated_minutes": 7,
+      "learning_objective": "Define functions and distinguish parameters from arguments",
+      "markdown": "A function definition created with `def` binds a callable object to a name. Parameters belong to the definition; arguments are the values supplied by a caller. `return` sends a value to the caller and stops that invocation. Without an explicit return, Python returns `None`, which is different from printing a value for a human.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def total(price, quantity=1):\n    return price * quantity\n\nprint(total(12, quantity=3))",
+          "explanation": "A small executable example exposes the rule instead of only naming it.",
+          "expected_output": "36"
+        }
+      ],
       "key_points": [
-        "What is a Function? is a core concept to understand",
-        "Practice applying What in real code"
-      ]
+        "Define functions and distinguish parameters from arguments",
+        "Predict execution before running code."
+      ],
+      "checkpoint": "Explain the example one line at a time without using vague terms."
     },
     {
-      "slug": "defining-and-calling",
-      "title": "Defining and Calling",
+      "slug": "operations-and-tradeoffs",
+      "title": "Operations and trade-offs",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Basic function definition.",
-      "markdown": "Use the def keyword to create a function, and parenthesis to call it.",
-      "examples": [],
+      "estimated_minutes": 7,
+      "learning_objective": "Use return values, defaults, keywords, *args, and **kwargs",
+      "markdown": "Positional arguments bind by position and keyword arguments bind by parameter name. Defaults are evaluated once when the function is defined, so use `None` instead of a mutable default such as `[]`. The args kwargs pattern uses `*args` to collect extra positional arguments into a tuple and `**kwargs` to collect extra keyword arguments into a dictionary. Use it when the interface truly needs flexibility, not to hide an unclear API.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def tagged(*names, prefix='user', **metadata):\n    return [f'{prefix}:{name}' for name in names], metadata\n\nprint(tagged('ada', 'lin', active=True))",
+          "explanation": "This example applies the most important operation at a realistic boundary.",
+          "expected_output": "(['user:ada', 'user:lin'], {'active': True})"
+        }
+      ],
       "key_points": [
-        "Defining and Calling is a core concept to understand",
-        "Practice applying Defining in real code"
-      ]
+        "Use return values, defaults, keywords, *args, and **kwargs",
+        "Choose an operation based on its contract."
+      ],
+      "checkpoint": "What input or state would make this code fail?"
     },
     {
-      "slug": "parameters-and-arguments",
-      "title": "Parameters and Arguments",
+      "slug": "worked-practice",
+      "title": "Worked practice",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Pass data.",
-      "markdown": "Parameters are defined in the signature; arguments are the actual values passed.",
-      "examples": [],
+      "estimated_minutes": 7,
+      "learning_objective": "Trace the concept on concrete data.",
+      "markdown": "Work from the input and state the invariant before coding. Names assigned inside a function are local unless declared `global` or `nonlocal`. Prefer passing dependencies as arguments and returning results. A pure function depends only on inputs and has no observable side effects, which makes testing easier. Common mistakes are forgetting `return`, mutating caller-owned data unexpectedly, broad signatures, and shadowing a function with another value. For an interview, narrate the observation, the rule you are applying, and the resulting value. That sequence makes reasoning inspectable and exposes hidden assumptions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def tagged(*names, prefix='user', **metadata):\n    return [f'{prefix}:{name}' for name in names], metadata\n\nprint(tagged('ada', 'lin', active=True))",
+          "explanation": "Trace names and values after every important line, then compare with the expected output.",
+          "expected_output": "(['user:ada', 'user:lin'], {'active': True})"
+        }
+      ],
       "key_points": [
-        "Parameters and Arguments is a core concept to understand",
-        "Practice applying Parameters in real code"
-      ]
+        "Use a concrete trace.",
+        "State assumptions at the input boundary."
+      ],
+      "checkpoint": "Change one input and predict the new result."
     },
     {
-      "slug": "return-values",
-      "title": "Return Values",
+      "slug": "mistakes",
+      "title": "Common mistakes and fixes",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Return results.",
-      "markdown": "Use the return statement to send data back to the caller.",
+      "estimated_minutes": 7,
+      "learning_objective": "Diagnose failures rather than memorize syntax.",
+      "markdown": "Names assigned inside a function are local unless declared `global` or `nonlocal`. Prefer passing dependencies as arguments and returning results. A pure function depends only on inputs and has no observable side effects, which makes testing easier. Common mistakes are forgetting `return`, mutating caller-owned data unexpectedly, broad signatures, and shadowing a function with another value. Turn each failure into a focused test. Preserve the original failing input, make the smallest correction, and run the test again. Avoid broad exception handling or a rewrite that hides the root cause.",
       "examples": [],
       "key_points": [
-        "Return Values is a core concept to understand",
-        "Practice applying Return in real code"
-      ]
+        "Reproduce before fixing.",
+        "Prefer the smallest evidence-backed correction."
+      ],
+      "checkpoint": "Name one tempting fix that would only hide the defect."
     },
     {
-      "slug": "default-arguments",
-      "title": "Default Arguments",
+      "slug": "interview-summary",
+      "title": "Interview-focused summary",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Set defaults.",
-      "markdown": "You can assign default values to parameters. Warning: avoid mutable defaults like lists.",
+      "estimated_minutes": 7,
+      "learning_objective": "Reason about scope and pure functions",
+      "markdown": "A strong explanation starts with the mental model, demonstrates it using a short executable example, names the trade-off, and closes with a common failure mode. Apply that structure to Python Functions. In Forge Arena, solve related Python problems without tutor help when you want the attempt to count as clean transfer evidence.",
       "examples": [],
       "key_points": [
-        "Default Arguments is a core concept to understand",
-        "Practice applying Default in real code"
-      ]
-    },
-    {
-      "slug": "keyword-arguments",
-      "title": "Keyword Arguments",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Pass by name.",
-      "markdown": "You can send arguments with the key=value syntax, ignoring order.",
-      "examples": [],
-      "key_points": [
-        "Keyword Arguments is a core concept to understand",
-        "Practice applying Keyword in real code"
-      ]
-    },
-    {
-      "slug": "args-and-kwargs",
-      "title": "Args and Kwargs",
-      "order_index": 6,
-      "estimated_minutes": 4,
-      "learning_objective": "Variable arguments.",
-      "markdown": "Use *args for variable positional arguments, and **kwargs for variable keyword arguments.",
-      "examples": [],
-      "key_points": [
-        "Args and Kwargs is a core concept to understand",
-        "Practice applying Args in real code"
-      ]
-    },
-    {
-      "slug": "scope-and-legb",
-      "title": "Scope and LEGB",
-      "order_index": 7,
-      "estimated_minutes": 4,
-      "learning_objective": "Understand scope.",
-      "markdown": "Variable scope follows the LEGB rule: Local, Enclosing, Global, Built-in.",
-      "examples": [],
-      "key_points": [
-        "Scope and LEGB is a core concept to understand",
-        "Practice applying Scope in real code"
-      ]
-    },
-    {
-      "slug": "pure-functions",
-      "title": "Pure Functions",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Write side-effect free code.",
-      "markdown": "Pure functions always produce the same output for the same input and have no side effects.",
-      "examples": [],
-      "key_points": [
-        "Pure Functions is a core concept to understand",
-        "Practice applying Pure in real code"
-      ]
-    },
-    {
-      "slug": "lambda",
-      "title": "Lambda",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Anonymous functions.",
-      "markdown": "Small anonymous functions defined with the lambda keyword.",
-      "examples": [],
-      "key_points": [
-        "Lambda is a core concept to understand",
-        "Practice applying Lambda in real code"
-      ]
-    },
-    {
-      "slug": "first-class-functions",
-      "title": "First-Class Functions",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Functions as objects.",
-      "markdown": "Functions can be passed as arguments or returned from other functions.",
-      "examples": [],
-      "key_points": [
-        "First-Class Functions is a core concept to understand",
-        "Practice applying First-Class in real code"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 11,
-      "estimated_minutes": 2,
-      "learning_objective": "Avoid pitfalls.",
-      "markdown": "Mutable default arguments are the most common pitfall.",
-      "examples": [],
-      "key_points": [
-        "Common Mistakes is a core concept to understand",
-        "Practice applying Common in real code"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 12,
-      "estimated_minutes": 2,
-      "learning_objective": "Nail the interview.",
-      "markdown": "Expect questions on decorators or closure scope.",
-      "examples": [],
-      "key_points": [
-        "Interview Points is a core concept to understand",
-        "Practice applying Interview in real code"
-      ]
+        "Explain the why, not only syntax.",
+        "Use Arena for independent transfer practice."
+      ],
+      "checkpoint": "Give a sixty-second explanation and one counterexample."
     }
   ],
   "summary": [
-    "Functions encapsulate logic",
-    "Watch out for mutable defaults",
-    "Master the function definition syntax. *args collects positional arguments into a tuple; **kwargs collects keyword arguments into a dict. Understanding args kwargs is essential for flexible APIs and decorators."
+    "Define functions and distinguish parameters from arguments",
+    "Use return values, defaults, keywords, *args, and **kwargs",
+    "Validate understanding with a trace, boundary case, and independent practice."
   ],
   "interview_takeaways": [
-    "Understand LEGB scope rule",
-    "The function definition uses def, followed by name and parameters. Use *args and **kwargs to accept variable positional and keyword arguments respectively."
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
   ],
   "common_mistakes": [
-    "def foo(l=[]):"
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
   ],
   "sources": [
     {
@@ -202,6 +127,6 @@
       "retrieved_at": "2026-09-23T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-functions-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "af25a5079d6cb1ac97a43961c1dba8b5f97985f3688e7955ba3830620cd16de2",
+  "generated_at": "2026-09-24T00:00:00Z"
 }

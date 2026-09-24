@@ -1,117 +1,140 @@
 [
   {
-    "key": "fn-1",
+    "key": "functions-recognize",
     "exercise_type": "multiple_choice",
-    "title": "Variable positional args",
-    "prompt_markdown": "Which syntax is used for variable length positional arguments?",
+    "title": "Recognize the core rule",
+    "prompt_markdown": "What does a function with no explicit `return` produce?",
     "difficulty": "easy",
     "hints": [
-      "It uses a single asterisk"
-    ],
-    "content": {
-      "choices": [
-        "**kwargs",
-        "*args",
-        "args[]",
-        "...args"
-      ],
-      "correct_index": 1,
-      "explanation": "*args packs remaining positional arguments into a tuple."
-    }
-  },
-  {
-    "key": "fn-2",
-    "exercise_type": "multiple_choice",
-    "title": "Return defaults",
-    "prompt_markdown": "What does a Python function return if there is no return statement?",
-    "difficulty": "easy",
-    "hints": [
-      "It doesn't return nothing, but it returns..."
+      "Use the lesson's mental model."
     ],
     "content": {
       "choices": [
         "0",
         "False",
         "None",
-        "Error"
+        "An empty string"
       ],
       "correct_index": 2,
-      "explanation": "Functions without an explicit return statement return None."
+      "explanation": "The correct option follows the defining rule for Python Functions."
     }
   },
   {
-    "key": "fn-3",
+    "key": "functions-tradeoff",
     "exercise_type": "multiple_choice",
-    "title": "Lambda syntax",
-    "prompt_markdown": "How do you define a lambda function that adds 1 to x?",
-    "difficulty": "easy",
-    "hints": [
-      "Use the lambda keyword"
-    ],
-    "content": {
-      "choices": [
-        "lambda x: x + 1",
-        "lambda(x) { x + 1 }",
-        "def lambda(x): return x + 1",
-        "lambda x => x + 1"
-      ],
-      "correct_index": 0,
-      "explanation": "The syntax is lambda arguments: expression."
-    }
-  },
-  {
-    "key": "fn-4",
-    "exercise_type": "multiple_choice",
-    "title": "Scope acronym",
-    "prompt_markdown": "What does LEGB stand for in Python scope resolution?",
-    "difficulty": "easy",
-    "hints": [
-      "Local is first"
-    ],
-    "content": {
-      "choices": [
-        "Local, Enclosing, Global, Built-in",
-        "Logical, External, Global, Base",
-        "Local, External, Global, Built-in",
-        "List, Enum, Global, Boolean"
-      ],
-      "correct_index": 0,
-      "explanation": "It dictates the order Python resolves variable names."
-    }
-  },
-  {
-    "key": "fn-5",
-    "exercise_type": "short_answer",
-    "title": "Mutable Defaults",
-    "prompt_markdown": "Why is it dangerous to use a mutable object like a list as a default argument value?",
+    "title": "Choose by trade-off",
+    "prompt_markdown": "Which answer best demonstrates sound use of Python Functions?",
     "difficulty": "medium",
     "hints": [
-      "It evaluates only once"
+      "Check preconditions and observable behavior."
+    ],
+    "content": {
+      "choices": [
+        "Use it for every problem",
+        "State its preconditions and verify them",
+        "Ignore boundary inputs",
+        "Choose it only because the syntax is short"
+      ],
+      "correct_index": 1,
+      "explanation": "A technique is justified by its preconditions and behavior, not familiarity."
+    }
+  },
+  {
+    "key": "functions-failure",
+    "exercise_type": "multiple_choice",
+    "title": "Find the weak explanation",
+    "prompt_markdown": "Which interview explanation of Python Functions is weakest?",
+    "difficulty": "medium",
+    "hints": [
+      "Evidence matters."
+    ],
+    "content": {
+      "choices": [
+        "It names the invariant",
+        "It traces a concrete input",
+        "It says it works without explaining why",
+        "It covers a boundary case"
+      ],
+      "correct_index": 2,
+      "explanation": "A claim without a trace or invariant cannot establish correctness."
+    }
+  },
+  {
+    "key": "functions-predict",
+    "exercise_type": "short_answer",
+    "title": "Predict and justify",
+    "prompt_markdown": "Predict the important state after two steps of the lesson's worked Python Functions example. Justify each change.",
+    "difficulty": "medium",
+    "hints": [
+      "Write the state before and after each step."
     ],
     "content": {
       "rubric": [
-        "Evaluated once at definition time",
-        "Shared across calls"
+        "States a concrete intermediate value",
+        "Applies the rule correctly",
+        "Explains why state changes"
       ],
-      "reference_answer": "Default arguments are evaluated only once at function definition time. If a mutable object is used, the same object is shared across all calls that use the default, leading to unexpected behavior.",
+      "reference_answer": "A strong answer records the starting state, applies exactly one transition at a time, and connects the second state to the invariant described in the lesson.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "fn-6",
+    "key": "functions-fix",
     "exercise_type": "short_answer",
-    "title": "Pure functions",
-    "prompt_markdown": "What defines a 'pure function'?",
+    "title": "Diagnose and fix",
+    "prompt_markdown": "A solution using Python Functions works on the sample but fails on an empty input or a tie. Explain the likely missing condition and propose a focused test.",
     "difficulty": "medium",
     "hints": [
-      "Side effects"
+      "Do not rewrite everything; isolate the violated assumption."
     ],
     "content": {
       "rubric": [
-        "No side effects",
-        "Same output for same input"
+        "Identifies a plausible violated precondition",
+        "Proposes a minimal correction",
+        "Includes a test with expected behavior"
       ],
-      "reference_answer": "A pure function always returns the same output for the same input and has no observable side effects (like modifying global state or performing I/O).",
+      "reference_answer": "Handle the boundary explicitly, then add the smallest input that previously failed and assert its exact result. The precise condition depends on the implementation, but the reasoning must connect the failure to its invariant.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "functions-write",
+    "exercise_type": "short_answer",
+    "title": "Write a focused Python code",
+    "prompt_markdown": "Write a pure function `normalized_scores(scores)` that returns a new list scaled by the maximum without mutating its argument.",
+    "difficulty": "hard",
+    "hints": [
+      "State the contract first.",
+      "Cover a boundary case."
+    ],
+    "content": {
+      "rubric": [
+        "Satisfies the requested contract",
+        "Uses the lesson technique correctly",
+        "Explains complexity or transaction behavior",
+        "Includes a boundary case"
+      ],
+      "reference_answer": "Answers may vary. The implementation must satisfy the stated contract, make the lesson's key invariant visible, and include a boundary test or concurrency consideration.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "functions-explain",
+    "exercise_type": "short_answer",
+    "title": "Interview explanation",
+    "prompt_markdown": "Give a concise interview explanation of Python Functions: mental model, one trade-off, one common mistake, and one test.",
+    "difficulty": "medium",
+    "hints": [
+      "Use four short parts."
+    ],
+    "content": {
+      "rubric": [
+        "Accurate mental model",
+        "Real trade-off",
+        "Relevant common mistake",
+        "Concrete test"
+      ],
+      "reference_answer": "A complete answer defines the mechanism, names when it is appropriate, identifies a failure mode, and gives a test that would reveal that failure.",
       "minimum_pass_score": 70
     }
   }

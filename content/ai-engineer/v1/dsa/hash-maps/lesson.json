@@ -2,163 +2,115 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "dsa",
   "topic_slug": "hash-maps",
-  "title": "Hash Maps & Dictionaries",
-  "description": "Learn about Hash Maps & Dictionaries.",
-  "version": "1.0.0",
+  "title": "Hash Maps",
+  "description": "Learn to recognize, derive, implement, and analyze hash maps patterns.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand the core concept",
-    "Analyze time and space complexity",
-    "Apply patterns to solve problems"
+    "Recognize hash maps signals",
+    "Derive an optimized solution from a naive baseline",
+    "Implement and analyze the pattern in Python"
   ],
   "prerequisites": [],
   "sections": [
     {
-      "slug": "what-is-a-hash-map",
-      "title": "What Is A Hash Map",
+      "slug": "recognition-and-core",
+      "title": "Recognition and core idea",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand what-is-a-hash-map",
-      "markdown": "Section about what-is-a-hash-map. 1. WHAT IS THIS? (plain English).\n\nHere are the required keywords to cover: hash map dictionary hash function collision O(1) average grouping counting lookup key value. Also need minimum 100 characters to pass validation. Adding some padding text to ensure it reaches at least 100 characters length...",
+      "estimated_minutes": 7,
+      "learning_objective": "Recognize when hash maps applies.",
+      "markdown": "## When to recognize this pattern\nLook for key-to-value lookup through a hash function, repeated work, or a prompt whose constraints rule out a quadratic scan.\n\n## Core idea\nA hash map (Python dictionary) applies a hash function to a key and resolves collisions internally. Lookup, insertion, and deletion are O(1) average, not guaranteed worst-case. It excels at counting, grouping, and remembering previously seen values.",
       "examples": [],
       "key_points": [
-        "Key point about what-is-a-hash-map"
-      ]
+        "Recognition: key-to-value lookup through a hash function.",
+        "State the invariant before choosing code."
+      ],
+      "checkpoint": "Which phrase in a prompt is the strongest signal for this pattern?"
     },
     {
-      "slug": "hash-function-intuition",
-      "title": "Hash Function Intuition",
+      "slug": "from-naive-to-better",
+      "title": "From naive to better",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand hash-function-intuition",
-      "markdown": "Section about hash-function-intuition. 2. WHEN DO YOU RECOGNIZE IT? (interview signal). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
+      "estimated_minutes": 7,
+      "learning_objective": "Derive the optimized approach from a baseline.",
+      "markdown": "## Naive approach\nStart with nested-loop search. It may be easy to verify, but it repeats work and becomes too slow as input grows. State its cost before optimizing.\n\n## Better approach\nUse counting and complement lookup. The optimization is valid only if the invariant proves discarded work cannot affect the answer. Never quote a complexity without identifying the operation that dominates it.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def all_pairs(values):\n    return [(values[i], values[j]) for i in range(len(values)) for j in range(i + 1, len(values))]\n\nprint(all_pairs([1, 2, 3]))",
+          "explanation": "This deliberately quadratic baseline makes repeated candidate work visible before optimization.",
+          "expected_output": "[(1, 2), (1, 3), (2, 3)]"
+        }
+      ],
       "key_points": [
-        "Key point about hash-function-intuition"
-      ]
+        "Baseline: nested-loop search.",
+        "Optimization: counting and complement lookup."
+      ],
+      "checkpoint": "Give an input size where the naive method becomes impractical."
     },
     {
-      "slug": "collision-handling",
-      "title": "Collision Handling",
+      "slug": "python-implementation",
+      "title": "Python implementation",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand collision-handling",
-      "markdown": "Section about collision-handling. 3. CORE IDEA (the mental model). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
+      "estimated_minutes": 7,
+      "learning_objective": "Implement a reusable template.",
+      "markdown": "## Python implementation\nThe implementation below keeps the invariant visible and avoids clever shortcuts. Trace it before memorizing it.\n\n## Step-by-step example\nUse the shown input. Record the important pointer, state, or table after each iteration and verify that the final output is `[0, 1]`.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def two_sum(nums, target):\n    seen = {}\n    for i, value in enumerate(nums):\n        if target - value in seen:\n            return [seen[target - value], i]\n        seen[value] = i\n\nprint(two_sum([2, 7, 11, 15], 9))",
+          "explanation": "A direct hash maps implementation with explicit state transitions.",
+          "expected_output": "[0, 1]"
+        }
+      ],
       "key_points": [
-        "Key point about collision-handling"
-      ]
+        "Keep state changes local.",
+        "Test empty, minimal, and duplicate-heavy inputs."
+      ],
+      "checkpoint": "Trace the example by hand and identify the invariant after the second iteration."
     },
     {
-      "slug": "python-dict-as-hashmap",
-      "title": "Python Dict As Hashmap",
+      "slug": "complexity-and-failures",
+      "title": "Complexity and common mistakes",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand python-dict-as-hashmap",
-      "markdown": "Section about python-dict-as-hashmap. 4. TEMPLATE / MENTAL MODEL (Python code). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
+      "estimated_minutes": 7,
+      "learning_objective": "Analyze cost and failure modes.",
+      "markdown": "## Time complexity\nO(n) average time. Explain whether sorting or preprocessing is included.\n\n## Space complexity\nO(n) keys and values. Input storage does not count as auxiliary space unless copied.\n\n## Common mistakes\nUsing the pattern without its precondition, moving state in the wrong order, missing empty input, mishandling duplicates, and reporting average-case cost as a guarantee. For recursion, include call-stack space; for a DP table or hash map, count stored states.",
       "examples": [],
       "key_points": [
-        "Key point about python-dict-as-hashmap"
-      ]
+        "Time: O(n) average time.",
+        "Space: O(n) keys and values."
+      ],
+      "checkpoint": "What change to the input would violate this solution's precondition?"
     },
     {
-      "slug": "o1-average-lookup",
-      "title": "O1 Average Lookup",
+      "slug": "arena-transfer",
+      "title": "Arena transfer practice",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand o1-average-lookup",
-      "markdown": "Section about o1-average-lookup. 5. SMALL WORKED EXAMPLE (trace through). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
+      "estimated_minutes": 7,
+      "learning_objective": "Transfer the pattern without copying a solution.",
+      "markdown": "## Arena reference\nPractice with `dsa-two-sum` in Forge Arena. First restate the invariant and complexity target, then implement from a blank editor. If stuck, use progressive hints only after writing the naive approach. After submission, test one normal case, one boundary case, and one adversarial case. Arena correctness is deterministic; an explanation is useful only when it matches the code's behavior.",
       "examples": [],
       "key_points": [
-        "Key point about o1-average-lookup"
-      ]
-    },
-    {
-      "slug": "counting-pattern",
-      "title": "Counting Pattern",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand counting-pattern",
-      "markdown": "Section about counting-pattern. 6. COMPLEXITY ANALYSIS (time and space). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about counting-pattern"
-      ]
-    },
-    {
-      "slug": "grouping-pattern",
-      "title": "Grouping Pattern",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand grouping-pattern",
-      "markdown": "Section about grouping-pattern. 7. COMMON MISTAKES. Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about grouping-pattern"
-      ]
-    },
-    {
-      "slug": "two-sum-pattern",
-      "title": "Two Sum Pattern",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand two-sum-pattern",
-      "markdown": "Section about two-sum-pattern. 8. INTERVIEW POINTS. Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about two-sum-pattern"
-      ]
-    },
-    {
-      "slug": "sliding-window-with-dict",
-      "title": "Sliding Window With Dict",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand sliding-window-with-dict",
-      "markdown": "Section about sliding-window-with-dict. 9. QUICK CHECK. Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about sliding-window-with-dict"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand common-mistakes",
-      "markdown": "Section about common-mistakes. 10. PRACTICE NEXT. Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about common-mistakes"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand interview-points",
-      "markdown": "Section about interview-points. 1. WHAT IS THIS? (plain English). Adding some padding text to ensure it reaches at least 100 characters length for validation.",
-      "examples": [],
-      "key_points": [
-        "Key point about interview-points"
-      ]
+        "Related Arena problem: `dsa-two-sum`.",
+        "Independent recall is stronger evidence than assisted completion."
+      ],
+      "checkpoint": "Write three tests that could distinguish a correct solution from a plausible bug."
     }
   ],
   "summary": [
-    "Key point 1",
-    "Key point 2",
-    "Key point 3"
+    "Recognize hash maps signals",
+    "Derive an optimized solution from a naive baseline",
+    "Validate understanding with a trace, boundary case, and independent practice."
   ],
   "interview_takeaways": [
-    "Takeaway 1",
-    "Takeaway 2",
-    "Takeaway 3"
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
   ],
   "sources": [
     {
@@ -168,6 +120,6 @@
       "retrieved_at": "2026-09-23T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-dsa-hash-maps-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "c7bf634b663000be833519de397d1031b539fd8cd15f563418256a58d9bddf30",
+  "generated_at": "2026-09-24T00:00:00Z"
 }

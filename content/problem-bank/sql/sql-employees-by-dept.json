@@ -8,21 +8,24 @@
   "difficulty": "easy",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on employees(id, name, department, salary).",
+  "statement_markdown": "Return the names of employees in the Engineering department. Sort names alphabetically.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: name.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['Alice'], ['Charlie']]"
+      "input": "Visible employees tables",
+      "output": "[[\"Alice\"],[\"Charlie\"]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "Filter the department column with an exact text comparison.",
+    "Project only name and add ORDER BY name."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "WHERE filters rows before the name projection is returned. ORDER BY makes the result stable. A common mistake is using a partial match that includes unintended departments. In a normalized design this filter might use department_id joined to a departments table.",
   "reference_solution": "SELECT name FROM employees WHERE department = 'Engineering' ORDER BY name",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -30,7 +33,7 @@
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'Alice', 'Engineering', 90000), (2, 'Bob', 'HR', 60000), (3, 'Charlie', 'Engineering', 85000), (4, 'David', 'Sales', 70000);",
     "visible_tables": [
-      "employees(id, name, department, salary)"
+      "employees"
     ],
     "sample_rows": [
       [
@@ -41,7 +44,7 @@
       ]
     ],
     "expected_columns": [
-      "result_col"
+      "name"
     ],
     "expected_rows": [
       [
@@ -53,19 +56,20 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'Alice', 'Engineering', 90000), (2, 'Bob', 'HR', 60000), (3, 'Charlie', 'Engineering', 85000), (4, 'David', 'Sales', 70000);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE employees (id INT,name VARCHAR(50),department VARCHAR(50),salary INT); INSERT INTO employees VALUES (10,'Zoe','Engineering',70),(11,'Ana','Engineering',80),(12,'Bo','Support',60);",
         "expected_rows": [
           [
-            "Alice"
+            "Ana"
           ],
           [
-            "Charlie"
+            "Zoe"
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/select-filtering"
 }

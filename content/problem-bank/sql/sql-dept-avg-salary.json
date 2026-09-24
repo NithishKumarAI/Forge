@@ -8,21 +8,24 @@
   "difficulty": "easy",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on employees(id, name, department, salary).",
+  "statement_markdown": "Return each department and its average salary rounded to two decimal places. Sort from highest average to lowest.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: department, avg_salary.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['Eng', 95000.0], ['Sales', 72500.0], ['HR', 60000.0]]"
+      "input": "Visible employees tables",
+      "output": "[[\"Eng\",\"95000.00\"],[\"Sales\",\"72500.00\"],[\"HR\",\"60000.00\"]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "Create one group for each department.",
+    "Apply AVG to salary, ROUND the result, and alias it avg_salary."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "GROUP BY partitions employees by department and AVG calculates one value per group. ROUND controls the displayed precision. A common mistake is averaging all employees because department was omitted from GROUP BY. Window AVG is an alternative when individual employee rows must remain visible.",
   "reference_solution": "SELECT department, ROUND(AVG(salary), 2) AS avg_salary FROM employees GROUP BY department ORDER BY avg_salary DESC",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -30,57 +33,62 @@
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary DECIMAL); INSERT INTO employees VALUES (1, 'A', 'Eng', 90000), (2, 'B', 'Eng', 100000), (3, 'C', 'HR', 60000), (4, 'D', 'Sales', 70000), (5, 'E', 'Sales', 75000);",
     "visible_tables": [
-      "employees(id, name, department, salary)"
+      "employees"
     ],
     "sample_rows": [
       [
         "Eng",
-        95000.0
+        "95000.00"
       ],
       [
         "Sales",
-        72500.0
+        "72500.00"
+      ],
+      [
+        "HR",
+        "60000.00"
       ]
     ],
     "expected_columns": [
-      "result_col",
-      "result_col"
+      "department",
+      "avg_salary"
     ],
     "expected_rows": [
       [
         "Eng",
-        95000.0
+        "95000.00"
       ],
       [
         "Sales",
-        72500.0
+        "72500.00"
       ],
       [
         "HR",
-        60000.0
+        "60000.00"
       ]
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary DECIMAL); INSERT INTO employees VALUES (1, 'A', 'Eng', 90000), (2, 'B', 'Eng', 100000), (3, 'C', 'HR', 60000), (4, 'D', 'Sales', 70000), (5, 'E', 'Sales', 75000);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE employees (id INT,name VARCHAR(50),department VARCHAR(50),salary DECIMAL); INSERT INTO employees VALUES (10,'I','Eng',80),(11,'J','Eng',100),(12,'K','Ops',40),(13,'L','Ops',50),(14,'M','HR',70);",
         "expected_rows": [
           [
             "Eng",
-            95000.0
-          ],
-          [
-            "Sales",
-            72500.0
+            "90.00"
           ],
           [
             "HR",
-            60000.0
+            "70.00"
+          ],
+          [
+            "Ops",
+            "45.00"
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/group-by"
 }

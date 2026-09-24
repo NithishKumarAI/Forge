@@ -8,21 +8,24 @@
   "difficulty": "easy",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on users, login_events.",
+  "statement_markdown": "Return each user who logged in during January 2026 at least once. Return unique names sorted alphabetically.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: name.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['Alice'], ['Bob']]"
+      "input": "Visible login_events, users tables",
+      "output": "[[\"Alice\"],[\"Bob\"]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "Join users to login_events through user_id.",
+    "Use a half-open date range: on/after January 1 and before February 1."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "The join connects events to names, the half-open range handles the entire month, and DISTINCT removes repeated logins. A common mistake is including February 1 with BETWEEN. EXISTS is an alternative that naturally avoids duplicate users.",
   "reference_solution": "SELECT DISTINCT u.name FROM users u JOIN login_events le ON le.user_id = u.id WHERE le.login_date >= '2026-01-01' AND le.login_date < '2026-02-01' ORDER BY u.name",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -30,7 +33,8 @@
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE users (id INT, name VARCHAR(50)); CREATE TABLE login_events (id INT, user_id INT, login_date DATE); INSERT INTO users VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie'), (4, 'David'); INSERT INTO login_events VALUES (1, 1, '2026-01-05'), (2, 1, '2026-01-10'), (3, 2, '2026-01-15'), (4, 3, '2025-12-31'), (5, 4, '2026-02-01');",
     "visible_tables": [
-      "users, login_events"
+      "login_events",
+      "users"
     ],
     "sample_rows": [
       [
@@ -41,7 +45,7 @@
       ]
     ],
     "expected_columns": [
-      "result_col"
+      "name"
     ],
     "expected_rows": [
       [
@@ -53,19 +57,17 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE users (id INT, name VARCHAR(50)); CREATE TABLE login_events (id INT, user_id INT, login_date DATE); INSERT INTO users VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie'), (4, 'David'); INSERT INTO login_events VALUES (1, 1, '2026-01-05'), (2, 1, '2026-01-10'), (3, 2, '2026-01-15'), (4, 3, '2025-12-31'), (5, 4, '2026-02-01');",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE users (id INT,name VARCHAR(50)); CREATE TABLE login_events (id INT,user_id INT,login_date DATE); INSERT INTO users VALUES (10,'Eli'),(11,'Fay'),(12,'Gus'); INSERT INTO login_events VALUES (20,10,'2026-01-01'),(21,10,'2026-01-31'),(22,11,'2026-02-01'),(23,12,'2025-12-31');",
         "expected_rows": [
           [
-            "Alice"
-          ],
-          [
-            "Bob"
+            "Eli"
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/joins"
 }

@@ -2,259 +2,136 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "window-functions",
-  "title": "Window Functions",
-  "description": "Learn about Window Functions",
-  "version": "1.0.0",
+  "title": "SQL Window Functions",
+  "description": "Compute rankings, comparisons, and running aggregates without collapsing detail rows.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Obj 1",
-    "Obj 2",
-    "Obj 3"
+    "Define a window with OVER, PARTITION BY, and ORDER BY",
+    "Choose ROW_NUMBER, RANK, or DENSE_RANK",
+    "Use LAG, LEAD, and explicit window frames"
   ],
   "prerequisites": [],
   "sections": [
     {
-      "slug": "what-are-window-functions",
-      "title": "What Are Window Functions",
+      "slug": "window-model",
+      "title": "Rows and windows",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about what-are-window-functions.",
-      "markdown": "This is the what-are-window-functions section. OVER PARTITION BY ORDER BY ROW_NUMBER RANK DENSE_RANK LAG LEAD running aggregate window frame It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Understand why window functions preserve detail rows.",
+      "markdown": "A window function computes over related rows while returning one output row for every input row. `OVER` marks the window; `PARTITION BY` restarts it for each group; `ORDER BY` establishes sequence inside a partition. Unlike `GROUP BY`, it does not collapse employees into one department row.\n\nInput `sales`: `day | amount` = `(1,10), (2,15), (3,7)`. Output can retain all three days while adding an aggregate column.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- what-are-window-functions",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "SELECT day, amount, SUM(amount) OVER () AS grand_total\nFROM sales\nORDER BY day;",
+          "explanation": "`OVER` preserves input granularity.",
+          "expected_output": "day | amount | grand_total\n1 | 10 | 32\n2 | 15 | 32\n3 | 7 | 32"
         }
       ],
       "key_points": [
-        "Key point for what-are-window-functions"
-      ]
+        "`OVER` preserves input granularity.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     },
     {
-      "slug": "over-clause",
-      "title": "Over Clause",
+      "slug": "ranking",
+      "title": "ROW_NUMBER, RANK, and DENSE_RANK",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about over-clause.",
-      "markdown": "This is the over-clause section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Choose ranking semantics deliberately.",
+      "markdown": "`ROW_NUMBER()` assigns a unique sequence even for ties. `RANK()` gives ties the same rank and leaves gaps afterward. `DENSE_RANK()` gives ties the same rank without gaps. Always add deterministic tie-breakers when a unique order is required.\n\nFor scores `100, 90, 90, 80`, row numbers are `1,2,3,4`, ranks are `1,2,2,4`, and dense ranks are `1,2,2,3`.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- over-clause",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "SELECT player, score,\n  ROW_NUMBER() OVER (ORDER BY score DESC, player) AS row_no,\n  RANK() OVER (ORDER BY score DESC) AS rank_no,\n  DENSE_RANK() OVER (ORDER BY score DESC) AS dense_rank_no\nFROM scores;",
+          "explanation": "Ranking functions differ only when ties exist.",
+          "expected_output": "player | score | row_no | rank_no | dense_rank_no"
         }
       ],
       "key_points": [
-        "Key point for over-clause"
-      ]
+        "Ranking functions differ only when ties exist.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     },
     {
-      "slug": "partition-by",
-      "title": "Partition By",
+      "slug": "partitioned-ranking",
+      "title": "Top row per group",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about partition-by.",
-      "markdown": "This is the partition-by section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Rank independently inside each group.",
+      "markdown": "Partitioning is the standard path to top-per-group queries. Compute the rank in a CTE, then filter the derived column outside it because a window result is not available to the same query's `WHERE` clause. A stable secondary sort prevents arbitrary winners when salaries tie.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- partition-by",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "WITH ranked AS (\n  SELECT employee_id, department, salary,\n    ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC, employee_id) AS rn\n  FROM employees\n)\nSELECT employee_id, department, salary FROM ranked WHERE rn = 1;",
+          "explanation": "Filter window outputs in an outer query.",
+          "expected_output": "One deterministic highest-paid employee per department"
         }
       ],
       "key_points": [
-        "Key point for partition-by"
-      ]
+        "Filter window outputs in an outer query.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     },
     {
-      "slug": "order-by-in-window",
-      "title": "Order By In Window",
+      "slug": "offset-functions",
+      "title": "LAG and LEAD",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about order-by-in-window.",
-      "markdown": "This is the order-by-in-window section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Compare a row with its neighbors.",
+      "markdown": "`LAG(value)` reads a prior row and `LEAD(value)` reads a later row according to the window order. They replace fragile self-joins for period-over-period comparisons. The first `LAG` and last `LEAD` normally return NULL because no neighbor exists.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- order-by-in-window",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "SELECT month, revenue,\n  LAG(revenue) OVER (ORDER BY month) AS previous_revenue,\n  LEAD(revenue) OVER (ORDER BY month) AS next_revenue,\n  revenue - LAG(revenue) OVER (ORDER BY month) AS change\nFROM monthly_revenue;",
+          "explanation": "Neighbor functions require a meaningful order.",
+          "expected_output": "month | revenue | previous_revenue | next_revenue | change"
         }
       ],
       "key_points": [
-        "Key point for order-by-in-window"
-      ]
+        "Neighbor functions require a meaningful order.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     },
     {
-      "slug": "row-number",
-      "title": "Row Number",
+      "slug": "running-frames",
+      "title": "Running totals and window frames",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about row-number.",
-      "markdown": "This is the row-number section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Control which ordered rows feed an aggregate.",
+      "markdown": "A running aggregate combines an aggregate with an ordered frame. Write the frame explicitly: `ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW`. This means the first physical row through the current row. PostgreSQL's default with `ORDER BY` is often a value-based `RANGE` frame, which can include tied peers and surprise you.\n\nInput amounts `10,15,7` produce running totals `10,25,32`.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- row-number",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "SELECT day, amount,\n  SUM(amount) OVER (ORDER BY day ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total\nFROM sales\nORDER BY day;",
+          "explanation": "Explicit `ROWS` frames make running behavior obvious.",
+          "expected_output": "day | amount | running_total\n1 | 10 | 10\n2 | 15 | 25\n3 | 7 | 32"
         }
       ],
       "key_points": [
-        "Key point for row-number"
-      ]
-    },
-    {
-      "slug": "rank-and-dense-rank",
-      "title": "Rank And Dense Rank",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about rank-and-dense-rank.",
-      "markdown": "This is the rank-and-dense-rank section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- rank-and-dense-rank",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
+        "Explicit `ROWS` frames make running behavior obvious.",
+        "Verify ordering and NULL behavior explicitly."
       ],
-      "key_points": [
-        "Key point for rank-and-dense-rank"
-      ]
-    },
-    {
-      "slug": "lag-and-lead",
-      "title": "Lag And Lead",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about lag-and-lead.",
-      "markdown": "This is the lag-and-lead section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- lag-and-lead",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for lag-and-lead"
-      ]
-    },
-    {
-      "slug": "running-sum",
-      "title": "Running Sum",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about running-sum.",
-      "markdown": "This is the running-sum section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- running-sum",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for running-sum"
-      ]
-    },
-    {
-      "slug": "running-average",
-      "title": "Running Average",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about running-average.",
-      "markdown": "This is the running-average section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- running-average",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for running-average"
-      ]
-    },
-    {
-      "slug": "window-frame-basics",
-      "title": "Window Frame Basics",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about window-frame-basics.",
-      "markdown": "This is the window-frame-basics section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- window-frame-basics",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for window-frame-basics"
-      ]
-    },
-    {
-      "slug": "use-cases",
-      "title": "Use Cases",
-      "order_index": 10,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about use-cases.",
-      "markdown": "This is the use-cases section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- use-cases",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for use-cases"
-      ]
-    },
-    {
-      "slug": "extra",
-      "title": "Extra",
-      "order_index": 11,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about extra.",
-      "markdown": "This is the extra section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- extra",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for extra"
-      ]
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     }
   ],
   "summary": [
-    "Sum 1",
-    "Sum 2",
-    "Sum 3"
+    "Define a window with OVER, PARTITION BY, and ORDER BY",
+    "Choose ROW_NUMBER, RANK, or DENSE_RANK",
+    "Validate understanding with a trace, boundary case, and independent practice."
   ],
   "interview_takeaways": [
-    "Int 1",
-    "Int 2",
-    "Int 3"
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
   ],
   "common_mistakes": [
-    "Mis 1",
-    "Mis 2",
-    "Mis 3"
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
   ],
   "sources": [
     {
@@ -264,6 +141,6 @@
       "retrieved_at": "2026-09-23T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-window-functions-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "c7e3f585d65deb302709777101fa94f9d99926755d4f3aadeaec5702344cb3d3",
+  "generated_at": "2026-09-24T00:00:00Z"
 }

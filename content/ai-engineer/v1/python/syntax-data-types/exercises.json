@@ -1,10 +1,141 @@
 [
- {"key":"types-1","exercise_type":"multiple_choice","title":"Dynamic typing","prompt_markdown":"Which statement best describes Python variables?","difficulty":"easy","hints":["Think names and objects."],"content":{"choices":["Names have one permanent type","Names bind to objects and may be rebound","All values are strings","Python silently combines any types"],"correct_index":1,"explanation":"Names bind to objects; objects carry types."}},
- {"key":"types-2","exercise_type":"multiple_choice","title":"None comparison","prompt_markdown":"What is the idiomatic check for absence?","difficulty":"easy","hints":[],"content":{"choices":["x == None","x is None","bool(x) == None","type(x) == null"],"correct_index":1,"explanation":"None is a singleton and is checked by identity."}},
- {"key":"types-3","exercise_type":"multiple_choice","title":"True division","prompt_markdown":"What type does `5 / 2` produce?","difficulty":"easy","hints":[],"content":{"choices":["int","float","str","bool"],"correct_index":1,"explanation":"The `/` operator performs true division and returns float."}},
- {"key":"types-4","exercise_type":"multiple_choice","title":"String truthiness","prompt_markdown":"What is `bool('False')`?","difficulty":"medium","hints":["The string is not empty."],"content":{"choices":["False","True","None","ValueError"],"correct_index":1,"explanation":"Every non-empty string is truthy."}},
- {"key":"types-5","exercise_type":"short_answer","title":"Strong typing","prompt_markdown":"Explain why Python is called dynamically but strongly typed.","difficulty":"medium","hints":["Separate names from objects."],"content":{"rubric":["Names may be rebound at runtime","Incompatible operations are rejected"],"reference_answer":"Names can reference objects of different types over time, while operations between incompatible objects usually raise an error rather than silently coercing.","minimum_pass_score":70}},
- {"key":"types-6","exercise_type":"short_answer","title":"Boundary conversion","prompt_markdown":"Why should an API convert and validate a numeric string at its input boundary?","difficulty":"medium","hints":["Consider failure location."],"content":{"rubric":["External input starts as text","Conversion can fail","Early validation localizes errors"],"reference_answer":"Convert external text immediately so invalid values fail predictably at the boundary and internal code works with the intended type.","minimum_pass_score":70}},
- {"key":"types-7","exercise_type":"multiple_choice","title":"Immutable string","prompt_markdown":"What does `name.upper()` do to `name`?","difficulty":"easy","hints":[],"content":{"choices":["Mutates it","Returns a new string","Deletes it","Converts it to bytes"],"correct_index":1,"explanation":"Strings are immutable; methods return new values."}},
- {"key":"types-8","exercise_type":"multiple_choice","title":"Type inspection","prompt_markdown":"Which check normally accounts for subclasses?","difficulty":"medium","hints":[],"content":{"choices":["type(x) is T","isinstance(x, T)","x.type == T","cast(x, T)"],"correct_index":1,"explanation":"isinstance considers the inheritance hierarchy."}}
+  {
+    "key": "syntaxdataty-recognize",
+    "exercise_type": "multiple_choice",
+    "title": "Recognize the core rule",
+    "prompt_markdown": "Which statement is accurate about Python typing?",
+    "difficulty": "easy",
+    "hints": [
+      "Use the lesson's mental model."
+    ],
+    "content": {
+      "choices": [
+        "Variables permanently store one declared type",
+        "Names may be rebound, while objects have types",
+        "Python silently coerces every mixed operation",
+        "None and False are the same object"
+      ],
+      "correct_index": 1,
+      "explanation": "The correct option follows the defining rule for Syntax and Data Types."
+    }
+  },
+  {
+    "key": "syntaxdataty-tradeoff",
+    "exercise_type": "multiple_choice",
+    "title": "Choose by trade-off",
+    "prompt_markdown": "Which answer best demonstrates sound use of Syntax and Data Types?",
+    "difficulty": "medium",
+    "hints": [
+      "Check preconditions and observable behavior."
+    ],
+    "content": {
+      "choices": [
+        "Use it for every problem",
+        "State its preconditions and verify them",
+        "Ignore boundary inputs",
+        "Choose it only because the syntax is short"
+      ],
+      "correct_index": 1,
+      "explanation": "A technique is justified by its preconditions and behavior, not familiarity."
+    }
+  },
+  {
+    "key": "syntaxdataty-failure",
+    "exercise_type": "multiple_choice",
+    "title": "Find the weak explanation",
+    "prompt_markdown": "Which interview explanation of Syntax and Data Types is weakest?",
+    "difficulty": "medium",
+    "hints": [
+      "Evidence matters."
+    ],
+    "content": {
+      "choices": [
+        "It names the invariant",
+        "It traces a concrete input",
+        "It says it works without explaining why",
+        "It covers a boundary case"
+      ],
+      "correct_index": 2,
+      "explanation": "A claim without a trace or invariant cannot establish correctness."
+    }
+  },
+  {
+    "key": "syntaxdataty-predict",
+    "exercise_type": "short_answer",
+    "title": "Predict and justify",
+    "prompt_markdown": "Predict the important state after two steps of the lesson's worked Syntax and Data Types example. Justify each change.",
+    "difficulty": "medium",
+    "hints": [
+      "Write the state before and after each step."
+    ],
+    "content": {
+      "rubric": [
+        "States a concrete intermediate value",
+        "Applies the rule correctly",
+        "Explains why state changes"
+      ],
+      "reference_answer": "A strong answer records the starting state, applies exactly one transition at a time, and connects the second state to the invariant described in the lesson.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "syntaxdataty-fix",
+    "exercise_type": "short_answer",
+    "title": "Diagnose and fix",
+    "prompt_markdown": "A solution using Syntax and Data Types works on the sample but fails on an empty input or a tie. Explain the likely missing condition and propose a focused test.",
+    "difficulty": "medium",
+    "hints": [
+      "Do not rewrite everything; isolate the violated assumption."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies a plausible violated precondition",
+        "Proposes a minimal correction",
+        "Includes a test with expected behavior"
+      ],
+      "reference_answer": "Handle the boundary explicitly, then add the smallest input that previously failed and assert its exact result. The precise condition depends on the implementation, but the reasoning must connect the failure to its invariant.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "syntaxdataty-write",
+    "exercise_type": "short_answer",
+    "title": "Write a focused Python code",
+    "prompt_markdown": "Write a function that accepts a port as text, converts it to `int`, and rejects values outside 1–65535.",
+    "difficulty": "hard",
+    "hints": [
+      "State the contract first.",
+      "Cover a boundary case."
+    ],
+    "content": {
+      "rubric": [
+        "Satisfies the requested contract",
+        "Uses the lesson technique correctly",
+        "Explains complexity or transaction behavior",
+        "Includes a boundary case"
+      ],
+      "reference_answer": "Answers may vary. The implementation must satisfy the stated contract, make the lesson's key invariant visible, and include a boundary test or concurrency consideration.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "syntaxdataty-explain",
+    "exercise_type": "short_answer",
+    "title": "Interview explanation",
+    "prompt_markdown": "Give a concise interview explanation of Syntax and Data Types: mental model, one trade-off, one common mistake, and one test.",
+    "difficulty": "medium",
+    "hints": [
+      "Use four short parts."
+    ],
+    "content": {
+      "rubric": [
+        "Accurate mental model",
+        "Real trade-off",
+        "Relevant common mistake",
+        "Concrete test"
+      ],
+      "reference_answer": "A complete answer defines the mechanism, names when it is appropriate, identifies a failure mode, and gives a test that would reveal that failure.",
+      "minimum_pass_score": 70
+    }
+  }
 ]

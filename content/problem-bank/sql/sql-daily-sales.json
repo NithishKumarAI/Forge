@@ -8,21 +8,24 @@
   "difficulty": "easy",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on sales(id, sale_date, amount).",
+  "statement_markdown": "Return each sale date and the total amount sold on that date. Sort from earliest to latest date.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: sale_date, total.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['2026-01-01', 250], ['2026-01-02', 200], ['2026-01-03', 150]]"
+      "input": "Visible sales tables",
+      "output": "[[\"2026-01-01\",250],[\"2026-01-02\",200],[\"2026-01-03\",150]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "Rows sharing a date belong to one group.",
+    "Use SUM(amount) per sale_date and order by the grouped date."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "GROUP BY creates one group per sale_date and SUM adds amounts inside each group. ORDER BY presents the dates chronologically. A common mistake is selecting id without grouping it. For timestamps, cast or truncate to a date before grouping.",
   "reference_solution": "SELECT sale_date, SUM(amount) AS total FROM sales GROUP BY sale_date ORDER BY sale_date",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -30,7 +33,7 @@
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE sales (id INT, sale_date DATE, amount INT); INSERT INTO sales VALUES (1, '2026-01-01', 100), (2, '2026-01-01', 150), (3, '2026-01-02', 200), (4, '2026-01-03', 50), (5, '2026-01-03', 100);",
     "visible_tables": [
-      "sales(id, sale_date, amount)"
+      "sales"
     ],
     "sample_rows": [
       [
@@ -40,11 +43,15 @@
       [
         "2026-01-02",
         200
+      ],
+      [
+        "2026-01-03",
+        150
       ]
     ],
     "expected_columns": [
-      "result_col",
-      "result_col"
+      "sale_date",
+      "total"
     ],
     "expected_rows": [
       [
@@ -62,25 +69,26 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE sales (id INT, sale_date DATE, amount INT); INSERT INTO sales VALUES (1, '2026-01-01', 100), (2, '2026-01-01', 150), (3, '2026-01-02', 200), (4, '2026-01-03', 50), (5, '2026-01-03', 100);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE sales (id INT,sale_date DATE,amount INT); INSERT INTO sales VALUES (10,'2026-02-01',5),(11,'2026-02-02',20),(12,'2026-02-02',30),(13,'2026-02-04',7);",
         "expected_rows": [
           [
-            "2026-01-01",
-            250
+            "2026-02-01",
+            5
           ],
           [
-            "2026-01-02",
-            200
+            "2026-02-02",
+            50
           ],
           [
-            "2026-01-03",
-            150
+            "2026-02-04",
+            7
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/group-by"
 }

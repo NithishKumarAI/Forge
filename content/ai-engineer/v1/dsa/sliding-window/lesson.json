@@ -3,252 +3,116 @@
   "track_slug": "dsa",
   "topic_slug": "sliding-window",
   "title": "Sliding Window",
-  "description": "Learn Sliding Window",
-  "version": "1.0.0",
+  "description": "Learn to recognize, derive, implement, and analyze sliding window patterns.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Obj 1",
-    "Obj 2",
-    "Obj 3"
+    "Recognize sliding window signals",
+    "Derive an optimized solution from a naive baseline",
+    "Implement and analyze the pattern in Python"
   ],
   "prerequisites": [
     "python/basics"
   ],
   "sections": [
     {
-      "slug": "what-is-sliding-window",
-      "title": "What Is Sliding Window",
+      "slug": "recognition-and-core",
+      "title": "Recognition and core idea",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about what-is-sliding-window",
-      "markdown": "Content for what-is-sliding-window. sliding window fixed window variable window expand shrink substring subarray template recognition",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
+      "estimated_minutes": 7,
+      "learning_objective": "Recognize when sliding window applies.",
+      "markdown": "## When to recognize this pattern\nLook for a contiguous subarray or substring maintained incrementally, repeated work, or a prompt whose constraints rule out a quadratic scan.\n\n## Core idea\nA sliding window represents one contiguous substring or subarray. The template for a fixed window adds the new right item and removes the old left item. A variable window expands right, then shrinks left while a monotone validity condition is violated.\n\n```text\n[2, 1, 5, 1, 3, 2]\n[-------]             first window\n   [-------]          subtract outgoing 2, add incoming 1\n```",
+      "examples": [],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Recognition: a contiguous subarray or substring maintained incrementally.",
+        "State the invariant before choosing code."
+      ],
+      "checkpoint": "Which phrase in a prompt is the strongest signal for this pattern?"
     },
     {
-      "slug": "fixed-window-pattern",
-      "title": "Fixed Window Pattern",
+      "slug": "from-naive-to-better",
+      "title": "From naive to better",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about fixed-window-pattern",
-      "markdown": "Content for fixed-window-pattern. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 7,
+      "learning_objective": "Derive the optimized approach from a baseline.",
+      "markdown": "## Naive approach\nStart with recomputing every candidate range. It may be easy to verify, but it repeats work and becomes too slow as input grows. State its cost before optimizing.\n\n## Better approach\nUse fixed window updates and variable window expand/shrink. The optimization is valid only if the invariant proves discarded work cannot affect the answer. Never quote a complexity without identifying the operation that dominates it.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "def all_pairs(values):\n    return [(values[i], values[j]) for i in range(len(values)) for j in range(i + 1, len(values))]\n\nprint(all_pairs([1, 2, 3]))",
+          "explanation": "This deliberately quadratic baseline makes repeated candidate work visible before optimization.",
+          "expected_output": "[(1, 2), (1, 3), (2, 3)]"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Baseline: recomputing every candidate range.",
+        "Optimization: fixed window updates and variable window expand/shrink."
+      ],
+      "checkpoint": "Give an input size where the naive method becomes impractical."
     },
     {
-      "slug": "variable-window-pattern",
-      "title": "Variable Window Pattern",
+      "slug": "python-implementation",
+      "title": "Python implementation",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about variable-window-pattern",
-      "markdown": "Content for variable-window-pattern. More markdown content to meet length requirements over 20 chars.",
+      "estimated_minutes": 7,
+      "learning_objective": "Implement a reusable template.",
+      "markdown": "## Python implementation\nThe implementation below keeps the invariant visible and avoids clever shortcuts. Trace it before memorizing it.\n\n## Step-by-step example\nUse the shown input. Record the important pointer, state, or table after each iteration and verify that the final output is `9`.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
+          "code": "def max_window_sum(nums, k):\n    current = sum(nums[:k])\n    best = current\n    for right in range(k, len(nums)):\n        current += nums[right] - nums[right - k]\n        best = max(best, current)\n    return best\n\nprint(max_window_sum([2, 1, 5, 1, 3, 2], 3))",
+          "explanation": "A direct sliding window implementation with explicit state transitions.",
+          "expected_output": "9"
         }
       ],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Keep state changes local.",
+        "Test empty, minimal, and duplicate-heavy inputs."
+      ],
+      "checkpoint": "Trace the example by hand and identify the invariant after the second iteration."
     },
     {
-      "slug": "expand-shrink-logic",
-      "title": "Expand Shrink Logic",
+      "slug": "complexity-and-failures",
+      "title": "Complexity and common mistakes",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about expand-shrink-logic",
-      "markdown": "Content for expand-shrink-logic. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
+      "estimated_minutes": 7,
+      "learning_objective": "Analyze cost and failure modes.",
+      "markdown": "## Time complexity\nO(n) time. Explain whether sorting or preprocessing is included.\n\n## Space complexity\nO(1) auxiliary space. Input storage does not count as auxiliary space unless copied.\n\n## Common mistakes\nUsing the pattern without its precondition, moving state in the wrong order, missing empty input, mishandling duplicates, and reporting average-case cost as a guarantee. For recursion, include call-stack space; for a DP table or hash map, count stored states.",
+      "examples": [],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+        "Time: O(n) time.",
+        "Space: O(1) auxiliary space."
+      ],
+      "checkpoint": "What change to the input would violate this solution's precondition?"
     },
     {
-      "slug": "window-sum-template",
-      "title": "Window Sum Template",
+      "slug": "arena-transfer",
+      "title": "Arena transfer practice",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about window-sum-template",
-      "markdown": "Content for window-sum-template. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
+      "estimated_minutes": 7,
+      "learning_objective": "Transfer the pattern without copying a solution.",
+      "markdown": "## Arena reference\nPractice with `dsa-max-window-sum` in Forge Arena. First restate the invariant and complexity target, then implement from a blank editor. If stuck, use progressive hints only after writing the naive approach. After submission, test one normal case, one boundary case, and one adversarial case. Arena correctness is deterministic; an explanation is useful only when it matches the code's behavior.",
+      "examples": [],
       "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "longest-substring-template",
-      "title": "Longest Substring Template",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about longest-substring-template",
-      "markdown": "Content for longest-substring-template. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
+        "Related Arena problem: `dsa-max-window-sum`.",
+        "Independent recall is stronger evidence than assisted completion."
       ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "shrink-condition",
-      "title": "Shrink Condition",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about shrink-condition",
-      "markdown": "Content for shrink-condition. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "when-to-use",
-      "title": "When To Use",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about when-to-use",
-      "markdown": "Content for when-to-use. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about common-mistakes",
-      "markdown": "Content for common-mistakes. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "template-code",
-      "title": "Template Code",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about template-code",
-      "markdown": "Content for template-code. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Learn about interview-points",
-      "markdown": "Content for interview-points. More markdown content to meet length requirements over 20 chars.",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello')",
-          "expected_output": "hello",
-          "explanation": "test"
-        }
-      ],
-      "key_points": [
-        "Point 1",
-        "Point 2"
-      ]
+      "checkpoint": "Write three tests that could distinguish a correct solution from a plausible bug."
     }
   ],
   "summary": [
-    "Sum 1",
-    "Sum 2",
-    "Sum 3"
+    "Recognize sliding window signals",
+    "Derive an optimized solution from a naive baseline",
+    "Validate understanding with a trace, boundary case, and independent practice."
   ],
   "interview_takeaways": [
-    "Int 1",
-    "Int 2",
-    "Int 3"
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
   ],
   "common_mistakes": [
-    "Mis 1",
-    "Mis 2",
-    "Mis 3"
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
   ],
   "sources": [
     {
@@ -270,6 +134,6 @@
       "retrieved_at": "2026-09-23T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-dsa-sliding-window-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "f4e97a9ed6fd6eef6078b0adcd25e4a4cc7cd459edde643ce9539ead53df6638",
+  "generated_at": "2026-09-24T00:00:00Z"
 }

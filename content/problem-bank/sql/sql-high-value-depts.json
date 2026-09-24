@@ -8,21 +8,24 @@
   "difficulty": "medium",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on employees(id, name, department, salary).",
+  "statement_markdown": "Return departments whose combined salary is greater than 150000. Return department and total_salary, sorted by department.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: department, total_salary.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['Eng', 160000], ['Sales', 160000]]"
+      "input": "Visible employees tables",
+      "output": "[[\"Eng\",160000],[\"Sales\",160000]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "Aggregate salaries once per department.",
+    "Filters on aggregate values belong in HAVING, not WHERE."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "GROUP BY forms department totals and HAVING filters those completed groups. WHERE cannot directly filter SUM because it runs before aggregation. A common mistake is using >= when the requirement says greater than. A CTE containing totals is useful when later logic reuses them.",
   "reference_solution": "SELECT department, SUM(salary) AS total_salary FROM employees GROUP BY department HAVING SUM(salary) > 150000 ORDER BY department",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -30,7 +33,7 @@
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'A', 'Eng', 100000), (2, 'B', 'Eng', 60000), (3, 'C', 'HR', 50000), (4, 'D', 'Sales', 80000), (5, 'E', 'Sales', 80000);",
     "visible_tables": [
-      "employees(id, name, department, salary)"
+      "employees"
     ],
     "sample_rows": [
       [
@@ -43,8 +46,8 @@
       ]
     ],
     "expected_columns": [
-      "result_col",
-      "result_col"
+      "department",
+      "total_salary"
     ],
     "expected_rows": [
       [
@@ -58,21 +61,22 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), department VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'A', 'Eng', 100000), (2, 'B', 'Eng', 60000), (3, 'C', 'HR', 50000), (4, 'D', 'Sales', 80000), (5, 'E', 'Sales', 80000);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE employees (id INT,name VARCHAR(50),department VARCHAR(50),salary INT); INSERT INTO employees VALUES (10,'I','Eng',100000),(11,'J','Eng',51000),(12,'K','HR',75000),(13,'L','HR',75000),(14,'M','Ops',90000),(15,'N','Ops',90000);",
         "expected_rows": [
           [
             "Eng",
-            160000
+            151000
           ],
           [
-            "Sales",
-            160000
+            "Ops",
+            180000
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/group-by"
 }

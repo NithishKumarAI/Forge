@@ -1,1 +1,79 @@
-{"key":"sql-active-users","title":"Active users by signup date","track":"sql","topic_tags":["select","filtering","ordering"],"difficulty":"easy","interview_frequency":"high","estimated_minutes":20,"statement_markdown":"Return `id` and `name` for active users who signed up on or after 2026-01-01, ordered by id.","constraints":["Use a SELECT query","Return exactly id and name"],"examples":[{"input":"users table","output":"Ada and Lin"}],"starter_query":"SELECT id, name\nFROM users\nWHERE ","hints":["Combine the conditions with AND.","Dates can be compared to an ISO date literal."],"explanation":"Filter both activity and date, project only required columns, then order deterministically.","reference_solution":"SELECT id, name FROM users WHERE active = true AND signup_date >= DATE '2026-01-01' ORDER BY id;","complexity":"A table scan without an index; appropriate indexes can reduce examined rows.","validation":{"mode":"result_set","order_sensitive":true,"setup_sql":"CREATE TABLE users(id integer primary key,name text,active boolean,signup_date date); INSERT INTO users VALUES (1,'Ada',true,'2026-01-04'),(2,'Bob',false,'2026-02-01'),(3,'Lin',true,'2025-12-31'),(4,'Maya',true,'2026-03-10');","visible_tables":["users(id, name, active, signup_date)"],"sample_rows":[[1,"Ada",true,"2026-01-04"],[2,"Bob",false,"2026-02-01"],[3,"Lin",true,"2025-12-31"],[4,"Maya",true,"2026-03-10"]],"expected_columns":["id","name"],"expected_rows":[[1,"Ada"],[4,"Maya"]],"hidden_datasets":[{"setup_sql":"CREATE TABLE users(id integer primary key,name text,active boolean,signup_date date); INSERT INTO users VALUES (8,'Zed',true,'2026-01-01'),(2,'Eve',true,'2024-01-01'),(5,'Kai',false,'2026-05-01');","expected_rows":[[8,"Zed"]]}]},"source_type":"original","version":"1.0.0","mapped_topic":"sql-cs/select-filtering"}
+{
+  "key": "sql-active-users",
+  "title": "Active users by signup date",
+  "track": "sql",
+  "topic_tags": [
+    "select",
+    "filtering",
+    "ordering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return id and name for active users who signed up on or after 2026-01-01. Sort by id.",
+  "constraints": [
+    "Return exactly: id, name.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible users tables",
+      "output": "[[1,\"Ada\"],[4,\"Maya\"]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT id, name\nFROM users\nWHERE ",
+  "hints": [
+    "Both the activity flag and signup date belong in WHERE.",
+    "Compare the date with a PostgreSQL DATE literal and combine conditions with AND."
+  ],
+  "explanation": "WHERE removes rows that fail either condition before SELECT returns id and name. ORDER BY makes the result deterministic. A common mistake is using OR, which includes inactive or old users. A composite index may help when this filter is common.",
+  "reference_solution": "SELECT id, name FROM users WHERE active = true AND signup_date >= DATE '2026-01-01' ORDER BY id;",
+  "complexity": "A table scan without an index; appropriate indexes can reduce examined rows.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE users(id integer primary key,name text,active boolean,signup_date date); INSERT INTO users VALUES (1,'Ada',true,'2026-01-04'),(2,'Bob',false,'2026-02-01'),(3,'Lin',true,'2025-12-31'),(4,'Maya',true,'2026-03-10');",
+    "visible_tables": [
+      "users"
+    ],
+    "sample_rows": [
+      [
+        1,
+        "Ada"
+      ],
+      [
+        4,
+        "Maya"
+      ]
+    ],
+    "expected_columns": [
+      "id",
+      "name"
+    ],
+    "expected_rows": [
+      [
+        1,
+        "Ada"
+      ],
+      [
+        4,
+        "Maya"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE users(id integer primary key,name text,active boolean,signup_date date); INSERT INTO users VALUES (8,'Zed',true,'2026-01-01'),(2,'Eve',true,'2024-01-01'),(5,'Kai',false,'2026-05-01');",
+        "expected_rows": [
+          [
+            8,
+            "Zed"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

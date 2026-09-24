@@ -8,21 +8,24 @@
   "difficulty": "medium",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on products, order_items.",
+  "statement_markdown": "Return product names that have never appeared in order_items. Sort by product name.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: name.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['P4']]"
+      "input": "Visible order_items, products tables",
+      "output": "[[\"P4\"]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "Start with every product and preserve products without matches.",
+    "Filter the joined rows where the order-item id is NULL."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "The anti-join pattern uses LEFT JOIN plus IS NULL to find products with no matching order item. A common mistake is testing product_id IS NULL from the products table. NOT EXISTS expresses the same intent and often reads naturally.",
   "reference_solution": "SELECT p.name FROM products p LEFT JOIN order_items oi ON oi.product_id = p.id WHERE oi.id IS NULL ORDER BY p.name",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -30,7 +33,8 @@
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50)); CREATE TABLE order_items (id INT, order_id INT, product_id INT); INSERT INTO products VALUES (1, 'P1'), (2, 'P2'), (3, 'P3'), (4, 'P4'); INSERT INTO order_items VALUES (1, 100, 1), (2, 101, 2), (3, 102, 3);",
     "visible_tables": [
-      "products, order_items"
+      "order_items",
+      "products"
     ],
     "sample_rows": [
       [
@@ -38,7 +42,7 @@
       ]
     ],
     "expected_columns": [
-      "result_col"
+      "name"
     ],
     "expected_rows": [
       [
@@ -47,16 +51,20 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50)); CREATE TABLE order_items (id INT, order_id INT, product_id INT); INSERT INTO products VALUES (1, 'P1'), (2, 'P2'), (3, 'P3'), (4, 'P4'); INSERT INTO order_items VALUES (1, 100, 1), (2, 101, 2), (3, 102, 3);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE products (id INT,name VARCHAR(50)); CREATE TABLE order_items (id INT,order_id INT,product_id INT); INSERT INTO products VALUES (10,'Alpha'),(11,'Beta'),(12,'Gamma'); INSERT INTO order_items VALUES (20,1,11),(21,2,11);",
         "expected_rows": [
           [
-            "P4"
+            "Alpha"
+          ],
+          [
+            "Gamma"
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/joins"
 }

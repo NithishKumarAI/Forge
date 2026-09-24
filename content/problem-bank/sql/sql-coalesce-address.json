@@ -8,21 +8,24 @@
   "difficulty": "easy",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on customers(id, name, shipping_address, billing_address).",
+  "statement_markdown": "Return each customer name and preferred address. Use shipping_address when present, otherwise billing_address, otherwise 'No address'. Sort by name.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: name, address.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['Alice', '123 Ship St'], ['Bob', '789 Bill St'], ['Charlie', 'No address'], ['David', '321 Ship St']]"
+      "input": "Visible customers tables",
+      "output": "[[\"Alice\",\"123 Ship St\"],[\"Bob\",\"789 Bill St\"],[\"Charlie\",\"No address\"],[\"David\",\"321 Ship St\"]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "COALESCE returns the first non-NULL expression.",
+    "Place shipping, billing, and the fallback text in priority order."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "COALESCE checks its arguments from left to right and stops at the first non-NULL value. It models fallback rules without several CASE branches. A common mistake is comparing NULL with = instead of using NULL-aware functions. CASE is an alternative when fallback rules require conditions beyond NULL.",
   "reference_solution": "SELECT name, COALESCE(shipping_address, billing_address, 'No address') AS address FROM customers ORDER BY name",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -30,7 +33,7 @@
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), shipping_address VARCHAR(100), billing_address VARCHAR(100)); INSERT INTO customers VALUES (1, 'Alice', '123 Ship St', '456 Bill St'), (2, 'Bob', NULL, '789 Bill St'), (3, 'Charlie', NULL, NULL), (4, 'David', '321 Ship St', NULL);",
     "visible_tables": [
-      "customers(id, name, shipping_address, billing_address)"
+      "customers"
     ],
     "sample_rows": [
       [
@@ -40,11 +43,19 @@
       [
         "Bob",
         "789 Bill St"
+      ],
+      [
+        "Charlie",
+        "No address"
+      ],
+      [
+        "David",
+        "321 Ship St"
       ]
     ],
     "expected_columns": [
-      "result_col",
-      "result_col"
+      "name",
+      "address"
     ],
     "expected_rows": [
       [
@@ -66,29 +77,26 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), shipping_address VARCHAR(100), billing_address VARCHAR(100)); INSERT INTO customers VALUES (1, 'Alice', '123 Ship St', '456 Bill St'), (2, 'Bob', NULL, '789 Bill St'), (3, 'Charlie', NULL, NULL), (4, 'David', '321 Ship St', NULL);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE customers (id INT,name VARCHAR(50),shipping_address VARCHAR(100),billing_address VARCHAR(100)); INSERT INTO customers VALUES (10,'Eli',NULL,'10 Bill Rd'),(11,'Fay','11 Ship Rd','11 Bill Rd'),(12,'Gus',NULL,NULL);",
         "expected_rows": [
           [
-            "Alice",
-            "123 Ship St"
+            "Eli",
+            "10 Bill Rd"
           ],
           [
-            "Bob",
-            "789 Bill St"
+            "Fay",
+            "11 Ship Rd"
           ],
           [
-            "Charlie",
+            "Gus",
             "No address"
-          ],
-          [
-            "David",
-            "321 Ship St"
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/select-filtering"
 }

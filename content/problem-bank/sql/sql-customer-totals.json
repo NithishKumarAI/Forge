@@ -2,30 +2,81 @@
   "key": "sql-customer-totals",
   "title": "Customer order totals",
   "track": "sql",
-  "topic_tags": ["joins", "aggregation", "group-by"],
+  "topic_tags": [
+    "joins",
+    "aggregation",
+    "group-by"
+  ],
   "difficulty": "medium",
   "interview_frequency": "high",
   "estimated_minutes": 40,
-  "statement_markdown": "Return every customer name and their total order amount. Customers without orders must appear with total 0. Order by customer name.",
-  "constraints": ["Return columns name and total", "Preserve customers without orders"],
-  "examples": [{"input": "customers and orders", "output": "One row per customer"}],
+  "statement_markdown": "Return every customer name and total order amount, including customers with no orders as total 0. Sort by customer name.",
+  "constraints": [
+    "Return exactly: name, total.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible customers, orders tables",
+      "output": "[[\"Ada\",50],[\"Lin\",0]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
   "starter_query": "SELECT ",
-  "hints": ["Which join preserves every customer?", "Use COALESCE around the aggregate result."],
-  "explanation": "LEFT JOIN preserves customers without matches. Group per customer and turn the missing sum into zero.",
+  "hints": [
+    "Use the join that preserves every customer.",
+    "Aggregate order amounts and wrap the missing sum with COALESCE."
+  ],
+  "explanation": "LEFT JOIN keeps customers even without matching orders. SUM groups all matching orders and COALESCE converts the no-match NULL to zero. A common mistake is using INNER JOIN, which drops customers without orders. Pre-aggregating orders in a CTE is useful for larger queries.",
   "reference_solution": "SELECT c.name, COALESCE(SUM(o.amount), 0) AS total FROM customers c LEFT JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name ORDER BY c.name;",
   "complexity": "Depends on join strategy; an index on orders.customer_id supports the join.",
   "validation": {
     "mode": "result_set",
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE customers(id integer primary key,name text); CREATE TABLE orders(id integer primary key,customer_id integer references customers(id),amount integer); INSERT INTO customers VALUES (1,'Ada'),(2,'Lin'); INSERT INTO orders VALUES (1,1,30),(2,1,20);",
-    "visible_tables": ["customers(id, name)", "orders(id, customer_id, amount)"],
-    "sample_rows": [["Ada", 50], ["Lin", 0]],
-    "expected_columns": ["name", "total"],
-    "expected_rows": [["Ada", 50], ["Lin", 0]],
-    "hidden_datasets": [{
-      "setup_sql": "CREATE TABLE customers(id integer primary key,name text); CREATE TABLE orders(id integer primary key,customer_id integer references customers(id),amount integer); INSERT INTO customers VALUES (1,'Maya'),(2,'Bob'); INSERT INTO orders VALUES (1,2,7),(2,2,8);",
-      "expected_rows": [["Bob", 15], ["Maya", 0]]
-    }]
+    "visible_tables": [
+      "customers",
+      "orders"
+    ],
+    "sample_rows": [
+      [
+        "Ada",
+        50
+      ],
+      [
+        "Lin",
+        0
+      ]
+    ],
+    "expected_columns": [
+      "name",
+      "total"
+    ],
+    "expected_rows": [
+      [
+        "Ada",
+        50
+      ],
+      [
+        "Lin",
+        0
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "setup_sql": "CREATE TABLE customers(id integer primary key,name text); CREATE TABLE orders(id integer primary key,customer_id integer references customers(id),amount integer); INSERT INTO customers VALUES (1,'Maya'),(2,'Bob'); INSERT INTO orders VALUES (1,2,7),(2,2,8);",
+        "expected_rows": [
+          [
+            "Bob",
+            15
+          ],
+          [
+            "Maya",
+            0
+          ]
+        ]
+      }
+    ]
   },
   "source_type": "original",
   "version": "1.0.1",

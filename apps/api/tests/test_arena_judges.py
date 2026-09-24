@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.problem_builder.validate import validate_problem
+from scripts.problem_builder.validate import validate_problem, validate_sql_with_pglite
 
 
 def _problem(reference_solution: str, validation: dict) -> dict:
@@ -71,3 +71,21 @@ def test_malformed_test_for_mode_is_rejected(tmp_path):
     validation = {"judge_mode": "stdin_stdout", "sample_tests": [{"name": "missing output", "stdin": "x"}], "hidden_tests": []}
     with pytest.raises(ValueError, match="expected_stdout"):
         _validate(tmp_path, _problem("print(input())", validation))
+
+
+def test_python_validator_propagates_pglite_failure(monkeypatch):
+    class Failed:
+        returncode = 1
+        stdout = ""
+        stderr = "fixture SQL failed"
+
+    monkeypatch.setattr("scripts.problem_builder.validate.shutil.which", lambda _: "node")
+    monkeypatch.setattr("scripts.problem_builder.validate.subprocess.run", lambda *args, **kwargs: Failed())
+    with pytest.raises(ValueError, match="fixture SQL failed"):
+        validate_sql_with_pglite("fixture-sql")
+
+
+def test_python_validator_fails_clearly_without_node(monkeypatch):
+    monkeypatch.setattr("scripts.problem_builder.validate.shutil.which", lambda _: None)
+    with pytest.raises(RuntimeError, match="SQL PGlite validation unavailable"):
+        validate_sql_with_pglite("fixture-sql")

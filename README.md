@@ -12,7 +12,7 @@ The confirmed V2 default reflects 2026 job-search priorities. Python Programming
 
 ### Coding Arena
 
-Coding Arena is independent of course navigation and uses a canonical original problem bank under `content/problem-bank/{python,sql,dsa}`. The initial validated bank contains two problems per track. This deliberately small bank proves the architecture; the long-term target is 40 Python, 40 SQL, and 50 DSA problems after authored review.
+Coding Arena is independent of course navigation and uses a canonical original problem bank under `content/problem-bank/{python,sql,dsa}`. The validated bank contains 40 Python, 30 SQL, and 40 DSA problems. SQL fixtures and reference answers are executed against real PGlite databases on both visible and alternate hidden datasets before acceptance.
 
 Python and DSA problems reuse Monaco and the timeout-controlled Pyodide Web Worker. SQL problems use `@electric-sql/pglite` in a separate Web Worker. Every query run creates a fresh ephemeral PostgreSQL-compatible database from the problem fixture, so learner SQL cannot access Forge SQLite. SELECT results are compared deterministically by columns and normalized rows, with optional ordering and alternate hidden datasets. Gemini never grades runtime Python or SQL.
 
@@ -58,7 +58,7 @@ Static Course Pack
 └── Static Practice Bank
 ```
 
-The canonical pack is under `content/ai-engineer/v1`; SQLite stores synchronized metadata, exercise rows, local search, and reading progress. Reading progress is not mastery evidence. Python “Syntax and data types” is included as the deterministic fixture-backed accepted sample, including Boolean coverage and eight offline exercises. Complete required-coverage specifications exist for all 18 Python topics; the remaining topics require reviewed official-source fetching and build-time synthesis rather than fabricated research.
+The canonical pack is under `content/ai-engineer/v1`; SQLite stores synchronized metadata, exercise rows, local search, and reading progress. Reading progress is not mastery evidence. Required-coverage specifications exist for every accepted topic. Thirteen priority lessons across Python, SQL, and DSA include reviewed explanations, runnable examples, checkpoints, and aligned offline exercises; the course validator rejects thin placeholder content in those lessons.
 
 Course builder commands (run from `apps/api` with its environment active):
 

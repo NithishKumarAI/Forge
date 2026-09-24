@@ -2,240 +2,136 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "sql-postgresql",
   "topic_slug": "transactions",
-  "title": "Transactions",
-  "description": "Learn about Transactions",
-  "version": "1.0.0",
+  "title": "SQL Transactions",
+  "description": "Protect multi-statement changes with ACID guarantees and deliberate concurrency control.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Obj 1",
-    "Obj 2",
-    "Obj 3"
+    "Explain ACID in practical terms",
+    "Use BEGIN, COMMIT, and ROLLBACK",
+    "Recognize concurrency anomalies and isolation trade-offs"
   ],
   "prerequisites": [],
   "sections": [
     {
-      "slug": "what-is-a-transaction",
-      "title": "What Is A Transaction",
+      "slug": "acid",
+      "title": "ACID as observable guarantees",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about what-is-a-transaction.",
-      "markdown": "This is the what-is-a-transaction section. ACID atomicity consistency isolation durability BEGIN COMMIT ROLLBACK concurrency isolation levels It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Connect ACID properties to real failures.",
+      "markdown": "A transaction groups operations into one unit. Atomicity means all changes commit or none do. Consistency means constraints and application invariants hold at transaction boundaries. Isolation controls what concurrent transactions can observe. Durability means a committed change survives a crash according to the database's persistence guarantees. ACID is behavior to design for, not merely vocabulary.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- what-is-a-transaction",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "BEGIN;\nUPDATE accounts SET balance = balance - 50 WHERE id = 1;\nUPDATE accounts SET balance = balance + 50 WHERE id = 2;\nCOMMIT;",
+          "explanation": "A transfer is one atomic operation.",
+          "expected_output": "BEGIN\nUPDATE 1\nUPDATE 1\nCOMMIT"
         }
       ],
       "key_points": [
-        "Key point for what-is-a-transaction"
-      ]
+        "A transfer is one atomic operation.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     },
     {
-      "slug": "atomicity",
-      "title": "Atomicity",
+      "slug": "boundaries",
+      "title": "BEGIN, COMMIT, and ROLLBACK",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about atomicity.",
-      "markdown": "This is the atomicity section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Choose and close transaction boundaries.",
+      "markdown": "`BEGIN` opens an explicit transaction, `COMMIT` makes its changes durable and visible, and `ROLLBACK` discards uncommitted changes. Keep boundaries around one business operation. If the credit update fails after the debit, roll back both. Long transactions retain locks or old row versions and increase contention.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- atomicity",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "BEGIN;\nDELETE FROM reservations WHERE expires_at < CURRENT_TIMESTAMP;\n-- verify the affected rows\nROLLBACK;",
+          "explanation": "Rollback is a safe way to inspect a proposed change.",
+          "expected_output": "BEGIN\nDELETE n\nROLLBACK"
         }
       ],
       "key_points": [
-        "Key point for atomicity"
-      ]
+        "Rollback is a safe way to inspect a proposed change.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     },
     {
-      "slug": "consistency",
-      "title": "Consistency",
+      "slug": "constraints",
+      "title": "Consistency through constraints",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about consistency.",
-      "markdown": "This is the consistency section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Let the database defend invariants.",
+      "markdown": "Transactions work with constraints, not instead of them. A check such as `balance >= 0`, a unique idempotency key, and foreign keys reject invalid intermediate results at the appropriate time. Application pre-checks alone have race windows: another transaction can change the data between the check and the write.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- consistency",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "BEGIN;\nUPDATE inventory SET quantity = quantity - 1\nWHERE product_id = 7 AND quantity > 0;\n-- commit only when exactly one row changed\nCOMMIT;",
+          "explanation": "Put the condition in the atomic write.",
+          "expected_output": "UPDATE 1"
         }
       ],
       "key_points": [
-        "Key point for consistency"
-      ]
+        "Put the condition in the atomic write.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
+    },
+    {
+      "slug": "concurrency",
+      "title": "Concurrency problems",
+      "order_index": 3,
+      "estimated_minutes": 7,
+      "learning_objective": "Identify anomalies caused by overlapping work.",
+      "markdown": "Concurrent operations can cause dirty reads, non-repeatable reads, phantom rows, or lost updates depending on the database and isolation level. PostgreSQL prevents dirty reads, but read-modify-write application code can still lose an update. Prefer an atomic update, or lock the selected row with `FOR UPDATE` when later decisions depend on it.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "BEGIN;\nSELECT quantity FROM inventory WHERE product_id = 7 FOR UPDATE;\nUPDATE inventory SET quantity = quantity - 1 WHERE product_id = 7;\nCOMMIT;",
+          "explanation": "Locks must be acquired in a consistent order.",
+          "expected_output": "The row remains locked until the transaction ends"
+        }
+      ],
+      "key_points": [
+        "Locks must be acquired in a consistent order.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     },
     {
       "slug": "isolation",
-      "title": "Isolation",
-      "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about isolation.",
-      "markdown": "This is the isolation section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- isolation",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for isolation"
-      ]
-    },
-    {
-      "slug": "durability",
-      "title": "Durability",
+      "title": "Isolation levels and retries",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about durability.",
-      "markdown": "This is the durability section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
+      "estimated_minutes": 7,
+      "learning_objective": "Choose isolation based on required invariants.",
+      "markdown": "Read Committed is PostgreSQL's default and each statement sees a fresh committed snapshot. Repeatable Read gives the transaction a stable snapshot. Serializable aims to produce a result equivalent to some serial execution, but may abort one transaction with a serialization failure. Robust applications use short transactions and retry the complete operation when the database reports a retryable conflict.",
       "examples": [
         {
           "language": "sql",
-          "code": "-- durability",
-          "expected_output": "",
-          "explanation": "Example code."
+          "code": "BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;\n-- read the state, validate the invariant, then write\nCOMMIT;",
+          "explanation": "Higher isolation can require whole-transaction retries.",
+          "expected_output": "COMMIT or a retryable serialization error"
         }
       ],
       "key_points": [
-        "Key point for durability"
-      ]
-    },
-    {
-      "slug": "begin-commit-rollback",
-      "title": "Begin Commit Rollback",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about begin-commit-rollback.",
-      "markdown": "This is the begin-commit-rollback section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- begin-commit-rollback",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
+        "Higher isolation can require whole-transaction retries.",
+        "Verify ordering and NULL behavior explicitly."
       ],
-      "key_points": [
-        "Key point for begin-commit-rollback"
-      ]
-    },
-    {
-      "slug": "isolation-levels",
-      "title": "Isolation Levels",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about isolation-levels.",
-      "markdown": "This is the isolation-levels section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- isolation-levels",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for isolation-levels"
-      ]
-    },
-    {
-      "slug": "dirty-read",
-      "title": "Dirty Read",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about dirty-read.",
-      "markdown": "This is the dirty-read section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- dirty-read",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for dirty-read"
-      ]
-    },
-    {
-      "slug": "repeatable-read",
-      "title": "Repeatable Read",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about repeatable-read.",
-      "markdown": "This is the repeatable-read section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- repeatable-read",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for repeatable-read"
-      ]
-    },
-    {
-      "slug": "serializable",
-      "title": "Serializable",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about serializable.",
-      "markdown": "This is the serializable section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- serializable",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for serializable"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 10,
-      "estimated_minutes": 5,
-      "learning_objective": "Learn about interview-points.",
-      "markdown": "This is the interview-points section.  It covers many important concepts to help you become a better AI engineer. Here is a dummy table schema:\n\n```\nusers(id, name)\n```",
-      "examples": [
-        {
-          "language": "sql",
-          "code": "-- interview-points",
-          "expected_output": "",
-          "explanation": "Example code."
-        }
-      ],
-      "key_points": [
-        "Key point for interview-points"
-      ]
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
     }
   ],
   "summary": [
-    "Sum 1",
-    "Sum 2",
-    "Sum 3"
+    "Explain ACID in practical terms",
+    "Use BEGIN, COMMIT, and ROLLBACK",
+    "Validate understanding with a trace, boundary case, and independent practice."
   ],
   "interview_takeaways": [
-    "Int 1",
-    "Int 2",
-    "Int 3"
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
   ],
   "common_mistakes": [
-    "Mis 1",
-    "Mis 2",
-    "Mis 3"
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
   ],
   "sources": [
     {
@@ -245,6 +141,6 @@
       "retrieved_at": "2026-09-23T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-sql-postgresql-transactions-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "1c5cf96e67127cc330133208ddd66a1e2ccb3092e37c8c050b76ef44f1488ed2",
+  "generated_at": "2026-09-24T00:00:00Z"
 }

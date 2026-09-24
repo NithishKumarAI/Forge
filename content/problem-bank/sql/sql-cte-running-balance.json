@@ -8,22 +8,25 @@
   "difficulty": "medium",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on transactions.",
+  "statement_markdown": "For account 1, return transaction date, amount, and the running balance after each transaction. Sort chronologically.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: txn_date, amount, balance.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['2026-01-01', 1000, 1000], ['2026-01-05', -200, 800], ['2026-01-10', 500, 1300]]"
+      "input": "Visible transactions tables",
+      "output": "[[\"2026-01-01\",1000,1000],[\"2026-01-05\",-200,800],[\"2026-01-10\",500,1300]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "A running total uses SUM(amount) as a window function.",
+    "Define the account transactions in a CTE, then order the window from the earliest date."
   ],
-  "explanation": "Use appropriate SQL clauses.",
-  "reference_solution": "SELECT txn_date, amount, balance FROM (SELECT txn_date, amount, SUM(amount) OVER (ORDER BY txn_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS balance FROM transactions WHERE account_id = 1) ordered ORDER BY txn_date",
+  "explanation": "The CTE first names the account-specific rows. SUM OVER keeps every transaction row while accumulating amounts in date order. ROWS BETWEEN makes the running frame explicit. A common mistake is GROUP BY, which collapses transactions. Add a stable tie-breaker such as id when dates can repeat.",
+  "reference_solution": "WITH account_transactions AS (SELECT id, txn_date, amount FROM transactions WHERE account_id = 1) SELECT txn_date, amount, SUM(amount) OVER (ORDER BY txn_date, id ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS balance FROM account_transactions ORDER BY txn_date, id",
   "complexity": "O(n) depending on indexes.",
   "validation": {
     "mode": "result_set",
@@ -42,12 +45,17 @@
         "2026-01-05",
         -200,
         800
+      ],
+      [
+        "2026-01-10",
+        500,
+        1300
       ]
     ],
     "expected_columns": [
-      "result_col",
-      "result_col",
-      "result_col"
+      "txn_date",
+      "amount",
+      "balance"
     ],
     "expected_rows": [
       [
@@ -68,28 +76,29 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE transactions (id INT, account_id INT, amount INT, txn_date DATE); INSERT INTO transactions VALUES (1, 1, 1000, '2026-01-01'), (2, 1, -200, '2026-01-05'), (3, 1, 500, '2026-01-10');",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE transactions (id INT,account_id INT,amount INT,txn_date DATE); INSERT INTO transactions VALUES (10,1,200,'2026-02-01'),(11,2,999,'2026-02-02'),(12,1,-50,'2026-02-03'),(13,1,-25,'2026-02-08');",
         "expected_rows": [
           [
-            "2026-01-01",
-            1000,
-            1000
+            "2026-02-01",
+            200,
+            200
           ],
           [
-            "2026-01-05",
-            -200,
-            800
+            "2026-02-03",
+            -50,
+            150
           ],
           [
-            "2026-01-10",
-            500,
-            1300
+            "2026-02-08",
+            -25,
+            125
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/ctes"
 }

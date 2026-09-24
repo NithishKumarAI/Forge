@@ -8,21 +8,24 @@
   "difficulty": "medium",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on orders, order_items.",
+  "statement_markdown": "Return the ids of orders that contain no order_items. Sort by order id.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: id.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[[2], [4]]"
+      "input": "Visible order_items, orders tables",
+      "output": "[[2],[4]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "Preserve all orders while attempting to match items.",
+    "After a LEFT JOIN, unmatched item columns are NULL."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "LEFT JOIN keeps every order and produces NULL item columns for unmatched orders. Filtering oi.id IS NULL isolates those rows. A common mistake is INNER JOIN, which can never show an order without items. NOT EXISTS is an equally clear alternative.",
   "reference_solution": "SELECT o.id FROM orders o LEFT JOIN order_items oi ON oi.order_id = o.id WHERE oi.id IS NULL ORDER BY o.id",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -30,7 +33,8 @@
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE orders (id INT, customer_id INT, order_date DATE); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT); INSERT INTO orders VALUES (1, 101, '2026-01-01'), (2, 102, '2026-01-02'), (3, 103, '2026-01-03'), (4, 104, '2026-01-04'); INSERT INTO order_items VALUES (1, 1, 1, 1), (2, 3, 2, 2);",
     "visible_tables": [
-      "orders, order_items"
+      "order_items",
+      "orders"
     ],
     "sample_rows": [
       [
@@ -41,7 +45,7 @@
       ]
     ],
     "expected_columns": [
-      "result_col"
+      "id"
     ],
     "expected_rows": [
       [
@@ -53,19 +57,17 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE orders (id INT, customer_id INT, order_date DATE); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT); INSERT INTO orders VALUES (1, 101, '2026-01-01'), (2, 102, '2026-01-02'), (3, 103, '2026-01-03'), (4, 104, '2026-01-04'); INSERT INTO order_items VALUES (1, 1, 1, 1), (2, 3, 2, 2);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE orders (id INT,customer_id INT,order_date DATE); CREATE TABLE order_items (id INT,order_id INT,product_id INT,quantity INT); INSERT INTO orders VALUES (10,1,'2026-02-01'),(11,2,'2026-02-02'),(12,3,'2026-02-03'); INSERT INTO order_items VALUES (20,10,1,1),(21,10,2,1),(22,12,3,2);",
         "expected_rows": [
           [
-            2
-          ],
-          [
-            4
+            11
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/joins"
 }

@@ -1,117 +1,140 @@
 [
   {
-    "key": "col-1",
+    "key": "collections-recognize",
     "exercise_type": "multiple_choice",
-    "title": "Dict additions",
-    "prompt_markdown": "Which is the correct way to add a key to a dict `d`?",
+    "title": "Recognize the core rule",
+    "prompt_markdown": "Which collection best represents unique user IDs with fast membership?",
     "difficulty": "easy",
     "hints": [
-      "Use assignment"
+      "Use the lesson's mental model."
     ],
     "content": {
       "choices": [
-        "d.add('k', 'v')",
-        "d.insert('k', 'v')",
-        "d['k'] = 'v'",
-        "d.append('k', 'v')"
+        "list",
+        "tuple",
+        "set",
+        "string"
       ],
       "correct_index": 2,
-      "explanation": "Assignment via index syntax adds or updates a key."
+      "explanation": "The correct option follows the defining rule for Python Collections."
     }
   },
   {
-    "key": "col-2",
+    "key": "collections-tradeoff",
     "exercise_type": "multiple_choice",
-    "title": "Set features",
-    "prompt_markdown": "Which of the following is true about sets?",
-    "difficulty": "easy",
-    "hints": [
-      "Duplicates?"
-    ],
-    "content": {
-      "choices": [
-        "They maintain order",
-        "They allow duplicates",
-        "Elements must be hashable",
-        "They are immutable"
-      ],
-      "correct_index": 2,
-      "explanation": "Sets only store hashable (immutable) elements to ensure uniqueness."
-    }
-  },
-  {
-    "key": "col-3",
-    "exercise_type": "multiple_choice",
-    "title": "List vs Tuple",
-    "prompt_markdown": "What is a key difference between lists and tuples?",
-    "difficulty": "easy",
-    "hints": [
-      "Mutability"
-    ],
-    "content": {
-      "choices": [
-        "Lists are immutable",
-        "Tuples are immutable",
-        "Tuples use brackets []",
-        "Lists cannot be nested"
-      ],
-      "correct_index": 1,
-      "explanation": "Tuples cannot be changed once created."
-    }
-  },
-  {
-    "key": "col-4",
-    "exercise_type": "multiple_choice",
-    "title": "Dict fetching",
-    "prompt_markdown": "Which method avoids a KeyError if a key is missing?",
-    "difficulty": "easy",
-    "hints": [
-      "It 'gets' it safely"
-    ],
-    "content": {
-      "choices": [
-        "d.fetch(k)",
-        "d[k]",
-        "d.get(k)",
-        "d.has(k)"
-      ],
-      "correct_index": 2,
-      "explanation": "get() returns None instead of raising an error."
-    }
-  },
-  {
-    "key": "col-5",
-    "exercise_type": "short_answer",
-    "title": "Tuples as keys",
-    "prompt_markdown": "Explain why tuples are preferred over lists as dictionary keys.",
+    "title": "Choose by trade-off",
+    "prompt_markdown": "Which answer best demonstrates sound use of Python Collections?",
     "difficulty": "medium",
     "hints": [
-      "Hashability"
+      "Check preconditions and observable behavior."
+    ],
+    "content": {
+      "choices": [
+        "Use it for every problem",
+        "State its preconditions and verify them",
+        "Ignore boundary inputs",
+        "Choose it only because the syntax is short"
+      ],
+      "correct_index": 1,
+      "explanation": "A technique is justified by its preconditions and behavior, not familiarity."
+    }
+  },
+  {
+    "key": "collections-failure",
+    "exercise_type": "multiple_choice",
+    "title": "Find the weak explanation",
+    "prompt_markdown": "Which interview explanation of Python Collections is weakest?",
+    "difficulty": "medium",
+    "hints": [
+      "Evidence matters."
+    ],
+    "content": {
+      "choices": [
+        "It names the invariant",
+        "It traces a concrete input",
+        "It says it works without explaining why",
+        "It covers a boundary case"
+      ],
+      "correct_index": 2,
+      "explanation": "A claim without a trace or invariant cannot establish correctness."
+    }
+  },
+  {
+    "key": "collections-predict",
+    "exercise_type": "short_answer",
+    "title": "Predict and justify",
+    "prompt_markdown": "Predict the important state after two steps of the lesson's worked Python Collections example. Justify each change.",
+    "difficulty": "medium",
+    "hints": [
+      "Write the state before and after each step."
     ],
     "content": {
       "rubric": [
-        "Tuples are immutable",
-        "Lists are not hashable"
+        "States a concrete intermediate value",
+        "Applies the rule correctly",
+        "Explains why state changes"
       ],
-      "reference_answer": "Dictionary keys must be hashable. Tuples are immutable and therefore hashable, whereas lists are mutable and cannot be used as keys.",
+      "reference_answer": "A strong answer records the starting state, applies exactly one transition at a time, and connects the second state to the invariant described in the lesson.",
       "minimum_pass_score": 70
     }
   },
   {
-    "key": "col-6",
+    "key": "collections-fix",
     "exercise_type": "short_answer",
-    "title": "Set vs List",
-    "prompt_markdown": "When should you use a set instead of a list?",
+    "title": "Diagnose and fix",
+    "prompt_markdown": "A solution using Python Collections works on the sample but fails on an empty input or a tie. Explain the likely missing condition and propose a focused test.",
     "difficulty": "medium",
     "hints": [
-      "Uniqueness and lookup speed"
+      "Do not rewrite everything; isolate the violated assumption."
     ],
     "content": {
       "rubric": [
-        "Fast lookups",
-        "Unique elements"
+        "Identifies a plausible violated precondition",
+        "Proposes a minimal correction",
+        "Includes a test with expected behavior"
       ],
-      "reference_answer": "Use a set when you need to ensure elements are unique, or when you need fast O(1) membership testing.",
+      "reference_answer": "Handle the boundary explicitly, then add the smallest input that previously failed and assert its exact result. The precise condition depends on the implementation, but the reasoning must connect the failure to its invariant.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "collections-write",
+    "exercise_type": "short_answer",
+    "title": "Write a focused Python code",
+    "prompt_markdown": "Given a list of words, write code that returns a dictionary mapping each word to its count.",
+    "difficulty": "hard",
+    "hints": [
+      "State the contract first.",
+      "Cover a boundary case."
+    ],
+    "content": {
+      "rubric": [
+        "Satisfies the requested contract",
+        "Uses the lesson technique correctly",
+        "Explains complexity or transaction behavior",
+        "Includes a boundary case"
+      ],
+      "reference_answer": "Answers may vary. The implementation must satisfy the stated contract, make the lesson's key invariant visible, and include a boundary test or concurrency consideration.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "collections-explain",
+    "exercise_type": "short_answer",
+    "title": "Interview explanation",
+    "prompt_markdown": "Give a concise interview explanation of Python Collections: mental model, one trade-off, one common mistake, and one test.",
+    "difficulty": "medium",
+    "hints": [
+      "Use four short parts."
+    ],
+    "content": {
+      "rubric": [
+        "Accurate mental model",
+        "Real trade-off",
+        "Relevant common mistake",
+        "Concrete test"
+      ],
+      "reference_answer": "A complete answer defines the mechanism, names when it is appropriate, identifies a failure mode, and gives a test that would reveal that failure.",
       "minimum_pass_score": 70
     }
   }

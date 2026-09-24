@@ -2,164 +2,122 @@
   "curriculum_key": "default-ai-engineer",
   "track_slug": "python",
   "topic_slug": "debugging",
-  "title": "Debugging Python Applications",
-  "description": "Techniques for finding, isolating, and fixing bugs efficiently.",
-  "version": "1.0.0",
+  "title": "Systematic Debugging",
+  "description": "Turn failures into small, testable hypotheses using tracebacks, inspection, logs, and breakpoints.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Read tracebacks",
-    "Use breakpoints and logging",
-    "Create minimal cases",
-    "Apply hypothesis testing to isolate bugs"
+    "Reproduce and minimize a defect",
+    "Read tracebacks and inspect runtime state",
+    "Test hypotheses instead of guessing"
   ],
   "prerequisites": [],
   "sections": [
     {
-      "slug": "debugging-mindset",
-      "title": "The Debugging Mindset",
+      "slug": "mental-model",
+      "title": "Core mental model",
       "order_index": 0,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand The Debugging Mindset",
-      "markdown": "Debugging requires a systematic approach, not random guessing. Follow the data flow. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "estimated_minutes": 7,
+      "learning_objective": "Reproduce and minimize a defect",
+      "markdown": "Debugging starts with a reliable reproduction: record the input, environment, expected result, and actual result. Read a traceback from the final exception upward to the first frame owned by your code. The exception type explains the category, while the message and failing line narrow the immediate cause.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def average(values):\n    return sum(values) / len(values)\n\ntry:\n    average([])\nexcept ZeroDivisionError as error:\n    print(type(error).__name__)",
+          "explanation": "A small executable example exposes the rule instead of only naming it.",
+          "expected_output": "ZeroDivisionError"
+        }
+      ],
       "key_points": [
-        "Key point for The Debugging Mindset"
-      ]
+        "Reproduce and minimize a defect",
+        "Predict execution before running code."
+      ],
+      "checkpoint": "Explain the example one line at a time without using vague terms."
     },
     {
-      "slug": "reading-tracebacks",
-      "title": "Reading Tracebacks",
+      "slug": "operations-and-tradeoffs",
+      "title": "Operations and trade-offs",
       "order_index": 1,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Reading Tracebacks",
-      "markdown": "Tracebacks show the call stack when an exception occurs. Always read tracebacks from bottom to top to find the root cause. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "estimated_minutes": 7,
+      "learning_objective": "Read tracebacks and inspect runtime state",
+      "markdown": "Reduce the failure into minimal cases, then use hypothesis testing: form one falsifiable explanation and seek evidence against it. Inspect types, values, boundaries, and side effects. Use focused logging with context rather than scattered prints; use a breakpoint (`breakpoint()` or an IDE) to step through control flow and inspect state. Tests make the reproduction durable and prevent regression.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def first_even(values):\n    for value in values:\n        if value % 2 == 0:\n            return value\n    return None\n\nassert first_even([1, 3, 4]) == 4",
+          "explanation": "This example applies the most important operation at a realistic boundary.",
+          "expected_output": ""
+        }
+      ],
       "key_points": [
-        "Key point for Reading Tracebacks"
-      ]
+        "Read tracebacks and inspect runtime state",
+        "Choose an operation based on its contract."
+      ],
+      "checkpoint": "What input or state would make this code fail?"
     },
     {
-      "slug": "reproduce-the-bug",
-      "title": "Reproduce the Bug",
+      "slug": "worked-practice",
+      "title": "Worked practice",
       "order_index": 2,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Reproduce the Bug",
-      "markdown": "Reproduction is the first step. If you can't reliably reproduce a bug, you can't verify that it's fixed. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
+      "estimated_minutes": 7,
+      "learning_objective": "Trace the concept on concrete data.",
+      "markdown": "Work from the input and state the invariant before coding. Change one variable at a time, predict what evidence would support the hypothesis, and record the result. If the hypothesis fails, discard it. Common mistakes are fixing the symptom before finding the cause, catching every exception, logging secrets, changing several things together, and assuming the most recent code caused the problem without checking version history. For an interview, narrate the observation, the rule you are applying, and the resulting value. That sequence makes reasoning inspectable and exposes hidden assumptions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def first_even(values):\n    for value in values:\n        if value % 2 == 0:\n            return value\n    return None\n\nassert first_even([1, 3, 4]) == 4",
+          "explanation": "Trace names and values after every important line, then compare with the expected output.",
+          "expected_output": ""
+        }
+      ],
       "key_points": [
-        "Key point for Reproduce the Bug"
-      ]
+        "Use a concrete trace.",
+        "State assumptions at the input boundary."
+      ],
+      "checkpoint": "Change one input and predict the new result."
     },
     {
-      "slug": "isolate-the-cause",
-      "title": "Isolate the Cause",
+      "slug": "mistakes",
+      "title": "Common mistakes and fixes",
       "order_index": 3,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Isolate the Cause",
-      "markdown": "Narrow down the context. Exclude unrelated code until you find the exact location of the failure. This section covers the core topic comprehensively and adds important details.",
+      "estimated_minutes": 7,
+      "learning_objective": "Diagnose failures rather than memorize syntax.",
+      "markdown": "Change one variable at a time, predict what evidence would support the hypothesis, and record the result. If the hypothesis fails, discard it. Common mistakes are fixing the symptom before finding the cause, catching every exception, logging secrets, changing several things together, and assuming the most recent code caused the problem without checking version history. Turn each failure into a focused test. Preserve the original failing input, make the smallest correction, and run the test again. Avoid broad exception handling or a rewrite that hides the root cause.",
       "examples": [],
       "key_points": [
-        "Key point for Isolate the Cause"
-      ]
+        "Reproduce before fixing.",
+        "Prefer the smallest evidence-backed correction."
+      ],
+      "checkpoint": "Name one tempting fix that would only hide the defect."
     },
     {
-      "slug": "print-and-log-debugging",
-      "title": "Logging and Print Debugging",
+      "slug": "interview-summary",
+      "title": "Interview-focused summary",
       "order_index": 4,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Logging and Print Debugging",
-      "markdown": "While `print()` is common, using `logging` provides severity levels, timestamps, and context, making it suitable for production. We do inspection. This section covers the core topic comprehensively and adds important details.",
+      "estimated_minutes": 7,
+      "learning_objective": "Test hypotheses instead of guessing",
+      "markdown": "A strong explanation starts with the mental model, demonstrates it using a short executable example, names the trade-off, and closes with a common failure mode. Apply that structure to Systematic Debugging. In Forge Arena, solve related Python problems without tutor help when you want the attempt to count as clean transfer evidence.",
       "examples": [],
       "key_points": [
-        "Key point for Logging and Print Debugging"
-      ]
-    },
-    {
-      "slug": "pdb-basics",
-      "title": "pdb Basics",
-      "order_index": 5,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand pdb Basics",
-      "markdown": "Python's built-in debugger, `pdb`, allows you to step through code line by line and inspect variables interactively. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for pdb Basics"
-      ]
-    },
-    {
-      "slug": "breakpoints",
-      "title": "Using Breakpoints",
-      "order_index": 6,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Using Breakpoints",
-      "markdown": "The `breakpoint()` built-in function drops you into the debugger (pdb) at the exact line it is called. Useful for deep inspection with breakpoints. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Using Breakpoints"
-      ]
-    },
-    {
-      "slug": "minimal-reproduction",
-      "title": "Minimal Cases",
-      "order_index": 7,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Minimal Cases",
-      "markdown": "Creating minimal cases means stripping away all code except what is strictly necessary to reproduce the bug. This often reveals the issue. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Minimal Cases"
-      ]
-    },
-    {
-      "slug": "hypothesis-testing",
-      "title": "Hypothesis Testing",
-      "order_index": 8,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Hypothesis Testing",
-      "markdown": "Form a hypothesis about why the bug happens. Then, write a quick script or unit test to confirm or refute that hypothesis testing. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Hypothesis Testing"
-      ]
-    },
-    {
-      "slug": "common-bug-patterns",
-      "title": "Common Bug Patterns",
-      "order_index": 9,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Common Bug Patterns",
-      "markdown": "Mutable default arguments, variable shadowing, and off-by-one errors are typical sources of confusion. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Common Bug Patterns"
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Takeaways",
-      "order_index": 10,
-      "estimated_minutes": 3,
-      "learning_objective": "Understand Interview Takeaways",
-      "markdown": "Be prepared to explain how you'd track down a memory leak or a race condition, and discuss tools like logging and pdb. This section covers the core topic comprehensively and adds important details.",
-      "examples": [],
-      "key_points": [
-        "Key point for Interview Takeaways"
-      ]
+        "Explain the why, not only syntax.",
+        "Use Arena for independent transfer practice."
+      ],
+      "checkpoint": "Give a sixty-second explanation and one counterexample."
     }
   ],
   "summary": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "Reproduce and minimize a defect",
+    "Read tracebacks and inspect runtime state",
+    "Validate understanding with a trace, boundary case, and independent practice."
   ],
   "interview_takeaways": [
-    "Point 1",
-    "Point 2",
-    "Point 3"
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
   ],
   "common_mistakes": [
-    "Mistake 1",
-    "Mistake 2",
-    "Mistake 3"
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
   ],
   "sources": [
     {
@@ -169,6 +127,6 @@
       "retrieved_at": "2026-09-23T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-python-debugging-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "e9c28a3dec4f2a9178b53c4636a10f8c257b9263d6dd98c0e2d8164a3d6c910e",
+  "generated_at": "2026-09-24T00:00:00Z"
 }

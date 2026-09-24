@@ -3,297 +3,114 @@
   "track_slug": "dsa",
   "topic_slug": "trees",
   "title": "Trees",
-  "description": "Learn about trees in Python.",
-  "version": "1.0.0",
+  "description": "Learn to recognize, derive, implement, and analyze trees patterns.",
+  "version": "1.1.0",
   "learning_objectives": [
-    "Understand trees",
-    "Implement basic templates",
-    "Recognize in interviews",
-    "Write optimized code"
+    "Recognize trees signals",
+    "Derive an optimized solution from a naive baseline",
+    "Implement and analyze the pattern in Python"
   ],
   "prerequisites": [],
   "sections": [
     {
-      "slug": "what-is-a-tree",
-      "title": "What Is A Tree",
+      "slug": "recognition-and-core",
+      "title": "Recognition and core idea",
       "order_index": 0,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand what-is-a-tree deeply.",
-      "markdown": "This section covers what-is-a-tree in detail. \n\nKeywords to know: tree, binary tree, BST, root, leaf, height, traversal, in-order, pre-order, post-order, balance, recursion. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
+      "estimated_minutes": 7,
+      "learning_objective": "Recognize when trees applies.",
+      "markdown": "## When to recognize this pattern\nLook for hierarchical nodes connected by edges, repeated work, or a prompt whose constraints rule out a quadratic scan.\n\n## Core idea\nA tree has a root and parent-child edges; a leaf has no children. A binary tree allows at most two children. A BST adds an ordering invariant. Pre-order visits node-left-right, in-order left-node-right, and post-order left-right-node. Height drives recursion depth and balance affects BST performance.\n\n```text\n        4  <- root\n      /   \\\n     2     7\n    / \\     \\\n   1   3     9 <- leaf\n```",
+      "examples": [],
       "key_points": [
-        "Key point about what-is-a-tree."
-      ]
+        "Recognition: hierarchical nodes connected by edges.",
+        "State the invariant before choosing code."
+      ],
+      "checkpoint": "Which phrase in a prompt is the strongest signal for this pattern?"
     },
     {
-      "slug": "tree-terminology",
-      "title": "Tree Terminology",
+      "slug": "from-naive-to-better",
+      "title": "From naive to better",
       "order_index": 1,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand tree-terminology deeply.",
-      "markdown": "This section covers tree-terminology in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 7,
+      "learning_objective": "Derive the optimized approach from a baseline.",
+      "markdown": "## Naive approach\nStart with repeated subtree rescans. It may be easy to verify, but it repeats work and becomes too slow as input grows. State its cost before optimizing.\n\n## Better approach\nUse recursive and iterative traversal. The optimization is valid only if the invariant proves discarded work cannot affect the answer. Never quote a complexity without identifying the operation that dominates it.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "def all_pairs(values):\n    return [(values[i], values[j]) for i in range(len(values)) for j in range(i + 1, len(values))]\n\nprint(all_pairs([1, 2, 3]))",
+          "explanation": "This deliberately quadratic baseline makes repeated candidate work visible before optimization.",
+          "expected_output": "[(1, 2), (1, 3), (2, 3)]"
         }
       ],
       "key_points": [
-        "Key point about tree-terminology."
-      ]
+        "Baseline: repeated subtree rescans.",
+        "Optimization: recursive and iterative traversal."
+      ],
+      "checkpoint": "Give an input size where the naive method becomes impractical."
     },
     {
-      "slug": "binary-tree",
-      "title": "Binary Tree",
+      "slug": "python-implementation",
+      "title": "Python implementation",
       "order_index": 2,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand binary-tree deeply.",
-      "markdown": "This section covers binary-tree in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
+      "estimated_minutes": 7,
+      "learning_objective": "Implement a reusable template.",
+      "markdown": "## Python implementation\nThe implementation below keeps the invariant visible and avoids clever shortcuts. Trace it before memorizing it.\n\n## Step-by-step example\nUse the shown input. Record the important pointer, state, or table after each iteration and verify that the final output is `[1, 2, 3]`.",
       "examples": [
         {
           "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
+          "code": "class Node:\n    def __init__(self, value, left=None, right=None):\n        self.value, self.left, self.right = value, left, right\n\ndef inorder(node):\n    return inorder(node.left) + [node.value] + inorder(node.right) if node else []\n\nprint(inorder(Node(2, Node(1), Node(3))))",
+          "explanation": "A direct trees implementation with explicit state transitions.",
+          "expected_output": "[1, 2, 3]"
         }
       ],
       "key_points": [
-        "Key point about binary-tree."
-      ]
+        "Keep state changes local.",
+        "Test empty, minimal, and duplicate-heavy inputs."
+      ],
+      "checkpoint": "Trace the example by hand and identify the invariant after the second iteration."
     },
     {
-      "slug": "binary-search-tree",
-      "title": "Binary Search Tree",
+      "slug": "complexity-and-failures",
+      "title": "Complexity and common mistakes",
       "order_index": 3,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand binary-search-tree deeply.",
-      "markdown": "This section covers binary-search-tree in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
+      "estimated_minutes": 7,
+      "learning_objective": "Analyze cost and failure modes.",
+      "markdown": "## Time complexity\nO(n) traversal time. Explain whether sorting or preprocessing is included.\n\n## Space complexity\nO(h) recursion space for height h. Input storage does not count as auxiliary space unless copied.\n\n## Common mistakes\nUsing the pattern without its precondition, moving state in the wrong order, missing empty input, mishandling duplicates, and reporting average-case cost as a guarantee. For recursion, include call-stack space; for a DP table or hash map, count stored states.",
+      "examples": [],
       "key_points": [
-        "Key point about binary-search-tree."
-      ]
+        "Time: O(n) traversal time.",
+        "Space: O(h) recursion space for height h."
+      ],
+      "checkpoint": "What change to the input would violate this solution's precondition?"
     },
     {
-      "slug": "tree-node-class",
-      "title": "Tree Node Class",
+      "slug": "arena-transfer",
+      "title": "Arena transfer practice",
       "order_index": 4,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand tree-node-class deeply.",
-      "markdown": "This section covers tree-node-class in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
+      "estimated_minutes": 7,
+      "learning_objective": "Transfer the pattern without copying a solution.",
+      "markdown": "## Arena reference\nPractice with `dsa-tree-inorder` in Forge Arena. First restate the invariant and complexity target, then implement from a blank editor. If stuck, use progressive hints only after writing the naive approach. After submission, test one normal case, one boundary case, and one adversarial case. Arena correctness is deterministic; an explanation is useful only when it matches the code's behavior.",
+      "examples": [],
       "key_points": [
-        "Key point about tree-node-class."
-      ]
-    },
-    {
-      "slug": "in-order-traversal",
-      "title": "In Order Traversal",
-      "order_index": 5,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand in-order-traversal deeply.",
-      "markdown": "This section covers in-order-traversal in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
+        "Related Arena problem: `dsa-tree-inorder`.",
+        "Independent recall is stronger evidence than assisted completion."
       ],
-      "key_points": [
-        "Key point about in-order-traversal."
-      ]
-    },
-    {
-      "slug": "pre-order-traversal",
-      "title": "Pre Order Traversal",
-      "order_index": 6,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand pre-order-traversal deeply.",
-      "markdown": "This section covers pre-order-traversal in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about pre-order-traversal."
-      ]
-    },
-    {
-      "slug": "post-order-traversal",
-      "title": "Post Order Traversal",
-      "order_index": 7,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand post-order-traversal deeply.",
-      "markdown": "This section covers post-order-traversal in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about post-order-traversal."
-      ]
-    },
-    {
-      "slug": "tree-height",
-      "title": "Tree Height",
-      "order_index": 8,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand tree-height deeply.",
-      "markdown": "This section covers tree-height in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about tree-height."
-      ]
-    },
-    {
-      "slug": "bst-search",
-      "title": "Bst Search",
-      "order_index": 9,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand bst-search deeply.",
-      "markdown": "This section covers bst-search in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about bst-search."
-      ]
-    },
-    {
-      "slug": "bst-insert",
-      "title": "Bst Insert",
-      "order_index": 10,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand bst-insert deeply.",
-      "markdown": "This section covers bst-insert in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about bst-insert."
-      ]
-    },
-    {
-      "slug": "balance-awareness",
-      "title": "Balance Awareness",
-      "order_index": 11,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand balance-awareness deeply.",
-      "markdown": "This section covers balance-awareness in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about balance-awareness."
-      ]
-    },
-    {
-      "slug": "common-mistakes",
-      "title": "Common Mistakes",
-      "order_index": 12,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand common-mistakes deeply.",
-      "markdown": "This section covers common-mistakes in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about common-mistakes."
-      ]
-    },
-    {
-      "slug": "interview-points",
-      "title": "Interview Points",
-      "order_index": 13,
-      "estimated_minutes": 5,
-      "learning_objective": "Understand interview-points deeply.",
-      "markdown": "This section covers interview-points in detail.  Exploring this concept is crucial for mastering Data Structures and Algorithms in technical interviews. It provides a solid foundation for more complex patterns. ",
-      "examples": [
-        {
-          "language": "python",
-          "code": "print('hello world')",
-          "expected_output": "hello world\n",
-          "explanation": "Basic example for context."
-        }
-      ],
-      "key_points": [
-        "Key point about interview-points."
-      ]
+      "checkpoint": "Write three tests that could distinguish a correct solution from a plausible bug."
     }
   ],
   "summary": [
-    "trees is a key concept.",
-    "Mastering it helps in interviews.",
-    "Practice the templates."
+    "Recognize trees signals",
+    "Derive an optimized solution from a naive baseline",
+    "Validate understanding with a trace, boundary case, and independent practice."
   ],
   "interview_takeaways": [
-    "Recognize the pattern",
-    "Analyze complexity",
-    "Discuss tradeoffs"
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
   ],
   "common_mistakes": [
-    "Off by one errors",
-    "Forgetting base cases",
-    "Ignoring edge cases"
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
   ],
   "sources": [
     {
@@ -315,6 +132,6 @@
       "retrieved_at": "2026-09-23T00:00:00Z"
     }
   ],
-  "content_hash": "fixture-dsa-trees-v1",
-  "generated_at": "2026-09-23T00:00:00Z"
+  "content_hash": "02e4b9ea73bf515a3e31e29d12c716db181c9bf39dccab7c283632368261525e",
+  "generated_at": "2026-09-24T00:00:00Z"
 }

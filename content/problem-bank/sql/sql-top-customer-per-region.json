@@ -8,29 +8,33 @@
   "difficulty": "medium",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on customers, orders.",
+  "statement_markdown": "Return the customer with the greatest total order amount in each region. Customers without orders have total zero. Break regional ties by customer name and sort by region.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: name, region, total_orders_amount.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['A', 'North', 300], ['C', 'South', 150], ['B', 'North', 0], ['D', 'South', 0]]"
+      "input": "Visible customers, orders tables",
+      "output": "[[\"A\",\"North\",300],[\"C\",\"South\",150]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "First aggregate one order total per customer while preserving customers without orders.",
+    "Rank customers inside each region and keep row number 1."
   ],
-  "explanation": "Use appropriate SQL clauses.",
-  "reference_solution": "SELECT c.name, c.region, COALESCE(SUM(o.amount), 0) AS total_orders_amount FROM customers c LEFT JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name, c.region ORDER BY total_orders_amount DESC",
+  "explanation": "The first CTE calculates customer totals. ROW_NUMBER then restarts inside each region and orders by total descending with a name tie-breaker. Keeping rn = 1 returns one winner per region. A common mistake is a global LIMIT, which returns only one region. RANK can be used when every tied winner should appear.",
+  "reference_solution": "WITH totals AS (SELECT c.id, c.name, c.region, COALESCE(SUM(o.amount), 0) AS total_orders_amount FROM customers c LEFT JOIN orders o ON o.customer_id = c.id GROUP BY c.id, c.name, c.region), ranked AS (SELECT *, ROW_NUMBER() OVER (PARTITION BY region ORDER BY total_orders_amount DESC, name) AS rn FROM totals) SELECT name, region, total_orders_amount FROM ranked WHERE rn = 1 ORDER BY region",
   "complexity": "O(n) depending on indexes.",
   "validation": {
     "mode": "result_set",
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), region VARCHAR(50)); CREATE TABLE orders (id INT, customer_id INT, amount INT); INSERT INTO customers VALUES (1, 'A', 'North'), (2, 'B', 'North'), (3, 'C', 'South'), (4, 'D', 'South'); INSERT INTO orders VALUES (1, 1, 100), (2, 1, 200), (3, 3, 150);",
     "visible_tables": [
-      "customers, orders"
+      "customers",
+      "orders"
     ],
     "sample_rows": [
       [
@@ -45,9 +49,9 @@
       ]
     ],
     "expected_columns": [
-      "result_col",
-      "result_col",
-      "result_col"
+      "name",
+      "region",
+      "total_orders_amount"
     ],
     "expected_rows": [
       [
@@ -59,47 +63,33 @@
         "C",
         "South",
         150
-      ],
-      [
-        "B",
-        "North",
-        0
-      ],
-      [
-        "D",
-        "South",
-        0
       ]
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), region VARCHAR(50)); CREATE TABLE orders (id INT, customer_id INT, amount INT); INSERT INTO customers VALUES (1, 'A', 'North'), (2, 'B', 'North'), (3, 'C', 'South'), (4, 'D', 'South'); INSERT INTO orders VALUES (1, 1, 100), (2, 1, 200), (3, 3, 150);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE customers (id INT,name VARCHAR(50),region VARCHAR(50)); CREATE TABLE orders (id INT,customer_id INT,amount INT); INSERT INTO customers VALUES (10,'Eli','East'),(11,'Fay','East'),(12,'Gus','West'),(13,'Hal','West'),(14,'Ian','North'); INSERT INTO orders VALUES (20,10,50),(21,11,50),(22,12,20),(23,12,30),(24,13,80);",
         "expected_rows": [
           [
-            "A",
-            "North",
-            300
+            "Eli",
+            "East",
+            50
           ],
           [
-            "C",
-            "South",
-            150
-          ],
-          [
-            "B",
+            "Ian",
             "North",
             0
           ],
           [
-            "D",
-            "South",
-            0
+            "Hal",
+            "West",
+            80
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/joins"
 }

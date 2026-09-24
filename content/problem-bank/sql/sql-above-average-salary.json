@@ -8,21 +8,24 @@
   "difficulty": "medium",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on employees.",
+  "statement_markdown": "Return each employee name and salary when the salary is higher than the average salary across all employees. Sort highest salary first.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: name, salary.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['E', 80000], ['D', 70000]]"
+      "input": "Visible employees tables",
+      "output": "[[\"E\",80000],[\"D\",70000]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "First calculate one average for the whole employees table.",
+    "Use that scalar result inside the outer WHERE condition."
   ],
-  "explanation": "Use appropriate SQL clauses.",
+  "explanation": "A scalar subquery calculates one AVG(salary) value. The outer query compares every employee with it, then sorts qualifying rows. A common mistake is grouping by employee, which calculates many averages instead of one. A CTE containing the average is an equally readable alternative.",
   "reference_solution": "SELECT name, salary FROM employees WHERE salary > (SELECT AVG(salary) FROM employees) ORDER BY salary DESC",
   "complexity": "O(n) depending on indexes.",
   "validation": {
@@ -43,8 +46,8 @@
       ]
     ],
     "expected_columns": [
-      "result_col",
-      "result_col"
+      "name",
+      "salary"
     ],
     "expected_rows": [
       [
@@ -58,21 +61,18 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'A', 40000), (2, 'B', 50000), (3, 'C', 60000), (4, 'D', 70000), (5, 'E', 80000);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), salary INT); INSERT INTO employees VALUES (11,'Ira',20),(12,'Jo',20),(13,'Kai',30),(14,'Luz',70);",
         "expected_rows": [
           [
-            "E",
-            80000
-          ],
-          [
-            "D",
-            70000
+            "Luz",
+            70
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/subqueries"
 }

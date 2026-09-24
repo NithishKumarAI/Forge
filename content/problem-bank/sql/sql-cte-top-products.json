@@ -8,29 +8,33 @@
   "difficulty": "medium",
   "interview_frequency": "high",
   "estimated_minutes": 20,
-  "statement_markdown": "Write a query to find information based on order_items, products.",
+  "statement_markdown": "Return the three products with the greatest total quantity ordered. Return product name and total quantity, highest total first.",
   "constraints": [
-    "Use PostgreSQL compatible syntax."
+    "Return exactly: name, total.",
+    "Preserve the requested row ordering."
   ],
   "examples": [
     {
-      "input": "Sample data provided in database",
-      "output": "[['P4', 20], ['P3', 15], ['P1', 10]]"
+      "input": "Visible order_items, products tables",
+      "output": "[[\"P4\",20],[\"P3\",15],[\"P1\",10]]",
+      "explanation": "This output comes from the visible sample data."
     }
   ],
   "starter_query": "SELECT ",
   "hints": [
-    "Review the problem statement and expected output."
+    "Aggregate quantity per product_id before joining names.",
+    "Put the aggregate in a CTE, join it to products, then apply ORDER BY and LIMIT."
   ],
-  "explanation": "Use appropriate SQL clauses.",
-  "reference_solution": "SELECT p.name, ps.total FROM products p JOIN (SELECT product_id, SUM(quantity) AS total FROM order_items GROUP BY product_id) ps ON ps.product_id = p.id ORDER BY ps.total DESC LIMIT 3",
+  "explanation": "The CTE reduces order_items to one total per product. Joining afterward attaches readable names without grouping every product column. A common mistake is limiting raw order rows before aggregation. A derived table could work too, but the CTE makes the two stages clear.",
+  "reference_solution": "WITH product_sales AS (SELECT product_id, SUM(quantity) AS total FROM order_items GROUP BY product_id) SELECT p.name, ps.total FROM product_sales ps JOIN products p ON p.id = ps.product_id ORDER BY ps.total DESC, p.name LIMIT 3",
   "complexity": "O(n) depending on indexes.",
   "validation": {
     "mode": "result_set",
     "order_sensitive": true,
     "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50)); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT); INSERT INTO products VALUES (1, 'P1'), (2, 'P2'), (3, 'P3'), (4, 'P4'), (5, 'P5'); INSERT INTO order_items VALUES (1, 100, 1, 5), (2, 101, 2, 10), (3, 102, 3, 15), (4, 103, 4, 20), (5, 104, 5, 2), (6, 105, 1, 5);",
     "visible_tables": [
-      "order_items, products"
+      "order_items",
+      "products"
     ],
     "sample_rows": [
       [
@@ -40,11 +44,15 @@
       [
         "P3",
         15
+      ],
+      [
+        "P1",
+        10
       ]
     ],
     "expected_columns": [
-      "result_col",
-      "result_col"
+      "name",
+      "total"
     ],
     "expected_rows": [
       [
@@ -62,25 +70,26 @@
     ],
     "hidden_datasets": [
       {
-        "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50)); CREATE TABLE order_items (id INT, order_id INT, product_id INT, quantity INT); INSERT INTO products VALUES (1, 'P1'), (2, 'P2'), (3, 'P3'), (4, 'P4'), (5, 'P5'); INSERT INTO order_items VALUES (1, 100, 1, 5), (2, 101, 2, 10), (3, 102, 3, 15), (4, 103, 4, 20), (5, 104, 5, 2), (6, 105, 1, 5);",
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE products (id INT,name VARCHAR(50)); CREATE TABLE order_items (id INT,order_id INT,product_id INT,quantity INT); INSERT INTO products VALUES (10,'Alpha'),(11,'Beta'),(12,'Gamma'),(13,'Delta'); INSERT INTO order_items VALUES (1,1,10,2),(2,2,10,3),(3,2,11,9),(4,3,12,4),(5,4,13,7);",
         "expected_rows": [
           [
-            "P4",
-            20
+            "Beta",
+            9
           ],
           [
-            "P3",
-            15
+            "Delta",
+            7
           ],
           [
-            "P1",
-            10
+            "Alpha",
+            5
           ]
         ]
       }
     ]
   },
   "source_type": "original",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mapped_topic": "sql-cs/ctes"
 }

@@ -1,22 +1,170 @@
-import ast, json
+import ast
+import json
 from pathlib import Path
+
 from app.schemas.course import StaticLesson
 
-def validate_lesson(path:Path, coverage_path:Path)->StaticLesson:
-    lesson=StaticLesson.model_validate_json(path.read_text(encoding="utf-8")); coverage=json.loads(coverage_path.read_text(encoding="utf-8"))[lesson.topic_slug]["required_concepts"]
-    corpus=" ".join([lesson.title,*lesson.learning_objectives,*lesson.summary,*lesson.interview_takeaways,*[s.title+" "+s.markdown+" "+" ".join(s.key_points) for s in lesson.sections]]).lower()
-    missing=[c for c in coverage if c.lower() not in corpus]
-    if missing: raise ValueError("Missing required concepts: "+", ".join(missing))
+
+QUALITY_TARGETS = {
+    ("python", "syntax-data-types"), ("python", "collections"),
+    ("python", "functions"), ("python", "async-await"),
+    ("python", "debugging"), ("sql-postgresql", "window-functions"),
+    ("sql-postgresql", "transactions"), ("dsa", "arrays"),
+    ("dsa", "hash-maps"), ("dsa", "two-pointers"),
+    ("dsa", "sliding-window"), ("dsa", "trees"),
+    ("dsa", "dynamic-programming"),
+}
+
+PLACEHOLDER_PHRASES = (
+    "this is the ", "section about ", "learn about ", "key point about ",
+    "dummy table", "adding some padding", "exercise 1 for",
+    "answer is related to", "understand the core concept",
+)
+
+DSA_REQUIRED_HEADINGS = (
+    "when to recognize this pattern", "core idea", "naive approach",
+    "better approach", "python implementation", "step-by-step example",
+    "time complexity", "space complexity", "common mistakes", "arena reference",
+)
+
+
+def _lesson_corpus(lesson: StaticLesson) -> str:
+    return " ".join([
+        lesson.title, lesson.description, *lesson.learning_objectives,
+        *lesson.summary, *lesson.interview_takeaways, *lesson.common_mistakes,
+        *[
+            section.title + " " + section.markdown + " " + " ".join(section.key_points)
+            for section in lesson.sections
+        ],
+    ]).lower()
+
+
+def _validate_target_quality(lesson: StaticLesson, path: Path, corpus: str) -> None:
+    target = (lesson.track_slug, lesson.topic_slug)
+    if target not in QUALITY_TARGETS:
+        return
+
+    placeholders = [phrase for phrase in PLACEHOLDER_PHRASES if phrase in corpus]
+    if placeholders:
+        raise ValueError(f"{path}: placeholder content remains: {', '.join(placeholders)}")
+    if not 5 <= len(lesson.sections) <= 8:
+        raise ValueError(f"{path}: remediated lessons require 5-8 substantive sections")
+    short_sections = [section.slug for section in lesson.sections if len(section.markdown.strip()) < 220]
+    if short_sections:
+        raise ValueError(f"{path}: sections are too thin: {', '.join(short_sections)}")
+    if any(not section.checkpoint or len(section.checkpoint.strip()) < 20 for section in lesson.sections):
+        raise ValueError(f"{path}: every section needs a meaningful checkpoint")
+
+    examples = [item for section in lesson.sections for item in section.examples]
+    if len(examples) < 2:
+        raise ValueError(f"{path}: remediated lessons require at least two runnable examples")
+    expected_language = "sql" if lesson.track_slug == "sql-postgresql" else "python"
+    if sum(item.language.lower() == expected_language for item in examples) < 2:
+        raise ValueError(f"{path}: expected at least two {expected_language} examples")
+    if any(len(item.explanation.strip()) < 25 for item in examples):
+        raise ValueError(f"{path}: every example needs an explanatory note")
+
+    if lesson.track_slug == "dsa":
+        missing = [heading for heading in DSA_REQUIRED_HEADINGS if heading not in corpus]
+        if missing:
+            raise ValueError(f"{path}: missing DSA teaching blocks: {', '.join(missing)}")
+    if target == ("sql-postgresql", "window-functions"):
+        required = ("input", "output", "row_number", "rank()", "dense_rank", "lag", "lead", "running total", "rows between")
+        missing = [term for term in required if term not in corpus]
+        if missing:
+            raise ValueError(f"{path}: incomplete window-function coverage: {', '.join(missing)}")
+    if target == ("sql-postgresql", "transactions"):
+        required = ("atomicity", "consistency", "isolation", "durability", "begin", "commit", "rollback", "concurrency", "retry")
+        missing = [term for term in required if term not in corpus]
+        if missing:
+            raise ValueError(f"{path}: incomplete transaction coverage: {', '.join(missing)}")
+
+    _validate_exercises(path.with_name("exercises.json"))
+
+
+def _validate_exercises(path: Path) -> None:
+    if not path.exists():
+        raise ValueError(f"{path}: exercise file is required")
+    exercises = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(exercises, list) or not 6 <= len(exercises) <= 8:
+        raise ValueError(f"{path}: expected 6-8 exercises")
+    keys = [item.get("key") for item in exercises]
+    if any(not isinstance(key, str) or not key for key in keys) or len(keys) != len(set(keys)):
+        raise ValueError(f"{path}: exercise keys must be non-empty and unique")
+    allowed_types = {"multiple_choice", "short_answer", "python_code", "python_debug"}
+    if any(item.get("exercise_type") not in allowed_types for item in exercises):
+        raise ValueError(f"{path}: unsupported exercise type")
+    prompts = [item.get("prompt_markdown", "").strip() for item in exercises]
+    if any(len(prompt) < 30 for prompt in prompts):
+        raise ValueError(f"{path}: exercise prompts must require substantive reasoning")
+    corpus = " ".join(
+        str(value) for item in exercises
+        for value in (item.get("title", ""), item.get("prompt_markdown", ""), item.get("content", ""))
+    ).lower()
+    placeholders = [phrase for phrase in PLACEHOLDER_PHRASES if phrase in corpus]
+    if placeholders:
+        raise ValueError(f"{path}: placeholder exercises remain: {', '.join(placeholders)}")
+    counts = {kind: sum(item["exercise_type"] == kind for item in exercises) for kind in allowed_types}
+    if counts["multiple_choice"] < 2 or counts["short_answer"] < 3:
+        raise ValueError(f"{path}: include at least two MCQs and three applied short answers")
+
+    for item in exercises:
+        content = item.get("content")
+        if not isinstance(content, dict):
+            raise ValueError(f"{path}: {item['key']} needs structured content")
+        if item["exercise_type"] == "multiple_choice":
+            choices, index = content.get("choices"), content.get("correct_index")
+            if not isinstance(choices, list) or not 2 <= len(choices) <= 6:
+                raise ValueError(f"{path}: {item['key']} needs 2-6 choices")
+            if not isinstance(index, int) or not 0 <= index < len(choices):
+                raise ValueError(f"{path}: {item['key']} has an invalid correct_index")
+            if len(content.get("explanation", "").strip()) < 20:
+                raise ValueError(f"{path}: {item['key']} needs an explanation")
+        if item["exercise_type"] == "short_answer":
+            rubric = content.get("rubric")
+            if not isinstance(rubric, list) or len(rubric) < 2:
+                raise ValueError(f"{path}: {item['key']} needs a multi-part rubric")
+            if len(content.get("reference_answer", "").strip()) < 50:
+                raise ValueError(f"{path}: {item['key']} needs a useful reference answer")
+    applied_markers = ("predict", "fix", "write", "implement", "diagnose", "explain")
+    if sum(marker in corpus for marker in applied_markers) < 4:
+        raise ValueError(f"{path}: exercises need prediction, debugging, writing, and explanation tasks")
+
+
+def validate_lesson(path: Path, coverage_path: Path) -> StaticLesson:
+    lesson = StaticLesson.model_validate_json(path.read_text(encoding="utf-8"))
+    coverage = json.loads(coverage_path.read_text(encoding="utf-8"))[lesson.topic_slug]["required_concepts"]
+    corpus = _lesson_corpus(lesson)
+    missing = [concept for concept in coverage if concept.lower() not in corpus]
+    if missing:
+        raise ValueError(f"{path}: missing required concepts: {', '.join(missing)}")
     for section in lesson.sections:
-        for example in section.examples:
-            if example.language.lower()=="python": ast.parse(example.code)
-    if len(corpus)>100_000: raise ValueError("Lesson is too large")
+        for item in section.examples:
+            if item.language.lower() == "python":
+                try:
+                    ast.parse(item.code)
+                except SyntaxError as exc:
+                    raise ValueError(f"{path}: invalid Python in section {section.slug}: {exc}") from exc
+    if len(corpus) > 100_000:
+        raise ValueError(f"{path}: lesson is too large")
+    _validate_target_quality(lesson, path, corpus)
     return lesson
 
-def main():
+
+def main() -> None:
     import argparse
-    p=argparse.ArgumentParser(); p.add_argument("--track",default="python"); p.add_argument("--topic"); args=p.parse_args()
-    root=Path(__file__).resolve().parents[4]; base=root/"content"/"ai-engineer"/"v1"/args.track; coverage=root/"data"/"course-coverage"/f"{args.track}.json"
-    paths=[base/args.topic/"lesson.json"] if args.topic else list(base.glob("*/lesson.json"))
-    for path in paths: validate_lesson(path,coverage); print(f"valid: {path}")
-if __name__=="__main__": main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--track", default="python")
+    parser.add_argument("--topic")
+    args = parser.parse_args()
+    root = Path(__file__).resolve().parents[4]
+    base = root / "content" / "ai-engineer" / "v1" / args.track
+    coverage = root / "data" / "course-coverage" / f"{args.track}.json"
+    paths = [base / args.topic / "lesson.json"] if args.topic else sorted(base.glob("*/lesson.json"))
+    for path in paths:
+        validate_lesson(path, coverage)
+        print(f"valid: {path}")
+
+
+if __name__ == "__main__":
+    main()
