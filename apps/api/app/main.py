@@ -1,7 +1,9 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session
 
 from . import models  # noqa: F401 -- registers SQLModel tables
@@ -62,6 +64,33 @@ def create_app() -> FastAPI:
     @app.get("/health", response_model=HealthRead)
     def health() -> dict[str, str]:
         return {"status": "ok"}
+
+    assets_dir = settings.frontend_dist_path / "assets"
+    if assets_dir.is_dir():
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/", include_in_schema=False)
+    def serve_root():
+        index_file = settings.frontend_dist_path / "index.html"
+        if index_file.is_file():
+            return FileResponse(index_file)
+        return {"app": settings.app_name, "message": "Frontend build not found. Run 'npm run build' in apps/web."}
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    def catch_all_spa(full_path: str):
+        if full_path == "api" or full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="API route not found")
+        if full_path == "health":
+            raise HTTPException(status_code=404, detail="Not found")
+
+        file_path = settings.frontend_dist_path / full_path
+        if file_path.is_file():
+            return FileResponse(file_path)
+
+        index_file = settings.frontend_dist_path / "index.html"
+        if index_file.is_file():
+            return FileResponse(index_file)
+        raise HTTPException(status_code=404, detail="Frontend build not found")
 
     return app
 

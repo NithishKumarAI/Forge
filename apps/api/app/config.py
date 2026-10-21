@@ -37,6 +37,9 @@ class Settings:
         self.course_sources_path = Path(
             os.getenv("FORGE_COURSE_SOURCES_PATH", str(REPO_ROOT / "data" / "course-sources.json"))
         )
+        self.frontend_dist_path = Path(
+            os.getenv("FORGE_FRONTEND_DIST_PATH", str(REPO_ROOT / "apps" / "web" / "dist"))
+        )
         self.cors_origins = [
             origin.strip()
             for origin in os.getenv(

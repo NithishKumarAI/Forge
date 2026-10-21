@@ -88,10 +88,10 @@
       "order_index": 4,
       "estimated_minutes": 7,
       "learning_objective": "Transfer the pattern without copying a solution.",
-      "markdown": "## Arena reference\nPractice with `dsa-tree-inorder` in Forge Arena. First restate the invariant and complexity target, then implement from a blank editor. If stuck, use progressive hints only after writing the naive approach. After submission, test one normal case, one boundary case, and one adversarial case. Arena correctness is deterministic; an explanation is useful only when it matches the code's behavior.",
+      "markdown": "## Arena reference\nPractice with `dsa-level-order-traversal` in Forge Arena. First restate the invariant and complexity target, then implement from a blank editor. If stuck, use progressive hints only after writing the naive approach. After submission, test one normal case, one boundary case, and one adversarial case. Arena correctness is deterministic; an explanation is useful only when it matches the code's behavior.",
       "examples": [],
       "key_points": [
-        "Related Arena problem: `dsa-tree-inorder`.",
+        "Related Arena problem: `dsa-level-order-traversal`.",
         "Independent recall is stronger evidence than assisted completion."
       ],
       "checkpoint": "Write three tests that could distinguish a correct solution from a plausible bug."

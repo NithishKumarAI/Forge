@@ -154,6 +154,82 @@ def _validate_exercises(path: Path) -> None:
         raise ValueError(f"{path}: exercises need prediction, debugging, writing, and explanation tasks")
 
 
+NON_ARENA_KEYS = {
+    "python-language-reference",
+    "python-official-tutorial",
+    "python-stdlib-docs",
+    "sql-postgresql",
+    "sql-official-docs",
+    "sql-tutorial",
+    "sql-expressions",
+    "python-implementation",
+    "python-builtin-sort-and-keys",
+    "sql-practicals",
+    "sql-types",
+}
+
+
+def get_accepted_problem_keys(bank_dir: Path | None = None) -> set[str]:
+    if bank_dir is None:
+        root = Path(__file__).resolve().parents[4]
+        bank_dir = root / "content" / "problem-bank"
+    keys = set()
+    if bank_dir.exists():
+        for track in ("python", "sql", "dsa"):
+            track_dir = bank_dir / track
+            if track_dir.exists():
+                for f in track_dir.glob("*.json"):
+                    keys.add(f.stem)
+    return keys
+
+
+def extract_arena_problem_references(lesson: StaticLesson) -> list[str]:
+    import re
+    refs = []
+    seen = set()
+    for section in lesson.sections:
+        is_arena_section = "arena" in section.slug.lower() or "arena" in section.title.lower()
+        in_arena_block = False
+
+        for line in section.markdown.splitlines():
+            line_str = line.strip()
+            if "arena practice" in line_str.lower() or "arena reference" in line_str.lower():
+                in_arena_block = True
+            elif line_str.startswith("##") and "arena" not in line_str.lower():
+                in_arena_block = False
+
+            for m in re.finditer(r"`((?:dsa|sql|python)-[a-z0-9-]+)`", line_str):
+                cand = m.group(1)
+                if cand in NON_ARENA_KEYS:
+                    continue
+                if in_arena_block or is_arena_section or "arena" in line_str.lower() or "practice" in line_str.lower():
+                    if cand not in seen:
+                        seen.add(cand)
+                        refs.append(cand)
+
+        for kp in section.key_points:
+            for m in re.finditer(r"`((?:dsa|sql|python)-[a-z0-9-]+)`", kp):
+                cand = m.group(1)
+                if cand in NON_ARENA_KEYS:
+                    continue
+                if is_arena_section or "arena" in kp.lower() or "practice" in kp.lower():
+                    if cand not in seen:
+                        seen.add(cand)
+                        refs.append(cand)
+
+    return refs
+
+
+def _validate_arena_references(lesson: StaticLesson, path: Path, bank_dir: Path | None = None) -> None:
+    accepted = get_accepted_problem_keys(bank_dir)
+    if not accepted:
+        return
+    referenced = extract_arena_problem_references(lesson)
+    for key in referenced:
+        if key not in accepted:
+            raise ValueError(f"{path}: referenced Arena problem '{key}' does not exist in problem bank")
+
+
 def validate_lesson(path: Path, coverage_path: Path) -> StaticLesson:
     lesson = StaticLesson.model_validate_json(path.read_text(encoding="utf-8"))
     coverage = json.loads(coverage_path.read_text(encoding="utf-8"))[lesson.topic_slug]["required_concepts"]
@@ -171,6 +247,7 @@ def validate_lesson(path: Path, coverage_path: Path) -> StaticLesson:
     if len(corpus) > 100_000:
         raise ValueError(f"{path}: lesson is too large")
     _validate_target_quality(lesson, path, corpus)
+    _validate_arena_references(lesson, path)
     return lesson
 
 

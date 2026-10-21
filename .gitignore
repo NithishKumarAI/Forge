@@ -13,3 +13,4 @@ coverage/
 .DS_Store
 data/source-cache/
 *.candidate.json
+.runtime/

@@ -64,7 +64,7 @@
       "order_index": 2,
       "estimated_minutes": 8,
       "learning_objective": "Delete targeted rows using DELETE and contrast against TRUNCATE.",
-      "markdown": "The `DELETE` statement removes rows from a relation based on a `WHERE clause`. Just like `UPDATE`, omitting the `WHERE clause` deletes all rows in the table. In contrast to `TRUNCATE TABLE`, `DELETE` operates row-by-row, firing `ON DELETE` triggers, checking referential integrity foreign keys, and writing individual row deletions to the write-ahead log. For purging an entire staging table, `TRUNCATE` is vastly faster because it deallocates storage pages directly.",
+      "markdown": "The `DELETE` statement removes rows from a relation based on a `WHERE clause`. Just like `UPDATE`, omitting the `WHERE clause` deletes all rows in the table. In contrast to `TRUNCATE TABLE`, `DELETE` operates row-by-row, firing ordinary row-level `ON DELETE` triggers, checking referential integrity foreign keys, and writing individual row deletions to the write-ahead log. For purging an entire table, `TRUNCATE` is vastly faster because it deallocates storage pages directly without firing row-level triggers (though PostgreSQL supports statement-level `ON TRUNCATE` triggers, respects foreign keys unless CASCADE is specified, and is fully rollable back in transactions).",
       "examples": [
         {
           "language": "sql",
@@ -106,7 +106,7 @@
       "order_index": 4,
       "estimated_minutes": 8,
       "learning_objective": "Master DML mutation questions, concurrency safety, and interview scenarios.",
-      "markdown": "DML questions evaluate your understanding of transaction safety, row locking, and atomic return values.\n\n### Common Interview Questions\n1. *What is the difference between DELETE, TRUNCATE, and DROP?*\n   *(DELETE removes specific rows meeting a WHERE clause, logs each row, and fires triggers. TRUNCATE rapidly deallocates all table storage pages without row-level logging or triggers. DROP removes the table schema, constraints, indexes, and all data entirely from the catalog).* \n2. *Why is SELECT MAX(id) an anti-pattern after inserting a row?*\n   *(In concurrent environments, another client thread can insert a record immediately after yours, causing SELECT MAX(id) to return someone else's ID. Using RETURNING id is 100% thread-safe and atomic).* \n3. *How do you perform an UPSERT (insert or update on collision) in PostgreSQL?*\n   *(Using `INSERT INTO ... ON CONFLICT (key) DO UPDATE SET ...` or `DO NOTHING`).* \n\n### Arena Practice Problems\n- `sql-bulk-insert-returning`: Inserting records and returning system keys\n- `sql-safe-inventory-decrement`: Atomic UPDATE decrementing inventory with stock guard\n- `sql-soft-delete-pattern`: Implementing soft delete flag updates vs physical row removal",
+      "markdown": "DML questions evaluate your understanding of transaction safety, row locking, and atomic return values.\n\n### Common Interview Questions\n1. *What is the difference between DELETE, TRUNCATE, and DROP?*\n   *(DELETE removes specific rows meeting a WHERE clause, logs each row, and fires row-level triggers. TRUNCATE rapidly deallocates all table storage pages without row-level logging or row-level DELETE triggers; it supports statement-level ON TRUNCATE triggers, strictly respects foreign key constraints unless CASCADE is specified, and is fully transactional and rollable back in PostgreSQL. DROP removes the table schema, constraints, indexes, and all data entirely from the catalog).* \n2. *Why is SELECT MAX(id) an anti-pattern after inserting a row?*\n   *(In concurrent environments, another client thread can insert a record immediately after yours, causing SELECT MAX(id) to return someone else's ID. Using RETURNING id is 100% thread-safe and atomic).* \n3. *How do you perform an UPSERT (insert or update on collision) in PostgreSQL?*\n   *(Using `INSERT INTO ... ON CONFLICT (key) DO UPDATE SET ...` or `DO NOTHING`).* \n\n### Arena Practice Problems\n- `sql-products-in-stock`: Filtering active inventory stock levels\n- `sql-product-never-ordered`: Identifying records unaffected by order activity\n- `sql-recent-orders`: Querying and inspecting updated order records",
       "examples": [
         {
           "language": "sql",
@@ -127,7 +127,7 @@
     "Batch INSERT statements minimize network overhead and write-ahead log write amplification.",
     "UPDATE and DELETE require disciplined WHERE clauses to avoid disastrous whole-table mutations.",
     "PostgreSQL's RETURNING clause yields modified values atomically, eliminating race conditions.",
-    "TRUNCATE offers high-speed bulk deallocation but bypasses row triggers and foreign key checks."
+    "TRUNCATE removes all table rows efficiently without firing row-level DELETE triggers (while supporting ON TRUNCATE triggers), strictly respects foreign key constraints (requiring CASCADE if referenced), and is fully transactional and rollable back in PostgreSQL."
   ],
   "interview_takeaways": [
     "Highlight RETURNING as the production-grade way to retrieve auto-generated IDs.",
