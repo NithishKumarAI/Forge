@@ -78,7 +78,7 @@ def _write_structure(
     session.add(metadata)
 
 
-def create_draft(session: Session, request: CurriculumDraftRequest) -> Curriculum:
+def create_draft(session: Session, request: CurriculumDraftRequest, *, commit: bool = True) -> Curriculum:
     proposal = request.proposal
     latest_version = session.exec(
         select(func.max(Curriculum.version)).where(Curriculum.name == proposal.name)
@@ -93,8 +93,9 @@ def create_draft(session: Session, request: CurriculumDraftRequest) -> Curriculu
     session.add(curriculum)
     session.flush()
     _write_structure(session, curriculum, request)
-    session.commit()
-    session.refresh(curriculum)
+    if commit:
+        session.commit()
+        session.refresh(curriculum)
     return curriculum
 
 
@@ -122,14 +123,31 @@ def update_draft(
 ) -> Curriculum:
     if curriculum.status != "draft":
         raise CurriculumMutationError("Confirmed curricula cannot be structurally edited")
-    _delete_structure(session, curriculum.id)
-    curriculum.name = request.proposal.name
-    curriculum.description = request.proposal.description
-    session.add(curriculum)
-    _write_structure(session, curriculum, request)
-    session.commit()
-    session.refresh(curriculum)
-    return curriculum
+    from ..models import EditionCurriculumBinding, TopicPlacement
+    from .editions import validate_proposal, reconcile_placements
+    try:
+        binding = session.get(EditionCurriculumBinding, curriculum.id)
+        if binding:
+            validate_proposal(request.proposal, binding)
+            states = session.exec(select(LearnerTopicState).join(Topic).join(Track).where(Track.curriculum_id == curriculum.id)).all()
+            if any(s.mastery_score or s.attempts or s.status != "not_started" or s.last_studied_at or s.last_tested_at for s in states):
+                raise CurriculumMutationError("A draft with learner activity cannot be replaced; preserve it and create a new scope version")
+            session.exec(delete(TopicPlacement).where(TopicPlacement.curriculum_id == curriculum.id))
+        _delete_structure(session, curriculum.id)
+        curriculum.name = request.proposal.name
+        curriculum.description = request.proposal.description
+        session.add(curriculum)
+        _write_structure(session, curriculum, request)
+        if binding:
+            reconcile_placements(session, curriculum)
+        session.commit()
+        session.refresh(curriculum)
+        return curriculum
+    except BaseException as error:
+        session.rollback()
+        if isinstance(error, ValueError):
+            raise CurriculumMutationError(str(error)) from error
+        raise
 
 
 def proposal_from_curriculum(session: Session, curriculum: Curriculum) -> CurriculumProposal:
@@ -184,10 +202,16 @@ def proposal_from_curriculum(session: Session, curriculum: Curriculum) -> Curric
     )
 
 
-def confirm_draft(session: Session, curriculum: Curriculum) -> Curriculum:
+def confirm_draft(session: Session, curriculum: Curriculum, *, edition_review=None) -> Curriculum:
     if curriculum.status != "draft":
         raise CurriculumMutationError("Only a draft curriculum can be confirmed")
     proposal_from_curriculum(session, curriculum)
+    from .editions import record_confirmation
+    try:
+        record_confirmation(session, curriculum, edition_review)
+    except ValueError as error:
+        session.rollback()
+        raise CurriculumMutationError(str(error)) from error
     curriculum.status = "confirmed"
     curriculum.confirmed_at = utc_now()
     session.add(curriculum)

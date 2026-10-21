@@ -51,6 +51,13 @@ def _validate_identity(key: str, revision: str, content_type: str, payload: dict
     if content_type == "lesson_bundle":
         content = payload["lesson"]
         expected = f"ai-engineer/v1/{content['track_slug']}/{content['topic_slug']}"
+        if key.startswith("forge/"):
+            import re
+            from ..schemas.editions import SUBJECT_KEYS
+            if (content["curriculum_key"] != "placement-foundations" or content["track_slug"] not in SUBJECT_KEYS
+                    or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", content["topic_slug"])):
+                raise RegistryError("Invalid Forge lesson subject/topic namespace")
+            expected = f"forge/placement-foundations/{content['track_slug']}/{content['topic_slug']}"
     else:
         content = payload["problem"]
         expected = f"arena/{content['key']}"

@@ -1,4 +1,6 @@
 from .entities import (
+    EditionCurriculumBinding,
+    TopicPlacement,
     ContentValidationReport,
     ContentReviewRecord,
     ApprovedContentRelease,
@@ -48,6 +50,8 @@ from .entities import (
 )
 
 __all__ = [
+    "EditionCurriculumBinding",
+    "TopicPlacement",
     "ContentValidationReport",
     "ContentReviewRecord",
     "ApprovedContentRelease",

@@ -59,6 +59,8 @@ class HumanReview(StrictModel):
 
 
 class ReleaseTarget(StrictModel):
+    source_type: Literal["default", "custom"] = "default"
+    curriculum_id: int | None = Field(default=None, ge=1)
     curriculum_name: str
     curriculum_version: int
     graph_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")

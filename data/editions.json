@@ -1,0 +1,118 @@
+{
+  "format_version": 1,
+  "subjects": [
+    {
+      "key": "quantitative-aptitude",
+      "name": "Quantitative Aptitude",
+      "description": "Turn everyday quantities into clear, checked calculations.",
+      "priority": 90,
+      "icon": "calculator"
+    },
+    {
+      "key": "logical-reasoning",
+      "name": "Logical Reasoning",
+      "description": "Use stated rules to reach conclusions you can justify.",
+      "priority": 88,
+      "icon": "puzzle"
+    },
+    {
+      "key": "verbal-english",
+      "name": "Verbal Ability and English",
+      "description": "Read carefully and communicate clearly in everyday English.",
+      "priority": 85,
+      "icon": "languages"
+    },
+    {
+      "key": "python",
+      "name": "Python Programming",
+      "description": "Write, test and explain small Python programs independently.",
+      "priority": 100,
+      "icon": "code"
+    },
+    {
+      "key": "sql-postgresql",
+      "name": "SQL and PostgreSQL",
+      "description": "Ask precise questions of relational data and check the results.",
+      "priority": 100,
+      "icon": "database"
+    },
+    {
+      "key": "dsa",
+      "name": "Data Structures and Algorithms",
+      "description": "Choose useful data structures and solve bounded coding problems.",
+      "priority": 98,
+      "icon": "network"
+    },
+    {
+      "key": "system-design",
+      "name": "System Design Fundamentals",
+      "description": "Explain how small applications work and handle common failures.",
+      "priority": 80,
+      "icon": "layers"
+    },
+    {
+      "key": "ai-fundamentals",
+      "name": "AI, Generative AI, RAG and Agents",
+      "description": "Understand model-based systems, their building blocks and their limits.",
+      "priority": 80,
+      "icon": "sparkles"
+    },
+    {
+      "key": "interview-communication",
+      "name": "Interview Preparation and Communication",
+      "description": "Explain your work honestly and practise technical conversations.",
+      "priority": 90,
+      "icon": "messages"
+    }
+  ],
+  "editions": [
+    {
+      "key": "placement-foundations",
+      "label": "Forge V1",
+      "name": "Placement Foundations",
+      "description": "A reviewable beginner-to-intermediate placement scope. Teaching is published separately.",
+      "levels": [
+        1,
+        2,
+        3
+      ],
+      "status": "preparing",
+      "subjects": [
+        "quantitative-aptitude",
+        "logical-reasoning",
+        "verbal-english",
+        "python",
+        "sql-postgresql",
+        "dsa",
+        "system-design",
+        "ai-fundamentals",
+        "interview-communication"
+      ]
+    },
+    {
+      "key": "advanced-engineering",
+      "label": "Forge V2",
+      "name": "Advanced Engineering",
+      "description": "Future Levels 4 and 5 extend the same foundations and learning engine.",
+      "levels": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "status": "future",
+      "subjects": [
+        "quantitative-aptitude",
+        "logical-reasoning",
+        "verbal-english",
+        "python",
+        "sql-postgresql",
+        "dsa",
+        "system-design",
+        "ai-fundamentals",
+        "interview-communication"
+      ]
+    }
+  ]
+}

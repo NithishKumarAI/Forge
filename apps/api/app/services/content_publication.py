@@ -121,10 +121,18 @@ def transition_release(session, release_id, status, actor, reason):
 
 
 def _resolve_target(session, target):
-    curriculum = session.exec(select(Curriculum).where(Curriculum.name == target.curriculum_name,
-        Curriculum.version == target.curriculum_version, Curriculum.status == "confirmed", Curriculum.source_type == "default")).one_or_none()
+    query = select(Curriculum).where(Curriculum.name == target.curriculum_name,
+        Curriculum.version == target.curriculum_version, Curriculum.status == "confirmed", Curriculum.source_type == target.source_type)
+    if target.curriculum_id is not None:
+        query = query.where(Curriculum.id == target.curriculum_id)
+    curriculum = session.exec(query).one_or_none()
     if curriculum is None or digest(database_graph(session, curriculum)) != target.graph_sha256:
         raise ValueError("Release target confirmed graph does not match")
+    if target.source_type == "custom":
+        from .editions import require_reviewed_curriculum
+        if target.curriculum_id is None:
+            raise ValueError("Custom publication requires an explicit curriculum ID")
+        require_reviewed_curriculum(session, curriculum, target.graph_sha256)
     track_slug, topic_slug = target.topic.split("/")
     topic = session.exec(select(Topic).join(Track).where(Track.curriculum_id == curriculum.id,
         Track.slug == track_slug, Topic.slug == topic_slug)).one_or_none()

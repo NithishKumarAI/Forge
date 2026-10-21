@@ -1,3 +1,4 @@
+import type { EditionIndex, EditionOverview, EditionConfirmation, TopicEditionMetadata } from "../types/editions";
 import type { AIStatus, Curriculum, CurriculumProposal, CurriculumSummary, Dashboard, Topic, TutorTurn } from "../types/api";
 import type { Attempt, Exercise, PracticeHistory, PracticePack, PythonTest, ExecutionResult } from "../types/practice";
 import type { AdaptiveAttempt, AdaptiveSubmission, MasteryBreakdown, PlannerSettings, ReviewQueueItem, ReviewSessionItem, TodayPlan, TransferSession } from "../types/adaptive";
@@ -20,6 +21,14 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  editions: () => request<EditionIndex>("/api/editions"),
+  edition: (key = "placement-foundations", curriculumId?: number) => request<EditionOverview>(`/api/editions/${key}${curriculumId ? `?curriculum_id=${curriculumId}` : ""}`),
+  selectEdition: (key: string) => request<EditionIndex>(`/api/editions/${key}/select`, {method:"POST"}),
+  createPlacementDraft: () => request<EditionOverview>("/api/editions/placement-foundations/draft", {method:"POST"}),
+  editionReview: (id: number) => request<EditionOverview>(`/api/editions/curricula/${id}/review`),
+  confirmEdition: (id: number, body: EditionConfirmation) => request<EditionOverview>(`/api/editions/curricula/${id}/confirm`, {method:"POST",body:JSON.stringify(body)}),
+  activateEdition: (id: number) => request<EditionOverview>(`/api/editions/curricula/${id}/activate`, {method:"POST"}),
+  topicEditionMetadata: (id: number) => request<TopicEditionMetadata>(`/api/editions/topics/${id}`),
   dashboard: () => request<Dashboard>("/api/dashboard"),
   arenaProblems: (params="") => request<ArenaProblem[]>(`/api/arena/problems${params}`),
   arenaProblem: (key:string) => request<ArenaProblem>(`/api/arena/problems/${key}`),

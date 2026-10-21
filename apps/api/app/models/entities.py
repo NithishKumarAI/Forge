@@ -458,3 +458,25 @@ class ContentReleaseEvent(SQLModel, table=True):
 class ArenaAttemptContent(SQLModel, table=True):
     attempt_id: int = Field(foreign_key="arenaattempt.id", primary_key=True)
     content_revision_id: int = Field(foreign_key="contentrevision.id")
+
+
+class EditionCurriculumBinding(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("edition_key", "scope_sha256", name="uq_edition_scope_draft"),)
+    curriculum_id: int = Field(foreign_key="curriculum.id", primary_key=True)
+    edition_key: str
+    scope_version: str
+    scope_sha256: str
+    scope_json: str = Field(sa_column=Column(Text, nullable=False))
+    graph_sha256: str
+    reviewed_by: str | None = None
+    reviewed_at: datetime | None = None
+
+
+class TopicPlacement(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("curriculum_id", "subject_key", "order_index", name="uq_subject_topic_order"),)
+    topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    curriculum_id: int = Field(foreign_key="editioncurriculumbinding.curriculum_id", index=True)
+    edition_key: str
+    subject_key: str
+    level: int = Field(ge=1, le=5)
+    order_index: int = Field(ge=0)

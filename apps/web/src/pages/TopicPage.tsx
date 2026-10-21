@@ -7,6 +7,7 @@ import { api } from "../services/api";
 
 export function TopicPage() {
   const id = Number(useParams().topicId);
+  const edition = useApi(() => api.topicEditionMetadata(id), [id]);
   const topic = useApi(() => api.topic(id), [id]);
   const history = useApi(() => api.practiceHistory(id), [id]);
   const mastery = useApi(() => api.mastery(id), [id]);
@@ -20,6 +21,8 @@ export function TopicPage() {
     <section className="mt-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
       <div className="border-b border-slate-100 p-7 sm:p-10">
         <p className="text-sm font-semibold text-accent">{current.track_name}</p>
+        {edition.data?.placement && <p className="mt-2 text-sm text-slate-500">Forge V1 · Level {edition.data.placement.level} content · {edition.data.curriculum_status === "draft" ? "Draft preview" : "Manually accessible"}. Content level is independent of mastery.</p>}
+        {edition.data && <p className="mt-2 text-sm text-slate-500">{edition.data.availability.lesson_status === "approved" ? "Approved lesson available" : edition.data.availability.lesson_status === "legacy" ? "Legacy lesson available · not fully verified" : "Planned topic · content not published"} · {edition.data.availability.approved_practice_available ? "Approved practice available" : "No approved practice available"}</p>}
         <h1 className="display mt-2 text-3xl font-extrabold sm:text-4xl">{current.name}</h1>
         <p className="mt-4 max-w-2xl leading-7 text-slate-600">{current.description}</p>
         <div className="mt-6 flex flex-wrap gap-3 text-sm"><span className="flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5"><Clock3 size={15} /> {current.estimated_minutes} min</span><span className="flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5"><CheckCircle2 size={15} /> Target: {current.target_level.replace("_", " ")}</span></div>
@@ -36,9 +39,11 @@ export function TopicPage() {
         <div className="rounded-2xl bg-slate-50 p-5">
           <h2 className="display font-bold">Choose how to study</h2><p className="mt-1 text-sm text-slate-500">You stay in control of your learning path.</p>
           <div className="mt-4 space-y-2">
-            <Link to={`/topics/${current.id}/learn`} className="flex w-full items-center gap-3 rounded-xl bg-accent p-3.5 text-left font-semibold text-white hover:bg-violet-700"><BookOpen size={18} /> Learn Course<span className="ml-auto text-xs font-normal text-violet-200">Static lesson</span></Link>
-            <Link to={`/topics/${current.id}/tutor`} className="flex w-full items-center gap-3 rounded-xl border border-violet-200 bg-white p-3.5 text-left font-semibold text-accent hover:bg-accent-soft"><Sparkles size={18} /> AI Tutor<span className="ml-auto text-xs font-normal">Grounded professor</span></Link>
-            <Link to={`/topics/${current.id}/practice`} className="flex w-full items-center gap-3 rounded-xl border border-violet-200 bg-white p-3.5 text-left font-semibold text-accent hover:bg-accent-soft"><Dumbbell size={18} /> Guided Practice<span className="ml-auto text-xs font-normal">Lesson exercises</span></Link>
+            {edition.data?.placement && !edition.data.availability.lesson_count && <p className="rounded-xl bg-white p-4 text-sm text-slate-600">Lessons are being prepared for this topic. <Link className="font-semibold text-accent" to={`/curriculum?subject=${edition.data.placement.subject_key}&level=${edition.data.placement.level}`}>Review the subject outline</Link>.</p>}
+            {edition.data?.placement && edition.data.availability.arena_count > 0 && <Link to="/arena" className="block rounded-xl border p-3 font-semibold text-accent">Open available Arena practice</Link>}
+            {(!edition.data?.placement || edition.data.availability.lesson_count > 0) && <Link to={`/topics/${current.id}/learn`} className="flex w-full items-center gap-3 rounded-xl bg-accent p-3.5 text-left font-semibold text-white hover:bg-violet-700"><BookOpen size={18} /> Learn Course<span className="ml-auto text-xs font-normal text-violet-200">Static lesson</span></Link>}
+            {(!edition.data?.placement || edition.data.availability.lesson_count > 0) && <Link to={`/topics/${current.id}/tutor`} className="flex w-full items-center gap-3 rounded-xl border border-violet-200 bg-white p-3.5 text-left font-semibold text-accent hover:bg-accent-soft"><Sparkles size={18} /> AI Tutor<span className="ml-auto text-xs font-normal">Grounded professor</span></Link>}
+            {(!edition.data?.placement || edition.data.availability.course_exercise_count > 0) && <Link to={`/topics/${current.id}/practice`} className="flex w-full items-center gap-3 rounded-xl border border-violet-200 bg-white p-3.5 text-left font-semibold text-accent hover:bg-accent-soft"><Dumbbell size={18} /> Guided Practice<span className="ml-auto text-xs font-normal">Lesson exercises</span></Link>}
             {mastery.data?.transfer_eligible ? <Link to={`/topics/${current.id}/transfer`} className="flex w-full items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-3.5 text-left font-semibold text-emerald-800"><FlaskConical size={18} /> Transfer Check<span className="ml-auto text-xs font-normal">Unseen task</span></Link> : <button disabled className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 text-left font-semibold text-slate-400"><FlaskConical size={18} /> Transfer Check<span className="ml-auto text-xs font-normal">More mixed evidence needed</span></button>}
           </div>
         </div>

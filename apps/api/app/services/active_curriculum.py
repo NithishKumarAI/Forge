@@ -25,6 +25,10 @@ def get_active_curriculum(session: Session) -> Curriculum | None:
 def activate_curriculum(session: Session, curriculum: Curriculum) -> None:
     if curriculum.status != "confirmed":
         raise ValueError("Only a confirmed curriculum can become active")
+    from ..models import EditionCurriculumBinding
+    if session.get(EditionCurriculumBinding, curriculum.id):
+        from .editions import require_reviewed_curriculum
+        require_reviewed_curriculum(session, curriculum)
     setting = session.get(AppSetting, ACTIVE_CURRICULUM_KEY)
     if setting is None:
         setting = AppSetting(key=ACTIVE_CURRICULUM_KEY, value=str(curriculum.id))

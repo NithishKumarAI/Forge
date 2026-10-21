@@ -22,8 +22,8 @@ def legacy_database(path: Path):
 
 def test_fresh_and_repeat_initialization(tmp_path):
     engine = create_engine(f"sqlite:///{(tmp_path/'fresh.db').as_posix()}")
-    assert run_migrations(engine)["applied"] == [1, 2, 3]
-    assert run_migrations(engine) == {"schema_version": 3, "applied": [], "backup_path": None}
+    assert run_migrations(engine)["applied"] == [1, 2, 3, 4]
+    assert run_migrations(engine) == {"schema_version": 4, "applied": [], "backup_path": None}
     assert {"contentrevision", "topiccontentbinding", "arenatopicbinding", "schemamigration"}.issubset(inspect(engine).get_table_names())
     engine.dispose()
 
@@ -64,7 +64,7 @@ def test_failed_migration_rolls_back_ddl_and_ledger(tmp_path, monkeypatch):
         run_migrations(engine)
     assert set(inspect(engine).get_table_names()) == before
     monkeypatch.setattr(v002_content_bindings, "apply", original)
-    assert run_migrations(engine)["applied"] == [1, 2, 3]
+    assert run_migrations(engine)["applied"] == [1, 2, 3, 4]
     engine.dispose()
 
 

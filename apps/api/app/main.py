@@ -19,6 +19,7 @@ from .routers.adaptive import router as adaptive_router
 from .routers.interviews import router as interviews_router
 from .routers.course import router as course_router
 from .routers.arena import router as arena_router
+from .routers.editions import router as editions_router
 from .services.course import sync_course_pack
 from .services.arena import sync_problem_bank
 from .schemas.api import HealthRead
@@ -64,6 +65,7 @@ def create_app() -> FastAPI:
     app.include_router(interviews_router)
     app.include_router(course_router)
     app.include_router(arena_router)
+    app.include_router(editions_router)
     app.include_router(router)
 
     @app.get("/health", response_model=HealthRead)
