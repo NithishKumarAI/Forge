@@ -19,6 +19,7 @@ from ..services.practice import generate_exercises, public_exercise, submit_code
 from ..services.readiness import curriculum_readiness, track_readiness
 from ..services.review import apply_review
 from ..services.transfer import start_transfer, transfer_session
+from ..services.course import current_course_exercise_ids
 
 
 router = APIRouter(prefix="/api", tags=["adaptive"])
@@ -128,6 +129,8 @@ def start_reviews(session: Session = Depends(get_session), provider: LLMProvider
     for row in due[:maximum]:
         topic = session.get(Topic, row["topic_id"])
         exercises = session.exec(select(Exercise).where(Exercise.topic_id == topic.id, Exercise.is_active == True, Exercise.validation_status == "valid", Exercise.source != "transfer").order_by(Exercise.created_at.desc())).all()  # noqa: E712
+        current_static = current_course_exercise_ids(session, topic.id)
+        exercises = [item for item in exercises if item.source != "course_pack" or item.id in current_static]
         if not exercises and provider:
             try: exercises = generate_exercises(session, topic, provider, 1, purpose="review_generation")
             except ProviderError: exercises = []

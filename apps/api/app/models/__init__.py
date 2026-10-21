@@ -1,4 +1,10 @@
 from .entities import (
+    SchemaMigration,
+    ContentRevision,
+    TopicContentBinding,
+    ArenaTopicBinding,
+    CourseExerciseBinding,
+    ContentSectionProgress,
     AppSetting,
     ArenaAttempt,
     ArenaHintUse,
@@ -35,6 +41,12 @@ from .entities import (
 )
 
 __all__ = [
+    "SchemaMigration",
+    "ContentRevision",
+    "TopicContentBinding",
+    "ArenaTopicBinding",
+    "CourseExerciseBinding",
+    "ContentSectionProgress",
     "AppSetting",
     "ArenaAttempt",
     "ArenaHintUse",

@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, Field, HttpUrl, model_validator
+from pydantic import BaseModel, Field, HttpUrl, PrivateAttr, model_validator
 
 
 class SourceReference(BaseModel):
@@ -29,6 +29,7 @@ class LessonSection(BaseModel):
 
 
 class StaticLesson(BaseModel):
+    _registry_id: int | None = PrivateAttr(default=None)
     curriculum_key: str
     track_slug: str
     topic_slug: str

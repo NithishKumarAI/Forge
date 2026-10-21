@@ -14,3 +14,7 @@ coverage/
 data/source-cache/
 *.candidate.json
 .runtime/
+
+# Local immutable content copies and learner database backups
+apps/api/data/content-snapshots/
+apps/api/data/db-backups/

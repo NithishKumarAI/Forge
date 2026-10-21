@@ -18,7 +18,8 @@ def test_v2_coverage_contracts_include_every_track():
     assert "bool" in contract["python"]["foundations"] and "window-functions" in contract["sql-postgresql"]
 
 def activate_v2(session):
-    old=session.exec(select(Curriculum).where(Curriculum.version==1)).first();new=seed_default_curriculum(session,ROOT/"data/default-interview-curriculum-v2.json");migrate_default_v2(session,old,new,ROOT/"data/curriculum-migrations/v1-to-v2.json");return new
+    from app.services.active_curriculum import activate_curriculum
+    old=session.exec(select(Curriculum).where(Curriculum.version==1)).first();new=seed_default_curriculum(session,ROOT/"data/default-interview-curriculum-v2.json");migrate_default_v2(session,old,new,ROOT/"data/curriculum-migrations/v1-to-v2.json");activate_curriculum(session,new);return new
 
 def test_v2_priority_tracks_and_old_curriculum_preserved(session):
     new=activate_v2(session);assert len(session.exec(select(Curriculum)).all())==2

@@ -16,7 +16,7 @@ def problem(key:str,session:Session=Depends(get_session)):
 @router.get("/problems/{key}/validation")
 def validation(key:str,session:Session=Depends(get_session)):
     if not session.get(ArenaProblem,key):raise HTTPException(404,"Arena problem not found")
-    return validation_payload(key)
+    return validation_payload(key,session=session)
 @router.post("/problems/{key}/hint")
 def hint(key:str,session:Session=Depends(get_session)):
     try:return reveal_hint(session,key)

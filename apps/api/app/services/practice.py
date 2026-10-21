@@ -16,6 +16,7 @@ from ..schemas.practice import (
     MCQSubmission, PublicExercise, ShortAnswerEvaluation, ShortAnswerSubmission,
 )
 from .usage import nonessential_ai_allowed, record_usage
+from .course import current_course_exercise_ids
 
 
 EXERCISE_POLICY = """Create compact entry-level AI/backend/Python interview practice.
@@ -166,7 +167,9 @@ def start_practice(
         .where(Exercise.topic_id == topic.id, Exercise.is_active == True)  # noqa: E712
         .order_by(Exercise.created_at.desc(), Exercise.id.desc())
     ).all()
-    unused = [exercise for exercise in available if exercise.id not in successful]
+    current_static = current_course_exercise_ids(session, topic.id)
+    unused = [exercise for exercise in available if exercise.id not in successful
+              and (exercise.source != "course_pack" or exercise.id in current_static)]
     unused.sort(key=lambda exercise: (exercise.source != "course_pack", -exercise.id))
     chosen = unused[:3]
     if len(chosen) < 3 and provider is not None:

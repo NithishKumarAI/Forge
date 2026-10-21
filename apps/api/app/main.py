@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 from . import models  # noqa: F401 -- registers SQLModel tables
 from .config import settings
@@ -23,18 +23,21 @@ from .services.course import sync_course_pack
 from .services.arena import sync_problem_bank
 from .schemas.api import HealthRead
 from .services.curriculum import seed_default_curriculum
-from .services.curriculum_migration import migrate_default_v2
-from .services.mastery import backfill_existing_attempts
+from .services.active_curriculum import activate_curriculum
+from .models import AppSetting, Curriculum
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     create_db_and_tables()
     with Session(engine) as session:
-        old_default=seed_default_curriculum(session, settings.curriculum_path)
+        fresh = session.exec(select(Curriculum.id)).first() is None and session.get(AppSetting, "active_curriculum_id") is None
+        seed_default_curriculum(session, settings.curriculum_path)
         new_default=seed_default_curriculum(session, settings.curriculum_v2_path)
-        migrate_default_v2(session,old_default,new_default,settings.curriculum_migration_path)
-        backfill_existing_attempts(session)
+        # Only a first install receives the default selection. Upgrades never copy scores,
+        # recalculate evidence, or replace the learner's explicit curriculum choice.
+        if fresh:
+            activate_curriculum(session, new_default)
         sync_course_pack(session)
         sync_problem_bank(session)
     yield

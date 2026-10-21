@@ -351,3 +351,60 @@ class TopicMigrationMap(SQLModel, table=True):
     new_topic_id: int = Field(foreign_key="topic.id", primary_key=True)
     mapping_key: str = Field(index=True)
     migrated_at: datetime = Field(default_factory=utc_now)
+
+
+class SchemaMigration(SQLModel, table=True):
+    version: int = Field(primary_key=True)
+    name: str
+    checksum: str
+    applied_at: datetime = Field(default_factory=utc_now)
+
+
+class ContentRevision(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("content_key", "revision", name="uq_content_revision"),)
+    id: int | None = Field(default=None, primary_key=True)
+    content_key: str = Field(index=True)
+    revision: str
+    content_type: str = Field(index=True)
+    source_path: str
+    snapshot_path: str
+    sha256: str
+    provenance_json: str = Field(sa_column=Column(Text, nullable=False))
+    approval_status: str = "legacy_baseline"
+    registered_at: datetime = Field(default_factory=utc_now)
+
+
+class TopicContentBinding(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("topic_id", "order_index", name="uq_topic_content_order"),)
+    topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    content_revision_id: int = Field(foreign_key="contentrevision.id", primary_key=True)
+    curriculum_id: int = Field(foreign_key="curriculum.id", index=True)
+    order_index: int = Field(ge=0)
+    legacy_progress_compatible: bool = False
+    coverage_note: str
+
+
+class ArenaTopicBinding(SQLModel, table=True):
+    curriculum_id: int = Field(foreign_key="curriculum.id", primary_key=True)
+    problem_key: str = Field(foreign_key="arenaproblem.key", primary_key=True)
+    content_revision_id: int = Field(foreign_key="contentrevision.id")
+    topic_id: int | None = Field(default=None, foreign_key="topic.id", index=True)
+    rationale: str
+
+
+class CourseExerciseBinding(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("exercise_id", name="uq_registry_exercise"),)
+    topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    content_revision_id: int = Field(foreign_key="contentrevision.id", primary_key=True)
+    exercise_key: str = Field(primary_key=True)
+    exercise_id: int = Field(foreign_key="exercise.id", index=True)
+
+
+class ContentSectionProgress(SQLModel, table=True):
+    topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    content_revision_id: int = Field(foreign_key="contentrevision.id", primary_key=True)
+    section_slug: str = Field(primary_key=True)
+    completed: bool = False
+    first_viewed_at: datetime = Field(default_factory=utc_now)
+    last_viewed_at: datetime = Field(default_factory=utc_now)
+    completed_at: datetime | None = None

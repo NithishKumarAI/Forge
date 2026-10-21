@@ -8,7 +8,7 @@ Forge is a local-first engineering interview-preparation system that builds, mea
 Learn → Guided Practice → Coding Arena → Mastery → Spaced Review → Mock Interview
 ```
 
-The confirmed V2 default reflects 2026 job-search priorities. Python Programming and SQL + PostgreSQL are priority 100, DSA + Problem Solving is 98, Backend and practical CS follow, then LLM/RAG specialization, ML/production working knowledge, frontend basics, and ongoing interview communication. V1 remains in SQLite as curriculum history. An explicit migration map copies learner state only for unambiguous topics; historical evidence is never moved or rewritten.
+Default curriculum revision 2 prioritizes Python Programming and SQL + PostgreSQL at 100 and DSA + Problem Solving at 98, followed by Backend, practical CS and the remaining engineering tracks. Revision 1 remains in SQLite as curriculum history. These revision numbers are separate from planned product editions. A first install selects revision 2; subsequent startup preserves the selected curriculum and never copies mastery or replays historical evidence. Legacy topic-migration records remain intact.
 
 ### Coding Arena
 
@@ -58,7 +58,7 @@ Static Course Pack
 └── Static Practice Bank
 ```
 
-The canonical pack is under `content/ai-engineer/v1`; SQLite stores synchronized metadata, exercise rows, local search, and reading progress. Reading progress is not mastery evidence. Required-coverage specifications exist for every accepted topic. Thirteen priority lessons across Python, SQL, and DSA include reviewed explanations, runnable examples, checkpoints, and aligned offline exercises; the course validator rejects thin placeholder content in those lessons.
+The legacy source pack is under `content/ai-engineer/v1`. Phase 1 registers its 53 lessons and exercise bundles as immutable, content-addressed **legacy baselines**, without asserting editorial approval. Runtime reading and Arena loading verify snapshots; explicit curriculum-scoped bindings drive exercise synchronization and local search. Consolidated topics can offer multiple ordered lessons with independent reading progress. Reading progress is not mastery evidence. All 53 lessons have structural coverage/quality checks; these checks do not certify every example output or prose answer.
 
 Course builder commands (run from `apps/api` with its environment active):
 
@@ -127,6 +127,20 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 
 The API runs at `http://127.0.0.1:8000`; interactive docs are at `http://127.0.0.1:8000/docs`. The database and default curriculum are created on first startup. Seeding is idempotent.
+
+### Phase 1 data safety
+
+Startup uses numbered SQLite migrations and verifies checksums of applied migrations. Populated unversioned databases must match the frozen legacy schema. Before an upgrade, Forge creates a consistent SQLite backup and metadata under `apps/api/data/db-backups`, checks integrity, and holds a write reservation during migration. Backup failure aborts the upgrade. Existing learner history and curriculum selection are preserved. Content snapshots live under `apps/api/data/content-snapshots`; retain them with the learner database so registered historical content remains available.
+
+The sample environment's content/data paths are repository-relative, independent of the launch working directory. SQLite's `sqlite:///data/forge.db` remains API-directory-relative. Explicit absolute overrides are supported. `FORGE_CONTENT_SNAPSHOT_PATH` and `FORGE_DATABASE_BACKUP_PATH` override the local storage locations.
+
+To restore, stop Forge normally, retain the current database and its sidecars, and restore a verified backup **into a new path**. From `apps/api`, for example:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.database_backup --backup 'C:\My PC\git\Forge\apps\api\data\db-backups\<backup>.sqlite3' --destination 'C:\My PC\git\Forge\apps\api\data\forge-restored.db'
+```
+
+The command verifies the companion `.json`, SHA-256, integrity and table counts, and refuses an existing destination or sidecars. Inspect the restored copy, retain the matching content snapshot store, then explicitly set `FORGE_DATABASE_URL` to its absolute SQLite URL before restarting. A restored pre-upgrade database will be backed up and migrated again. Forge never silently replaces/restores the learner database. See `docs/forge-v1/PHASE1_IMPLEMENTATION_REPORT.md` for coverage and limitations.
 
 ### Gemini setup
 

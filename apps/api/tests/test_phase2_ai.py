@@ -10,6 +10,8 @@ from tests.fakes import FakeLLMProvider
 
 
 def _first_topic(session: Session) -> Topic:
+    from app.services.course import sync_course_pack
+    sync_course_pack(session)
     return session.exec(select(Topic).order_by(Topic.id)).first()
 
 

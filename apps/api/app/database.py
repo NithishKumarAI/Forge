@@ -1,7 +1,8 @@
 from collections.abc import Generator
 from pathlib import Path
 
-from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel import Session, create_engine
+from sqlalchemy import event
 
 from .config import settings
 
@@ -17,8 +18,15 @@ connect_args = {"check_same_thread": False} if settings.database_url.startswith(
 engine = create_engine(settings.database_url, connect_args=connect_args)
 
 
+@event.listens_for(engine, "connect")
+def _enable_foreign_keys(connection, _):
+    if engine.dialect.name == "sqlite":
+        connection.execute("PRAGMA foreign_keys=ON")
+
+
 def create_db_and_tables() -> None:
-    SQLModel.metadata.create_all(engine)
+    from .migrations import run_migrations
+    run_migrations(engine)
 
 
 def get_session() -> Generator[Session, None, None]:
