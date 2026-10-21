@@ -62,7 +62,7 @@ def _lesson_corpus(lesson: StaticLesson) -> str:
     ]).lower()
 
 
-def _validate_target_quality(lesson: StaticLesson, path: Path, corpus: str) -> None:
+def _validate_target_quality(lesson: StaticLesson, path: Path, corpus: str, exercise_path: Path | None = None) -> None:
     target = (lesson.track_slug, lesson.topic_slug)
     if target not in QUALITY_TARGETS:
         return
@@ -102,7 +102,7 @@ def _validate_target_quality(lesson: StaticLesson, path: Path, corpus: str) -> N
         if missing:
             raise ValueError(f"{path}: incomplete transaction coverage: {', '.join(missing)}")
 
-    _validate_exercises(path.with_name("exercises.json"))
+    _validate_exercises(exercise_path or path.with_name("exercises.json"))
 
 
 def _validate_exercises(path: Path) -> None:
@@ -230,7 +230,7 @@ def _validate_arena_references(lesson: StaticLesson, path: Path, bank_dir: Path 
             raise ValueError(f"{path}: referenced Arena problem '{key}' does not exist in problem bank")
 
 
-def validate_lesson(path: Path, coverage_path: Path) -> StaticLesson:
+def validate_lesson(path: Path, coverage_path: Path, exercise_path: Path | None = None) -> StaticLesson:
     lesson = StaticLesson.model_validate_json(path.read_text(encoding="utf-8"))
     coverage = json.loads(coverage_path.read_text(encoding="utf-8"))[lesson.topic_slug]["required_concepts"]
     corpus = _lesson_corpus(lesson)
@@ -246,7 +246,7 @@ def validate_lesson(path: Path, coverage_path: Path) -> StaticLesson:
                     raise ValueError(f"{path}: invalid Python in section {section.slug}: {exc}") from exc
     if len(corpus) > 100_000:
         raise ValueError(f"{path}: lesson is too large")
-    _validate_target_quality(lesson, path, corpus)
+    _validate_target_quality(lesson, path, corpus, exercise_path)
     _validate_arena_references(lesson, path)
     return lesson
 

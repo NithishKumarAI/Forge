@@ -408,3 +408,53 @@ class ContentSectionProgress(SQLModel, table=True):
     first_viewed_at: datetime = Field(default_factory=utc_now)
     last_viewed_at: datetime = Field(default_factory=utc_now)
     completed_at: datetime | None = None
+
+
+class ContentValidationReport(SQLModel, table=True):
+    sha256: str = Field(primary_key=True)
+    candidate_sha256: str
+    payload_sha256: str
+    policy_version: str
+    candidate_json: str = Field(sa_column=Column(Text, nullable=False))
+    report_json: str = Field(sa_column=Column(Text, nullable=False))
+    created_at: datetime = Field(default_factory=utc_now)
+
+
+class ContentReviewRecord(SQLModel, table=True):
+    sha256: str = Field(primary_key=True)
+    validation_sha256: str = Field(foreign_key="contentvalidationreport.sha256")
+    reviewer: str
+    outcome: str
+    reviewed_at: datetime
+    review_json: str = Field(sa_column=Column(Text, nullable=False))
+
+
+class ApprovedContentRelease(SQLModel, table=True):
+    release_id: str = Field(primary_key=True)
+    sha256: str
+    package_json: str = Field(sa_column=Column(Text, nullable=False))
+    published_at: datetime = Field(default_factory=utc_now)
+
+
+class ContentReleaseEntry(SQLModel, table=True):
+    release_id: str = Field(foreign_key="approvedcontentrelease.release_id", primary_key=True)
+    curriculum_id: int = Field(foreign_key="curriculum.id", primary_key=True)
+    content_revision_id: int = Field(foreign_key="contentrevision.id", primary_key=True)
+    validation_sha256: str = Field(foreign_key="contentvalidationreport.sha256")
+    review_sha256: str = Field(foreign_key="contentreviewrecord.sha256")
+    topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    order_index: int = Field(ge=0)
+
+
+class ContentReleaseEvent(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    release_id: str = Field(foreign_key="approvedcontentrelease.release_id")
+    status: str
+    actor: str
+    reason: str
+    created_at: datetime = Field(default_factory=utc_now)
+
+
+class ArenaAttemptContent(SQLModel, table=True):
+    attempt_id: int = Field(foreign_key="arenaattempt.id", primary_key=True)
+    content_revision_id: int = Field(foreign_key="contentrevision.id")

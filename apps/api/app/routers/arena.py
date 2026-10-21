@@ -12,7 +12,14 @@ def problems(track:str|None=None,difficulty:str|None=None,tag:str|None=None,stat
 def problem(key:str,session:Session=Depends(get_session)):
     row=session.get(ArenaProblem,key)
     if not row:raise HTTPException(404,"Arena problem not found")
-    return public_problem(session,row)
+    try:return public_problem(session,row)
+    except ValueError as exc:raise HTTPException(404,str(exc)) from exc
+@router.get("/problems/{key}/revisions/{revision_id}")
+def historical_problem(key:str,revision_id:int,session:Session=Depends(get_session)):
+    row=session.get(ArenaProblem,key)
+    if not row:raise HTTPException(404,"Arena problem not found")
+    try:return public_problem(session,row,revision_id)
+    except ValueError as exc:raise HTTPException(404,str(exc)) from exc
 @router.get("/problems/{key}/validation")
 def validation(key:str,session:Session=Depends(get_session)):
     if not session.get(ArenaProblem,key):raise HTTPException(404,"Arena problem not found")

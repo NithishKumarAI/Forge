@@ -1,4 +1,11 @@
 from .entities import (
+    ContentValidationReport,
+    ContentReviewRecord,
+    ApprovedContentRelease,
+    ContentReleaseEntry,
+    ContentReleaseEvent,
+    ArenaAttemptContent,
+
     SchemaMigration,
     ContentRevision,
     TopicContentBinding,
@@ -41,6 +48,13 @@ from .entities import (
 )
 
 __all__ = [
+    "ContentValidationReport",
+    "ContentReviewRecord",
+    "ApprovedContentRelease",
+    "ContentReleaseEntry",
+    "ContentReleaseEvent",
+    "ArenaAttemptContent",
+
     "SchemaMigration",
     "ContentRevision",
     "TopicContentBinding",

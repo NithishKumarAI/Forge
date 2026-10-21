@@ -40,6 +40,8 @@ async def lifespan(_: FastAPI):
             activate_curriculum(session, new_default)
         sync_course_pack(session)
         sync_problem_bank(session)
+        from .services.content_publication import verify_release_snapshots
+        verify_release_snapshots(session)
     yield
 
 

@@ -75,7 +75,7 @@ def load_snapshot(revision: ContentRevision) -> dict:
 
 
 def register_revision(session: Session, *, key: str, revision: str, content_type: str,
-                      source_path: str, payload: dict, provenance: dict) -> ContentRevision:
+                      source_path: str, payload: dict, provenance: dict, registration_status: str = "legacy_baseline") -> ContentRevision:
     validate_relative_path(key)
     validate_relative_path(source_path)
     _validate_payload(content_type, payload)
@@ -111,7 +111,7 @@ def register_revision(session: Session, *, key: str, revision: str, content_type
         temporary.unlink(missing_ok=True)
     row = ContentRevision(content_key=key, revision=revision, content_type=content_type,
                           source_path=source_path, snapshot_path=relative, sha256=sha256,
-                          provenance_json=canonical_json(provenance).decode(), approval_status="legacy_baseline")
+                          provenance_json=canonical_json(provenance).decode(), approval_status=registration_status)
     session.add(row)
     session.flush()
     load_snapshot(row)
@@ -228,4 +228,9 @@ def bound_lessons(session: Session, topic: Topic) -> list[tuple[TopicContentBind
     rows = session.exec(select(TopicContentBinding, ContentRevision).join(ContentRevision)
                         .where(TopicContentBinding.topic_id == topic.id, TopicContentBinding.curriculum_id == track.curriculum_id)
                         .order_by(TopicContentBinding.order_index)).all()
-    return list(rows)
+    from .content_publication import release_entries
+    released = [(entry, rev) for entry, rev in release_entries(session, curriculum_id=track.curriculum_id)
+                if entry.topic_id == topic.id and rev.content_type == "lesson_bundle"]
+    if released:
+        return [(session.get(TopicContentBinding, (topic.id, rev.id)), rev) for _, rev in released]
+    return [(binding, rev) for binding, rev in rows if rev.approval_status == "legacy_baseline"]

@@ -1,6 +1,6 @@
 # Third-Party Content Provenance and Licenses
 
-Forge is an original, interview-focused educational system. All lesson prose and explanations in the static course pack are original synthesis authored for Forge. To ensure full legal and pedagogical compliance, third-party materials and pedagogical references are tracked with explicit licensing and usage boundaries below.
+Forge is an original, interview-focused educational system. All lesson prose and explanations in the static course pack are original synthesis authored for Forge. These historical authorship claims are not independent technical or legal verification. The Phase 2 inventory records actual file metadata and unresolved provenance; new publication requires explicit review.
 
 ---
 
@@ -14,8 +14,13 @@ Forge is an original, interview-focused educational system. All lesson prose and
 * **Usage**: Selectively adapted for canonical edge cases, concept exercise progression, and practice task framing.
 * **Attribution**:
   * Exercism exercises adapted in Forge retain MIT license attribution in exercise metadata and source records.
-  * Adapted exercise identifiers: python-anagram-check, python-bob, python-collatz, python-celsius-to-fahrenheit.
-  * Full license text preserved in LICENSES/exercism-mit.txt.
+  * Adapted exercise identifiers: python-anagram-check, python-bob, python-collatz, python-flatten-list, python-leap-year, python-pangram, python-raindrops, python-two-fer, python-word-count.
+  * Full historical license text is preserved in LICENSES/exercism-mit.txt.
+  * These nine JSON files also say `source_type=original`, contradicting their adaptation metadata. Immutable snapshots preserve the conflict; public Arena DTOs expose them as adapted and retain `declared_source_type=original` for traceability.
+  * The earlier document listed `python-celsius-to-fahrenheit` as adapted, but that file has no adaptation metadata. This historical discrepancy is unresolved; it is not evidence that the item is original.
+  * The repository-level [Python license](https://github.com/exercism/python/blob/main/LICENSE) identifies Copyright (c) 2021 Exercism; the [problem-specifications license](https://github.com/exercism/problem-specifications/blob/main/LICENSE) identifies Copyright (c) 2014, 2019, 2021 Exercism (checked 21 October 2026). No per-item upstream commit has been established. These pages alone do not prove the source of any Forge statement or fixture.
+  * All nine adaptations and the Celsius discrepancy remain blocked for new publication. New Arena release policy requires original challenges; historical problems and attempts are retained.
+  * The complete machine-readable inventory is [arena-provenance.json](data/content-approvals/arena-provenance.json). Other historical originality claims still require independent review; there is no retroactive blanket approval.
 
 ---
 
@@ -52,7 +57,7 @@ The following courses and public platforms are used exclusively as reference for
 
 ### SQLBolt
 * **Source**: [https://sqlbolt.com/](https://sqlbolt.com/)
-* **Usage**: Reference-only for pedagogical sequence: concept explanation → small table visualization → immediate query demonstration. All Forge tables, datasets, and queries are original.
+* **Usage**: Reference-only for pedagogical sequence: concept explanation â†’ small table visualization â†’ immediate query demonstration. All Forge tables, datasets, and queries are original.
 
 ### Coursera SQL for Data Science (UC Davis) & IBM SQL
 * **Sources**:
@@ -70,3 +75,8 @@ The following collections are used exclusively to determine interview weighting,
 * **LeetCode 75**: [https://leetcode.com/studyplan/leetcode-75/](https://leetcode.com/studyplan/leetcode-75/)
 * **LeetCode Top Interview 150**: [https://leetcode.com/studyplan/top-interview-150/](https://leetcode.com/studyplan/top-interview-150/)
 * **LeetCode SQL 50**: [https://leetcode.com/studyplan/top-sql-50/](https://leetcode.com/studyplan/top-sql-50/)
+
+
+## Phase 2 publication boundary
+
+Factual-reference use does not grant permission to redistribute a source's prose, exercises or tests. New redistributions require a resolved, pinned upstream identity, the applicable notice and permission evidence under the approved license policy. Unknown licenses or missing notice chains block new publication. Historical license information is retained even where incomplete. See [the publication workflow](data/content-approvals/README.md) and [teaching review contract](docs/forge-v1/TEACHING_QUALITY_CHECKLIST.md).

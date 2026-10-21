@@ -1,5 +1,5 @@
 from typing import Literal
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 class ProblemExample(BaseModel):
     input: str
@@ -7,6 +7,7 @@ class ProblemExample(BaseModel):
     explanation: str = ""
 
 class CodingProblem(BaseModel):
+    model_config = ConfigDict(extra="allow")
     key: str = Field(pattern=r"^[a-z0-9-]+$")
     title: str
     track: Literal["python","sql","dsa"]
@@ -24,7 +25,13 @@ class CodingProblem(BaseModel):
     reference_solution: str
     complexity: str
     validation: dict
-    source_type: Literal["original"] = "original"
+    source_type: Literal["original", "adapted"] = "original"
+    source_project: str | None = None
+    source_exercise: str | None = None
+    license: str | None = None
+    adapted: bool = False
+    publication_contract: dict | None = None
+    negative_solutions: list[str] = []
     version: str
     mapped_topic: str
 
@@ -44,6 +51,7 @@ class CodingProblem(BaseModel):
         return self
 
 class ArenaAttemptRequest(BaseModel):
+    content_revision_id: int | None = None
     source: str = Field(min_length=1,max_length=30000)
     passed: bool
     score: float = Field(ge=0,le=100)

@@ -11,7 +11,7 @@ from sqlalchemy.engine import Engine
 
 from ..config import settings
 from ..services.database_backup import create_database_backup
-from . import v001_legacy_schema, v002_content_bindings
+from . import v001_legacy_schema, v002_content_bindings, v003_content_publication
 
 
 class MigrationError(RuntimeError):
@@ -35,6 +35,7 @@ class Migration:
 MIGRATIONS = (
     Migration(1, "legacy_schema", v001_legacy_schema),
     Migration(2, "content_bindings", v002_content_bindings),
+    Migration(3, "content_publication", v003_content_publication),
 )
 
 
@@ -118,6 +119,13 @@ def run_migrations(engine: Engine, *, backup_root: Path | None = None) -> dict:
                                       "courseexercisebinding", "contentsectionprogress"}):
                 raise MigrationError("Unrecorded/partial content schema; restore a verified backup before retrying")
             pending = MIGRATIONS[len(ledger):]
+            if len(ledger) >= 3:
+                _validate(connection, v003_content_publication.SCHEMA)
+                triggers = set(connection.exec_driver_sql("SELECT name FROM sqlite_master WHERE type='trigger'").scalars())
+                if not v003_content_publication.TRIGGERS <= triggers:
+                    raise MigrationError("Publication schema is missing required integrity triggers")
+            elif tables.intersection(v003_content_publication.TABLES):
+                raise MigrationError("Unrecorded/partial publication schema")
             if pending and existing and engine.url.database not in (None, "", ":memory:"):
                 # BEGIN IMMEDIATE quiesces other writers; a separate reader backup includes committed WAL data.
                 backup = create_database_backup(Path(engine.url.database), backup_root)
@@ -133,6 +141,7 @@ def run_migrations(engine: Engine, *, backup_root: Path | None = None) -> dict:
                 applied.append(migration.version)
             _validate(connection, v001_legacy_schema.SCHEMA)
             _validate(connection, v002_content_bindings.SCHEMA)
+            _validate(connection, v003_content_publication.SCHEMA)
             connection.commit()
         except BaseException:
             connection.rollback()

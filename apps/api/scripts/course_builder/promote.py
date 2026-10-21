@@ -1,14 +1,15 @@
+"""Promotion consumes reviewed archives; historical accepted files never move."""
 from pathlib import Path
-from .validate import validate_lesson
+from scripts.content_checks.publish import publish_package, read
 
-def promote(track:str,topic:str)->Path:
-    root=Path(__file__).resolve().parents[4]; folder=root/"content"/"ai-engineer"/"v1"/track/topic; candidate=folder/"lesson.candidate.json"; accepted=folder/"lesson.json"
-    if not candidate.exists(): raise FileNotFoundError("No candidate lesson exists")
-    validate_lesson(candidate,root/"data"/"course-coverage"/f"{track}.json")
-    exercise_candidate=folder/"exercises.candidate.json"
-    if not exercise_candidate.exists(): raise FileNotFoundError("No candidate exercise bank exists")
-    candidate.replace(accepted); exercise_candidate.replace(folder/"exercises.json"); return accepted
-def main():
-    import argparse
-    p=argparse.ArgumentParser(); p.add_argument("--track",default="python"); p.add_argument("--topic",required=True); a=p.parse_args(); print(promote(a.track,a.topic))
-if __name__=="__main__": main()
+
+def promote(track, topic, *, package_path: Path | None = None, session=None):
+    if package_path is None or session is None:
+        raise ValueError("Promotion requires exact candidate validation, human review and an explicit release/database; use scripts.content_checks.publish")
+    if any(e["candidate"]["content_key"] != f"ai-engineer/v1/{track}/{topic}" for e in read(package_path)["entries"]):
+        raise ValueError("Release does not match the requested content")
+    return publish_package(package_path, session)
+
+
+if __name__ == "__main__":
+    raise SystemExit("Use python -m scripts.content_checks.publish --help. Accepted files are immutable.")

@@ -2,7 +2,7 @@ import hashlib,json
 from pathlib import Path
 from sqlmodel import Session,select
 from ..config import settings
-from ..models import ArenaAttempt,ArenaHintUse,ArenaProblem,MasteryEvidenceEvent,ArenaTopicBinding,ContentRevision
+from ..models import ArenaAttempt,ArenaHintUse,ArenaProblem,MasteryEvidenceEvent,ArenaTopicBinding,ContentRevision,ArenaAttemptContent
 from ..schemas.arena import CodingProblem
 from .active_curriculum import get_active_curriculum
 from .content_paths import safe_path
@@ -21,6 +21,10 @@ def load_problem_files(root: Path | None = None):
 
 def resolve_arena_topic(session: Session, key: str) -> int | None:
     active = get_active_curriculum(session)
+    from .content_publication import release_entries
+    for entry, revision in release_entries(session, curriculum_id=active.id if active else -1):
+        if revision.content_key == f"arena/{key}":
+            return entry.topic_id
     binding = session.get(ArenaTopicBinding, (active.id, key)) if active else None
     return binding.topic_id if binding else None
 
@@ -72,13 +76,30 @@ def sync_problem_bank(session: Session, root: Path | None = None) -> int:
         raise
 
 
-def load_problem(key: str, root: Path | None = None, *, session: Session | None = None) -> CodingProblem:
+def problem_revision(session, key, revision_id=None):
+    if revision_id is not None:
+        revision = session.get(ContentRevision, revision_id)
+        if not revision or revision.content_key != f"arena/{key}" or revision.content_type != "arena_problem":
+            raise RegistryError("Unknown problem revision")
+        return revision
+    from .content_publication import release_entries
+    active = get_active_curriculum(session)
+    for entry, revision in release_entries(session, curriculum_id=active.id if active else -1):
+        if revision.content_key == f"arena/{key}":
+            return revision
+    row = session.get(ArenaProblem, key)
+    revision = session.exec(select(ContentRevision).where(ContentRevision.content_key == f"arena/{key}",
+        ContentRevision.revision == row.version)).one_or_none() if row else None
+    if revision is None:
+        raise RegistryError("Arena problem has no registered immutable revision")
+    if revision.approval_status != "legacy_baseline":
+        raise RegistryError("Problem is unavailable in the selected approved release")
+    return revision
+
+
+def load_problem(key: str, root: Path | None = None, *, session: Session | None = None, revision_id: int | None = None) -> CodingProblem:
     if session is not None:
-        row = session.get(ArenaProblem, key)
-        revision = session.exec(select(ContentRevision).where(ContentRevision.content_key == f"arena/{key}",
-            ContentRevision.revision == row.version)).one_or_none() if row else None
-        if revision is None:
-            raise RegistryError("Arena problem has no registered immutable revision")
+        revision = problem_revision(session, key, revision_id)
         return CodingProblem.model_validate(load_snapshot(revision)["problem"])
     # Compatibility for development validators; HTTP workflows always supply a session.
     for _, problem in load_problem_files(root):
@@ -86,9 +107,18 @@ def load_problem(key: str, root: Path | None = None, *, session: Session | None 
             return problem
     raise ValueError("Arena problem not found")
 
-def public_problem(session:Session,row:ArenaProblem)->dict:
-    p=load_problem(row.key,session=session);solved=session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==row.key,ArenaAttempt.passed==True)).first() is not None
-    data=p.model_dump(exclude={"reference_solution"});data["mapped_topic_id"]=resolve_arena_topic(session,row.key);data["mapping_status"]="bound" if data["mapped_topic_id"] else "unresolved";data["hints_available"]=len(p.hints);data["solved"]=solved;data["attempt_count"]=len(session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==row.key)).all())
+def public_problem(session:Session,row:ArenaProblem,revision_id:int|None=None)->dict:
+    revision=problem_revision(session,row.key,revision_id)
+    p=load_problem(row.key,session=session,revision_id=revision.id)
+    attempts=session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==row.key,ArenaAttempt.passed==True)).all()
+    solved=any((session.get(ArenaAttemptContent,a.id).content_revision_id==revision.id if session.get(ArenaAttemptContent,a.id) else revision.approval_status=="legacy_baseline") for a in attempts)
+    data=p.model_dump(exclude={"reference_solution", "publication_contract", "negative_solutions"});data["content_revision_id"]=revision.id;data["mapped_topic_id"]=resolve_arena_topic(session,row.key);data["mapping_status"]="bound" if data["mapped_topic_id"] else "unresolved";data["hints_available"]=len(p.hints);data["solved"]=solved;data["attempt_count"]=len(session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==row.key)).all())
+    if p.adapted or p.source_project:
+        data["declared_source_type"]=p.source_type
+        data["source_type"]="adapted"
+    data["content_sha256"]=revision.sha256
+    data["provenance"]=json.loads(revision.provenance_json)
+    data["approval_status"]="published" if revision.approval_status=="candidate" and revision_id is None else ("historical_release" if revision.approval_status=="candidate" else "legacy_baseline")
     if not solved:data.pop("explanation",None);data.pop("complexity",None)
     validation=data["validation"]
     if p.track=="sql": data["validation"]={k:v for k,v in validation.items() if k in {"setup_sql","visible_tables","sample_rows","expected_columns","mode","order_sensitive"}}
@@ -98,7 +128,12 @@ def public_problem(session:Session,row:ArenaProblem)->dict:
 def list_problems(session:Session,track=None,difficulty=None,tag=None,status=None)->list[dict]:
     rows=session.exec(select(ArenaProblem).where(ArenaProblem.active==True).order_by(ArenaProblem.track,ArenaProblem.difficulty,ArenaProblem.title)).all()
     out=[]
+    from .content_publication import release_entries
+    active=get_active_curriculum(session)
+    released_keys={revision.content_key for _,revision in release_entries(session,curriculum_id=active.id if active else -1)}
     for row in rows:
+        base=session.exec(select(ContentRevision).where(ContentRevision.content_key==f"arena/{row.key}",ContentRevision.revision==row.version)).one()
+        if base.approval_status!="legacy_baseline" and base.content_key not in released_keys:continue
         data=public_problem(session,row)
         if track and row.track!=track:continue
         if difficulty and row.difficulty!=difficulty:continue
@@ -119,8 +154,14 @@ def reveal_hint(session:Session,key:str)->dict:
 def record_attempt(session:Session,key:str,request)->dict:
     row=session.get(ArenaProblem,key)
     if not row:raise ValueError("Arena problem not found")
+    revision=problem_revision(session,key)
+    if revision.approval_status!="legacy_baseline" and getattr(request,"content_revision_id",None) is None:
+        raise ValueError("Published problems require an exact content_revision_id")
+    if getattr(request,"content_revision_id",None) not in (None,revision.id):
+        raise ValueError("Problem release changed; reload before submitting")
     use=session.get(ArenaHintUse,key);previous=session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==key,ArenaAttempt.passed==True)).first()
     attempt=ArenaAttempt(problem_key=key,track=row.track,submitted_source=request.source,score=request.score,passed=request.passed,hints_used=use.count if use else 0,runtime_ms=request.runtime_ms,result_json=json.dumps(request.result));session.add(attempt);session.flush()
+    session.add(ArenaAttemptContent(attempt_id=attempt.id,content_revision_id=revision.id))
     topic_id=resolve_arena_topic(session,key)
     if request.passed and not previous and topic_id:
         weight=(1.25 if row.difficulty=="medium" else 1.0)*(0.7 if attempt.hints_used else 1.0)
@@ -134,4 +175,4 @@ def record_attempt(session:Session,key:str,request)->dict:
 def give_up(session:Session,key:str,source:str="")->dict:
     row=session.get(ArenaProblem,key)
     if not row:raise ValueError("Arena problem not found")
-    attempt=ArenaAttempt(problem_key=key,track=row.track,submitted_source=source or "# Gave up",score=0,passed=False,gave_up=True);session.add(attempt);session.commit();p=load_problem(key,session=session);return {"attempt_id":attempt.id,"passed":False,"score":0,"solution":p.reference_solution,"explanation":p.explanation,"complexity":p.complexity}
+    attempt=ArenaAttempt(problem_key=key,track=row.track,submitted_source=source or "# Gave up",score=0,passed=False,gave_up=True);session.add(attempt);session.flush();session.add(ArenaAttemptContent(attempt_id=attempt.id,content_revision_id=problem_revision(session,key).id));session.commit();p=load_problem(key,session=session);return {"attempt_id":attempt.id,"passed":False,"score":0,"solution":p.reference_solution,"explanation":p.explanation,"complexity":p.complexity}

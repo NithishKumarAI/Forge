@@ -19,6 +19,10 @@ class CourseError(ValueError):
 
 def _selected(session: Session, topic: Topic, lesson_id: int | None = None):
     rows = bound_lessons(session, topic)
+    if lesson_id is not None:
+        binding = session.get(TopicContentBinding, (topic.id, lesson_id))
+        if binding:
+            return binding, session.get(ContentRevision, lesson_id)
     if not rows:
         raise CourseError("This topic has no explicitly bound legacy static lesson; coverage is unavailable.")
     if lesson_id is None:
@@ -38,10 +42,12 @@ def load_lesson_for_topic(session: Session, topic: Topic, lesson_id: int | None 
 
 def lesson_choices(session: Session, topic: Topic) -> list[dict]:
     return [{"content_revision_id": revision.id, "content_key": revision.content_key,
+             "sha256": revision.sha256,
+             "provenance": json.loads(revision.provenance_json),
              "revision": revision.revision, "title": load_snapshot(revision)["lesson"]["title"],
-             "order_index": binding.order_index, "coverage_note": binding.coverage_note,
-             "approval_status": revision.approval_status}
-            for binding, revision in bound_lessons(session, topic)]
+             "order_index": order, "coverage_note": binding.coverage_note,
+             "approval_status": "published" if revision.approval_status == "candidate" else revision.approval_status}
+            for order, (binding, revision) in enumerate(bound_lessons(session, topic))]
 
 
 def progress(session: Session, topic: Topic, lesson: StaticLesson) -> dict:
@@ -114,7 +120,9 @@ def _sync_exercise(session: Session, binding: TopicContentBinding, revision: Con
 
 
 def current_course_exercise_ids(session: Session, topic_id: int) -> set[int]:
-    return set(session.exec(select(CourseExerciseBinding.exercise_id).where(CourseExerciseBinding.topic_id == topic_id)))
+    revisions = [rev.id for _, rev in bound_lessons(session, session.get(Topic, topic_id))]
+    return set(session.exec(select(CourseExerciseBinding.exercise_id).where(
+        CourseExerciseBinding.topic_id == topic_id, CourseExerciseBinding.content_revision_id.in_(revisions))))
 
 
 def sync_course_pack(session: Session) -> int:
@@ -151,7 +159,8 @@ def rebuild_search_index(session: Session, *, commit: bool = True) -> None:
             section_slug UNINDEXED, title, body, key_points)"""))
         session.exec(text("DELETE FROM course_content_fts_v2"))
         snapshots = {}
-        for binding, revision in session.exec(select(TopicContentBinding, ContentRevision).join(ContentRevision)):
+        selected = [pair for topic in session.exec(select(Topic)) for pair in bound_lessons(session, topic)]
+        for binding, revision in selected:
             if revision.id not in snapshots:
                 snapshots[revision.id] = load_snapshot(revision)["lesson"]
             topic = session.get(Topic, binding.topic_id)

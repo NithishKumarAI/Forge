@@ -40,3 +40,15 @@ The problem statements and reference solutions in Forge are independently
 re-written. The exercise concept (word count, anagram detection, etc.) was
 used as pedagogical inspiration. This attribution satisfies the MIT license
 requirement to include the copyright notice.
+
+
+PHASE 2 RECONCILIATION (21 October 2026)
+The historical notice above is retained verbatim. Current upstream repository
+notices observed on their public LICENSE pages are:
+- exercism/python: Copyright (c) 2021 Exercism
+- exercism/problem-specifications: Copyright (c) 2014, 2019, 2021 Exercism
+The MIT permission text applies subject to its notice requirements. No exact
+per-item upstream commit or complete attribution chain has been established.
+The earlier assertion that this file alone satisfies every item's notice
+requirement is unverified. Adapted legacy records remain available as history;
+this notice does not authorize a new publication or establish originality.

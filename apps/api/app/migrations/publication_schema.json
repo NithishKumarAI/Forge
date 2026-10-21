@@ -1,0 +1,32 @@
+[
+  {
+    "name": "contentvalidationreport",
+    "sql": "CREATE TABLE contentvalidationreport (\n\tsha256 VARCHAR NOT NULL, \n\tcandidate_sha256 VARCHAR NOT NULL, \n\tpayload_sha256 VARCHAR NOT NULL, \n\tpolicy_version VARCHAR NOT NULL, \n\tcandidate_json TEXT NOT NULL, \n\treport_json TEXT NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (sha256)\n)",
+    "indexes": []
+  },
+  {
+    "name": "contentreviewrecord",
+    "sql": "CREATE TABLE contentreviewrecord (\n\tsha256 VARCHAR NOT NULL, \n\tvalidation_sha256 VARCHAR NOT NULL, \n\treviewer VARCHAR NOT NULL, \n\toutcome VARCHAR NOT NULL, \n\treviewed_at DATETIME NOT NULL, \n\treview_json TEXT NOT NULL, \n\tPRIMARY KEY (sha256), \n\tFOREIGN KEY(validation_sha256) REFERENCES contentvalidationreport (sha256)\n)",
+    "indexes": []
+  },
+  {
+    "name": "approvedcontentrelease",
+    "sql": "CREATE TABLE approvedcontentrelease (\n\trelease_id VARCHAR NOT NULL, \n\tsha256 VARCHAR NOT NULL, \n\tpackage_json TEXT NOT NULL, \n\tpublished_at DATETIME NOT NULL, \n\tPRIMARY KEY (release_id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "contentreleaseentry",
+    "sql": "CREATE TABLE contentreleaseentry (\n\trelease_id VARCHAR NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\tcontent_revision_id INTEGER NOT NULL, \n\tvalidation_sha256 VARCHAR NOT NULL, \n\treview_sha256 VARCHAR NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\torder_index INTEGER NOT NULL, \n\tPRIMARY KEY (release_id, curriculum_id, content_revision_id, topic_id), \n\tFOREIGN KEY(release_id) REFERENCES approvedcontentrelease (release_id), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id), \n\tFOREIGN KEY(content_revision_id) REFERENCES contentrevision (id), \n\tFOREIGN KEY(validation_sha256) REFERENCES contentvalidationreport (sha256), \n\tFOREIGN KEY(review_sha256) REFERENCES contentreviewrecord (sha256), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "contentreleaseevent",
+    "sql": "CREATE TABLE contentreleaseevent (\n\tid INTEGER NOT NULL, \n\trelease_id VARCHAR NOT NULL, \n\tstatus VARCHAR NOT NULL, \n\tactor VARCHAR NOT NULL, \n\treason VARCHAR NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(release_id) REFERENCES approvedcontentrelease (release_id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "arenaattemptcontent",
+    "sql": "CREATE TABLE arenaattemptcontent (\n\tattempt_id INTEGER NOT NULL, \n\tcontent_revision_id INTEGER NOT NULL, \n\tPRIMARY KEY (attempt_id), \n\tFOREIGN KEY(attempt_id) REFERENCES arenaattempt (id), \n\tFOREIGN KEY(content_revision_id) REFERENCES contentrevision (id)\n)",
+    "indexes": []
+  }
+]
