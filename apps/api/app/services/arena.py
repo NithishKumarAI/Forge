@@ -108,11 +108,13 @@ def load_problem(key: str, root: Path | None = None, *, session: Session | None 
     raise ValueError("Arena problem not found")
 
 def public_problem(session:Session,row:ArenaProblem,revision_id:int|None=None)->dict:
+    from .assessment import help_guard
+    help_guard(session)
     revision=problem_revision(session,row.key,revision_id)
     p=load_problem(row.key,session=session,revision_id=revision.id)
     attempts=session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==row.key,ArenaAttempt.passed==True)).all()
     solved=any((session.get(ArenaAttemptContent,a.id).content_revision_id==revision.id if session.get(ArenaAttemptContent,a.id) else revision.approval_status=="legacy_baseline") for a in attempts)
-    data=p.model_dump(exclude={"reference_solution", "publication_contract", "negative_solutions"});data["content_revision_id"]=revision.id;data["mapped_topic_id"]=resolve_arena_topic(session,row.key);data["mapping_status"]="bound" if data["mapped_topic_id"] else "unresolved";data["hints_available"]=len(p.hints);data["solved"]=solved;data["attempt_count"]=len(session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==row.key)).all())
+    data=p.model_dump(exclude={"reference_solution", "publication_contract", "negative_solutions", "hints"});data["content_revision_id"]=revision.id;data["mapped_topic_id"]=resolve_arena_topic(session,row.key);data["mapping_status"]="bound" if data["mapped_topic_id"] else "unresolved";data["hints_available"]=len(p.hints);data["solved"]=solved;data["attempt_count"]=len(session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==row.key)).all())
     if p.adapted or p.source_project:
         data["declared_source_type"]=p.source_type
         data["source_type"]="adapted"
@@ -143,36 +145,61 @@ def list_problems(session:Session,track=None,difficulty=None,tag=None,status=Non
         out.append(data)
     return out
 
-def validation_payload(key:str,session:Session|None=None)->dict:
-    p=load_problem(key,session=session);return p.validation
+def validation_payload(key,session=None):
+    if session is None:raise ValueError("Learner validation requires a session")
+    from .assessment import help_guard
+    help_guard(session)
+    return public_problem(session,session.get(ArenaProblem,key))["validation"]
 
 def reveal_hint(session:Session,key:str)->dict:
+    from .assessment import help_guard
+    help_guard(session)
     p=load_problem(key,session=session);use=session.get(ArenaHintUse,key) or ArenaHintUse(problem_key=key)
     if use.count>=len(p.hints):raise ValueError("No more hints")
     text=p.hints[use.count];use.count+=1;session.add(use);session.commit();return {"index":use.count,"text":text}
 
-def record_attempt(session:Session,key:str,request)->dict:
-    row=session.get(ArenaProblem,key)
-    if not row:raise ValueError("Arena problem not found")
+def record_attempt(session,key,request):
+    from .assessment_pool import arena_item
+    from .assessment import make_selection,submit,active_scored_interview
+    from ..schemas.assessment import AssessmentSubmission
+    from ..models import Topic
+    if active_scored_interview(session):raise ValueError("Complete or save the scored interview first")
     revision=problem_revision(session,key)
-    if revision.approval_status!="legacy_baseline" and getattr(request,"content_revision_id",None) is None:
-        raise ValueError("Published problems require an exact content_revision_id")
-    if getattr(request,"content_revision_id",None) not in (None,revision.id):
-        raise ValueError("Problem release changed; reload before submitting")
-    use=session.get(ArenaHintUse,key);previous=session.exec(select(ArenaAttempt).where(ArenaAttempt.problem_key==key,ArenaAttempt.passed==True)).first()
-    attempt=ArenaAttempt(problem_key=key,track=row.track,submitted_source=request.source,score=request.score,passed=request.passed,hints_used=use.count if use else 0,runtime_ms=request.runtime_ms,result_json=json.dumps(request.result));session.add(attempt);session.flush()
-    session.add(ArenaAttemptContent(attempt_id=attempt.id,content_revision_id=revision.id))
+    if getattr(request,"content_revision_id",None) is None:raise ValueError("An exact content_revision_id is required")
+    if request.content_revision_id!=revision.id:raise ValueError("Problem release changed; reload before submitting")
     topic_id=resolve_arena_topic(session,key)
-    if request.passed and not previous and topic_id:
-        weight=(1.25 if row.difficulty=="medium" else 1.0)*(0.7 if attempt.hints_used else 1.0)
-        session.add(MasteryEvidenceEvent(topic_id=topic_id,event_type="arena",score=request.score,evidence_weight=weight,assisted=attempt.hints_used>0,metadata_json=json.dumps({"problem_key":key,"difficulty":row.difficulty})))
-    session.commit()
-    if request.passed and topic_id:
-        from .mastery import recalculate_topic
-        recalculate_topic(session,topic_id)
-    return {"attempt_id":attempt.id,"passed":attempt.passed,"score":attempt.score,"solution":load_problem(key,session=session).reference_solution if request.passed else None,"explanation":load_problem(key,session=session).explanation if request.passed else None,"complexity":load_problem(key,session=session).complexity if request.passed else None}
+    item=arena_item(load_problem(key,session=session))
+    from .content_publication import release_entries
+    active=get_active_curriculum(session)
+    approved=any(r.id==revision.id for _,r in release_entries(session,curriculum_id=active.id if active else -1))
+    if not topic_id:
+        from .assessment_judge import judge
+        checked=judge(item,request.source)
+        if checked["status"]!="verified":raise ValueError("Awaiting local worker verification; no mastery evidence")
+        passed=checked["total"]>0 and checked["passed"]==checked["total"]
+        score=round(100*checked["passed"]/checked["total"],1) if checked["total"] else 0
+        attempt=ArenaAttempt(problem_key=key,track=session.get(ArenaProblem,key).track,submitted_source=request.source,score=score,passed=passed,
+            result_json=json.dumps({**checked,"policy_version":"forge-evidence/2","judge_version":"forge-worker/1","content_sha256":revision.sha256,"unmapped":True,"verification":"backend_bounded_worker"}))
+        session.add(attempt);session.flush();session.add(ArenaAttemptContent(attempt_id=attempt.id,content_revision_id=revision.id));session.commit()
+        p=load_problem(key,session=session)
+        return {"attempt_id":attempt.id,"passed":passed,"score":score,"approval":"unmapped_legacy","verification":"backend_bounded_worker",
+            "solution":p.reference_solution if passed else None,"explanation":p.explanation if passed else None,"complexity":p.complexity if passed else None}
+    selected=make_selection(session,session.get(Topic,topic_id),item,revision,"approved" if approved else "legacy_unverified","arena")
+    use=session.get(ArenaHintUse,key)
+    selected.hints_used=use.count if use else 0;selected.assisted=bool(selected.assisted or selected.hints_used)
+    session.add(selected);session.commit()
+    result=submit(session,selected,AssessmentSubmission(content_sha256=revision.sha256,source=request.source))
+    if result.get("error"):raise ValueError(result["error"])
+    actual=result["result"]
+    p=load_problem(key,session=session)
+    return {"attempt_id":selected.arena_attempt_id,"passed":actual["passed"],"score":actual["score"],
+        "verification":actual["verification"],"approval":selected.approval,
+        "solution":p.reference_solution if actual["passed"] else None,"explanation":p.explanation if actual["passed"] else None,"complexity":p.complexity if actual["passed"] else None}
+
 
 def give_up(session:Session,key:str,source:str="")->dict:
+    from .assessment import help_guard
+    help_guard(session)
     row=session.get(ArenaProblem,key)
     if not row:raise ValueError("Arena problem not found")
     attempt=ArenaAttempt(problem_key=key,track=row.track,submitted_source=source or "# Gave up",score=0,passed=False,gave_up=True);session.add(attempt);session.flush();session.add(ArenaAttemptContent(attempt_id=attempt.id,content_revision_id=problem_revision(session,key).id));session.commit();p=load_problem(key,session=session);return {"attempt_id":attempt.id,"passed":False,"score":0,"solution":p.reference_solution,"explanation":p.explanation,"complexity":p.complexity}

@@ -1,7 +1,7 @@
 import argparse,json
 from pathlib import Path
 from app.config import settings
-from app.providers.dependencies import get_llm_provider
+from scripts.authoring.providers.dependencies import get_llm_provider
 from app.schemas.arena import CodingProblem
 POLICY="""Create one original Forge interview problem. Do not copy external problem statements. Use only easy or common-medium difficulty. Include deterministic validation, progressive hints, a correct reference solution, explanation, and complexity. Python/DSA must use standard-library code. SQL initially supports SELECT and PostgreSQL-compatible fixtures. Return the requested structure."""
 def main():

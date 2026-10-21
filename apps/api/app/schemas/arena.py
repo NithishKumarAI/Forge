@@ -53,7 +53,8 @@ class CodingProblem(BaseModel):
 class ArenaAttemptRequest(BaseModel):
     content_revision_id: int | None = None
     source: str = Field(min_length=1,max_length=30000)
-    passed: bool
-    score: float = Field(ge=0,le=100)
+    # Deprecated client claims are accepted for old clients but never used for grading.
+    passed: bool = False
+    score: float = Field(default=0,ge=0,le=100)
     runtime_ms: int | None = Field(default=None,ge=0)
     result: dict = {}

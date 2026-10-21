@@ -1,45 +1,17 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { CalendarClock, CheckCircle2, LoaderCircle, Play, Send } from "lucide-react";
+import { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
-import { Markdown } from "../components/Markdown";
-import { ErrorState, LoadingState } from "../components/Status";
-import { runPython } from "../features/practice/pythonRunner";
 import { api } from "../services/api";
-import type { AdaptiveAttempt, ReviewQueueItem, ReviewSessionItem } from "../types/adaptive";
-import type { ExecutionResult } from "../types/practice";
-
-const CodeEditor = lazy(() => import("../components/CodeEditor").then((module) => ({ default: module.CodeEditor })));
-
-export function ReviewPage() {
-  const [due, setDue] = useState<ReviewQueueItem[] | null>(null); const [upcoming, setUpcoming] = useState<{ tomorrow: number; next_7_days: number; items: ReviewQueueItem[]; recently_reviewed: { topic_id: number; topic_name: string; score: number; at: string }[] } | null>(null);
-  const [items, setItems] = useState<ReviewSessionItem[]>([]); const [index, setIndex] = useState(0); const [answer, setAnswer] = useState(""); const [choice, setChoice] = useState<number | null>(null); const [code, setCode] = useState("");
-  const [execution, setExecution] = useState<ExecutionResult | null>(null); const [attempt, setAttempt] = useState<AdaptiveAttempt | null>(null); const [busy, setBusy] = useState(false); const [error, setError] = useState<string | null>(null);
-  useEffect(() => { Promise.all([api.reviewsDue(), api.reviewsUpcoming()]).then(([dueRows, upcomingRows]) => { setDue(dueRows); setUpcoming(upcomingRows); }).catch((reason: unknown) => setError(reason instanceof Error ? reason.message : "Reviews unavailable")); }, []);
-  const current = items[index]; const exercise = current?.exercise;
-  useEffect(() => { setAnswer(""); setChoice(null); setAttempt(null); setExecution(null); setCode(exercise?.content.starter_code ?? ""); }, [exercise?.id]);
-  async function start() { setBusy(true); setError(null); try {
-    const response = await api.startReviews(); const usable: ReviewSessionItem[] = [];
-    for (const item of response.items) {
-      if (item.exercise.validation_status === "pending") {
-        const validation = await api.referenceValidation(item.exercise.id);
-        const result = await runPython({ code: validation.reference_solution, functionName: validation.function_name, tests: validation.tests, timeoutMs: validation.time_limit_ms });
-        const passed = result.status === "passed" && result.tests.length === validation.tests.length;
-        await api.reportReferenceValidation(item.exercise.id, passed);
-        if (!passed) continue;
-        item.exercise.validation_status = "valid";
-      }
-      usable.push(item);
-    }
-    setItems(usable); setIndex(0); if (!usable.length) setError("No due topic has a validated review exercise yet.");
-  } catch (reason) { setError(reason instanceof Error ? reason.message : "Could not start reviews"); } finally { setBusy(false); } }
-  async function run() { if (!exercise) return; setBusy(true); try { setExecution(await runPython({ code, functionName: exercise.content.function_name, tests: exercise.content.sample_tests ?? [], timeoutMs: exercise.content.time_limit_ms })); } finally { setBusy(false); } }
-  async function submit() { if (!exercise || !current) return; setBusy(true); setError(null); try {
-    if (exercise.exercise_type === "multiple_choice") setAttempt(await api.submitReview(current.session_id, { selected_index: choice ?? undefined }));
-    else if (exercise.exercise_type === "short_answer") setAttempt(await api.submitReview(current.session_id, { answer }));
-    else { const tests = await api.submissionTests(exercise.id); const result = await runPython({ code, functionName: tests.function_name, tests: tests.tests, timeoutMs: tests.time_limit_ms }); setExecution(result); setAttempt(await api.submitReview(current.session_id, { source: code, execution: result })); }
-  } catch (reason) { setError(reason instanceof Error ? reason.message : "Review submission failed"); } finally { setBusy(false); } }
-  if (error && due === null) return <ErrorState message={error} />; if (due === null || !upcoming) return <LoadingState />;
-  if (items.length && index >= items.length) return <div className="mx-auto max-w-3xl rounded-3xl bg-white p-10 text-center shadow-soft"><CheckCircle2 className="mx-auto text-accent" size={42} /><h1 className="display mt-4 text-3xl font-bold">Review complete</h1><p className="mt-2 text-slate-500">{items.length} topics reviewed. FSRS scheduled each next review.</p><Link to="/" className="mt-6 inline-block rounded-xl bg-accent px-5 py-3 font-semibold text-white">Return to dashboard</Link></div>;
-  if (exercise && current) { const isCode = exercise.exercise_type.startsWith("python_"); return <div className="mx-auto max-w-5xl"><p className="text-sm font-semibold text-accent">Review {index + 1} / {items.length} · {current.topic_name}</p><section className="mt-4 rounded-3xl border bg-white p-7 shadow-soft"><h1 className="display text-2xl font-bold">{exercise.title}</h1><div className="mt-4"><Markdown>{exercise.prompt_markdown}</Markdown></div>{exercise.exercise_type === "multiple_choice" && <div className="mt-5 space-y-2">{exercise.content.choices?.map((value, position) => <label key={value} className="flex gap-3 rounded-xl border p-4"><input type="radio" disabled={Boolean(attempt)} checked={choice === position} onChange={() => setChoice(position)} />{value}</label>)}</div>}{exercise.exercise_type === "short_answer" && <textarea aria-label="Review answer" rows={7} className="mt-5 w-full rounded-xl border bg-slate-50 p-4" value={answer} disabled={Boolean(attempt)} onChange={(event) => setAnswer(event.target.value)} />}{isCode && <div className="mt-5"><Suspense fallback={<p>Loading editor…</p>}><CodeEditor value={code} onChange={setCode} /></Suspense><button onClick={() => void run()} disabled={busy || Boolean(attempt)} className="mt-3 inline-flex gap-2 rounded-xl border px-4 py-2 font-semibold"><Play size={16} /> Run samples</button></div>}{execution && <div className="mt-4 rounded-xl bg-slate-950 p-4 text-sm text-white"><strong>{execution.status.replaceAll("_", " ")}</strong>{execution.tests.map((test) => <p key={test.name}>{test.passed ? "✓" : "✗"} {test.name} {test.message}</p>)}</div>}{attempt && <div className="mt-5 rounded-xl bg-accent-soft p-4 text-accent"><strong>{attempt.score ?? "Pending"}%</strong><p className="mt-1">{attempt.feedback}</p>{attempt.next_due_at && <p className="mt-2 text-sm">Next review: {new Date(attempt.next_due_at).toLocaleString()}</p>}</div>}{error && <p className="mt-4 text-red-700">{error}</p>}<div className="mt-6 flex justify-end">{attempt ? <button onClick={() => setIndex((value) => value + 1)} className="rounded-xl bg-accent px-5 py-3 font-semibold text-white">Next review</button> : <button onClick={() => void submit()} disabled={busy || (exercise.exercise_type === "multiple_choice" && choice === null) || (exercise.exercise_type === "short_answer" && !answer.trim())} className="inline-flex gap-2 rounded-xl bg-accent px-5 py-3 font-semibold text-white disabled:opacity-40">{busy ? <LoaderCircle className="animate-spin" size={17} /> : <Send size={17} />} Submit</button>}</div></section></div>; }
-  return <div className="mx-auto max-w-5xl"><header><p className="text-sm font-semibold uppercase tracking-widest text-accent">Spaced repetition</p><h1 className="display mt-2 text-3xl font-extrabold">Due Reviews</h1></header><div className="mt-7 grid gap-5 lg:grid-cols-[1.2fr_.8fr]"><section className="rounded-3xl border bg-white p-6 shadow-sm"><div className="flex items-center justify-between"><h2 className="display text-xl font-bold">Due today</h2><span className="rounded-full bg-accent-soft px-3 py-1 font-bold text-accent">{due.length}</span></div><div className="mt-4 space-y-2">{due.length ? due.map((item) => <div key={item.topic_id} className="rounded-xl bg-slate-50 p-4"><strong>{item.topic_name}</strong><p className="text-sm text-slate-500">{item.track_name}</p></div>) : <p className="text-slate-500">Nothing is due today.</p>}</div>{due.length > 0 && <button onClick={() => void start()} disabled={busy} className="mt-5 rounded-xl bg-accent px-5 py-3 font-semibold text-white">Start Reviews</button>}</section><div className="space-y-5"><section className="rounded-3xl border bg-white p-6 shadow-sm"><CalendarClock className="text-accent" /><h2 className="display mt-3 text-xl font-bold">Upcoming</h2><p className="mt-4">Tomorrow — <strong>{upcoming.tomorrow}</strong></p><p className="mt-2">Next 7 days — <strong>{upcoming.next_7_days}</strong></p></section><section className="rounded-3xl border bg-white p-6 shadow-sm"><h2 className="display text-xl font-bold">Recently reviewed</h2>{upcoming.recently_reviewed.length ? <div className="mt-3 space-y-2">{upcoming.recently_reviewed.map((item) => <Link key={`${item.topic_id}-${item.at}`} to={`/topics/${item.topic_id}`} className="flex justify-between rounded-xl bg-slate-50 p-3 text-sm"><span>Topic {item.topic_id}</span><strong>{item.score}%</strong></Link>)}</div> : <p className="mt-3 text-sm text-slate-500">No completed reviews yet.</p>}</section></div></div></div>;
+import { offline } from "../services/offline";
+import { AssessmentCard } from "../components/AssessmentCard";
+import type { StaticAssessment } from "../types/assessment";
+import type { ReviewQueueItem } from "../types/adaptive";
+export function ReviewPage(){
+ const [due,setDue]=useState<ReviewQueueItem[]>([]),[item,setItem]=useState<StaticAssessment|null>(null),[error,setError]=useState("");
+ const load=()=>api.reviewsDue().then(setDue).catch(e=>setError(String(e)));
+ useEffect(()=>{void load();},[]);
+ async function start(id:number){setError("");try{setItem(await offline.start(id,"recall"));}catch(e){setError(e instanceof Error?e.message:"No approved recall questions");}}
+ return <div className="mx-auto max-w-4xl"><h1 className="display text-3xl font-bold">Delayed recall</h1><p className="mt-3 text-slate-600">FSRS controls when review is due. Independent recall after clean transfer requires at least 24 elapsed hours.</p>{error&&<p role="alert" className="mt-4 rounded-xl bg-amber-50 p-4">{error}</p>}
+ {due.length===0&&<p className="mt-5">No reviews are due. <Link to="/curriculum" className="text-accent">Choose any topic manually.</Link></p>}
+ <ul className="mt-5 space-y-3">{due.map(row=><li key={row.topic_id} className="flex items-center justify-between rounded-xl border bg-white p-4"><span>{row.topic_name}</span><button className="font-semibold text-accent" onClick={()=>void start(row.topic_id)}>Start due recall</button></li>)}</ul>
+ {item&&<AssessmentCard key={item.id} item={item} onChange={value=>{setItem(value);if(value.status!=="open")void load();}}/>}</div>;
 }

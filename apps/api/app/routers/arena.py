@@ -30,8 +30,9 @@ def hint(key:str,session:Session=Depends(get_session)):
     except ValueError as exc:raise HTTPException(409,str(exc)) from exc
 @router.post("/problems/{key}/submit")
 def submit(key:str,request:ArenaAttemptRequest,session:Session=Depends(get_session)):
+    if not session.get(ArenaProblem,key):raise HTTPException(404,"Arena problem not found")
     try:return record_attempt(session,key,request)
-    except ValueError as exc:raise HTTPException(404,str(exc)) from exc
+    except ValueError as exc:raise HTTPException(409,str(exc)) from exc
 @router.post("/problems/{key}/give-up")
 def giveup(key:str,session:Session=Depends(get_session)):
     try:return give_up(session,key)

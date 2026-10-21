@@ -1,4 +1,5 @@
 from .entities import (
+    AssessmentSelection, EvidenceCredit, EvidencePolicyRecord, AssessmentHelpEvent,
     EditionCurriculumBinding,
     TopicPlacement,
     ContentValidationReport,

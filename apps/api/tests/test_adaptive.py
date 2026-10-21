@@ -11,11 +11,9 @@ from app.models import (
 from app.schemas.practice import MCQSubmission
 from app.services.mastery import backfill_topic_evidence, mastery_breakdown, recalculate_topic, transfer_eligible
 from app.services.planner import today_plan, update_planner_settings
-from app.services.practice import start_practice, submit_mcq
 from app.services.readiness import curriculum_readiness
 from app.services.review import apply_review, rating_for_performance
 from app.services.active_curriculum import get_active_curriculum
-from tests.test_practice import FakePracticeProvider
 
 
 def first_topic(session: Session) -> Topic:
@@ -25,7 +23,7 @@ def first_topic(session: Session) -> Topic:
 def event(session: Session, topic_id: int, kind: str, score: float, exercise_type: str, when: datetime, assisted: bool = False, hints: int = 0) -> MasteryEvidenceEvent:
     weights = {"multiple_choice": .6, "short_answer": .8, "python_code": 1.0, "python_debug": 1.0}
     multiplier = 1 if hints == 0 else .9 if hints == 1 else .78 if hints == 2 else .65
-    row = MasteryEvidenceEvent(topic_id=topic_id, event_type=kind, score=score, evidence_weight=weights[exercise_type] * multiplier, assisted=assisted, metadata_json=json.dumps({"exercise_type": exercise_type, "hints_used": hints}), created_at=when)
+    row = MasteryEvidenceEvent(topic_id=topic_id, event_type=kind, score=score, evidence_weight=weights[exercise_type] * multiplier, assisted=assisted, metadata_json=json.dumps({"exercise_type": exercise_type, "hints_used": hints,"verified":True}), created_at=when)
     session.add(row); session.commit(); return row
 
 
@@ -72,24 +70,6 @@ def test_failed_or_assisted_transfer_does_not_promote(session: Session) -> None:
     event(session, topic.id, "transfer", 95, "python_code", now, assisted=True)
     result = recalculate_topic(session, topic.id, now=now)
     assert result["mastery_score"] <= 79 and result["status"] != "strong"
-
-
-def test_backfill_is_idempotent_and_existing_phase3_attempts_count(session: Session) -> None:
-    topic = first_topic(session); practice_session, exercises = start_practice(session, topic, FakePracticeProvider())
-    submit_mcq(session, exercises[0], MCQSubmission(session_id=practice_session.id, selected_index=0))
-    before = session.exec(select(MasteryEvidenceEvent).where(MasteryEvidenceEvent.topic_id == topic.id)).all()
-    backfill_topic_evidence(session, topic.id); backfill_topic_evidence(session, topic.id)
-    after = session.exec(select(MasteryEvidenceEvent).where(MasteryEvidenceEvent.topic_id == topic.id)).all()
-    assert len(before) == len(after) == 1
-
-
-def test_recurring_mistake_increments(session: Session) -> None:
-    topic = first_topic(session); first, exercises = start_practice(session, topic, FakePracticeProvider())
-    submit_mcq(session, exercises[0], MCQSubmission(session_id=first.id, selected_index=1))
-    second, reused = start_practice(session, topic, None)
-    submit_mcq(session, reused[0], MCQSubmission(session_id=second.id, selected_index=1))
-    mistake = session.exec(select(Mistake).where(Mistake.topic_id == topic.id)).one()
-    assert mistake.occurrence_count == 2
 
 
 def test_fsrs_rating_and_review_state(session: Session) -> None:

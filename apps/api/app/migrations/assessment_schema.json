@@ -1,0 +1,30 @@
+[
+  {
+    "name": "assessmentselection",
+    "sql": "CREATE TABLE assessmentselection (\n\tid VARCHAR NOT NULL, \n\tsession_id INTEGER NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\ttopic_id INTEGER, \n\tcontent_revision_id INTEGER, \n\tcontent_sha256 VARCHAR NOT NULL, \n\titem_key VARCHAR NOT NULL, \n\tfamily VARCHAR NOT NULL, \n\tpurpose VARCHAR NOT NULL, \n\tapproval VARCHAR NOT NULL, \n\tsnapshot_json TEXT NOT NULL, \n\tpolicy_version VARCHAR NOT NULL, \n\tjudge_version VARCHAR NOT NULL, \n\tassisted BOOLEAN NOT NULL, \n\thints_used INTEGER NOT NULL, \n\trevealed BOOLEAN NOT NULL, \n\tstatus VARCHAR NOT NULL, \n\tattempt_id INTEGER, \n\tarena_attempt_id INTEGER, \n\tinterview_question_id INTEGER, \n\tresult_json VARCHAR NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tcompleted_at DATETIME, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(session_id) REFERENCES learningsession (id), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(content_revision_id) REFERENCES contentrevision (id), \n\tUNIQUE (attempt_id), \n\tFOREIGN KEY(attempt_id) REFERENCES attempt (id), \n\tUNIQUE (arena_attempt_id), \n\tFOREIGN KEY(arena_attempt_id) REFERENCES arenaattempt (id), \n\tUNIQUE (interview_question_id), \n\tFOREIGN KEY(interview_question_id) REFERENCES interviewquestion (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_assessmentselection_curriculum_id ON assessmentselection (curriculum_id)",
+      "CREATE INDEX ix_assessmentselection_family ON assessmentselection (family)",
+      "CREATE INDEX ix_assessmentselection_session_id ON assessmentselection (session_id)",
+      "CREATE INDEX ix_assessmentselection_topic_id ON assessmentselection (topic_id)",
+      "CREATE UNIQUE INDEX uq_open_topic_context ON assessmentselection (topic_id, purpose) WHERE status='open' AND purpose IN ('practice','transfer','recall')"
+    ]
+  },
+  {
+    "name": "evidencecredit",
+    "sql": "CREATE TABLE evidencecredit (\n\tselection_id VARCHAR NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\tfamily VARCHAR NOT NULL, \n\tpurpose VARCHAR NOT NULL, \n\tevent_id INTEGER NOT NULL, \n\tglobal_key VARCHAR, \n\tPRIMARY KEY (selection_id), \n\tCONSTRAINT uq_assessment_credit UNIQUE (topic_id, family, purpose), \n\tFOREIGN KEY(selection_id) REFERENCES assessmentselection (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tUNIQUE (event_id), \n\tFOREIGN KEY(event_id) REFERENCES masteryevidenceevent (id), \n\tUNIQUE (global_key)\n)",
+    "indexes": []
+  },
+  {
+    "name": "evidencepolicyrecord",
+    "sql": "CREATE TABLE evidencepolicyrecord (\n\ttopic_id INTEGER NOT NULL, \n\tpolicy_version VARCHAR NOT NULL, \n\tprevious_projection_json TEXT NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (topic_id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "assessmenthelpevent",
+    "sql": "CREATE TABLE assessmenthelpevent (\n\tid INTEGER NOT NULL, \n\tselection_id VARCHAR NOT NULL, \n\tkind VARCHAR NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(selection_id) REFERENCES assessmentselection (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_assessmenthelpevent_selection_id ON assessmenthelpevent (selection_id)"
+    ]
+  }
+]

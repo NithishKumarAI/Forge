@@ -3,6 +3,7 @@ export interface ContentAvailability {
   lesson_count: number; approved_lesson_count: number; legacy_lesson_count: number;
   practice_available: boolean; approved_practice_available: boolean;
   course_exercise_count: number; arena_count: number;
+  assessment_item_count?: number;
   completed_sections: number; total_sections: number; reading_percent: number;
 }
 export interface EditionDefinition {

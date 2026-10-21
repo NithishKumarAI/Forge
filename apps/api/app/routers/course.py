@@ -6,6 +6,11 @@ from ..services.course import CourseError, lesson_choices, load_lesson_for_topic
 
 router = APIRouter(prefix="/api/course", tags=["course"])
 
+def _help(session):
+    from ..services.assessment import help_guard
+    try:help_guard(session)
+    except ValueError as error:raise HTTPException(409,str(error)) from error
+
 def _topic(session, topic_id):
     topic=session.get(Topic,topic_id)
     if not topic: raise HTTPException(404,"Topic not found")
@@ -13,6 +18,7 @@ def _topic(session, topic_id):
 
 @router.get("/topics/{topic_id}")
 def lesson(topic_id:int, session:Session=Depends(get_session), lesson_id:int|None=None):
+    _help(session)
     topic=_topic(session,topic_id)
     try: content=load_lesson_for_topic(session,topic,lesson_id)
     except CourseError as exc: raise HTTPException(404,str(exc)) from exc
@@ -46,5 +52,6 @@ def topic_progress(topic_id:int,session:Session=Depends(get_session),lesson_id:i
 
 @router.get("/search")
 def search(q:str=Query(min_length=2,max_length=200),topic_id:int|None=None,session:Session=Depends(get_session)):
+    _help(session)
     try:return search_course(session,q,topic_id)
     except CourseError as exc:raise HTTPException(503,str(exc)) from exc

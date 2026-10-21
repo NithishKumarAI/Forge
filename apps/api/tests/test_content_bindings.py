@@ -54,7 +54,7 @@ def test_registers_all_53_legacy_lessons_and_scoped_exercises(session):
         track = session.get(Track,topic.track_id)
         assert (exercise.topic_id,exercise.track_id,exercise.curriculum_id) == (topic.id,track.id,track.curriculum_id)
     topic = topic_for(session,new.id,"python/control-flow")
-    _, items = start_practice(session,topic,None)
+    _, items = start_practice(session,topic)
     assert len(items)==3 and {item.id for item in items}.issubset(current_course_exercise_ids(session,topic.id))
 
 

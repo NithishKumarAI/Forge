@@ -1,143 +1,34 @@
-from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+"""Historical reads; new work uses frozen /api/assessment selections."""
+from fastapi import APIRouter,Depends,HTTPException
 from sqlmodel import Session
-
 from ..database import get_session
-from ..models import Exercise, LearningSession, Topic
-from ..providers import LLMProvider, ProviderError
-from ..providers.dependencies import get_llm_provider
-from ..schemas.practice import (
-    AttemptRead, CodeSubmission, HintRead, MCQSubmission, PracticeHistory,
-    PracticeSessionRead, PracticeStartResponse, PublicExercise,
-    ShortAnswerSubmission,
-)
-from ..services.practice import (
-    PracticeError, mark_reference_validation, practice_history, public_exercise,
-    reference_validation_payload, reveal_hint, session_exercises, start_practice,
-    submission_tests, submit_code, submit_mcq, submit_short_answer,
-)
+from ..services.practice import practice_history,public_exercise
+from ..models import Exercise,LearningSession,PracticeSessionExercise,ExerciseAttemptDetail
+from sqlmodel import select
+router=APIRouter(prefix="/api/practice",tags=["practice history"])
+@router.get("/topics/{topic_id}/history")
+def history(topic_id:int,session:Session=Depends(get_session)):
+    from ..services.assessment import help_guard
+    try:help_guard(session)
+    except ValueError as error:raise HTTPException(409,str(error)) from error
+    return practice_history(session,topic_id)
+@router.get("/exercises/{exercise_id}")
+def exercise(exercise_id:int,session:Session=Depends(get_session)):
+    row=session.get(Exercise,exercise_id)
+    if not row:raise HTTPException(404,"Historical exercise not found")
+    return {**public_exercise(row),"approval":"historical_unverified","continuation":"read_only"}
 
-
-router = APIRouter(prefix="/api/practice", tags=["practice"])
-
-
-def _exercise(session: Session, exercise_id: int) -> Exercise:
-    exercise = session.get(Exercise, exercise_id)
-    if exercise is None or not exercise.is_active:
-        raise HTTPException(status_code=404, detail="Exercise not found")
-    return exercise
-
-
-def _conflict(exc: PracticeError) -> HTTPException:
-    return HTTPException(status_code=409, detail=str(exc))
-
-
-@router.post("/topics/{topic_id}/start", response_model=PracticeStartResponse)
-def start(
-    topic_id: int,
-    session: Session = Depends(get_session),
-    provider: LLMProvider | None = Depends(get_llm_provider),
-) -> dict:
-    topic = session.get(Topic, topic_id)
-    if topic is None:
-        raise HTTPException(status_code=404, detail="Topic not found")
-    try:
-        practice_session, exercises = start_practice(session, topic, provider)
-    except ProviderError as exc:
-        raise HTTPException(status_code=503, detail=str(exc)) from exc
-    return {"session_id": practice_session.id, "exercises": [public_exercise(item) for item in exercises]}
-
-
-@router.get("/sessions/{session_id}", response_model=PracticeSessionRead)
-def get_practice_session(session_id: int, session: Session = Depends(get_session)) -> dict:
-    practice_session = session.get(LearningSession, session_id)
-    if practice_session is None:
-        raise HTTPException(status_code=404, detail="Practice session not found")
-    try:
-        exercises = session_exercises(session, practice_session)
-    except PracticeError as exc:
-        raise _conflict(exc) from exc
-    return {"session_id": session_id, "topic_id": practice_session.topic_id, "exercises": [public_exercise(item) for item in exercises]}
-
-
-@router.get("/topics/{topic_id}/history", response_model=PracticeHistory)
-def history(topic_id: int, session: Session = Depends(get_session)) -> dict:
-    if session.get(Topic, topic_id) is None:
-        raise HTTPException(status_code=404, detail="Topic not found")
-    return practice_history(session, topic_id)
-
-
-@router.get("/exercises/{exercise_id}", response_model=PublicExercise)
-def get_exercise(exercise_id: int, session: Session = Depends(get_session)) -> dict:
-    return public_exercise(_exercise(session, exercise_id))
-
-
-class SessionRequest(BaseModel):
-    session_id: int
-
-
-class ValidationReport(BaseModel):
-    passed: bool
-
-
-@router.post("/exercises/{exercise_id}/hint", response_model=HintRead)
-def hint(exercise_id: int, request: SessionRequest, session: Session = Depends(get_session)) -> dict:
-    try:
-        return reveal_hint(session, _exercise(session, exercise_id), request.session_id)
-    except PracticeError as exc:
-        raise _conflict(exc) from exc
-
-
-@router.get("/exercises/{exercise_id}/submission-tests")
-def get_submission_tests(exercise_id: int, session: Session = Depends(get_session)) -> dict:
-    try:
-        return submission_tests(_exercise(session, exercise_id))
-    except PracticeError as exc:
-        raise _conflict(exc) from exc
-
-
-@router.get("/exercises/{exercise_id}/reference-validation")
-def get_reference_validation(exercise_id: int, session: Session = Depends(get_session)) -> dict:
-    try:
-        return reference_validation_payload(_exercise(session, exercise_id))
-    except PracticeError as exc:
-        raise _conflict(exc) from exc
-
-
-@router.post("/exercises/{exercise_id}/reference-validation")
-def report_reference_validation(
-    exercise_id: int, report: ValidationReport, session: Session = Depends(get_session)
-) -> dict:
-    try:
-        mark_reference_validation(session, _exercise(session, exercise_id), report.passed)
-    except PracticeError as exc:
-        raise _conflict(exc) from exc
-    return {"validation_status": "valid" if report.passed else "invalid"}
-
-
-@router.post("/exercises/{exercise_id}/submit/mcq", response_model=AttemptRead)
-def mcq(exercise_id: int, request: MCQSubmission, session: Session = Depends(get_session)) -> dict:
-    try:
-        return submit_mcq(session, _exercise(session, exercise_id), request)
-    except PracticeError as exc:
-        raise _conflict(exc) from exc
-
-
-@router.post("/exercises/{exercise_id}/submit/short-answer", response_model=AttemptRead)
-def short_answer(
-    exercise_id: int, request: ShortAnswerSubmission,
-    session: Session = Depends(get_session),
-    provider: LLMProvider | None = Depends(get_llm_provider),
-) -> dict:
-    try:
-        return submit_short_answer(session, _exercise(session, exercise_id), request, provider)
-    except PracticeError as exc:
-        raise _conflict(exc) from exc
-
-
-@router.post("/exercises/{exercise_id}/submit/code", response_model=AttemptRead)
-def code(exercise_id: int, request: CodeSubmission, session: Session = Depends(get_session)) -> dict:
-    try:
-        return submit_code(session, _exercise(session, exercise_id), request)
-    except PracticeError as exc:
-        raise _conflict(exc) from exc
+@router.get("/sessions/{session_id}")
+def legacy_session(session_id:int,session:Session=Depends(get_session)):
+    from ..services.assessment import help_guard
+    try:help_guard(session)
+    except ValueError as error:raise HTTPException(409,str(error)) from error
+    row=session.get(LearningSession,session_id)
+    if row is None:raise HTTPException(404,"Historical session not found")
+    exercises=[public_exercise(session.get(Exercise,link.exercise_id)) for link in session.exec(select(PracticeSessionExercise).where(PracticeSessionExercise.session_id==session_id))]
+    responses=[{"exercise_id":d.exercise_id,"saved_answer":d.answer,"evaluation_status":d.evaluation_status,"grading_source":d.grading_source,"feedback":d.feedback}
+        for d in session.exec(select(ExerciseAttemptDetail).where(ExerciseAttemptDetail.session_id==session_id))]
+    return {"session_id":row.id,"topic_id":row.topic_id,"mode":row.mode,"read_only":True,"exercises":exercises,"responses":responses}
+@router.api_route("/{path:path}",methods=["GET","POST","PUT"])
+def retired(path:str):
+    raise HTTPException(410,"Use static assessment. Reference validation and generated sessions are retired; history is preserved.")

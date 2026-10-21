@@ -28,7 +28,7 @@ function LearnLesson({ topicId, lessonId, onSelect }: { topicId: number; lessonI
   const navigate = useNavigate();
   useEffect(() => {
     if (course.data) {
-      setSlug(course.data.progress.current_section_slug);
+      setSlug(new URLSearchParams(window.location.search).get("section") ?? course.data.progress.current_section_slug);
       setDone(course.data.progress);
     }
   }, [course.data]);

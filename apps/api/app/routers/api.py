@@ -70,6 +70,8 @@ def get_topic(topic_id: int, session: Session = Depends(get_session)) -> dict:
 def update_topic_state(
     topic_id: int, update: TopicStateUpdate, session: Session = Depends(get_session)
 ) -> dict:
+    if any(key in update.model_dump(exclude_unset=True) for key in ("mastery_score","confidence","status","attempts")):
+        raise HTTPException(409,"Mastery and confidence are calculated from assessment evidence")
     topic = session.get(Topic, topic_id)
     if topic is None:
         raise HTTPException(status_code=404, detail="Topic not found")

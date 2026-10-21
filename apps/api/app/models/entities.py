@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from sqlalchemy import CheckConstraint, Column, Text, UniqueConstraint
+from sqlalchemy import CheckConstraint, Column, Text, UniqueConstraint, Index, text
 from sqlmodel import Field, Relationship, SQLModel
 
 
@@ -480,3 +480,56 @@ class TopicPlacement(SQLModel, table=True):
     subject_key: str
     level: int = Field(ge=1, le=5)
     order_index: int = Field(ge=0)
+
+
+class AssessmentSelection(SQLModel, table=True):
+    """Snapshot/exposure and provenance for the existing learning/attempt system."""
+    __table_args__ = (Index("uq_open_topic_context","topic_id","purpose",unique=True,
+        sqlite_where=text("status='open' AND purpose IN ('practice','transfer','recall')")),)
+    id: str = Field(primary_key=True)
+    session_id: int = Field(foreign_key="learningsession.id", index=True)
+    curriculum_id: int = Field(foreign_key="curriculum.id", index=True)
+    topic_id: int | None = Field(default=None,foreign_key="topic.id", index=True)
+    content_revision_id: int | None = Field(default=None, foreign_key="contentrevision.id")
+    content_sha256: str
+    item_key: str
+    family: str = Field(index=True)
+    purpose: str
+    approval: str
+    snapshot_json: str = Field(sa_column=Column(Text, nullable=False))
+    policy_version: str = "forge-evidence/2"
+    judge_version: str = "forge-worker/1"
+    assisted: bool = False
+    hints_used: int = 0
+    revealed: bool = False
+    status: str = "open"
+    attempt_id: int | None = Field(default=None, foreign_key="attempt.id", unique=True)
+    arena_attempt_id: int | None = Field(default=None, foreign_key="arenaattempt.id", unique=True)
+    interview_question_id: int | None = Field(default=None, foreign_key="interviewquestion.id", unique=True)
+    result_json: str = "{}"
+    created_at: datetime = Field(default_factory=utc_now)
+    completed_at: datetime | None = None
+
+
+class EvidenceCredit(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("topic_id", "family", "purpose", name="uq_assessment_credit"),)
+    selection_id: str = Field(foreign_key="assessmentselection.id", primary_key=True)
+    topic_id: int = Field(foreign_key="topic.id")
+    family: str
+    purpose: str
+    event_id: int = Field(foreign_key="masteryevidenceevent.id", unique=True)
+    global_key: str | None = Field(default=None, unique=True)
+
+
+class EvidencePolicyRecord(SQLModel, table=True):
+    topic_id: int = Field(foreign_key="topic.id", primary_key=True)
+    policy_version: str
+    previous_projection_json: str = Field(sa_column=Column(Text, nullable=False))
+    created_at: datetime = Field(default_factory=utc_now)
+
+
+class AssessmentHelpEvent(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    selection_id: str = Field(foreign_key="assessmentselection.id", index=True)
+    kind: str
+    created_at: datetime = Field(default_factory=utc_now)

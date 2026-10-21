@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 
-from app.providers.gemini import _usage_from_interaction
+from scripts.authoring.providers.gemini import _usage_from_interaction
 
 
 def test_interactions_usage_fields_are_mapped() -> None:

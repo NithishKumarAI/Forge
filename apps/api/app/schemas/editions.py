@@ -108,6 +108,7 @@ class ContentAvailability(StrictModel):
     practice_available: bool
     approved_practice_available: bool
     course_exercise_count: int
+    assessment_item_count: int = 0
     arena_count: int
     completed_sections: int
     total_sections: int

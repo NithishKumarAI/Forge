@@ -25,6 +25,7 @@ def _retention(session: Session) -> float:
 def apply_review(
     session: Session, topic_id: int, score: float, *, session_id: int | None,
     attempt_id: int | None, assisted: bool = False, reviewed_at: datetime | None = None,
+    commit: bool = True,
 ) -> ReviewEvent:
     reviewed_at = reviewed_at or datetime.now(timezone.utc)
     if reviewed_at.tzinfo is None:
@@ -43,7 +44,7 @@ def apply_review(
     event = ReviewEvent(
         topic_id=topic_id, session_id=session_id, attempt_id=attempt_id, score=score,
         fsrs_rating=int(rating), reviewed_at=reviewed_at, previous_due_at=previous_due,
-        next_due_at=card.due, metadata_json=json.dumps({"assisted": assisted}),
+        next_due_at=card.due, metadata_json=json.dumps({"assisted": assisted,"rating_policy_version":"forge-score-to-fsrs/1"}),
     )
     learner = session.get(LearnerTopicState, topic_id)
     if learner:
@@ -51,5 +52,6 @@ def apply_review(
         session.add(learner)
     session.add(state)
     session.add(event)
-    session.commit()
+    if commit:session.commit()
+    else:session.flush()
     return event

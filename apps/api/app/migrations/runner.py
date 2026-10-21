@@ -11,7 +11,7 @@ from sqlalchemy.engine import Engine
 
 from ..config import settings
 from ..services.database_backup import create_database_backup
-from . import v001_legacy_schema, v002_content_bindings, v003_content_publication, v004_editions
+from . import v001_legacy_schema, v002_content_bindings, v003_content_publication, v004_editions, v005_assessment
 
 
 class MigrationError(RuntimeError):
@@ -37,6 +37,7 @@ MIGRATIONS = (
     Migration(2, "content_bindings", v002_content_bindings),
     Migration(3, "content_publication", v003_content_publication),
     Migration(4, "editions", v004_editions),
+    Migration(5, "assessment", v005_assessment),
 )
 
 
@@ -134,6 +135,13 @@ def run_migrations(engine: Engine, *, backup_root: Path | None = None) -> dict:
                     raise MigrationError("Edition schema is missing required integrity triggers")
             elif tables.intersection(v004_editions.TABLES):
                 raise MigrationError("Unrecorded/partial edition schema")
+            if len(ledger) >= 5:
+                _validate(connection, v005_assessment.SCHEMA)
+                triggers = set(connection.exec_driver_sql("SELECT name FROM sqlite_master WHERE type='trigger'").scalars())
+                if not v005_assessment.TRIGGERS <= triggers:
+                    raise MigrationError("Assessment integrity triggers missing")
+            elif tables.intersection(v005_assessment.TABLES):
+                raise MigrationError("Unrecorded/partial assessment schema")
             if pending and existing and engine.url.database not in (None, "", ":memory:"):
                 # BEGIN IMMEDIATE quiesces other writers; a separate reader backup includes committed WAL data.
                 backup = create_database_backup(Path(engine.url.database), backup_root)
@@ -151,6 +159,7 @@ def run_migrations(engine: Engine, *, backup_root: Path | None = None) -> dict:
             _validate(connection, v002_content_bindings.SCHEMA)
             _validate(connection, v003_content_publication.SCHEMA)
             _validate(connection, v004_editions.SCHEMA)
+            _validate(connection, v005_assessment.SCHEMA)
             connection.commit()
         except BaseException:
             connection.rollback()

@@ -160,11 +160,16 @@ def availability(session, topic):
         ArenaTopicBinding.curriculum_id == track.curriculum_id, ArenaTopicBinding.topic_id == topic.id))} - override_keys
     new_arena = {r.content_key for e, r in released if e.topic_id == topic.id and r.content_type == "arena_problem"}
     exercises = current_course_exercise_ids(session, topic.id)
+    from ..schemas.assessment import AssessmentBundle
+    from .content_registry import load_snapshot
+    assessment_count=sum(sum("practice" in item.purposes for item in AssessmentBundle.model_validate(load_snapshot(r)["assessment"]).items)
+        for e,r in released if e.topic_id==topic.id and r.content_type=="assessment_bundle")
     approved_count = sum(r.id in approved_lessons for _, r in lessons)
     return {"lesson_status": "approved" if approved_count else "legacy" if lessons else "planned",
         "lesson_count": len(lessons), "approved_lesson_count": approved_count, "legacy_lesson_count": len(lessons) - approved_count,
-        "practice_available": bool(exercises or old_arena or new_arena),
-        "approved_practice_available": bool(new_arena or approved_count and exercises),
+        "practice_available": bool(exercises or old_arena or new_arena or assessment_count),
+        "approved_practice_available": bool(new_arena or approved_count and exercises or assessment_count),
+        "assessment_item_count":assessment_count,
         "course_exercise_count": len(exercises), "arena_count": len(old_arena) + len(new_arena),
         "completed_sections": completed, "total_sections": total, "reading_percent": round(100 * completed / total) if total else 0}
 

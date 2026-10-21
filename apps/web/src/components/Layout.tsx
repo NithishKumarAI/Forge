@@ -1,6 +1,6 @@
 import { BookOpen, Code2, Gauge, GraduationCap, Settings, Sparkles } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
-import { DoubtChat } from "./DoubtChat";
+
 
 const navigation = [
   { to: "/", label: "Dashboard", icon: Gauge },
@@ -8,6 +8,7 @@ const navigation = [
   { to: "/arena", label: "Coding Arena", icon: Code2 },
   { to: "/review", label: "Review", icon: Sparkles },
   { to: "/interview", label: "Interview", icon: GraduationCap },
+  { to: "/guidance", label: "Static help", icon: BookOpen },
   { to: "/settings", label: "Settings", icon: Settings },
 ];
 
@@ -26,7 +27,7 @@ export function Layout() {
         <div className="absolute bottom-8 hidden text-xs leading-5 text-slate-500 lg:block">Local-first learning<br />Forge V1</div>
       </aside>
       <main className="min-w-0 flex-1 px-5 py-8 sm:px-8 lg:ml-64 lg:px-12 lg:py-10"><Outlet /></main>
-      <DoubtChat />
+
     </div>
   );
 }

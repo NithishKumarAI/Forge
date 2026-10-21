@@ -7,8 +7,8 @@ import sys
 API_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(API_ROOT))
 
-from app.config import settings  # noqa: E402
-from app.providers import GeminiProvider  # noqa: E402
+from scripts.authoring.config import settings  # noqa: E402
+from scripts.authoring.providers import GeminiProvider  # noqa: E402
 
 
 def main() -> int:

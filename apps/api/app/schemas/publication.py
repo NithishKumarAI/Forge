@@ -18,7 +18,7 @@ class Candidate(StrictModel):
     format_version: Literal[1] = 1
     content_key: str
     revision: str = Field(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$")
-    content_type: Literal["lesson_bundle", "arena_problem"]
+    content_type: Literal["lesson_bundle", "arena_problem", "assessment_bundle"]
     payload: dict
     provenance: dict
     coverage: dict

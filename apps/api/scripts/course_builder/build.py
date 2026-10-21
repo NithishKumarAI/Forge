@@ -3,7 +3,7 @@ import argparse, hashlib, json
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
-from app.providers.dependencies import get_llm_provider
+from scripts.authoring.providers.dependencies import get_llm_provider
 from app.schemas.course import StaticLesson
 from app.schemas.practice import ExercisePackProposal
 from .extract import extract_main_text

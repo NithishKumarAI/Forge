@@ -249,7 +249,7 @@ def test_migration_four_upgrades_three_preserving_ledger_and_backup(tmp_path):
         connection.exec_driver_sql("INSERT INTO appsetting VALUES ('preserve','exact payload')")
         before=connection.exec_driver_sql('SELECT * FROM schemamigration').all()
     result=run_migrations(engine)
-    assert result['applied']==[4] and verify_database_backup(Path(result['backup_path']))['schema_version']==3
+    assert result['applied']==[4,5] and verify_database_backup(Path(result['backup_path']))['schema_version']==3
     assert run_migrations(engine)['applied']==[]
     with engine.connect() as connection:
         assert connection.exec_driver_sql('SELECT * FROM schemamigration WHERE version<4').all()==before

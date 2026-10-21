@@ -11,6 +11,10 @@ def check_coverage(candidate):
         lesson = candidate.payload["lesson"]
         lessons = {"section/" + s["slug"] for s in lesson["sections"]}
         assessments = {"exercise/" + e["key"] for e in candidate.payload["exercises"]}
+    elif candidate.content_type == "assessment_bundle":
+        items=candidate.payload["assessment"]["items"]
+        lessons={"explanation/"+i["key"] for i in items}
+        assessments={"item/"+i["key"] for i in items}
     else:
         problem = candidate.payload["problem"]
         lessons = {"statement", "explanation"}

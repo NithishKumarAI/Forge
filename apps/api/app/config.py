@@ -56,30 +56,6 @@ class Settings:
             ).split(",")
             if origin.strip()
         ]
-        self.gemini_api_key = env.get("GEMINI_API_KEY", "").strip()
-        self.gemini_model = env.get("GEMINI_MODEL", "gemini-3.8-flash").strip()
-        self.gemini_tutor_thinking = env.get("GEMINI_TUTOR_THINKING", "low").strip()
-        self.gemini_doubt_thinking = env.get("GEMINI_DOUBT_THINKING", "low").strip()
-        self.gemini_curriculum_thinking = env.get(
-            "GEMINI_CURRICULUM_THINKING", "medium"
-        ).strip()
-        self.gemini_exercise_thinking = env.get("GEMINI_EXERCISE_THINKING", "low").strip()
-        self.gemini_answer_evaluation_thinking = env.get(
-            "GEMINI_ANSWER_EVALUATION_THINKING", "low"
-        ).strip()
-        self.gemini_interview_thinking = env.get("GEMINI_INTERVIEW_THINKING", "low").strip()
-        self.gemini_interview_evaluation_thinking = env.get(
-            "GEMINI_INTERVIEW_EVALUATION_THINKING", "medium"
-        ).strip()
-        self.gemini_input_price_per_million = float(
-            env.get("GEMINI_INPUT_PRICE_PER_MILLION", "0.75")
-        )
-        self.gemini_output_price_per_million = float(
-            env.get("GEMINI_OUTPUT_PRICE_PER_MILLION", "3.75")
-        )
-        self.gemini_cached_input_price_per_million = float(
-            env.get("GEMINI_CACHED_INPUT_PRICE_PER_MILLION", "0.075")
-        )
 
 
 settings = Settings()

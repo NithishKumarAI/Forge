@@ -43,11 +43,24 @@ def _validate_payload(content_type: str, payload: dict) -> None:
             raise RegistryError("Lesson bundle must contain unique exercise identities")
     elif content_type == "arena_problem":
         CodingProblem.model_validate(payload["problem"])
+    elif content_type == "assessment_bundle":
+        from ..schemas.assessment import AssessmentBundle
+        AssessmentBundle.model_validate(payload["assessment"])
     else:
         raise RegistryError(f"Unsupported content type: {content_type}")
 
 
 def _validate_identity(key: str, revision: str, content_type: str, payload: dict) -> None:
+    if content_type == "assessment_bundle":
+        from ..schemas.assessment import AssessmentBundle
+        from ..schemas.editions import SUBJECT_KEYS
+        bundle=AssessmentBundle.model_validate(payload["assessment"])
+        if key != bundle.key or revision != bundle.version or any(
+            item.subject not in SUBJECT_KEYS or item.level>3 or key != f"assessment/placement-foundations/{item.subject}/{item.topic}"
+            for item in bundle.items):
+            raise RegistryError("Assessment namespace differs from immutable subject/topic identity")
+        validate_relative_path(key)
+        return
     if content_type == "lesson_bundle":
         content = payload["lesson"]
         expected = f"ai-engineer/v1/{content['track_slug']}/{content['topic_slug']}"

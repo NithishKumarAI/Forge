@@ -202,6 +202,14 @@ def publish_release(session: Session, package, *, archive_path: Path | None = No
                     session.flush()
             for target in targets:
                 curriculum, topic = _resolve_target(session, target)
+                if candidate.content_type == "assessment_bundle":
+                    from ..models import Track, TopicPlacement
+                    from ..schemas.assessment import AssessmentBundle
+                    track=session.get(Track,topic.track_id)
+                    placement=session.get(TopicPlacement,topic.id)
+                    for item in AssessmentBundle.model_validate(candidate.payload["assessment"]).items:
+                        if item.subject!=track.slug or item.topic!=topic.slug or placement and item.level!=placement.level:
+                            raise ValueError("Assessment subject/topic/level differs from reviewed target placement")
                 slot = (curriculum.id, topic.id, target.order_index) if candidate.content_type == "lesson_bundle" else (curriculum.id, identity)
                 if slot in slots:
                     raise ValueError("Ambiguous release target/order")

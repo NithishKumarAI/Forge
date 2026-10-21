@@ -87,29 +87,6 @@ export interface CurriculumProposal {
   tracks: TrackProposal[];
 }
 
-export interface TutorTurn {
-  message_markdown: string;
-  turn_type: "explain" | "check" | "feedback" | "clarify" | "transition" | "wrap_up";
-  question: string | null;
-  concepts_covered: string[];
-  suggested_next_action: string | null;
-}
-
-export interface AIStatus {
-  configured: boolean;
-  provider: string;
-  model: string;
-  this_month: {
-    calls: number;
-    input_tokens: number;
-    output_tokens: number;
-    thought_tokens: number;
-    cached_tokens: number;
-    estimated_cost_usd: number;
-    budget: { monthly_gemini_budget: number; pause_nonessential_ai: boolean; used_percent: number; level: string; message: string; disclaimer: string };
-  };
-}
-
 export interface Dashboard {
   interview_readiness: number;
   active_curriculum: { id: number; name: string; version: number } | null;

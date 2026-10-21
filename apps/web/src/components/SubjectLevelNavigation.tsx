@@ -53,7 +53,7 @@ export function SubjectLevelNavigation({overview, subjectKey, level, onSubjectCh
           <p className="mt-2 text-xs text-slate-500">Coverage to review: {topic.coverage_requirements.join(" ")}</p></details>
         {learning && topic.id !== null ? <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold"><Link className="text-accent hover:underline" to={`/topics/${topic.id}`}>Open topic →</Link>
           {topic.availability.lesson_count > 0 && <Link className="text-accent hover:underline" to={`/topics/${topic.id}/learn`}>Read lesson</Link>}
-          {topic.availability.course_exercise_count > 0 && <Link className="text-accent hover:underline" to={`/topics/${topic.id}/practice`}>Practice</Link>}
+          {(topic.availability.course_exercise_count > 0 || (topic.availability.assessment_item_count ?? 0) > 0) && <Link className="text-accent hover:underline" to={`/topics/${topic.id}/practice`}>Practice</Link>}
           {topic.availability.arena_count > 0 && <Link className="text-accent hover:underline" to="/arena">Open Arena</Link>}</div>
           : <p className="mt-3 text-xs text-slate-500">Scope preview. Review and confirm the draft before opening its learning topics.</p>}
       </article>)}</div>

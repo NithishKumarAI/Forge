@@ -113,8 +113,9 @@ def test_fresh_application_startup_and_offline_learning_workflow(tmp_path, monke
         lesson = client.get(f"/api/course/topics/{topic_id}").json()
         assert lesson["lesson"]["topic_slug"] == "syntax-data-types"
         assert lesson["progress"]["completed_sections"] == 0
-        practice = client.post(f"/api/practice/topics/{topic_id}/start")
-        assert practice.status_code == 200 and len(practice.json()["exercises"]) == 3
+        practice = client.post("/api/assessment/start",json={"topic_id":topic_id,"purpose":"practice"})
+        assert practice.status_code == 200 and practice.json()["approval"] == "legacy_unverified"
+        assert client.get(f"/api/assessment/{practice.json()['id']}").json()["id"] == practice.json()["id"]
         assert client.get("/api/arena/problems/python-normalize-name").json()["mapping_status"] == "bound"
         assert client.get(f"/api/course/search?q=booleans&topic_id={topic_id}").json()
     engine.dispose()

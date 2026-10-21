@@ -10,16 +10,15 @@ from . import models  # noqa: F401 -- registers SQLModel tables
 from .config import settings
 from .database import create_db_and_tables, engine
 from .routers import router
-from .routers.ai import router as ai_router
 from .routers.curricula import router as curricula_router
-from .routers.doubt import router as doubt_router
-from .routers.tutor import router as tutor_router
 from .routers.practice import router as practice_router
 from .routers.adaptive import router as adaptive_router
 from .routers.interviews import router as interviews_router
 from .routers.course import router as course_router
 from .routers.arena import router as arena_router
 from .routers.editions import router as editions_router
+from .routers.assessment import router as assessment_router
+from .routers.guidance import router as guidance_router
 from .services.course import sync_course_pack
 from .services.arena import sync_problem_bank
 from .schemas.api import HealthRead
@@ -57,9 +56,8 @@ def create_app() -> FastAPI:
     )
     # Specific curriculum routes must precede the legacy /{curriculum_id} route.
     app.include_router(curricula_router)
-    app.include_router(ai_router)
-    app.include_router(tutor_router)
-    app.include_router(doubt_router)
+    app.include_router(assessment_router)
+    app.include_router(guidance_router)
     app.include_router(practice_router)
     app.include_router(adaptive_router)
     app.include_router(interviews_router)
@@ -90,7 +88,11 @@ def create_app() -> FastAPI:
         if full_path == "health":
             raise HTTPException(status_code=404, detail="Not found")
 
-        file_path = settings.frontend_dist_path / full_path
+        from .services.content_paths import safe_path
+        try:
+            file_path = safe_path(settings.frontend_dist_path, full_path, must_exist=False)
+        except ValueError as error:
+            raise HTTPException(status_code=404, detail="Invalid static path") from error
         if file_path.is_file():
             return FileResponse(file_path)
 

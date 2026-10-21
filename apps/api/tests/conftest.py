@@ -15,19 +15,21 @@ from app import models  # noqa: E402, F401
 from app.services.curriculum import seed_default_curriculum  # noqa: E402
 from app.config import settings  # noqa: E402
 from app.migrations import run_migrations  # noqa: E402
-from app.providers.gemini import GeminiProvider  # noqa: E402
 
 
 @pytest.fixture(autouse=True)
 def isolated_runtime_paths(tmp_path, monkeypatch):
-    monkeypatch.setattr(settings, "gemini_api_key", "")
     monkeypatch.setattr(settings, "content_snapshot_path", tmp_path / "snapshots")
     monkeypatch.setattr(settings, "database_backup_path", tmp_path / "backups")
 
-    def forbidden_provider(*args, **kwargs):
-        raise AssertionError("Automated tests must inject a fake provider, never construct Gemini")
-
-    monkeypatch.setattr(GeminiProvider, "__init__", forbidden_provider)
+    # No optional model SDK is imported by fixtures or supported runtime flows.
+    import socket
+    original=socket.socket.connect
+    def local_only(sock,address):
+        if isinstance(address,tuple) and address[0] not in ("127.0.0.1","localhost","::1"):
+            raise AssertionError("External network forbidden in automated tests")
+        return original(sock,address)
+    monkeypatch.setattr(socket.socket,"connect",local_only)
 
 
 @pytest.fixture

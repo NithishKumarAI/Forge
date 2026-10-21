@@ -1,158 +1,56 @@
 # Forge architecture
 
+Forge is one React/TypeScript frontend, one FastAPI backend and one SQLite learner database. The current runtime has no model provider, SDK import, generated learning content or model grading. Product edition identity and numeric content levels remain separate from curriculum revision and learner mastery.
+
+## Runtime flow
+
 ```text
-User
- │
- ▼
 React / Vite
- │
- ├── Learn
- ├── Practice
- ├── Review
- ├── Interview
- └── Planner
- │
- ▼
-FastAPI
- │
- ├── CurriculumService
- ├── TutorService
- ├── PracticeService
- ├── MasteryService
- ├── ReviewService
- ├── PlannerService
- └── InterviewService
- │
- ├────────────────────► Gemini 3.8 Flash
- │
- ▼
-SQLite
-
-Coding:
-Monaco → Pyodide module Worker → deterministic tests
+  -> FastAPI -> immutable local content registry + curriculum bindings
+             -> SQLite attempts, historical records, evidence and FSRS state
+  -> public Run: Pyodide or fresh PGlite browser worker (no scored evidence)
+  -> Submit: exact frozen selection + source/answer
+             -> Decimal/choice policy or bounded local worker verification
+             -> atomic attempt + provenance + unique evidence credit + projection/FSRS
 ```
 
-Forge remains a local-first modular monolith. Routers own HTTP concerns, services own product rules, SQLModel owns persistence, and the React client receives typed JSON. The Gemini API key exists only in the backend process.
+Python submission verification executes only in a child interpreter (`-I -S`) with a restricted AST/built-in/module subset, empty disposable working directory, no inherited secrets, memory/process/instruction/output limits and a parent timeout. Unsupported code fails closed without evidence. SQL submission verification executes in a bounded Node child process with fresh isolated PGlite fixtures, read-only query transactions, exact columns, duplicate/NULL/order comparisons and alternate datasets. No learner Python runs on the UI main thread; no learner SQL touches Forge SQLite. Browser Run still uses the existing Pyodide/PGlite worker implementations.
 
-## Authority boundaries
+The repository and local operating-system administrator remain trust boundaries. Backend verification does not establish secure remote proctoring. The restricted Python interpreter is not a general-purpose hostile-code hosting service. Missing Node/runtime assets or unsupported capabilities produce an explicit unverified result, not a trusted client-score fallback.
 
-The backend is the source of truth for curricula, learner state, sessions, chat history, active-curriculum selection, and usage records. Gemini supplies explanations, feedback, questions, and proposed curricula; its output is always validated before it can become application state.
+## Static content and publication
 
-A custom curriculum moves through `proposal → draft → confirmed → active`. Generation does not write a draft. Confirmation is explicit, and confirmed structures are immutable. Activation is separate and accepts confirmed curricula only.
+Phase 1 content-addressed snapshots and exact curriculum-topic bindings remain authoritative. Phase 2 validates complete portable candidates, provenance/coverage and exact execution contracts, then requires independent human review before a release can be imported. Phase 3 custom edition targets require explicit reviewed confirmation and exact immutable graph digests. Omitted publication source type retains its historical default meaning.
 
-Tutor and doubt conversations reuse `LearningSession` and `ChatMessage`. Only the latest ten relevant messages are sent with minimal topic context. Neither conversation path creates mastery evidence. A doubt opened during an unfinished transfer marks that check assisted, so it cannot unlock the transfer gate.
+`assessment_bundle` extends the existing pipeline; it does not introduce a second publication store. Its immutable items declare stable identities, equivalence families, subject/topic/level, practice/transfer/recall/interview purposes, reviewed independent-variant classification, public samples, full scoring contracts and authored feedback. Coding references and negative implementations must pass the development validator. An assessment target must match the confirmed subject/topic placement. Existing release archives keep their original hash inputs and gates.
 
-## Phase 2 services
+Runtime pools derive only from the effective reviewed release. Legacy static course practice is available only through historical curricula and is explicitly unverified; it is not promoted into the new scored pools. Generated legacy exercises remain historical records. Transfer excludes exposed/revealed families; coding subjects require coding variants. Selection/exposure is persisted for resume. Missing pools never trigger generation.
 
-- `active_curriculum`: resolves and changes the confirmed active curriculum using `AppSetting`.
-- `custom_curriculum`: persists, validates, confirms, and protects curriculum structures.
-- `curriculum_generation`: prompts Gemini for validated `CurriculumProposal` output and performs one repair attempt.
-- `tutor`: applies the central teaching policy and owns Learn-mode sessions.
-- `doubt`: answers short contextual questions without affecting mastery.
-- `usage`: records provider token metadata and configurable cost estimates.
-- `GeminiProvider`: implements the small `LLMProvider` interface with the official Interactions API.
+## Attempts, evidence and schema version 5
 
-## Phase 3 practice
+Migrations 1–4 and their frozen DDL/checksums are unchanged. Additive migration 5 introduces:
 
-```text
-PracticePage → Monaco editor → PythonRunner → module Web Worker → Pyodide
-       |              Run: sample tests only          |
-       |              Submit: all tests              |
-       v                                             v
-FastAPI practice router → practice service → Exercise / LearningSession / Attempt
-                              ├─ structured Gemini generation and rubric evaluation
-                              └─ deterministic MCQ and code-test scoring
-```
+- `AssessmentSelection`: exact curriculum/topic/session, content revision/SHA, item/family, immutable contract snapshot, purpose, assistance/hints/reveal, completion/result, attempt/Arena/interview linkage and scoring/judge versions.
+- `EvidenceCredit`: a unique topic/family/purpose credit linked to the exact selection and original evidence event, plus a global Arena-family claim across curriculum switches. Recall credits include the FSRS due cycle so a later weak recall remains meaningful.
+- `EvidencePolicyRecord`: the previous learner projection and original evidence IDs at the first new qualifying event, explicitly labeled `legacy/unversioned` alongside the new policy version.
+- `AssessmentHelpEvent`: append-only help/solution-reveal audit, including permitted reveals after completion.
 
-The practice service owns exercise selection, caching, structured validation, session packs, hints, submissions, and history. It reuses `LearningSession` (`mode=practice`), `Attempt`, `LLMProvider`, and `ModelUsageEvent`. The router owns HTTP validation and does not execute learner code. MCQ correctness is server-side and deterministic; Python results are calculated from tests in the browser worker and recorded as `grading_source=client_pyodide`. Short answers use a fixed stored rubric and a validated structured Gemini response; unavailable evaluation is saved as pending rather than given a fabricated score. Completed submissions append evidence and trigger deterministic recalculation.
+These are additive detail/association tables over existing `LearningSession`, `Attempt`, `ArenaAttempt`, `MasteryEvidenceEvent`, `ReviewState` and interview records. Completed selection snapshots, exposure history, credit, help events and policy records are immutable. Ownership/content triggers reject mismatched associations. The existing backup-first atomic migration runner validates schema/trigger presence, refuses modified applied definitions and rolls back failed DDL/ledger writes.
 
-Schema additions are additive tables: `exercise` holds type-specific JSON and validation state; `practicesessionexercise` fixes pack order; `exerciseattemptdetail` adds answer, execution summary, hints, feedback, and grading provenance to existing `attempt`; `practicehintuse` counts revealed hints. Existing tables and database files are not dropped or rebuilt. SQLModel creates only missing tables at startup.
+New evidence uses `forge-evidence/2`; worker verification uses `forge-worker/1`. A qualifying approved independent Arena solve retains `event_type="arena"`, has an exact Arena-attempt/selection/credit linkage and enters the practice projection once. Ambiguous historical Arena rows remain unchanged and excluded from new credit. Replay comparisons run read-only on synthetic/copied data; startup and normal browsing never backfill/recalculate historical attempts or copy mastery.
 
-Generated coding references begin `pending`. On first use, the browser executes the reference against all tests and reports the outcome; failed references become inactive. The normal exercise response excludes solutions, MCQ answers, rubrics, and hidden tests. The reference-validation and submission-test endpoints necessarily deliver coding test data to the local client. This is suitable for a personal local app, not secure hidden testing or a hardened untrusted-code sandbox. A public product would need server-side sandboxed revalidation.
+Practice remains capped at 79; clean transfer at 89; 90+ requires qualified recall at least 24 elapsed hours later. Weak delayed recall may lower mastery. MCQ-only work cannot unlock coding transfer. Reflection, reading, chat and study minutes create no mastery evidence. Objective score-to-FSRS ratings remain fixed code and FSRS card JSON stays versioned. Attempt/evidence/projection/review completion commits as one transaction; the HTTP submit path serializes writes and retry uses the saved selection identity.
 
-The worker keeps Python off the UI thread, gives each run a fresh logical namespace, and is terminated after the configured timeout. A subsequent run creates a fresh worker. No arbitrary package installation is supported. `Run` executes visible samples without an attempt; `Submit` executes all tests and records evidence.
+## Static guidance and interview safety
 
-## Phase 4 adaptation loop
+FTS5 search stays curriculum/revision scoped. Guidance returns exact authored excerpts and lesson/section links rather than invented text. Existing Learn revision selectors and revision-scoped `ContentSectionProgress` remain unchanged in meaning. Legacy conversations/usage/generation metadata are preserved; model-era sessions have no invented continuation.
 
-```text
-completed attempt
-      v
-MasteryEvidenceEvent --deterministic weights/hint penalty--> LearnerTopicState
-      |                                                       |
-      +--> TransferCheck (clean and unassisted) -- gate 79 ----+
-      +--> delayed ReviewEvent (>=24h) ----------- gate 89 ----+
-      +--> Mistake recurrence                                  |
-      v                                                       v
-ReviewState + FSRS card                               readiness + daily plan
-```
+Backend guards block static help, lesson/search reads, hints, solution reveals and saved answer reports during an active scored interview. Permitted help during unfinished transfer or recall records assistance; revealing the item ends its clean-credit eligibility. Recall excludes recently helped/revealed variants for 24 hours. Public DTOs omit answer keys, hidden fixtures and references. Developer reference-validation endpoints are retired from learner routes.
 
-`mastery` is the sole authority for evidence interpretation. It backfills legacy completed attempts idempotently, uses the latest eight practice events, calculates confidence, enforces practice/transfer/recall caps, and creates a review state only after meaningful evidence. Transfer and recall are distinct event types, so ordinary practice cannot impersonate either gate. The transfer service generates exactly one unseen structured exercise and allows one schema-repair attempt; the review service maps score to an FSRS rating deterministically and stores a versioned FSRS card JSON wrapper.
+Objective interviews use fixed competency/weight blueprints and snapshot exact selected item identities/revisions/hashes before the session starts. The 30-minute deadline survives save/resume. Results and authored explanations stay hidden until the entire interview completes. Communication/project rehearsal uses prewritten prompts/rubrics/examples and stores reflection without technical mastery or a scored denominator. Its shared selection may have no topic and creates no artificial topic attempt. Historical interview sessions/questions/responses/reports are retained verbatim and unknown historical modes remain readable.
 
-`planner` builds and persists a dated plan from the active confirmed curriculum. `readiness` aggregates topic mastery by curriculum priority and returns coverage plus named gaps. Dashboard, recommendation, and catalog services consume those shared calculations rather than inventing separate mastery rules. AI may generate an exercise or grade a rubric-bound short answer, but it never assigns mastery, confidence, readiness, priority, or review intervals.
+## Boundaries and next phase
 
-Phase 4 adds `masteryevidenceevent`, `transfercheck`, `reviewevent`, and `dailyplanitem`. Existing `reviewstate`, `attempt`, and learner-state rows remain in place; startup creates missing tables and idempotently interprets historical completed attempts. FSRS card payloads include `fsrs_schema_version` so a future scheduler migration can be explicit.
+No application runtime module imports `scripts.authoring` or a provider. Optional provider tooling lives outside `app` with its own requirements; inactive legacy code/test text is never imported. Normal requirements contain no Google model SDK or key configuration. Installed SDK absence and outbound-model-call prevention are tested separately from content availability.
 
-## Phase 5 interview assessment
-
-```text
-fixed InterviewBlueprint
-          │
-          ▼
-validated question wording ─────► one bounded contextual follow-up
-          │
-          ▼
-fixed rubric / deterministic code tests
-          │
-          ▼
-InterviewResponse → weighted Forge Interview Score → topic-linked report
-```
-
-Blueprints are code-controlled data: mode, competency order, allowed question types, duration guidance, and section weights cannot be changed by Gemini. Question generation receives exactly one blueprint slot plus relevant learner/topic context. Project questions additionally receive one immutable profile from `default-projects.json`. Generated Pydantic output receives at most one repair attempt.
-
-Free-form evaluation returns scores for exactly the dimension names in the stored rubric; the backend applies the immutable weights. Coding questions create an `Exercise` plus `LearningSession(mode=interview)` and reuse Phase 3 submission grading with no hints. Interview evidence is intentionally excluded from automatic mastery recalculation in V1. Behavioral responses can only affect their interview section.
-
-`InterviewSession`, `InterviewQuestion`, `InterviewResponse`, and `InterviewReport` are additive tables. Sessions may be active, saved, completed, abandoned, or generation-failed. Completed responses are committed before the next question is generated, so provider failure cannot erase an answer; `/next` safely retries preparation. Tutor and doubt routers reject requests while a scored interview is active.
-
-## Static course architecture
-
-Authority is one-way:
-
-1. confirmed curriculum;
-2. versioned course coverage specification;
-3. accepted static course lesson and exercise bank;
-4. runtime AI.
-
-Runtime AI may explain levels 1–3 but cannot redefine them.
-
-Course build time: explicit vetted source URLs → conservative cached fetch → text extraction → Gemini structured synthesis → schema, coverage, source, structure, duplicate, and Python syntax validation → candidate file → deliberate promotion.
-
-Runtime: the disk course pack is canonical. Startup synchronizes lesson metadata and `source="course_pack"` exercises into SQLite and rebuilds a local FTS5 section index. Learn reads the pack directly; Tutor receives the selected authoritative section and deterministic outline; Doubts receives the current section plus a small FTS result set. `LessonSectionProgress` is deliberately separate from mastery evidence.
-
-## Interview-first curriculum V2
-
-The prior confirmed curriculum is retained. V2 is seeded as a separate confirmed version and becomes active when the prior default was active. `data/curriculum-migrations/v1-to-v2.json` records unambiguous topic mappings. Only learner-state summaries are copied into untouched V2 states; attempts and mastery evidence remain permanently associated with their original topic IDs.
-
-Priority tiers are code/data controlled: P0 Python, SQL/PostgreSQL, and DSA; P1 Backend, CS, LLM, and RAG; P2 ML and Production; P3 Frontend; Interview Engineering is ongoing. Planner target settings reserve configurable Python, SQL, and DSA practice before lower-priority recommendations.
-
-## Coding Arena
-
-```text
-Versioned static problem file
-        ↓ startup sync
-ArenaProblem metadata ─── ArenaAttempt / ArenaHintUse
-        ↓
-Python or DSA → Monaco → Pyodide worker → deterministic tests
-SQL           → Monaco → PGlite worker → fresh fixture DB → deterministic result comparison
-        ↓ first non-farmable pass
-MasteryEvidenceEvent(event_type="arena") → central mastery recalculation
-```
-
-Problem statements, fixtures, tests, explanations, and solutions are canonical disk content. SQLite is only the synchronized index and attempt history. Public problem responses remove reference solutions and hidden validation. Giving up reveals the solution but creates no mastery evidence. Every SQL execution constructs and discards an isolated PGlite database; Forge application data is never attached.
-
-Build-time problem tools create candidates, validate schemas and Python references, and require explicit promotion. A Node/PGlite validator executes accepted SQL reference solutions against sample and hidden datasets. Runtime Gemini does not generate or grade normal Arena work.
-
-The final report’s overall score is calculated from blueprint weights before Gemini may add a validated narrative. Reports always identify the result as a Forge rubric score and explicitly reject hiring-probability interpretation.
-
-## Usage guardrails
-
-Every successful provider response becomes a `ModelUsageEvent`. `AppSetting` stores the estimated monthly budget and optional nonessential-generation pause. Threshold messages are deterministic. The estimate never claims to be authoritative billing, and quota errors are handled generically without hard-coded Gemini tier assumptions.
+All nine Placement Foundations subjects still need independently reviewed educational content/pools. Infrastructure tests use isolated synthetic approvals, never production review records. The existing advisory planner is preserved; the redesigned 5/6/8-hour planner, subject/mixed timed-test system, full content release and final browser/network-denial/Windows packaging verification belong to the final combined phase. Build/unit tests do not certify the installed product as fully offline.

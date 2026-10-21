@@ -33,14 +33,14 @@ def test_problem_bank_validates_loads_and_hides_solutions(session):
     rows=list_problems(session);assert {x["track"] for x in rows}=={"python","sql","dsa"}
     problem=public_problem(session,session.get(ArenaProblem,"python-normalize-name"));assert "reference_solution" not in problem and "hidden_tests" not in problem["validation"]
 
-def test_arena_first_pass_adds_evidence_repeat_does_not(session):
-    activate_v2(session);sync_problem_bank(session);request=ArenaAttemptRequest(source="def normalize_name(x): return x",passed=True,score=100,result={})
-    first=record_attempt(session,"python-normalize-name",request);assert first["solution"]
+def test_unverified_legacy_arena_cannot_farm_evidence(session):
+    activate_v2(session);sync_problem_bank(session);request=ArenaAttemptRequest(source="def normalize_name(value): return ' '.join(value.split()).title()",passed=True,score=100,result={},content_revision_id=__import__("app.services.arena",fromlist=["problem_revision"]).problem_revision(session,"python-normalize-name").id)
+    first=record_attempt(session,"python-normalize-name",request);assert first["verification"]=="backend_bounded_worker"
     count=len(session.exec(select(MasteryEvidenceEvent).where(MasteryEvidenceEvent.event_type=="arena")).all());record_attempt(session,"python-normalize-name",request)
     assert len(session.exec(select(MasteryEvidenceEvent).where(MasteryEvidenceEvent.event_type=="arena")).all())==count
 
 def test_sql_hidden_dataset_and_planner_foundation_targets(session):
-    activate_v2(session);sync_problem_bank(session);sql=validation_payload("sql-active-users")
-    assert sql["hidden_datasets"][0]["expected_rows"]!=sql["expected_rows"]
+    activate_v2(session);sync_problem_bank(session);sql=validation_payload("sql-active-users",session=session)
+    assert "hidden_datasets" not in sql and "expected_rows" not in sql
     settings=planner_settings(session);assert (settings["python_daily_minimum"],settings["sql_daily_minimum"],settings["dsa_daily_minimum"])==(45,30,30)
     plan=today_plan(session);reasons=" ".join(x["reason"] for x in plan["items"]);assert all(x in reasons for x in ("Python","SQL","DSA"))

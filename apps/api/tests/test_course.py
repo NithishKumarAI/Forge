@@ -45,5 +45,5 @@ def test_sync_offline_progress_search_and_static_practice(session):
     assert progress(session,topic,lesson)["completed_sections"]==1
     assert session.get(LearnerTopicState,topic.id).mastery_score==before
     assert search_course(session,"booleans",topic.id)
-    _, exercises=start_practice(session,topic,None)
+    _, exercises=start_practice(session,topic)
     assert len(exercises)==3 and all(e.source=="course_pack" for e in exercises)

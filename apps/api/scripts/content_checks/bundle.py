@@ -57,6 +57,23 @@ def validate_candidate(value):
             if "arena/" + reference not in candidate.known_content:
                 raise ValueError("Unresolved Arena reference")
         execution = check_lesson_examples(candidate)
+    elif candidate.content_type == "assessment_bundle":
+        from app.schemas.assessment import AssessmentBundle
+        from app.services.assessment_judge import judge
+        bundle=AssessmentBundle.model_validate(candidate.payload["assessment"])
+        execution=[]
+        for item in bundle.items:
+            if item.kind in {"python","sql"}:
+                checked=judge(item,item.contract["reference_solution"])
+                if checked.get("status")!="verified" or checked.get("passed")!=checked.get("total"):
+                    raise ValueError("Assessment reference failed full contract")
+                if not item.contract.get("negative_solutions"):
+                    raise ValueError("Coding assessment needs negative implementations")
+                for source in item.contract["negative_solutions"]:
+                    wrong=judge(item,source)
+                    if wrong.get("status")!="verified" or wrong.get("passed")==wrong.get("total"):
+                        raise ValueError("Negative implementation was accepted or unverified")
+            execution.append({"item":item.key,"status":"executed" if item.kind in {"python","sql"} else "requires_human_answer_review"})
     else:
         raw = candidate.payload["problem"]
         if raw.get("publication_contract") != candidate.problem_contract or raw.get("negative_solutions", []) != candidate.negative_solutions:
