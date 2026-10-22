@@ -48,6 +48,13 @@
       "concept": "python-values-expressions",
       "prerequisites": []
     },
+    "python-normalize-name": {
+      "stage": "first_steps",
+      "concept": "python-strings",
+      "prerequisites": [
+        "python-values-expressions"
+      ]
+    },
     "python-leap-year": {
       "stage": "first_steps",
       "concept": "python-conditions",
@@ -83,18 +90,18 @@
         "python-values-expressions"
       ]
     },
-    "python-normalize-name": {
+    "python-is-palindrome": {
       "stage": "first_steps",
       "concept": "python-strings",
       "prerequisites": [
         "python-values-expressions"
       ]
     },
-    "python-is-palindrome": {
+    "python-bob": {
       "stage": "beginner",
       "concept": "python-strings",
       "prerequisites": [
-        "python-values-expressions"
+        "python-conditions"
       ]
     },
     "python-running-sum": {
@@ -132,18 +139,39 @@
         "python-loops"
       ]
     },
-    "python-bob": {
-      "stage": "beginner",
-      "concept": "python-strings",
-      "prerequisites": [
-        "python-conditions"
-      ]
-    },
     "python-deduplicate-list": {
       "stage": "beginner",
       "concept": "python-collections",
       "prerequisites": [
         "python-loops"
+      ]
+    },
+    "python-count-bits": {
+      "stage": "beginner",
+      "concept": "python-functions",
+      "prerequisites": [
+        "python-loops"
+      ]
+    },
+    "python-max-profit": {
+      "stage": "beginner",
+      "concept": "python-collections",
+      "prerequisites": [
+        "python-loops"
+      ]
+    },
+    "python-rotate-list": {
+      "stage": "beginner",
+      "concept": "python-collections",
+      "prerequisites": [
+        "python-collections"
+      ]
+    },
+    "python-two-sum": {
+      "stage": "developing",
+      "concept": "python-collections",
+      "prerequisites": [
+        "python-collections"
       ]
     },
     "python-first-non-repeat": {
@@ -153,7 +181,7 @@
         "python-collections"
       ]
     },
-    "python-two-sum": {
+    "python-find-duplicate": {
       "stage": "developing",
       "concept": "python-collections",
       "prerequisites": [
@@ -167,20 +195,6 @@
         "python-strings"
       ]
     },
-    "python-count-bits": {
-      "stage": "developing",
-      "concept": "python-functions",
-      "prerequisites": [
-        "python-loops"
-      ]
-    },
-    "python-rotate-list": {
-      "stage": "developing",
-      "concept": "python-collections",
-      "prerequisites": [
-        "python-collections"
-      ]
-    },
     "python-merge-sorted-lists": {
       "stage": "developing",
       "concept": "python-collections",
@@ -188,35 +202,49 @@
         "python-collections"
       ]
     },
-    "python-max-profit": {
-      "stage": "developing",
-      "concept": "python-collections",
-      "prerequisites": [
-        "python-loops"
-      ]
-    },
-    "python-find-duplicate": {
+    "python-stack-balanced-brackets": {
       "stage": "developing",
       "concept": "python-collections",
       "prerequisites": [
         "python-collections"
       ]
     },
-    "python-climbing-stairs": {
+    "python-group-errors": {
       "stage": "developing",
+      "concept": "python-collections",
+      "prerequisites": [
+        "python-collections"
+      ]
+    },
+    "python-valid-sudoku-row": {
+      "stage": "developing",
+      "concept": "python-collections",
+      "prerequisites": [
+        "python-collections"
+      ]
+    },
+    "python-product-except-self": {
+      "stage": "developing",
+      "concept": "python-collections",
+      "prerequisites": [
+        "python-collections"
+      ]
+    },
+    "python-max-subarray": {
+      "stage": "developing",
+      "concept": "python-collections",
+      "prerequisites": [
+        "python-loops"
+      ]
+    },
+    "python-climbing-stairs": {
+      "stage": "intermediate",
       "concept": "python-functions",
       "prerequisites": [
         "python-functions"
       ]
     },
-    "python-longest-common-prefix": {
-      "stage": "intermediate",
-      "concept": "python-strings",
-      "prerequisites": [
-        "python-strings"
-      ]
-    },
-    "python-stack-balanced-brackets": {
+    "python-flatten-list": {
       "stage": "intermediate",
       "concept": "python-collections",
       "prerequisites": [
@@ -230,39 +258,32 @@
         "python-collections"
       ]
     },
-    "python-group-errors": {
-      "stage": "intermediate",
-      "concept": "python-collections",
-      "prerequisites": [
-        "python-collections"
-      ]
-    },
-    "python-flatten-list": {
-      "stage": "intermediate",
-      "concept": "python-collections",
-      "prerequisites": [
-        "python-collections"
-      ]
-    },
-    "python-product-except-self": {
-      "stage": "intermediate",
-      "concept": "python-collections",
-      "prerequisites": [
-        "python-collections"
-      ]
-    },
-    "python-max-subarray": {
-      "stage": "intermediate",
-      "concept": "python-collections",
-      "prerequisites": [
-        "python-loops"
-      ]
-    },
     "python-implement-queue": {
       "stage": "intermediate",
       "concept": "python-oop",
       "prerequisites": [
         "python-collections"
+      ]
+    },
+    "python-matrix-spiral": {
+      "stage": "intermediate",
+      "concept": "python-collections",
+      "prerequisites": [
+        "python-collections"
+      ]
+    },
+    "python-valid-parentheses-string": {
+      "stage": "intermediate",
+      "concept": "python-strings",
+      "prerequisites": [
+        "python-strings"
+      ]
+    },
+    "python-longest-common-prefix": {
+      "stage": "challenging",
+      "concept": "python-strings",
+      "prerequisites": [
+        "python-strings"
       ]
     },
     "python-count-islands": {
@@ -286,32 +307,11 @@
         "python-collections"
       ]
     },
-    "python-matrix-spiral": {
-      "stage": "challenging",
-      "concept": "python-collections",
-      "prerequisites": [
-        "python-collections"
-      ]
-    },
     "python-valid-bst": {
       "stage": "challenging",
       "concept": "python-oop",
       "prerequisites": [
         "python-oop"
-      ]
-    },
-    "python-valid-parentheses-string": {
-      "stage": "challenging",
-      "concept": "python-strings",
-      "prerequisites": [
-        "python-strings"
-      ]
-    },
-    "python-valid-sudoku-row": {
-      "stage": "challenging",
-      "concept": "python-collections",
-      "prerequisites": [
-        "python-collections"
       ]
     },
     "sql-distinct-cities": {
@@ -529,13 +529,6 @@
       "concept": "dsa-problem-contracts",
       "prerequisites": []
     },
-    "dsa-range-sum-query": {
-      "stage": "first_steps",
-      "concept": "dsa-arrays-strings",
-      "prerequisites": [
-        "dsa-problem-contracts"
-      ]
-    },
     "dsa-move-zeroes": {
       "stage": "first_steps",
       "concept": "dsa-arrays-strings",
@@ -543,15 +536,22 @@
         "dsa-problem-contracts"
       ]
     },
-    "dsa-isomorphic-strings": {
+    "dsa-remove-duplicates-sorted": {
       "stage": "first_steps",
+      "concept": "dsa-arrays-strings",
+      "prerequisites": [
+        "dsa-arrays-strings"
+      ]
+    },
+    "dsa-two-sum-indices": {
+      "stage": "beginner",
       "concept": "dsa-hashing-sets",
       "prerequisites": [
-        "dsa-problem-contracts"
+        "dsa-hashing-sets"
       ]
     },
     "dsa-valid-anagram": {
-      "stage": "first_steps",
+      "stage": "beginner",
       "concept": "dsa-hashing-sets",
       "prerequisites": [
         "dsa-problem-contracts"
@@ -564,46 +564,32 @@
         "dsa-hashing-sets"
       ]
     },
-    "dsa-word-pattern": {
+    "dsa-first-pair": {
       "stage": "beginner",
-      "concept": "dsa-hashing-sets",
+      "concept": "dsa-two-pointers",
       "prerequisites": [
-        "dsa-hashing-sets"
+        "dsa-arrays-strings"
       ]
     },
-    "dsa-two-sum-indices": {
-      "stage": "beginner",
+    "dsa-word-pattern": {
+      "stage": "developing",
       "concept": "dsa-hashing-sets",
       "prerequisites": [
         "dsa-hashing-sets"
       ]
     },
     "dsa-search-insert-position": {
-      "stage": "beginner",
+      "stage": "developing",
       "concept": "dsa-binary-search",
       "prerequisites": [
         "dsa-arrays-strings"
       ]
     },
     "dsa-sqrt-integer": {
-      "stage": "beginner",
+      "stage": "developing",
       "concept": "dsa-binary-search",
       "prerequisites": [
         "dsa-problem-contracts"
-      ]
-    },
-    "dsa-remove-duplicates-sorted": {
-      "stage": "beginner",
-      "concept": "dsa-arrays-strings",
-      "prerequisites": [
-        "dsa-arrays-strings"
-      ]
-    },
-    "dsa-first-pair": {
-      "stage": "developing",
-      "concept": "dsa-two-pointers",
-      "prerequisites": [
-        "dsa-arrays-strings"
       ]
     },
     "dsa-max-window-sum": {
@@ -641,11 +627,39 @@
         "dsa-arrays-strings"
       ]
     },
+    "dsa-isomorphic-strings": {
+      "stage": "developing",
+      "concept": "dsa-hashing-sets",
+      "prerequisites": [
+        "dsa-problem-contracts"
+      ]
+    },
+    "dsa-range-sum-query": {
+      "stage": "developing",
+      "concept": "dsa-arrays-strings",
+      "prerequisites": [
+        "dsa-problem-contracts"
+      ]
+    },
     "dsa-container-most-water": {
-      "stage": "intermediate",
+      "stage": "developing",
       "concept": "dsa-two-pointers",
       "prerequisites": [
         "dsa-two-pointers"
+      ]
+    },
+    "dsa-longest-consecutive": {
+      "stage": "developing",
+      "concept": "dsa-hashing-sets",
+      "prerequisites": [
+        "dsa-hashing-sets"
+      ]
+    },
+    "dsa-find-cycle-start": {
+      "stage": "developing",
+      "concept": "dsa-linked-lists",
+      "prerequisites": [
+        "dsa-linked-lists"
       ]
     },
     "dsa-fruit-into-baskets": {
@@ -697,13 +711,6 @@
         "dsa-binary-search"
       ]
     },
-    "dsa-find-cycle-start": {
-      "stage": "intermediate",
-      "concept": "dsa-linked-lists",
-      "prerequisites": [
-        "dsa-linked-lists"
-      ]
-    },
     "dsa-kth-largest": {
       "stage": "intermediate",
       "concept": "dsa-heaps",
@@ -718,25 +725,18 @@
         "dsa-hashing-sets"
       ]
     },
+    "dsa-subarray-sum-equals-k": {
+      "stage": "intermediate",
+      "concept": "dsa-hashing-sets",
+      "prerequisites": [
+        "dsa-hashing-sets"
+      ]
+    },
     "dsa-three-sum": {
       "stage": "challenging",
       "concept": "dsa-two-pointers",
       "prerequisites": [
         "dsa-two-pointers"
-      ]
-    },
-    "dsa-subarray-sum-equals-k": {
-      "stage": "challenging",
-      "concept": "dsa-hashing-sets",
-      "prerequisites": [
-        "dsa-hashing-sets"
-      ]
-    },
-    "dsa-longest-consecutive": {
-      "stage": "challenging",
-      "concept": "dsa-hashing-sets",
-      "prerequisites": [
-        "dsa-hashing-sets"
       ]
     },
     "dsa-min-window-substring": {

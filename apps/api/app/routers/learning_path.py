@@ -15,6 +15,7 @@ from ..schemas.learning_path import (
     SubjectProgressSummary,
 )
 from ..services.learning_path import (
+    derive_step_action,
     evaluate_beginner_exercise,
     get_all_concepts_summary,
     get_arena_stages_detail,
@@ -64,6 +65,10 @@ def concept_step(
     all_concepts = get_all_concepts_summary(session)
     summary = next((c for c in all_concepts if c.key == step_key), None)
 
+    action_path, action_label, has_usable = derive_step_action(session, concept, state)
+    raw_status = concept.get("availability_status", "available")
+    availability = raw_status if has_usable else "candidate_unreviewed"
+
     return ConceptStepDetail(
         key=concept["key"],
         subject_key=concept["subject_key"],
@@ -76,13 +81,13 @@ def concept_step(
         progress_state=state,
         prerequisites_met=summary.prerequisites_met if summary else True,
         is_current=summary.is_current if summary else False,
-        action_path=summary.action_path if summary else "",
-        action_label=summary.action_label if summary else "Start",
+        action_path=action_path,
+        action_label=action_label,
         teaching_ref=concept.get("teaching_ref"),
         worked_example=concept.get("worked_example"),
         guided_practice_refs=concept.get("guided_practice_refs", []),
         independent_practice_refs=concept.get("independent_practice_refs", []),
-        availability_status=concept.get("availability_status", "available"),
+        availability_status=availability,
         review_eligible=concept.get("review_eligible", True),
     )
 
@@ -98,7 +103,10 @@ def update_step_progress(
     if not concept:
         raise HTTPException(status_code=404, detail="Concept step not found")
 
-    set_concept_step_progress(session, step_key, state)
+    try:
+        set_concept_step_progress(session, step_key, state)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
     return {"status": "ok", "step_key": step_key, "progress_state": state}
 
 

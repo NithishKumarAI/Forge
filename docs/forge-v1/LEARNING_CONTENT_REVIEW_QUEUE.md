@@ -22,15 +22,15 @@ The confirmed Placement Foundations syllabus spans **157 topics** across nine di
 
 | # | Subject Key | Subject Title | Outline Topics | Content Readiness | Beginner Exercises |
 | -: | :--- | :--- | :---: | :--- | :---: |
-| 1 | `python` | Python Programming | 17 | 19 Legacy Reference Lessons | 7 First Steps Ready |
-| 2 | `sql-postgresql` | SQL and PostgreSQL | 14 | 14 Legacy Reference Lessons | 4 First Steps Ready |
-| 3 | `dsa` | Data Structures & Algorithms | 20 | 20 Legacy Reference Lessons | 3 First Steps Ready |
-| 4 | `quantitative-aptitude` | Quantitative Aptitude | 22 | Candidates in review queue | In preparation |
-| 5 | `logical-reasoning` | Logical Reasoning | 20 | Candidates in review queue | In preparation |
-| 6 | `verbal-english` | Verbal Ability & Communication | 20 | Candidates in review queue | In preparation |
-| 7 | `system-design` | System Design Fundamentals | 16 | Candidates in review queue | In preparation |
-| 8 | `ai-fundamentals` | AI, GenAI, RAG & Agents | 14 | Candidates in review queue | In preparation |
-| 9 | `interview-communication` | Interview Communication | 14 | Candidates in review queue | In preparation |
+| 1 | `python` | Python Programming | 21 | 19 Legacy Reference Lessons | 7 First Steps Ready |
+| 2 | `sql-postgresql` | SQL and PostgreSQL | 18 | 14 Legacy Reference Lessons | 4 First Steps Ready |
+| 3 | `dsa` | Data Structures & Algorithms | 19 | 20 Legacy Reference Lessons | 3 First Steps Ready |
+| 4 | `quantitative-aptitude` | Quantitative Aptitude | 18 | Candidates in review queue | In preparation |
+| 5 | `logical-reasoning` | Logical Reasoning | 15 | Candidates in review queue | In preparation |
+| 6 | `verbal-english` | Verbal Ability & Communication | 17 | Candidates in review queue | In preparation |
+| 7 | `system-design` | System Design Fundamentals | 15 | Candidates in review queue | In preparation |
+| 8 | `ai-fundamentals` | AI, GenAI, RAG & Agents | 19 | Candidates in review queue | In preparation |
+| 9 | `interview-communication` | Interview Communication | 15 | Candidates in review queue | In preparation |
 | | **Total** | | **157** | **53 Legacy Lessons** | **14 Ready Exercises** |
 
 *Note: All 157 topics remain manually accessible in the curriculum browser (`/curriculum`) regardless of recommendation state or publication level.*

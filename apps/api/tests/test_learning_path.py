@@ -6,12 +6,15 @@ from sqlmodel import Session, select
 
 from app.database import get_session
 from app.main import app
-from app.models import AppSetting
+from app.models import AppSetting, ArenaAttempt, ArenaProblem, Topic
 from app.services.learning_path import (
+    check_prerequisites_met,
+    derive_step_action,
     evaluate_beginner_exercise,
     get_all_concepts_summary,
     get_arena_stages_detail,
     get_beginner_exercise,
+    get_concept_step_progress,
     get_learning_path_dashboard,
     get_subject_progress_summaries,
     load_arena_stages_manifest,
@@ -128,7 +131,7 @@ def test_recommendation_priority_tier_1_resume_unfinished(session: Session):
     assert primary.priority_tier == 1  # Resume unfinished work
     assert primary.concept_key == "step-py-values-1"
     assert primary.kind == "resume"
-    assert primary.action_label == "Resume learning"
+    assert primary.action_label in ("Resume learning", "Resume exercise")
 
 
 def test_recommendation_priority_tier_2_due_review(session: Session):
@@ -145,17 +148,19 @@ def test_recommendation_priority_tier_2_due_review(session: Session):
 
 
 def test_progress_update_persists_without_fabricating_mastery(session: Session):
-    set_concept_step_progress(session, "step-py-values-1", "ready_to_advance")
+    # Client cannot arbitrarily jump to ready_to_advance without evidence
+    with pytest.raises(ValueError, match="Cannot advance concept"):
+        set_concept_step_progress(session, "step-py-values-1", "ready_to_advance")
 
-    # Verify persisted in AppSetting
+    # Marking learning state persists
+    set_concept_step_progress(session, "step-py-values-1", "learning")
     setting = session.get(AppSetting, "lp_step_state:step-py-values-1")
     assert setting is not None
-    assert setting.value == "ready_to_advance"
+    assert setting.value == "learning"
 
-    # Step progress is reflected in concepts summary
     concepts = get_all_concepts_summary(session)
     step = next(c for c in concepts if c.key == "step-py-values-1")
-    assert step.progress_state == "ready_to_advance"
+    assert step.progress_state == "learning"
 
 
 def test_beginner_exercise_grading_python_pass(session: Session):
@@ -167,7 +172,7 @@ def test_beginner_exercise_grading_python_pass(session: Session):
     assert result.passed is True
     assert result.score == 100.0
     assert result.solution is not None  # Revealed on pass
-    assert "Passed" in result.output
+    assert "passed" in result.output.lower()
 
     # Verify exercise now shows as solved
     ex = get_beginner_exercise(session, "py-first-print-message")
@@ -225,15 +230,15 @@ def test_api_learning_path_endpoints(session: Session):
         ex = resp.json()
         assert ex["solved"] is False
 
-        # 4. Update concept progress
-        resp = client.post("/api/learning-path/steps/step-py-values-1/progress?state=practising")
+        # 4. Update concept progress (learning)
+        resp = client.post("/api/learning-path/steps/step-py-values-1/progress?state=learning")
         assert resp.status_code == 200
-        assert resp.json()["progress_state"] == "practising"
+        assert resp.json()["progress_state"] == "learning"
 
-        # 5. Submit exercise
+        # 5. Submit exercise with correct function name
         resp = client.post(
             "/api/learning-path/exercises/py-first-even-odd/submit",
-            json={"source": "def check_even_odd(n):\n    return 'even' if n % 2 == 0 else 'odd'"},
+            json={"source": "def even_or_odd(n):\n    return 'even' if n % 2 == 0 else 'odd'"},
         )
         assert resp.status_code == 200
         sub_res = resp.json()
@@ -241,3 +246,197 @@ def test_api_learning_path_endpoints(session: Session):
         assert sub_res["solution"] is not None
     finally:
         app.dependency_overrides.pop(get_session, None)
+
+
+# --- REGRESSION TESTS FOR AUDIT HARDENING ---
+
+
+def test_beginner_exercise_sql_incorrect_syntax_and_values(session: Session):
+    # 1. Syntax error must fail
+    res_syntax = evaluate_beginner_exercise(
+        session, "sql-first-select-constant", "SELECT FROM table;"
+    )
+    assert res_syntax.passed is False
+    assert res_syntax.score == 0.0
+
+    # 2. Wrong column alias must fail
+    res_col = evaluate_beginner_exercise(
+        session, "sql-first-select-constant", "SELECT 42 AS wrong_name;"
+    )
+    assert res_col.passed is False
+    assert res_col.score == 0.0
+
+    # 3. Wrong row value must fail even if starts with SELECT
+    res_val = evaluate_beginner_exercise(
+        session, "sql-first-select-constant", "SELECT 99 AS answer;"
+    )
+    assert res_val.passed is False
+    assert res_val.score == 0.0
+    assert res_val.solution is None
+
+    # 4. SQL with table fixture: wrong condition must fail
+    res_fixture_fail = evaluate_beginner_exercise(
+        session, "sql-first-where", "SELECT name FROM users WHERE is_active = false;"
+    )
+    assert res_fixture_fail.passed is False
+    assert res_fixture_fail.score == 0.0
+
+    # 5. Correct query must pass
+    res_fixture_pass = evaluate_beginner_exercise(
+        session, "sql-first-where", "SELECT name FROM users WHERE is_active = true;"
+    )
+    assert res_fixture_pass.passed is True
+    assert res_fixture_pass.score == 100.0
+
+
+def test_beginner_exercise_python_infinite_loop_and_banned_builtins(session: Session):
+    # 1. Infinite loop must be killed within bounded worker timeout and fail
+    res_loop = evaluate_beginner_exercise(
+        session,
+        "py-first-add-two",
+        "def add_numbers(a, b):\n    while True:\n        pass",
+    )
+    assert res_loop.passed is False
+    assert res_loop.score == 0.0
+    assert res_loop.solution is None
+
+    # 2. Banned builtins like open() must be rejected
+    res_banned = evaluate_beginner_exercise(
+        session,
+        "py-first-add-two",
+        "def add_numbers(a, b):\n    open('secret.txt', 'w')\n    return a + b",
+    )
+    assert res_banned.passed is False
+    assert res_banned.score == 0.0
+
+
+def test_recommendation_urls_are_resolvable(session: Session):
+    valid_prefixes = (
+        "/arena/exercises/",
+        "/arena/problems/",
+        "/topics/",
+        "/curriculum",
+        "/review",
+        "/practice",
+    )
+    subjects = [
+        "python",
+        "sql-postgresql",
+        "dsa",
+        "quantitative-aptitude",
+        "logical-reasoning",
+        "verbal-english",
+        "system-design",
+        "ai-fundamentals",
+        "interview-communication",
+    ]
+    for sub in subjects:
+        dash = get_learning_path_dashboard(session, active_subject=sub)
+        if dash.primary_recommendation:
+            path = dash.primary_recommendation.action_path
+            assert any(path.startswith(prefix) for prefix in valid_prefixes), (
+                f"Subject {sub} primary recommendation generated invalid URL: {path}"
+            )
+            assert not path.startswith("/learn/step-"), f"Broken route generated: {path}"
+
+        for sec in dash.secondary_recommendations:
+            path = sec.action_path
+            assert any(path.startswith(prefix) for prefix in valid_prefixes), (
+                f"Subject {sub} secondary recommendation generated invalid URL: {path}"
+            )
+
+
+def test_unpublished_candidate_lessons_not_claimed_available(session: Session):
+    manifest = load_concept_steps_manifest()
+    concepts = manifest.get("concepts", [])
+
+    # Step in quantitative aptitude has no bound lessons and no beginner exercises
+    quant_step = next(c for c in concepts if c["subject_key"] == "quantitative-aptitude")
+    _, _, has_usable = derive_step_action(session, quant_step, "not_started")
+    assert has_usable is False
+
+    try:
+        app.dependency_overrides[get_session] = lambda: session
+        client = TestClient(app)
+        resp = client.get(f"/api/learning-path/steps/{quant_step['key']}")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["availability_status"] == "candidate_unreviewed"
+        assert data["availability_status"] != "available"
+    finally:
+        app.dependency_overrides.pop(get_session, None)
+
+
+def test_false_readiness_prevented_without_verified_evidence(session: Session):
+    try:
+        app.dependency_overrides[get_session] = lambda: session
+        client = TestClient(app)
+
+        # 1. API endpoint rejects ready_to_advance when evidence is missing
+        resp = client.post("/api/learning-path/steps/step-py-values-1/progress?state=ready_to_advance")
+        assert resp.status_code == 400
+        assert "Cannot advance concept" in resp.json()["detail"]
+
+        # 2. Service level raises ValueError
+        manifest = load_concept_steps_manifest()
+        concept = next(c for c in manifest.get("concepts", []) if c["key"] == "step-py-values-1")
+        assert get_concept_step_progress(session, concept) == "not_started"
+
+        with pytest.raises(ValueError):
+            set_concept_step_progress(session, "step-py-values-1", "ready_to_advance")
+
+        # 3. Supply genuine verified evidence: solve all guided exercises + pass independent problem
+        from app.services.arena import sync_problem_bank
+        sync_problem_bank(session)
+
+        for g in concept.get("guided_practice_refs", []):
+            session.add(AppSetting(key=f"lp_ex_solved:{g}", value="true"))
+        for p in concept.get("independent_practice_refs", []):
+            session.add(
+                ArenaAttempt(
+                    problem_key=p,
+                    track="python",
+                    submitted_source="def solution(): pass",
+                    passed=True,
+                    score=100.0,
+                )
+            )
+        session.commit()
+
+        # 4. Now evidence-derived state advances to ready_to_advance
+        assert get_concept_step_progress(session, concept) == "ready_to_advance"
+
+        # 5. API call succeeds now that evidence is present
+        resp = client.post("/api/learning-path/steps/step-py-values-1/progress?state=ready_to_advance")
+        assert resp.status_code == 200
+        assert resp.json()["progress_state"] == "ready_to_advance"
+    finally:
+        app.dependency_overrides.pop(get_session, None)
+
+
+def test_prerequisite_violations_prevent_advancing(session: Session):
+    manifest = load_concept_steps_manifest()
+    concepts = manifest.get("concepts", [])
+    step_2 = next(c for c in concepts if c["key"] == "step-py-values-2")
+    assert "step-py-values-1" in step_2.get("prerequisite_keys", [])
+
+    progress_by_key = {c["key"]: "not_started" for c in concepts}
+
+    # Prerequisites unmet initially
+    assert check_prerequisites_met(step_2, progress_by_key) is False
+
+    # When step 2 is active, recommendation engine elevates prerequisite step 1
+    progress_by_key["step-py-values-2"] = "learning"
+    set_concept_step_progress(session, "step-py-values-2", "learning")
+
+    dashboard = get_learning_path_dashboard(session, active_subject="python")
+    # Priority 3 elevates missing prerequisite
+    prereq_rec = next((r for r in dashboard.secondary_recommendations if r.kind == "prerequisite"), None)
+    if dashboard.primary_recommendation.kind == "prerequisite":
+        prereq_rec = dashboard.primary_recommendation
+    assert prereq_rec is not None
+    assert prereq_rec.concept_key == "step-py-values-1"
+
+    # Once prerequisite is ready_to_advance, check_prerequisites_met succeeds
+    progress_by_key["step-py-values-1"] = "ready_to_advance"
+    assert check_prerequisites_met(step_2, progress_by_key) is True

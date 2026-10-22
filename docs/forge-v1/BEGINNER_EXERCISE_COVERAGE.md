@@ -45,10 +45,10 @@ All 110 original problems in `content/problem-bank/` have been mapped into `data
 
 | Track | Problem Count | First Steps | Beginner | Developing | Intermediate | Challenging |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Python** | 40 | 6 | 10 | 12 | 8 | 4 |
-| **SQL** | 30 | 5 | 8 | 8 | 6 | 3 |
-| **DSA** | 40 | 4 | 9 | 11 | 10 | 6 |
-| **Total** | **110** | **15** | **27** | **31** | **24** | **13** |
+| **Python** | 40 | 9 | 10 | 10 | 6 | 5 |
+| **SQL** | 30 | 6 | 6 | 5 | 7 | 6 |
+| **DSA** | 40 | 3 | 4 | 13 | 10 | 10 |
+| **Total** | **110** | **18** | **20** | **28** | **23** | **21** |
 
 *Note: All original JSON problem definitions, revisions, judge harnesses, and historical learner attempts remain intact and accessible via the Challenge Library tab at `/arena`.*
 

@@ -2,6 +2,7 @@ import ast
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 from sqlmodel import Session, select
@@ -31,6 +32,7 @@ from ..schemas.learning_path import (
     SubjectProgressSummary,
 )
 from .active_curriculum import get_active_curriculum
+from .assessment_judge import judge
 from .content_publication import release_entries
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
@@ -90,58 +92,81 @@ def get_subject_name(subject_key: str) -> str:
 
 
 def get_concept_step_progress(session: Session, concept: dict[str, Any]) -> LearningStage:
-    """Deterministically derive learner progress on a concept step from evidence."""
+    """Deterministically derive learner progress on a concept step strictly from verified evidence."""
     step_key = concept["key"]
-    # Check explicit persistence in AppSetting first
-    setting_key = f"lp_step_state:{step_key}"
-    saved_setting = session.get(AppSetting, setting_key)
-    saved_state = saved_setting.value if saved_setting else None
 
-    # Check due review
+    # 1. Check due review
     topic_slug = concept.get("topic_slug", "")
     topic_row = session.exec(select(Topic).where(Topic.slug == topic_slug)).first()
     now = utc_now()
+    is_review_due = False
+    is_retained = False
     if topic_row:
         review = session.get(ReviewState, topic_row.id)
-        if review and review.due_at.replace(tzinfo=timezone.utc) <= now:
-            return "review_due"
+        if review:
+            due_at = review.due_at.replace(tzinfo=timezone.utc) if review.due_at.tzinfo is None else review.due_at
+            if due_at <= now:
+                is_review_due = True
+            elif review.stability >= 1.0:
+                is_retained = True
 
-    # Check independent practice problems
-    independent_refs = concept.get("independent_practice_refs", [])
-    if independent_refs:
-        passed_any = session.exec(
-            select(ArenaAttempt).where(
-                ArenaAttempt.problem_key.in_(independent_refs),
-                ArenaAttempt.passed == True,
-            )
-        ).first()
-        if passed_any:
-            return "ready_to_advance"
+    if is_review_due:
+        return "review_due"
 
-        attempt_any = session.exec(
-            select(ArenaAttempt).where(
-                ArenaAttempt.problem_key.in_(independent_refs)
-            )
-        ).first()
-        if attempt_any:
-            return "practising"
-
-    # Check guided practice solved in AppSetting
+    # 2. Check guided practice solved in AppSetting
     guided_refs = concept.get("guided_practice_refs", [])
     all_guided_solved = False
+    some_guided_solved = False
     if guided_refs:
         solved_count = sum(
             1 for g in guided_refs if session.get(AppSetting, f"lp_ex_solved:{g}")
         )
         if solved_count == len(guided_refs):
             all_guided_solved = True
-        elif solved_count > 0:
-            return "practising"
+        if solved_count > 0:
+            some_guided_solved = True
 
-    if all_guided_solved:
+    # 3. Check independent practice arena attempts
+    independent_refs = concept.get("independent_practice_refs", [])
+    passed_independent = False
+    attempted_independent = False
+    if independent_refs:
+        passed_attempt = session.exec(
+            select(ArenaAttempt).where(
+                ArenaAttempt.problem_key.in_(independent_refs),
+                ArenaAttempt.passed == True,
+            )
+        ).first()
+        passed_independent = (passed_attempt is not None)
+
+        if not passed_independent:
+            any_attempt = session.exec(
+                select(ArenaAttempt).where(
+                    ArenaAttempt.problem_key.in_(independent_refs)
+                )
+            ).first()
+            attempted_independent = (any_attempt is not None)
+
+    # 4. Completion condition: Requires ALL guided exercises solved AND (if independent problems defined) passed independent problem
+    can_advance = False
+    if guided_refs and independent_refs:
+        can_advance = (all_guided_solved and passed_independent)
+    elif guided_refs:
+        can_advance = all_guided_solved
+    elif independent_refs:
+        can_advance = passed_independent
+
+    if can_advance:
+        if is_retained:
+            return "retained"
         return "ready_to_advance"
 
-    # Check reading progress
+    # 5. Check if currently practising
+    if attempted_independent or some_guided_solved:
+        return "practising"
+
+    # 6. Check reading progress on topic
+    has_section_progress = False
     if topic_row:
         section_progress = session.exec(
             select(ContentSectionProgress).where(
@@ -149,15 +174,35 @@ def get_concept_step_progress(session: Session, concept: dict[str, Any]) -> Lear
             )
         ).first()
         if section_progress:
-            return "learning"
+            has_section_progress = True
 
-    if saved_state in ("learning", "practising", "ready_to_advance", "retained", "review_due"):
+    if has_section_progress:
+        return "learning"
+
+    # 7. Check explicit user study intent
+    setting_key = f"lp_step_state:{step_key}"
+    saved_setting = session.get(AppSetting, setting_key)
+    saved_state = saved_setting.value if saved_setting else None
+    if saved_state in ("learning", "practising", "review_due"):
         return saved_state
 
     return "not_started"
 
 
-def set_concept_step_progress(session: Session, step_key: str, state: LearningStage) -> None:
+def set_concept_step_progress(session: Session, step_key: str, state: LearningStage) -> dict[str, Any]:
+    manifest = load_concept_steps_manifest()
+    concept = next((c for c in manifest.get("concepts", []) if c["key"] == step_key), None)
+    if not concept:
+        raise ValueError(f"Concept step {step_key} not found")
+
+    # Prevent false readiness without evidence
+    if state in ("ready_to_advance", "retained"):
+        current_state = get_concept_step_progress(session, concept)
+        if current_state not in ("ready_to_advance", "retained"):
+            raise ValueError(
+                f"Cannot advance concept '{step_key}': completion requires solving all guided exercises and passing independent practice."
+            )
+
     setting_key = f"lp_step_state:{step_key}"
     setting = session.get(AppSetting, setting_key)
     if setting is None:
@@ -166,6 +211,7 @@ def set_concept_step_progress(session: Session, step_key: str, state: LearningSt
     else:
         setting.value = state
     session.commit()
+    return {"status": "ok", "step_key": step_key, "progress_state": state}
 
 
 def check_prerequisites_met(
@@ -178,6 +224,79 @@ def check_prerequisites_met(
     return True
 
 
+def derive_step_action(session: Session, concept: dict[str, Any], state: LearningStage) -> tuple[str, str, bool]:
+    """
+    Returns (action_path, action_label, has_usable_content)
+    Guarantees every link points to a real, valid route in Forge.
+    """
+    guided = concept.get("guided_practice_refs", [])
+    independent = concept.get("independent_practice_refs", [])
+    topic_slug = concept.get("topic_slug", "")
+
+    # Check available beginner exercises
+    beginner_manifest = load_beginner_exercises_manifest()
+    available_exercises = {e["key"] for e in beginner_manifest.get("exercises", [])}
+    usable_guided = [g for g in guided if g in available_exercises]
+
+    # Check available arena problems
+    arena_manifest = load_arena_stages_manifest()
+    available_problems = set(arena_manifest.get("problem_mappings", {}).keys())
+    usable_independent = [p for p in independent if p in available_problems]
+
+    # Check if topic has bound static lessons in database
+    topic_row = session.exec(select(Topic).where(Topic.slug == topic_slug)).first()
+    has_bound_lesson = False
+    topic_id = None
+    if topic_row:
+        topic_id = topic_row.id
+        from .content_registry import bound_lessons
+        try:
+            lessons = bound_lessons(session, topic_row)
+            has_bound_lesson = len(lessons) > 0
+        except Exception:
+            has_bound_lesson = False
+
+    if state in ("not_started", "learning"):
+        if usable_guided:
+            label = "Resume exercise" if state == "learning" else "Start concept"
+            return f"/arena/exercises/{usable_guided[0]}", label, True
+        elif has_bound_lesson and topic_id:
+            label = "Resume lesson" if state == "learning" else "Start lesson"
+            return f"/topics/{topic_id}/learn", label, True
+        elif topic_id:
+            return f"/topics/{topic_id}", "Preview topic", False
+        else:
+            return f"/curriculum?track={concept.get('subject_key', '')}", "View track", False
+
+    elif state == "practising":
+        if usable_independent:
+            return f"/arena/problems/{usable_independent[0]}", "Continue practice", True
+        elif usable_guided:
+            return f"/arena/exercises/{usable_guided[0]}", "Continue exercises", True
+        elif has_bound_lesson and topic_id:
+            return f"/topics/{topic_id}/learn", "Continue lesson", True
+        elif topic_id:
+            return f"/topics/{topic_id}", "Topic overview", False
+        else:
+            return f"/curriculum?track={concept.get('subject_key', '')}", "View track", False
+
+    elif state == "review_due":
+        return "/review", "Review now", True
+
+    else:
+        # ready_to_advance or retained
+        if usable_independent:
+            return f"/arena/problems/{usable_independent[0]}", "Practice again", True
+        elif has_bound_lesson and topic_id:
+            return f"/topics/{topic_id}/learn", "Review lesson", True
+        elif usable_guided:
+            return f"/arena/exercises/{usable_guided[0]}", "Review exercises", True
+        elif topic_id:
+            return f"/topics/{topic_id}", "Topic overview", False
+        else:
+            return f"/curriculum?track={concept.get('subject_key', '')}", "View track", False
+
+
 def get_all_concepts_summary(session: Session) -> list[ConceptStepSummary]:
     manifest = load_concept_steps_manifest()
     concepts = manifest.get("concepts", [])
@@ -187,7 +306,7 @@ def get_all_concepts_summary(session: Session) -> list[ConceptStepSummary]:
     for c in concepts:
         prereqs_met = check_prerequisites_met(c, progress_by_key)
         state = progress_by_key[c["key"]]
-        action_path, action_label = derive_step_action(c, state)
+        action_path, action_label, _ = derive_step_action(session, c, state)
 
         summaries.append(
             ConceptStepSummary(
@@ -207,34 +326,6 @@ def get_all_concepts_summary(session: Session) -> list[ConceptStepSummary]:
             )
         )
     return summaries
-
-
-def derive_step_action(concept: dict[str, Any], state: LearningStage) -> tuple[str, str]:
-    guided = concept.get("guided_practice_refs", [])
-    independent = concept.get("independent_practice_refs", [])
-    topic_slug = concept.get("topic_slug", "")
-
-    if state == "not_started":
-        if guided:
-            return f"/arena/exercises/{guided[0]}", "Start concept"
-        return f"/learn/{concept.get('subject_key')}/{topic_slug}", "Start learning"
-    elif state == "learning":
-        if guided:
-            return f"/arena/exercises/{guided[0]}", "Resume learning"
-        return f"/learn/{concept.get('subject_key')}/{topic_slug}", "Resume learning"
-    elif state == "practising":
-        if independent:
-            return f"/arena/problems/{independent[0]}", "Continue practice"
-        if guided:
-            return f"/arena/exercises/{guided[0]}", "Continue exercises"
-        return f"/learn/{concept.get('subject_key')}/{topic_slug}", "Continue learning"
-    elif state == "review_due":
-        return f"/review", "Review concept"
-    else:
-        # ready_to_advance or retained
-        if independent:
-            return f"/arena/problems/{independent[0]}", "Practice again"
-        return f"/learn/{concept.get('subject_key')}/{topic_slug}", "Review material"
 
 
 def derive_recommendations(session: Session, active_subject: str = "python") -> tuple[
@@ -287,7 +378,7 @@ def derive_recommendations(session: Session, active_subject: str = "python") -> 
     # Check concepts currently in learning or practising state in active subject
     for c in concepts:
         if c["subject_key"] == active_subject and progress_by_key[c["key"]] in ("learning", "practising"):
-            action_path, action_label = derive_step_action(c, progress_by_key[c["key"]])
+            action_path, action_label, _ = derive_step_action(session, c, progress_by_key[c["key"]])
             all_recommendations.append(
                 LearningRecommendation(
                     kind="resume",
@@ -337,25 +428,26 @@ def derive_recommendations(session: Session, active_subject: str = "python") -> 
                 if p_state not in ("ready_to_advance", "retained"):
                     p_concept = next((x for x in concepts if x["key"] == p_key), None)
                     if p_concept:
-                        action_path, action_label = derive_step_action(p_concept, p_state)
-                        all_recommendations.append(
-                            LearningRecommendation(
-                                kind="prerequisite",
-                                subject_key=p_concept["subject_key"],
-                                subject_name=get_subject_name(p_concept["subject_key"]),
-                                concept_key=p_concept["key"],
-                                concept_title=p_concept["title"],
-                                stage=p_concept.get("stage", "first_steps"),
-                                objective=p_concept.get("objective", ""),
-                                progress_state=p_state,
-                                progress_summary="Foundation prerequisite",
-                                reason=f"Complete this prerequisite before advancing to {c['title']}.",
-                                action_path=action_path,
-                                action_label=action_label,
-                                priority_tier=3,
-                                is_primary=False,
+                        action_path, action_label, has_usable = derive_step_action(session, p_concept, p_state)
+                        if has_usable:
+                            all_recommendations.append(
+                                LearningRecommendation(
+                                    kind="prerequisite",
+                                    subject_key=p_concept["subject_key"],
+                                    subject_name=get_subject_name(p_concept["subject_key"]),
+                                    concept_key=p_concept["key"],
+                                    concept_title=p_concept["title"],
+                                    stage=p_concept.get("stage", "first_steps"),
+                                    objective=p_concept.get("objective", ""),
+                                    progress_state=p_state,
+                                    progress_summary="Foundation prerequisite",
+                                    reason=f"Complete this prerequisite before advancing to {c['title']}.",
+                                    action_path=action_path,
+                                    action_label=action_label,
+                                    priority_tier=3,
+                                    is_primary=False,
+                                )
                             )
-                        )
 
     # Priority 4: Next available concept in the selected subject
     for c in concepts:
@@ -363,26 +455,27 @@ def derive_recommendations(session: Session, active_subject: str = "python") -> 
             state = progress_by_key[c["key"]]
             if state not in ("ready_to_advance", "retained"):
                 if check_prerequisites_met(c, progress_by_key):
-                    action_path, action_label = derive_step_action(c, state)
-                    all_recommendations.append(
-                        LearningRecommendation(
-                            kind="next_concept",
-                            subject_key=c["subject_key"],
-                            subject_name=get_subject_name(c["subject_key"]),
-                            concept_key=c["key"],
-                            concept_title=c["title"],
-                            stage=c.get("stage", "first_steps"),
-                            objective=c.get("objective", ""),
-                            progress_state=state,
-                            progress_summary=f"Next in {get_subject_name(c['subject_key'])}",
-                            reason=f"The next logical step in your {get_subject_name(c['subject_key'])} path.",
-                            action_path=action_path,
-                            action_label=action_label,
-                            priority_tier=4,
-                            is_primary=False,
+                    action_path, action_label, has_usable = derive_step_action(session, c, state)
+                    if has_usable:
+                        all_recommendations.append(
+                            LearningRecommendation(
+                                kind="next_concept",
+                                subject_key=c["subject_key"],
+                                subject_name=get_subject_name(c["subject_key"]),
+                                concept_key=c["key"],
+                                concept_title=c["title"],
+                                stage=c.get("stage", "first_steps"),
+                                objective=c.get("objective", ""),
+                                progress_state=state,
+                                progress_summary=f"Next in {get_subject_name(c['subject_key'])}",
+                                reason=f"The next logical step in your {get_subject_name(c['subject_key'])} path.",
+                                action_path=action_path,
+                                action_label=action_label,
+                                priority_tier=4,
+                                is_primary=False,
+                            )
                         )
-                    )
-                    break
+                        break
 
     # Priority 5: Suitable independent practice
     # Find an independent problem for an in-progress or completed concept
@@ -429,26 +522,27 @@ def derive_recommendations(session: Session, active_subject: str = "python") -> 
                 state = progress_by_key[c["key"]]
                 if state not in ("ready_to_advance", "retained"):
                     if check_prerequisites_met(c, progress_by_key):
-                        action_path, action_label = derive_step_action(c, state)
-                        all_recommendations.append(
-                            LearningRecommendation(
-                                kind="secondary_subject",
-                                subject_key=c["subject_key"],
-                                subject_name=get_subject_name(c["subject_key"]),
-                                concept_key=c["key"],
-                                concept_title=c["title"],
-                                stage=c.get("stage", "first_steps"),
-                                objective=c.get("objective", ""),
-                                progress_state=state,
-                                progress_summary=f"Switch track to {get_subject_name(c['subject_key'])}",
-                                reason=f"Build multi-track fluency by learning {get_subject_name(c['subject_key'])}.",
-                                action_path=action_path,
-                                action_label=action_label,
-                                priority_tier=6,
-                                is_primary=False,
+                        action_path, action_label, has_usable = derive_step_action(session, c, state)
+                        if has_usable:
+                            all_recommendations.append(
+                                LearningRecommendation(
+                                    kind="secondary_subject",
+                                    subject_key=c["subject_key"],
+                                    subject_name=get_subject_name(c["subject_key"]),
+                                    concept_key=c["key"],
+                                    concept_title=c["title"],
+                                    stage=c.get("stage", "first_steps"),
+                                    objective=c.get("objective", ""),
+                                    progress_state=state,
+                                    progress_summary=f"Switch track to {get_subject_name(c['subject_key'])}",
+                                    reason=f"Build multi-track fluency by learning {get_subject_name(c['subject_key'])}.",
+                                    action_path=action_path,
+                                    action_label=action_label,
+                                    priority_tier=6,
+                                    is_primary=False,
+                                )
                             )
-                        )
-                        break
+                            break
 
     # Sort deterministically by priority_tier, then stable concept key
     all_recommendations.sort(key=lambda r: (r.priority_tier, r.concept_key))
@@ -462,26 +556,41 @@ def derive_recommendations(session: Session, active_subject: str = "python") -> 
             unique_recommendations.append(r)
 
     if not unique_recommendations:
-        # Default fallback to first concept of active subject
-        first = next((c for c in concepts if c["subject_key"] == active_subject), concepts[0])
-        action_path, action_label = derive_step_action(first, "not_started")
-        primary = LearningRecommendation(
-            kind="next_concept",
-            subject_key=first["subject_key"],
-            subject_name=get_subject_name(first["subject_key"]),
-            concept_key=first["key"],
-            concept_title=first["title"],
-            stage=first.get("stage", "first_steps"),
-            objective=first.get("objective", ""),
-            progress_state="not_started",
-            progress_summary="Start learning",
-            reason="Begin your learning journey with the first concept.",
-            action_path=action_path,
-            action_label=action_label,
-            priority_tier=4,
-            is_primary=True,
-        )
-        return primary, []
+        # Fallback: find first concept in active subject with usable content
+        candidate = None
+        for c in concepts:
+            if c["subject_key"] == active_subject:
+                a_path, a_label, has_usable = derive_step_action(session, c, "not_started")
+                if has_usable:
+                    candidate = (c, a_path, a_label)
+                    break
+        if not candidate:
+            for c in concepts:
+                a_path, a_label, has_usable = derive_step_action(session, c, "not_started")
+                if has_usable:
+                    candidate = (c, a_path, a_label)
+                    break
+
+        if candidate:
+            first, action_path, action_label = candidate
+            primary = LearningRecommendation(
+                kind="next_concept",
+                subject_key=first["subject_key"],
+                subject_name=get_subject_name(first["subject_key"]),
+                concept_key=first["key"],
+                concept_title=first["title"],
+                stage=first.get("stage", "first_steps"),
+                objective=first.get("objective", ""),
+                progress_state="not_started",
+                progress_summary="Start learning",
+                reason="Begin your learning journey with the first available concept.",
+                action_path=action_path,
+                action_label=action_label,
+                priority_tier=4,
+                is_primary=True,
+            )
+            return primary, []
+        return None, []
 
     primary = unique_recommendations[0]
     primary.is_primary = True
@@ -521,7 +630,7 @@ def get_subject_progress_summaries(session: Session) -> list[SubjectProgressSumm
         action_path = f"/curriculum?track={s_key}"
         if current:
             c_state = progress_by_key.get(current["key"], "not_started")
-            action_path, _ = derive_step_action(current, c_state)
+            action_path, _, _ = derive_step_action(session, current, c_state)
 
         summaries.append(
             SubjectProgressSummary(
@@ -686,53 +795,6 @@ def get_beginner_exercise(session: Session, exercise_key: str) -> BeginnerExerci
     return None
 
 
-def execute_python_beginner_test(code: str, test: dict[str, Any]) -> tuple[bool, str]:
-    """Safely executes a Python test case in an isolated local namespace."""
-    try:
-        # Validate AST
-        tree = ast.parse(code)
-    except SyntaxError as e:
-        return False, f"SyntaxError: {e}"
-
-    local_ns: dict[str, Any] = {}
-    # Restrict builtins
-    safe_builtins = {
-        "abs": abs, "all": all, "any": any, "bool": bool, "dict": dict,
-        "enumerate": enumerate, "filter": filter, "float": float, "int": int,
-        "isinstance": isinstance, "len": len, "list": list, "map": map,
-        "max": max, "min": min, "range": range, "reversed": reversed,
-        "round": round, "set": set, "sorted": sorted, "str": str,
-        "sum": sum, "tuple": tuple, "zip": zip,
-    }
-    exec_globals = {"__builtins__": safe_builtins}
-
-    try:
-        exec(compile(tree, "<learner_code>", "exec"), exec_globals, local_ns)
-    except Exception as e:
-        return False, f"Execution failed: {type(e).__name__}: {e}"
-
-    func_name = None
-    for item in tree.body:
-        if isinstance(item, ast.FunctionDef):
-            func_name = item.name
-            break
-
-    if not func_name or func_name not in local_ns:
-        return False, "No function definition found in code."
-
-    target_func = local_ns[func_name]
-    args = test.get("args", [])
-    expected = test.get("expected")
-
-    try:
-        actual = target_func(*args)
-        if actual == expected:
-            return True, f"Passed: {func_name}({', '.join(map(repr, args))}) -> {repr(actual)}"
-        return False, f"Expected {repr(expected)}, but got {repr(actual)}"
-    except Exception as e:
-        return False, f"Function raised {type(e).__name__}: {e}"
-
-
 def evaluate_beginner_exercise(
     session: Session, exercise_key: str, source: str
 ) -> BeginnerExerciseSubmitResponse:
@@ -742,93 +804,136 @@ def evaluate_beginner_exercise(
         raise ValueError("Beginner exercise not found")
 
     track = ex["track"]
-    tests = ex.get("tests", [])
 
-    if track == "python":
-        passed_count = 0
-        details = []
-        for test in tests:
-            passed, msg = execute_python_beginner_test(source, test)
-            if passed:
-                passed_count += 1
-            details.append(msg)
+    if track == "sql":
+        setup_sql = ex.get("setup_sql", "")
+        tests = ex.get("tests", [])
+        if not tests:
+            raise ValueError(f"No test cases configured for SQL exercise {exercise_key}")
 
-        total = len(tests)
-        overall_pass = (passed_count == total and total > 0)
+        expected_columns = tests[0].get("expected_columns", [])
+        datasets = [
+            {
+                "setup_sql": setup_sql,
+                "expected_rows": t.get("expected_rows", []),
+            }
+            for t in tests
+        ]
+        ordered = ex.get("ordered", False)
+
+        item = SimpleNamespace(
+            kind="sql",
+            contract={
+                "columns": expected_columns,
+                "ordered": ordered,
+                "datasets": datasets,
+            },
+        )
+        judge_res = judge(item, source)
+        status = judge_res.get("status")
+        passed_count = judge_res.get("passed", 0)
+        total = len(datasets)
+        overall_pass = (status == "verified" and passed_count == total and total > 0)
         score = round((passed_count / total) * 100, 1) if total else 0.0
 
         if overall_pass:
-            # Mark solved in AppSetting
             setting_key = f"lp_ex_solved:{exercise_key}"
             setting = session.get(AppSetting, setting_key)
             if not setting:
                 session.add(AppSetting(key=setting_key, value="true"))
                 session.commit()
 
+        error_msg = judge_res.get("error") or judge_res.get("reason")
+        output = (
+            "Query executed successfully and matched expected results."
+            if overall_pass
+            else (error_msg or f"Result mismatch: {passed_count}/{total} test datasets passed.")
+        )
+        feedback = (
+            "Great work! Query matched expected column contracts and row values."
+            if overall_pass
+            else (error_msg or f"{passed_count}/{total} test datasets passed.")
+        )
+
         return BeginnerExerciseSubmitResponse(
             exercise_key=exercise_key,
             passed=overall_pass,
             score=score,
-            output="\n".join(details),
-            feedback="All test cases passed!" if overall_pass else f"{passed_count}/{total} test cases passed.",
+            output=output,
+            feedback=feedback,
             solution=ex.get("reference_solution") if overall_pass else None,
             explanation=ex.get("explanation") if overall_pass else None,
         )
 
-    elif track == "sql":
-        # Basic SQL keyword verification and structure
-        clean_sql = source.strip().rstrip(";")
-        if not clean_sql.upper().startswith(("SELECT", "WITH")):
-            return BeginnerExerciseSubmitResponse(
-                exercise_key=exercise_key,
-                passed=False,
-                score=0.0,
-                output="SQL query must begin with SELECT or WITH.",
-                feedback="Initial beginner SQL exercises support SELECT queries.",
-            )
-
-        # Mark solved upon valid non-empty query submission
-        setting_key = f"lp_ex_solved:{exercise_key}"
-        if not session.get(AppSetting, setting_key):
-            session.add(AppSetting(key=setting_key, value="true"))
-            session.commit()
-
-        return BeginnerExerciseSubmitResponse(
-            exercise_key=exercise_key,
-            passed=True,
-            score=100.0,
-            output="Query executed successfully.",
-            feedback="Great work! Query matched expected column contracts.",
-            solution=ex.get("reference_solution"),
-            explanation=ex.get("explanation"),
-        )
-
     else:
-        # DSA: treated with Python execution
-        passed_count = 0
-        details = []
-        for test in tests:
-            passed, msg = execute_python_beginner_test(source, test)
-            if passed:
-                passed_count += 1
-            details.append(msg)
+        # Python / DSA: verify via bounded isolated worker
+        tests = ex.get("tests", [])
+        function_name = ex.get("function_name")
 
+        if not function_name:
+            # Fallback: inspect AST to find function definition
+            try:
+                tree = ast.parse(source)
+                funcs = [n.name for n in tree.body if isinstance(n, ast.FunctionDef)]
+                if len(funcs) == 1:
+                    function_name = funcs[0]
+                else:
+                    return BeginnerExerciseSubmitResponse(
+                        exercise_key=exercise_key,
+                        passed=False,
+                        score=0.0,
+                        output="Required function definition missing or ambiguous.",
+                        feedback="Define exactly one function matching the exercise instructions.",
+                    )
+            except SyntaxError as e:
+                return BeginnerExerciseSubmitResponse(
+                    exercise_key=exercise_key,
+                    passed=False,
+                    score=0.0,
+                    output=f"SyntaxError: {e}",
+                    feedback="Check your Python syntax.",
+                )
+
+        item = SimpleNamespace(
+            kind="python",
+            contract={
+                "mode": "function",
+                "function_name": function_name,
+                "tests": tests,
+            },
+        )
+        judge_res = judge(item, source)
+        status = judge_res.get("status")
+        passed_count = judge_res.get("passed", 0)
         total = len(tests)
-        overall_pass = (passed_count == total and total > 0)
+        overall_pass = (status == "verified" and passed_count == total and total > 0)
         score = round((passed_count / total) * 100, 1) if total else 0.0
 
         if overall_pass:
             setting_key = f"lp_ex_solved:{exercise_key}"
-            if not session.get(AppSetting, setting_key):
+            setting = session.get(AppSetting, setting_key)
+            if not setting:
                 session.add(AppSetting(key=setting_key, value="true"))
                 session.commit()
+
+        reason = judge_res.get("reason")
+        output = (
+            "All test cases passed!"
+            if overall_pass
+            else (reason or f"{passed_count}/{total} test cases passed.")
+        )
+        feedback = (
+            "All test cases passed!"
+            if overall_pass
+            else (reason or f"{passed_count}/{total} test cases passed.")
+        )
 
         return BeginnerExerciseSubmitResponse(
             exercise_key=exercise_key,
             passed=overall_pass,
             score=score,
-            output="\n".join(details),
-            feedback="All test cases passed!" if overall_pass else f"{passed_count}/{total} test cases passed.",
+            output=output,
+            feedback=feedback,
             solution=ex.get("reference_solution") if overall_pass else None,
             explanation=ex.get("explanation") if overall_pass else None,
         )

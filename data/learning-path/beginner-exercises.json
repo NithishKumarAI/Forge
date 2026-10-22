@@ -7,6 +7,7 @@
       "stage": "first_steps",
       "title": "Print a message",
       "concept_key": "step-py-values-1",
+      "function_name": "say_hello",
       "instructions": "Write a function `say_hello()` that returns the string `'Hello, Forge!'`.",
       "starter_code": "def say_hello():\n    # Return the message\n    pass",
       "examples": [
@@ -35,6 +36,7 @@
       "stage": "first_steps",
       "title": "Work with one variable",
       "concept_key": "step-py-values-1",
+      "function_name": "double_value",
       "instructions": "Write a function `double_value(x)` that takes a number `x`, assigns its double to a variable `result`, and returns `result`.",
       "starter_code": "def double_value(x):\n    # Multiply x by 2 and return it\n    pass",
       "examples": [
@@ -79,6 +81,7 @@
       "stage": "first_steps",
       "title": "Add two numbers",
       "concept_key": "step-py-values-2",
+      "function_name": "add_numbers",
       "instructions": "Write a function `add_numbers(a, b)` that returns the sum of `a` and `b`.",
       "starter_code": "def add_numbers(a, b):\n    pass",
       "examples": [
@@ -126,6 +129,7 @@
       "stage": "first_steps",
       "title": "Compare two numbers",
       "concept_key": "step-py-cond-1",
+      "function_name": "is_greater",
       "instructions": "Write a function `is_greater(a, b)` that returns `True` if `a` is strictly greater than `b`, and `False` otherwise.",
       "starter_code": "def is_greater(a, b):\n    pass",
       "examples": [
@@ -173,6 +177,7 @@
       "stage": "first_steps",
       "title": "Check even or odd",
       "concept_key": "step-py-cond-2",
+      "function_name": "even_or_odd",
       "instructions": "Write a function `even_or_odd(n)` that returns `'even'` if `n` is even, and `'odd'` if `n` is odd.",
       "starter_code": "def even_or_odd(n):\n    pass",
       "examples": [
@@ -224,6 +229,7 @@
       "stage": "first_steps",
       "title": "Count positive numbers",
       "concept_key": "step-py-loops-1",
+      "function_name": "count_positives",
       "instructions": "Write a function `count_positives(nums)` that counts how many numbers in a list `nums` are strictly greater than 0.",
       "starter_code": "def count_positives(nums):\n    pass",
       "examples": [
@@ -276,6 +282,7 @@
       "stage": "first_steps",
       "title": "Find a maximum manually",
       "concept_key": "step-py-loops-2",
+      "function_name": "find_max",
       "instructions": "Write a function `find_max(nums)` that takes a non-empty list of integers and returns the largest value by iterating through it.",
       "starter_code": "def find_max(nums):\n    pass",
       "examples": [
@@ -481,6 +488,7 @@
       "stage": "first_steps",
       "title": "Trace and sum a list",
       "concept_key": "step-dsa-contracts-1",
+      "function_name": "sum_list",
       "instructions": "Write a function `sum_list(elements)` that computes the sum of numbers in `elements` without using the built-in `sum()` function.",
       "starter_code": "def sum_list(elements):\n    pass",
       "examples": [
@@ -533,6 +541,7 @@
       "stage": "first_steps",
       "title": "Linear search for index",
       "concept_key": "step-dsa-scan-1",
+      "function_name": "find_index",
       "instructions": "Write a function `find_index(elements, target)` that returns the 0-based index of the first occurrence of `target` in `elements`, or `-1` if it is not present.",
       "starter_code": "def find_index(elements, target):\n    pass",
       "examples": [
@@ -592,6 +601,7 @@
       "stage": "first_steps",
       "title": "Frequency counting with a dictionary",
       "concept_key": "step-dsa-hash-1",
+      "function_name": "build_counts",
       "instructions": "Write a function `build_counts(items)` that returns a dictionary mapping each element to how many times it appears in `items`.",
       "starter_code": "def build_counts(items):\n    pass",
       "examples": [
