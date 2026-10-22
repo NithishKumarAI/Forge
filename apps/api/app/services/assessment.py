@@ -16,7 +16,8 @@ def utc(value):return value.replace(tzinfo=timezone.utc) if value.tzinfo is None
 
 def active_scored_interview(session):
     rows=session.exec(select(m.InterviewSession).where(m.InterviewSession.status=="active")).all()
-    return next((r for r in rows if json.loads(r.metadata_json).get("engine")=="static/1" and r.mode=="objective"),None)
+    interview=next((r for r in rows if json.loads(r.metadata_json).get("engine")=="static/1" and r.mode=="objective"),None)
+    return interview or session.exec(select(m.TimedTestSession).where(m.TimedTestSession.status=="active")).first()
 
 
 def help_guard(session,*,commit=True):
@@ -34,17 +35,18 @@ def help_guard(session,*,commit=True):
     else:session.flush()
 
 
-def make_selection(session,topic,item,revision,approval,purpose,*,learning=None,curriculum_id=None):
+def make_selection(session,topic,item,revision,approval,purpose,*,learning=None,curriculum_id=None,created_at=None):
+    created_at=utc(created_at or m.utc_now())
     if topic is None and (item.kind!="reflection" or purpose!="interview" or curriculum_id is None):raise ValueError("Only unscored rehearsal may have no curriculum topic mapping")
     if topic is not None:curriculum_id=session.get(m.Track,topic.track_id).curriculum_id
     if revision and revision.content_type=="arena_problem" and topic is not None:
         placement=session.get(m.TopicPlacement,topic.id)
         item=item.model_copy(update={"subject":session.get(m.Track,topic.track_id).slug,"topic":topic.slug,"level":placement.level if placement else item.level})
-    learning=learning or m.LearningSession(topic_id=topic.id if topic else None,mode=purpose)
+    learning=learning or m.LearningSession(topic_id=topic.id if topic else None,mode=purpose,started_at=created_at)
     session.add(learning);session.flush()
     row=m.AssessmentSelection(id=str(uuid4()),session_id=learning.id,curriculum_id=curriculum_id,
         topic_id=topic.id if topic else None,content_revision_id=revision.id if revision else None,content_sha256=revision.sha256 if revision else digest(item.model_dump(mode="json")),
-        item_key=item.key,family=item.family,purpose=purpose,approval=approval,snapshot_json=json.dumps(item.model_dump(mode="json")))
+        item_key=item.key,family=item.family,purpose=purpose,approval=approval,snapshot_json=json.dumps(item.model_dump(mode="json")),created_at=created_at)
     helped=session.exec(select(m.AssessmentSelection).where(m.AssessmentSelection.family==item.family,
         (m.AssessmentSelection.revealed==True)|(m.AssessmentSelection.hints_used>0)|(m.AssessmentSelection.assisted==True))).first()
     if helped and purpose!="recall":row.assisted=True
@@ -80,11 +82,14 @@ def start(session,topic,purpose="practice",*,now=None):
     pool=candidates(session,topic,purpose,now=now)
     if not pool:raise ValueError("Transfer pool exhausted: no reviewed unseen independent variant" if purpose=="transfer" else "No approved questions for this context. Read lessons or choose ordinary practice where available.")
     item,revision,approval=pool[0]
-    row=make_selection(session,topic,item,revision,approval,purpose);session.commit();return public(session,row)
+    row=make_selection(session,topic,item,revision,approval,purpose,created_at=now);session.commit();return public(session,row)
 
 
 def feedback_allowed(session,row):
     if active_scored_interview(session):return False
+    if row.purpose=="timed":
+        from .timed_tests import owner
+        return owner(session,row)[0].status=="completed"
     if row.interview_question_id:
         q=session.get(m.InterviewQuestion,row.interview_question_id)
         return session.get(m.InterviewSession,q.session_id).status=="completed"
@@ -135,7 +140,7 @@ def reveal(session,row):
 
 
 def _credit(session,row,attempt,item,score):
-    if row.approval!="approved" or item.kind=="reflection" or row.revealed or row.purpose=="interview":return
+    if row.approval!="approved" or item.kind=="reflection" or row.revealed or row.purpose in {"interview","timed"}:return
     if row.arena_attempt_id and row.assisted:return
     purpose="practice" if row.purpose=="arena" else row.purpose
     due=session.get(m.ReviewState,row.topic_id) if purpose=="recall" else None
@@ -162,9 +167,13 @@ def _credit(session,row,attempt,item,score):
     return event
 
 
-def submit(session,row,request,*,now=None,commit=True):
+def submit(session,row,request,*,now=None,commit=True,allow_timed=False):
     now=utc(now or datetime.now(timezone.utc))
-    if active_scored_interview(session) and row.purpose!="interview":raise ValueError("Complete or save the scored interview before other assessments")
+    if row.purpose=="timed":
+        if not allow_timed:raise ValueError("Use the timed assessment answer endpoint")
+        from .timed_tests import validate_submission
+        validate_submission(session,row,now)
+    if active_scored_interview(session) and row.purpose not in {"interview","timed"}:raise ValueError("Complete or save the scored interview before other assessments")
     if request.content_sha256!=row.content_sha256:raise ValueError("Stale content revision; reload the selected item")
     if row.status!="open":
         if row.purpose in {"practice","arena","recall"}:help_guard(session,commit=False)
@@ -204,7 +213,7 @@ def submit(session,row,request,*,now=None,commit=True):
     if row.topic_id is not None:
         attempt=m.Attempt(topic_id=row.topic_id,attempt_type=item.kind,score=score or 0,passed=passed,used_hint=row.assisted,created_at=now)
         session.add(attempt);session.flush()
-    if score is not None and score<70 and row.purpose!="interview":
+    if score is not None and score<70 and row.purpose not in {"interview","timed"}:
         description="Incorrect objective response in "+item.key
         mistake=session.exec(select(m.Mistake).where(m.Mistake.topic_id==row.topic_id,m.Mistake.category==item.kind,m.Mistake.description==description)).first()
         if mistake:mistake.occurrence_count+=1;mistake.last_seen_at=now

@@ -1,0 +1,93 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "307fbeb174cbb9c426c9a59c6cd4f4bee06ef0947221c83678ed6f26cf147bf7",
+  "payload_sha256": "c45c9054037e548078d92be8398232858374dd3ebfa1a38eab1b66ca39fd065c",
+  "coverage_sha256": "b0d12f3050c2523748f344f23ecb490dd1c8cb610a27ecf5e4d57c6fa770bb02",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "a7c1366f61002e360e896fbbd6bb79b1a2d5290e872952ffd6ad3d1f2a30d171"
+  },
+  "coverage": [
+    {
+      "id": "guided-order",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/guided-order"
+      ],
+      "assessment_refs": [
+        "item/guided-order"
+      ]
+    },
+    {
+      "id": "independent-group",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/independent-group"
+      ],
+      "assessment_refs": [
+        "item/independent-group"
+      ]
+    },
+    {
+      "id": "transfer-balance",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/transfer-balance"
+      ],
+      "assessment_refs": [
+        "item/transfer-balance"
+      ]
+    },
+    {
+      "id": "recall-signed",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/recall-signed"
+      ],
+      "assessment_refs": [
+        "item/recall-signed"
+      ]
+    },
+    {
+      "id": "mock-order",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/mock-order"
+      ],
+      "assessment_refs": [
+        "item/mock-order"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "item": "guided-order",
+      "status": "requires_human_answer_review",
+      "subject_check": "exact_rational_derivation_checked"
+    },
+    {
+      "item": "independent-group",
+      "status": "requires_human_answer_review",
+      "subject_check": "exact_rational_derivation_checked"
+    },
+    {
+      "item": "transfer-balance",
+      "status": "requires_human_answer_review",
+      "subject_check": "exact_rational_derivation_checked"
+    },
+    {
+      "item": "recall-signed",
+      "status": "requires_human_answer_review",
+      "subject_check": "exact_rational_derivation_checked"
+    },
+    {
+      "item": "mock-order",
+      "status": "requires_human_answer_review",
+      "subject_check": "exact_rational_derivation_checked"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

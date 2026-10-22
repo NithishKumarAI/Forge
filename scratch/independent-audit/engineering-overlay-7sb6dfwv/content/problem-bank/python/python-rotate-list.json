@@ -1,0 +1,42 @@
+{
+  "key": "python-rotate-list",
+  "title": "Rotate list right by k",
+  "track": "python",
+  "topic_tags": ["lists", "arrays"],
+  "difficulty": "easy",
+  "interview_frequency": "medium",
+  "estimated_minutes": 25,
+  "statement_markdown": "Write a function `rotate_right(nums: list[int], k: int) -> list[int]` that rotates the array to the right by `k` steps in a non-destructive manner (returns a new list).",
+  "constraints": [
+    "k >= 0"
+  ],
+  "examples": [
+    {"input": "nums = [1, 2, 3, 4, 5], k = 2", "output": "[4, 5, 1, 2, 3]", "explanation": "Rotate 1 step: [5, 1, 2, 3, 4]. Rotate 2 steps: [4, 5, 1, 2, 3]."},
+    {"input": "nums = [1, 2, 3], k = 0", "output": "[1, 2, 3]", "explanation": "0 steps means no change."},
+    {"input": "nums = [1, 2, 3], k = 3", "output": "[1, 2, 3]", "explanation": "Rotating by the length of the list brings it back to the original."}
+  ],
+  "starter_code": "def rotate_right(nums: list[int], k: int) -> list[int]:\n    pass",
+  "hints": [
+    "`k` can be larger than the length of the list, so use `k % len(nums)` to avoid unnecessary full rotations.",
+    "Use list slicing to get the last `k` elements and the first `len(nums) - k` elements, and concatenate them."
+  ],
+  "explanation": "First, take the modulo of `k` by the length of the list to handle cases where `k` is larger than the list length. If `k` is 0 or the list is empty, return a copy of the list. Otherwise, slice the array into two parts: the last `k` elements, and all elements before that, and concatenate them in reverse order.",
+  "reference_solution": "def rotate_right(nums: list[int], k: int) -> list[int]:\n    if not nums:\n        return []\n    k = k % len(nums)\n    if k == 0:\n        return nums[:]\n    return nums[-k:] + nums[:-k]",
+  "complexity": "O(n) time to slice and copy elements, O(n) space for the new list.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "rotate_right",
+    "sample_tests": [
+      {"name": "k2", "args": [[1, 2, 3, 4, 5], 2], "kwargs": {}, "expected": [4, 5, 1, 2, 3]},
+      {"name": "k0", "args": [[1, 2, 3], 0], "kwargs": {}, "expected": [1, 2, 3]},
+      {"name": "k3_same_as_len", "args": [[1, 2, 3], 3], "kwargs": {}, "expected": [1, 2, 3]}
+    ],
+    "hidden_tests": [
+      {"name": "k_greater_than_len", "args": [[1, 2], 3], "kwargs": {}, "expected": [2, 1]},
+      {"name": "empty", "args": [[], 5], "kwargs": {}, "expected": []}
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/collections"
+}

@@ -1,0 +1,21 @@
+{
+  "syntax-data-types": {"required_concepts":["syntax basics","variables","assignment","naming rules","int","float","str","bool","None","dynamically typed","strongly typed","type()","casting","mutable","frequent mistakes","interview-focused summary"]},
+  "strings": {"required_concepts":["indexing","slicing","immutable","methods","strip","split","join","replace","find","f-string","formatting","reverse","palindrome","anagram","interview"]},
+  "control-flow": {"required_concepts":["if","elif","else","truthiness","falsiness","for","while","range","break","continue","match awareness"]},
+  "collections": {"required_concepts":["lists","tuples","dictionaries","sets","indexing","slicing","membership","mutation","iteration","selection trade-offs"]},
+  "functions": {"required_concepts":["definition","parameters","arguments","return values","scope","defaults","keyword arguments","args kwargs","pure functions"]},
+  "comprehensions": {"required_concepts":["list comprehensions","set comprehensions","dict comprehensions","conditions","nested readability","generator expressions"]},
+  "oop": {"required_concepts":["classes","instances","attributes","methods","init","inheritance","composition","encapsulation","dunder methods"]},
+  "exceptions": {"required_concepts":["try","except","else","finally","raise","exception hierarchy","custom exceptions","error boundaries"]},
+  "type-hints": {"required_concepts":["annotations","built-in generics","union","optional","callable","protocol awareness","static checking","runtime limits"]},
+  "iterators": {"required_concepts":["iterable","iterator","iter","next","StopIteration","iterator protocol","lazy traversal"]},
+  "generators": {"required_concepts":["yield","generator functions","generator expressions","lazy evaluation","send awareness","memory trade-offs"]},
+  "decorators": {"required_concepts":["functions as values","closures","wrapper","functools.wraps","arguments","stacking","common backend uses"]},
+  "file-handling": {"required_concepts":["open","modes","with","text encoding","pathlib","read write","JSON","error handling"]},
+  "modules-packages": {"required_concepts":["imports","modules","packages","init files","absolute imports","relative imports","main guard","dependency boundaries"]},
+  "virtual-environments": {"required_concepts":["isolation","venv","activation","pip","requirements","reproducibility","interpreter selection"]},
+  "async-await": {"required_concepts":["coroutines","async def","await","event loop","tasks","gather","blocking IO","cancellation","timeouts"]},
+  "debugging": {"required_concepts":["reproduction","tracebacks","logging","breakpoints","inspection","minimal cases","hypothesis testing"]},
+  "testing": {"required_concepts":["unit tests","pytest","assertions","fixtures","parametrization","mocking boundaries","determinism","integration tests"]},
+  "reading-unfamiliar-code": {"required_concepts":["entry points","control flow","data flow","types","side effects","boundaries","tests as specification","incremental tracing"]}
+}

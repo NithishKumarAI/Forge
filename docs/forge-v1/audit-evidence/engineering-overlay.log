@@ -1,0 +1,6 @@
+warning: in the working copy of 'apps/api/app/schemas/adaptive.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'apps/api/app/schemas/api.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'apps/api/app/schemas/assessment.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'apps/api/app/services/dashboard.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'apps/api/scripts/content_checks/bundle.py', LF will be replaced by CRLF the next time Git touches it
+{"startup": true, "dashboard": true, "planner_contract": true, "timed_contract": true, "strict_types": true, "origin_boundary": true, "candidate_files_added": 0}

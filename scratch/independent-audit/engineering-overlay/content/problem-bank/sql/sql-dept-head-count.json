@@ -1,0 +1,95 @@
+{
+  "key": "sql-dept-head-count",
+  "title": "Department headcount including empty",
+  "track": "sql",
+  "topic_tags": [
+    "joins"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return every department name and its employee headcount, including empty departments with zero. Sort by department name.",
+  "constraints": [
+    "Return exactly: name, headcount.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible departments, employees tables",
+      "output": "[[\"Eng\",2],[\"HR\",1],[\"Sales\",0]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Start from departments and preserve unmatched rows.",
+    "COUNT a non-NULL employee column rather than COUNT(*)."
+  ],
+  "explanation": "LEFT JOIN preserves departments without employees. COUNT(e.id) ignores the NULL placeholder from an unmatched join, producing zero. A common mistake is COUNT(*), which reports one for an empty department. A correlated count subquery is possible but often less direct.",
+  "reference_solution": "SELECT d.name, COUNT(e.id) AS headcount FROM departments d LEFT JOIN employees e ON e.dept_id = d.id GROUP BY d.id, d.name ORDER BY d.name",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE departments (id INT, name VARCHAR(50)); CREATE TABLE employees (id INT, name VARCHAR(50), dept_id INT); INSERT INTO departments VALUES (1, 'Eng'), (2, 'HR'), (3, 'Sales'); INSERT INTO employees VALUES (1, 'Alice', 1), (2, 'Bob', 1), (3, 'Charlie', 2);",
+    "visible_tables": [
+      "departments",
+      "employees"
+    ],
+    "sample_rows": [
+      [
+        "Eng",
+        2
+      ],
+      [
+        "HR",
+        1
+      ],
+      [
+        "Sales",
+        0
+      ]
+    ],
+    "expected_columns": [
+      "name",
+      "headcount"
+    ],
+    "expected_rows": [
+      [
+        "Eng",
+        2
+      ],
+      [
+        "HR",
+        1
+      ],
+      [
+        "Sales",
+        0
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE departments (id INT,name VARCHAR(50)); CREATE TABLE employees (id INT,name VARCHAR(50),dept_id INT); INSERT INTO departments VALUES (10,'Design'),(11,'QA'),(12,'Support'); INSERT INTO employees VALUES (20,'Nia',10),(21,'Omar',12),(22,'Pia',12);",
+        "expected_rows": [
+          [
+            "Design",
+            1
+          ],
+          [
+            "QA",
+            0
+          ],
+          [
+            "Support",
+            2
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/joins"
+}

@@ -1,0 +1,80 @@
+{
+  "key": "python-find-duplicate",
+  "title": "Find the duplicate number",
+  "track": "python",
+  "topic_tags": [
+    "arrays",
+    "hash-maps"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Write `find_duplicate(nums)` to find the one duplicate integer in a list of n+1 integers where each is in [1,n].",
+  "constraints": [
+    "List size > 1."
+  ],
+  "examples": [
+    {
+      "input": "[1,3,4,2,2]",
+      "output": "2",
+      "explanation": "2 is duplicated."
+    }
+  ],
+  "starter_code": "def find_duplicate(nums: list[int]) -> int:\n    pass",
+  "hints": [
+    "Use a set to track seen numbers."
+  ],
+  "explanation": "Store numbers in a set as you iterate. If a number is already in the set, it's the duplicate.",
+  "reference_solution": "def find_duplicate(nums: list[int]) -> int:\n    seen = set()\n    for num in nums:\n        if num in seen:\n            return num\n        seen.add(num)\n    return -1",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "find_duplicate",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            3,
+            4,
+            2,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": 2
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            3,
+            1,
+            3,
+            4,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": 3
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          [
+            2,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": 2
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

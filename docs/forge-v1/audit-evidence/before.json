@@ -1,0 +1,389 @@
+{
+  "head": "6ca192105bc58d20fe729d070dd7fe1942ff4fd1",
+  "branch": "main",
+  "files": {
+    "content/problem-bank/dsa/dsa-container-most-water.json": "0eeca04fef1c6b40a6c62c7a014afd6b44b9f05fe8907428499b86ddf4516b05",
+    "content/problem-bank/dsa/dsa-daily-temperatures.json": "3cb380843e13cc85702a8aeacc39962c46f432c9cbbf6a152b0fe30177c77069",
+    "content/problem-bank/dsa/dsa-decode-string.json": "365189a5a717cb86c1c49c0a43f28c0ce15ff349a4a712e475b3a2b1104a1e0c",
+    "content/problem-bank/dsa/dsa-evaluate-rpn.json": "78ab063546d10e3afed06123456367bf61be9b894c9fcb6683a788598b1b3e94",
+    "content/problem-bank/dsa/dsa-find-cycle-start.json": "357a72f304ffaf4119f9ae1401c66c8ad84539cf5920456b9ebc4bcbba4376c6",
+    "content/problem-bank/dsa/dsa-find-in-rotated.json": "02dbba30ad3717fc777f10f53315fc406d34cf251c2a65efdd0df859063d5e23",
+    "content/problem-bank/dsa/dsa-first-last-position.json": "5e122683b4d337ec079226750bcd15502e7e84bcb00b167522757c6bc5998da5",
+    "content/problem-bank/dsa/dsa-first-pair.json": "fb1f4a8f33d0c779fa239979ca2e7bfcedbd10d37b1af09df4eb6a23d34eed3f",
+    "content/problem-bank/dsa/dsa-fruit-into-baskets.json": "f6fb06b478fc627155f66525d446293fccd6827df5112a82a8379c522d3091b2",
+    "content/problem-bank/dsa/dsa-isomorphic-strings.json": "9cc90f9053ce550a1a746d6e96738af1f0ce97277b92e1ec3f4e393a34978cb0",
+    "content/problem-bank/dsa/dsa-kth-largest.json": "e95676eeb107ae6e0f210f29418501e71b05dd2b986544a1514dbc9e18f59fb9",
+    "content/problem-bank/dsa/dsa-level-order-traversal.json": "41fd6cc727a0584954303bd4788bb14db1bb61c0926443da2749e860bf33272f",
+    "content/problem-bank/dsa/dsa-longest-consecutive.json": "cb4fafccb87ffc1644c546b0e06f73aaa1a44e7cc0a21a5ae4ab4a5797925f40",
+    "content/problem-bank/dsa/dsa-longest-substring-no-repeat.json": "22bf0ff679032fad4dad45c83a7b257fbd428348927280e28dd6c3307bb589c7",
+    "content/problem-bank/dsa/dsa-max-consecutive-ones.json": "a8582529a4bfd66e09dc3c00f63b725b1cbb6193820238bdbbb21046032f2034",
+    "content/problem-bank/dsa/dsa-max-depth-tree.json": "bbfa4803d977e670c5210dc80c88fce7e45aea1a931bc34fd2d340d7c7329d5f",
+    "content/problem-bank/dsa/dsa-max-sliding-window.json": "6b4a6ce2cfecae6d7df7402e487d563a737e2ab62fc7264ffeac4830ade69058",
+    "content/problem-bank/dsa/dsa-max-window-sum.json": "d1cd30e6eabffda9853897c1eef98f8ce9a49929699086a4352d34667bc7ef28",
+    "content/problem-bank/dsa/dsa-merge-intervals.json": "04c2dd97ac070a7b48494809f14619393cc0a989f27aa642635888a13250e8c2",
+    "content/problem-bank/dsa/dsa-merge-two-sorted-lists.json": "0d4660c05f76ddbf83f12c855479df137abfb10cbac6ad1c2cdc1e70395fb017",
+    "content/problem-bank/dsa/dsa-min-stack.json": "d4a2c40e1d568a8a70fc38dbcf966aa9286446c61a13742b359fd575433bffa3",
+    "content/problem-bank/dsa/dsa-min-window-substring.json": "6588f98c4806b02c5b32c4f406deccd90bb257385122ffc59db9fe7a4533b248",
+    "content/problem-bank/dsa/dsa-move-zeroes.json": "f20a8598c09681c12f820e4f26a2f038fcbd3cce5a0586f0c25b5cd1726948b0",
+    "content/problem-bank/dsa/dsa-number-of-islands-bfs.json": "2926c8b9cc99036688d4255b11211908edfa39e0f15769de4d86054f484861f4",
+    "content/problem-bank/dsa/dsa-permutation-in-string.json": "c6a0ef2320fd3dee3c1426fd153fc7a3a1207886c80657b7e482410867314595",
+    "content/problem-bank/dsa/dsa-range-sum-query.json": "03715571a281840d18d00811e88c73d15ccebb19d59be46830476a67cbf37a56",
+    "content/problem-bank/dsa/dsa-ransom-note.json": "9ddd2be7b286af38bc0a9cbe55c79e9b3517b32a69a326a572cf8aa522bee180",
+    "content/problem-bank/dsa/dsa-remove-duplicates-sorted.json": "73223f2d6b0ca43cb2c02f016855c4dabc2205c3afa9e18ed83f0c01f79b522e",
+    "content/problem-bank/dsa/dsa-reverse-linked-list.json": "12112983ee7c29c87a921169e4aa6d2dde6a55f9753a587dde36247aef627e6f",
+    "content/problem-bank/dsa/dsa-reverse-string.json": "48ebf4204dc1a0eb82edc44368bcff04e0827631ed76158632a08b1be3407d90",
+    "content/problem-bank/dsa/dsa-search-insert-position.json": "05e7d9b3476255d2f108b74677962f56a84048bd95126cc2f3fac5c4b74ddd4a",
+    "content/problem-bank/dsa/dsa-sort-colors.json": "2531b4542ea64863725379688239a817968784c5f0e43469d3ae04e75328350c",
+    "content/problem-bank/dsa/dsa-sqrt-integer.json": "7c75bcdfd26194e24863bf0ebcb7703f6ad306a75a1bb7371ae61c9435b7804e",
+    "content/problem-bank/dsa/dsa-subarray-sum-equals-k.json": "b146a5d40901cd7c37d445271e566060ce3291e8c9a6d3250396976da75d9645",
+    "content/problem-bank/dsa/dsa-three-sum.json": "6897434c66c568112e9e1c7a1805f7f4d659a1105093579b598e8d416cc2cf33",
+    "content/problem-bank/dsa/dsa-top-k-frequent.json": "24b9086d5883e226464b2df5370ce27082808ff6d4f89f0ab6cf5a654ef19978",
+    "content/problem-bank/dsa/dsa-trapping-rain-water.json": "61a43aa832dd315f6de6eee196f252795a8a471a4c7e02f66f73f89753eddd29",
+    "content/problem-bank/dsa/dsa-two-sum-indices.json": "25287c85501895b4ea8b9ee1f7b81fb0425d40e1cb1ba930bfa013612ad9aa18",
+    "content/problem-bank/dsa/dsa-valid-anagram.json": "fd5fe403495158e2eb9572baccf2ce1e3404ceb4d2e056c87078aed860e8dbb4",
+    "content/problem-bank/dsa/dsa-word-pattern.json": "3fb9c43614f53f8d68c18d44d60c9a3d6d9cc367c58901e6b586e88ee28414f9",
+    "content/problem-bank/python/python-anagram-check.json": "35902cd4a4d26bcad4a09f44c76f4f60186ba9ef6dfe2e5b1f5c8932ae76605c",
+    "content/problem-bank/python/python-bob.json": "e35920114d2491bfde72fcf78812fb8d7b1e649634c78bdb4e60b897f7142226",
+    "content/problem-bank/python/python-celsius-to-fahrenheit.json": "fb7f3538b676fc22fffcfea9d9e81a0d1502cfa98a5b877bd1dc5d71f6a97e36",
+    "content/problem-bank/python/python-climbing-stairs.json": "f9c4543c583c1d6314fcc824fb9d7fbf8b32621e31193798c0136ddc946f6997",
+    "content/problem-bank/python/python-collatz.json": "a0f48fa47d6ec4afbfd55ca29e014ff8d1583ffa33447761a3be6a9a2835d93b",
+    "content/problem-bank/python/python-count-bits.json": "a5e8c548fa70dd804bb44c88613aafce8dad707002503d681095c03d5bdd7c0e",
+    "content/problem-bank/python/python-count-islands.json": "c68b8dd3164cc9056db64fe3c475b8a9fc266a5a1019139a8b88e2c1446fbad6",
+    "content/problem-bank/python/python-count-vowels.json": "69425a29c2dda4e0b743855ae6ea874dcab940f3a7ecf2f8d6b4f793390a9a24",
+    "content/problem-bank/python/python-deduplicate-list.json": "5b90894bf91950b1f02584d1d24bda7f2e6664361f4905ffa39b70ca3fa3901b",
+    "content/problem-bank/python/python-find-duplicate.json": "a9078479e26bca2d7d91d51d565559e49a504d5f16f0dcfbb68aa8686dff5d6c",
+    "content/problem-bank/python/python-first-non-repeat.json": "19cdebc9f3a7399d530790692635b9c15249b4cc7be5e6635f81040705a5a1a4",
+    "content/problem-bank/python/python-fizzbuzz.json": "262ad784939c3d9806ea0e2e1f40b1547c4d0337e3816d3230ff606447804862",
+    "content/problem-bank/python/python-flatten-list.json": "060c067a77830784d62c802323678d1420dfc6a7734e4fd6b8f8fe4ba2457c27",
+    "content/problem-bank/python/python-generate-subsets.json": "4803b101ffc32b863a6373f58d6230a9cac4dfa085706d748fad069164f393d3",
+    "content/problem-bank/python/python-group-anagrams.json": "2c184c91cf14e1230becdd1b6c7f6c88adea7cb09f1fcb7b4719721db0dbe9e4",
+    "content/problem-bank/python/python-group-errors.json": "c6ef9dcb9a1236e90d16905d0e8a4ca79377b506872fdfea51e495d44411fcc1",
+    "content/problem-bank/python/python-implement-queue.json": "563c9257dcd93363422f46f7095dcfc81940ed9a05454ba903cad7075f9063c6",
+    "content/problem-bank/python/python-is-palindrome.json": "59a5a50702fd5a574fa00e3b19acd7d748ec2879ac7deef7dfa10af6e23fa9bf",
+    "content/problem-bank/python/python-largest-product.json": "4f6985e59bf5b743c146c2493b509ba9623405b1a5fcd2c14425076ac96e5f2b",
+    "content/problem-bank/python/python-leap-year.json": "1d0b16771c0cf5d3518d25173eb1da7ab2f5dc6af73e14c22dc760fb44b3d6e0",
+    "content/problem-bank/python/python-longest-common-prefix.json": "5fb99bca753a6146b700d22456704c9dd321a84e73dc1fb036b56d1489d33330",
+    "content/problem-bank/python/python-longest-increasing-subseq.json": "9e603beab57c494784f2d8492a02acb10c66f71a95f5bc9a7be21a3282fc3f33",
+    "content/problem-bank/python/python-matrix-spiral.json": "24f3888ffd50e45d60c8d5e8c0cd0efb1d8cc092c20fdceb56284cda42f37c5f",
+    "content/problem-bank/python/python-max-profit.json": "2b61c49f836b457393ad3079b4833d7b833b0ff81ae815b8bd8856549923348a",
+    "content/problem-bank/python/python-max-subarray.json": "354a403d67012fd7e85d5d807dd4e2d5914a216904cd18405db76fbdde0516fd",
+    "content/problem-bank/python/python-merge-sorted-lists.json": "e1c2c23e50188e22c8b71f96ea20af55bdcb9a93ddc63184e7be63de6554dcfb",
+    "content/problem-bank/python/python-missing-number.json": "d8a19f8fc471791d4fbd9a681c55fbbf2f97cfe75cb6e2288dfcaf1b56b2a4cc",
+    "content/problem-bank/python/python-normalize-name.json": "6135247816b8c9a1e56e38db10705a3c881cc5e0c6186c14b07815e6b256750f",
+    "content/problem-bank/python/python-pangram.json": "921a4f7b606690cc112c65fbd67812fcbeb50c7209de28b4db7714745654262d",
+    "content/problem-bank/python/python-product-except-self.json": "8489e4b1db733c83f0185b1f9acb86dd02b7ec81179409be118113fa08e31bf3",
+    "content/problem-bank/python/python-raindrops.json": "82167a85067c4b510ac30dd6e3af7941be2e0c0367f447273c3fc8ebc12c94d5",
+    "content/problem-bank/python/python-rotate-list.json": "b6231c3119c2ef772d9f20ff5f40e9fff545c53eceb741f88585b0784d4a9ee8",
+    "content/problem-bank/python/python-running-sum.json": "000b6e4a3f500002a3e7b725714ff92c6279f017e9852279e02753a6c5274783",
+    "content/problem-bank/python/python-stack-balanced-brackets.json": "ea1ec4d33d70d35c9ac7d2a56ae7bdf6afa4d2201e06f17b7bd6dc4c3b01d269",
+    "content/problem-bank/python/python-two-fer.json": "510b341f3f4d4c50b41b65cd898df71a328896a7998258c890b2ccaa0a6ee8f0",
+    "content/problem-bank/python/python-two-sum.json": "3f61e7f54ef1311da42207ff068a5a98ca56be9afec6195cf6f8ce511acdae11",
+    "content/problem-bank/python/python-valid-bst.json": "ebee03e238841ec00d079e1cc5376e2f38db23a5baa45038c0276973c3d5383a",
+    "content/problem-bank/python/python-valid-parentheses-string.json": "02dafea8fbd87bfbcc64a06a3071108ce768bfca35e7c559a91ddd2d9e06d252",
+    "content/problem-bank/python/python-valid-sudoku-row.json": "220482ae18c5766ef3d88c3cf8f9037ab9160201a94292bd2b35d03d4b62308b",
+    "content/problem-bank/python/python-word-count.json": "a079d74f97d0b344224e20ae5ed0a81561390da4def4e23d47ff68ad26ba9811",
+    "content/problem-bank/sql/sql-above-average-salary.json": "4b549aec524b3a9afd5fa9e45b62d2f0260b763e8144628d81f086ee0dd3298f",
+    "content/problem-bank/sql/sql-active-users.json": "37e54db8ea159b14cf9a305d338928621374ea4f9b94d1d26f4fe6c7efd68f72",
+    "content/problem-bank/sql/sql-age-from-birthdate.json": "75db8585512afaed66867671e21ac65802faa4569d90e59ff90d6c679bb69cc2",
+    "content/problem-bank/sql/sql-coalesce-address.json": "9a4b23c7b3b7998c5954e245a2e9ff795d1bc2206c2e94dfac9c320382b94f61",
+    "content/problem-bank/sql/sql-cte-running-balance.json": "95569e6c9ba03c697b9a9bfc2064b3329c934630483b5d828a1ec68aed15726a",
+    "content/problem-bank/sql/sql-cte-top-products.json": "a3be4a65b3aa1b901039cbf07e4060cb53c8ff9db46c86b09afbdc6e65160fb7",
+    "content/problem-bank/sql/sql-customer-totals.json": "7df3295ac2725e23680868021b98fd99c7e56d1c92e4dca404697b593f89279f",
+    "content/problem-bank/sql/sql-customers-with-orders.json": "7e34385a53755ed95de67166c8e52a8b8fa85d119fb2f2b21e4cb4b86d23c99b",
+    "content/problem-bank/sql/sql-daily-sales.json": "387b67f54a9bb5224fbbda1786bd9970ca169b884f2df1b66783513815619b9c",
+    "content/problem-bank/sql/sql-dept-avg-salary.json": "2795f94674f4f5bb1c1d3012021926ff5f362b52a00af08833ba6b42c6f8fe9f",
+    "content/problem-bank/sql/sql-dept-head-count.json": "e0936c723deaccbce5ea63dac4c755fb803f1873b19a10ddf7770b0fd1c607e5",
+    "content/problem-bank/sql/sql-dept-max-earner.json": "6cb93d796713720bb3f881af7f1051699e900865d39c0dd7c9214349eb579f79",
+    "content/problem-bank/sql/sql-distinct-cities.json": "5507b23612677c06a81c9bb6082f2a69f8d55b66a60204cbe99c644f65967533",
+    "content/problem-bank/sql/sql-employee-bonus.json": "b58d8fb3bbd60ac78e2883e3983e039af50a2c6af11906609110f2eb82053cf1",
+    "content/problem-bank/sql/sql-employees-by-dept.json": "b96b9b9518d41e9e5ffb306992d1a3322de8cb4dbf4bfefc215ecf4e00c92b25",
+    "content/problem-bank/sql/sql-employees-with-manager.json": "52a8e281298c1c584378f98a3fe0c756826bdee57d0a5db713cf0f5ef5fc67b3",
+    "content/problem-bank/sql/sql-high-value-depts.json": "75eae2324dd087ec40eac6f90b4520767222eb20a0172f8b4fa710707737df59",
+    "content/problem-bank/sql/sql-monthly-active-users.json": "60400191e0ce84e1476b5b36d9e61bc85e42acd5f6e9d8fd9d60d0d9f73b6ae2",
+    "content/problem-bank/sql/sql-null-email.json": "8376c905f944da2116387e5e14213f9a0850b8819b534a6286b677ce9e0e9838",
+    "content/problem-bank/sql/sql-order-count-by-status.json": "38b20d26d0d383c0a4c5210cc94b1faaaa939d789fb428e63b107d35169a501c",
+    "content/problem-bank/sql/sql-orders-with-no-items.json": "5e13917ac1877ab9b028f792da6f75de9e477d90e13e195fb7b2ae6be27ae114",
+    "content/problem-bank/sql/sql-product-never-ordered.json": "4298b13a39b0e095b90a69be338f518fd52089c5ef5f8f6b0367f9cbe4e8676e",
+    "content/problem-bank/sql/sql-product-revenue.json": "d3e306d1f79f3d251b5099464c93ae5f8eeffdd7faf4b6db9b4c3ca43698e71d",
+    "content/problem-bank/sql/sql-products-in-stock.json": "ceec134faf7acc733e260ccee627db2e5e990b8d59b95db897e2f5a9d0fa08d9",
+    "content/problem-bank/sql/sql-recent-orders.json": "07f00cb8a7e716b8c53cd0ab8e2de55a887b7a209d6c5d33b4cc891b205c804f",
+    "content/problem-bank/sql/sql-second-highest-salary.json": "58f0e4dcc71914d1881eabbe7934d4336bab14f0bca24b0fea436e94af0bc3d8",
+    "content/problem-bank/sql/sql-students-all-subjects.json": "b0f271730ede7603b26663751810c72d09986e6598edbe8039b344f0ae200468",
+    "content/problem-bank/sql/sql-three-table-join.json": "f40ff22768f178b70448dbe26ab46c3a7cd0c9b92f0c3fd2e5dfd0673be872ee",
+    "content/problem-bank/sql/sql-top-customer-per-region.json": "3b53c942519b6954d828653bf1572a81768b76415076dafc8e1cfbe9d7dc7d11",
+    "content/problem-bank/sql/sql-user-search.json": "03545745d5f61f40b5aa4aa046d90570ee95900d6cc83da4c17a4cbf2974681f",
+    "content/problem-bank/revisions/dsa/dsa-two-sum-indices/1.0.1.json": "8a0146bbc28fb02468358b7d3e2aa76c2bb9e08ac5942f33c327f74d845bde9f",
+    "content/ai-engineer/v1/manifest.json": "dbec9a4d9ac27aa9c20ffa39fdd29bd7aba2739dfa3679fe17b2fb0161f7d0a0",
+    "content/ai-engineer/v1/sql-postgresql/aggregation/exercises.json": "6d7ddfe6dfe9ff277cd3d36bb7381b00342e86db5f5929af97e2a4cd00f539d3",
+    "content/ai-engineer/v1/sql-postgresql/aggregation/lesson.json": "921549d55c74e74b83fd828433c5847c0eb2818338f803b3ac6cfbecf4a1babf",
+    "content/ai-engineer/v1/sql-postgresql/constraints-design/exercises.json": "2a878ba3ec47285d917dce2470b958613c2912376194b81e3990445637ee4bab",
+    "content/ai-engineer/v1/sql-postgresql/constraints-design/lesson.json": "35c1fd89b05891e77e1e0a23cc28d78fdb1aeb76ef59784d1cfd13752bdf2593",
+    "content/ai-engineer/v1/sql-postgresql/ctes/exercises.json": "a8580e61d847d0ca38fdcc3117c38bde7cf005c906c65eb072f5e934ce2036ef",
+    "content/ai-engineer/v1/sql-postgresql/ctes/lesson.json": "07adc493c7feda3ba0789e501160f7bb96ba076cfbc1e45adcfb257954fa7624",
+    "content/ai-engineer/v1/sql-postgresql/data-modification/exercises.json": "21676fc40370d67a3264e716e81264b4b234bf02cf6ea0e6f5df5638e65fe1be",
+    "content/ai-engineer/v1/sql-postgresql/data-modification/lesson.json": "f00123c881da1feeba9f00c0a7bc2f8fc71dba910fa86964d0ac37f0f5f2319c",
+    "content/ai-engineer/v1/sql-postgresql/database-python/exercises.json": "64673d08f3340c50cc0fc9f2765a3fd5f7a572225dece34d7c7fc30f1b6d8265",
+    "content/ai-engineer/v1/sql-postgresql/database-python/lesson.json": "d854e80df11b07817dde5668211f23f4bdc936940508424e24e5d796abd55172",
+    "content/ai-engineer/v1/sql-postgresql/indexes/exercises.json": "2595b2197f21870a25329bacf7ad2005501a3003ba49812a14cc33c4716ed5b3",
+    "content/ai-engineer/v1/sql-postgresql/indexes/lesson.json": "353aed0c8f3422dfa6310064ad0d1c1d36e45a9bc6c68f4fe83cbf2fcb078519",
+    "content/ai-engineer/v1/sql-postgresql/joins/exercises.json": "fcfdfa8021ccbbd84ed695e85f67baf9db82a3dad1eb8964dd7cefc030b2c55e",
+    "content/ai-engineer/v1/sql-postgresql/joins/lesson.json": "1baef63ed80033fedf59fe0ce9983b64341eebf2cfbd48ce740870c82ad23bb1",
+    "content/ai-engineer/v1/sql-postgresql/postgresql-practicals/exercises.json": "bcc8426fb4f8016107f5176458fb7abdb36c6fb995029238706a2058df225af2",
+    "content/ai-engineer/v1/sql-postgresql/postgresql-practicals/lesson.json": "fb1dd6381f9562b8d3530834ddeb99e8439c5785a6ab6819465f5a97b26d3c3e",
+    "content/ai-engineer/v1/sql-postgresql/query-basics/exercises.json": "1d6e74347287b3b7a7eb0009c8d4bac17ad6905a3ce54c1b99c60440a9d08855",
+    "content/ai-engineer/v1/sql-postgresql/query-basics/lesson.json": "8feca8dae5e3968d8117514bba91084a12543f6d380be0b7fbdb952f317990df",
+    "content/ai-engineer/v1/sql-postgresql/relational-foundations/exercises.json": "2b0f67b14fbb14b62b7cfbc1eddb6ba7bd20e5fdefd2392e378c28fc38f2a6a9",
+    "content/ai-engineer/v1/sql-postgresql/relational-foundations/lesson.json": "adaea7ee319a30a9471880be789aa78ef67b007a762f18faeb605b0111c30d20",
+    "content/ai-engineer/v1/sql-postgresql/subqueries/exercises.json": "63406c6dd85da518db49154fdbba468fc1d5685b5b0f4e459bdf831cc9e62a5f",
+    "content/ai-engineer/v1/sql-postgresql/subqueries/lesson.json": "574b55b550c614f296f6973e651ee14bba4d76091074963c1a6d11ed1e536cf4",
+    "content/ai-engineer/v1/sql-postgresql/transactions/exercises.json": "be4bf8f71ca32e4a9aea15da2294b66d52b143500724a020dcf01d5aff98acce",
+    "content/ai-engineer/v1/sql-postgresql/transactions/lesson.json": "0bc420b8f36c67f6df30a35c0c2381cbc2845c75a04637ae53fdd917133814f7",
+    "content/ai-engineer/v1/sql-postgresql/values-expressions/exercises.json": "f55b0eaed19bfa9fc87a62c72071ffa43a67580932fdab8cb773598a51185c87",
+    "content/ai-engineer/v1/sql-postgresql/values-expressions/lesson.json": "c0589559f948d17e5c01da1568c387c5d17d5cebb37323ba41e04b741b402da0",
+    "content/ai-engineer/v1/sql-postgresql/window-functions/exercises.json": "bc7e426459b827895e28aeb75ff828dd9076adbb7c3a3da838b5059b5bd42443",
+    "content/ai-engineer/v1/sql-postgresql/window-functions/lesson.json": "adc6648ddb8cb84468e44221b2132d8905fe33e86516a858593bf5bfbd4a7c08",
+    "content/ai-engineer/v1/python/async-await/exercises.json": "7d31bd3a8c006de3174dc74993c529376063f66c6a7013f624bbd4773610671b",
+    "content/ai-engineer/v1/python/async-await/lesson.json": "cd9233a2d1cfb12531e0b3842d7ff4627914ce8851a82cecc380ec5695325a77",
+    "content/ai-engineer/v1/python/collections/exercises.json": "69c3fde3e57f64fd84da2d42b851c2b9d46ed17529d965778aee42e71ab6efda",
+    "content/ai-engineer/v1/python/collections/lesson.json": "5cc218b693ff3bb4c63b265fc077d4d30f0907af04705192f726edd7530b03a3",
+    "content/ai-engineer/v1/python/comprehensions/exercises.json": "90b0de8c4b16904c7e02852f2d03464351008fea97ac9ef288a71c2ef6abbfab",
+    "content/ai-engineer/v1/python/comprehensions/lesson.json": "e83585d65ff254746835401b83f94305688120d5303be9ba0e6a49c5d8c2e5b3",
+    "content/ai-engineer/v1/python/control-flow/exercises.json": "8a0bcfe80477c6f7a30b0bd64ddbe685e3cf05d1f3eae69826b471cc1c128412",
+    "content/ai-engineer/v1/python/control-flow/lesson.json": "a08f1f40d9b825ff9e079b583fa564b987a32465fbd9f0bdd97668618a53f090",
+    "content/ai-engineer/v1/python/debugging/exercises.json": "f32d36b10302545755ce4d62d40fbdbcb8beb2dcdf346fc8cd173b60a21ff99b",
+    "content/ai-engineer/v1/python/debugging/lesson.json": "66bc4d2b64d589d13b559ba4d932f2b4bdbfb77fad0e4d120715ae1575c86e67",
+    "content/ai-engineer/v1/python/decorators/exercises.json": "c21fe4354fb4a6a4dafb260b69f1a2559a8a455c8a5269d05903323297ccfc55",
+    "content/ai-engineer/v1/python/decorators/lesson.json": "1688ddafe294388c3b2777ac02077bf319436a36b050fc14d4c5e567c65c7f7a",
+    "content/ai-engineer/v1/python/exceptions/exercises.json": "fbee078b80cc9936581a5e4d789bc7157dbeaeb42f1a2fd4483cb51f9493f9d7",
+    "content/ai-engineer/v1/python/exceptions/lesson.json": "47757b734327ac65e4c5d99ca7419150854db4ffd28b760d8ec4d91b7865de19",
+    "content/ai-engineer/v1/python/file-handling/exercises.json": "2800e798f608f343a090b594f0f287b80975d30044dcd95068de1f69ccdf2718",
+    "content/ai-engineer/v1/python/file-handling/lesson.json": "5a863d94293c5fcc0eb2b0375d5e38546406d827f40d8983887067c34be35416",
+    "content/ai-engineer/v1/python/functions/exercises.json": "bc631d33aa63922bc73e28cd9fc7c9d43f8b837c4e2614eeeaf21dea8d73aa8d",
+    "content/ai-engineer/v1/python/functions/lesson.json": "1f54b18cd34a45012dae9c4a1c7d3cd4a2d229cc4382a7fc3f60e3e0bf9f692f",
+    "content/ai-engineer/v1/python/generators/exercises.json": "1943f244e4c80b6b5479f17f6f4fb60932804793ef2a9ba29807d13e41a8fc01",
+    "content/ai-engineer/v1/python/generators/lesson.json": "e774d230f8ad72e053758fb0b0b2bedd7aaeece6baa4100e81d75c7567302e01",
+    "content/ai-engineer/v1/python/iterators/exercises.json": "1d5b941e157ca13164bda4fe1cb68dbbacac7a0ac85522f8e11354cff3dcb895",
+    "content/ai-engineer/v1/python/iterators/lesson.json": "06f0bc325d6545d6c3e4404facc96354ad1734af78fc8b38ff3037c92c07117e",
+    "content/ai-engineer/v1/python/modules-packages/exercises.json": "2969080ed478eb231b6837b2a7912decb74bf1cbd55aeb1e4335eff143a64b33",
+    "content/ai-engineer/v1/python/modules-packages/lesson.json": "ca9fe69d3361b3e9255e5b0fa3966aa7db51f8617817cccf31df690be3b9b6d0",
+    "content/ai-engineer/v1/python/oop/exercises.json": "c03cb1e717297b9e8ccbf32ec1743d9841d60e80271bcdc0913cad9936f46328",
+    "content/ai-engineer/v1/python/oop/lesson.json": "92c8347f27ac1843794364155318b73df3100ec029c389e36c0b2b36371de332",
+    "content/ai-engineer/v1/python/reading-unfamiliar-code/exercises.json": "4ec6b19e8c9a34785051a74c32fae70f74b76e49298fb572a8b521af48ce6bf8",
+    "content/ai-engineer/v1/python/reading-unfamiliar-code/lesson.json": "038e56905e07fd2d7bbc9967696428fb5cb985d25b265d5fed8c8eda8cdabc46",
+    "content/ai-engineer/v1/python/strings/exercises.json": "53dcaf65f49671cb14cd1243a75dfc95f2aa1c7815ccb2905c45f9cf2ee74d6b",
+    "content/ai-engineer/v1/python/strings/lesson.json": "e794a700f1ce13efac38f673062ab422f0ea5911be600a2ce2ec156eb2e452e3",
+    "content/ai-engineer/v1/python/syntax-data-types/exercises.json": "c3ca94a0c12d36714ec04471e275ba606cb4a2eefe8c9f82842154be3cc9ddb4",
+    "content/ai-engineer/v1/python/syntax-data-types/lesson.json": "34032f7d9d7de878e5abee29bafd17d7da2f59697c16c2f10b546a928244637c",
+    "content/ai-engineer/v1/python/testing/exercises.json": "d0fb4ffa7b1b398d8e0dde2128161eab4b180c7c6948773b930c940710684c34",
+    "content/ai-engineer/v1/python/testing/lesson.json": "37c0d37511a2d150c946de271ee2618c172179ea795df543ea183fe4c0e0dca7",
+    "content/ai-engineer/v1/python/type-hints/exercises.json": "0047eff6ccc845a7f7818e90f963a246938d4730e21723954205fcad218e6bb5",
+    "content/ai-engineer/v1/python/type-hints/lesson.json": "f29920ce3693d1dea22584ab8aef494892680a3132103e97c1282557c14f2926",
+    "content/ai-engineer/v1/python/virtual-environments/exercises.json": "96f680b953a870e06c9f76ab3d85eb1a5d55f3b7778b4973a74fdb494789cf66",
+    "content/ai-engineer/v1/python/virtual-environments/lesson.json": "cc66cc66dccac5aa7a21c311d0fee3d2570abd1f5d1926b9224c3c3ed8879d08",
+    "content/ai-engineer/v1/dsa/arrays/exercises.json": "ee0826bde4f4998c201868afad5622108a72c66df76581dd80ca6e974b23bef2",
+    "content/ai-engineer/v1/dsa/arrays/lesson.json": "b45d86dcf153d6bbd53f0ab20bd9ddaa75ec492e1f0926622178301e4ee81e35",
+    "content/ai-engineer/v1/dsa/backtracking/exercises.json": "f30ceef6adfcc8fd6bb9e86a03475c8393be09373b4db3c1e7b7a27c2e50363c",
+    "content/ai-engineer/v1/dsa/backtracking/lesson.json": "0fd7041e2f09a97d048af8368eaff9238a04d229caa35fa717dd7300a1f9b247",
+    "content/ai-engineer/v1/dsa/bfs/exercises.json": "4aadb66fe99a9bd85b2c58eb39ab895f65e79854f2ab0c3c268a779a87505784",
+    "content/ai-engineer/v1/dsa/bfs/lesson.json": "1b37a3bc1ca8b8af2c6b761ffd6f3f5d093b6995a380ecfc22930b94a7f1a8a8",
+    "content/ai-engineer/v1/dsa/big-o/exercises.json": "d69c170e9b95da762a8f29fb8b77c12991c8cd8c75cd9453f406810768bb12b6",
+    "content/ai-engineer/v1/dsa/big-o/lesson.json": "e488062796e4ed4bc69561e6706aeea367c2739bf29f65a67f398d066c82c6b1",
+    "content/ai-engineer/v1/dsa/binary-search/exercises.json": "04610b9b098fe25193a316ad3988893da7f5b07e58b1a1dfb48809f01f11ae80",
+    "content/ai-engineer/v1/dsa/binary-search/lesson.json": "41737123fa50e5574297214f6b92b8d0ae05fc564e2fa2ae80ed33ba8bdc39f5",
+    "content/ai-engineer/v1/dsa/dfs/exercises.json": "b59994dea6b0b1ba094f36b654c65fe45691d84b2e49fb614828d136cda944b1",
+    "content/ai-engineer/v1/dsa/dfs/lesson.json": "840b719d4b0089217e6198c1ea7718c4f2f05af5543df2ba0252562fa59ce4db",
+    "content/ai-engineer/v1/dsa/dynamic-programming/exercises.json": "2c8836eb029dd8b8e2f72d264f1191d8081f686c9c5adc5d97d905a21f4c89cf",
+    "content/ai-engineer/v1/dsa/dynamic-programming/lesson.json": "a5696d70f9d931013d627fa9306499f43f971369ea69dbe286407f3dd3186f4b",
+    "content/ai-engineer/v1/dsa/graphs/exercises.json": "917a5086e1b4b43d43a625b724ad92c83f1dfcd9afba8dd51f3de2155540c729",
+    "content/ai-engineer/v1/dsa/graphs/lesson.json": "eea563171fae055ba5f4e3f9be1e3584c0804a58b4ba59b5b35a106770702620",
+    "content/ai-engineer/v1/dsa/hash-maps/exercises.json": "f40a21ac4388ca3dfc111ef51095982877f9c092abf9fae2f52c2ffeadefe4e5",
+    "content/ai-engineer/v1/dsa/hash-maps/lesson.json": "b607279d86fba29be9e3e21eed02e2d6432c1c09ee1deab961a979263b9c4efc",
+    "content/ai-engineer/v1/dsa/heaps/exercises.json": "86d35b8e164b9215cf49e5d293be0f6ebc7460783c2c370611bd94d8bf884b1e",
+    "content/ai-engineer/v1/dsa/heaps/lesson.json": "cc622a83341e8aad783f5bb6a91ec5352230a7c89e9bb253bd0199264a5fb35b",
+    "content/ai-engineer/v1/dsa/linked-lists/exercises.json": "94d0f28610c362ab7df32a8102c00277b184159737611f641f29350f310dc25f",
+    "content/ai-engineer/v1/dsa/linked-lists/lesson.json": "93f6fc9201509a8a0516b68b6faa693c49831ba1ff6abbb07d0df5328882bb2d",
+    "content/ai-engineer/v1/dsa/queues/exercises.json": "cd44b469a7b9dc23d10291d34c61de422af60553430d47353fc9023968b1d7c0",
+    "content/ai-engineer/v1/dsa/queues/lesson.json": "4bdea2998a7d5c98438e9edf0b7dee589bfb20bb6ec870c120d147f18785be15",
+    "content/ai-engineer/v1/dsa/recursion/exercises.json": "f4fdca30a9b0b6fbc10b6cf41e4c093bf60a711e46143714e73da4967c485354",
+    "content/ai-engineer/v1/dsa/recursion/lesson.json": "a0626b7a45d67aa61c6128a7b5bcd748400a4cff5a4c193fadad1fa761cf94d2",
+    "content/ai-engineer/v1/dsa/sets/exercises.json": "9c1b879dcbff895c6918b9f3e54719a8e9220bde1e39990a1c7af2654c519d8a",
+    "content/ai-engineer/v1/dsa/sets/lesson.json": "8a69a37bf03c941eebf34e212de551922497533f92921a207bd96f75b6a83c95",
+    "content/ai-engineer/v1/dsa/sliding-window/exercises.json": "d538dbd8ab658d6207bdf2ee95e977f5e2f6e466d8044c13f54f1e1f114b4f7b",
+    "content/ai-engineer/v1/dsa/sliding-window/lesson.json": "e13b0844181951f3e9e2574935f094f7f35ff3447677d6a3b3c8796d22d5e2ed",
+    "content/ai-engineer/v1/dsa/sorting/exercises.json": "f4b4bf9d6140d0eade22d299615aa9fb32dd0acc2a6ab8733f911907b084f5d9",
+    "content/ai-engineer/v1/dsa/sorting/lesson.json": "a9e2c32401cfaa6c8cd1cf105423e020e9cb4ba8aaed8515cc10b3c4fe526069",
+    "content/ai-engineer/v1/dsa/stacks/exercises.json": "76051ea6efe780362f733d800bb92b61ad63cfaefbb88a6f77445fbd7bb1ee77",
+    "content/ai-engineer/v1/dsa/stacks/lesson.json": "00cfe18b1131f3c06bf5690f6ba687ca3327721274315fa276de53193494343c",
+    "content/ai-engineer/v1/dsa/strings/exercises.json": "07bb24e08f9acb3be651bc6965d160ff04d46d470f6edc40bfb698e1e2954892",
+    "content/ai-engineer/v1/dsa/strings/lesson.json": "e13d3b296086f2578620e29d3736e0720f2318313689054396ad4657b5084ecb",
+    "content/ai-engineer/v1/dsa/trees/exercises.json": "a5fea9507137855886744ab94a76b8feb1d34b5b07486f4520013cbde0b6f4f8",
+    "content/ai-engineer/v1/dsa/trees/lesson.json": "4a8dfc61d0afa9c5e263dc2595abbbffe27c5abfcdeb01eb9d4e30259f72e0cf",
+    "content/ai-engineer/v1/dsa/two-pointers/exercises.json": "5f80f5be24946fc871f110987b883a741085769e6b2fcf5c80d67d476814160c",
+    "content/ai-engineer/v1/dsa/two-pointers/lesson.json": "fe17242ebcc9f7f19120353622bef30230f2438cecf3f9844bac8a83d62b29d4",
+    "apps/api/app/migrations/v001_legacy_schema.py": "3bc811af6ff28cea3c7e24772b8b71c6b2712c659cae0b40c6d7e94ae2df7abb",
+    "apps/api/app/migrations/v002_content_bindings.py": "4853e694d450e58bd48cc55ab48154787c8ea1eacbff468ff55d32b583875dc9",
+    "apps/api/app/migrations/v003_content_publication.py": "edde1ff0416b2ae7ba8edc88976460034669305256b7692c8469646f544e9654",
+    "apps/api/app/migrations/v004_editions.py": "5e3e6f0922c4823207ab7f4f9984635b143a8b71d63ac3814ede101666173352",
+    "apps/api/app/migrations/v005_assessment.py": "e3cd21b9b7af507577a767d803776dbe7bfa5f3eae8e589703aef2b64c7b3fba",
+    "apps/api/app/migrations/assessment_schema.json": "775e91e9356f9ff0dd34ac43be7818e6af772fc79738190cfa24d623ed9293a9",
+    "apps/api/app/migrations/content_schema.json": "83b2de380c2ec99532db44072e1d5874d3a66be8e0a83cb0d58091391789f9b7",
+    "apps/api/app/migrations/editions_schema.json": "a2bbc515834b4090267459f2b75650692f051d74e767a3e39ebb70d046f0516b",
+    "apps/api/app/migrations/legacy_schema.json": "e35302e2ee1cc6662936e973c45d7806e23727998e57a9a89e89c21917be514e",
+    "apps/api/app/migrations/publication_schema.json": "bcb6f72d3209c8d3ae9b28ba38ed3fd583eca24d114771c736339192ac069583",
+    "apps/api/app/migrations/study_release_schema.json": "3ba359e0e6fc0790f0dd100032f8dc9144a38da0b58ad0d30e6fdbd4054696f5"
+  },
+  "db": {
+    "curriculum": {
+      "count": 2,
+      "sha256": "24dde246ba2b79c9f0e481d1819ec1fd2614c27899437125463dcb90c61c8ede"
+    },
+    "appsetting": {
+      "count": 1,
+      "sha256": "ebcae38d1d98ad17de909cfffedd577c4bc9ab8f09e0c84a45ae17a2b6fb6afc"
+    },
+    "track": {
+      "count": 21,
+      "sha256": "835e0ba55607b1e9c53c0dbe5867129e10d9443d11b340f7a2f252cc4eecb807"
+    },
+    "topic": {
+      "count": 257,
+      "sha256": "bfb196e9254951418636b241902391fd6213b22090ad4d202ebacbfedfb0de84"
+    },
+    "topicprerequisite": {
+      "count": 159,
+      "sha256": "e6e60bcbe4d6642278fa9cedc42cc43ff3055d6705cae18448770ae0117a43dc"
+    },
+    "learnertopicstate": {
+      "count": 257,
+      "sha256": "3f31b4d3555f82bbcf11f2bc55391d74ba495a3dbb29f3ec18ab7eff44cde25d"
+    },
+    "learningsession": {
+      "count": 4,
+      "sha256": "d62f0cd5447233a07d6437271660ddf57197f5132bb956019704e79d762272f8"
+    },
+    "attempt": {
+      "count": 6,
+      "sha256": "c2d4b79fc256945c3a99a5f5b58e85f21c4eafc3a989756d340fe7a6211f1ab8"
+    },
+    "mistake": {
+      "count": 3,
+      "sha256": "9085f5e353002ad1949a9351bc49d9b485587456efd5d886af8021746c8f60e1"
+    },
+    "reviewstate": {
+      "count": 1,
+      "sha256": "6b6630f1fbd05948942833697086f036d704c3fdd3013e75850f468b424354c3"
+    },
+    "chatmessage": {
+      "count": 8,
+      "sha256": "0e0ee4c3f5aac6b4ed7c5e9fead4f2ff9204a33a8b35be8dacbc4c8bbef99130"
+    },
+    "curriculumgenerationmetadata": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "modelusageevent": {
+      "count": 6,
+      "sha256": "47285639fbf2ff186ac92c8d6c867b706a8bdbace64edff613e96a0884718ffe"
+    },
+    "exercise": {
+      "count": 679,
+      "sha256": "bf88d2361bbd24f99c613cf25ba6a4180e7b5b2f1c18149d77eb00a0727cc185"
+    },
+    "practicesessionexercise": {
+      "count": 6,
+      "sha256": "640607251278227e2639c8c237d77719dbea4acc706671c744280ab4ec3eed83"
+    },
+    "exerciseattemptdetail": {
+      "count": 6,
+      "sha256": "499e557d1bb33258e7b63c3d84e08614bb9faf2ccf3b955a12d1f28b39d0c993"
+    },
+    "practicehintuse": {
+      "count": 2,
+      "sha256": "f24f5a51fcba18a077cf4befa91a1bce84d85edd16ceba9e463233771f2f1eb4"
+    },
+    "masteryevidenceevent": {
+      "count": 6,
+      "sha256": "980e54ac0f661f1a7ca7a11fc2b1e4f8ee88149a9f10cbef7e905c566f609d46"
+    },
+    "transfercheck": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "reviewevent": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "dailyplanitem": {
+      "count": 20,
+      "sha256": "0593531870b0d58eff01ba730bb6016e851924a5af4bb4c8434b507defde089d"
+    },
+    "interviewsession": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "interviewquestion": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "interviewreport": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "interviewresponse": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "courselesson": {
+      "count": 98,
+      "sha256": "3c374f335a1eb5481d45da849b388dfb2cfed1cf065309b4e5c303a693b781d1"
+    },
+    "lessonsectionprogress": {
+      "count": 23,
+      "sha256": "2069633378399d6b78d1b5b2019a3ea3b7d810836b58b43a36ad6f3cf0ae5502"
+    },
+    "tutorsessionstate": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "course_content_fts": {
+      "count": 258,
+      "sha256": "f37d336e4d6c07c699dc617b38de0d69ccf5f94dd1b0b30629b1c9e073025990"
+    },
+    "course_content_fts_data": {
+      "count": 39,
+      "sha256": "13b6f5e14f73b8cd59067e839fc09ec42b444f9882fc1029b9d4544adc703ce8"
+    },
+    "course_content_fts_idx": {
+      "count": 37,
+      "sha256": "bc778a2c41bcf5e89f049cd052444e0bb22ec01e4fbdb80bd63d481752844862"
+    },
+    "course_content_fts_content": {
+      "count": 258,
+      "sha256": "97b1debdf1769c5ce363db2ceef5ea6725da69506e7f51f09e146296c52646b7"
+    },
+    "course_content_fts_docsize": {
+      "count": 258,
+      "sha256": "270aabb76c50efa8d4fb77550ee566f9b195847e59b57af752387e8e95814285"
+    },
+    "course_content_fts_config": {
+      "count": 1,
+      "sha256": "8fdc3d695805b7cf308822c90a2d30231ae7bf64cad93ed5ee8b968974195439"
+    },
+    "arenaproblem": {
+      "count": 110,
+      "sha256": "12f6df44652f3c35b72a8c1e19a46321aadcab5544f086d679e06ac1a8980514"
+    },
+    "topicmigrationmap": {
+      "count": 28,
+      "sha256": "4a6e3394bfb7c4729973ce5495927751c7330f07d0ecb6abea2f77d460a2c9c3"
+    },
+    "arenaattempt": {
+      "count": 5,
+      "sha256": "896c116b4ba656e4cc492a650fbc642cdc9e4546fc16c0e0feee203496e6eb91"
+    },
+    "arenahintuse": {
+      "count": 1,
+      "sha256": "e4c3f074eacc982739f15cd9cd5a126063331c880af4df859b8cff56e8d86f8f"
+    }
+  }
+}

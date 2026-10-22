@@ -1,0 +1,69 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "62288077de0124769174e6b37af48a2d9eb191499fcae8c5813d30b7faea83f5",
+  "payload_sha256": "dccd44629c11ffe06a07190dc2caea0b7b53a6e2ff9e1569d97d8f398e0e7d85",
+  "coverage_sha256": "a4e87724c6d81448d1b08b87226f3e33bb46f1de07e62c9507bba9e9d3b0aa63",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "2a9cd9f1573e6bd4187cdb765e66b90741729611a39da771ed92bcb9da54408a"
+  },
+  "coverage": [
+    {
+      "id": "correction",
+      "status": "covered",
+      "lesson_refs": [
+        "section/calls-and-return",
+        "section/local-names",
+        "section/argument-shapes",
+        "section/safe-defaults",
+        "section/worked-normalization",
+        "section/revision"
+      ],
+      "assessment_refs": [
+        "exercise/functions-return-none",
+        "exercise/functions-keyword-binding",
+        "exercise/functions-default-list",
+        "exercise/functions-trace-scope",
+        "exercise/functions-fix-return",
+        "exercise/functions-normalize-contract",
+        "exercise/functions-explain-sharing"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "section": "calls-and-return",
+      "index": 0,
+      "status": "executed"
+    },
+    {
+      "section": "local-names",
+      "index": 0,
+      "status": "executed"
+    },
+    {
+      "section": "argument-shapes",
+      "index": 0,
+      "status": "executed"
+    },
+    {
+      "section": "safe-defaults",
+      "index": 0,
+      "status": "executed"
+    },
+    {
+      "section": "worked-normalization",
+      "index": 0,
+      "status": "executed"
+    },
+    {
+      "section": "revision",
+      "index": 0,
+      "status": "executed"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

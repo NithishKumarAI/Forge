@@ -1,0 +1,32 @@
+Synthetic browser fixture prepared: C:\My PC\git\Forge\scratch\independent-browser-pqkbx68f\content\learner.db
+Synthetic audit fixtures: C:\My PC\git\Forge\scratch\independent-browser-pqkbx68f
+PASS new installation, preview, explicit confirmation/activation and missing pools
+PASS approved fixture lesson navigation and section completion do not change mastery
+PASS static local search, exact revision navigation and legacy chat
+PASS MCQ incorrect response and exact numeric grading with duplicate-submit protection
+PASS Python browser Run and backend Submit on two independent practice items
+PASS SQL browser Run and full backend Submit use isolated databases
+PASS clean Python transfer uses stored independent variant and preserves 89 cap
+PASS due delayed recall after actual 24-hour fixture gate updates FSRS/mastery
+PASS Arena failure, tracked hint, pass and explicit pre-pass Give Up
+PASS coding timed test uses local workers and embargoes feedback until completion
+PASS timed draft survives refresh with its original deadline and fixed scoring
+PASS mixed test applies the disclosed fixed negative marking
+PASS objective interview withholds feedback and communication remains unscored
+PASS saved legacy report remains readable with its original raw fields
+PASS planner presets regenerate explicitly and preserve terminal task history
+PASS mobile layout and visible keyboard focus
+PASS all exercised browser assets remain local with no page errors
+PASS unversioned legacy DB upgrades and opens in the actual browser
+PASS all nine real course journeys distinguish blocked content from engine fixtures
+PASS keyboard focus has a visible outline on the mobile app
+Examples executed: 25 / 258
+Examples executed: 50 / 258
+Examples executed: 75 / 258
+Examples executed: 100 / 258
+Examples executed: 125 / 258
+Examples executed: 150 / 258
+Examples executed: 175 / 258
+Examples executed: 200 / 258
+Examples executed: 225 / 258
+Examples executed: 250 / 258

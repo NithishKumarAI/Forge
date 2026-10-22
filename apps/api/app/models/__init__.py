@@ -1,4 +1,5 @@
 from .entities import (
+    StudyPlanRevision, StudyPlanEntry, TimedTestSession, TimedTestItem,
     AssessmentSelection, EvidenceCredit, EvidencePolicyRecord, AssessmentHelpEvent,
     EditionCurriculumBinding,
     TopicPlacement,

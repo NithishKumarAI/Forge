@@ -1,0 +1,106 @@
+{
+  "key": "dsa-range-sum-query",
+  "title": "Range sum query",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "prefix"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an integer array `nums`, handle multiple queries of the following type: Calculate the sum of the elements of `nums` between indices `left` and `right` inclusive.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "nums = [2,3,4,5,6], queries = [(0,2),(1,3),(0,4)]",
+      "output": "[9, 12, 20]",
+      "explanation": "2+3+4=9"
+    }
+  ],
+  "starter_code": "def range_sum_query(nums: list[int], queries: list[list[int]]) -> list[int]:\n    pass",
+  "hints": [
+    "Precompute the prefix sum array."
+  ],
+  "explanation": "Compute a prefix sum array where `prefix[i]` is the sum of elements up to index `i-1`. The sum between `left` and `right` is `prefix[right + 1] - prefix[left]`.",
+  "reference_solution": "def range_sum_query(nums: list[int], queries: list[list[int]]) -> list[int]:\n    prefix = [0] * (len(nums) + 1)\n    for i in range(len(nums)):\n        prefix[i+1] = prefix[i] + nums[i]\n    res = []\n    for left, right in queries:\n        res.append(prefix[right + 1] - prefix[left])\n    return res",
+  "complexity": "O(n + q) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "range_sum_query",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              0,
+              4
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          9,
+          12,
+          20
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            -2,
+            0,
+            3,
+            -5,
+            2,
+            -1
+          ],
+          [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              0,
+              5
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          -1,
+          -3
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/arrays"
+}

@@ -1,0 +1,82 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "987fdd2c145fd1c319ecc87dfceb3d2233592a4d2a294905a2d599f14113d427",
+  "payload_sha256": "83e264ed58a1cb7503aa351a90c05d3e48f39bc187a335f568e05eb30a98b79d",
+  "coverage_sha256": "abe48dd4eb6fac60869e261c9a6a99f189d8e774f1cb42ee4c0dbbeb119526ef",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "0384ef26af82da6240bde212ba5cde03674d36234018ff6b9e2ebfa68a63a4df"
+  },
+  "coverage": [
+    {
+      "id": "correction",
+      "status": "covered",
+      "lesson_refs": [
+        "section/conditional-branching",
+        "section/truthiness-and-falsiness",
+        "section/for-loops-and-range",
+        "section/while-loops-and-invariants",
+        "section/loop-control-break-continue",
+        "section/pattern-matching",
+        "section/interview-check"
+      ],
+      "assessment_refs": [
+        "exercise/cf-mcq-truthiness",
+        "exercise/cf-mcq-loop-else",
+        "exercise/cf-mcq-short-circuit",
+        "exercise/cf-short-predict-trace",
+        "exercise/cf-short-fix-boundary",
+        "exercise/cf-short-implement-guard",
+        "exercise/cf-short-explain-mutation-trap"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "section": "conditional-branching",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "truthiness-and-falsiness",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "for-loops-and-range",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "while-loops-and-invariants",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "loop-control-break-continue",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "pattern-matching",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "interview-check",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

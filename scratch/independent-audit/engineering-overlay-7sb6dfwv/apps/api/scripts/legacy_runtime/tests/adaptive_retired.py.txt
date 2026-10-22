@@ -1,0 +1,18 @@
+def test_backfill_is_idempotent_and_existing_phase3_attempts_count(session: Session) -> None:
+    topic = first_topic(session); practice_session, exercises = start_practice(session, topic, FakePracticeProvider())
+    submit_mcq(session, exercises[0], MCQSubmission(session_id=practice_session.id, selected_index=0))
+    before = session.exec(select(MasteryEvidenceEvent).where(MasteryEvidenceEvent.topic_id == topic.id)).all()
+    backfill_topic_evidence(session, topic.id); backfill_topic_evidence(session, topic.id)
+    after = session.exec(select(MasteryEvidenceEvent).where(MasteryEvidenceEvent.topic_id == topic.id)).all()
+    assert len(before) == len(after) == 1
+
+
+def test_recurring_mistake_increments(session: Session) -> None:
+    topic = first_topic(session); first, exercises = start_practice(session, topic, FakePracticeProvider())
+    submit_mcq(session, exercises[0], MCQSubmission(session_id=first.id, selected_index=1))
+    second, reused = start_practice(session, topic, None)
+    submit_mcq(session, reused[0], MCQSubmission(session_id=second.id, selected_index=1))
+    mistake = session.exec(select(Mistake).where(Mistake.topic_id == topic.id)).one()
+    assert mistake.occurrence_count == 2
+
+

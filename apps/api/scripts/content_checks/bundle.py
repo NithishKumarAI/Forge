@@ -63,6 +63,8 @@ def validate_candidate(value):
         bundle=AssessmentBundle.model_validate(candidate.payload["assessment"])
         execution=[]
         for item in bundle.items:
+            from .subject_accuracy import check_subject_accuracy
+            subject_check=check_subject_accuracy(item)
             if item.kind in {"python","sql"}:
                 checked=judge(item,item.contract["reference_solution"])
                 if checked.get("status")!="verified" or checked.get("passed")!=checked.get("total"):
@@ -73,7 +75,9 @@ def validate_candidate(value):
                     wrong=judge(item,source)
                     if wrong.get("status")!="verified" or wrong.get("passed")==wrong.get("total"):
                         raise ValueError("Negative implementation was accepted or unverified")
-            execution.append({"item":item.key,"status":"executed" if item.kind in {"python","sql"} else "requires_human_answer_review"})
+            entry={"item":item.key,"status":"executed" if item.kind in {"python","sql"} else "requires_human_answer_review"}
+            if subject_check!="human_semantic_review_required":entry["subject_check"]=subject_check
+            execution.append(entry)
     else:
         raw = candidate.payload["problem"]
         if raw.get("publication_contract") != candidate.problem_contract or raw.get("negative_solutions", []) != candidate.negative_solutions:

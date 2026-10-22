@@ -1,0 +1,43 @@
+.FFF                                                                     [100%]
+================================== FAILURES ===================================
+_____ test_level_and_question_position_require_actual_json_integers[True] _____
+
+value = True
+
+    @pytest.mark.parametrize('value',[True,1.0,'1'])
+    def test_level_and_question_position_require_actual_json_integers(value):
+>       with pytest.raises(ValidationError):TimedStart(kind='subject',subject='python',level=value)
+E       Failed: DID NOT RAISE <class 'pydantic_core._pydantic_core.ValidationError'>
+
+tests\test_independent_contracts.py:23: Failed
+_____ test_level_and_question_position_require_actual_json_integers[1.0] ______
+
+value = 1.0
+
+    @pytest.mark.parametrize('value',[True,1.0,'1'])
+    def test_level_and_question_position_require_actual_json_integers(value):
+>       with pytest.raises(ValidationError):TimedStart(kind='subject',subject='python',level=value)
+E       Failed: DID NOT RAISE <class 'pydantic_core._pydantic_core.ValidationError'>
+
+tests\test_independent_contracts.py:23: Failed
+______ test_level_and_question_position_require_actual_json_integers[1] _______
+
+value = '1'
+
+    @pytest.mark.parametrize('value',[True,1.0,'1'])
+    def test_level_and_question_position_require_actual_json_integers(value):
+>       with pytest.raises(ValidationError):TimedStart(kind='subject',subject='python',level=value)
+E       Failed: DID NOT RAISE <class 'pydantic_core._pydantic_core.ValidationError'>
+
+tests\test_independent_contracts.py:23: Failed
+============================== warnings summary ===============================
+tests/test_independent_contracts.py::test_committed_phase5_frontend_routes_are_registered_locally
+  C:\My PC\git\Forge\apps\api\.venv\Lib\site-packages\fastapi\openapi\utils.py:225: UserWarning: Duplicate Operation ID retired_api_practice__path__put for function retired at C:\My PC\git\Forge\apps\api\app\routers\practice.py
+    warnings.warn(message, stacklevel=1)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_independent_contracts.py::test_level_and_question_position_require_actual_json_integers[True]
+FAILED tests/test_independent_contracts.py::test_level_and_question_position_require_actual_json_integers[1.0]
+FAILED tests/test_independent_contracts.py::test_level_and_question_position_require_actual_json_integers[1]
+3 failed, 1 passed, 1 warning in 0.75s

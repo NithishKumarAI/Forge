@@ -1,0 +1,73 @@
+{
+  "key": "python-valid-sudoku-row",
+  "title": "Valid Sudoku rows",
+  "track": "python",
+  "topic_tags": [
+    "hash-maps",
+    "arrays"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "medium",
+  "estimated_minutes": 20,
+  "statement_markdown": "Determine if a 9x9 Sudoku board has valid rows. The board is represented as a list of lists of integers.\n\nOnly the rows need to be validated according to the following rule: Each row must contain the digits 1-9 without repetition. Empty cells are represented by the integer 0 and can be ignored.\n\nReturn `True` if all rows are valid, and `False` otherwise.",
+  "constraints": [
+    "board.length == 9",
+    "board[i].length == 9",
+    "0 <= board[i][j] <= 9"
+  ],
+  "examples": [
+    {
+      "input": "[[5,3,0,0,7,0,0,0,0],[6,0,0,1,9,5,0,0,0],[0,9,8,0,0,0,0,6,0],[8,0,0,0,6,0,0,0,3],[4,0,0,8,0,3,0,0,1],[7,0,0,0,2,0,0,0,6],[0,6,0,0,0,0,2,8,0],[0,0,0,4,1,9,0,0,5],[0,0,0,0,8,0,0,7,9]]",
+      "output": "True",
+      "explanation": "No row contains a repeated non-zero digit."
+    },
+    {
+      "input": "[[1,1,0,0,0,0,0,0,0], ...]",
+      "output": "False",
+      "explanation": "The first row has two 1s."
+    }
+  ],
+  "starter_code": "def valid_rows(board: list[list[int]]) -> bool:\n    pass",
+  "hints": [
+    "Use a set to track which numbers you have already seen in the current row.",
+    "Don't forget to ignore `0`s."
+  ],
+  "explanation": "For each row in the board, we initialize an empty set. We iterate through the values in the row; if the value is not 0 and is already in the set, we immediately return `False`. Otherwise, we add it to the set. If we check all rows without any duplicates, we return `True`.",
+  "reference_solution": "def valid_rows(board: list[list[int]]) -> bool:\n    for row in board:\n        seen = set()\n        for val in row:\n            if val != 0:\n                if val in seen:\n                    return False\n                seen.add(val)\n    return True",
+  "complexity": "O(1) time and O(1) space, since the board size is fixed at 9x9.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "valid_rows",
+    "sample_tests": [
+      {
+        "name": "sample_valid",
+        "args": [
+          [[5,3,0,0,7,0,0,0,0],[6,0,0,1,9,5,0,0,0],[0,9,8,0,0,0,0,6,0],[8,0,0,0,6,0,0,0,3],[4,0,0,8,0,3,0,0,1],[7,0,0,0,2,0,0,0,6],[0,6,0,0,0,0,2,8,0],[0,0,0,4,1,9,0,0,5],[0,0,0,0,8,0,0,7,9]]
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "sample_invalid",
+        "args": [
+          [[1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]]
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden_last_row_invalid",
+        "args": [
+          [[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,9,0,0,0,9]]
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

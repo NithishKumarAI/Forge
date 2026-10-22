@@ -1,0 +1,180 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "syntax-data-types",
+  "title": "Syntax and Data Types",
+  "description": "Build a precise mental model of Python names, scalar values, conversions, and mutability.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Read Python blocks and assignments accurately",
+    "Choose and convert core scalar types",
+    "Explain dynamic, strong typing and mutability in interviews"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "mental-model",
+      "title": "Core mental model",
+      "order_index": 0,
+      "estimated_minutes": 7,
+      "learning_objective": "Read Python blocks and assignments accurately",
+      "markdown": "Python syntax basics start with indentation to define blocks. Assignment binds variables (names) to objects; each object owns its type. Naming rules allow letters, digits, and underscores, forbid a leading digit, and reserve Python keywords. Python is dynamically typed because a name can be rebound, yet strongly typed because incompatible operations such as `'3' + 3` raise `TypeError` instead of silently coercing values.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "user_name = 'Mina'\nretry_count = 2\nif retry_count > 0:\n    print(f'{user_name}: {retry_count}')",
+          "explanation": "A small executable example exposes the rule instead of only naming it.",
+          "expected_output": "Mina: 2"
+        }
+      ],
+      "key_points": [
+        "Read Python blocks and assignments accurately",
+        "Predict execution before running code."
+      ],
+      "checkpoint": "Explain the example one line at a time without using vague terms."
+    },
+    {
+      "slug": "operations-and-tradeoffs",
+      "title": "Operations and trade-offs",
+      "order_index": 1,
+      "estimated_minutes": 7,
+      "learning_objective": "Choose and convert core scalar types",
+      "markdown": "The core scalar types are `int`, `float`, `str`, `bool`, and the singleton `None`. Use `type()` while inspecting an exact runtime type and `isinstance()` when subclasses should count. Explicit casting with `int()`, `float()`, `str()`, or `bool()` belongs at input boundaries; invalid numeric text raises `ValueError`. Remember that `bool('False')` is `True` because the string is non-empty.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "raw_port = '8000'\nport = int(raw_port)\nlabel = None\nprint(type(port).__name__, label is None)",
+          "explanation": "This example applies the most important operation at a realistic boundary.",
+          "expected_output": "int True"
+        }
+      ],
+      "key_points": [
+        "Choose and convert core scalar types",
+        "Choose an operation based on its contract."
+      ],
+      "checkpoint": "What input or state would make this code fail?"
+    },
+    {
+      "slug": "worked-practice",
+      "title": "Worked practice",
+      "order_index": 2,
+      "estimated_minutes": 7,
+      "learning_objective": "Trace the concept on concrete data.",
+      "markdown": "Work from the input and state the invariant before coding. Frequent mistakes include confusing rebinding with mutation. Integers, floats, strings, booleans, tuples, and None are immutable; an operation produces another object. Lists, dictionaries, and sets are mutable, so two names may observe the same in-place change. Also avoid `== None`, exact equality for computed floats, names such as `str` that shadow built-ins, and truthiness checks when zero is valid data. For an interview, narrate the observation, the rule you are applying, and the resulting value. That sequence makes reasoning inspectable and exposes hidden assumptions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "raw_port = '8000'\nport = int(raw_port)\nlabel = None\nprint(type(port).__name__, label is None)",
+          "explanation": "Trace names and values after every important line, then compare with the expected output.",
+          "expected_output": "int True"
+        }
+      ],
+      "key_points": [
+        "Use a concrete trace.",
+        "State assumptions at the input boundary."
+      ],
+      "checkpoint": "Change one input and predict the new result."
+    },
+    {
+      "slug": "mistakes",
+      "title": "Common mistakes and fixes",
+      "order_index": 3,
+      "estimated_minutes": 7,
+      "learning_objective": "Diagnose failures rather than memorize syntax.",
+      "markdown": "Frequent mistakes include confusing rebinding with mutation. Integers, floats, strings, booleans, tuples, and None are immutable; an operation produces another object. Lists, dictionaries, and sets are mutable, so two names may observe the same in-place change. Also avoid `== None`, exact equality for computed floats, names such as `str` that shadow built-ins, and truthiness checks when zero is valid data. Turn each failure into a focused test. Preserve the original failing input, make the smallest correction, and run the test again. Avoid broad exception handling or a rewrite that hides the root cause.",
+      "examples": [],
+      "key_points": [
+        "Reproduce before fixing.",
+        "Prefer the smallest evidence-backed correction."
+      ],
+      "checkpoint": "Name one tempting fix that would only hide the defect."
+    },
+    {
+      "slug": "interview-summary",
+      "title": "Interview-focused summary",
+      "order_index": 4,
+      "estimated_minutes": 7,
+      "learning_objective": "Explain dynamic, strong typing and mutability in interviews",
+      "markdown": "A strong explanation starts with the mental model, demonstrates it using a short executable example, names the trade-off, and closes with a common failure mode. Apply that structure to Syntax and Data Types. In Forge Arena, solve related Python problems without tutor help when you want the attempt to count as clean transfer evidence.",
+      "examples": [],
+      "key_points": [
+        "Explain the why, not only syntax.",
+        "Use Arena for independent transfer practice."
+      ],
+      "checkpoint": "Give a sixty-second explanation and one counterexample."
+    },
+    {
+      "slug": "type-conversion",
+      "title": "Type inspection and conversion",
+      "order_index": 5,
+      "estimated_minutes": 7,
+      "learning_objective": "Inspect and convert boundary values safely.",
+      "markdown": "Use `type()` to inspect the concrete runtime type and `isinstance()` when subclasses should be accepted. Casting with `int()`, `float()`, and `str()` is explicit and may fail, so conversion belongs at an input boundary with a clear error policy. Conversion does not mutate the original immutable value; it returns a new object. Avoid using `bool()` as a parser for text because every non-empty string—including `'False'`—is truthy.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "raw = '42'\nvalue = int(raw)\nprint(type(value).__name__, value + 1)",
+          "explanation": "The string is converted once at the boundary, after which internal arithmetic uses an integer.",
+          "expected_output": "int 43"
+        }
+      ],
+      "key_points": [
+        "Conversion is explicit and fallible.",
+        "Inspecting a type is different from converting a value."
+      ],
+      "checkpoint": "What exception should invalid integer text produce, and where should it be handled?"
+    },
+    {
+      "slug": "booleans",
+      "title": "Booleans and truthiness",
+      "order_index": 6,
+      "estimated_minutes": 7,
+      "learning_objective": "Use bool values and truthiness without losing meaningful data.",
+      "markdown": "The `bool` type has the values `True` and `False`. Comparisons produce booleans, while `and`, `or`, and `not` combine conditions; `and` and `or` may return an operand rather than a literal bool. Empty containers, numeric zero, `None`, and empty strings are falsy. That shortcut is useful only when those values all mean absence. If zero is a valid measurement, compare with `is None` instead of relying on truthiness.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "count = 0\nmissing = None\nprint(count == 0, missing is None, bool('False'))",
+          "explanation": "Zero and None can represent different domain states, and non-empty text remains truthy.",
+          "expected_output": "True True True"
+        }
+      ],
+      "key_points": [
+        "Truthiness is a protocol, not an absence check.",
+        "Use `is None` when None has distinct meaning."
+      ],
+      "checkpoint": "Give one case where `if value:` would incorrectly reject valid input."
+    }
+  ],
+  "summary": [
+    "Read Python blocks and assignments accurately",
+    "Choose and convert core scalar types",
+    "Validate understanding with a trace, boundary case, and independent practice."
+  ],
+  "interview_takeaways": [
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
+  ],
+  "common_mistakes": [
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "The Python Tutorial — An Informal Introduction",
+      "url": "https://docs.python.org/3/tutorial/introduction.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    },
+    {
+      "source_id": "python-language-reference",
+      "title": "Python Language Reference — Data model",
+      "url": "https://docs.python.org/3/reference/datamodel.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "faf1269e729c5edd28144ac8807f7adc32e95009daa746f14adf41ffb3f2c63d",
+  "generated_at": "2026-09-24T00:00:00Z"
+}

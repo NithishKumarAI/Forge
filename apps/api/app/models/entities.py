@@ -533,3 +533,46 @@ class AssessmentHelpEvent(SQLModel, table=True):
     selection_id: str = Field(foreign_key="assessmentselection.id", index=True)
     kind: str
     created_at: datetime = Field(default_factory=utc_now)
+
+
+class StudyPlanRevision(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("curriculum_id","local_date","timezone","revision",name="uq_plan_revision"),
+        Index("uq_active_study_plan","curriculum_id","local_date","timezone",unique=True,sqlite_where=text("active=1")),)
+    id: str = Field(primary_key=True)
+    curriculum_id: int = Field(foreign_key="curriculum.id",index=True)
+    local_date: str
+    timezone: str
+    revision: int
+    target_minutes: int
+    settings_json: str = Field(sa_column=Column(Text,nullable=False))
+    policy_version: str = "forge-planner/2"
+    active: bool = True
+    created_at: datetime = Field(default_factory=utc_now)
+
+
+class StudyPlanEntry(SQLModel, table=True):
+    __table_args__ = (UniqueConstraint("plan_id","activity_key",name="uq_plan_activity"),)
+    plan_id: str = Field(foreign_key="studyplanrevision.id",primary_key=True)
+    item_id: int = Field(foreign_key="dailyplanitem.id",primary_key=True)
+    activity_key: str
+    snapshot_json: str = Field(sa_column=Column(Text,nullable=False))
+
+
+class TimedTestSession(SQLModel, table=True):
+    id: str = Field(primary_key=True)
+    curriculum_id: int = Field(foreign_key="curriculum.id",index=True)
+    blueprint_json: str = Field(sa_column=Column(Text,nullable=False))
+    status: str = "active"
+    started_at: datetime = Field(default_factory=utc_now)
+    deadline_at: datetime
+    completed_at: datetime | None = None
+    report_json: str = "{}"
+
+
+class TimedTestItem(SQLModel, table=True):
+    session_id: str = Field(foreign_key="timedtestsession.id",primary_key=True)
+    position: int = Field(primary_key=True)
+    selection_id: str = Field(foreign_key="assessmentselection.id",unique=True)
+    weight: float
+    negative_mark: float = 0
+    draft_json: str = "{}"

@@ -1,0 +1,111 @@
+valid: dsa-container-most-water
+valid: dsa-daily-temperatures
+valid: dsa-decode-string
+valid: dsa-evaluate-rpn
+valid: dsa-find-cycle-start
+valid: dsa-find-in-rotated
+valid: dsa-first-last-position
+valid: dsa-first-pair
+valid: dsa-fruit-into-baskets
+valid: dsa-isomorphic-strings
+valid: dsa-kth-largest
+valid: dsa-level-order-traversal
+valid: dsa-longest-consecutive
+valid: dsa-longest-substring-no-repeat
+valid: dsa-max-consecutive-ones
+valid: dsa-max-depth-tree
+valid: dsa-max-sliding-window
+valid: dsa-max-window-sum
+valid: dsa-merge-intervals
+valid: dsa-merge-two-sorted-lists
+valid: dsa-min-stack
+valid: dsa-min-window-substring
+valid: dsa-move-zeroes
+valid: dsa-number-of-islands-bfs
+valid: dsa-permutation-in-string
+valid: dsa-range-sum-query
+valid: dsa-ransom-note
+valid: dsa-remove-duplicates-sorted
+valid: dsa-reverse-linked-list
+valid: dsa-reverse-string
+valid: dsa-search-insert-position
+valid: dsa-sort-colors
+valid: dsa-sqrt-integer
+valid: dsa-subarray-sum-equals-k
+valid: dsa-three-sum
+valid: dsa-top-k-frequent
+valid: dsa-trapping-rain-water
+valid: dsa-two-sum-indices
+valid: dsa-valid-anagram
+valid: dsa-word-pattern
+valid: python-anagram-check
+valid: python-bob
+valid: python-celsius-to-fahrenheit
+valid: python-climbing-stairs
+valid: python-collatz
+valid: python-count-bits
+valid: python-count-islands
+valid: python-count-vowels
+valid: python-deduplicate-list
+valid: python-find-duplicate
+valid: python-first-non-repeat
+valid: python-fizzbuzz
+valid: python-flatten-list
+valid: python-generate-subsets
+valid: python-group-anagrams
+valid: python-group-errors
+valid: python-implement-queue
+valid: python-is-palindrome
+valid: python-largest-product
+valid: python-leap-year
+valid: python-longest-common-prefix
+valid: python-longest-increasing-subseq
+valid: python-matrix-spiral
+valid: python-max-profit
+valid: python-max-subarray
+valid: python-merge-sorted-lists
+valid: python-missing-number
+valid: python-normalize-name
+valid: python-pangram
+valid: python-product-except-self
+valid: python-raindrops
+valid: python-rotate-list
+valid: python-running-sum
+valid: python-stack-balanced-brackets
+valid: python-two-fer
+valid: python-two-sum
+valid: python-valid-bst
+valid: python-valid-parentheses-string
+valid: python-valid-sudoku-row
+valid: python-word-count
+valid: dsa-two-sum-indices
+valid: sql-above-average-salary (PGlite exact bundle)
+valid: sql-active-users (PGlite exact bundle)
+valid: sql-age-from-birthdate (PGlite exact bundle)
+valid: sql-coalesce-address (PGlite exact bundle)
+valid: sql-cte-running-balance (PGlite exact bundle)
+valid: sql-cte-top-products (PGlite exact bundle)
+valid: sql-customer-totals (PGlite exact bundle)
+valid: sql-customers-with-orders (PGlite exact bundle)
+valid: sql-daily-sales (PGlite exact bundle)
+valid: sql-dept-avg-salary (PGlite exact bundle)
+valid: sql-dept-head-count (PGlite exact bundle)
+valid: sql-dept-max-earner (PGlite exact bundle)
+valid: sql-distinct-cities (PGlite exact bundle)
+valid: sql-employee-bonus (PGlite exact bundle)
+valid: sql-employees-by-dept (PGlite exact bundle)
+valid: sql-employees-with-manager (PGlite exact bundle)
+valid: sql-high-value-depts (PGlite exact bundle)
+valid: sql-monthly-active-users (PGlite exact bundle)
+valid: sql-null-email (PGlite exact bundle)
+valid: sql-order-count-by-status (PGlite exact bundle)
+valid: sql-orders-with-no-items (PGlite exact bundle)
+valid: sql-product-never-ordered (PGlite exact bundle)
+valid: sql-product-revenue (PGlite exact bundle)
+valid: sql-products-in-stock (PGlite exact bundle)
+valid: sql-recent-orders (PGlite exact bundle)
+valid: sql-second-highest-salary (PGlite exact bundle)
+valid: sql-students-all-subjects (PGlite exact bundle)
+valid: sql-three-table-join (PGlite exact bundle)
+valid: sql-top-customer-per-region (PGlite exact bundle)
+valid: sql-user-search (PGlite exact bundle)

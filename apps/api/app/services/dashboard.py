@@ -45,11 +45,23 @@ def build_dashboard(session: Session) -> dict:
     topic_ids = session.exec(select(Topic.id).join(Track).where(Track.curriculum_id == curriculum.id)).all()
     due_states = session.exec(select(ReviewState).where(ReviewState.topic_id.in_(topic_ids))).all() if topic_ids else []
     due_count = sum(1 for item in due_states if item.due_at.replace(tzinfo=timezone.utc) <= now)
+    from ..models import Mistake,TopicContentBinding,ContentRevision,ContentSectionProgress
+    from .content_publication import release_entries
+    approved=[(entry,revision) for entry,revision in release_entries(session,curriculum_id=curriculum.id) if revision.content_type=='lesson_bundle']
+    approved_topics={entry.topic_id for entry,_ in approved}
+    legacy=session.exec(select(TopicContentBinding,ContentRevision).join(ContentRevision).where(TopicContentBinding.curriculum_id==curriculum.id,ContentRevision.approval_status=='legacy_baseline')).all()
+    legacy=[(entry,revision) for entry,revision in legacy if entry.topic_id not in approved_topics]
+    available_topics=approved_topics|{entry.topic_id for entry,_ in legacy}
+    mistakes=session.exec(select(Mistake).where(Mistake.topic_id.in_(topic_ids)).order_by(Mistake.last_seen_at.desc()).limit(5)).all() if topic_ids else []
+    reading=session.exec(select(ContentSectionProgress).where(ContentSectionProgress.topic_id.in_(topic_ids))).all() if topic_ids else []
     return {
         "interview_readiness": readiness["readiness"],
         "readiness": readiness,
         "reviews_due": due_count,
         "today_plan": today_plan(session),
+        "content_status":{"approved_lessons":len({r.id for _,r in approved}),"legacy_lessons":len({r.id for _,r in legacy}),"missing_topics":len(topic_ids)-len(available_topics),"total_topics":len(topic_ids)},
+        "reading_progress":{"saved_revision_sections":len(reading),"completed_revision_sections":sum(r.completed for r in reading)},
+        "recent_mistakes":[{"topic_id":r.topic_id,"topic_name":session.get(Topic,r.topic_id).name,"description":r.description,"occurrence_count":r.occurrence_count} for r in mistakes],
         "active_curriculum": {
             "id": curriculum.id,
             "name": curriculum.name,

@@ -1,0 +1,46 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "568c108ac0dd89e81d91702caef818f52d47ab7d0126db54f6ff006f36d842dc",
+  "payload_sha256": "20d9a324012a61a9abc21138221ecb0c470408b5126a63f2320ea5c7af35d988",
+  "coverage_sha256": "c14a91335ce5fc478e00fead138ea0422750890d9bb66dfb35de2fd0fc9c2a28",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "7fa67ad6160b4524d46476c5a3843aa299f6ec7bab3882263468c00eb5a90ee2"
+  },
+  "coverage": [
+    {
+      "id": "guided-boundary",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/guided-boundary"
+      ],
+      "assessment_refs": [
+        "item/guided-boundary"
+      ]
+    },
+    {
+      "id": "independent-attendance",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/independent-attendance"
+      ],
+      "assessment_refs": [
+        "item/independent-attendance"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "item": "guided-boundary",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "independent-attendance",
+      "status": "requires_human_answer_review"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

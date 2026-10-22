@@ -1,0 +1,1088 @@
+{
+  "method": "Compare executed SQL outputs to explicit Markdown tables only; no inferred answers for prose expectations. Unordered comparisons preserve duplicates.",
+  "counts": {
+    "verified_declared_table": 26,
+    "requires_driver_date_null_display_context": 5,
+    "non_deterministic_documented_timestamp": 1,
+    "requires_human_output_review": 2,
+    "actual_table_output_mismatch": 3
+  },
+  "comparisons": [
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/aggregation/lesson.json|aggregate-functions|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "total_rows",
+        "non_null_sales",
+        "total_revenue",
+        "avg_sale"
+      ],
+      "actual_columns": [
+        "total_rows",
+        "non_null_sales",
+        "total_revenue",
+        "avg_sale"
+      ],
+      "expected_rows": [
+        [
+          "4.0",
+          "3.0",
+          "6000.0",
+          "2000.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "4.0",
+          "3.0",
+          "6000.0",
+          "2000.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/aggregation/lesson.json|group-by-partitioning|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "dept",
+        "headcount",
+        "avg_sal"
+      ],
+      "actual_columns": [
+        "dept",
+        "headcount",
+        "avg_sal"
+      ],
+      "expected_rows": [
+        [
+          "AI",
+          "2.0",
+          "70000.0"
+        ],
+        [
+          "Backend",
+          "1.0",
+          "50000.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "AI",
+          "2.0",
+          "70000.0"
+        ],
+        [
+          "Backend",
+          "1.0",
+          "50000.0"
+        ]
+      ],
+      "ordered": true
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/constraints-design/lesson.json|column-and-table-constraints|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "email",
+        "balance",
+        "status"
+      ],
+      "actual_columns": [
+        "email",
+        "balance",
+        "status"
+      ],
+      "expected_rows": [
+        [
+          "user@example.com",
+          "100.5",
+          "active"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "user@example.com",
+          "100.5",
+          "active"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/constraints-design/lesson.json|keys-and-referential-integrity|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "remaining_orders"
+      ],
+      "actual_columns": [
+        "remaining_orders"
+      ],
+      "expected_rows": [
+        [
+          "0.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "0.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/constraints-design/lesson.json|normalization-foundations|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "emp_name",
+        "dept_name"
+      ],
+      "actual_columns": [
+        "emp_name",
+        "dept_name"
+      ],
+      "expected_rows": [
+        [
+          "Maya",
+          "Engineering"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Maya",
+          "Engineering"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/constraints-design/lesson.json|denormalization-tradeoffs|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "order_id",
+        "cached_customer_name",
+        "order_total"
+      ],
+      "actual_columns": [
+        "order_id",
+        "cached_customer_name",
+        "order_total"
+      ],
+      "expected_rows": [
+        [
+          "1.0",
+          "Alice",
+          "150.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "1.0",
+          "Alice",
+          "150.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/ctes/lesson.json|with-and-common-table-expressions|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "customer_id",
+        "count_high_orders"
+      ],
+      "actual_columns": [
+        "customer_id",
+        "count_high_orders"
+      ],
+      "expected_rows": [
+        [
+          "101.0",
+          "1.0"
+        ],
+        [
+          "102.0",
+          "1.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "101.0",
+          "1.0"
+        ],
+        [
+          "102.0",
+          "1.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/ctes/lesson.json|multiple-ctes-and-reuse|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "department",
+        "avg_sal",
+        "benchmark_sal"
+      ],
+      "actual_columns": [
+        "department",
+        "avg_sal",
+        "benchmark_sal"
+      ],
+      "expected_rows": [
+        [
+          "AI",
+          "95000.0",
+          "77500.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "AI",
+          "95000.0",
+          "77500.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/ctes/lesson.json|readability-and-subquery-comparison|0",
+      "status": "requires_driver_date_null_display_context",
+      "columns": [
+        "email",
+        "last_login"
+      ],
+      "actual_columns": [
+        "email",
+        "last_login"
+      ],
+      "expected_rows": [
+        [
+          "ana@example.com",
+          "2026-09-24 10:00:00"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "ana@example.com",
+          "2026-09-24T04:30:00.000Z"
+        ]
+      ],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch",
+      "interpretation": "Not classified as a wrong logical answer: Date/TZ serialization or NULL display convention differs. Exact context still requires review."
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/ctes/lesson.json|recursive-ctes-awareness|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "id",
+        "name",
+        "depth"
+      ],
+      "actual_columns": [
+        "id",
+        "name",
+        "depth"
+      ],
+      "expected_rows": [
+        [
+          "1.0",
+          "Maya (CEO)",
+          "1.0"
+        ],
+        [
+          "2.0",
+          "Liam (VP)",
+          "2.0"
+        ],
+        [
+          "3.0",
+          "Noah (Dev)",
+          "3.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "1.0",
+          "Maya (CEO)",
+          "1.0"
+        ],
+        [
+          "2.0",
+          "Liam (VP)",
+          "2.0"
+        ],
+        [
+          "3.0",
+          "Noah (Dev)",
+          "3.0"
+        ]
+      ],
+      "ordered": true
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/ctes/lesson.json|interview-check|0",
+      "status": "requires_driver_date_null_display_context",
+      "columns": [
+        "day"
+      ],
+      "actual_columns": [
+        "day"
+      ],
+      "expected_rows": [
+        [
+          "2026-09-01"
+        ],
+        [
+          "2026-09-02"
+        ],
+        [
+          "2026-09-03"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "2026-09-01T00:00:00.000Z"
+        ],
+        [
+          "2026-09-02T00:00:00.000Z"
+        ],
+        [
+          "2026-09-03T00:00:00.000Z"
+        ]
+      ],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch",
+      "interpretation": "Not classified as a wrong logical answer: Date/TZ serialization or NULL display convention differs. Exact context still requires review."
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/data-modification/lesson.json|insert-operations|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "count"
+      ],
+      "actual_columns": [
+        "count"
+      ],
+      "expected_rows": [
+        [
+          "3.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "3.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/data-modification/lesson.json|returning-clause|0",
+      "status": "non_deterministic_documented_timestamp",
+      "columns": [
+        "log_id",
+        "action",
+        "recorded_at"
+      ],
+      "actual_columns": [
+        "log_id",
+        "action",
+        "recorded_at"
+      ],
+      "expected_rows": [
+        [
+          "1.0",
+          "USER_LOGIN",
+          "2026-09-24 10:00:00"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "1.0",
+          "USER_LOGIN",
+          "2026-10-22T10:42:29.140Z"
+        ]
+      ],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch"
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/database-python/lesson.json|connections-and-cursors|0",
+      "status": "requires_human_output_review",
+      "reason": "Expected output is descriptive rather than an exact machine-readable table"
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/indexes/lesson.json|btree-fundamentals|0",
+      "status": "actual_table_output_mismatch",
+      "columns": [
+        "id",
+        "signup_date"
+      ],
+      "actual_columns": [
+        "id",
+        "signup_date"
+      ],
+      "expected_rows": [
+        [
+          "1.0",
+          "2026-09-24"
+        ]
+      ],
+      "actual_rows": [],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch"
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/indexes/lesson.json|composite-indexes-and-column-order|0",
+      "status": "actual_table_output_mismatch",
+      "columns": [
+        "id",
+        "total_amount"
+      ],
+      "actual_columns": [
+        "id",
+        "total_amount"
+      ],
+      "expected_rows": [
+        [
+          "5.0",
+          "120.0"
+        ]
+      ],
+      "actual_rows": [],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch"
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/indexes/lesson.json|write-cost-and-index-tradeoffs|0",
+      "status": "actual_table_output_mismatch",
+      "columns": [
+        "index_name",
+        "index_size"
+      ],
+      "actual_columns": [
+        "index_name",
+        "index_size"
+      ],
+      "expected_rows": [
+        [
+          "idx_orders_cust_date",
+          "16 kB"
+        ]
+      ],
+      "actual_rows": [],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch"
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/joins/lesson.json|inner-join-intersection|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "name",
+        "order_id",
+        "amount"
+      ],
+      "actual_columns": [
+        "name",
+        "order_id",
+        "amount"
+      ],
+      "expected_rows": [
+        [
+          "Alice",
+          "101.0",
+          "500.0"
+        ],
+        [
+          "Alice",
+          "102.0",
+          "200.0"
+        ],
+        [
+          "Bob",
+          "103.0",
+          "750.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Alice",
+          "101.0",
+          "500.0"
+        ],
+        [
+          "Alice",
+          "102.0",
+          "200.0"
+        ],
+        [
+          "Bob",
+          "103.0",
+          "750.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/joins/lesson.json|self-joins-and-hierarchies|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "employee",
+        "manager"
+      ],
+      "actual_columns": [
+        "employee",
+        "manager"
+      ],
+      "expected_rows": [
+        [
+          "CEO Ada",
+          "Top Level"
+        ],
+        [
+          "VP Bob",
+          "CEO Ada"
+        ],
+        [
+          "Eng Carol",
+          "VP Bob"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "CEO Ada",
+          "Top Level"
+        ],
+        [
+          "VP Bob",
+          "CEO Ada"
+        ],
+        [
+          "Eng Carol",
+          "VP Bob"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/postgresql-practicals/lesson.json|core-postgresql-types|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "item_description",
+        "subtotal"
+      ],
+      "actual_columns": [
+        "item_description",
+        "subtotal"
+      ],
+      "expected_rows": [
+        [
+          "Cloud GPU Node",
+          "599.96"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Cloud GPU Node",
+          "599.96"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/postgresql-practicals/lesson.json|timestamps-and-timezones|0",
+      "status": "requires_driver_date_null_display_context",
+      "columns": [
+        "event_id",
+        "utc_time"
+      ],
+      "actual_columns": [
+        "event_id",
+        "utc_time"
+      ],
+      "expected_rows": [
+        [
+          "1.0",
+          "2026-09-24 14:00:00"
+        ],
+        [
+          "2.0",
+          "2026-09-24 14:00:00"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "1.0",
+          "2026-09-24T08:30:00.000Z"
+        ],
+        [
+          "2.0",
+          "2026-09-24T08:30:00.000Z"
+        ]
+      ],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch",
+      "interpretation": "Not classified as a wrong logical answer: Date/TZ serialization or NULL display convention differs. Exact context still requires review."
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/postgresql-practicals/lesson.json|identity-vs-serial|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "id",
+        "username"
+      ],
+      "actual_columns": [
+        "id",
+        "username"
+      ],
+      "expected_rows": [
+        [
+          "1.0",
+          "alice"
+        ],
+        [
+          "2.0",
+          "bob"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "1.0",
+          "alice"
+        ],
+        [
+          "2.0",
+          "bob"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/postgresql-practicals/lesson.json|native-arrays-and-jsonb|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "model_name",
+        "has_llm_tag"
+      ],
+      "actual_columns": [
+        "model_name",
+        "has_llm_tag"
+      ],
+      "expected_rows": [
+        [
+          "gemini-2.5",
+          "true"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "gemini-2.5",
+          "true"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/query-basics/lesson.json|select-and-distinct|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "department"
+      ],
+      "actual_columns": [
+        "department"
+      ],
+      "expected_rows": [
+        [
+          "AI"
+        ],
+        [
+          "Backend"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Backend"
+        ],
+        [
+          "AI"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/relational-foundations/lesson.json|relational-model-hierarchy|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "id",
+        "name",
+        "department",
+        "salary"
+      ],
+      "actual_columns": [
+        "id",
+        "name",
+        "department",
+        "salary"
+      ],
+      "expected_rows": [
+        [
+          "1.0",
+          "Ana",
+          "AI",
+          "60000.0"
+        ],
+        [
+          "2.0",
+          "Ravi",
+          "Backend",
+          "50000.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "1.0",
+          "Ana",
+          "AI",
+          "60000.0"
+        ],
+        [
+          "2.0",
+          "Ravi",
+          "Backend",
+          "50000.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/relational-foundations/lesson.json|data-types-and-columns|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "account_id",
+        "balance",
+        "is_verified"
+      ],
+      "actual_columns": [
+        "account_id",
+        "balance",
+        "is_verified"
+      ],
+      "expected_rows": [
+        [
+          "101.0",
+          "15420.5",
+          "true"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "101.0",
+          "15420.5",
+          "true"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/relational-foundations/lesson.json|keys-and-relationships|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "name",
+        "dept_name"
+      ],
+      "actual_columns": [
+        "name",
+        "dept_name"
+      ],
+      "expected_rows": [
+        [
+          "Kiran",
+          "Engineering"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Kiran",
+          "Engineering"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/relational-foundations/lesson.json|normalization-intuition|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "name",
+        "building"
+      ],
+      "actual_columns": [
+        "name",
+        "building"
+      ],
+      "expected_rows": [
+        [
+          "Maya",
+          "Tower B"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Maya",
+          "Tower B"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/relational-foundations/lesson.json|interview-check|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "sku",
+        "stock"
+      ],
+      "actual_columns": [
+        "sku",
+        "stock"
+      ],
+      "expected_rows": [
+        [
+          "SKU-01",
+          "15.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "SKU-01",
+          "15.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/subqueries/lesson.json|scalar-subqueries|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "name",
+        "salary"
+      ],
+      "actual_columns": [
+        "name",
+        "salary"
+      ],
+      "expected_rows": [
+        [
+          "Ana",
+          "80000.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Ana",
+          "80000.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/subqueries/lesson.json|subquery-vs-join|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "name"
+      ],
+      "actual_columns": [
+        "name"
+      ],
+      "expected_rows": [
+        [
+          "Alice"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Alice"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/transactions/lesson.json|isolation|0",
+      "status": "requires_human_output_review",
+      "reason": "Expected output is descriptive rather than an exact machine-readable table"
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/values-expressions/lesson.json|aliases-and-expressions|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "item_name",
+        "subtotal"
+      ],
+      "actual_columns": [
+        "item_name",
+        "subtotal"
+      ],
+      "expected_rows": [
+        [
+          "Server Rack",
+          "1000.0"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Server Rack",
+          "1000.0"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/values-expressions/lesson.json|null-handling-and-coalesce|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "name",
+        "primary_contact"
+      ],
+      "actual_columns": [
+        "name",
+        "primary_contact"
+      ],
+      "expected_rows": [
+        [
+          "Alice",
+          "alice@work.test"
+        ],
+        [
+          "Bob",
+          "555-0199"
+        ],
+        [
+          "Charlie",
+          "No contact provided"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Alice",
+          "alice@work.test"
+        ],
+        [
+          "Bob",
+          "555-0199"
+        ],
+        [
+          "Charlie",
+          "No contact provided"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/values-expressions/lesson.json|conditional-case-statements|0",
+      "status": "verified_declared_table",
+      "columns": [
+        "name",
+        "salary",
+        "tier"
+      ],
+      "actual_columns": [
+        "name",
+        "salary",
+        "tier"
+      ],
+      "expected_rows": [
+        [
+          "Ana",
+          "85000.0",
+          "Senior / Lead"
+        ],
+        [
+          "Ravi",
+          "50000.0",
+          "Mid-Level"
+        ],
+        [
+          "Sam",
+          "35000.0",
+          "Junior"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "Ana",
+          "85000.0",
+          "Senior / Lead"
+        ],
+        [
+          "Ravi",
+          "50000.0",
+          "Mid-Level"
+        ],
+        [
+          "Sam",
+          "35000.0",
+          "Junior"
+        ]
+      ],
+      "ordered": false
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/values-expressions/lesson.json|string-numeric-date-functions|0",
+      "status": "requires_driver_date_null_display_context",
+      "columns": [
+        "env_name",
+        "rounded_val",
+        "future_date"
+      ],
+      "actual_columns": [
+        "env_name",
+        "rounded_val",
+        "future_date"
+      ],
+      "expected_rows": [
+        [
+          "FORGE_PROD",
+          "12.35",
+          "2026-01-31 00:00:00"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "FORGE_PROD",
+          "12.35",
+          "2026-01-30T18:30:00.000Z"
+        ]
+      ],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch",
+      "interpretation": "Not classified as a wrong logical answer: Date/TZ serialization or NULL display convention differs. Exact context still requires review."
+    },
+    {
+      "identity": "content/ai-engineer/v1/sql-postgresql/values-expressions/lesson.json|interview-check|0",
+      "status": "requires_driver_date_null_display_context",
+      "columns": [
+        "resolved",
+        "zero_guarded"
+      ],
+      "actual_columns": [
+        "resolved",
+        "zero_guarded"
+      ],
+      "expected_rows": [
+        [
+          "fallback",
+          "null"
+        ]
+      ],
+      "actual_rows": [
+        [
+          "fallback",
+          "NULL"
+        ]
+      ],
+      "ordered": false,
+      "initial_exact_display_comparison": "mismatch",
+      "interpretation": "Not classified as a wrong logical answer: Date/TZ serialization or NULL display convention differs. Exact context still requires review."
+    }
+  ]
+}

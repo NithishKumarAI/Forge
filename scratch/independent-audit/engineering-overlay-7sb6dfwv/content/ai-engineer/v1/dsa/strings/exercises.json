@@ -1,0 +1,140 @@
+[
+  {
+    "key": "strings-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "String immutability memory behavior",
+    "prompt_markdown": "What happens in memory when executing `s = \"hello\"; s += \"!\"` in Python?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider Python string immutability."
+    ],
+    "content": {
+      "choices": [
+        "The exclamation mark is appended in-place to the existing memory buffer of s",
+        "A brand-new string object is allocated in memory and all characters are copied into it",
+        "Python converts s into a linked list of characters",
+        "Python raises a TypeError because strings cannot be extended"
+      ],
+      "correct_index": 1,
+      "explanation": "Because strings are immutable in Python, `s += '!'` cannot mutate the existing buffer. Python allocates a new string object and copies 'hello' followed by '!' into the new buffer."
+    }
+  },
+  {
+    "key": "strings-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Anagram verification complexity",
+    "prompt_markdown": "What is the optimal time and auxiliary space complexity to determine if two length-$N$ lowercase English strings are anagrams?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider using a fixed 26-element character frequency array."
+    ],
+    "content": {
+      "choices": [
+        "Time: O(N log N), Space: O(N)",
+        "Time: O(N), Space: O(1)",
+        "Time: O(N^2), Space: O(1)",
+        "Time: O(1), Space: O(N)"
+      ],
+      "correct_index": 1,
+      "explanation": "Using a fixed 26-element integer frequency array, we count characters in a single pass of both strings in O(N) time. Because the alphabet size is constant (26), auxiliary space is strictly O(1)."
+    }
+  },
+  {
+    "key": "strings-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Substrings vs subsequences",
+    "prompt_markdown": "What is the fundamental difference between a `substring` and a `subsequence`?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about contiguity."
+    ],
+    "content": {
+      "choices": [
+        "A substring must be sorted in alphabetical order, whereas a subsequence can be unsorted",
+        "A substring must consist of contiguous characters from the original string, whereas a subsequence does not need to be contiguous",
+        "A subsequence can contain duplicate characters, but a substring cannot",
+        "A substring can only be extracted from lowercase strings"
+      ],
+      "correct_index": 1,
+      "explanation": "A substring is a contiguous slice of characters from the original string (e.g. 'ell' in 'hello'). A subsequence maintains the relative order of characters but does not need to be contiguous (e.g. 'hlo' in 'hello')."
+    }
+  },
+  {
+    "key": "strings-short-predict-sliding-window",
+    "exercise_type": "short_answer",
+    "title": "Predict sliding window state transitions",
+    "prompt_markdown": "Given input string `s = \"eceba\"`, trace the execution of finding the longest substring with at most 2 distinct characters. State the window `[L, R]` and maximum length recorded at each step where the window contracts.",
+    "difficulty": "medium",
+    "hints": [
+      "Window expands until 3 distinct characters exist, then L contracts."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that at index R=3 ('b'), window contains {'e', 'c', 'b'} (3 distinct)",
+        "Contracts left pointer from L=0 ('e') to L=2 ('e'), leaving {'e', 'b'}",
+        "Identifies final maximum window length of 3 ('ece')"
+      ],
+      "reference_answer": "Execution Trace:\n- Steps 0 to 2: Window `[0, 2]` has \"ece\" (distinct chars: {'e', 'c'}, count: 2). Max length = 3.\n- Step 3: R=3 ('b'). Window becomes \"eceb\" (distinct chars: {'e', 'c', 'b'}, count: 3, violating constraint).\n  - Contraction: L increments from 0 ('e') to 1 ('c') to 2 ('e'). At L=2, 'c' is evicted. Active window is now `[2, 3]` (\"eb\").\n- Step 4: R=4 ('a'). Window \"eba\" (violates constraint). L contracts to 4 ('a').\nResult: Maximum recorded valid substring length is `3` (\"ece\").",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "strings-short-fix-nonalphanumeric-palindrome",
+    "exercise_type": "short_answer",
+    "title": "Fix memory allocation bug in palindrome validator",
+    "prompt_markdown": "A candidate writes this valid palindrome function in an interview:\n\n```python\ndef is_palindrome(s: str) -> bool:\n    cleaned = \"\"\n    for char in s:\n        if char.isalnum():\n            cleaned += char.lower()\n    return cleaned == cleaned[::-1]\n```\nExplain the memory and runtime inefficiencies of this implementation, and rewrite it using two pointers with $O(1)$ auxiliary space.",
+    "difficulty": "medium",
+    "hints": [
+      "Notice the string concatenation and the reversed string copy."
+    ],
+    "content": {
+      "rubric": [
+        "Diagnoses quadratic O(N^2) string concatenation overhead and O(N) auxiliary space allocation for cleaned and reversed copy",
+        "Rewrites using two pointers (left and right) skipping non-alphanumeric characters in-place",
+        "Achieves O(N) time and O(1) auxiliary space"
+      ],
+      "reference_answer": "Inefficiencies:\n1. `cleaned += char.lower()` copies characters repeatedly, resulting in $O(N^2)$ quadratic runtime.\n2. `cleaned` and `cleaned[::-1]` both allocate $O(N)$ extra memory buffers.\n\nOptimal $O(1)$ Space Solution:\n```python\ndef is_palindrome(s: str) -> bool:\n    left, right = 0, len(s) - 1\n    while left < right:\n        while left < right and not s[left].isalnum():\n            left += 1\n        while left < right and not s[right].isalnum():\n            right -= 1\n        if s[left].lower() != s[right].lower():\n            return False\n        left += 1\n        right -= 1\n    return True\n```\nThis validates characters in-place in $O(N)$ time and $O(1)$ auxiliary space.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "strings-short-implement-anagram-finder",
+    "exercise_type": "short_answer",
+    "title": "Write fixed-size sliding window anagram finder",
+    "prompt_markdown": "Write a Python function `find_anagrams(s: str, p: str) -> list[int]` that returns all starting indices of `p`'s anagrams in `s`. Use a fixed-size sliding window of length `len(p)` and character frequency arrays.",
+    "difficulty": "hard",
+    "hints": [
+      "Maintain two 26-element frequency arrays. Slide window by adding right character and removing left character."
+    ],
+    "content": {
+      "rubric": [
+        "Checks if len(s) < len(p) returning []",
+        "Builds target frequency array for p and initial window in s",
+        "Slides window through s by updating frequencies in O(1) per step",
+        "Appends starting index whenever window array matches p array"
+      ],
+      "reference_answer": "```python\ndef find_anagrams(s: str, p: str) -> list[int]:\n    if len(s) < len(p):\n        return []\n    \n    p_counts = [0] * 26\n    s_counts = [0] * 26\n    k = len(p)\n    \n    for char in p:\n        p_counts[ord(char) - ord('a')] += 1\n    for i in range(k):\n        s_counts[ord(s[i]) - ord('a')] += 1\n        \n    results = []\n    if s_counts == p_counts:\n        results.append(0)\n        \n    for i in range(k, len(s)):\n        s_counts[ord(s[i]) - ord('a')] += 1\n        s_counts[ord(s[i - k]) - ord('a')] -= 1\n        if s_counts == p_counts:\n            results.append(i - k + 1)\n            \n    return results\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "strings-short-explain-rabin-karp",
+    "exercise_type": "short_answer",
+    "title": "Explain rolling hash pattern matching in interviews",
+    "prompt_markdown": "Explain the concept of rolling hash in the Rabin-Karp pattern matching algorithm. How does it achieve $O(N + M)$ average time for finding a pattern of length $M$ in a text of length $N$ compared to the naive $O(N \\times M)$ approach?",
+    "difficulty": "hard",
+    "hints": [
+      "Explain how the hash of a new window is computed from the previous window in O(1) time."
+    ],
+    "content": {
+      "rubric": [
+        "Explains the naive approach: comparing M characters at every one of the N-M+1 positions takes O(N * M)",
+        "Defines rolling hash: computes hash of the next window in O(1) time by removing the outgoing character and adding the incoming character",
+        "Explains collision handling: when hashes match, a full string comparison verifies against hash collisions",
+        "Concludes average time is O(N + M) because hash updates are O(1) per window slide"
+      ],
+      "reference_answer": "1. The Naive Problem:\nFinding pattern $P$ (length $M$) in text $T$ (length $N$) naively compares all $M$ characters at each of the $N - M + 1$ candidate start positions, yielding $O(N \\times M)$ worst-case time.\n\n2. Rabin-Karp Rolling Hash Intuition:\nInstead of character-by-character comparison, Rabin-Karp treats substrings as numbers in base $B$ modulo $Q$. If we know the hash of window $T[i \\dots i+M-1]$, we can compute the hash of the next window $T[i+1 \\dots i+M]$ in strictly $O(1)$ time:\n$$\\text{hash}_{\\text{next}} = ((\\text{hash}_{\\text{prev}} - T[i] \\times B^{M-1}) \\times B + T[i+M]) \\pmod Q$$\n\n3. Complexity Guarantee:\n- Computing the pattern hash and initial text window takes $O(M)$.\n- Sliding across the remaining $N - M$ windows takes $O(1)$ per step, total $O(N)$.\n- If hashes match, verify character-by-character to guard against hash collisions. With a sufficiently large prime $Q$, spurious collisions are rare, delivering $O(N + M)$ average runtime.",
+      "minimum_pass_score": 70
+    }
+  }
+]

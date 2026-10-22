@@ -1,0 +1,19 @@
+Synthetic browser fixture prepared: C:\My PC\git\Forge\scratch\phase5-offline-srs4tm09\content\learner.db
+Browser fixtures: C:\My PC\git\Forge\scratch\phase5-offline-srs4tm09
+PASS new installation, preview, explicit confirmation/activation and missing pools
+PASS approved fixture lesson navigation and section completion do not change mastery
+PASS static local search, exact revision navigation and legacy chat
+PASS MCQ incorrect response and exact numeric grading with duplicate-submit protection
+PASS Python browser Run and backend Submit on two independent practice items
+PASS SQL browser Run and full backend Submit use isolated databases
+PASS clean Python transfer uses stored independent variant and preserves 89 cap
+PASS due delayed recall after actual 24-hour fixture gate updates FSRS/mastery
+PASS Arena failure, tracked hint, pass and explicit pre-pass Give Up
+PASS coding timed test uses local workers and embargoes feedback until completion
+PASS timed draft survives refresh with its original deadline and fixed scoring
+PASS mixed test applies the disclosed fixed negative marking
+PASS objective interview withholds feedback and communication remains unscored
+PASS saved legacy report remains readable with its original raw fields
+PASS planner presets regenerate explicitly and preserve terminal task history
+PASS mobile layout and visible keyboard focus
+PASS all exercised browser assets remain local with no page errors

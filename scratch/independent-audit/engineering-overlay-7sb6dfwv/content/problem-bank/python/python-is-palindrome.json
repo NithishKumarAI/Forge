@@ -1,0 +1,44 @@
+{
+  "key": "python-is-palindrome",
+  "title": "Palindrome check",
+  "track": "python",
+  "topic_tags": ["strings", "basics"],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a function `is_palindrome(s: str) -> bool` that checks if a given string is a palindrome. The check should be case-insensitive and ignore any non-alphanumeric characters.",
+  "constraints": [
+    "The input string length is between 0 and 10^5."
+  ],
+  "examples": [
+    {"input": "\"racecar\"", "output": "True", "explanation": "'racecar' backwards is 'racecar'."},
+    {"input": "\"hello\"", "output": "False", "explanation": "'hello' backwards is 'olleh'."},
+    {"input": "\"A man a plan a canal Panama\"", "output": "True", "explanation": "After stripping spaces and converting to lowercase, we get 'amanaplanacanalpanama'."}
+  ],
+  "starter_code": "def is_palindrome(s: str) -> bool:\n    pass",
+  "hints": [
+    "Filter the string to keep only alphanumeric characters, and convert it to lowercase.",
+    "In Python, you can reverse a string `filtered_s` using slicing `filtered_s[::-1]`."
+  ],
+  "explanation": "We can build a cleaned string that only contains lowercase alphanumeric characters using a generator expression or list comprehension and `str.isalnum()`. We then check if this cleaned string reads the same forwards and backwards.",
+  "reference_solution": "def is_palindrome(s: str) -> bool:\n    cleaned = ''.join(c.lower() for c in s if c.isalnum())\n    return cleaned == cleaned[::-1]",
+  "complexity": "O(n) time and O(n) space to store the cleaned string.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "is_palindrome",
+    "sample_tests": [
+      {"name": "racecar", "args": ["racecar"], "kwargs": {}, "expected": true},
+      {"name": "hello", "args": ["hello"], "kwargs": {}, "expected": false},
+      {"name": "sentence", "args": ["A man a plan a canal Panama"], "kwargs": {}, "expected": true}
+    ],
+    "hidden_tests": [
+      {"name": "empty", "args": [""], "kwargs": {}, "expected": true},
+      {"name": "single_char", "args": ["a"], "kwargs": {}, "expected": true},
+      {"name": "numbers", "args": ["12321"], "kwargs": {}, "expected": true},
+      {"name": "symbols_only", "args": ["!!! ??? "], "kwargs": {}, "expected": true}
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/strings"
+}

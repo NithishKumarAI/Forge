@@ -1,0 +1,1801 @@
+{
+  "format_version": 1,
+  "problems": [
+    {
+      "key": "dsa-container-most-water",
+      "revision": "1.0.0",
+      "sha256": "2db77364b7fb69dbdbe914f389fb63d4e87e9520e2bbe399bc726c48b8379d43",
+      "path": "dsa/dsa-container-most-water.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-daily-temperatures",
+      "revision": "1.0.0",
+      "sha256": "82bd80a130d393afef66f0c4167e6465f879b70c2211f7db1ab716e823548fda",
+      "path": "dsa/dsa-daily-temperatures.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-decode-string",
+      "revision": "1.0.0",
+      "sha256": "2372efd03adc6257ddb21b026963ce563c15ab3316d4d6b2f0268457f68d75ce",
+      "path": "dsa/dsa-decode-string.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-evaluate-rpn",
+      "revision": "1.0.0",
+      "sha256": "5d0c4cb49233a89ea6666d241d2fd1065131961a80e7674713803ecae33cb92d",
+      "path": "dsa/dsa-evaluate-rpn.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-find-cycle-start",
+      "revision": "1.0.0",
+      "sha256": "8e644c728b849034c2939add69053c2dc2e6d7dd39bfba70355da5199b9de803",
+      "path": "dsa/dsa-find-cycle-start.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-find-in-rotated",
+      "revision": "1.0.0",
+      "sha256": "9ebd0c96e3554ff4229a2440d60ff0c04e958a0acaf0aafa62140737d7163114",
+      "path": "dsa/dsa-find-in-rotated.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-first-last-position",
+      "revision": "1.0.0",
+      "sha256": "ab31be2a4f190d92f073ba53ff95f140f3a9844d28862e60d0294442b93edbd3",
+      "path": "dsa/dsa-first-last-position.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-first-pair",
+      "revision": "1.0.0",
+      "sha256": "3fe4c8f3cbc9508fa8c469e93af9e795069dad5d80acfa87b0437658a4ea283f",
+      "path": "dsa/dsa-first-pair.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-fruit-into-baskets",
+      "revision": "1.0.0",
+      "sha256": "4140ffa50533890f1eb52dedc65878376e089a907759fc4200e5ab7f6c4da78b",
+      "path": "dsa/dsa-fruit-into-baskets.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-isomorphic-strings",
+      "revision": "1.0.0",
+      "sha256": "5aba63591966099ea3dd22b01ed3d8b74c8f78152b0db002361bb1f5b85b5462",
+      "path": "dsa/dsa-isomorphic-strings.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-kth-largest",
+      "revision": "1.0.0",
+      "sha256": "938c8d3ccaf6eb1e3d8ce4e2b86272115cd92498d2ecec4b940fb44223db9f01",
+      "path": "dsa/dsa-kth-largest.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-level-order-traversal",
+      "revision": "1.0.0",
+      "sha256": "30d9926b86465cd622383fa6d51d51b942b6dfa45aa2f430bf0d0901445f9aba",
+      "path": "dsa/dsa-level-order-traversal.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-longest-consecutive",
+      "revision": "1.0.0",
+      "sha256": "6de1b4576c1a2d55c86ad4210227dfafdcc963b716f29b0e6ebb03d436cab473",
+      "path": "dsa/dsa-longest-consecutive.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-longest-substring-no-repeat",
+      "revision": "1.0.0",
+      "sha256": "f1194d1cbe752daf18984b92beb8d95975c8d2337197caf18c72adaa294e6143",
+      "path": "dsa/dsa-longest-substring-no-repeat.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-max-consecutive-ones",
+      "revision": "1.0.0",
+      "sha256": "7e1cccadca27da15e8d77bbb62ec8f7e1f7dd21156840ccc9e802662e7f31dba",
+      "path": "dsa/dsa-max-consecutive-ones.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-max-depth-tree",
+      "revision": "1.0.0",
+      "sha256": "06b1763736c882660d8b306ad1d6baa64332059e1c8da7d735855ef6f88b0781",
+      "path": "dsa/dsa-max-depth-tree.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-max-sliding-window",
+      "revision": "1.0.0",
+      "sha256": "83872ab600a67147090772429e5f894e2ecf8aaf1e617286b39dda8a4de0f3c9",
+      "path": "dsa/dsa-max-sliding-window.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-max-window-sum",
+      "revision": "1.0.0",
+      "sha256": "de5178d55d145b9e787d70c74656a940ee88449f065c6c75f87303031addde11",
+      "path": "dsa/dsa-max-window-sum.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-merge-intervals",
+      "revision": "1.0.0",
+      "sha256": "3e035a1b8678e71cc1bf33f96376e0531f3fa0b6171dc0c2d63cb2a25f64f427",
+      "path": "dsa/dsa-merge-intervals.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-merge-two-sorted-lists",
+      "revision": "1.0.0",
+      "sha256": "afd179643fe0211d88d09769a2e099c759008b8ca3e3ea3949c8638f0ce99487",
+      "path": "dsa/dsa-merge-two-sorted-lists.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-min-stack",
+      "revision": "1.0.0",
+      "sha256": "9ed74a804e03a08c837e578641bdafee5434659c5a649bb7afc5c9f3f152e105",
+      "path": "dsa/dsa-min-stack.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-min-window-substring",
+      "revision": "1.0.0",
+      "sha256": "d86ed25bbea5ac167cf58a871cdfc2fdce39528000a3fe3d817dcf78c9f8dc4a",
+      "path": "dsa/dsa-min-window-substring.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-move-zeroes",
+      "revision": "1.0.0",
+      "sha256": "7a1f1ecc048b07d9a0cad575fe4abeba540a35457805304260fae89fb45a822d",
+      "path": "dsa/dsa-move-zeroes.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-number-of-islands-bfs",
+      "revision": "1.0.0",
+      "sha256": "2bec8f7b1a71b20e536bca86683fb4221e34bd04d5cea77e9b4d071e4b05583a",
+      "path": "dsa/dsa-number-of-islands-bfs.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-permutation-in-string",
+      "revision": "1.0.0",
+      "sha256": "2a975aa8d0abdd851c94f25b2f40bda6de0c9b2ee0b95fbf1fb561525d1ee34b",
+      "path": "dsa/dsa-permutation-in-string.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-range-sum-query",
+      "revision": "1.0.0",
+      "sha256": "63f7901459590e51344c0e8087de760061f16936a93ca8a2faa1cd817d7f7aa3",
+      "path": "dsa/dsa-range-sum-query.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-ransom-note",
+      "revision": "1.0.0",
+      "sha256": "b6c45fa878b614be1cf89130af246b57b6a2bbc92a74eb6816e2112cbafd34e6",
+      "path": "dsa/dsa-ransom-note.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-remove-duplicates-sorted",
+      "revision": "1.0.0",
+      "sha256": "403844c560c8e3adabe66b92666773420c764f103cc7423f3c16dac14e42cb31",
+      "path": "dsa/dsa-remove-duplicates-sorted.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-reverse-linked-list",
+      "revision": "1.0.0",
+      "sha256": "4daccb1fe2fe3481ba64dfd3c63992f55fad798813327033bf3aa4d0b5a19dd0",
+      "path": "dsa/dsa-reverse-linked-list.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-reverse-string",
+      "revision": "1.0.0",
+      "sha256": "ac1da49962c85d9a37616b15c56be6d5a9e0a5ac714abb6d2fc3db4180351e67",
+      "path": "dsa/dsa-reverse-string.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-search-insert-position",
+      "revision": "1.0.0",
+      "sha256": "e019e29ba3bccded0a38e6bcd6d2d630a5ed2e5ca44e3da7fe71642762acc1e9",
+      "path": "dsa/dsa-search-insert-position.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-sort-colors",
+      "revision": "1.0.0",
+      "sha256": "99e70b6f59115988d1baec1efb557362670e24a7817ad298187ebb8032a5a8d8",
+      "path": "dsa/dsa-sort-colors.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-sqrt-integer",
+      "revision": "1.0.0",
+      "sha256": "bc49cf325938e35a36898a3aa20c0bddd51eb343f2398fd3900b1e9496f535c6",
+      "path": "dsa/dsa-sqrt-integer.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-subarray-sum-equals-k",
+      "revision": "1.0.0",
+      "sha256": "a24115d8895b2e9186f58c92f8c83e34151a079c976dc483af335fe7a7bcd05c",
+      "path": "dsa/dsa-subarray-sum-equals-k.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-three-sum",
+      "revision": "1.0.0",
+      "sha256": "33fc8b057159357cf7484854c60c2658d6963bf55baace9deb156caec466dcc6",
+      "path": "dsa/dsa-three-sum.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-top-k-frequent",
+      "revision": "1.0.0",
+      "sha256": "35042f653e179994864a3a01ce13fa93f29966cf5a2c44e4d4ea5994bc197d53",
+      "path": "dsa/dsa-top-k-frequent.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-trapping-rain-water",
+      "revision": "1.0.0",
+      "sha256": "bd2c7aa8208531c5a5eadc4466755642924e5c3e2d056f396ee04b9acfd1c4e9",
+      "path": "dsa/dsa-trapping-rain-water.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-two-sum-indices",
+      "revision": "1.0.0",
+      "sha256": "902c3700152bcadcab66eb4dfa3e891b16212e65afdb1c4f151ffe6b7dcf1411",
+      "path": "dsa/dsa-two-sum-indices.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-valid-anagram",
+      "revision": "1.0.0",
+      "sha256": "c9c75ec6fd15f5ddbea6a076646cfa2331e3cb50022cdc40f1913ff45da06136",
+      "path": "dsa/dsa-valid-anagram.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "dsa-word-pattern",
+      "revision": "1.0.0",
+      "sha256": "768d5606ddf7c2e54b62960005a3e2f4760c1ec3fd1432de29e0d4b36bc01dd5",
+      "path": "dsa/dsa-word-pattern.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-anagram-check",
+      "revision": "1.0.0",
+      "sha256": "9a2f8b072bf0cfb491c85a1a3ff3749c9b127cd539ba1fab7c94156ecc116804",
+      "path": "python/python-anagram-check.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "anagram",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/anagram",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "python-bob",
+      "revision": "1.0.0",
+      "sha256": "618e6f17348802f326a471df258fe3ca6afa52da2609b50bdb6efe1ec478a9c9",
+      "path": "python/python-bob.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "bob",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/bob",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "python-celsius-to-fahrenheit",
+      "revision": "1.0.0",
+      "sha256": "c01f686b492d46f17f5cf9809355733edc31549f173b3b1f8a6a60a5ba43cb8d",
+      "path": "python/python-celsius-to-fahrenheit.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "Historical attribution document claimed adaptation; JSON does not. Resolve origin before new publication.",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-climbing-stairs",
+      "revision": "1.0.0",
+      "sha256": "75cc9451405d317be971fee33717015fd3277274454c5098442489646c71c694",
+      "path": "python/python-climbing-stairs.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-collatz",
+      "revision": "1.0.0",
+      "sha256": "07ec67c4fef518a42d2ce82a71b95937d6a219e3614ed8cb0310890204fdf4b9",
+      "path": "python/python-collatz.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "collatz-conjecture",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/collatz-conjecture",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "python-count-bits",
+      "revision": "1.0.0",
+      "sha256": "1307c96055a69fc3a26bf318940bee1f892e96f3927ce935c47fd872b8e960b4",
+      "path": "python/python-count-bits.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-count-islands",
+      "revision": "1.0.0",
+      "sha256": "1a4e3d0a8ba615f43ced46f517dcd7fec6acd116d6d53b8787bb0f5a97901709",
+      "path": "python/python-count-islands.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-count-vowels",
+      "revision": "1.0.0",
+      "sha256": "ad687e245cbf7dfec3c78e5f42d5a6eec82f7ee0b8d38accf4cefb2b4c0dea48",
+      "path": "python/python-count-vowels.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-deduplicate-list",
+      "revision": "1.0.0",
+      "sha256": "24f539a005752e93c39d712a32919f89d215efdf36272559de1cd725d4d76dab",
+      "path": "python/python-deduplicate-list.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-find-duplicate",
+      "revision": "1.0.0",
+      "sha256": "f121ce7e110a45ad6cc67fa78a4cb4c2364b249027bcd99c98066d51cc094e57",
+      "path": "python/python-find-duplicate.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-first-non-repeat",
+      "revision": "1.0.0",
+      "sha256": "53e0f457b2fac0cfedd1c413bdcb05a730d3ffe62058bd5a1166e4aa74bd9514",
+      "path": "python/python-first-non-repeat.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-fizzbuzz",
+      "revision": "1.0.0",
+      "sha256": "f5bce1b45c38690adf5973404c331de2ceab99661eb22c9d7edfb6e22938e366",
+      "path": "python/python-fizzbuzz.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-flatten-list",
+      "revision": "1.0.0",
+      "sha256": "9bf0ddbcad943942cd1ae82eac35aa31c39a6c4ffafe651f400d1bfe7657c139",
+      "path": "python/python-flatten-list.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "flatten-array",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/flatten-array",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "python-generate-subsets",
+      "revision": "1.0.0",
+      "sha256": "db40d4b0b5b3d3c0f1b00e8aacd1abb8f3dde4dbc2568afc1a799b32393985a1",
+      "path": "python/python-generate-subsets.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-group-anagrams",
+      "revision": "1.0.0",
+      "sha256": "75bd580e1eafaa43ce9be312cb49121f9e8cf6d9b0bbd025041370f9eaf1f177",
+      "path": "python/python-group-anagrams.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-group-errors",
+      "revision": "1.0.1",
+      "sha256": "abad2104b4dd79fe66276447ebc1474b44ba317bbaef1d7d500228faaa0a1816",
+      "path": "python/python-group-errors.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-implement-queue",
+      "revision": "1.0.0",
+      "sha256": "6e392a92924b0e2961a6d17e70a22543d9c403232d05cc54d262c4da0e0b291d",
+      "path": "python/python-implement-queue.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-is-palindrome",
+      "revision": "1.0.0",
+      "sha256": "3a3f905499725d6fc7f4994a1f5f65ae2e5674761ab41fb79239c44e8d191004",
+      "path": "python/python-is-palindrome.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-largest-product",
+      "revision": "1.0.0",
+      "sha256": "97bcc55b00bd8cd38e5413991ae8b8d4e02db7c38dc61e1a4254b3c01c19c2cb",
+      "path": "python/python-largest-product.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-leap-year",
+      "revision": "1.0.0",
+      "sha256": "c85de8d37ea7f5daccc276624bd7df6b8686f24614bd676783670608b9b06347",
+      "path": "python/python-leap-year.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "leap",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/leap",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "python-longest-common-prefix",
+      "revision": "1.0.0",
+      "sha256": "855299e0da889358105c50a50c0f6d0bea4a297626b3b061b8e00014d4b5caef",
+      "path": "python/python-longest-common-prefix.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-longest-increasing-subseq",
+      "revision": "1.0.0",
+      "sha256": "ecc4280fb045453dcf38f8b824fab7891a36ad33a311ba63b451d903d13cd0ea",
+      "path": "python/python-longest-increasing-subseq.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-matrix-spiral",
+      "revision": "1.0.0",
+      "sha256": "e76826b20a554edd61797894996c42e1c8b8eddcab6b2df8a97e19eb3a24b598",
+      "path": "python/python-matrix-spiral.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-max-profit",
+      "revision": "1.0.0",
+      "sha256": "415d59e45d11384457c6daa44ab30bca482f4575ca3a0fff7c80479790b54c5a",
+      "path": "python/python-max-profit.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-max-subarray",
+      "revision": "1.0.0",
+      "sha256": "bf27e0582025d419349e51aa23e6d26e54bd0addcaee607fec70ce3e1cb73134",
+      "path": "python/python-max-subarray.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-merge-sorted-lists",
+      "revision": "1.0.0",
+      "sha256": "05b876c2aa3797ad0ae7c082c38fb91f21f3fffb79dd4f56b6a20fa0cfa659f8",
+      "path": "python/python-merge-sorted-lists.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-missing-number",
+      "revision": "1.0.0",
+      "sha256": "2d9c7d04ed76a69d83ff8b1fcb8065d5c917fd0dcccc04089ba8338c7d8854df",
+      "path": "python/python-missing-number.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-normalize-name",
+      "revision": "1.0.0",
+      "sha256": "b1c9eaacf3ba507e2365dfa6643f07b144361d1e449e240affc081e9e49a8b13",
+      "path": "python/python-normalize-name.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-pangram",
+      "revision": "1.0.0",
+      "sha256": "c4b4296fcce9cacfbf505ab54522f36e29481b846e5ab93bd83434b4b06032b6",
+      "path": "python/python-pangram.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "pangram",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/pangram",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "python-product-except-self",
+      "revision": "1.0.0",
+      "sha256": "b7464a63c89499ea3ac7daa014271f84dd947fa92686c0a9a661bb9eda52ddd3",
+      "path": "python/python-product-except-self.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-raindrops",
+      "revision": "1.0.0",
+      "sha256": "eb2df7c56357d5b67fdb8e8640d56382ef73a4c0b12f41713b0f9045cbfe37a6",
+      "path": "python/python-raindrops.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "raindrops",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/raindrops",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "python-rotate-list",
+      "revision": "1.0.0",
+      "sha256": "ee6f8209ab916de0ce386365cbb2ada64fbe2128d86c1bd290f04fd6fe8852e4",
+      "path": "python/python-rotate-list.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-running-sum",
+      "revision": "1.0.0",
+      "sha256": "302005cbc284522f397fa2f85799e427a5c006891a1a85d393f3ee39b216d17e",
+      "path": "python/python-running-sum.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-stack-balanced-brackets",
+      "revision": "1.0.0",
+      "sha256": "de8aa847713fa19e6ca3dfadcd75ef03d4d360e9c1fb282fdbe5e180d70c2c2e",
+      "path": "python/python-stack-balanced-brackets.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-two-fer",
+      "revision": "1.0.0",
+      "sha256": "b2dd7945b2f2465760e5e5877603e4ee0b090261ade8e83b9a16d21312ba4f92",
+      "path": "python/python-two-fer.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "two-fer",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/two-fer",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "python-two-sum",
+      "revision": "1.0.0",
+      "sha256": "f1a9006f53243ed0e9f0ccb0e8dc6487738299d5e0d80f8446621b30ae5ca1c0",
+      "path": "python/python-two-sum.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-valid-bst",
+      "revision": "1.0.0",
+      "sha256": "ffdfe6344196256c01fec74ff224c6eaea93087300d889d7889b469e37c1af03",
+      "path": "python/python-valid-bst.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-valid-parentheses-string",
+      "revision": "1.0.0",
+      "sha256": "b8979271a9ebedbe2fcd70042396b5cc9999dc3c0edb574506fbc5aa0ad176a6",
+      "path": "python/python-valid-parentheses-string.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-valid-sudoku-row",
+      "revision": "1.0.0",
+      "sha256": "2edb67f30a9beb379d0d8bc15217169f64162d09bcf9cf1680a554868fbaaa3a",
+      "path": "python/python-valid-sudoku-row.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "python-word-count",
+      "revision": "1.0.0",
+      "sha256": "cba65a23dcdbb3f61486b19d4d5fb27e7a351f8e8b7e12fb18a4b6b7c1129129",
+      "path": "python/python-word-count.json",
+      "classification": "adapted",
+      "declared_metadata": {
+        "source_type": "original",
+        "source_project": "exercism",
+        "source_exercise": "word-count",
+        "license": "MIT",
+        "adapted": true
+      },
+      "metadata_conflict": true,
+      "status": "unresolved",
+      "new_publication_allowed": false,
+      "reason": "No pinned per-item upstream revision/notice chain",
+      "upstream_candidate_url": "https://github.com/exercism/problem-specifications/tree/main/exercises/word-count",
+      "upstream_reference_status": "unverified; repository-level MIT license checked separately; per-item commit unknown"
+    },
+    {
+      "key": "sql-above-average-salary",
+      "revision": "1.1.0",
+      "sha256": "bf3e95491a975fe5f90f1f7a22a33a080eb5237235bd007202d9789c6cd2e539",
+      "path": "sql/sql-above-average-salary.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-active-users",
+      "revision": "1.1.0",
+      "sha256": "95923b98891243b4456aa23da2f5d79895bc32ef117cda6511615bd2562394fa",
+      "path": "sql/sql-active-users.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-age-from-birthdate",
+      "revision": "1.1.0",
+      "sha256": "b41813d2facc14e3b2047b03d7409d748ed106541626a12ffacbc7fd41af626d",
+      "path": "sql/sql-age-from-birthdate.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-coalesce-address",
+      "revision": "1.1.0",
+      "sha256": "88aa94428d4e30d672a79753061e904249c4ae5306f7cc7f41fd70ad6916732f",
+      "path": "sql/sql-coalesce-address.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-cte-running-balance",
+      "revision": "1.1.0",
+      "sha256": "75ceaa2662113f95a6673292406864ec240fef14cfad3a2e04ced5d1ba891568",
+      "path": "sql/sql-cte-running-balance.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-cte-top-products",
+      "revision": "1.1.0",
+      "sha256": "36d35b3a5940f361fd9930c55fa24cce8b40b6c2ed56229115cd05d7ce25c933",
+      "path": "sql/sql-cte-top-products.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-customer-totals",
+      "revision": "1.0.1",
+      "sha256": "e2bd6c4e12029fc9c2b0fb23e6e316afb088abe274ab4220dc21c984b87707e4",
+      "path": "sql/sql-customer-totals.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-customers-with-orders",
+      "revision": "1.1.0",
+      "sha256": "90faa1a275ac1cc6b13cf3aa0c86321e8f8bdc26c896e5003626e3720ec72659",
+      "path": "sql/sql-customers-with-orders.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-daily-sales",
+      "revision": "1.1.0",
+      "sha256": "43471a851d51f2d665ce87489804777823c824d0fe015fa705e72f2873e54256",
+      "path": "sql/sql-daily-sales.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-dept-avg-salary",
+      "revision": "1.1.0",
+      "sha256": "82497ddb5e65e98a06b7aaef3a0698c0ca45581c1ea91b3b537e565c997b6d8e",
+      "path": "sql/sql-dept-avg-salary.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-dept-head-count",
+      "revision": "1.1.0",
+      "sha256": "bb6f564c95856409ac5dc1e6b087b2a64c4d2c1b79243789b671c39cb4f6f25a",
+      "path": "sql/sql-dept-head-count.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-dept-max-earner",
+      "revision": "1.1.0",
+      "sha256": "8af26e0fb3172a0cb9ea426ae9ba13130e688188c19c3073a61a21502ebb3703",
+      "path": "sql/sql-dept-max-earner.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-distinct-cities",
+      "revision": "1.1.0",
+      "sha256": "ec255935bedc7a2c2b1af67707993c11e39d6a581e11717678566454bf9af002",
+      "path": "sql/sql-distinct-cities.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-employee-bonus",
+      "revision": "1.1.0",
+      "sha256": "8fa6d8ba4564e43ad1526ea58fa5b816c0bd26124ea5fa68c79e87b1b25c3146",
+      "path": "sql/sql-employee-bonus.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-employees-by-dept",
+      "revision": "1.1.0",
+      "sha256": "46916900650f4762eacc970e418fab6f8a35f314321b439a6a7254e999d55ee8",
+      "path": "sql/sql-employees-by-dept.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-employees-with-manager",
+      "revision": "1.1.0",
+      "sha256": "1989b7c04714695e701a06a8c965b576ea41ecda9375db53130a4d8f3c79c43c",
+      "path": "sql/sql-employees-with-manager.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-high-value-depts",
+      "revision": "1.1.0",
+      "sha256": "34e00ec1a6f8e05a9c5a4d315df63e3b7b68945f7b61098490cb2f361dfd81a6",
+      "path": "sql/sql-high-value-depts.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-monthly-active-users",
+      "revision": "1.1.0",
+      "sha256": "3736617586d34c5253ebeb5ae8de3abe1531b3a67c39e7b3bfaeafe782c7788d",
+      "path": "sql/sql-monthly-active-users.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-null-email",
+      "revision": "1.1.0",
+      "sha256": "0f7849a5297f3268161125cf978a89b1625d7c046370ef77bbced8ba85e8d859",
+      "path": "sql/sql-null-email.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-order-count-by-status",
+      "revision": "1.1.0",
+      "sha256": "aec2d7614890c310d8cb532a780c12d0683616312df564912b72d090c679d79d",
+      "path": "sql/sql-order-count-by-status.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-orders-with-no-items",
+      "revision": "1.1.0",
+      "sha256": "54497c085af115334652e584b0a052e8d315b871d9c0caa91104b8b88b4f9353",
+      "path": "sql/sql-orders-with-no-items.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-product-never-ordered",
+      "revision": "1.1.0",
+      "sha256": "db20b963976c97b9179a0d6efb8cebaab01a2cc4a9ca37d4d7e5db326f240537",
+      "path": "sql/sql-product-never-ordered.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-product-revenue",
+      "revision": "1.1.0",
+      "sha256": "6ad310a91a18171a7db38c1d8a2a509570903dec7ca3529fce5cb9a9c1b51dcb",
+      "path": "sql/sql-product-revenue.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-products-in-stock",
+      "revision": "1.1.0",
+      "sha256": "89717e8e3ff8ce9605a2fd591391979edc62921bfc2b3599de65cbb63adce859",
+      "path": "sql/sql-products-in-stock.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-recent-orders",
+      "revision": "1.1.0",
+      "sha256": "34093a9e8953abbd6dc881ec0b01a20bdb6dcede2260194f90f1f0261ec15d2f",
+      "path": "sql/sql-recent-orders.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-second-highest-salary",
+      "revision": "1.1.0",
+      "sha256": "cb1ea62caeef4827cdeb374d00963b620b6f8119ee0cfab841ac0281a9fa8e1b",
+      "path": "sql/sql-second-highest-salary.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-students-all-subjects",
+      "revision": "1.1.0",
+      "sha256": "d60683ba6d6d833b8495154d353a6b26cc7b6375c78cb41058673ba3fa89218b",
+      "path": "sql/sql-students-all-subjects.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-three-table-join",
+      "revision": "1.1.0",
+      "sha256": "be7f01b27607a10f4bd87bf48a6df5bf7d21ff2df14c91172d7e60b6327853af",
+      "path": "sql/sql-three-table-join.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-top-customer-per-region",
+      "revision": "1.1.0",
+      "sha256": "e5afaa2a7d42c4812f90b683e7c96bbda88980bb3deac8e0a0ef5e2be0c3b71a",
+      "path": "sql/sql-top-customer-per-region.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    },
+    {
+      "key": "sql-user-search",
+      "revision": "1.1.0",
+      "sha256": "19ef6e8bc7e1aa3adc33a46f39f68424b25d972dda3e2b203c1bfef94bec0425",
+      "path": "sql/sql-user-search.json",
+      "classification": "declared_original",
+      "declared_metadata": {
+        "source_type": "original"
+      },
+      "metadata_conflict": false,
+      "status": "requires_review",
+      "new_publication_allowed": false,
+      "reason": "Legacy originality claim; independent review not recorded",
+      "upstream_candidate_url": null,
+      "upstream_reference_status": "not_applicable"
+    }
+  ]
+}

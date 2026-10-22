@@ -1,0 +1,132 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "async-await",
+  "title": "Async and Await",
+  "description": "Use cooperative concurrency for I/O while handling tasks, cancellation, timeouts, and blocking work safely.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Explain coroutines and the event loop",
+    "Run independent I/O with tasks and gather",
+    "Handle blocking I/O, cancellation, and timeouts"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "mental-model",
+      "title": "Core mental model",
+      "order_index": 0,
+      "estimated_minutes": 7,
+      "learning_objective": "Explain coroutines and the event loop",
+      "markdown": "Calling an `async def` function creates a coroutine object; its body runs only when awaited or scheduled. The event loop advances one task until it reaches an `await` that can suspend, then gives another ready task time to run. This is cooperative concurrency, ideal for many waiting operations—not automatic CPU parallelism.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import asyncio\n\nasync def fetch(name):\n    await asyncio.sleep(0.01)\n    return name.upper()\n\nprint(asyncio.run(fetch('forge')))",
+          "explanation": "A small executable example exposes the rule instead of only naming it.",
+          "expected_output": "FORGE"
+        }
+      ],
+      "key_points": [
+        "Explain coroutines and the event loop",
+        "Predict execution before running code."
+      ],
+      "checkpoint": "Explain the example one line at a time without using vague terms."
+    },
+    {
+      "slug": "operations-and-tradeoffs",
+      "title": "Operations and trade-offs",
+      "order_index": 1,
+      "estimated_minutes": 7,
+      "learning_objective": "Run independent I/O with tasks and gather",
+      "markdown": "Use `asyncio.create_task()` when work should start before it is awaited. `asyncio.gather()` waits for independent awaitables while preserving input order in its results. Blocking IO such as `time.sleep()` or synchronous file/network I/O freezes the event-loop thread; choose an async client or use `asyncio.to_thread()` for suitable blocking functions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import asyncio\n\nasync def main():\n    async with asyncio.timeout(1):\n        values = await asyncio.gather(asyncio.sleep(0, result=2), asyncio.sleep(0, result=3))\n    print(sum(values))\n\nasyncio.run(main())",
+          "explanation": "This example applies the most important operation at a realistic boundary.",
+          "expected_output": "5"
+        }
+      ],
+      "key_points": [
+        "Run independent I/O with tasks and gather",
+        "Choose an operation based on its contract."
+      ],
+      "checkpoint": "What input or state would make this code fail?"
+    },
+    {
+      "slug": "worked-practice",
+      "title": "Worked practice",
+      "order_index": 2,
+      "estimated_minutes": 7,
+      "learning_objective": "Trace the concept on concrete data.",
+      "markdown": "Work from the input and state the invariant before coding. Timeouts and cancellation are normal control flow. `asyncio.timeout()` bounds an operation, while task cancellation raises `CancelledError` at an await point. Use `try/finally` to release resources and normally re-raise cancellation. Common mistakes include creating but never awaiting a coroutine, sequentially awaiting independent work, swallowing cancellation, and using async syntax for CPU-bound loops. For an interview, narrate the observation, the rule you are applying, and the resulting value. That sequence makes reasoning inspectable and exposes hidden assumptions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import asyncio\n\nasync def main():\n    async with asyncio.timeout(1):\n        values = await asyncio.gather(asyncio.sleep(0, result=2), asyncio.sleep(0, result=3))\n    print(sum(values))\n\nasyncio.run(main())",
+          "explanation": "Trace names and values after every important line, then compare with the expected output.",
+          "expected_output": "5"
+        }
+      ],
+      "key_points": [
+        "Use a concrete trace.",
+        "State assumptions at the input boundary."
+      ],
+      "checkpoint": "Change one input and predict the new result."
+    },
+    {
+      "slug": "mistakes",
+      "title": "Common mistakes and fixes",
+      "order_index": 3,
+      "estimated_minutes": 7,
+      "learning_objective": "Diagnose failures rather than memorize syntax.",
+      "markdown": "Timeouts and cancellation are normal control flow. `asyncio.timeout()` bounds an operation, while task cancellation raises `CancelledError` at an await point. Use `try/finally` to release resources and normally re-raise cancellation. Common mistakes include creating but never awaiting a coroutine, sequentially awaiting independent work, swallowing cancellation, and using async syntax for CPU-bound loops. Turn each failure into a focused test. Preserve the original failing input, make the smallest correction, and run the test again. Avoid broad exception handling or a rewrite that hides the root cause.",
+      "examples": [],
+      "key_points": [
+        "Reproduce before fixing.",
+        "Prefer the smallest evidence-backed correction."
+      ],
+      "checkpoint": "Name one tempting fix that would only hide the defect."
+    },
+    {
+      "slug": "interview-summary",
+      "title": "Interview-focused summary",
+      "order_index": 4,
+      "estimated_minutes": 7,
+      "learning_objective": "Handle blocking I/O, cancellation, and timeouts",
+      "markdown": "A strong explanation starts with the mental model, demonstrates it using a short executable example, names the trade-off, and closes with a common failure mode. Apply that structure to Async and Await. In Forge Arena, solve related Python problems without tutor help when you want the attempt to count as clean transfer evidence.",
+      "examples": [],
+      "key_points": [
+        "Explain the why, not only syntax.",
+        "Use Arena for independent transfer practice."
+      ],
+      "checkpoint": "Give a sixty-second explanation and one counterexample."
+    }
+  ],
+  "summary": [
+    "Explain coroutines and the event loop",
+    "Run independent I/O with tasks and gather",
+    "Validate understanding with a trace, boundary case, and independent practice."
+  ],
+  "interview_takeaways": [
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
+  ],
+  "common_mistakes": [
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "asyncio",
+      "url": "https://docs.python.org/3/library/asyncio.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "53e69c23a1ee70a3cd3a585bb9aa2d43c0e2e1ba06c04763ba1e655b3e3037e9",
+  "generated_at": "2026-09-24T00:00:00Z"
+}

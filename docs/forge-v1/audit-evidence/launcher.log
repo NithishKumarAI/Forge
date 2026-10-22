@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "corrupt state quarantined",
+    "occupied preferred port skipped",
+    "owned identity health matched",
+    "fresh isolated initialization",
+    "duplicate launch reused exact owned process",
+    "refused tampered pid",
+    "refused tampered creation_filetime",
+    "refused tampered executable",
+    "refused tampered command_sha256",
+    "refused tampered owner",
+    "refused tampered runtime_dir",
+    "verified shutdown",
+    "idempotent close",
+    "unrelated sentinel preserved",
+    "restart resumed persisted study plan",
+    "dead process state quarantined without PID termination",
+    "missing build rejected before launch",
+    "failed startup cleaned owned runtime state"
+  ],
+  "passed": 18,
+  "normal_runtime_accessed": false,
+  "normal_database_accessed": false
+}

@@ -1,0 +1,88 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "7b48a06e48baa41ff87a0505cd42021da5f495def74ce45026c1d5935c623199",
+  "payload_sha256": "46b91f6ebe9afaf27ae42c061e243fa27b8af2f10415cc73dd3895f767b916a7",
+  "coverage_sha256": "88f9068cbeec3ec355297f407085908c32cbee95d1f8d637e9dbc4c75f73440c",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "9d28cda967519eb3cdcfceb0360557961e7522c71e60b13963fa6ebd73a26560"
+  },
+  "coverage": [
+    {
+      "id": "guided-fee",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/guided-fee"
+      ],
+      "assessment_refs": [
+        "item/guided-fee"
+      ]
+    },
+    {
+      "id": "independent-square",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/independent-square"
+      ],
+      "assessment_refs": [
+        "item/independent-square"
+      ]
+    },
+    {
+      "id": "transfer-conversion",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/transfer-conversion"
+      ],
+      "assessment_refs": [
+        "item/transfer-conversion"
+      ]
+    },
+    {
+      "id": "recall-evaluation",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/recall-evaluation"
+      ],
+      "assessment_refs": [
+        "item/recall-evaluation"
+      ]
+    },
+    {
+      "id": "mock-types",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/mock-types"
+      ],
+      "assessment_refs": [
+        "item/mock-types"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "item": "guided-fee",
+      "status": "executed"
+    },
+    {
+      "item": "independent-square",
+      "status": "executed"
+    },
+    {
+      "item": "transfer-conversion",
+      "status": "executed"
+    },
+    {
+      "item": "recall-evaluation",
+      "status": "executed"
+    },
+    {
+      "item": "mock-types",
+      "status": "requires_human_answer_review"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

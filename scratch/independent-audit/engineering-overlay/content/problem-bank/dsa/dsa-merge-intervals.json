@@ -1,0 +1,123 @@
+{
+  "key": "dsa-merge-intervals",
+  "title": "Merge overlapping intervals",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "sorting"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[[1,3],[2,6],[8,10],[15,18]]",
+      "output": "[[1,6],[8,10],[15,18]]",
+      "explanation": "[1,3] and [2,6] overlap."
+    }
+  ],
+  "starter_code": "def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:\n    pass",
+  "hints": [
+    "Sort the intervals by their starting points."
+  ],
+  "explanation": "Sort the intervals based on the start time. Iterate through the intervals, and if the current interval overlaps with the last merged interval, merge them by updating the end time.",
+  "reference_solution": "def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:\n    if not intervals: return []\n    intervals.sort(key=lambda x: x[0])\n    merged = [intervals[0]]\n    for i in range(1, len(intervals)):\n        if merged[-1][1] >= intervals[i][0]:\n            merged[-1][1] = max(merged[-1][1], intervals[i][1])\n        else:\n            merged.append(intervals[i])\n    return merged",
+  "complexity": "O(n log n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "merge_intervals",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              15,
+              18
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            1,
+            6
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            15,
+            18
+          ]
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            1,
+            5
+          ]
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            1,
+            4
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/sorting"
+}

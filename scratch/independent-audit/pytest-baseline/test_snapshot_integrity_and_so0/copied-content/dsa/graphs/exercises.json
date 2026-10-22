@@ -1,0 +1,140 @@
+[
+  {
+    "key": "graphs-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "Adjacency list space complexity",
+    "prompt_markdown": "What is the space complexity of representing a graph with $V$ vertices and $E$ edges using an `adjacency list`?",
+    "difficulty": "easy",
+    "hints": [
+      "Each vertex has a list entry; each edge appears in the lists."
+    ],
+    "content": {
+      "choices": [
+        "O(V)",
+        "O(E)",
+        "O(V + E)",
+        "O(V^2)"
+      ],
+      "correct_index": 2,
+      "explanation": "An adjacency list stores an array or dictionary of V keys, and the combined lengths of all neighbor lists equals 2E for undirected graphs (or E for directed graphs), consuming O(V + E) space."
+    }
+  },
+  {
+    "key": "graphs-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Kahn's algorithm cycle detection condition",
+    "prompt_markdown": "In Kahn's BFS algorithm for topological sorting, how do we determine that a directed graph contains a cycle?",
+    "difficulty": "medium",
+    "hints": [
+      "What happens to nodes in a cycle? Can their in-degree ever reach 0?"
+    ],
+    "content": {
+      "choices": [
+        "The queue becomes larger than V",
+        "The number of dequeued vertices in the topological order is strictly less than V",
+        "Every node has an in-degree of 0",
+        "The algorithm enters an infinite loop"
+      ],
+      "correct_index": 1,
+      "explanation": "Vertices inside a directed cycle always have in-degree >= 1 and can never be enqueued. Therefore, if the final topological order has fewer than V vertices, a cycle exists."
+    }
+  },
+  {
+    "key": "graphs-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Shortest path on unweighted graph",
+    "prompt_markdown": "Which algorithm finds the shortest path between two vertices in an unweighted graph in the fastest runtime?",
+    "difficulty": "easy",
+    "hints": [
+      "Unweighted graphs do not need a priority queue."
+    ],
+    "content": {
+      "choices": [
+        "Dijkstra's Algorithm in O((V + E) log V)",
+        "Breadth-First Search (BFS) in O(V + E)",
+        "Depth-First Search (DFS) in O(V + E)",
+        "Bellman-Ford in O(V * E)"
+      ],
+      "correct_index": 1,
+      "explanation": "In an unweighted graph, BFS finds the shortest path in linear O(V + E) time, outperforming Dijkstra's priority queue overhead."
+    }
+  },
+  {
+    "key": "graphs-short-predict-kahn",
+    "exercise_type": "short_answer",
+    "title": "Predict initial queue and in-degrees in Kahn's algorithm",
+    "prompt_markdown": "Given directed graph with edges: `0 -> 2`, `1 -> 2`, `2 -> 3`. State the in-degree of each vertex 0 through 3, and state which vertices are initially pushed to the queue in Kahn's algorithm.",
+    "difficulty": "medium",
+    "hints": [
+      "In-degree counts incoming edges pointing to that vertex."
+    ],
+    "content": {
+      "rubric": [
+        "Calculates in-degrees: 0: 0, 1: 0, 2: 2, 3: 1",
+        "Identifies initial queue contains [0, 1] (vertices with in-degree == 0)",
+        "Traces subsequent in-degree decrements on 2"
+      ],
+      "reference_answer": "In-Degree Counts:\n- Vertex 0: in-degree = 0 (no incoming edges)\n- Vertex 1: in-degree = 0 (no incoming edges)\n- Vertex 2: in-degree = 2 (incoming from 0 and 1)\n- Vertex 3: in-degree = 1 (incoming from 2)\n\nInitial Queue in Kahn's Algorithm:\n`queue = deque([0, 1])`\nVertices 0 and 1 have in-degree == 0 and can be taken immediately as prerequisites.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "graphs-short-fix-undirected-edge-bug",
+    "exercise_type": "short_answer",
+    "title": "Fix missing reverse edge bug in undirected graph builder",
+    "prompt_markdown": "A developer writes this function to check if an undirected graph is connected, but it returns `False` on connected graphs:\n\n```python\ndef is_connected(n, edges):\n    graph = {i: [] for i in range(n)}\n    for u, v in edges:\n        graph[u].append(v)  # Bug here!\n    visited = set()\n    def dfs(curr):\n        visited.add(curr)\n        for nbr in graph[curr]:\n            if nbr not in visited:\n                dfs(nbr)\n    dfs(0)\n    return len(visited) == n\n```\nIdentify the bug and provide the fix.",
+    "difficulty": "easy",
+    "hints": [
+      "Undirected edges must be traversable in both directions."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that undirected graphs require adding both `graph[u].append(v)` and `graph[v].append(u)`",
+        "Shows that omitting the reverse edge treats the graph as directed, preventing traversal from reaching u from v",
+        "Provides the corrected edge insertion code"
+      ],
+      "reference_answer": "Bug: The function only adds `graph[u].append(v)`, treating the graph as directed! In an undirected graph, if an edge exists between `u` and `v`, traversal must be able to move in both directions (`u -> v` and `v -> u`). If an edge is given as `[1, 0]`, `dfs(0)` cannot traverse back to node 1.\n\nFix:\nAdd edges in both directions:\n```python\n    for u, v in edges:\n        graph[u].append(v)\n        graph[v].append(u)  # Add reverse reciprocal edge for undirected graph\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "graphs-short-implement-can-finish",
+    "exercise_type": "short_answer",
+    "title": "Write Course Schedule cycle detection using Kahn's algorithm",
+    "prompt_markdown": "Write a Python function `can_finish(num_courses: int, prerequisites: list[list[int]]) -> bool` that returns `True` if you can finish all courses. Each pair `[a, b]` means you must take course `b` before `a`. Use Kahn's algorithm (BFS in-degrees).",
+    "difficulty": "medium",
+    "hints": [
+      "Build graph b -> a, calculate in_degree of a, enqueue in_degree == 0, count processed nodes."
+    ],
+    "content": {
+      "rubric": [
+        "Initializes in_degree array and adjacency list",
+        "Builds graph and populates in_degrees (b -> a)",
+        "Enqueues all courses with in_degree == 0",
+        "Decrements neighbor in_degrees and tracks processed count, returning `count == num_courses`"
+      ],
+      "reference_answer": "```python\nfrom collections import deque\n\ndef can_finish(num_courses: int, prerequisites: list[list[int]]) -> bool:\n    in_degree = [0] * num_courses\n    adj = {i: [] for i in range(num_courses)}\n    for course, prereq in prerequisites:\n        adj[prereq].append(course)\n        in_degree[course] += 1\n        \n    queue = deque([i for i in range(num_courses) if in_degree[i] == 0])\n    processed = 0\n    while queue:\n        u = queue.popleft()\n        processed += 1\n        for v in adj[u]:\n            in_degree[v] -= 1\n            if in_degree[v] == 0:\n                queue.append(v)\n                \n    return processed == num_courses\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "graphs-short-explain-dijkstra-vs-bfs",
+    "exercise_type": "short_answer",
+    "title": "Explain BFS vs Dijkstra vs Bellman-Ford in system design interviews",
+    "prompt_markdown": "In a backend interview designing a routing engine (e.g. Google Maps or network packet router), compare when to use Breadth-First Search (BFS), Dijkstra's Algorithm, and the Bellman-Ford Algorithm. State the time complexity and constraints for each.",
+    "difficulty": "hard",
+    "hints": [
+      "Discuss edge weights (unweighted vs non-negative vs negative) and cycles."
+    ],
+    "content": {
+      "rubric": [
+        "Compares BFS: unweighted graphs only (equal edge weights), O(V + E) time, uses FIFO queue",
+        "Compares Dijkstra: non-negative weighted graphs, O((V + E) log V) time, uses min-heap priority queue, fails on negative weights",
+        "Compares Bellman-Ford: graphs with arbitrary weights (including negative weights), O(V * E) time, detects negative weight cycles",
+        "Concludes architectural choice based on system constraints"
+      ],
+      "reference_answer": "1. Breadth-First Search (BFS):\n- Constraints: Strictly unweighted graphs (all edges have uniform unit cost, e.g. 1 hop).\n- Data Structure & Complexity: FIFO Queue; runs in optimal $O(V + E)$ linear time.\n- Best for: Social network friend degrees, word ladder transformations, minimum turn pathfinding.\n\n2. Dijkstra's Algorithm:\n- Constraints: Directed or undirected graphs with non-negative edge weights ($w \\ge 0$). Fails if negative weights exist because greedily marked visited nodes may be updated later by negative edges.\n- Data Structure & Complexity: Min-Heap (Priority Queue); runs in $O((V + E) \\log V)$ time.\n- Best for: Real-world GPS navigation (distance/travel time are non-negative), network router OSPF protocols.\n\n3. Bellman-Ford Algorithm:\n- Constraints: Works on graphs with arbitrary weights, including negative edge weights. Can detect negative weight cycles (cycles where total weight is negative, causing infinite loops).\n- Data Structure & Complexity: Dynamic programming edge relaxation; runs in $O(V \\times E)$ time.\n- Best for: Financial arbitrage detection (currency conversion rates with negative log weights) and distance-vector routing (RIP).",
+      "minimum_pass_score": 70
+    }
+  }
+]

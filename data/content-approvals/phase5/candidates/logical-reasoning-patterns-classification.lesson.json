@@ -1,0 +1,131 @@
+{
+  "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-patterns-classification",
+  "revision": "1.0.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "placement-foundations",
+      "track_slug": "logical-reasoning",
+      "topic_slug": "logical-reasoning-patterns-classification",
+      "title": "Patterns and classification",
+      "description": "Apply an explicit pattern and explain why a classification fits.",
+      "version": "1.0.0",
+      "learning_objectives": [
+        "Apply an explicit pattern and explain why a classification fits."
+      ],
+      "prerequisites": [],
+      "sections": [
+        {
+          "slug": "intuition",
+          "title": "Goal and intuition",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Apply an explicit pattern and explain why a classification fits.",
+          "markdown": "A pattern question is reliable only when its rule is stated or its assumptions are explicit. A few numbers alone do not determine one inevitable continuation. Separate observing a pattern from applying an agreed rule. A classification is similar: say which property is being tested before deciding which objects belong.",
+          "examples": [],
+          "key_points": [
+            "Counting the first term as one transition creates an off-by-one error."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "worked-example",
+          "title": "A worked example and why it works",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Apply an explicit pattern and explain why a classification fits.",
+          "markdown": "Suppose the first term is 2 and each following term is exactly 3 greater. The positions and values are 1→2, 2→5, 3→8, 4→11, 5→14. To reach position five, make four additions, not five. This rule is explicit, so its fifth term is uniquely 14. For classification, define the group as whole numbers divisible by 2. Among 6, 9 and 12, only 6 and 12 belong: dividing them by 2 leaves no remainder. That definition says nothing about colour or size.",
+          "examples": [],
+          "key_points": [
+            "Counting the first term as one transition creates an off-by-one error."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "practice-revision",
+          "title": "Guided practice, independent practice and revision",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Apply an explicit pattern and explain why a classification fits.",
+          "markdown": "Guided: start at 4 and add 2 at every step. The first four values are 4, 6, 8, 10. Independent: the first term is 10 and every next term is 2 smaller. Find the fourth term.\n\n<details><summary>Trace and answer</summary>Position 1 is 10; position 2 is 8; position 3 is 6; position 4 is 4. There are three transitions. No guessing rule is needed.</details>\n\nRevision: write the starting state, state the transition, label positions, enumerate a short trace, and check every supplied value. If no rule is supplied, ask which alternatives are allowed rather than presenting a guess as a mathematical certainty.",
+          "examples": [],
+          "key_points": [
+            "Counting the first term as one transition creates an off-by-one error."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        }
+      ],
+      "summary": [
+        "Counting the first term as one transition creates an off-by-one error.",
+        "Several fitted patterns can explain a finite list; a preferred guess is not a uniqueness proof."
+      ],
+      "interview_takeaways": [
+        "Explain your reasoning and limits; reading is not mastery."
+      ],
+      "common_mistakes": [
+        "Counting the first term as one transition creates an off-by-one error.",
+        "Several fitted patterns can explain a finite list; a preferred guess is not a uniqueness proof."
+      ],
+      "sources": [
+        {
+          "source_id": "openstax-logic",
+          "title": "OpenStax College Algebra 2e sequences",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/9-1-sequences-and-their-notations",
+          "retrieved_at": "2026-10-22T00:00:00Z"
+        }
+      ],
+      "generated_at": "2026-10-22T00:00:00Z",
+      "content_hash": "f14ad36c0d92569b3824aa8c05dccc12c3c792c7658d1008366471e946bac9c2"
+    },
+    "exercises": [
+      {
+        "key": "lesson-reflection",
+        "exercise_type": "short_answer",
+        "title": "Explain the worked example",
+        "prompt_markdown": "Explain the worked example in your own words and identify one mistake to avoid.",
+        "difficulty": "learning",
+        "hints": [],
+        "content": {
+          "rubric": [
+            "Explain the stated steps.",
+            "Identify a specific misconception."
+          ],
+          "reference_answer": "Counting the first term as one transition creates an off-by-one error."
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "openstax-logic",
+        "url": "https://openstax.org/books/college-algebra-2e/pages/9-1-sequences-and-their-notations",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "example_checks": [],
+  "coverage": {
+    "key": "logical-reasoning-patterns-classification-teaching",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "logical-reasoning-patterns-classification",
+        "status": "covered",
+        "lesson_refs": [
+          "section/intuition",
+          "section/worked-example",
+          "section/practice-revision"
+        ],
+        "assessment_refs": [
+          "exercise/lesson-reflection"
+        ]
+      }
+    ]
+  }
+}

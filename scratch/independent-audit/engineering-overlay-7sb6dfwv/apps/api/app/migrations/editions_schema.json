@@ -1,0 +1,14 @@
+[
+  {
+    "name": "editioncurriculumbinding",
+    "sql": "CREATE TABLE editioncurriculumbinding (\n\tcurriculum_id INTEGER NOT NULL, \n\tedition_key VARCHAR NOT NULL, \n\tscope_version VARCHAR NOT NULL, \n\tscope_sha256 VARCHAR NOT NULL, \n\tscope_json TEXT NOT NULL, \n\tgraph_sha256 VARCHAR NOT NULL, \n\treviewed_by VARCHAR, \n\treviewed_at DATETIME, \n\tPRIMARY KEY (curriculum_id), \n\tCONSTRAINT uq_edition_scope_draft UNIQUE (edition_key, scope_sha256), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "topicplacement",
+    "sql": "CREATE TABLE topicplacement (\n\ttopic_id INTEGER NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\tedition_key VARCHAR NOT NULL, \n\tsubject_key VARCHAR NOT NULL, \n\tlevel INTEGER NOT NULL, \n\torder_index INTEGER NOT NULL, \n\tPRIMARY KEY (topic_id), \n\tCONSTRAINT uq_subject_topic_order UNIQUE (curriculum_id, subject_key, order_index), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(curriculum_id) REFERENCES editioncurriculumbinding (curriculum_id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_topicplacement_curriculum_id ON topicplacement (curriculum_id)"
+    ]
+  }
+]

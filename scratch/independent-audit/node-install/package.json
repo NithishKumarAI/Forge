@@ -1,0 +1,40 @@
+{
+  "name": "forge-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b",
+    "test": "vitest run",
+    "validate:sql-problems": "node scripts/validate-sql-problems.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@monaco-editor/react": "^4.7.0",
+    "@vitejs/plugin-react": "latest",
+    "lucide-react": "latest",
+    "monaco-editor": "^0.56.0",
+    "pyodide": "^314.0.7",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-markdown": "latest",
+    "react-router-dom": "latest",
+    "typescript": "latest",
+    "vite": "latest",
+    "vite-plugin-static-copy": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "autoprefixer": "latest",
+    "postcss": "latest",
+    "tailwindcss": "^3.4.17",
+    "vitest": "^5.0.1"
+  },
+  "overrides": {
+    "dompurify": "3.4.15"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "7ba3d83f4a8ca13851c5855c700592d5c70a6ab9bfc67712180895dac45bef00",
+  "payload_sha256": "a8c142ca5e288e772905ff47a7fef486cfe9ce713344634b6a269e8cca8a2510",
+  "coverage_sha256": "b89d8f02c0b5bc8b2355c611538fd717f1b0084d60e8fcf2056105ba220040b0",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "f1f6ddbc01a9e5e6088f787bd7e3cceaa827afca6b3ad83247a223aece0c8334"
+  },
+  "coverage": [
+    {
+      "id": "correction",
+      "status": "covered",
+      "lesson_refs": [
+        "section/try-except-blocks",
+        "section/else-and-finally",
+        "section/exception-hierarchy",
+        "section/custom-exceptions-and-raise",
+        "section/error-boundaries",
+        "section/interview-check"
+      ],
+      "assessment_refs": [
+        "exercise/exc-mcq-bare-except",
+        "exercise/exc-mcq-else-clause",
+        "exercise/exc-mcq-chaining",
+        "exercise/exc-short-predict-finally-override",
+        "exercise/exc-short-fix-swallowed-error",
+        "exercise/exc-short-implement-custom-hierarchy",
+        "exercise/exc-short-explain-boundaries"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "section": "try-except-blocks",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "else-and-finally",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "exception-hierarchy",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "custom-exceptions-and-raise",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "error-boundaries",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "interview-check",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

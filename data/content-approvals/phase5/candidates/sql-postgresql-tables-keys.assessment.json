@@ -1,0 +1,315 @@
+{
+  "content_key": "assessment/placement-foundations/sql-postgresql/sql-postgresql-tables-keys",
+  "revision": "1.0.0",
+  "content_type": "assessment_bundle",
+  "payload": {
+    "assessment": {
+      "key": "assessment/placement-foundations/sql-postgresql/sql-postgresql-tables-keys",
+      "version": "1.0.0",
+      "items": [
+        {
+          "key": "guided-identifiers",
+          "kind": "sql",
+          "prompt": "Return every members.id from the supplied members table in increasing id order. The primary key is id; include no other column.",
+          "explanation": "Select the primary-key column from members and order by id; do not hard-code the visible values.",
+          "contract": {
+            "columns": [
+              "id"
+            ],
+            "ordered": true,
+            "starter_code": "SELECT ",
+            "reference_solution": "SELECT id FROM members ORDER BY id",
+            "public_dataset": {
+              "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (2),(8); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (4,2),(7,NULL),(9,2);"
+            },
+            "datasets": [
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (2),(8); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (4,2),(7,NULL),(9,2);",
+                "expected_rows": [
+                  [
+                    2
+                  ],
+                  [
+                    8
+                  ]
+                ]
+              },
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (3),(10),(14); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (1,NULL),(5,10),(8,NULL);",
+                "expected_rows": [
+                  [
+                    3
+                  ],
+                  [
+                    10
+                  ],
+                  [
+                    14
+                  ]
+                ]
+              },
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id));",
+                "expected_rows": []
+              }
+            ],
+            "negative_solutions": [
+              "SELECT 2 AS id"
+            ]
+          },
+          "family": "pf/sql-postgresql-tables-keys/guided-identifiers",
+          "subject": "sql-postgresql",
+          "topic": "sql-postgresql-tables-keys",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "independent-foreign-key",
+          "kind": "single_choice",
+          "prompt": "Two loan rows reference the same existing members.id. There is no UNIQUE constraint on loans.member_id. Is this permitted by that foreign key?",
+          "explanation": "Several loans can reference one member unless another constraint forbids it.",
+          "contract": {
+            "choices": {
+              "a": "No, every foreign-key value must occur only once.",
+              "b": "Yes, the reference alone does not require uniqueness."
+            },
+            "correct": [
+              "b"
+            ]
+          },
+          "family": "pf/sql-postgresql-tables-keys/independent-foreign-key",
+          "subject": "sql-postgresql",
+          "topic": "sql-postgresql-tables-keys",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "transfer-unassigned",
+          "kind": "sql",
+          "prompt": "Loans has its own id and a nullable member_id referencing members(id). Return the IDs of loans that have no assigned member, in increasing loan id order. Do not return member identifiers.",
+          "explanation": "Inspect the specified key column; use IS NULL for an unassigned optional reference and ORDER BY for deterministic order.",
+          "contract": {
+            "columns": [
+              "id"
+            ],
+            "ordered": true,
+            "starter_code": "SELECT ",
+            "reference_solution": "SELECT id FROM loans WHERE member_id IS NULL ORDER BY id",
+            "public_dataset": {
+              "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (2),(8); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (4,2),(7,NULL),(9,2);"
+            },
+            "datasets": [
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (2),(8); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (4,2),(7,NULL),(9,2);",
+                "expected_rows": [
+                  [
+                    7
+                  ]
+                ]
+              },
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (3),(10),(14); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (1,NULL),(5,10),(8,NULL);",
+                "expected_rows": [
+                  [
+                    1
+                  ],
+                  [
+                    8
+                  ]
+                ]
+              },
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id));",
+                "expected_rows": []
+              }
+            ],
+            "negative_solutions": [
+              "SELECT 2 AS id"
+            ]
+          },
+          "family": "pf/sql-postgresql-tables-keys/transfer-unassigned",
+          "subject": "sql-postgresql",
+          "topic": "sql-postgresql-tables-keys",
+          "level": 1,
+          "purposes": [
+            "transfer"
+          ],
+          "independent_variant": true,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "recall-keys",
+          "kind": "sql",
+          "prompt": "List all primary-key IDs in members in increasing order, including all rows and no extra columns.",
+          "explanation": "Select the primary-key column from members and order by id; do not hard-code the visible values.",
+          "contract": {
+            "columns": [
+              "id"
+            ],
+            "ordered": true,
+            "starter_code": "SELECT ",
+            "reference_solution": "SELECT id FROM members ORDER BY id",
+            "public_dataset": {
+              "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (2),(8); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (4,2),(7,NULL),(9,2);"
+            },
+            "datasets": [
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (2),(8); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (4,2),(7,NULL),(9,2);",
+                "expected_rows": [
+                  [
+                    2
+                  ],
+                  [
+                    8
+                  ]
+                ]
+              },
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (3),(10),(14); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id)); INSERT INTO loans VALUES (1,NULL),(5,10),(8,NULL);",
+                "expected_rows": [
+                  [
+                    3
+                  ],
+                  [
+                    10
+                  ],
+                  [
+                    14
+                  ]
+                ]
+              },
+              {
+                "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); CREATE TABLE loans(id int PRIMARY KEY,member_id int REFERENCES members(id));",
+                "expected_rows": []
+              }
+            ],
+            "negative_solutions": [
+              "SELECT 2 AS id"
+            ]
+          },
+          "family": "pf/sql-postgresql-tables-keys/recall-keys",
+          "subject": "sql-postgresql",
+          "topic": "sql-postgresql-tables-keys",
+          "level": 1,
+          "purposes": [
+            "recall"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "mock-primary",
+          "kind": "single_choice",
+          "prompt": "Which condition is guaranteed by a declared primary key?",
+          "explanation": "Primary keys need not be consecutive or positive; uniqueness and non-nullness are required.",
+          "contract": {
+            "choices": {
+              "a": "Its value is always a consecutive positive integer.",
+              "b": "Its value identifies each row uniquely and is not NULL."
+            },
+            "correct": [
+              "b"
+            ]
+          },
+          "family": "pf/sql-postgresql-tables-keys/mock-primary",
+          "subject": "sql-postgresql",
+          "topic": "sql-postgresql-tables-keys",
+          "level": 1,
+          "purposes": [
+            "interview"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "postgresql-tables",
+        "url": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "coverage": {
+    "key": "sql-postgresql-tables-keys-assessment",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "guided-identifiers",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/guided-identifiers"
+        ],
+        "assessment_refs": [
+          "item/guided-identifiers"
+        ]
+      },
+      {
+        "id": "independent-foreign-key",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/independent-foreign-key"
+        ],
+        "assessment_refs": [
+          "item/independent-foreign-key"
+        ]
+      },
+      {
+        "id": "transfer-unassigned",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/transfer-unassigned"
+        ],
+        "assessment_refs": [
+          "item/transfer-unassigned"
+        ]
+      },
+      {
+        "id": "recall-keys",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/recall-keys"
+        ],
+        "assessment_refs": [
+          "item/recall-keys"
+        ]
+      },
+      {
+        "id": "mock-primary",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/mock-primary"
+        ],
+        "assessment_refs": [
+          "item/mock-primary"
+        ]
+      }
+    ]
+  }
+}

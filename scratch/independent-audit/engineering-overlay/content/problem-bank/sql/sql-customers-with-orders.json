@@ -1,0 +1,76 @@
+{
+  "key": "sql-customers-with-orders",
+  "title": "Customers who have placed orders",
+  "track": "sql",
+  "topic_tags": [
+    "subqueries"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return the names of customers who have at least one order. Do not duplicate a customer with several orders. Sort by name.",
+  "constraints": [
+    "Return exactly: name.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible customers, orders tables",
+      "output": "[[\"A\"],[\"C\"]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "You only need to test whether a matching order exists.",
+    "Use a correlated EXISTS subquery that links orders.customer_id to the current customer."
+  ],
+  "explanation": "EXISTS returns true as soon as a matching order is found, so each customer appears once without DISTINCT. The inner query is correlated through customer_id. A common mistake is forgetting that link, which makes every customer pass when any order exists. An inner join with DISTINCT is an alternative.",
+  "reference_solution": "SELECT name FROM customers c WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id) ORDER BY name",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50)); CREATE TABLE orders (id INT, customer_id INT, amount INT); INSERT INTO customers VALUES (1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'); INSERT INTO orders VALUES (1, 1, 100), (2, 1, 200), (3, 3, 150);",
+    "visible_tables": [
+      "customers",
+      "orders"
+    ],
+    "sample_rows": [
+      [
+        "A"
+      ],
+      [
+        "C"
+      ]
+    ],
+    "expected_columns": [
+      "name"
+    ],
+    "expected_rows": [
+      [
+        "A"
+      ],
+      [
+        "C"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE customers (id INT,name VARCHAR(50)); CREATE TABLE orders (id INT,customer_id INT,amount INT); INSERT INTO customers VALUES (10,'Eve'),(11,'Finn'),(12,'Gia'); INSERT INTO orders VALUES (20,11,40),(21,11,60),(22,12,10);",
+        "expected_rows": [
+          [
+            "Finn"
+          ],
+          [
+            "Gia"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/subqueries"
+}

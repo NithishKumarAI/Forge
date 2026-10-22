@@ -1,0 +1,79 @@
+{
+  "key": "python-count-bits",
+  "title": "Count set bits in range",
+  "track": "python",
+  "topic_tags": [
+    "basics",
+    "bit-operations"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "medium",
+  "estimated_minutes": 15,
+  "statement_markdown": "Given an integer `n`, return an array `ans` of length `n + 1` such that for each `i` (0 <= i <= n), `ans[i]` is the number of 1's in the binary representation of `i`.",
+  "constraints": [
+    "0 <= n <= 10^5"
+  ],
+  "examples": [
+    {
+      "input": "2",
+      "output": "[0,1,1]",
+      "explanation": "0 -> 0\n1 -> 1\n2 -> 10 (one 1)"
+    },
+    {
+      "input": "5",
+      "output": "[0,1,1,2,1,2]",
+      "explanation": "0 -> 0\n1 -> 1\n2 -> 10\n3 -> 11\n4 -> 100\n5 -> 101"
+    }
+  ],
+  "starter_code": "def count_bits(n: int) -> list[int]:\n    pass",
+  "hints": [
+    "You can use Python's built-in `bin()` string representation and `.count('1')`.",
+    "Alternatively, you can use dynamic programming: `ans[i] = ans[i >> 1] + (i & 1)`."
+  ],
+  "explanation": "We can iterate from `0` to `n`. For each number, we convert it to binary using `bin()` and use the `.count('1')` method to find the number of set bits. We return the resulting list.",
+  "reference_solution": "def count_bits(n: int) -> list[int]:\n    return [bin(i).count('1') for i in range(n + 1)]",
+  "complexity": "O(N log N) time if using string conversion, or O(N) using DP. Space is O(N) for the result.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "count_bits",
+    "sample_tests": [
+      {
+        "name": "sample_2",
+        "args": [
+          2
+        ],
+        "kwargs": {},
+        "expected": [0, 1, 1]
+      },
+      {
+        "name": "sample_5",
+        "args": [
+          5
+        ],
+        "kwargs": {},
+        "expected": [0, 1, 1, 2, 1, 2]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden_0",
+        "args": [
+          0
+        ],
+        "kwargs": {},
+        "expected": [0]
+      },
+      {
+        "name": "hidden_10",
+        "args": [
+          10
+        ],
+        "kwargs": {},
+        "expected": [0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/syntax-data-types"
+}

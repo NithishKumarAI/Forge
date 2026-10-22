@@ -1,0 +1,101 @@
+{
+  "content_key": "assessment/placement-foundations/system-design/system-design-requirements",
+  "revision": "1.0.0",
+  "content_type": "assessment_bundle",
+  "payload": {
+    "assessment": {
+      "key": "assessment/placement-foundations/system-design/system-design-requirements",
+      "version": "1.0.0",
+      "items": [
+        {
+          "key": "guided-boundary",
+          "kind": "reflection",
+          "prompt": "Describe the equipment notebook's users, two functional actions, one constraint and one explicit exclusion.",
+          "explanation": "Use the rubric to inspect your own explanation; no correctness score is assigned.",
+          "contract": {
+            "example": "Members view availability; a volunteer records loans. One local computer is used; payments are excluded.",
+            "rubric": [
+              "Separate user actions from technology choices.",
+              "State a boundary and a limitation."
+            ]
+          },
+          "family": "pf/system-design-requirements/guided-boundary",
+          "subject": "system-design",
+          "topic": "system-design-requirements",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "independent-attendance",
+          "kind": "reflection",
+          "prompt": "Write a small attendance notebook specification. State a failure case and how success would be checked.",
+          "explanation": "Use the rubric to inspect your own explanation; no correctness score is assigned.",
+          "contract": {
+            "example": "Save one record per learner per date; reject accidental duplicates; verify records survive restart.",
+            "rubric": [
+              "Several coherent answers are possible.",
+              "Include an observable check and a failure boundary."
+            ]
+          },
+          "family": "pf/system-design-requirements/independent-attendance",
+          "subject": "system-design",
+          "topic": "system-design-requirements",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "nasa-requirements",
+        "url": "https://www.nasa.gov/reference/systems-engineering-handbook/",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "coverage": {
+    "key": "system-design-requirements-assessment",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "guided-boundary",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/guided-boundary"
+        ],
+        "assessment_refs": [
+          "item/guided-boundary"
+        ]
+      },
+      {
+        "id": "independent-attendance",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/independent-attendance"
+        ],
+        "assessment_refs": [
+          "item/independent-attendance"
+        ]
+      }
+    ]
+  }
+}

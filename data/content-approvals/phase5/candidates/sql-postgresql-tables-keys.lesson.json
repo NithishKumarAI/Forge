@@ -1,0 +1,157 @@
+{
+  "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-tables-keys",
+  "revision": "1.0.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "placement-foundations",
+      "track_slug": "sql-postgresql",
+      "topic_slug": "sql-postgresql-tables-keys",
+      "title": "Tables, rows and keys",
+      "description": "Explain relational tables, primary keys and foreign keys.",
+      "version": "1.0.0",
+      "learning_objectives": [
+        "Explain relational tables, primary keys and foreign keys."
+      ],
+      "prerequisites": [],
+      "sections": [
+        {
+          "slug": "intuition",
+          "title": "Goal and intuition",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Explain relational tables, primary keys and foreign keys.",
+          "markdown": "A relational table records one kind of thing in rows; named columns describe it. A primary key identifies a row uniquely and cannot be NULL. A foreign key constrains references to another table: it is not automatically unique. A nullable foreign key may be NULL; NOT NULL is a separate requirement. Think of each library member having one member number, while many loan rows can refer to that number.",
+          "examples": [],
+          "key_points": [
+            "A foreign key does not imply a one-to-one relationship."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "worked-example",
+          "title": "A worked example and why it works",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Explain relational tables, primary keys and foreign keys.",
+          "markdown": "Suppose members has primary key id with rows 2 and 8. Loans has its own primary key id and a nullable member_id referencing members(id). Two loans may both refer to member 2. A loan with member_id 99 is invalid because no member 99 exists. A NULL member_id is allowed unless NOT NULL is added. To inspect existing identifiers, `SELECT id FROM members ORDER BY id` returns 2 then 8. ORDER BY is needed when order matters; storage order is not a result guarantee.",
+          "examples": [
+            {
+              "language": "sql",
+              "code": "SELECT id FROM members ORDER BY id",
+              "expected_output": "{\"columns\": [\"id\"], \"rows\": [[2], [8]]}",
+              "explanation": "Read supplied member identifiers in an explicit order."
+            }
+          ],
+          "key_points": [
+            "A foreign key does not imply a one-to-one relationship."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "practice-revision",
+          "title": "Guided practice, independent practice and revision",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Explain relational tables, primary keys and foreign keys.",
+          "markdown": "Guided: distinguish members.id, which identifies a member, from loans.member_id, which refers to one. To find loans without an assigned member use `WHERE member_id IS NULL`; `= NULL` is not that test. Independent: can members with IDs 2 and 8 share the same display name?\n\n<details><summary>Reasoning</summary>Yes, if only id is the primary key and name has no uniqueness constraint. A display name is not necessarily an identifier. Conversely, inserting id 2 twice violates the primary key.</details>\n\nRevision: state what each row represents, find its primary key, describe each reference, consider nullable fields, and state result ordering. Forge Run/Submit use disposable PGlite databases. Learner SQL never runs against Forge history. The coding items inspect supplied schemas; they do not claim to assess unrestricted database administration or live application migrations.",
+          "examples": [],
+          "key_points": [
+            "A foreign key does not imply a one-to-one relationship."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        }
+      ],
+      "summary": [
+        "A foreign key does not imply a one-to-one relationship.",
+        "NULL means missing/unknown, so use IS NULL rather than = NULL."
+      ],
+      "interview_takeaways": [
+        "Explain your reasoning and limits; reading is not mastery."
+      ],
+      "common_mistakes": [
+        "A foreign key does not imply a one-to-one relationship.",
+        "NULL means missing/unknown, so use IS NULL rather than = NULL."
+      ],
+      "sources": [
+        {
+          "source_id": "postgresql-tables",
+          "title": "PostgreSQL 18 constraints",
+          "url": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+          "retrieved_at": "2026-10-22T00:00:00Z"
+        }
+      ],
+      "generated_at": "2026-10-22T00:00:00Z",
+      "content_hash": "2ab27d7474df0c0627905da94e3a49615f1aae665b0aefc995e4eef0eeef3bc9"
+    },
+    "exercises": [
+      {
+        "key": "lesson-reflection",
+        "exercise_type": "short_answer",
+        "title": "Explain the worked example",
+        "prompt_markdown": "Explain the worked example in your own words and identify one mistake to avoid.",
+        "difficulty": "learning",
+        "hints": [],
+        "content": {
+          "rubric": [
+            "Explain the stated steps.",
+            "Identify a specific misconception."
+          ],
+          "reference_answer": "A foreign key does not imply a one-to-one relationship."
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "postgresql-tables",
+        "url": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "example_checks": [
+    {
+      "section_slug": "worked-example",
+      "example_index": 0,
+      "mode": "sql",
+      "setup_sql": "CREATE TABLE members(id int PRIMARY KEY); INSERT INTO members VALUES (2),(8);",
+      "expected_columns": [
+        "id"
+      ],
+      "expected_rows": [
+        [
+          2
+        ],
+        [
+          8
+        ]
+      ],
+      "order_sensitive": true
+    }
+  ],
+  "coverage": {
+    "key": "sql-postgresql-tables-keys-teaching",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "sql-postgresql-tables-keys",
+        "status": "covered",
+        "lesson_refs": [
+          "section/intuition",
+          "section/worked-example",
+          "section/practice-revision"
+        ],
+        "assessment_refs": [
+          "exercise/lesson-reflection"
+        ]
+      }
+    ]
+  }
+}

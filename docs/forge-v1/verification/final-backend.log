@@ -1,0 +1,38 @@
+........................................................................ [ 26%]
+.................................................F...................... [ 53%]
+........................................................................ [ 79%]
+.......................................................                  [100%]
+================================== FAILURES ===================================
+_______________ test_fresh_install_cli_restores_tracked_archive _______________
+
+session = <sqlmodel.orm.session.Session object at 0x000001DF355CCE60>
+tmp_path = WindowsPath('C:/My PC/git/Forge/scratch/phase5-final-tests/test_fresh_install_cli_restore0')
+
+    def test_fresh_install_cli_restores_tracked_archive(session, tmp_path):
+        import os
+        import sqlite3
+        import subprocess
+        import sys
+        package = approved_package(session)
+        archive = write_immutable(tmp_path / "synthetic-reviewed-release.json", package)
+        destination = tmp_path / "fresh.db"
+        environment = {**os.environ, "GEMINI_API_KEY":"", "FORGE_DATABASE_URL":"sqlite:///:memory:",
+            "FORGE_CONTENT_SNAPSHOT_PATH":str(tmp_path / "restored-snapshots"),
+            "FORGE_DATABASE_BACKUP_PATH":str(tmp_path / "restored-backups")}
+        result = subprocess.run([sys.executable, "-m", "scripts.content_checks.publish", "restore", "--package", str(archive),
+            "--database", str(destination)], cwd=ROOT / "apps/api", env=environment, text=True, capture_output=True, timeout=60)
+        assert result.returncode == 0, result.stdout + result.stderr
+        with sqlite3.connect(destination.as_uri() + "?mode=ro", uri=True) as connection:
+>           assert connection.execute("SELECT count(*) FROM schemamigration").fetchone()[0] == 5
+E           assert 6 == 5
+
+tests\test_content_publication.py:415: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\starlette\testclient.py:40
+  C:\My PC\git\Forge\apps\api\.venv\Lib\site-packages\starlette\testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_content_publication.py::test_fresh_install_cli_restores_tracked_archive
+1 failed, 270 passed, 1 warning in 528.37s (0:08:48)

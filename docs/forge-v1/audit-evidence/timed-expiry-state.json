@@ -1,0 +1,91 @@
+{
+  "synthetic_only": true,
+  "base": "http://127.0.0.1:24000",
+  "runtime": "C:\\My PC\\git\\Forge\\scratch\\independent-browser-pqkbx68f\\content\\expiry-runtime",
+  "id": "b5965621-dc1e-4c0c-8424-6537757eac6f",
+  "deadline_at": "2026-10-22T11:35:10.118479",
+  "restart_preserved_deadline_and_draft": true,
+  "status": "passed_actual_elapsed_time",
+  "report": {
+    "label": "Forge timed practice score",
+    "overall_score": 33.33,
+    "earned_points": 1.0,
+    "maximum_points": 3.0,
+    "completion_reason": "timeout",
+    "blueprint": {
+      "id": "subject-v1",
+      "version": "1",
+      "title": "Forge subject practice test",
+      "question_count": 3,
+      "allowed_seconds": 900,
+      "negative_mark": 0,
+      "slots": [
+        {
+          "subject": "$subject",
+          "count": 3,
+          "weight": 1
+        }
+      ],
+      "kind": "subject",
+      "subject_filter": "python",
+      "level_filter": null,
+      "scoring_policy": "forge-timed/binary-1",
+      "notice": "Original Forge practice blueprint; not an official employer exam. Local timing is not remote proctoring. No mastery credit."
+    },
+    "questions": [
+      {
+        "position": 0,
+        "subject": "python",
+        "item_key": "browser-mock-python-2",
+        "content_sha256": "f429835a44a1f414f98ea23c8a1aa117d57b174b799f114f5a94cdd73cbc1c1e",
+        "score": 100,
+        "points": 1.0,
+        "weight": 1.0,
+        "unanswered": false,
+        "explanation": "This synthetic item tests application mechanics; it is not educational coverage.",
+        "worked_answer": [
+          "a"
+        ],
+        "submitted_answer": [
+          "a"
+        ],
+        "mistake_analysis": null
+      },
+      {
+        "position": 1,
+        "subject": "python",
+        "item_key": "browser-mock-python-3",
+        "content_sha256": "f429835a44a1f414f98ea23c8a1aa117d57b174b799f114f5a94cdd73cbc1c1e",
+        "score": 0,
+        "points": 0,
+        "weight": 1.0,
+        "unanswered": true,
+        "explanation": "This synthetic item tests application mechanics; it is not educational coverage.",
+        "worked_answer": [
+          "a"
+        ],
+        "submitted_answer": [
+          "a"
+        ],
+        "mistake_analysis": "Unanswered"
+      },
+      {
+        "position": 2,
+        "subject": "python",
+        "item_key": "browser-mock-python-4",
+        "content_sha256": "f429835a44a1f414f98ea23c8a1aa117d57b174b799f114f5a94cdd73cbc1c1e",
+        "score": 0,
+        "points": 0,
+        "weight": 1.0,
+        "unanswered": true,
+        "explanation": "This synthetic item tests application mechanics; it is not educational coverage.",
+        "worked_answer": [
+          "a"
+        ],
+        "submitted_answer": null,
+        "mistake_analysis": "Unanswered"
+      }
+    ],
+    "disclaimer": "Original local practice assessment; not a hiring probability, official employer exam or technical mastery update."
+  }
+}

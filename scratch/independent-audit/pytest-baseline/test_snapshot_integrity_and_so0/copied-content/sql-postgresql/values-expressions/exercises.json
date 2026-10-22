@@ -1,0 +1,139 @@
+[
+  {
+    "key": "val-mcq-three-valued-logic",
+    "exercise_type": "multiple_choice",
+    "title": "Three-valued logic NULL comparison",
+    "prompt_markdown": "What is the result of evaluating `NULL = NULL` in SQL?",
+    "difficulty": "easy",
+    "hints": [
+      "Can an unknown value equal another unknown value?"
+    ],
+    "content": {
+      "choices": [
+        "TRUE",
+        "FALSE",
+        "UNKNOWN",
+        "Raises a TypeMismatchError"
+      ],
+      "correct_index": 2,
+      "explanation": "In SQL's three-valued logic, comparing two NULLs with `=` yields `UNKNOWN` because a missing/unknown value cannot be proven equal to another unknown value."
+    }
+  },
+  {
+    "key": "val-mcq-coalesce-behavior",
+    "exercise_type": "multiple_choice",
+    "title": "COALESCE evaluation rule",
+    "prompt_markdown": "What does `COALESCE(NULL, NULL, 'Standard', 'Premium')` evaluate to?",
+    "difficulty": "easy",
+    "hints": [
+      "Which non-null argument appears first?"
+    ],
+    "content": {
+      "choices": [
+        "'Premium'",
+        "'Standard'",
+        "NULL",
+        "['Standard', 'Premium']"
+      ],
+      "correct_index": 1,
+      "explanation": "`COALESCE` scans its arguments from left to right and returns the first non-null value encountered, which is `'Standard'`."
+    }
+  },
+  {
+    "key": "val-mcq-nullif-division",
+    "exercise_type": "multiple_choice",
+    "title": "Preventing division by zero with NULLIF",
+    "prompt_markdown": "How does `SELECT 100 / NULLIF(total_units, 0)` prevent division-by-zero runtime exceptions?",
+    "difficulty": "medium",
+    "hints": [
+      "What does NULLIF return when total_units is 0?"
+    ],
+    "content": {
+      "choices": [
+        "It replaces 0 with 1 before dividing",
+        "When total_units is 0, NULLIF returns NULL; dividing by NULL yields NULL instead of crashing",
+        "It automatically skips the row",
+        "It raises a warning and continues"
+      ],
+      "correct_index": 1,
+      "explanation": "`NULLIF(total_units, 0)` returns `NULL` when `total_units == 0`. Dividing any number by `NULL` returns `NULL`, cleanly avoiding a fatal `division by zero` database error."
+    }
+  },
+  {
+    "key": "val-short-predict-null-not-in",
+    "exercise_type": "short_answer",
+    "title": "Predict NOT IN with NULL failure",
+    "prompt_markdown": "Predict the output of this query and explain why no rows match:\n\n```sql\nCREATE TABLE items (id INT);\nINSERT INTO items VALUES (1), (2), (3);\nSELECT id FROM items WHERE id NOT IN (2, NULL);\n```",
+    "difficulty": "medium",
+    "hints": [
+      "How does id != NULL evaluate in the expanded boolean logic?"
+    ],
+    "content": {
+      "rubric": [
+        "States that the query returns 0 rows (empty result set)",
+        "Explains that `id NOT IN (2, NULL)` expands to `id != 2 AND id != NULL`",
+        "Explains that `id != NULL` evaluates to `UNKNOWN`, preventing the compound condition from ever being `TRUE`"
+      ],
+      "reference_answer": "Output: 0 rows (empty result set).\nExplanation: The predicate `id NOT IN (2, NULL)` expands logically to `id != 2 AND id != NULL`. For every row, `id != NULL` evaluates to `UNKNOWN`. In three-valued logic, `TRUE AND UNKNOWN` yields `UNKNOWN`. Because `WHERE` only retains rows whose condition evaluates strictly to `TRUE`, all rows are filtered out.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "val-short-fix-concatenation",
+    "exercise_type": "short_answer",
+    "title": "Diagnose NULL string concatenation",
+    "prompt_markdown": "A query produces unexpected NULL values for users without a middle name:\n\n```sql\nSELECT first_name || ' ' || middle_name || ' ' || last_name AS full_name\nFROM users;\n```\nExplain why `full_name` becomes NULL and provide two ways to fix it.",
+    "difficulty": "medium",
+    "hints": [
+      "In SQL, string || NULL is NULL. Use COALESCE or CONCAT()."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that using `||` with any NULL operand evaluates the entire expression to NULL",
+        "Provides Solution 1: using `COALESCE(middle_name, '')`",
+        "Provides Solution 2: using `CONCAT_WS(' ', first_name, middle_name, last_name)`"
+      ],
+      "reference_answer": "Defect: In SQL, concatenating with `||` returns `NULL` if *any* operand is `NULL`. When `middle_name` is null, the entire `full_name` evaluates to null.\nSolutions:\n1. Use `COALESCE`: `first_name || ' ' || COALESCE(middle_name || ' ', '') || last_name`\n2. Use `CONCAT_WS`: `CONCAT_WS(' ', first_name, middle_name, last_name)` which automatically skips null values.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "val-short-implement-case-bonus",
+    "exercise_type": "short_answer",
+    "title": "Write tiered performance bonus query with CASE",
+    "prompt_markdown": "Write a query selecting employee `name`, `salary`, and calculated `bonus` using `CASE`. Rules: if `rating = 'exceeds'`, bonus is 20% of salary; if `rating = 'meets'`, bonus is 10%; otherwise bonus is 0.",
+    "difficulty": "medium",
+    "hints": [
+      "Use CASE WHEN rating = 'exceeds' THEN salary * 0.20 ... ELSE 0 END."
+    ],
+    "content": {
+      "rubric": [
+        "Selects `name` and `salary`",
+        "Implements `CASE WHEN rating = 'exceeds' THEN salary * 0.20`",
+        "Implements `WHEN rating = 'meets' THEN salary * 0.10`",
+        "Provides `ELSE 0` clause and closes with `END AS bonus`"
+      ],
+      "reference_answer": "```sql\nSELECT name, salary,\n    CASE \n        WHEN rating = 'exceeds' THEN salary * 0.20\n        WHEN rating = 'meets' THEN salary * 0.10\n        ELSE 0\n    END AS bonus\nFROM employees;\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "val-short-explain-three-valued-logic",
+    "exercise_type": "short_answer",
+    "title": "Explain three-valued logic in technical interviews",
+    "prompt_markdown": "In interviews, candidates are often asked: 'Why does SQL have UNKNOWN in addition to TRUE and FALSE, and how does this affect WHERE clauses and NOT operators?' Explain this with truth tables.",
+    "difficulty": "medium",
+    "hints": [
+      "Explain UNKNOWN inverted by NOT remains UNKNOWN, and WHERE requires TRUE."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that UNKNOWN arises from evaluating conditions against missing/null data",
+        "Explains that `NOT UNKNOWN` remains `UNKNOWN`",
+        "Explains that WHERE clauses only include rows where the predicate evaluates strictly to `TRUE` (both FALSE and UNKNOWN are filtered out)"
+      ],
+      "reference_answer": "SQL adopts Three-Valued Logic (3VL) because relational databases model missing real-world information. The boolean states are TRUE, FALSE, and UNKNOWN.\n1. Truth Behavior: Comparing with NULL yields UNKNOWN. Inverting UNKNOWN (`NOT UNKNOWN`) is still UNKNOWN.\n2. WHERE Filtering: A WHERE clause accepts a row *only* if the filter expression evaluates to TRUE. Expressions that evaluate to FALSE or UNKNOWN are discarded. Consequently, if a column contains NULL, neither `WHERE col = 'active'` nor `WHERE col != 'active'` will match that row!",
+      "minimum_pass_score": 70
+    }
+  }
+]

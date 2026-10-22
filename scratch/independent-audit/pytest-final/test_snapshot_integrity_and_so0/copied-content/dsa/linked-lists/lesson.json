@@ -1,0 +1,152 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "linked-lists",
+  "title": "Linked Lists, Pointer Invariants, and Two-Pointer Traversal",
+  "description": "Master singly linked lists: node references, traversal, reversal, dummy node technique, and fast slow pointer cycle detection algorithms.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Explain node reference pointer mechanics and traverse linked lists safely in linear O(n) time",
+    "Implement in-place iterative linked list reversal in O(1) auxiliary space",
+    "Simplify edge cases (empty lists, head deletions, merges) using the dummy node pattern",
+    "Detect cycles and locate cycle entry points using Floyd's fast slow pointer algorithm"
+  ],
+  "prerequisites": [
+    "big-o"
+  ],
+  "sections": [
+    {
+      "slug": "node-structure-and-traversal",
+      "title": "Node architecture, pointers, and linear traversal",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Model linked lists using Node objects and iterate through pointers.",
+      "markdown": "## When to recognize this pattern\nDynamic sequential memory allocation, O(1) head/tail insertions without shifting, pointer manipulation, or cycle detection.\n\n## Core idea\nA `linked list` is a linear collection of data elements whose order is not given by their physical placement in memory. Instead, each `node` consists of a data value and a reference `pointer` to the `next` node. Unlike contiguous arrays that offer $O(1)$ indexed access, accessing element $k$ in a linked list requires a sequential `traversal` following `next` pointers from `head` in $O(k)$ time. However, inserting or deleting an element given a predecessor pointer takes strictly $O(1)$ time without memory shifts.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef print_list(head: ListNode) -> list[int]:\n    values = []\n    curr = head\n    while curr:\n        values.append(curr.val)\n        curr = curr.next\n    return values\n\n# Construct 1 -> 2 -> 3 -> None\nhead = ListNode(1, ListNode(2, ListNode(3)))\nprint(print_list(head))",
+          "explanation": "Traverses linked list nodes sequentially by following .next references.",
+          "expected_output": "[1, 2, 3]"
+        }
+      ],
+      "key_points": [
+        "Each node encapsulates a value and a next reference pointer.",
+        "Traversal executes in O(n) time by advancing a current pointer until reaching None."
+      ],
+      "checkpoint": "What is the consequence of losing the head reference of a linked list?"
+    },
+    {
+      "slug": "in-place-reversal",
+      "title": "In-place linked list reversal with pointer redirection",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Reverse a singly linked list in-place using three pointers.",
+      "markdown": "## Naive approach\nStoring list node values in an auxiliary Python array to reverse or search wastes O(N) memory and fails in-place requirements.\n\n## Better approach\nThe canonical linked list interview problem is in-place `reversal`. We redirect each node's `next` pointer to point to its predecessor rather than its successor. To execute this without losing the unreversed tail, we maintain three pointers: `prev` (initially `None`), `curr` (initially `head`), and `next_temp` (caching `curr.next`). At each step: save `next_temp = curr.next`, redirect `curr.next = prev`, shift `prev = curr`, and advance `curr = next_temp`. When `curr` becomes `None`, `prev` points to the new head.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def reverse_list(head: ListNode) -> ListNode:\n    prev = None\n    curr = head\n    while curr:\n        next_temp = curr.next  # Cache next node\n        curr.next = prev       # Reverse pointer\n        prev = curr            # Advance prev\n        curr = next_temp       # Advance curr\n    return prev\n\nhead = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))\nreversed_head = reverse_list(head)\nprint(print_list(reversed_head))",
+          "explanation": "Reverses all next pointers in-place in O(n) time and O(1) auxiliary space.",
+          "expected_output": "[4, 3, 2, 1]"
+        }
+      ],
+      "key_points": [
+        "Always cache curr.next before overwriting it to prevent severing the list.",
+        "In-place reversal operates in O(n) time and O(1) auxiliary memory."
+      ],
+      "checkpoint": "What does prev point to after the while loop finishes in reverse_list?"
+    },
+    {
+      "slug": "dummy-node-technique",
+      "title": "The dummy node pattern: Eliminating head edge cases",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Simplify list construction and head deletion using dummy nodes.",
+      "markdown": "## Python implementation\nIterative pointer redirection maintains prev, curr, and nxt pointers without losing memory references.\n\n## Step-by-step example\nModifying or merging linked lists often creates ugly edge cases when the `head` node itself must be inserted, deleted, or merged. The `dummy node` (or sentinel node) pattern allocates a temporary placeholder node: `dummy = ListNode(0)`. By attaching the resulting list to `dummy.next`, we treat head operations identically to standard middle-node modifications. When the algorithm finishes, `return dummy.next` cleanly returns the genuine head without special-case `if head is None:` branching.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Merging two sorted linked lists using a dummy node\ndef merge_two_lists(l1: ListNode, l2: ListNode) -> ListNode:\n    dummy = ListNode(0)  # Dummy sentinel node\n    tail = dummy\n    while l1 and l2:\n        if l1.val <= l2.val:\n            tail.next = l1\n            l1 = l1.next\n        else:\n            tail.next = l2\n            l2 = l2.next\n        tail = tail.next\n    tail.next = l1 if l1 else l2\n    return dummy.next\n\nl1 = ListNode(1, ListNode(3, ListNode(5)))\nl2 = ListNode(2, ListNode(4, ListNode(6)))\nprint(print_list(merge_two_lists(l1, l2)))",
+          "explanation": "Uses dummy node to build merged sorted list without separate head initialization logic.",
+          "expected_output": "[1, 2, 3, 4, 5, 6]"
+        }
+      ],
+      "key_points": [
+        "A dummy node eliminates special-casing for the head node during mutations and merges.",
+        "Always return dummy.next at the end of the function."
+      ],
+      "checkpoint": "Why does using a dummy node reduce code complexity when removing a node from a list?"
+    },
+    {
+      "slug": "fast-slow-pointer-and-cycles",
+      "title": "Floyd's cycle detection: Fast slow pointer algorithm",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Detect cycles and find middle nodes using fast slow pointers.",
+      "markdown": "## Time complexity\nO(N) time to traverse or reverse N nodes; O(1) pointer operations per node step.\n\n## Space complexity\nO(1) auxiliary space for iterative pointer manipulation; O(N) stack frames if implemented recursively.\n\n## Common mistakes\nThe `fast slow pointer` (or Tortoise and Hare) technique uses two pointers moving at different speeds: `slow` advances 1 step (`slow = slow.next`), while `fast` advances 2 steps (`fast = fast.next.next`). For `cycle detection` (Floyd's algorithm), if a cycle exists, the fast pointer will eventually lap the slow pointer and they will meet at the same node. If no cycle exists, `fast` reaches `None`. Furthermore, to locate the exact start of the cycle, reset `slow` to `head` while keeping `fast` at the meeting point; advance both 1 step at a time, and they meet at the cycle entry!",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def has_cycle(head: ListNode) -> bool:\n    slow = head\n    fast = head\n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n        if slow == fast:\n            return True\n    return False\n\n# Create list with cycle: 1 -> 2 -> 3 -> 4 -> 2 (cycle back to 2)\nnode1 = ListNode(1); node2 = ListNode(2); node3 = ListNode(3); node4 = ListNode(4)\nnode1.next = node2; node2.next = node3; node3.next = node4; node4.next = node2\nprint(has_cycle(node1))",
+          "explanation": "Detects cycle using fast slow pointers in O(n) time and O(1) auxiliary space.",
+          "expected_output": "True"
+        }
+      ],
+      "key_points": [
+        "Fast slow pointer detects cycles in O(n) time and O(1) auxiliary space.",
+        "Also used to find the middle node of a list in a single pass (when fast reaches end, slow is at mid)."
+      ],
+      "checkpoint": "Where will slow be positioned in an even-length list [1, 2, 3, 4] when fast reaches None?"
+    },
+    {
+      "slug": "arena-transfer",
+      "title": "Linked list interview check and Arena practice",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Excel in linked list pointer interview questions and Coding Arena challenges.",
+      "markdown": "## Arena reference\nPractice with `dsa-reverse-linked-list` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nLinked list questions assess your precision with memory pointers and handling boundary conditions.\n\n### Common Interview Questions\n1. *How do you delete a node in a linked list given only a pointer to that node (not head)?*\n   *(Copy the next node's value into the current node: `node.val = node.next.val`, then bypass: `node.next = node.next.next`).* \n2. *How do you remove the Nth node from the end of a list in one pass?*\n   *(Use two pointers spaced N steps apart with a dummy node. When the leader reaches None, the follower is right before the target node).* \n3. *Why is Floyd's cycle detection preferred over using a hash set of visited nodes?*\n   *(A hash set consumes O(n) auxiliary space to store node pointers, while Floyd's algorithm uses strictly O(1) space).* \n\n### Arena Practice Problems\n- `dsa-reverse-linked-list`: In-place three-pointer list reversal\n- `dsa-merge-two-sorted-lists`: Dummy-node sorted merging\n- `dsa-find-cycle-start`: Fast slow pointer cycle entry point identification",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Remove Nth node from end in one pass\ndef remove_nth_from_end(head: ListNode, n: int) -> ListNode:\n    dummy = ListNode(0, head)\n    first = dummy\n    second = dummy\n    for _ in range(n + 1):\n        first = first.next\n    while first:\n        first = first.next\n        second = second.next\n    second.next = second.next.next\n    return dummy.next\n\nhead = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))\nprint(print_list(remove_nth_from_end(head, 2)))",
+          "explanation": "Removes 2nd node from end (node 4) in a single pass using spaced two pointers.",
+          "expected_output": "[1, 2, 3, 5]"
+        }
+      ],
+      "key_points": [
+        "Practice drawing pointer links on paper before writing code in interviews.",
+        "Always check for null pointer dereferences (e.g. `while fast and fast.next:`)."
+      ],
+      "checkpoint": "What happens if you attempt fast.next.next when fast.next is None?"
+    }
+  ],
+  "summary": [
+    "Linked lists store elements in discrete node objects connected via next reference pointers.",
+    "In-place list reversal uses three pointers (prev, curr, next_temp) to invert pointers in O(1) space.",
+    "Dummy nodes eliminate edge cases when modifying or merging the head of a linked list.",
+    "Floyd's fast slow pointer algorithm achieves O(n) cycle detection in O(1) auxiliary space.",
+    "Practice canonical Arena problems: reverse linked list, merge sorted lists, and cycle start detection."
+  ],
+  "interview_takeaways": [
+    "Immediately mention the dummy node technique when solving merge or deletion problems.",
+    "State that Floyd's cycle detection optimizes space from O(n) (hash set) down to O(1) auxiliary space.",
+    "Draw ASCII diagrams in the editor to keep track of pointer rewiring steps."
+  ],
+  "common_mistakes": [
+    "Overwriting curr.next before caching its reference, severing and losing the remainder of the list",
+    "Calling `fast.next.next` without first validating that `fast` and `fast.next` are not None (AttributeError)",
+    "Forgetting to advance pointers inside traversal while loops, causing infinite loops",
+    "Failing to handle single-node lists or empty lists as boundary cases"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Data Structures Tutorial",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "63fc43ab8b4f8a585fa65d5d5369d8dd37028a4c4d736f757cc03ae205033063",
+  "generated_at": "2026-09-24T08:43:36.816628+00:00"
+}

@@ -1,0 +1,139 @@
+[
+  {
+    "key": "th-mcq-builtin-generics",
+    "exercise_type": "multiple_choice",
+    "title": "Modern built-in generics syntax",
+    "prompt_markdown": "In modern Python (3.9+), what is the idiomatic way to type hint a function parameter as a dictionary mapping strings to lists of integers?",
+    "difficulty": "easy",
+    "hints": [
+      "Review PEP 585 built-in collection generics."
+    ],
+    "content": {
+      "choices": [
+        "dict[str, list[int]]",
+        "Dict(str, List(int))",
+        "map[str -> array[int]]",
+        "Dictionary<string, List<int>>"
+      ],
+      "correct_index": 0,
+      "explanation": "PEP 585 enabled standard built-in collections `dict` and `list` to act as generic type hints directly using square brackets: `dict[str, list[int]]`."
+    }
+  },
+  {
+    "key": "th-mcq-runtime-behavior",
+    "exercise_type": "multiple_choice",
+    "title": "Runtime enforcement of type hints",
+    "prompt_markdown": "What happens at runtime if you execute `val: int = 'hello world'` in standard CPython without third-party libraries?",
+    "difficulty": "easy",
+    "hints": [
+      "Does Python's runtime interpreter check annotations?"
+    ],
+    "content": {
+      "choices": [
+        "Raises a TypeError immediately upon variable assignment",
+        "CPython successfully assigns the string to val without any error",
+        "Raises a TypeAnnotationWarning",
+        "The string is automatically coerced to an integer"
+      ],
+      "correct_index": 1,
+      "explanation": "Type annotations in Python are pure metadata stored in `__annotations__`. CPython does not enforce them at runtime; assigning a string to `val: int` succeeds without error."
+    }
+  },
+  {
+    "key": "th-mcq-any-vs-object",
+    "exercise_type": "multiple_choice",
+    "title": "Difference between Any and object",
+    "prompt_markdown": "What is the key difference between `typing.Any` and `object` in static type checking?",
+    "difficulty": "medium",
+    "hints": [
+      "Which one bypasses the type checker entirely?"
+    ],
+    "content": {
+      "choices": [
+        "They are exact synonyms in mypy and pyright",
+        "`Any` turns off type checking allowing any operation, while `object` requires narrowing before accessing attributes",
+        "`object` only accepts classes, while `Any` accepts primitives",
+        "`Any` causes runtime type checks, while `object` does not"
+      ],
+      "correct_index": 1,
+      "explanation": "`Any` acts as a dynamic escape hatch that allows any attribute access or call without checking. `object` is the safe root of the hierarchy; static checkers forbid calling arbitrary methods on it without narrowing via `isinstance()`."
+    }
+  },
+  {
+    "key": "th-short-predict-callable",
+    "exercise_type": "short_answer",
+    "title": "Predict and annotate Callable callback",
+    "prompt_markdown": "Write the complete type annotation for the parameter `validator` in this function signature:\n\n```python\ndef validate_payload(data: dict[str, str], validator: ???) -> bool:\n    return validator(data['email'], len(data['password']))\n```",
+    "difficulty": "medium",
+    "hints": [
+      "validator takes a string email and integer password length, returning a boolean."
+    ],
+    "content": {
+      "rubric": [
+        "Uses `Callable[[str, int], bool]` from `collections.abc` or `typing`",
+        "Identifies that the first argument is `str` (from `data['email']`)",
+        "Identifies that the second argument is `int` (from `len(...)`)",
+        "Identifies the return type as `bool`"
+      ],
+      "reference_answer": "The type annotation is `Callable[[str, int], bool]`. Full signature:\n```python\nfrom collections.abc import Callable\ndef validate_payload(data: dict[str, str], validator: Callable[[str, int], bool]) -> bool:\n    return validator(data['email'], len(data['password']))\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "th-short-fix-none-dereference",
+    "exercise_type": "short_answer",
+    "title": "Diagnose unhandled Optional attribute error",
+    "prompt_markdown": "A static checker flags an error on line 4: `Item \"None\" of \"User | None\" has no attribute \"email\"`. Diagnose why the checker flags this and write the corrected code.\n\n```python\ndef notify_user(user_id: int, user_repo: dict[int, User]) -> None:\n    user: User | None = user_repo.get(user_id)\n    send_email(user.email, 'Welcome!')\n```",
+    "difficulty": "medium",
+    "hints": [
+      "What happens if user_id is missing from user_repo?"
+    ],
+    "content": {
+      "rubric": [
+        "Explains that `user` can be `None` when `user_id` is missing",
+        "Identifies that calling `.email` on `None` raises an `AttributeError` at runtime",
+        "Provides the corrected implementation with an explicit `if user is None:` guard"
+      ],
+      "reference_answer": "Defect: `user_repo.get()` returns `None` if the ID is missing. Directly accessing `user.email` risks `AttributeError: 'NoneType' object has no attribute 'email'`. The static checker enforces checking for None.\nCorrected implementation:\n```python\ndef notify_user(user_id: int, user_repo: dict[int, User]) -> None:\n    user: User | None = user_repo.get(user_id)\n    if user is None:\n        raise ValueError(f'User {user_id} not found')\n    send_email(user.email, 'Welcome!')\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "th-short-implement-protocol",
+    "exercise_type": "short_answer",
+    "title": "Implement structural Protocol interface",
+    "prompt_markdown": "Implement a `Serializable` Protocol using `typing.Protocol` requiring a method `to_dict() -> dict[str, str]`. Then write a function `dump_json(obj: Serializable) -> str` that calls it.",
+    "difficulty": "medium",
+    "hints": [
+      "Inherit from Protocol and define the method with an ellipsis (...)."
+    ],
+    "content": {
+      "rubric": [
+        "Defines `class Serializable(Protocol):` inheriting from `Protocol`",
+        "Declares `def to_dict(self) -> dict[str, str]: ...`",
+        "Implements `dump_json(obj: Serializable) -> str` using `json.dumps(obj.to_dict())`"
+      ],
+      "reference_answer": "```python\nimport json\nfrom typing import Protocol\n\nclass Serializable(Protocol):\n    def to_dict(self) -> dict[str, str]:\n        ...\n\ndef dump_json(obj: Serializable) -> str:\n    return json.dumps(obj.to_dict())\n```\nThis enables any class implementing `.to_dict()` to be accepted by `dump_json` without nominal inheritance.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "th-short-explain-runtime-limits",
+    "exercise_type": "short_answer",
+    "title": "Explain boundary validation vs static typing",
+    "prompt_markdown": "Explain to an interviewer why static typing alone cannot replace runtime validation (like Pydantic or Marshmallow) at web API boundaries.",
+    "difficulty": "medium",
+    "hints": [
+      "Where do external HTTP requests come from and when do static linters run?"
+    ],
+    "content": {
+      "rubric": [
+        "Explains that static type checkers only inspect source code before deployment",
+        "Explains that external network payloads (JSON strings, query params) enter dynamically at runtime",
+        "Concludes that runtime parsing and validation libraries are mandatory to sanitize external untrusted input"
+      ],
+      "reference_answer": "Static type checking (via mypy/pyright) operates purely at build/lint time on Python source code, verifying developer logic assumptions. In contrast, external HTTP requests arrive over the network as raw JSON or strings at runtime from untrusted clients. Because Python does not execute static checks on incoming network payloads, runtime parsing and validation libraries (like Pydantic) are mandatory to inspect types, validate constraints, and reject malformed data before internal business logic runs.",
+      "minimum_pass_score": 70
+    }
+  }
+]

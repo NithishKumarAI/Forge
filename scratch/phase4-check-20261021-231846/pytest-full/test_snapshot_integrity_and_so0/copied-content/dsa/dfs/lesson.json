@@ -1,0 +1,154 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "dfs",
+  "title": "Depth-First Search (DFS), Graph Connectivity, and Cycle Detection",
+  "description": "Master Depth-First Search: recursive and iterative stack traversals, visited tracking, pre-order and post-order processing, connected components, and cycle detection.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Traverse graphs and trees to maximum depth using recursive call stacks and iterative stack alternatives",
+    "Track visited states to explore connected components across disconnected graphs",
+    "Leverage pre-order and post-order traversal orderings for tree evaluation and topological sorting",
+    "Detect cycles in directed and undirected graphs using multi-state coloring"
+  ],
+  "prerequisites": [
+    "recursion",
+    "stacks",
+    "big-o"
+  ],
+  "sections": [
+    {
+      "slug": "dfs-foundations-and-recursion",
+      "title": "Depth-First Search mechanics: Recursive call stack traversal",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Traverse graph branches to maximum depth using recursive exploration.",
+      "markdown": "## When to recognize this pattern\nExploring all paths, detecting cycles in graphs, connected component discovery, topological sort, or tree depth calculations.\n\n## Core idea\n`Depth-First Search` (`DFS`) explores a tree or graph by plunging down a single path as deeply as possible before `backtracking` to explore unvisited branches. The most natural `implementation` is `recursive`: the language runtime `call stack` automatically manages the exploration frontier. To prevent infinite loops in graphs with cycles, we maintain a `visited` collection. DFS explores every reachable `connected` vertex and edge in linear $O(V + E)$ time.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def dfs_recursive(graph, node, visited=None):\n    if visited is None:\n        visited = set()\n    visited.add(node)\n    print(f\"Visited: {node}\")\n    for neighbor in graph.get(node, []):\n        if neighbor not in visited:\n            dfs_recursive(graph, neighbor, visited)\n    return visited\n\ngraph = {'A': ['B', 'C'], 'B': ['D'], 'C': [], 'D': []}\ndfs_recursive(graph, 'A')",
+          "explanation": "Dives along path A -> B -> D before backtracking to explore C in O(V + E) time.",
+          "expected_output": "Visited: A\nVisited: B\nVisited: D\nVisited: C"
+        }
+      ],
+      "key_points": [
+        "DFS explores as deep as possible along each branch before backtracking.",
+        "In graphs, a visited set is mandatory to prevent infinite loops in cycles."
+      ],
+      "checkpoint": "What is the maximum call stack depth of DFS on a tree of N nodes shaped like a linked list?"
+    },
+    {
+      "slug": "iterative-dfs-with-stack",
+      "title": "Iterative DFS using an explicit stack",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Convert recursive DFS to an iterative algorithm to avoid call stack limits.",
+      "markdown": "## Naive approach\nRe-exploring already visited nodes creates infinite loops on cyclic graphs or exponential redundant computation.\n\n## Better approach\nIn production environments with deep graphs (thousands of vertices), recursive DFS risks crashing with `RecursionError: maximum recursion depth exceeded`. An `iterative` DFS simulates the call stack using an explicit `stack` data structure (a Python list). Push the start node onto the `stack`. While the stack is not empty, `pop` the top node, process it, and push all its unvisited neighbors. This executes on the heap, allowing traversal of graphs with millions of nodes without stack overflow.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def dfs_iterative(graph, start):\n    visited = set()\n    stack = [start]\n    traversal = []\n    while stack:\n        node = stack.pop()\n        if node not in visited:\n            visited.add(node)\n            traversal.append(node)\n            # Push neighbors (reversed to preserve left-to-right order)\n            for neighbor in reversed(graph.get(node, [])):\n                if neighbor not in visited:\n                    stack.append(neighbor)\n    return traversal\n\ngraph = {'A': ['B', 'C'], 'B': ['D', 'E'], 'C': [], 'D': [], 'E': []}\nprint(dfs_iterative(graph, 'A'))",
+          "explanation": "Iterative DFS using explicit list stack avoiding Python call stack depth limits.",
+          "expected_output": "['A', 'B', 'D', 'E', 'C']"
+        }
+      ],
+      "key_points": [
+        "Iterative DFS uses an explicit stack, bypassing call stack recursion limits.",
+        "Reversing neighbors before pushing preserves standard left-to-right order."
+      ],
+      "checkpoint": "Why does pushing neighbors in reverse order preserve left-to-right traversal order in an iterative stack?"
+    },
+    {
+      "slug": "preorder-and-postorder-processing",
+      "title": "Pre-order and post-order processing in DFS",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Leverage pre-order and post-order timing in recursive algorithms.",
+      "markdown": "## Python implementation\nRecursive DFS uses the runtime call stack with a visited set, while iterative DFS manages an explicit list stack.\n\n## Step-by-step example\nIn DFS, *when* an operation is executed relative to the recursive calls determines its category:\n1. `pre-order`: Executed *before* visiting children (top-down propagation, such as passing path prefixes or parent values down the tree).\n2. In-order (binary trees only): Executed *between* left and right children (produces sorted order in a Binary Search Tree).\n3. `post-order`: Executed *after* visiting children (bottom-up aggregation, such as calculating subtree heights, max depth, or topological sorting where a node is recorded after all its dependencies finish).",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class TreeNode:\n    def __init__(self, val, left=None, right=None):\n        self.val = val; self.left = left; self.right = right\n\ndef post_order_height(root: TreeNode) -> int:\n    if not root: return 0\n    left_h = post_order_height(root.left)\n    right_h = post_order_height(root.right)\n    # Post-order: compute current node using results of children\n    return 1 + max(left_h, right_h)\n\nroot = TreeNode(1, TreeNode(2, TreeNode(4)), TreeNode(3))\nprint(f\"Tree height: {post_order_height(root)}\")",
+          "explanation": "Demonstrates post-order bottom-up calculation of binary tree height.",
+          "expected_output": "Tree height: 3"
+        }
+      ],
+      "key_points": [
+        "Pre-order processes parents before children (top-down passing of context).",
+        "Post-order computes subproblem values from children before resolving the parent (bottom-up aggregation)."
+      ],
+      "checkpoint": "In what order does post-order traversal visit the nodes of a binary tree?"
+    },
+    {
+      "slug": "connected-components-and-cycles",
+      "title": "Connected components and cycle detection in graphs",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Count connected components and identify cycles in directed graphs.",
+      "markdown": "## Time complexity\nO(V + E) on graphs or O(N) on trees, traversing every reachable vertex and edge exactly once.\n\n## Space complexity\nO(H) auxiliary space on trees where H is height; O(V) for the visited set and recursion stack on arbitrary graphs.\n\n## Common mistakes\nDFS solves core graph structural questions:\n1. `connected` Components: Iterate through all vertices $0 \\dots V-1$. If a vertex has not been visited, increment component count and launch DFS to mark its entire reachable component.\n2. Cycle Detection (Directed Graphs): A simple `visited` set is insufficient for directed graphs because crossing paths is legal (e.g. Diamond graphs). We use 3-state coloring:\n   - 0 (Unvisited)\n   - 1 (Visiting: currently on the active recursion call stack)\n   - 2 (Visited: completely processed)\nIf DFS encounters a neighbor currently in state 1 (Visiting), a cycle/back-edge is detected!",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# 3-State Cycle Detection in Directed Graph\ndef has_cycle_directed(num_courses, prerequisites):\n    graph = {i: [] for i in range(num_courses)}\n    for dest, src in prerequisites:\n        graph[src].append(dest)\n    # 0 = unvisited, 1 = visiting (on stack), 2 = visited\n    state = [0] * num_courses\n    def dfs(node):\n        if state[node] == 1: return True   # Cycle detected!\n        if state[node] == 2: return False  # Already verified clean\n        state[node] = 1  # Mark visiting\n        for neighbor in graph[node]:\n            if dfs(neighbor):\n                return True\n        state[node] = 2  # Mark visited\n        return False\n    return any(state[i] == 0 and dfs(i) for i in range(num_courses))\n\nprint(has_cycle_directed(2, [[1, 0], [0, 1]]))  # Cycle: 0 -> 1 -> 0",
+          "explanation": "Detects cycle in directed course prerequisites graph using 3-state DFS coloring.",
+          "expected_output": "True"
+        }
+      ],
+      "key_points": [
+        "Outer loop over all vertices ensures disconnected components are fully explored.",
+        "3-state coloring (unvisited, visiting, visited) reliably detects cycles in directed graphs."
+      ],
+      "checkpoint": "Why can an undirected graph cycle be detected simply by checking if a neighbor is visited and not the parent?"
+    },
+    {
+      "slug": "arena-transfer",
+      "title": "DFS interview check and Arena practice",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Solve DFS graph, tree, and grid problems in Coding Arena.",
+      "markdown": "## Arena reference\nPractice with `dsa-max-depth-tree` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nDFS questions test recursion control, state tracking, and base case formulation.\n\n### Common Interview Questions\n1. *What is the difference between DFS space complexity on a balanced tree vs skewed tree?*\n   *(On a balanced tree, maximum depth is O(log N). On a skewed tree [degenerate list], maximum depth is O(N))*. \n2. *How does topological sorting relate to DFS post-order traversal?*\n   *(In a Directed Acyclic Graph [DAG], reversing the post-order finishing times of DFS yields a valid topological sort order)*. \n3. *How do you solve Flood Fill on a 2D matrix using DFS?*\n   *(Recurse in 4 cardinal directions, modifying cell color in-place to act as the visited marker)*. \n\n### Arena Practice Problems\n- `dsa-max-depth-tree`: Post-order tree height traversal\n- `dsa-number-of-islands-bfs`: DFS/BFS 2D grid component traversal",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# 2D Grid Flood Fill using DFS\ndef flood_fill(image, sr, sc, new_color):\n    orig = image[sr][sc]\n    if orig == new_color: return image\n    R, C = len(image), len(image[0])\n    def dfs(r, c):\n        if 0 <= r < R and 0 <= c < C and image[r][c] == orig:\n            image[r][c] = new_color\n            dfs(r + 1, c); dfs(r - 1, c); dfs(r, c + 1); dfs(r, c - 1)\n    dfs(sr, sc)\n    return image\n\nimg = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]\nprint(flood_fill(img, 1, 1, 2))",
+          "explanation": "Executes 4-directional flood fill recursion in-place on 2D image matrix.",
+          "expected_output": "[[2, 2, 2], [2, 2, 0], [2, 0, 1]]"
+        }
+      ],
+      "key_points": [
+        "Practice both recursive and iterative DFS implementations.",
+        "In 2D grid DFS, guard against recursion on already-recolored cells to prevent infinite loops."
+      ],
+      "checkpoint": "What happens in flood_fill if orig == new_color and the guard is omitted?"
+    }
+  ],
+  "summary": [
+    "DFS explores branches to maximum depth using recursive call stacks or iterative stack buffers.",
+    "Executes in linear O(V + E) time across graph vertices and edges.",
+    "Pre-order processes top-down before child recursion; post-order aggregates bottom-up after child recursion.",
+    "3-state coloring (unvisited, visiting, visited) detects cycles in directed graphs.",
+    "Iterative DFS eliminates recursion depth limits by managing an explicit heap stack."
+  ],
+  "interview_takeaways": [
+    "Mention iterative DFS with an explicit stack if input tree height can exceed 1000 nodes in Python.",
+    "Explain pre-order vs post-order clearly when computing tree properties or topological orders.",
+    "Use 3-state coloring to prove cycle detection mastery on directed graph problems."
+  ],
+  "common_mistakes": [
+    "Forgetting a visited set in cyclic graphs, causing infinite recursion loops and stack overflow",
+    "Using 2-state visited checking for cycle detection in directed graphs (falsely flagging cross-edges as cycles)",
+    "Overlooking disconnected graph components by only running DFS from vertex 0",
+    "Modifying global state across branches without restoring it"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Data Structures Tutorial",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "e4959f5af7cce59d1fc264c655986a2f7bb185ff7b03de128cf4ddd7394dca7b",
+  "generated_at": "2026-09-24T08:45:12.008022+00:00"
+}

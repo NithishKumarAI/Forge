@@ -1,0 +1,103 @@
+{
+  "key": "python-bob",
+  "title": "Bob's responses",
+  "track": "python",
+  "topic_tags": [
+    "strings",
+    "conditionals"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Bob is a lackadaisical teenager. In conversation, his responses are very limited.\n\n- If you ask him a question (ends with '?') while shouting (all caps), he answers: `Calm down, I know what I'm doing!`\n- If you ask him a question (ends with '?') without shouting, he answers: `Sure.`\n- If you yell at him (all caps) but it's not a question, he answers: `Whoa, chill out!`\n- If you address him without actually saying anything (empty string or just whitespace), he answers: `Fine. Be that way!`\n- To anything else, he answers: `Whatever.`\n\nWrite a function `bob_response(hey_bob)` that takes a string and returns his response.",
+  "constraints": [
+    "hey_bob is a string"
+  ],
+  "examples": [
+    {
+      "input": "\"WHAT IS THIS?\"",
+      "output": "\"Calm down, I know what I'm doing!\"",
+      "explanation": "Shouting a question."
+    }
+  ],
+  "starter_code": "def bob_response(hey_bob: str) -> str:\n    pass",
+  "hints": [
+    "Use `.strip()` to clean up leading and trailing whitespace first.",
+    "Use `.isupper()` to determine if a string is shouting.",
+    "Use `.endswith('?')` to determine if a string is a question."
+  ],
+  "explanation": "By checking combinations of `.isupper()` and `.endswith('?')` on the stripped string, we can implement the exact logic required. Note that `.isupper()` correctly handles strings with punctuation since it only cares about alphabetic characters.",
+  "reference_solution": "def bob_response(hey_bob: str) -> str:\n    s = hey_bob.strip()\n    if not s:\n        return \"Fine. Be that way!\"\n    is_shout = s.isupper()\n    is_question = s.endswith(\"?\")\n    if is_shout and is_question:\n        return \"Calm down, I know what I'm doing!\"\n    if is_shout:\n        return \"Whoa, chill out!\"\n    if is_question:\n        return \"Sure.\"\n    return \"Whatever.\"",
+  "complexity": "O(N) time and O(1) space, where N is the length of the string.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "bob_response",
+    "sample_tests": [
+      {
+        "name": "sample_shout_q",
+        "args": [
+          "WHAT IS THIS?"
+        ],
+        "kwargs": {},
+        "expected": "Calm down, I know what I'm doing!"
+      },
+      {
+        "name": "sample_q",
+        "args": [
+          "Are you OK?"
+        ],
+        "kwargs": {},
+        "expected": "Sure."
+      },
+      {
+        "name": "sample_shout",
+        "args": [
+          "GO AWAY!"
+        ],
+        "kwargs": {},
+        "expected": "Whoa, chill out!"
+      },
+      {
+        "name": "sample_silence",
+        "args": [
+          "   "
+        ],
+        "kwargs": {},
+        "expected": "Fine. Be that way!"
+      },
+      {
+        "name": "sample_other",
+        "args": [
+          "Okay."
+        ],
+        "kwargs": {},
+        "expected": "Whatever."
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden_shout_nums",
+        "args": [
+          "1, 2, 3 GO!"
+        ],
+        "kwargs": {},
+        "expected": "Whoa, chill out!"
+      },
+      {
+        "name": "hidden_spaces_q",
+        "args": [
+          "Wait?   "
+        ],
+        "kwargs": {},
+        "expected": "Sure."
+      }
+    ]
+  },
+  "source_type": "original",
+  "source_project": "exercism",
+  "source_exercise": "bob",
+  "license": "MIT",
+  "adapted": true,
+  "version": "1.0.0",
+  "mapped_topic": "python/strings"
+}

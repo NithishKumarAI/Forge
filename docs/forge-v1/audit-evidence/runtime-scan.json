@@ -1,0 +1,6 @@
+{
+  "provider_imports": [],
+  "secret_pattern_match_files": [],
+  "values_never_printed": true,
+  "scope": "Supported tracked/runtime Python source and current frontend production text assets; a pattern scan is not a universal secret or vulnerability certification."
+}

@@ -1,0 +1,95 @@
+{
+  "key": "dsa-reverse-linked-list",
+  "title": "Reverse linked list",
+  "track": "dsa",
+  "topic_tags": [
+    "linked-lists",
+    "two-pointers"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given the values of a singly linked list, reverse it and return the values in the new order. (Represented as a list of integers for simplicity).",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[1,2,3,4,5]",
+      "output": "[5,4,3,2,1]",
+      "explanation": "Reversed."
+    }
+  ],
+  "starter_code": "def reverse_linked_list(vals: list[int]) -> list[int]:\n    pass",
+  "hints": [
+    "Simulate reversing a linked list."
+  ],
+  "explanation": "Normally you would manipulate pointers. Here you just reverse the list. If you simulate it, iterate and build a new list by prepending.",
+  "reference_solution": "def reverse_linked_list(vals: list[int]) -> list[int]:\n    return vals[::-1]",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "reverse_linked_list",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1
+        ]
+      },
+      {
+        "name": "sample3",
+        "args": [
+          []
+        ],
+        "kwargs": {},
+        "expected": []
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/linked-lists"
+}

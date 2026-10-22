@@ -1,0 +1,46 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "03ae44b362778c5ddddfccd95f558c944630e4e777e0546185f65ce480a9299a",
+  "payload_sha256": "39bf2e5867fd1398f96114df9a74fade0b82ec5bc3b03f929d19415a7744faf3",
+  "coverage_sha256": "77df5fa8b51c4bc6d0b6b91e3b130f8e7aec3dc19a65b182c3e6b72d3353f22e",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "d213dc76e1b569ee220d559c139c91b65ef14d584c6dc0f7bcf7da23ca588762"
+  },
+  "coverage": [
+    {
+      "id": "guided-introduction",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/guided-introduction"
+      ],
+      "assessment_refs": [
+        "item/guided-introduction"
+      ]
+    },
+    {
+      "id": "independent-project",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/independent-project"
+      ],
+      "assessment_refs": [
+        "item/independent-project"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "item": "guided-introduction",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "independent-project",
+      "status": "requires_human_answer_review"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

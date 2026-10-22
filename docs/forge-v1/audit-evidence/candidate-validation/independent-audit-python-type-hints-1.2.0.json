@@ -1,0 +1,75 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "970b4bfefc1d0ac82619cc78df26e3b8512be91eda48261de665b79dbd1fd33b",
+  "payload_sha256": "05c46befa17099da778e53aae9565596e38ccec8723af9d4e00ff42a3723c92b",
+  "coverage_sha256": "553b427d6b8de96366b708adcb43862b136ea6fb3cd26bb34af65c82d5772b76",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "e92b17223c4784db9d24da8052db0e4113d90476e931c441e51b00590880d81b"
+  },
+  "coverage": [
+    {
+      "id": "correction",
+      "status": "covered",
+      "lesson_refs": [
+        "section/annotations-and-built-in-generics",
+        "section/union-and-optional",
+        "section/callable-and-higher-order",
+        "section/protocol-awareness",
+        "section/static-checking-and-runtime-limits",
+        "section/interview-check"
+      ],
+      "assessment_refs": [
+        "exercise/th-mcq-builtin-generics",
+        "exercise/th-mcq-runtime-behavior",
+        "exercise/th-mcq-any-vs-object",
+        "exercise/th-short-predict-callable",
+        "exercise/th-short-fix-none-dereference",
+        "exercise/th-short-implement-protocol",
+        "exercise/th-short-explain-runtime-limits"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "section": "annotations-and-built-in-generics",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "union-and-optional",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "callable-and-higher-order",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "protocol-awareness",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "static-checking-and-runtime-limits",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section": "interview-check",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

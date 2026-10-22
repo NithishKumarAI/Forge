@@ -1,0 +1,154 @@
+{
+  "key": "python-flatten-list",
+  "title": "Flatten a nested list",
+  "track": "python",
+  "topic_tags": [
+    "lists",
+    "recursion"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "medium",
+  "estimated_minutes": 30,
+  "statement_markdown": "Write a function `flatten(nested: list) -> list` that recursively flattens an arbitrarily nested list, returning a single one-dimensional list. Any `None` values should be removed from the flattened list.",
+  "constraints": [
+    "The nesting depth is within standard Python recursion limits."
+  ],
+  "examples": [
+    {
+      "input": "[1, [2, 3]]",
+      "output": "[1, 2, 3]",
+      "explanation": "The list is flattened into a single list."
+    },
+    {
+      "input": "[[1, [2]], 3]",
+      "output": "[1, 2, 3]",
+      "explanation": "Arbitrary nesting is flattened."
+    },
+    {
+      "input": "[null, 1, [2, null]]",
+      "output": "[1, 2]",
+      "explanation": "None values are omitted."
+    }
+  ],
+  "starter_code": "def flatten(nested: list) -> list:\n    pass",
+  "hints": [
+    "Iterate through the elements of the list.",
+    "If an element is a list, recursively call `flatten()` on it and extend your result.",
+    "If an element is not a list and not None, append it to your result."
+  ],
+  "explanation": "Recursion is well-suited for nested data structures. We can create an empty result list, iterate over the elements of the input, recursively process any elements that are lists, and simply append any non-list, non-None values.",
+  "reference_solution": "def flatten(nested: list) -> list:\n    res = []\n    def helper(items):\n        for item in items:\n            if isinstance(item, list):\n                helper(item)\n            elif item is not None:\n                res.append(item)\n    helper(nested)\n    return res",
+  "complexity": "O(n) time and O(n) space, where n is the total number of elements including nested lists.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "flatten",
+    "sample_tests": [
+      {
+        "name": "simple",
+        "args": [
+          [
+            1,
+            [
+              2,
+              3
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "deep",
+        "args": [
+          [
+            [
+              1,
+              [
+                2
+              ]
+            ],
+            3
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "name": "with_none",
+        "args": [
+          [
+            null,
+            1,
+            [
+              2,
+              null
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "empty",
+        "args": [
+          []
+        ],
+        "kwargs": {},
+        "expected": []
+      },
+      {
+        "name": "nested_empty",
+        "args": [
+          [
+            [],
+            [
+              []
+            ],
+            [
+              [],
+              null
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": []
+      },
+      {
+        "name": "all_none",
+        "args": [
+          [
+            null,
+            [
+              null,
+              [
+                null
+              ]
+            ]
+          ]
+        ],
+        "kwargs": {},
+        "expected": []
+      }
+    ]
+  },
+  "source_type": "original",
+  "source_project": "exercism",
+  "source_exercise": "flatten-array",
+  "license": "MIT",
+  "adapted": true,
+  "version": "1.0.0",
+  "mapped_topic": "python/collections"
+}

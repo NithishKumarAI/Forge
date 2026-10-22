@@ -1,0 +1,132 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "collections",
+  "title": "Python Collections",
+  "description": "Choose and operate on lists, tuples, dictionaries, and sets using their real trade-offs.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Select a collection from access and uniqueness needs",
+    "Use indexing, slicing, membership, mutation, and iteration",
+    "Avoid aliasing and lookup mistakes"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "mental-model",
+      "title": "Core mental model",
+      "order_index": 0,
+      "estimated_minutes": 7,
+      "learning_objective": "Select a collection from access and uniqueness needs",
+      "markdown": "A `list` is an ordered mutable sequence; use indexing and slicing when position matters. A `tuple` is an ordered immutable sequence useful for fixed records and hashable composite keys. A `dict` maps unique hashable keys to values and preserves insertion order. A `set` stores unique hashable members and is built for membership and set algebra.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "skills = ['sql', 'python', 'sql']\nunique = set(skills)\nprofile = {'name': 'Mina', 'skills': unique}\nprint(profile['name'], sorted(profile['skills']))",
+          "explanation": "A small executable example exposes the rule instead of only naming it.",
+          "expected_output": "Mina ['python', 'sql']"
+        }
+      ],
+      "key_points": [
+        "Select a collection from access and uniqueness needs",
+        "Predict execution before running code."
+      ],
+      "checkpoint": "Explain the example one line at a time without using vague terms."
+    },
+    {
+      "slug": "operations-and-tradeoffs",
+      "title": "Operations and trade-offs",
+      "order_index": 1,
+      "estimated_minutes": 7,
+      "learning_objective": "Use indexing, slicing, membership, mutation, and iteration",
+      "markdown": "Lists and tuples support zero-based indexing, negative indexing, and half-open slices such as `items[1:4]`. Dictionaries iterate over keys by default; use `.items()` for key-value pairs. Membership is normally linear for a list but average O(1) for dictionaries and sets. Mutation methods such as `append`, `update`, and `add` modify an object in place and often return `None`. These selection trade-offs should follow the data invariant, not habit.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "counts = {}\nfor word in ['red', 'blue', 'red']:\n    counts[word] = counts.get(word, 0) + 1\nprint(counts)",
+          "explanation": "This example applies the most important operation at a realistic boundary.",
+          "expected_output": "{'red': 2, 'blue': 1}"
+        }
+      ],
+      "key_points": [
+        "Use indexing, slicing, membership, mutation, and iteration",
+        "Choose an operation based on its contract."
+      ],
+      "checkpoint": "What input or state would make this code fail?"
+    },
+    {
+      "slug": "worked-practice",
+      "title": "Worked practice",
+      "order_index": 2,
+      "estimated_minutes": 7,
+      "learning_objective": "Trace the concept on concrete data.",
+      "markdown": "Work from the input and state the invariant before coding. Choose by invariant, not habit: list for ordered changing data, tuple for a fixed record, dictionary for keyed lookup, and set for uniqueness or fast membership. A common bug is shallow aliasing: `backup = items` creates a second reference, not a copy. Other mistakes include indexing a set, assuming all dictionary keys exist, and modifying a collection while iterating over it. For an interview, narrate the observation, the rule you are applying, and the resulting value. That sequence makes reasoning inspectable and exposes hidden assumptions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "counts = {}\nfor word in ['red', 'blue', 'red']:\n    counts[word] = counts.get(word, 0) + 1\nprint(counts)",
+          "explanation": "Trace names and values after every important line, then compare with the expected output.",
+          "expected_output": "{'red': 2, 'blue': 1}"
+        }
+      ],
+      "key_points": [
+        "Use a concrete trace.",
+        "State assumptions at the input boundary."
+      ],
+      "checkpoint": "Change one input and predict the new result."
+    },
+    {
+      "slug": "mistakes",
+      "title": "Common mistakes and fixes",
+      "order_index": 3,
+      "estimated_minutes": 7,
+      "learning_objective": "Diagnose failures rather than memorize syntax.",
+      "markdown": "Choose by invariant, not habit: list for ordered changing data, tuple for a fixed record, dictionary for keyed lookup, and set for uniqueness or fast membership. A common bug is shallow aliasing: `backup = items` creates a second reference, not a copy. Other mistakes include indexing a set, assuming all dictionary keys exist, and modifying a collection while iterating over it. Turn each failure into a focused test. Preserve the original failing input, make the smallest correction, and run the test again. Avoid broad exception handling or a rewrite that hides the root cause.",
+      "examples": [],
+      "key_points": [
+        "Reproduce before fixing.",
+        "Prefer the smallest evidence-backed correction."
+      ],
+      "checkpoint": "Name one tempting fix that would only hide the defect."
+    },
+    {
+      "slug": "interview-summary",
+      "title": "Interview-focused summary",
+      "order_index": 4,
+      "estimated_minutes": 7,
+      "learning_objective": "Avoid aliasing and lookup mistakes",
+      "markdown": "A strong explanation starts with the mental model, demonstrates it using a short executable example, names the trade-off, and closes with a common failure mode. Apply that structure to Python Collections. In Forge Arena, solve related Python problems without tutor help when you want the attempt to count as clean transfer evidence.",
+      "examples": [],
+      "key_points": [
+        "Explain the why, not only syntax.",
+        "Use Arena for independent transfer practice."
+      ],
+      "checkpoint": "Give a sixty-second explanation and one counterexample."
+    }
+  ],
+  "summary": [
+    "Select a collection from access and uniqueness needs",
+    "Use indexing, slicing, membership, mutation, and iteration",
+    "Validate understanding with a trace, boundary case, and independent practice."
+  ],
+  "interview_takeaways": [
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
+  ],
+  "common_mistakes": [
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Data Structures",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "a4b558552c08816a5ebe6b71be43d5159490aa5ccd45c0895138bfc2e52b4ddc",
+  "generated_at": "2026-09-24T00:00:00Z"
+}

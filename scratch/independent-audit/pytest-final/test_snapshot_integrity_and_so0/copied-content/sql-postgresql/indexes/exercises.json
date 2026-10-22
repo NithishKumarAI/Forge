@@ -1,0 +1,140 @@
+[
+  {
+    "key": "idx-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "B-tree index search time complexity",
+    "prompt_markdown": "What is the theoretical search time complexity of a database `B-tree` index lookup?",
+    "difficulty": "easy",
+    "hints": [
+      "Think of a balanced multi-way search tree."
+    ],
+    "content": {
+      "choices": [
+        "O(1) constant time regardless of table row count",
+        "O(log N) logarithmic time corresponding to tree depth",
+        "O(N) linear time proportional to the total number of table rows",
+        "O(N log N) linearithmic time"
+      ],
+      "correct_index": 1,
+      "explanation": "A B-tree is a self-balancing search tree. Searching for a key requires traversing from the root node to a leaf page, which scales logarithmically as O(log N) with the number of indexed keys."
+    }
+  },
+  {
+    "key": "idx-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Leftmost prefix rule for composite indexes",
+    "prompt_markdown": "Given a composite index on `(dept_id, hire_date, salary)`, which of the following queries CANNOT efficiently utilize this index?",
+    "difficulty": "medium",
+    "hints": [
+      "Check which query omits the leading column dept_id."
+    ],
+    "content": {
+      "choices": [
+        "WHERE dept_id = 5 AND hire_date > '2025-01-01'",
+        "WHERE dept_id = 10",
+        "WHERE hire_date = '2026-01-01' AND salary > 50000",
+        "WHERE dept_id = 3 AND hire_date = '2024-05-01' AND salary > 80000"
+      ],
+      "correct_index": 2,
+      "explanation": "Under the leftmost prefix rule, an index on (dept_id, hire_date, salary) requires the query predicate to reference the leading column (dept_id). A query filtering only on hire_date and salary cannot use this index efficiently."
+    }
+  },
+  {
+    "key": "idx-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "EXPLAIN vs EXPLAIN ANALYZE distinction",
+    "prompt_markdown": "What is the critical distinction between running `EXPLAIN` and `EXPLAIN ANALYZE` in PostgreSQL?",
+    "difficulty": "easy",
+    "hints": [
+      "One runs the query, the other only produces an estimate."
+    ],
+    "content": {
+      "choices": [
+        "EXPLAIN produces an index on the table, while EXPLAIN ANALYZE drops it",
+        "EXPLAIN shows estimated optimizer costs without executing the query, while EXPLAIN ANALYZE actually runs the query and records real timings",
+        "EXPLAIN ANALYZE can only be run on SELECT queries, while EXPLAIN only runs on DDL",
+        "EXPLAIN writes execution plans to a disk file, while EXPLAIN ANALYZE writes to standard out"
+      ],
+      "correct_index": 1,
+      "explanation": "EXPLAIN displays the optimizer's estimated execution plan without running the query. EXPLAIN ANALYZE actually executes the query, outputting real timing metrics, buffer cache hits, and actual row counts."
+    }
+  },
+  {
+    "key": "idx-short-predict-func-invalidation",
+    "exercise_type": "short_answer",
+    "title": "Predict index utilization when column is wrapped in function",
+    "prompt_markdown": "Given table `users` with 1,000,000 rows and a standard B-tree index on `created_at`. Predict whether PostgreSQL will use the index for this query, and explain why:\n\n```sql\nSELECT id, email \nFROM users \nWHERE EXTRACT(YEAR FROM created_at) = 2026;\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Does the B-tree index store raw created_at timestamps or the result of EXTRACT()?"
+    ],
+    "content": {
+      "rubric": [
+        "States that PostgreSQL will NOT use the B-tree index (falls back to a full Sequential Scan)",
+        "Explains that the index stores raw timestamps, but the query wraps the column in a function `EXTRACT()`",
+        "Explains how to fix it: rewrite as a range comparison `WHERE created_at >= '2026-01-01' AND created_at < '2027-01-01'` or create an expression index"
+      ],
+      "reference_answer": "Prediction: PostgreSQL will NOT use the index on `created_at`; it will fall back to a full Sequential Scan (`Seq Scan`).\n\nExplanation: Standard B-tree indexes store the raw, unmodified values of the column. When you wrap the column inside a function like `EXTRACT(YEAR FROM created_at)`, PostgreSQL cannot look up 2026 directly in the tree; it must compute `EXTRACT()` for every single row in the table.\n\nOptimal Fix: Rewrite the condition as a range query:\n`WHERE created_at >= '2026-01-01' AND created_at < '2027-01-01'`\nThis allows the engine to perform a direct B-tree Index Scan.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "idx-short-fix-slow-join",
+    "exercise_type": "short_answer",
+    "title": "Diagnose unindexed foreign key performance bottleneck",
+    "prompt_markdown": "In a production system with 10M `orders` and 100k `customers`, deleting a customer via `DELETE FROM customers WHERE id = 500;` takes 12 seconds to complete, freezing unrelated operations. Tables:\n- `customers (id PRIMARY KEY, name)`\n- `orders (id PRIMARY KEY, customer_id REFERENCES customers(id), amount)`\nDiagnose why deleting a customer is so slow and provide the SQL fix.",
+    "difficulty": "hard",
+    "hints": [
+      "Does PostgreSQL automatically index foreign keys? What must the database do when a parent row is deleted?"
+    ],
+    "content": {
+      "rubric": [
+        "Diagnoses that PostgreSQL does NOT automatically create indexes on foreign key columns",
+        "Explains that deleting a customer requires checking `orders` for matching `customer_id` rows; lacking an index, it performs a sequential scan over all 10 million orders",
+        "Provides the SQL solution: `CREATE INDEX idx_orders_customer_id ON orders(customer_id);`"
+      ],
+      "reference_answer": "Diagnosis: PostgreSQL automatically creates unique indexes for PRIMARY KEYs, but it does NOT automatically index FOREIGN KEY columns. When deleting a customer from `customers`, PostgreSQL must verify referential integrity by checking if any rows in `orders` reference that customer. Because `orders(customer_id)` is not indexed, PostgreSQL is forced to perform a full sequential scan across all 10,000,000 order rows, locking the table and taking 12 seconds.\n\nFix:\n```sql\nCREATE INDEX idx_orders_customer_id ON orders (customer_id);\n```\nWith this index in place, the referential integrity check runs in sub-millisecond logarithmic time.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "idx-short-implement-composite-index",
+    "exercise_type": "short_answer",
+    "title": "Design optimal composite index for tenant filtered query",
+    "prompt_markdown": "An application frequently runs this multi-tenant dashboard query on a table with 50M rows:\n\n```sql\nSELECT id, amount, status\nFROM payments\nWHERE tenant_id = 'acme_corp' AND status = 'completed'\nORDER BY created_at DESC\nLIMIT 20;\n```\nWrite the DDL to create the single most optimal composite index for this query and explain your column ordering choice.",
+    "difficulty": "medium",
+    "hints": [
+      "Equality columns first, then sorting column, and consider INCLUDE for payload columns."
+    ],
+    "content": {
+      "rubric": [
+        "Creates composite index with equality columns `tenant_id` and `status` first",
+        "Places `created_at DESC` as the next indexed column to eliminate an explicit SORT node",
+        "Optionally uses INCLUDE (amount) to achieve an Index Only Scan",
+        "Explains that equality filters narrow the tree first, then pre-sorted created_at satisfies the ORDER BY LIMIT"
+      ],
+      "reference_answer": "Optimal Index DDL:\n```sql\nCREATE INDEX idx_payments_tenant_status_date \nON payments (tenant_id, status, created_at DESC) \nINCLUDE (amount);\n```\n\nExplanation of Column Order:\n1. `tenant_id` and `status`: Equality columns must appear first in the index. This allows PostgreSQL to jump directly to the exact B-tree sub-branch matching Acme Corp's completed payments.\n2. `created_at DESC`: By indexing created_at in descending order after the equality keys, the index leaves are already physically sorted. PostgreSQL can satisfy the `ORDER BY created_at DESC LIMIT 20` by scanning the first 20 index tuples, completely avoiding an expensive in-memory or on-disk sorting operation.\n3. `INCLUDE (amount)`: Including amount in the index leaf payload enables an `Index Only Scan`, eliminating table heap lookups entirely.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "idx-short-explain-index-tradeoffs",
+    "exercise_type": "short_answer",
+    "title": "Explain write amplification and index trade-offs in interviews",
+    "prompt_markdown": "A junior developer proposes adding 12 new indexes to an active transactional table to speed up various microservice queries. How would you explain the trade-offs and write amplification costs to them during an engineering design review?",
+    "difficulty": "hard",
+    "hints": [
+      "Explain write amplification, buffer cache contention, and VACUUM overhead."
+    ],
+    "content": {
+      "rubric": [
+        "Explains write amplification: each INSERT/DELETE must update all 12 indexes; UPDATES touching indexed columns duplicate index maintenance",
+        "Explains memory / buffer pool pressure: multiple indexes compete with hot data pages for shared_buffers RAM",
+        "Explains vacuum and disk bloat: index maintenance increases WAL write volume and background autovacuum load",
+        "Recommends reviewing pg_stat_user_indexes to eliminate unused indexes and using composite or covering indexes instead"
+      ],
+      "reference_answer": "1. Write Amplification: Every single row insertion does not just write one row to the table heap; it requires writing 12 additional entries across all 12 separate B-tree indexes. Furthermore, every UPDATE that modifies an indexed column forces index tuple deletion and re-insertion, drastically increasing Write-Ahead Log (WAL) generation and write latency.\n2. RAM Buffer Cache Contention: Database performance relies on keeping frequently accessed pages in RAM (`shared_buffers`). Twelve distinct indexes consume huge amounts of memory, evicting active data pages and forcing frequent disk reads.\n3. Maintenance & Vacuum Overhead: Bloated indexes increase database backup windows and impose substantial CPU and I/O load on the PostgreSQL autovacuum daemon.\n\nRecommendation: Consolidate overlapping queries into multi-column composite indexes, inspect `pg_stat_user_indexes` to drop unused indexes, and only add indexes backed by actual `EXPLAIN ANALYZE` bottleneck evidence.",
+      "minimum_pass_score": 70
+    }
+  }
+]

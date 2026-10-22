@@ -1,0 +1,27 @@
+[
+  {
+    "name": "studyplanrevision",
+    "sql": "\nCREATE TABLE studyplanrevision (\n\tid VARCHAR NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\tlocal_date VARCHAR NOT NULL, \n\ttimezone VARCHAR NOT NULL, \n\trevision INTEGER NOT NULL, \n\ttarget_minutes INTEGER NOT NULL, \n\tsettings_json TEXT NOT NULL, \n\tpolicy_version VARCHAR NOT NULL, \n\tactive BOOLEAN NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT uq_plan_revision UNIQUE (curriculum_id, local_date, timezone, revision), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id)\n)\n\n",
+    "indexes": [
+      "CREATE INDEX ix_studyplanrevision_curriculum_id ON studyplanrevision (curriculum_id)",
+      "CREATE UNIQUE INDEX uq_active_study_plan ON studyplanrevision (curriculum_id, local_date, timezone) WHERE active=1"
+    ]
+  },
+  {
+    "name": "studyplanentry",
+    "sql": "\nCREATE TABLE studyplanentry (\n\tplan_id VARCHAR NOT NULL, \n\titem_id INTEGER NOT NULL, \n\tactivity_key VARCHAR NOT NULL, \n\tsnapshot_json TEXT NOT NULL, \n\tPRIMARY KEY (plan_id, item_id), \n\tCONSTRAINT uq_plan_activity UNIQUE (plan_id, activity_key), \n\tFOREIGN KEY(plan_id) REFERENCES studyplanrevision (id), \n\tFOREIGN KEY(item_id) REFERENCES dailyplanitem (id)\n)\n\n",
+    "indexes": []
+  },
+  {
+    "name": "timedtestsession",
+    "sql": "\nCREATE TABLE timedtestsession (\n\tid VARCHAR NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\tblueprint_json TEXT NOT NULL, \n\tstatus VARCHAR NOT NULL, \n\tstarted_at DATETIME NOT NULL, \n\tdeadline_at DATETIME NOT NULL, \n\tcompleted_at DATETIME, \n\treport_json VARCHAR NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id)\n)\n\n",
+    "indexes": [
+      "CREATE INDEX ix_timedtestsession_curriculum_id ON timedtestsession (curriculum_id)"
+    ]
+  },
+  {
+    "name": "timedtestitem",
+    "sql": "\nCREATE TABLE timedtestitem (\n\tsession_id VARCHAR NOT NULL, \n\tposition INTEGER NOT NULL, \n\tselection_id VARCHAR NOT NULL, \n\tweight FLOAT NOT NULL, \n\tnegative_mark FLOAT NOT NULL, \n\tdraft_json VARCHAR NOT NULL, \n\tPRIMARY KEY (session_id, position), \n\tFOREIGN KEY(session_id) REFERENCES timedtestsession (id), \n\tUNIQUE (selection_id), \n\tFOREIGN KEY(selection_id) REFERENCES assessmentselection (id)\n)\n\n",
+    "indexes": []
+  }
+]

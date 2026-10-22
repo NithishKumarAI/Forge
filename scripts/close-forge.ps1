@@ -1,52 +1,20 @@
-# Close Forge Launcher
-# Safely stops the running Forge backend process recorded in .runtime/forge-runtime.json
-# NEVER stops arbitrary Python processes or affects other running applications
-
-$ErrorActionPreference = "Stop"
-
-$RepoRoot = (Resolve-Path "$PSScriptRoot\..").Path
-$RuntimeDir = Join-Path $RepoRoot ".runtime"
-$RuntimeFile = Join-Path $RuntimeDir "forge-runtime.json"
-
-if (-not (Test-Path $RuntimeFile)) {
-    Write-Host "Forge is not running (no runtime file found)."
-    exit 0
-}
-
+param([string]$RuntimeDir='')
+. "$PSScriptRoot\launcher-common.ps1"
+$mutex=$null
 try {
-    $state = Get-Content $RuntimeFile -Raw | ConvertFrom-Json
-    $pidToKill = $state.pid
-} catch {
-    Write-Warning "Runtime file was invalid. Cleaning up..."
-    Remove-Item -Path $RuntimeFile -Force -ErrorAction SilentlyContinue
-    exit 0
-}
-
-if (-not $pidToKill) {
-    Write-Host "No process ID recorded in runtime file."
-    Remove-Item -Path $RuntimeFile -Force -ErrorAction SilentlyContinue
-    exit 0
-}
-
-$proc = Get-Process -Id $pidToKill -ErrorAction SilentlyContinue
-if ($proc) {
-    Write-Host "Stopping Forge (PID: $pidToKill)..."
-    try {
-        Stop-Process -Id $pidToKill -Force
-        # Wait up to 3 seconds for exit
-        $waitCount = 0
-        while (-not $proc.HasExited -and $waitCount -lt 30) {
-            Start-Sleep -Milliseconds 100
-            $waitCount++
-        }
-        Write-Host "Forge stopped."
-    } catch {
-        Write-Warning "Could not stop process ${pidToKill}: $_"
+    $context=Get-ForgeContext $RuntimeDir
+    if (-not (Test-Path -LiteralPath $context.State)) { Write-Host 'Forge is already closed for this runtime.';exit 0 }
+    $mutex=Enter-ForgeLock $context
+    $state=Read-ForgeState $context
+    $owned=Get-VerifiedForgeProcess $context $state
+    if (-not $owned) {
+        Write-Warning 'Runtime identity is stale or unverifiable. No process was stopped; state is retained in quarantine.'
+        Move-StaleForgeState $context;exit 0
     }
-} else {
-    Write-Host "Forge process (PID: $pidToKill) is not running."
-}
-
-Remove-Item -Path $RuntimeFile -Force -ErrorAction SilentlyContinue
-Write-Host "Forge closed successfully."
-exit 0
+    try {
+        if (-not $owned.HasExited) { $owned.Kill();$null=$owned.WaitForExit(5000) }
+    } finally { $owned.Dispose() }
+    Remove-Item -LiteralPath $context.State -Force
+    Write-Host 'The verified Forge process is closed.'
+} catch { Write-Error $_;exit 1 }
+finally { if ($mutex) { $mutex.ReleaseMutex();$mutex.Dispose() } }

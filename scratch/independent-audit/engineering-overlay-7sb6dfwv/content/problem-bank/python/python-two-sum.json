@@ -1,0 +1,116 @@
+{
+  "key": "python-two-sum",
+  "title": "Two sum",
+  "track": "python",
+  "topic_tags": [
+    "hash-maps",
+    "arrays"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a function `two_sum(nums: list[int], target: int) -> tuple[int, int]` that returns the indices of the two numbers such that they add up to `target`. You may assume that each input would have exactly one solution, and you may not use the same element twice. The answer should be returned as a tuple of the two indices.",
+  "constraints": [
+    "2 <= len(nums) <= 10^4",
+    "Exactly one valid solution exists."
+  ],
+  "examples": [
+    {
+      "input": "nums = [2, 7, 11, 15], target = 9",
+      "output": "(0, 1)",
+      "explanation": "nums[0] + nums[1] = 2 + 7 = 9."
+    },
+    {
+      "input": "nums = [3, 2, 4], target = 6",
+      "output": "(1, 2)",
+      "explanation": "nums[1] + nums[2] = 2 + 4 = 6."
+    }
+  ],
+  "starter_code": "def two_sum(nums: list[int], target: int) -> list[int]:\n    pass",
+  "hints": [
+    "A brute force solution takes O(n^2) time. Can you do it in O(n)?",
+    "Use a hash map (dictionary) to remember the values you have seen so far and their indices."
+  ],
+  "explanation": "We can use a hash map to map the elements we've seen so far to their indices. As we iterate through the list, for each element we calculate its complement (target - num). If the complement is already in the hash map, we found our pair.",
+  "reference_solution": "def two_sum(nums: list[int], target: int) -> list[int]:\n    seen = {}\n    for i, num in enumerate(nums):\n        diff = target - num\n        if diff in seen:\n            return [seen[diff], i]\n        seen[num] = i\n    return [0, 0]",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "two_sum",
+    "sample_tests": [
+      {
+        "name": "example1",
+        "args": [
+          [
+            2,
+            7,
+            11,
+            15
+          ],
+          9
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1
+        ]
+      },
+      {
+        "name": "example2",
+        "args": [
+          [
+            3,
+            2,
+            4
+          ],
+          6
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "zeros",
+        "args": [
+          [
+            0,
+            4,
+            3,
+            0
+          ],
+          0
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          3
+        ]
+      },
+      {
+        "name": "negatives",
+        "args": [
+          [
+            -1,
+            -2,
+            -3,
+            -4,
+            -5
+          ],
+          -8
+        ],
+        "kwargs": {},
+        "expected": [
+          2,
+          4
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/collections"
+}

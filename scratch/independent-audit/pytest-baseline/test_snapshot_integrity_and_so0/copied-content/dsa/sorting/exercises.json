@@ -1,0 +1,142 @@
+[
+  {
+    "key": "sorting-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "Comparison sort theoretical lower bound",
+    "prompt_markdown": "What is the theoretical lower bound on the worst-case time complexity for any `comparison sort` algorithm on $N$ elements?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider a binary decision tree with N! permutation leaves."
+    ],
+    "content": {
+      "choices": [
+        "Omega(N)",
+        "Omega(N log N)",
+        "Omega(N^2)",
+        "Omega(log N)"
+      ],
+      "correct_index": 1,
+      "explanation": "Because a comparison sort must distinguish between N! possible permutations using binary decisions, the decision tree height must be at least log2(N!) = Omega(N log N)."
+    }
+  },
+  {
+    "key": "sorting-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Definition of sorting algorithm stability",
+    "prompt_markdown": "What does it mean for a sorting algorithm to be `stable`?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about elements with identical comparison keys."
+    ],
+    "content": {
+      "choices": [
+        "It executes in O(1) auxiliary space without modifying pointers",
+        "It preserves the original relative order of elements that have equal comparison keys",
+        "It runs in exactly the same number of clock cycles on all hardware architectures",
+        "It produces identical output whether sorted ascending or descending"
+      ],
+      "correct_index": 1,
+      "explanation": "A sorting algorithm is stable if two items with equal keys appear in the same relative order in the output as they did in the initial input collection."
+    }
+  },
+  {
+    "key": "sorting-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Return value of list.sort() in Python",
+    "prompt_markdown": "What is the return value of executing `nums.sort()` on a Python list?",
+    "difficulty": "easy",
+    "hints": [
+      "In-place mutation methods return None."
+    ],
+    "content": {
+      "choices": [
+        "A new sorted list object",
+        "The original list reference (for method chaining)",
+        "None (the list is mutated in-place)",
+        "The integer count of comparisons performed"
+      ],
+      "correct_index": 2,
+      "explanation": "`list.sort()` sorts the list in-place and returns `None`. Assigning `nums = nums.sort()` is a notorious bug that sets `nums` to `None`."
+    }
+  },
+  {
+    "key": "sorting-short-predict-key-sort",
+    "exercise_type": "short_answer",
+    "title": "Predict output of multi-attribute tuple key sort",
+    "prompt_markdown": "Given this list of word tokens:\n`words = [\"apple\", \"pie\", \"banana\", \"fig\", \"cherry\"]`\nPredict the sorted output when executing:\n`words.sort(key=lambda w: (len(w), w))`",
+    "difficulty": "medium",
+    "hints": [
+      "Sort primarily by length ascending, secondarily alphabetically."
+    ],
+    "content": {
+      "rubric": [
+        "Sorts words by length: length 3 ('fig', 'pie'), length 5 ('apple'), length 6 ('banana', 'cherry')",
+        "Applies alphabetical tie-breaker for length 3: 'fig' before 'pie'",
+        "Applies alphabetical tie-breaker for length 6: 'banana' before 'cherry'",
+        "Outputs complete sorted list: ['fig', 'pie', 'apple', 'banana', 'cherry']"
+      ],
+      "reference_answer": "Output: `['fig', 'pie', 'apple', 'banana', 'cherry']`\n\nExplanation:\nThe key function produces tuple `(len(w), w)`:\n- 'fig': (3, 'fig')\n- 'pie': (3, 'pie')\n- 'apple': (5, 'apple')\n- 'banana': (6, 'banana')\n- 'cherry': (6, 'cherry')\nPrimary key `len(w)` groups words by length. Secondary key `w` breaks ties in lexicographical order ('fig' < 'pie', 'banana' < 'cherry').",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "sorting-short-fix-in-place-none-bug",
+    "exercise_type": "short_answer",
+    "title": "Diagnose and fix in-place sort assignment bug",
+    "prompt_markdown": "A backend service crashes with `TypeError: 'NoneType' object is not iterable` when running this code:\n\n```python\ndef get_ranked_scores(scores: list[int]) -> list[int]:\n    top_scores = scores.sort(reverse=True)\n    return [s for s in top_scores if s >= 50]\n```\nIdentify the bug and provide the corrected implementation.",
+    "difficulty": "easy",
+    "hints": [
+      "What does .sort() return vs sorted()?"
+    ],
+    "content": {
+      "rubric": [
+        "Explains that `scores.sort()` mutates in-place and returns None, making top_scores equal to None",
+        "Fixes either by calling `sorted(scores, reverse=True)` or sorting scores then filtering scores directly",
+        "Returns valid filtered list"
+      ],
+      "reference_answer": "Bug: `scores.sort()` mutates the list in-place and returns `None`. Therefore, `top_scores` is assigned `None`, causing `for s in top_scores` to crash with a TypeError.\n\nCorrected Implementations:\nOption 1 (Using `sorted`):\n```python\ndef get_ranked_scores(scores: list[int]) -> list[int]:\n    top_scores = sorted(scores, reverse=True)\n    return [s for s in top_scores if s >= 50]\n```\nOption 2 (Using `.sort()` in-place):\n```python\ndef get_ranked_scores(scores: list[int]) -> list[int]:\n    scores.sort(reverse=True)\n    return [s for s in scores if s >= 50]\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "sorting-short-implement-dutch-flag",
+    "exercise_type": "short_answer",
+    "title": "Write Dutch National Flag three-way partition",
+    "prompt_markdown": "Write a Python function `sort_colors(nums: list[int]) -> None` that sorts an array containing only values 0, 1, and 2 in-place in a single pass without using Python's built-in `sort()` or counting arrays.",
+    "difficulty": "hard",
+    "hints": [
+      "Use three pointers: low, mid, high. Swap 0s to low, 2s to high, and advance mid on 1s."
+    ],
+    "content": {
+      "rubric": [
+        "Initializes low=0, mid=0, high=len(nums)-1",
+        "Loops while mid <= high",
+        "Swaps nums[mid] and nums[low] on 0, advancing both low and mid",
+        "Advances mid on 1",
+        "Swaps nums[mid] and nums[high] on 2, decrementing high without advancing mid"
+      ],
+      "reference_answer": "```python\ndef sort_colors(nums: list[int]) -> None:\n    low, mid, high = 0, 0, len(nums) - 1\n    while mid <= high:\n        if nums[mid] == 0:\n            nums[low], nums[mid] = nums[mid], nums[low]\n            low += 1\n            mid += 1\n        elif nums[mid] == 1:\n            mid += 1\n        else:  # nums[mid] == 2\n            nums[mid], nums[high] = nums[high], nums[mid]\n            high -= 1\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "sorting-short-explain-timsort",
+    "exercise_type": "short_answer",
+    "title": "Explain Timsort mechanics in senior engineering interviews",
+    "prompt_markdown": "Explain how Python's default sorting algorithm (Timsort) works. Why is it preferred over raw Quicksort or raw Merge Sort for real-world programming languages?",
+    "difficulty": "hard",
+    "hints": [
+      "Discuss natural runs, insertion sort on small chunks, merge stack invariants, and stability."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies Timsort as a hybrid of Merge Sort and Insertion Sort designed by Tim Peters",
+        "Explains natural runs: identifies pre-existing ascending or strictly descending runs in real-world data",
+        "Explains minimum run size (minrun): extends short runs using insertion sort (highly cache efficient for small arrays)",
+        "Explains merge stack invariants and stability: maintains stable ordering with guaranteed O(N log N) worst-case and O(N) best-case time"
+      ],
+      "reference_answer": "1. Core Design:\nTimsort (created by Tim Peters in 2002 for Python) is an adaptive, stable hybrid of Merge Sort and Insertion Sort. While textbook algorithms assume randomly shuffled data, real-world data contains pre-existing sorted subsequences ('runs').\n\n2. Key Mechanics:\n- Natural Runs: Timsort scans the input linearly to detect contiguous runs of ascending or strictly descending elements (reversing descending runs in $O(n)$).\n- Minrun & Insertion Sort: If a run is shorter than a threshold `minrun` (typically 32 to 64 items), Timsort uses Binary Insertion Sort to extend the run. Insertion sort has minimal overhead and exceptional CPU cache locality on small chunks.\n- Balanced Merging: Runs are pushed onto a stack. Timsort enforces invariants on the stack sizes ($A > B + C$ and $B > C$) to ensure merging proceeds like a balanced Fibonacci tree, avoiding unbalanced merge costs.\n\n3. Why Preferred Over Quicksort:\n- Worst-Case Guarantee: Quicksort degrades to $O(n^2)$ on worst-case pivots; Timsort guarantees $O(n \\log n)$ worst-case.\n- Adaptive $O(n)$ Best-Case: If an array is already sorted or nearly sorted, Timsort verifies it in a single linear $O(n)$ pass.\n- Stability: Timsort is strictly stable, preserving relative order of equal keys, which is essential for multi-attribute table sorts.",
+      "minimum_pass_score": 70
+    }
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "075fe08ae7e11ec1123eb0b1ced3322d39b2acd72bac053c2f9245f88da7894f",
+  "payload_sha256": "7c17894669ff56945c0b6306d1572282340964e25e60edd712c3b9f6ab28b93b",
+  "coverage_sha256": "62dc18408a2b764d7fbb605fbfb51ad9f21443450692ac6249cae88a197fb5bb",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "d213dc76e1b569ee220d559c139c91b65ef14d584c6dc0f7bcf7da23ca588762"
+  },
+  "coverage": [
+    {
+      "id": "interview-communication-introductions",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

@@ -1,0 +1,22 @@
+{
+  "big-o": {"required_concepts":["Big-O","time complexity","space complexity","O(1)","O(n)","O(log n)","O(n^2)","dominant term","worst case","amortized","complexity class"]},
+  "arrays": {"required_concepts":["array","index","access","insert","delete","search","two-pass","prefix","in-place","contiguous","time complexity"]},
+  "strings": {"required_concepts":["immutable","character","substring","palindrome","anagram","sliding window","two pointer","frequency","reverse","pattern matching"]},
+  "hash-maps": {"required_concepts":["hash map","dictionary","hash function","collision","O(1) average","grouping","counting","lookup","key","value"]},
+  "sets": {"required_concepts":["set","membership","O(1)","deduplication","intersection","union","difference","interview use","uniqueness"]},
+  "two-pointers": {"required_concepts":["two pointers","left pointer","right pointer","slow fast","convergence","sorted","in-place","recognition","template"]},
+  "sliding-window": {"required_concepts":["sliding window","fixed window","variable window","expand","shrink","substring","subarray","template","recognition"]},
+  "sorting": {"required_concepts":["sorting","comparison","O(n log n)","key function","sorted","sort","counting sort","stability","built-in sort","comparison sort"]},
+  "binary-search": {"required_concepts":["binary search","sorted","lo","hi","mid","O(log n)","template","monotone","search space","invariant"]},
+  "stacks": {"required_concepts":["stack","LIFO","push","pop","peek","monotone stack","bracket matching","last-in first-out","call stack","implementation"]},
+  "queues": {"required_concepts":["queue","FIFO","deque","enqueue","dequeue","BFS buffer","sliding window maximum","first-in first-out","collections.deque"]},
+  "linked-lists": {"required_concepts":["linked list","node","pointer","traversal","reversal","fast slow pointer","cycle detection","dummy node","next"]},
+  "recursion": {"required_concepts":["recursion","base case","recursive case","call stack","stack overflow","memoization","tree recursion","backtracking","factorial","fibonacci"]},
+  "backtracking": {"required_concepts":["backtracking","state","explore","restore","pruning","decision tree","permutation","combination","subset"]},
+  "trees": {"required_concepts":["tree","binary tree","BST","root","leaf","height","traversal","in-order","pre-order","post-order","balance","recursion"]},
+  "bfs": {"required_concepts":["BFS","breadth-first search","level order","queue","shortest path","unweighted","visited","neighbors","layer"]},
+  "dfs": {"required_concepts":["DFS","depth-first search","recursive","iterative","stack","visited","pre-order","post-order","backtracking","connected"]},
+  "heaps": {"required_concepts":["heap","min heap","max heap","heapq","priority queue","top-k","heappush","heappop","O(log n)","merge streams"]},
+  "graphs": {"required_concepts":["graph","vertex","edge","adjacency list","directed","undirected","weighted","BFS","DFS","connected component","cycle"]},
+  "dynamic-programming": {"required_concepts":["dynamic programming","overlapping subproblems","optimal substructure","memoization","tabulation","top-down","bottom-up","state","transition","DP table"]}
+}

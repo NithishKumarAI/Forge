@@ -1,0 +1,131 @@
+{
+  "content_key": "forge/placement-foundations/system-design/system-design-requirements",
+  "revision": "1.0.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "placement-foundations",
+      "track_slug": "system-design",
+      "topic_slug": "system-design-requirements",
+      "title": "Requirements and boundaries",
+      "description": "Turn a small scenario into functional requirements and explicit limits.",
+      "version": "1.0.0",
+      "learning_objectives": [
+        "Turn a small scenario into functional requirements and explicit limits."
+      ],
+      "prerequisites": [],
+      "sections": [
+        {
+          "slug": "intuition",
+          "title": "Goal and intuition",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Turn a small scenario into functional requirements and explicit limits.",
+          "markdown": "Start with the job a small system must do, not a collection of fashionable components. A functional requirement describes a user-visible action. A constraint limits the solution, such as using one school computer. A quality requirement describes a property that can be checked, such as an agreed response-time target under a stated workload. Put the boundary around what this version owns.",
+          "examples": [],
+          "key_points": [
+            "A product name such as Redis is a component choice, not a requirement."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "worked-example",
+          "title": "A worked example and why it works",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Turn a small scenario into functional requirements and explicit limits.",
+          "markdown": "A small club needs a shared equipment notebook. Members can view items and a volunteer can mark an item borrowed or returned. The first version serves 20 members on a local network; payments and public sign-up are out of scope. A simple browser → local service → database path is enough to discuss initially. Before choosing a cache or queue, ask whether a measured problem needs one. If two people request one item at the same moment, the borrowing rule needs an explicit consistency decision; drawing more boxes does not decide it.",
+          "examples": [],
+          "key_points": [
+            "A product name such as Redis is a component choice, not a requirement."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "practice-revision",
+          "title": "Guided practice, independent practice and revision",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Turn a small scenario into functional requirements and explicit limits.",
+          "markdown": "Guided: 'Members can see which items are available' is functional. 'Works on the existing local computer' is a constraint. Independent: define a minimal attendance notebook, list two actions, one limit and one failure case.\n\n<details><summary>Illustrative review, not the only correct design</summary>Record attendance and view a day's list; serve one classroom on the local network; retain a saved record after a restart. Decide whether repeat marks update a record or are rejected. Other coherent boundaries can be valid.</details>\n\nRevision: name the users, state actions, record limits, make success observable, identify failures and exclude tempting extras. Open designs use a rubric; Forge does not automatically judge arbitrary architecture prose.",
+          "examples": [],
+          "key_points": [
+            "A product name such as Redis is a component choice, not a requirement."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        }
+      ],
+      "summary": [
+        "A product name such as Redis is a component choice, not a requirement.",
+        "A speed target without workload or measurement conditions is hard to verify."
+      ],
+      "interview_takeaways": [
+        "Explain your reasoning and limits; reading is not mastery."
+      ],
+      "common_mistakes": [
+        "A product name such as Redis is a component choice, not a requirement.",
+        "A speed target without workload or measurement conditions is hard to verify."
+      ],
+      "sources": [
+        {
+          "source_id": "nasa-requirements",
+          "title": "NASA Systems Engineering Handbook",
+          "url": "https://www.nasa.gov/reference/systems-engineering-handbook/",
+          "retrieved_at": "2026-10-22T00:00:00Z"
+        }
+      ],
+      "generated_at": "2026-10-22T00:00:00Z",
+      "content_hash": "b3eebcfb3a8db279a0189ffdc3e69dec243a52b9d2ec9675d45a91d93ef6325b"
+    },
+    "exercises": [
+      {
+        "key": "lesson-reflection",
+        "exercise_type": "short_answer",
+        "title": "Explain the worked example",
+        "prompt_markdown": "Explain the worked example in your own words and identify one mistake to avoid.",
+        "difficulty": "learning",
+        "hints": [],
+        "content": {
+          "rubric": [
+            "Explain the stated steps.",
+            "Identify a specific misconception."
+          ],
+          "reference_answer": "A product name such as Redis is a component choice, not a requirement."
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "nasa-requirements",
+        "url": "https://www.nasa.gov/reference/systems-engineering-handbook/",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "example_checks": [],
+  "coverage": {
+    "key": "system-design-requirements-teaching",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "system-design-requirements",
+        "status": "covered",
+        "lesson_refs": [
+          "section/intuition",
+          "section/worked-example",
+          "section/practice-revision"
+        ],
+        "assessment_refs": [
+          "exercise/lesson-reflection"
+        ]
+      }
+    ]
+  }
+}

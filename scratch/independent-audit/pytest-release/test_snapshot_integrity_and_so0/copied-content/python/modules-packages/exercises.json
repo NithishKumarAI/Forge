@@ -1,0 +1,138 @@
+[
+  {
+    "key": "mod-mcq-main-guard",
+    "exercise_type": "multiple_choice",
+    "title": "Purpose of the main guard",
+    "prompt_markdown": "What is the primary function of the `if __name__ == '__main__':` construct in a Python module?",
+    "difficulty": "easy",
+    "hints": [
+      "What changes about __name__ when a file is imported vs run directly?"
+    ],
+    "content": {
+      "choices": [
+        "It enables multi-threading in the script",
+        "It ensures code inside only executes when the file is run directly, preventing execution when imported",
+        "It compiles the module into a C extension",
+        "It restricts module access to administrator users"
+      ],
+      "correct_index": 1,
+      "explanation": "When executed directly, Python sets `__name__` to `'__main__'`. When imported, `__name__` is the module's import path. The main guard isolates executable code from library definitions."
+    }
+  },
+  {
+    "key": "mod-mcq-sys-modules",
+    "exercise_type": "multiple_choice",
+    "title": "Module caching in sys.modules",
+    "prompt_markdown": "What does Python do when an `import my_module` statement is executed for the second time in the same process?",
+    "difficulty": "easy",
+    "hints": [
+      "Does Python re-parse and re-run the file?"
+    ],
+    "content": {
+      "choices": [
+        "Re-reads the file from disk and executes all statements again",
+        "Retrieves the already-initialized module object directly from sys.modules cache without re-executing",
+        "Raises a DuplicateImportError",
+        "Overwrites all global variables in the module"
+      ],
+      "correct_index": 1,
+      "explanation": "Python caches all loaded modules in `sys.modules`. Repeated import statements simply perform a dictionary lookup in `sys.modules` without re-executing top-level module code."
+    }
+  },
+  {
+    "key": "mod-mcq-relative-import-error",
+    "exercise_type": "multiple_choice",
+    "title": "Cause of relative import failure",
+    "prompt_markdown": "Why does running `python my_package/utils.py` fail with `ImportError: attempted relative import with no known parent package` when `utils.py` contains `from .helpers import clean`?",
+    "difficulty": "medium",
+    "hints": [
+      "What is __name__ when running a file directly?"
+    ],
+    "content": {
+      "choices": [
+        "helpers.py has a syntax error",
+        "Running a file directly sets `__name__ = '__main__'`, stripping package context needed to resolve relative dots",
+        "Relative imports require Python 2",
+        "The file permissions are read-only"
+      ],
+      "correct_index": 1,
+      "explanation": "Relative imports rely on `__name__` to determine the package hierarchy. Running `python my_package/utils.py` sets `__name__` to `'__main__'` instead of `'my_package.utils'`, losing the parent package anchor."
+    }
+  },
+  {
+    "key": "mod-short-predict-import-caching",
+    "exercise_type": "short_answer",
+    "title": "Predict top-level execution side effects",
+    "prompt_markdown": "A module `database.py` contains:\n\n```python\nprint('CONNECTING')\nconnection = 'DB_ACTIVE'\n```\nPredict the printed output when another script executes:\n\n```python\nimport database\nimport database\nprint('DONE')\n```",
+    "difficulty": "medium",
+    "hints": [
+      "How many times do top-level statements run during multiple imports?"
+    ],
+    "content": {
+      "rubric": [
+        "States the correct printed output ('CONNECTING' followed by 'DONE')",
+        "Explains that 'CONNECTING' is printed exactly once on the first import",
+        "Explains that the second `import database` retrieves the module from `sys.modules` without executing top-level code again"
+      ],
+      "reference_answer": "Output:\n```\nCONNECTING\nDONE\n```\nExplanation: On the first `import database`, Python loads and executes the module, printing `'CONNECTING'` and caching the module in `sys.modules`. The second `import database` finds the module in cache and skips execution. Finally, `'DONE'` is printed.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "mod-short-fix-circular-import",
+    "exercise_type": "short_answer",
+    "title": "Diagnose and resolve circular import cycle",
+    "prompt_markdown": "In an e-commerce app, `user.py` has `from order import Order` and `order.py` has `from user import User`. Running the app raises `ImportError: cannot import name 'Order' from partially initialized module 'order'`. Explain how to refactor this architecture to eliminate the cycle.",
+    "difficulty": "medium",
+    "hints": [
+      "Extract shared dependencies into a models/types module or defer imports."
+    ],
+    "content": {
+      "rubric": [
+        "Explains why top-level mutual imports cause partially initialized module errors",
+        "Proposes extracting common data types into a shared `types.py` or `models.py`",
+        "Mentions using `if typing.TYPE_CHECKING:` if the dependency is only for type hints"
+      ],
+      "reference_answer": "Root Cause: Both modules attempt to import each other at top-level before either has finished initializing, resulting in a circular dependency.\nResolutions:\n1. Extract Shared Types: Move shared dataclasses/models or abstract protocols into a separate `domain_types.py` module that both `user.py` and `order.py` import unidirectionally.\n2. Typing Guard: If the imports are solely for type hinting, guard them with `if typing.TYPE_CHECKING:` and use string annotations or `from __future__ import annotations`.\n3. Local Import: Move the import inside the specific method that requires it.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "mod-short-implement-init-all",
+    "exercise_type": "short_answer",
+    "title": "Design __init__.py with __all__",
+    "prompt_markdown": "Write the `__init__.py` code for an `auth` package that contains modules `jwt.py` (with class `TokenService`) and `hash.py` (with function `hash_password`). The package should expose both directly and export only them when `from auth import *` is called.",
+    "difficulty": "medium",
+    "hints": [
+      "Use relative imports and define __all__ = ['TokenService', 'hash_password']."
+    ],
+    "content": {
+      "rubric": [
+        "Imports `TokenService` from `.jwt`",
+        "Imports `hash_password` from `.hash`",
+        "Defines `__all__ = ['TokenService', 'hash_password']` to govern package exports"
+      ],
+      "reference_answer": "```python\n# auth/__init__.py\nfrom .jwt import TokenService\nfrom .hash import hash_password\n\n__all__ = [\n    'TokenService',\n    'hash_password',\n]\n```\nThis exposes `auth.TokenService` and `auth.hash_password` cleanly while restricting wildcard exports.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "mod-short-explain-boundaries",
+    "exercise_type": "short_answer",
+    "title": "Explain architectural dependency boundaries in interviews",
+    "prompt_markdown": "Explain what 'dependency boundaries' mean in a multi-tier Python backend (e.g. routers, services, database models). Why must dependencies always point inward (unidirectionally)?",
+    "difficulty": "medium",
+    "hints": [
+      "Discuss testability, circular dependencies, and separation of concerns."
+    ],
+    "content": {
+      "rubric": [
+        "Defines unidirectional dependency flow (presentation -> service -> data layer)",
+        "Explains that lower layers (models, utils) must never depend on higher layers (routers, controllers)",
+        "Identifies benefits: isolates business logic from transport protocols, simplifies unit testing with mocks, and prevents circular imports"
+      ],
+      "reference_answer": "Dependency boundaries enforce that software layers depend strictly in one direction: presentation layers (FastAPI routers) depend on service layers, which depend on core models and repositories. Lower domain layers never import outer presentation layers. Maintaining unidirectional boundaries prevents circular dependencies, allows core business logic to be tested in pure isolation without mocking HTTP or database transport, and ensures framework changes don't corrupt domain logic.",
+      "minimum_pass_score": 70
+    }
+  }
+]

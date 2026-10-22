@@ -1,0 +1,138 @@
+[
+  {
+    "key": "sub-mcq-scalar-limit",
+    "exercise_type": "multiple_choice",
+    "title": "Scalar subquery result constraint",
+    "prompt_markdown": "What happens if a subquery used in a scalar comparison (such as `WHERE price > (SELECT price FROM competitors)`) returns 3 rows?",
+    "difficulty": "easy",
+    "hints": [
+      "Can a scalar operator like > compare a number to a list directly?"
+    ],
+    "content": {
+      "choices": [
+        "PostgreSQL compares against the first row and ignores the other two",
+        "PostgreSQL raises a runtime error: 'more than one row returned by a subquery used as an expression'",
+        "The database averages the three prices automatically",
+        "The query automatically converts to an IN clause"
+      ],
+      "correct_index": 1,
+      "explanation": "A scalar subquery is strictly required to return at most one row and one column. If multiple rows are returned, PostgreSQL terminates execution with an error."
+    }
+  },
+  {
+    "key": "sub-mcq-exists-short-circuit",
+    "exercise_type": "multiple_choice",
+    "title": "Why EXISTS short-circuits",
+    "prompt_markdown": "Why is `WHERE EXISTS (SELECT 1 FROM ...)` often faster than `WHERE id IN (SELECT id FROM ...)` on large tables?",
+    "difficulty": "medium",
+    "hints": [
+      "Does EXISTS scan the entire matching table or stop on the first match?"
+    ],
+    "content": {
+      "choices": [
+        "EXISTS runs in multi-threaded background workers",
+        "EXISTS short-circuits immediately upon finding the very first matching row, avoiding scanning the rest of the subquery table",
+        "IN cannot use B-tree indexes",
+        "EXISTS bypasses the database query planner"
+      ],
+      "correct_index": 1,
+      "explanation": "`EXISTS` tests solely for row presence. As soon as the database engine locates a single matching row, the predicate returns TRUE immediately without scanning further rows."
+    }
+  },
+  {
+    "key": "sub-mcq-not-in-null-trap",
+    "exercise_type": "multiple_choice",
+    "title": "The NOT IN with NULL hazard",
+    "prompt_markdown": "What is the return value of `WHERE val NOT IN (1, 2, NULL)` when `val` is 3?",
+    "difficulty": "medium",
+    "hints": [
+      "Expand the logic: val != 1 AND val != 2 AND val != NULL."
+    ],
+    "content": {
+      "choices": [
+        "TRUE",
+        "FALSE",
+        "UNKNOWN (causing the row to be filtered out)",
+        "NULL"
+      ],
+      "correct_index": 2,
+      "explanation": "The condition expands to `3 != 1 AND 3 != 2 AND 3 != NULL`. `3 != NULL` evaluates to `UNKNOWN`. In three-valued logic, `TRUE AND TRUE AND UNKNOWN` yields `UNKNOWN`. Because `WHERE` requires `TRUE`, the row is filtered out."
+    }
+  },
+  {
+    "key": "sub-short-predict-second-highest",
+    "exercise_type": "short_answer",
+    "title": "Predict second highest salary query",
+    "prompt_markdown": "Given table `salaries` with values `[100, 100, 80, 50]`, predict the output of this query and explain the execution:\n\n```sql\nSELECT MAX(salary) \nFROM salaries \nWHERE salary < (SELECT MAX(salary) FROM salaries);\n```",
+    "difficulty": "medium",
+    "hints": [
+      "What is the top salary, and what is the maximum strictly less than it?"
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that the inner query `SELECT MAX(salary)` returns 100",
+        "Identifies that `WHERE salary < 100` filters out both 100 entries, leaving 80 and 50",
+        "States that the outer `MAX(salary)` correctly returns 80"
+      ],
+      "reference_answer": "Output: `80`.\nExplanation: The inner subquery calculates the maximum salary: 100. The outer query filters for rows `WHERE salary < 100`, which leaves `[80, 50]`. `MAX(salary)` on the remaining rows returns `80`. This pattern correctly handles duplicate top salaries without relying on `LIMIT 1 OFFSET 1` which would have incorrectly returned 100.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "sub-short-fix-in-null-hazard",
+    "exercise_type": "short_answer",
+    "title": "Diagnose and fix NOT IN to NOT EXISTS",
+    "prompt_markdown": "This query returns zero rows because the `blacklisted_tokens` table contains a single row with `token = NULL`:\n\n```sql\nSELECT user_id, auth_token\nFROM sessions\nWHERE auth_token NOT IN (SELECT token FROM blacklisted_tokens);\n```\nExplain the failure and rewrite the query using `NOT EXISTS` to make it immune to null tokens.",
+    "difficulty": "medium",
+    "hints": [
+      "Use WHERE NOT EXISTS (SELECT 1 FROM blacklisted_tokens ...)."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that a NULL in the `NOT IN` subquery causes the expression to evaluate to UNKNOWN for all rows, returning zero results",
+        "Rewrites the query using `NOT EXISTS` with a correlated condition `b.token = s.auth_token`",
+        "Explains that `NOT EXISTS` checks for row presence, which is not broken by null entries"
+      ],
+      "reference_answer": "Defect: Because `blacklisted_tokens` contains a NULL value, `auth_token NOT IN (...)` evaluates to UNKNOWN for every session row, filtering out all valid users.\nRefactored with NOT EXISTS:\n```sql\nSELECT s.user_id, s.auth_token\nFROM sessions s\nWHERE NOT EXISTS (\n    SELECT 1 \n    FROM blacklisted_tokens b \n    WHERE b.token = s.auth_token\n);\n```\n`NOT EXISTS` evaluates whether any matching row exists; if no row matches the condition, it returns TRUE cleanly regardless of whether other rows contain NULL.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "sub-short-implement-above-avg",
+    "exercise_type": "short_answer",
+    "title": "Implement and write correlated subquery for above-average department earners",
+    "prompt_markdown": "Write a query finding employees who earn more than the average salary of their OWN department. Table: `employees (id, name, department, salary)`.",
+    "difficulty": "medium",
+    "hints": [
+      "Correlate the subquery on department: WHERE inner.department = outer.department."
+    ],
+    "content": {
+      "rubric": [
+        "Selects from `employees e1`",
+        "Filters with `WHERE e1.salary > (SELECT AVG(e2.salary) FROM employees e2 WHERE e2.department = e1.department)`",
+        "Correlates inner and outer queries using `e2.department = e1.department`"
+      ],
+      "reference_answer": "```sql\nSELECT e1.name, e1.department, e1.salary\nFROM employees e1\nWHERE e1.salary > (\n    SELECT AVG(e2.salary)\n    FROM employees e2\n    WHERE e2.department = e1.department\n);\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "sub-short-explain-semi-join",
+    "exercise_type": "short_answer",
+    "title": "Explain semi-join concept and row multiplication in interviews",
+    "prompt_markdown": "Explain what a 'semi-join' is in relational database theory. How does `WHERE EXISTS` achieve a semi-join, and why does it prevent row duplication compared to an `INNER JOIN`?",
+    "difficulty": "medium",
+    "hints": [
+      "A semi-join returns rows from table A that have at least one match in table B, without duplicating A's rows."
+    ],
+    "content": {
+      "rubric": [
+        "Defines a semi-join: returns rows from the first table that match at least one row in the second table, without copying columns or duplicating rows",
+        "Contrasts with INNER JOIN: if a customer has 5 orders, an INNER JOIN duplicates the customer 5 times",
+        "Explains that `WHERE EXISTS` stops searching after the first match, guaranteeing that each customer row appears at most once"
+      ],
+      "reference_answer": "A semi-join returns records from the left table that have at least one matching record in the right table, without including right-table columns or duplicating left-table rows.\n1. The Problem with INNER JOIN: If Customer A has 5 orders, `customers JOIN orders` outputs 5 rows for Customer A. If you only wanted to find customers who placed orders, you are forced to run an expensive `DISTINCT` deduplication.\n2. The Solution with EXISTS: `WHERE EXISTS (SELECT 1 FROM orders ...)` instructs the engine to check solely for presence. Once the first order is found, the engine evaluates TRUE and moves to the next customer. Customer A is outputted exactly once without row duplication or distinct overhead.",
+      "minimum_pass_score": 70
+    }
+  }
+]

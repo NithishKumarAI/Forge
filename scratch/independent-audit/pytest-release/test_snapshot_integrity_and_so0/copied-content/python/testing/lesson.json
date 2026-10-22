@@ -1,0 +1,180 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "testing",
+  "title": "Unit Testing, Pytest, and Mocking Boundaries",
+  "description": "Master unit tests, integration tests, pytest assertions, fixtures, parametrization, mocking boundaries, and deterministic test execution.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Structure clean unit tests and integration tests following the Arrange-Act-Assert pattern",
+    "Write expressive pytest test suites using plain assertions and test discovery rules",
+    "Manage setup, teardown, and dependency injection using pytest fixtures",
+    "Isolate external side effects using mocking boundaries and parametrization for determinism"
+  ],
+  "prerequisites": [
+    "functions",
+    "exceptions"
+  ],
+  "sections": [
+    {
+      "slug": "unit-vs-integration-tests",
+      "title": "Unit tests vs integration tests and the AAA pattern",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Distinguish test scopes and structure test cases with Arrange-Act-Assert.",
+      "markdown": "A `unit tests` suite verifies individual functions or classes in isolation from external systems. They run in milliseconds, execute deterministically, and pinpoint failure causes instantly. An `integration tests` suite verifies how multiple components cooperate: verifying that a service writes to a real test database, sends an API request, or reads from disk. All robust tests adhere to the AAA pattern:\n1. **Arrange**: Set up inputs, fixtures, and preconditions.\n2. **Act**: Execute the function or method under test.\n3. **Assert**: Verify expected outputs, state changes, or raised exceptions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def parse_domain(email: str) -> str:\n    if '@' not in email:\n        raise ValueError('Invalid email')\n    return email.split('@')[1]\n\ndef test_parse_domain_valid():\n    # Arrange\n    email = 'dev@forge.test'\n    # Act\n    result = parse_domain(email)\n    # Assert\n    assert result == 'forge.test'\n\ntest_parse_domain_valid()\nprint('Unit test passed.')",
+          "explanation": "Clean AAA structure isolates test setup, execution, and validation.",
+          "expected_output": "Unit test passed."
+        }
+      ],
+      "key_points": [
+        "Unit tests test isolated logic quickly; integration tests test component interaction.",
+        "Structure tests with Arrange, Act, and Assert for readability."
+      ],
+      "checkpoint": "Why should unit tests never connect to live production databases or third-party APIs?"
+    },
+    {
+      "slug": "pytest-assertions",
+      "title": "Pytest fundamentals and plain assertions",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Write pytest tests using standard assertions and exception matching.",
+      "markdown": "Unlike legacy `unittest` which requires verbose methods like `self.assertEqual()`, `pytest` uses plain Python `assert` statements. Pytest rewrites assert expressions during test collection, providing detailed failure introspection that displays exact intermediate values, diffs, and container mismatches. To assert that an exception is raised, use `with pytest.raises(ExpectedException):`.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import pytest\n\ndef divide(a: int, b: int) -> float:\n    if b == 0:\n        raise ZeroDivisionError('Division by zero')\n    return a / b\n\ndef test_divide_zero():\n    with pytest.raises(ZeroDivisionError, match='Division by zero'):\n        divide(10, 0)\n\ntest_divide_zero()\nprint('pytest.raises assertion passed.')",
+          "explanation": "pytest.raises validates that the expected exception type and message pattern occur.",
+          "expected_output": "pytest.raises assertion passed."
+        }
+      ],
+      "key_points": [
+        "Pytest uses standard Python assert with rich failure inspection.",
+        "Use with pytest.raises(Error, match='pattern') to test expected failures."
+      ],
+      "checkpoint": "How does pytest discover test files, test classes, and test functions automatically?"
+    },
+    {
+      "slug": "fixtures-and-dependency-injection",
+      "title": "Pytest fixtures for setup, teardown, and dependency injection",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Inject dependencies and manage resource lifecycles using fixtures.",
+      "markdown": "Pytest `fixtures` (`@pytest.fixture`) provide a clean dependency-injection mechanism for test suites. A fixture encapsulates setup logic and yields a resource to test functions that request it by parameter name. Code before `yield` runs during setup; code after `yield` runs during teardown, even if the test fails. Fixture scopes (`function`, `class`, `module`, `session`) control how often the resource is recreated, optimizing database or connection pool reuse.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import pytest\n\n# Simulated fixture behavior\ndef sample_user_fixture():\n    # Setup\n    user = {'id': 1, 'name': 'Dev', 'active': True}\n    yield user\n    # Teardown\n    user.clear()\n\ngen = sample_user_fixture()\nuser_data = next(gen)\nassert user_data['active'] is True\nprint('Fixture injected user:', user_data['name'])",
+          "explanation": "Demonstrates setup before yield and teardown cleanup after yield.",
+          "expected_output": "Fixture injected user: Dev"
+        }
+      ],
+      "key_points": [
+        "Fixtures provide reusable setup and teardown via yield.",
+        "Scope controls lifetime: function, module, or session."
+      ],
+      "checkpoint": "Contrast fixture dependency injection with setUp() and tearDown() in unittest."
+    },
+    {
+      "slug": "parametrization",
+      "title": "Parametrization for boundary test matrices",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Test multiple inputs and edge cases without duplicating test functions.",
+      "markdown": "Testing multiple boundary inputs often leads to repetitive test code. Pytest's `@pytest.mark.parametrize` decorator executes the same test function against a table of inputs and expected results. Each row in the parameter table runs as an independent test case: if one boundary case fails, pytest reports the exact failing parameters while allowing other cases to succeed.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def is_valid_username(name: str) -> bool:\n    return len(name) >= 3 and name.isalnum()\n\ntest_cases = [\n    ('ada', True),\n    ('al', False),     # Too short\n    ('user_1', False), # Underscore not alphanumeric\n    ('admin99', True)\n]\n\nfor username, expected in test_cases:\n    assert is_valid_username(username) == expected\nprint('All 4 parameterized test cases passed.')",
+          "explanation": "Evaluates a matrix of valid and boundary inputs against expected outputs.",
+          "expected_output": "All 4 parameterized test cases passed."
+        }
+      ],
+      "key_points": [
+        "@pytest.mark.parametrize executes a single test against multiple input/output pairs.",
+        "Each parameterized combination reports as a distinct test result in pytest."
+      ],
+      "checkpoint": "Why is parametrization superior to writing a for loop with assertions inside a single test?"
+    },
+    {
+      "slug": "mocking-boundaries-and-determinism",
+      "title": "Mocking boundaries and determinism",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Isolate external systems and guarantee deterministic execution.",
+      "markdown": "A test suite must have `determinism`: running 1,000 times must produce the exact same result every time. Flaky tests occur when tests depend on the system clock (`datetime.now()`), network APIs, or filesystem race conditions. Use `mocking boundaries` with `unittest.mock` (or `monkeypatch`) to simulate external systems. Mock where the boundary touches your code: mock third-party payment gateways, email clients, or random generators, ensuring your test validates only your business logic.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from unittest.mock import MagicMock\n\nclass EmailService:\n    def send(self, to: str, msg: str) -> bool:\n        raise ConnectionError('No network')\n\n# Mocking boundary\nmock_email = MagicMock()\nmock_email.send.return_value = True\n\n# Code under test uses the mock\nresult = mock_email.send('user@corp.test', 'Welcome')\nassert result is True\nmock_email.send.assert_called_once_with('user@corp.test', 'Welcome')\nprint('Mocking boundary asserted call accurately.')",
+          "explanation": "MagicMock replaces the real network service and verifies invocation arguments.",
+          "expected_output": "Mocking boundary asserted call accurately."
+        }
+      ],
+      "key_points": [
+        "Determinism requires eliminating time, network, and random dependencies from unit tests.",
+        "Mock at architectural boundaries rather than mocking internal helper methods."
+      ],
+      "checkpoint": "What is the danger of over-mocking internal methods rather than testing public interfaces?"
+    },
+    {
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 5,
+      "estimated_minutes": 8,
+      "learning_objective": "Review testing interview questions and practice deterministic tests in Coding Arena.",
+      "markdown": "Senior engineering interviews assess your testing strategy: test pyramiding, mocking discipline, and determinism.\n\n### Oral Interview Questions\n1. *What causes flaky tests and how do you eliminate them?*\n   *(Flakiness is caused by non-deterministic dependencies: time, network calls, concurrency races, or unseeded random numbers. Eliminate them by mocking at boundaries and injecting time/random providers).* \n2. *What is the difference between a mock, a stub, and a fake?*\n   *(A stub returns hardcoded data; a mock asserts expected calls and interactions; a fake is a working lightweight implementation like an in-memory SQLite database).* \n3. *Why should tests test behavior rather than implementation details?*\n\n### Code Trace Challenge\nTrace this assertion:\n```python\ndef sanitize(s): return s.strip().lower()\nassert sanitize('  AdA  ') == 'ada'\n```\nThe string is stripped of whitespace and converted to lowercase, matching `'ada'`.\n\n### Common Interview Trap\nMocking the code under test itself. If you mock the method you are testing, you test the mock rather than your code. Only mock external boundaries and dependencies.\n\n### Arena Practice Problems\nPractice testable, deterministic coding in Coding Arena:\n- `python-anagram-check`: Testing string invariants with boundary inputs\n- `python-leap-year`: Parametrized boundary conditions\n- `python-fizzbuzz`: Comprehensive conditional verification",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def check_is_even(n: int) -> bool:\n    return n % 2 == 0\n\nassert check_is_even(4) is True\nassert check_is_even(5) is False\nprint('Deterministic unit assertions passed.')",
+          "explanation": "Pure functions without side effects are trivial to test deterministically.",
+          "expected_output": "Deterministic unit assertions passed."
+        }
+      ],
+      "key_points": [
+        "Test public behavior and observable contracts, not private implementation details.",
+        "Keep unit test suites fast (< 10 seconds for thousands of tests)."
+      ],
+      "checkpoint": "Explain the testing pyramid: unit tests vs integration tests vs end-to-end tests."
+    }
+  ],
+  "summary": [
+    "Unit tests isolate discrete logic; integration tests verify component collaboration using AAA.",
+    "Pytest provides expressive plain assertions and rich failure introspection.",
+    "Fixtures manage dependency injection, setup, and teardown across configurable scopes.",
+    "Parametrization tests matrices of inputs and boundary conditions without code duplication.",
+    "Mocking boundaries and determinism guarantee reliable, reproducible test runs."
+  ],
+  "interview_takeaways": [
+    "Test behavior rather than implementation details to prevent fragile tests during refactoring.",
+    "Eliminate test flakiness by injecting time and mocking external network boundaries.",
+    "Always use parametrization when testing multiple boundary cases."
+  ],
+  "common_mistakes": [
+    "Connecting to live network services or production databases in unit tests",
+    "Over-mocking internal private methods, creating fragile tests that break on refactoring",
+    "Using for-loops with assertions inside a single test instead of pytest parametrization",
+    "Writing flaky tests that depend on time.time() or unseeded random generators"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Standard Library \u2014 unittest.mock \u2014 mock object library",
+      "url": "https://docs.python.org/3/library/unittest.mock.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Python Standard Library \u2014 unittest \u2014 Unit testing framework",
+      "url": "https://docs.python.org/3/library/unittest.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "ced65d5c03be41f2499908542d9a5a05e4fb17a83086c19742e1a1298ce6ffa5",
+  "generated_at": "2026-09-24T08:26:46.497706+00:00"
+}

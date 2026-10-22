@@ -1,0 +1,3248 @@
+{
+  "github_verified_commit": "6ca192105bc58d20fe729d070dd7fe1942ff4fd1",
+  "github_url": "https://github.com/NithishKumarAI/Forge/commit/6ca192105bc58d20fe729d070dd7fe1942ff4fd1",
+  "branch": "main",
+  "worktrees": "worktree C:/My PC/git/Forge\nHEAD 6ca192105bc58d20fe729d070dd7fe1942ff4fd1\nbranch refs/heads/main",
+  "phase5_committed_files": [
+    "apps/web/scripts/validate-sql-problems.test.mjs",
+    "apps/web/src/App.tsx",
+    "apps/web/src/components/AssessmentCard.test.tsx",
+    "apps/web/src/components/AssessmentCard.tsx",
+    "apps/web/src/components/CodeEditor.tsx",
+    "apps/web/src/components/Layout.tsx",
+    "apps/web/src/components/Markdown.tsx",
+    "apps/web/src/components/Phase5Flows.test.tsx",
+    "apps/web/src/components/StudyPlanPanel.tsx",
+    "apps/web/src/features/arena/pglite.integration.test.ts",
+    "apps/web/src/index.css",
+    "apps/web/src/pages/DashboardPage.tsx",
+    "apps/web/src/pages/SettingsPage.tsx",
+    "apps/web/src/pages/TimedTestPage.tsx",
+    "apps/web/src/pages/TopicPage.tsx",
+    "apps/web/src/services/api.ts",
+    "apps/web/src/services/timedTests.test.ts",
+    "apps/web/src/services/timedTests.ts",
+    "apps/web/src/types/adaptive.ts",
+    "apps/web/src/types/api.ts",
+    "apps/web/src/types/assessment.ts",
+    "apps/web/src/types/editions.ts",
+    "apps/web/src/types/timedTests.ts",
+    "apps/web/vite.config.ts"
+  ],
+  "files": [
+    {
+      "path": "ARCHITECTURE.md",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "dd4356dcdc2de7d14d336c58d42724137cf84e6fb7f42516362a03e3a9a9baf1",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "9fc0e0744b6151d3e9e97500fbf855f188993a98a9569aa53953d0aa01293961",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "apps/api/app/main.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "a0aa8c27157e5cc37095ee4428c22f5469ff71b2aaadd2c0297b6cbe467905e4",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/migrations/runner.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "d13f3294a48d19c8961725c0a79e294d50e582c8a10152921bc189868a65486f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/models/__init__.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "8ad2a0c1ebfb746ed3625e66f4bc91be3697a5d01f4f3905c55a91f0828c17e4",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/models/entities.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "d712569966ae83e11a8cd44b6ec80faa9befedfd094cacd783549ea41723509f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/routers/adaptive.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "d1b4f2cde9d34b7a9f85e567aae3167e585d68c8979546c46dc9f0c30a4f5961",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/schemas/adaptive.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "dabf6d187393416dcc33673f62a6a4d148e181ac6fbebdf2b9be163d572c1e3f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/schemas/api.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "15de61f3d3368adb05bed2f0b7c130fe58f32e7a61641ea11851a0bf9d369fe8",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/schemas/assessment.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "78880b04f34ab434d9b1844509bbefb56ed3e910cbee0265fafac6fe968b1b75",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/assessment.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "1c7c78cc07e0f6b24ba3057404d5fe5886a8634d6b24ceadd3c7ee30e675042a",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/dashboard.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "0151caca35159c87d942e3ae55da009e6c03183b202a95914ace0f634aff2d9b",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/interview.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "567bb53be56a0c3caf3f2db4fc4520197d00e479580bc35093fa438239e5aba7",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/planner.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "b5a50e1bb44e3cc516be67736bf22cf5e95187cdb4f4bfc7c733c6181c92eee7",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/requirements.txt",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "45b7718968dd9eaf9e810f21be3dea9b841ad4cb3ec056a8517534aa32773896",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/scripts/content_checks/bundle.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "63c094ba10befa353a48d28a2112285c54119967f375f746a423c0358300105d",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "apps/api/tests/test_adaptive.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "1b26ead5b66feb5c525196ee72fa4cddb28ffb44e82ad748a8a3c56138b6ac26",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_arena_curriculum_v2.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "d96af4a0c3b9c1c63e39d173dd418d8a50751cdd6171bc17518a2e053187fa5c",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_assessment_migrations.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "fd874411f8604a8bd0cca43715624b0e8d44de7ba8774a713e57fa9701fe605f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_content_publication.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "e245aad795ed030c98f232bc3040df7772407e2a0146d544ad27469378822d39",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_database_migrations.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "edae9863511e5f873cec894e16cfaf217decf589abb3c655568869a344d5a4d1",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_editions.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "31fa92f3a4ea24f98c4a136b71cb5e3eb61d28739bd05dcb7e9b5c006d240982",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/close-forge.ps1",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "cff310d462216447b8691fc77a97d3c5aba8605ad4f45288cb92244adad9184f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/open-forge.ps1",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "7600bb1dc1b31a8b6332f076a71892591abf83178cd2b0591b45dc0673f6db46",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/verify_launcher.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "6496acfdc87bb2923b23359ae03cf54085ae7260afc775a03a1745590737e87d",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "apps/api/app/browser_security.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ba99b694436a98e52b34adb64af7f9426c9e3cca3a01b596dcd0af869c3ec812",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/migrations/study_release_schema.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "3ba359e0e6fc0790f0dd100032f8dc9144a38da0b58ad0d30e6fdbd4054696f5",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/migrations/v006_study_release.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7b2731e6d627d3ce4a60146147f1ad662af39b8e3fc0b08636d2c3f3d7b5beb2",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/routers/timed_tests.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "350fbdeafa358c16f49821641503f8b961d970fb3e93cd4324c5c5d330dc3f74",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/schemas/timed_tests.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c74d5d613e69f1a9dbd995410ad1e4d3e63e2e05095795a617c0c4d3e0000c0e",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/timed_tests.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "3ece5fa4cc7539039b5967f4940045dcafd6a313ac323d8ea3bc50df32e5a918",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/scripts/content_checks/subject_accuracy.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ae0d50ae1edbcee0b8edaa2802f7c8b04c3336eb9f6b635d00701e55566632a1",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "apps/api/scripts/placement_batch.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e16984a4ab8401c5e2c370725079199c62d6e77dfa331c95f9bd49c345290047",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "apps/api/scripts/placement_inventory.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "14a5ab9b76bd9a6f6481e359339790f612fe522b41d7bca3ade35d52fb9cdee8",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "apps/api/scripts/placement_review.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "5c62db87c19d9930f550daf8526d3a0adbfcefd0af55b171a0debcf53981a130",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "apps/api/tests/phase5_fixtures.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "34e5c3388a43739ef577481a0c7dd5286469f6d3517df5b87327fdebd31f0471",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_independent_contracts.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7df22ea26ff731c46df560a2d51f2779e99da16e77f7e29dd64b6e7343ebc161",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_independent_security.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "45f41cf63b8bdd0edf753f9f60a71c226d957a3e3ca1f3f01f300cd6c70a2866",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_placement_content.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "077aa5156f24ffac5e7bf3cf6ed10955274d3f683c7ca4e5d52a15a4a70f07b4",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "apps/api/tests/test_planner_budgets.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2bd3a15287882502483886b581eb8d464700838da778fee16fa8e11cccf38635",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_study_release_migration.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b1edac81255a27c1e0715e02ef5d887fede20666653bbc5c212d0a2cddd97fc0",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_timed_tests.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "fcf458788c63a8cc124289edcaf3243fb61d98c189a14e8b901d6aff28332769",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/ai-fundamentals-ai-ml-dl.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "56ed67093c641d9f1a33fcfca5e4d621858a86975e09c3283bb3fd4b7c172bbf",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/ai-fundamentals-ai-ml-dl.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "22a8a54a716f4e30cde58fe10e0531a7708216a5deab37ab716ef0d7d9b5ca70",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/dsa-problem-contracts.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c4c98f7ce7bc49d1e699ed0c4194cc5037600b4c99852268b808b0ccf6961b4b",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/dsa-problem-contracts.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e9bfe06d42a0da2d69d0e9d5915bd0f478a98cac445354c894aa9cc29a3e06bb",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/interview-communication-introductions.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b2e2b8c86ae6c04e9c4fe5c7c0785ee098261db0110ee77fc503ff62514ca1e9",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/interview-communication-introductions.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1a68f8155b1b3204fb12dedbaa523cde05f506d6354cf42a9a905c45971d286c",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/logical-reasoning-patterns-classification.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7a1f090e9a6c995a6eaf9f336ee5f8b23e78df3f8c97c8666868eb9b3ed81437",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/logical-reasoning-patterns-classification.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "429c7ac2c5bae2ec777afa0281ecfa3627494732a7e2d87afdc51e05c9ecd733",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/python-values-expressions.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a3321857adebcaec648035aad8107eeb4159155ea5cdf62c3a526a0cada35a7e",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/python-values-expressions.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "9ce2d3389cda9b69b0ec046915fab2584e6bbe287bd0d3d8a82af29347564a0b",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/quantitative-aptitude-number-operations.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8c4fc1c8f692bd16f031bef983a09b6dbd971dbebc1a58512208542afda7bc27",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/quantitative-aptitude-number-operations.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b9bdc069fa0e5a3928d6c94eb74cd6e9f2167912e2028bdbac7abd7803a6d821",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/sql-postgresql-tables-keys.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d98bd76c22237807baebf7a1ae5aced85250ac87d0bae072ced8d7665e748530",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/sql-postgresql-tables-keys.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2cc90d5718fba2202c8fa5e228b8eca86721d2d2f284f336715c7ea601d398f7",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/system-design-requirements.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b45b6464f4580e3428771b927c8b7517c8e51f18a8bfe5703b75070ee94c0923",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/system-design-requirements.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "00569ef4c72bd8a343a0a7519ffaeebabb9aa15aa42949fb6bace686dd3244bd",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/verbal-english-sentence-structure.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "62d8a76b5f73c95e91724e2dbfd10ac46e3d0a7a4a8abe034de49f8ea655e6e3",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/verbal-english-sentence-structure.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c75a66f21ba217ae096e9b9bf97635107968f42c825dcbacc483d3d9218bb8b5",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review-checklist.template.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ec01839ef5a89fc84cd5149032752ca5f17f77d8551c10d57710d70f80547500",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/ai-fundamentals-ai-ml-dl.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d27d283573ac5bea3460ce76221ceabdf8f081d7833c0a42ce10fd1fc7bd6532",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/dsa-problem-contracts.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "935dbc0c6d593a6be89f448c9711c5d2c055c102f23de512e78541c8bb74d4c5",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/interview-communication-introductions.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a32c2965ced5e6deddd0d69567fdda335aba3c07fb32cd8ae56c0a4cf6b060c8",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/logical-reasoning-patterns-classification.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ae35fd7eb4c06f7ae9fdefb9001e8b27cc423a241ea65a456b232ae57bf88649",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/python-values-expressions.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "59bf8eeb90dad6387dbcab083dae430d76412760c27a52d7b0fc1d20c6efba9e",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/quantitative-aptitude-number-operations.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "73a0894ef3a8f846d7863d51089199728a3135dce1b1a0038955f3c62b012cff",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/sql-postgresql-tables-keys.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ac03ded58d34b1f1b172471a6fa36b6c473740d95ae79aafff2456054e9a4129",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/system-design-requirements.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "eb8a7b35246bc8e804b79eb06384033cdd8e21d06fb2e392bced52808c043fa0",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/verbal-english-sentence-structure.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "74dc0498c4bafcf97299df0f917529b0477cca226c09bf82909c1e395903b69b",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/sources.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ebce31d02660d49b369f200faf033b36ef30443c056aec79547144e6d35a5bfe",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/ai-fundamentals-ai-ml-dl.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "330ce6226f7b28bc56e90697d3bc291cf4754ca945ca65d8539934e4240c563d",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/ai-fundamentals-ai-ml-dl.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "df7f39f0cd5d32f7d1556eea1a3d851cd90f3992dd00042e28ed5705c028444f",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/dsa-problem-contracts.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "44132dbc4f3af0318c2b7ca5176da1a244a9c702dc3e1a37132fbe8fc09a7cea",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/dsa-problem-contracts.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a0bb532bb2aa6dbce35b8daaf73136edb6063c956d5eb624ae6af5475259d5f6",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/interview-communication-introductions.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "087ca98884a5e949bca5392c4b260343d0ab70ebb903d5c4b6c2e2ad0f792a0d",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/interview-communication-introductions.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f2f5b189ef8cc7ce8f141c23b460c1adcf1430d4257970973c87d8c764434622",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/logical-reasoning-patterns-classification.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a22a10c01da6caef8c72f5e20c989cab14d6622eeb2ebd3e46bccc6871b6a6d4",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/logical-reasoning-patterns-classification.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "758950d8088ded210fc8fb52caaa7595227365efd55da4db6840c73f8bcf122a",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/python-values-expressions.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4c16c75279a95a4986afce8abcc225bd334d2c62ffc4e8909cb28a20bb5d4dff",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/python-values-expressions.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6e38131a188942d2aa96a17719e99e57cc6e77a4185f6f94f96b5b64435c7e17",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/quantitative-aptitude-number-operations.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6444ecfbe907e0e4127c2ad9671c03901e91f84344224bb2b6fe49c1aa31b2e0",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/quantitative-aptitude-number-operations.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "41901aaace73d7118ecbbeb1e344c1748978d904302d040c49b29bef9c065c84",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/sql-postgresql-tables-keys.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a7642a7dd590bb38fd2d5fb680ea2fa6268db6c5fc58ea715edc30ea519d840f",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/sql-postgresql-tables-keys.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d75b9006e971ca61057baf3048675d3a3d010540de1f3ce6cbd5d4724c648ab9",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/system-design-requirements.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "92998f9ace42a85a3f0271e0433d16f7c0712774e8ab5b6ae12d277606b00c29",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/system-design-requirements.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "bb4a948d6417dcb693ccd740f3ed66f12468ba89f68eff08908e01b0bc2ed772",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/verbal-english-sentence-structure.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a1b61b3fc88c6d8b8e0bceb82688162bac2ca3624b220ba976f55965a3809c3f",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/verbal-english-sentence-structure.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1cff6488f70f77eee11c6ea34519968eb1d046da2c013358b83a2699cd3dae17",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/placement-foundations-coverage.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0677957debf6f1c6183af02ab61b347e507638194b6444dddf06a1120bda4349",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "data/timed-test-blueprints/v1.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "05b45a070499533ccd1b506a9126891dd9ad1ae205e43956d01d5cb185fa5c73",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "docs/forge-v1/FINAL_CONTENT_COVERAGE.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2b6b05c875a141f209c52fbbc34b7c0729378b479dcd41ad0340ff2799439b07",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/FINAL_RELEASE_CHECKLIST.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "025eeb433c22e51f32490a8a36b1e095546920047f877f749ea4f3889535ebe6",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/KNOWN_LIMITATIONS.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "795c78e304268372dd12f4693534848c6098f3c86226330e1fa7cf9ca84ab650",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/PHASE5_CHECKPOINTS.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f88b3ebf1a7931cb4de58dccdf062d9f78305807b7a16e5c5b8411b3572ed549",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/PHASE5_IMPLEMENTATION_REPORT.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "deba485e1c1eb6bd607a8b981e7270b583b3e52f78524fa56d94d6f339dc1b82",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-baseline.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-baseline.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8bb82bb993f5ba01cf541c8f3f17cd3f4bda231108125d883c25a26288c22d6e",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-final.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/before.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f68360e28eaa8e8feea807d5e27f80061e9685c0cb50ea41fe057ee3f7e2335d",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/browser-report.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "92bec8a7e4b09e5c8490ff632fe31d1e32be58810b43bcd38d2d8fc65d1f13bc",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/browser.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2db2c23553d4aa25f2d4b5b0129837d28ca7a7dd57f160e5dd178664dd275f7d",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/build.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/build.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c3869d6b0e6d2a9fc1309c6929c72d14dc227b18dc95e849ca4f75601807623c",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/content-census.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e9178483eee811d445639eb15e3d2e3d58f91ba8b29e1016aad67049c4fea6c2",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/contracts-red.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/contracts-red.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b9b450a92df0a007182fa9aa7605d8a1b5cea5dc4293984c33b6da98e49fdf24",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/frontend.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/frontend.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "598088db1cc7ba5f47f5257971ee251aaf29d6d09ec5f709068768182991cef3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/last-browser-state.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "251b55c96d2eb5093267aa223c88dd7645eef28c92c1463d463bd00573a2b82b",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/launcher.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/launcher.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/launcher.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/lessons-dsa.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f0c789e0d19f3a97f94ab242e475a5c9c2e24b9e3d6198cf892fa4b859bca408",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/lessons-python.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "595ffcb903be114f2b5ced0d5e8382a40a1f40cffa40fcdbb287106e4672c0dd",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/lessons-sql.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7baa8bb6dbccd48e2acee27409558cb54f9b14035cd04a6287b04c0a0b04e930",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/node-dependencies.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/node-dependencies.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "92ccbabb4316a6e81f66e7b6963ca319af97cf32ccc7e8ef2c78deffd99391b1",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/problem-bank.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ec95d84b2060d6d2c17d9993994ee91a4bd55e61c108a780fb0c2d60f9f0cf47",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/python-dependencies.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/python-dependencies.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/security-green.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/security-green.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b9d22d8c5093639cf3f1f8e9d3b9e9f7cc2885e78a89da1870e16d171b160d6a",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/security-red.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/security-red.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8267854ac6fe7bbdf19ae0315bed1f49d30f5c006cf6056176e1aae4f3df8167",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/source-register.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "9e9ca5d8908eefbe42a0be49fd692151a7dccee9c19393fe674b5683821c1e53",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/sql-bank.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "22be24ddc2ef00f9737bde40b6d256789daebcb7e422c0736fc5d7c1e827b915",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/synthetic-mobile-dashboard.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0dfef8ff91071ac3a1babf0eb727793d92bf36d441e94375c53532d5a5f447c4",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/synthetic-mobile-tests.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "251b55c96d2eb5093267aa223c88dd7645eef28c92c1463d463bd00573a2b82b",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/typecheck.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/typecheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "bbeeed3135358dde635d4f70d8e5532bb10983b5b764f6f74cb55082c8e70921",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/README.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f3a01b32257d8d730a9a438c70592ed0b17aedee3ce65fae29daf27bc614fa0d",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/baseline-backend.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b8f7450efd12392caeb68087c53311efbe8840607f86649ea8cead41be1ca530",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/baseline-browser.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "250b93daf7e909f3c792c77640d34fcfe6eacee4ac598f7d44a85cd9012bc324",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/baseline-web-retry.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "80664532049ea126b66bf74e0e47ace7ca95d6c21cd23e6a08860b1c402fd96e",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/baseline-web.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1081dbd3c4f12f4c30b1b0fb101e6857c76a23377b0fe19977d155d2b3753ff0",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/before.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "23fbcb62d90fd58772c1dae675ea81652bd5bc8fe9b50d180e39cd0608d93c10",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/browser-report.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b65f14ef24bc049afc06c69649d8c959a41a58591161ba0e1e603d24f8adb2e3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/content-final.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "701d3df3ce061ba75a554b15dfc656354b1d0def133c98b6c785bf87dabf1b78",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-backend-recheck.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-backend-recheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "85a1f164b475c1b86fe2620531bbff6f853bd1ecab7ee453c7a31ffdbaf1dde2",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-backend.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "41700ea36c8a7f24e4b841d9887715c9fc8f673aff08690e4463e31c579e9b10",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-build.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "859bc3a84deede9719d02b1bd9da74313ba44bc98d7e578b137bbaa91c296177",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-candidates.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "758d261e49897e490c2a011c7ab344aa8b27560a570209a7644943c3aaf62e15",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-frontend.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "135a8f7e78c44071a4982097e0841a2cdcce32747440c89f1759276d45a17756",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-inventory.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "acda52e920e8b583cf65f8e8e64ba361935a0ddfacb2730546797fe708c2c6bd",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-launcher.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-lessons-dsa.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f0c789e0d19f3a97f94ab242e475a5c9c2e24b9e3d6198cf892fa4b859bca408",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-lessons-python.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "595ffcb903be114f2b5ced0d5e8382a40a1f40cffa40fcdbb287106e4672c0dd",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-lessons-sql.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7baa8bb6dbccd48e2acee27409558cb54f9b14035cd04a6287b04c0a0b04e930",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-problems.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ec95d84b2060d6d2c17d9993994ee91a4bd55e61c108a780fb0c2d60f9f0cf47",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-review.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ac005353f74f90b63ead82b95f29ca39a17eaf9c50724bfcf8710f798af673ff",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-sql-bank.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "22be24ddc2ef00f9737bde40b6d256789daebcb7e422c0736fc5d7c1e827b915",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-typecheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "bbeeed3135358dde635d4f70d8e5532bb10983b5b764f6f74cb55082c8e70921",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/last-browser-state.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c81e0a41cdd7a0b13d1ff1af09a50d5a2029e3efca79aa0819947c1f63413cdc",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/launcher-harness-final.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/launcher-report.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/legacy-provenance.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c0dd137a171711fcfeb65ace63342086246987f9235a44958150eb43816ae66b",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/network-guard.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "388cf23973493e6c239b7d6994db4dc31edfef3883b7727022df882c85219080",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/offline-browser.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1450bf5dd6e1ab4998080eeebe3852b58452805b179e55a28f1f0adab9583119",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/planner-recheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1fa8aba53431087293cc2fed8338645ef299be1cd46dbab36ccfdce92a47aae9",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/preservation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e182f6b7749acd46607995016a783214337d90cf762ee624ac005bb055c50a56",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/summary.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f0d9c79e6af108992fbe7abae424a9dd5e8ace82a16cee05d38ff71aff091710",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/synthetic-mobile-dashboard.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0dfef8ff91071ac3a1babf0eb727793d92bf36d441e94375c53532d5a5f447c4",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/synthetic-mobile-tests.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c81e0a41cdd7a0b13d1ff1af09a50d5a2029e3efca79aa0819947c1f63413cdc",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/timed-recheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4a735638fc8fc71659c097c939ce0b7a8a8a0fcc0a302bdc9538190aad2e2101",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "scripts/audit-browser.cjs",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4c4030f408c79af73a8ec89a3037a125e9d79a3c1b89fd58377949df4ed551ad",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/audit_content.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a5925b833de0c4c9e374b56183a51714a4f68c9f8dd1bbec8995e1e35276ff25",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "scripts/forge_server.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f6c06ff6c559cf72b0ba5e05195a06234ec14c55be0f2633388ca50a02c56d90",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/launcher-common.ps1",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "44d47c6c571dcca068ad54edcecfcaf5d8503c3a6add58cb568cae3f3afc823b",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/offline_verify_guard.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "748deeb323c731c04510454a762897b4496c65a3f6e99d1abaa109b32771878a",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/prepare_browser_fixture.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1c76a8d259c10bf190738c9072a4696778b5eb30d86662aaa2ac4b2a8a3466cf",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/verify-browser.cjs",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "44e3804cde0713f6a0a52cecbd0328aac63d00e9712fda70ef7353e43b9d7c04",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/verify_independent.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b8f2464bce4e11c9b518be145fc0e50dae50562797c11f9ad251197df15869f2",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/verify_offline.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b626a903175c0728a073c80af10498ada1587403c9bc90472f8067bd0a738608",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    }
+  ],
+  "excluded_always": [
+    ".env",
+    ".runtime",
+    "apps/api/data",
+    "learner databases/snapshots/backups",
+    "node_modules",
+    ".venv",
+    "scratch",
+    "unreviewed candidate lessons/question pools"
+  ],
+  "ignored_inventory": "Inspected names only. Ignored app/providers contains bytecode artifacts, not a tracked runtime dependency. Two inaccessible old pytest directories were not opened.",
+  "final_files": [
+    {
+      "path": "ARCHITECTURE.md",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "dd4356dcdc2de7d14d336c58d42724137cf84e6fb7f42516362a03e3a9a9baf1",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "9fc0e0744b6151d3e9e97500fbf855f188993a98a9569aa53953d0aa01293961",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "apps/api/app/browser_security.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ba99b694436a98e52b34adb64af7f9426c9e3cca3a01b596dcd0af869c3ec812",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/main.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "a0aa8c27157e5cc37095ee4428c22f5469ff71b2aaadd2c0297b6cbe467905e4",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/migrations/runner.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "d13f3294a48d19c8961725c0a79e294d50e582c8a10152921bc189868a65486f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/migrations/study_release_schema.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "3ba359e0e6fc0790f0dd100032f8dc9144a38da0b58ad0d30e6fdbd4054696f5",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/migrations/v006_study_release.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7b2731e6d627d3ce4a60146147f1ad662af39b8e3fc0b08636d2c3f3d7b5beb2",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/models/__init__.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "8ad2a0c1ebfb746ed3625e66f4bc91be3697a5d01f4f3905c55a91f0828c17e4",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/models/entities.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "d712569966ae83e11a8cd44b6ec80faa9befedfd094cacd783549ea41723509f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/routers/adaptive.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "d1b4f2cde9d34b7a9f85e567aae3167e585d68c8979546c46dc9f0c30a4f5961",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/routers/practice.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "aeff49ef95235a1937d3ab658458f9c0c9a51305d2caf4d6113f39724c1b7105",
+      "recommendation": "ENGINEERING SYNC: explicit engineering overlay verified; review before inclusion"
+    },
+    {
+      "path": "apps/api/app/routers/timed_tests.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "350fbdeafa358c16f49821641503f8b961d970fb3e93cd4324c5c5d330dc3f74",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/schemas/adaptive.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "dabf6d187393416dcc33673f62a6a4d148e181ac6fbebdf2b9be163d572c1e3f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/schemas/api.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "15de61f3d3368adb05bed2f0b7c130fe58f32e7a61641ea11851a0bf9d369fe8",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/schemas/assessment.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "78880b04f34ab434d9b1844509bbefb56ed3e910cbee0265fafac6fe968b1b75",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/schemas/timed_tests.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c74d5d613e69f1a9dbd995410ad1e4d3e63e2e05095795a617c0c4d3e0000c0e",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/assessment.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "1c7c78cc07e0f6b24ba3057404d5fe5886a8634d6b24ceadd3c7ee30e675042a",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/dashboard.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "0151caca35159c87d942e3ae55da009e6c03183b202a95914ace0f634aff2d9b",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/interview.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "567bb53be56a0c3caf3f2db4fc4520197d00e479580bc35093fa438239e5aba7",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/planner.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "b5a50e1bb44e3cc516be67736bf22cf5e95187cdb4f4bfc7c733c6181c92eee7",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/app/services/timed_tests.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "3ece5fa4cc7539039b5967f4940045dcafd6a313ac323d8ea3bc50df32e5a918",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/requirements.txt",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "45b7718968dd9eaf9e810f21be3dea9b841ad4cb3ec056a8517534aa32773896",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/scripts/content_checks/bundle.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "63c094ba10befa353a48d28a2112285c54119967f375f746a423c0358300105d",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "apps/api/scripts/content_checks/subject_accuracy.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ae0d50ae1edbcee0b8edaa2802f7c8b04c3336eb9f6b635d00701e55566632a1",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "apps/api/scripts/placement_batch.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e16984a4ab8401c5e2c370725079199c62d6e77dfa331c95f9bd49c345290047",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "apps/api/scripts/placement_inventory.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "14a5ab9b76bd9a6f6481e359339790f612fe522b41d7bca3ade35d52fb9cdee8",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "apps/api/scripts/placement_review.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "5c62db87c19d9930f550daf8526d3a0adbfcefd0af55b171a0debcf53981a130",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "apps/api/tests/phase5_fixtures.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "34e5c3388a43739ef577481a0c7dd5286469f6d3517df5b87327fdebd31f0471",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_adaptive.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "1b26ead5b66feb5c525196ee72fa4cddb28ffb44e82ad748a8a3c56138b6ac26",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_arena_curriculum_v2.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "d96af4a0c3b9c1c63e39d173dd418d8a50751cdd6171bc17518a2e053187fa5c",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_assessment_migrations.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "fd874411f8604a8bd0cca43715624b0e8d44de7ba8774a713e57fa9701fe605f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_content_publication.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "e245aad795ed030c98f232bc3040df7772407e2a0146d544ad27469378822d39",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_database_migrations.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "edae9863511e5f873cec894e16cfaf217decf589abb3c655568869a344d5a4d1",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_editions.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "31fa92f3a4ea24f98c4a136b71cb5e3eb61d28739bd05dcb7e9b5c006d240982",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_independent_contracts.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e215e73daf3ab0637de645c51f4195c85d0ba56ced6d8342c45728a875da3e52",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_independent_security.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "45f41cf63b8bdd0edf753f9f60a71c226d957a3e3ca1f3f01f300cd6c70a2866",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_placement_content.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "077aa5156f24ffac5e7bf3cf6ed10955274d3f683c7ca4e5d52a15a4a70f07b4",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "apps/api/tests/test_planner_budgets.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2bd3a15287882502483886b581eb8d464700838da778fee16fa8e11cccf38635",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_study_release_migration.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b1edac81255a27c1e0715e02ef5d887fede20666653bbc5c212d0a2cddd97fc0",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "apps/api/tests/test_timed_tests.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "fcf458788c63a8cc124289edcaf3243fb61d98c189a14e8b901d6aff28332769",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/candidates/python-control-flow-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4966d00d4d182eaf038069bd37b365edff2a7f8890c4bcdf8f7a2f0c6b6d3cba",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/candidates/python-exceptions-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "09c14fe24dfee82da67f9b7b534d0047f421b86605510f29df744afbff8566b8",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/candidates/python-functions-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2a80ab2fa733a0b3f22d8113d46c8be6a234a7e12a4d92d1ea2f2afbf1cf9222",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/candidates/python-type-hints-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0b760d8615dbd6b953e7dfb9f4a573b897af7470213e8b8209e498c0b0109dde",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/candidates/sql-indexes-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1cc64d8301f23b46d1ab27f718f124c2b2f5853b58a4d1672a9954c57b562b3c",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/review-checklist.template.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ec01839ef5a89fc84cd5149032752ca5f17f77d8551c10d57710d70f80547500",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/review-queue.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "31efcf4b672737d780b15604326c6484ce2b401b18124c27b2648071340d5f4c",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/review/python-control-flow-1.2.0.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "38b0b86d78f8d3a34e9523193e002db025302384c922183d84747e6d8fea7d36",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/review/python-exceptions-1.2.0.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ce41aee6206ba18edf18ba812dd77b0ec149930ea4e0985f61ca240275b9468f",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/review/python-functions-1.2.0.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c3f2aec201fb8e999ff36e6efd45caf292a50001f74627cda73fe3268845e281",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/review/python-type-hints-1.2.0.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b7efad75ea13cba5ef4c6c4669f92e7dabe27e6615fa64887de51da3a54a02fc",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/review/sql-indexes-1.2.0.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4be6e974c074f72ade3627325eff9f7513c70b43be14506319716f2cc33c541a",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/validation/python-control-flow-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0de6b50a89e7d2273a2e084b969b4f58c7259367d8e62a3da3d4649379c85510",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/validation/python-exceptions-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6b34ee65fa8b98c9a138fd70b07844f4926f26fc2fb928f9cf993701bb543c1f",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/validation/python-functions-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2355f95d3c736d5104905151eaf1e26f33be1773f1b22c3d944311aab7d11b0a",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/validation/python-type-hints-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "240deaccf14bd438314ce9ffba2a4f407165da088338852b34411a27e9a80d11",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/independent-audit/validation/sql-indexes-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4eba5783df8c4aad1f288df2a9d2a0dbc51dbe676a6671cff75af1c33f191671",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/ai-fundamentals-ai-ml-dl.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "56ed67093c641d9f1a33fcfca5e4d621858a86975e09c3283bb3fd4b7c172bbf",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/ai-fundamentals-ai-ml-dl.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "22a8a54a716f4e30cde58fe10e0531a7708216a5deab37ab716ef0d7d9b5ca70",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/dsa-problem-contracts.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c4c98f7ce7bc49d1e699ed0c4194cc5037600b4c99852268b808b0ccf6961b4b",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/dsa-problem-contracts.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e9bfe06d42a0da2d69d0e9d5915bd0f478a98cac445354c894aa9cc29a3e06bb",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/interview-communication-introductions.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b2e2b8c86ae6c04e9c4fe5c7c0785ee098261db0110ee77fc503ff62514ca1e9",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/interview-communication-introductions.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1a68f8155b1b3204fb12dedbaa523cde05f506d6354cf42a9a905c45971d286c",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/logical-reasoning-patterns-classification.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7a1f090e9a6c995a6eaf9f336ee5f8b23e78df3f8c97c8666868eb9b3ed81437",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/logical-reasoning-patterns-classification.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "429c7ac2c5bae2ec777afa0281ecfa3627494732a7e2d87afdc51e05c9ecd733",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/python-values-expressions.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a3321857adebcaec648035aad8107eeb4159155ea5cdf62c3a526a0cada35a7e",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/python-values-expressions.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "9ce2d3389cda9b69b0ec046915fab2584e6bbe287bd0d3d8a82af29347564a0b",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/quantitative-aptitude-number-operations.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8c4fc1c8f692bd16f031bef983a09b6dbd971dbebc1a58512208542afda7bc27",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/quantitative-aptitude-number-operations.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b9bdc069fa0e5a3928d6c94eb74cd6e9f2167912e2028bdbac7abd7803a6d821",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/sql-postgresql-tables-keys.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d98bd76c22237807baebf7a1ae5aced85250ac87d0bae072ced8d7665e748530",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/sql-postgresql-tables-keys.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2cc90d5718fba2202c8fa5e228b8eca86721d2d2f284f336715c7ea601d398f7",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/system-design-requirements.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b45b6464f4580e3428771b927c8b7517c8e51f18a8bfe5703b75070ee94c0923",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/system-design-requirements.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "00569ef4c72bd8a343a0a7519ffaeebabb9aa15aa42949fb6bace686dd3244bd",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/verbal-english-sentence-structure.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "62d8a76b5f73c95e91724e2dbfd10ac46e3d0a7a4a8abe034de49f8ea655e6e3",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/candidates/verbal-english-sentence-structure.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c75a66f21ba217ae096e9b9bf97635107968f42c825dcbacc483d3d9218bb8b5",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review-checklist.template.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ec01839ef5a89fc84cd5149032752ca5f17f77d8551c10d57710d70f80547500",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/ai-fundamentals-ai-ml-dl.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d27d283573ac5bea3460ce76221ceabdf8f081d7833c0a42ce10fd1fc7bd6532",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/dsa-problem-contracts.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "935dbc0c6d593a6be89f448c9711c5d2c055c102f23de512e78541c8bb74d4c5",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/interview-communication-introductions.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a32c2965ced5e6deddd0d69567fdda335aba3c07fb32cd8ae56c0a4cf6b060c8",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/logical-reasoning-patterns-classification.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ae35fd7eb4c06f7ae9fdefb9001e8b27cc423a241ea65a456b232ae57bf88649",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/python-values-expressions.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "59bf8eeb90dad6387dbcab083dae430d76412760c27a52d7b0fc1d20c6efba9e",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/quantitative-aptitude-number-operations.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "73a0894ef3a8f846d7863d51089199728a3135dce1b1a0038955f3c62b012cff",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/sql-postgresql-tables-keys.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ac03ded58d34b1f1b172471a6fa36b6c473740d95ae79aafff2456054e9a4129",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/system-design-requirements.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "eb8a7b35246bc8e804b79eb06384033cdd8e21d06fb2e392bced52808c043fa0",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/review/verbal-english-sentence-structure.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "74dc0498c4bafcf97299df0f917529b0477cca226c09bf82909c1e395903b69b",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/sources.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ebce31d02660d49b369f200faf033b36ef30443c056aec79547144e6d35a5bfe",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/ai-fundamentals-ai-ml-dl.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "330ce6226f7b28bc56e90697d3bc291cf4754ca945ca65d8539934e4240c563d",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/ai-fundamentals-ai-ml-dl.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "df7f39f0cd5d32f7d1556eea1a3d851cd90f3992dd00042e28ed5705c028444f",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/dsa-problem-contracts.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "44132dbc4f3af0318c2b7ca5176da1a244a9c702dc3e1a37132fbe8fc09a7cea",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/dsa-problem-contracts.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a0bb532bb2aa6dbce35b8daaf73136edb6063c956d5eb624ae6af5475259d5f6",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/interview-communication-introductions.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "087ca98884a5e949bca5392c4b260343d0ab70ebb903d5c4b6c2e2ad0f792a0d",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/interview-communication-introductions.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f2f5b189ef8cc7ce8f141c23b460c1adcf1430d4257970973c87d8c764434622",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/logical-reasoning-patterns-classification.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a22a10c01da6caef8c72f5e20c989cab14d6622eeb2ebd3e46bccc6871b6a6d4",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/logical-reasoning-patterns-classification.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "758950d8088ded210fc8fb52caaa7595227365efd55da4db6840c73f8bcf122a",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/python-values-expressions.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4c16c75279a95a4986afce8abcc225bd334d2c62ffc4e8909cb28a20bb5d4dff",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/python-values-expressions.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6e38131a188942d2aa96a17719e99e57cc6e77a4185f6f94f96b5b64435c7e17",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/quantitative-aptitude-number-operations.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6444ecfbe907e0e4127c2ad9671c03901e91f84344224bb2b6fe49c1aa31b2e0",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/quantitative-aptitude-number-operations.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "41901aaace73d7118ecbbeb1e344c1748978d904302d040c49b29bef9c065c84",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/sql-postgresql-tables-keys.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a7642a7dd590bb38fd2d5fb680ea2fa6268db6c5fc58ea715edc30ea519d840f",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/sql-postgresql-tables-keys.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d75b9006e971ca61057baf3048675d3a3d010540de1f3ce6cbd5d4724c648ab9",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/system-design-requirements.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "92998f9ace42a85a3f0271e0433d16f7c0712774e8ab5b6ae12d277606b00c29",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/system-design-requirements.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "bb4a948d6417dcb693ccd740f3ed66f12468ba89f68eff08908e01b0bc2ed772",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/verbal-english-sentence-structure.assessment.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a1b61b3fc88c6d8b8e0bceb82688162bac2ca3624b220ba976f55965a3809c3f",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/content-approvals/phase5/validation/verbal-english-sentence-structure.lesson.validation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1cff6488f70f77eee11c6ea34519968eb1d046da2c013358b83a2699cd3dae17",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "data/placement-foundations-coverage.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0677957debf6f1c6183af02ab61b347e507638194b6444dddf06a1120bda4349",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "data/timed-test-blueprints/v1.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "05b45a070499533ccd1b506a9126891dd9ad1ae205e43956d01d5cb185fa5c73",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "docs/forge-v1/EDUCATIONAL_CONTENT_DEFECTS.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "cb7ce870298923675f3a971d311b3de6dc35f58987cec2cb9d603c2065cebf78",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/FINAL_CONTENT_COVERAGE.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2b6b05c875a141f209c52fbbc34b7c0729378b479dcd41ad0340ff2799439b07",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/FINAL_RELEASE_CHECKLIST.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "025eeb433c22e51f32490a8a36b1e095546920047f877f749ea4f3889535ebe6",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/INDEPENDENT_AUDIT_CHECKPOINTS.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "04fab4ac468db6468b8780b30e33103836cf9a85d312f22d8e0c1d0191aef830",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/INDEPENDENT_READINESS_AUDIT.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "aaa898243e05bda69aeab0ce8fd226b4962c552e40a4e1d8717999daae724afc",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/KNOWN_LIMITATIONS.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "795c78e304268372dd12f4693534848c6098f3c86226330e1fa7cf9ca84ab650",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/LEARNING_COVERAGE_GAPS.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c0977b3a1b19eca1116baae3371193745c6d50181874736ddef19c05b785fe86",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/PHASE5_CHECKPOINTS.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f88b3ebf1a7931cb4de58dccdf062d9f78305807b7a16e5c5b8411b3572ed549",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/PHASE5_IMPLEMENTATION_REPORT.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "deba485e1c1eb6bd607a8b981e7270b583b3e52f78524fa56d94d6f339dc1b82",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/PHASE5_SYNCHRONIZATION_REPORT.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6ce3c61bc4d8ed4ebc9519fc03b0b78ef5cbbbf17c25befcbaeb38ab68142e81",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/RELEASE_BLOCKERS.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "31cc187edb706d496fc104e96a6a50e318b3851bc7cc50dec11935681ada94cc",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/README.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1f3b1d165c040a1360493d8c6d3f31c2e9773e30967348edb6c4fde5c15e0473",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/all-candidates.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/all-candidates.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "12f6436bb0e0d31d01b217c95b6d0b286296dbbe4003ff3ee31eb6f60c360684",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-baseline.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-baseline.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8bb82bb993f5ba01cf541c8f3f17cd3f4bda231108125d883c25a26288c22d6e",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-final.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-final.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ebb22fbfed4c2290d30144efd7aa8d980c79cdc1821f3871846a635e43ea0a70",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-release.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/backend-release.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "54ee458f5e33401c64408f4904a971f7c182331163ef3ad732f55e377c75d680",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/before.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f68360e28eaa8e8feea807d5e27f80061e9685c0cb50ea41fe057ee3f7e2335d",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/browser-report.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "92bec8a7e4b09e5c8490ff632fe31d1e32be58810b43bcd38d2d8fc65d1f13bc",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/browser-upgrade-backup.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d9d16e5adb2e0173e2b24d76b72d05f8c7c1dcb23c92fd7d6799501f4b086ee7",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/browser.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/browser.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "bc0cb05123dfffdc0b119dab2e8284b308d114f7d1ed347023dd470ab211e7f0",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/build.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/build.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c3869d6b0e6d2a9fc1309c6929c72d14dc227b18dc95e849ca4f75601807623c",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/content-approvals-two-sum-1.0.1.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0aa89894cff90bf1fa5033e3b4591e766cbb6de965d23443e731b516a1a60e9c",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/independent-audit-python-control-flow-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0de6b50a89e7d2273a2e084b969b4f58c7259367d8e62a3da3d4649379c85510",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/independent-audit-python-exceptions-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6b34ee65fa8b98c9a138fd70b07844f4926f26fc2fb928f9cf993701bb543c1f",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/independent-audit-python-functions-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2355f95d3c736d5104905151eaf1e26f33be1773f1b22c3d944311aab7d11b0a",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/independent-audit-python-type-hints-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "240deaccf14bd438314ce9ffba2a4f407165da088338852b34411a27e9a80d11",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/independent-audit-sql-indexes-1.2.0.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4eba5783df8c4aad1f288df2a9d2a0dbc51dbe676a6671cff75af1c33f191671",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-ai-fundamentals-ai-ml-dl.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "330ce6226f7b28bc56e90697d3bc291cf4754ca945ca65d8539934e4240c563d",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-ai-fundamentals-ai-ml-dl.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "df7f39f0cd5d32f7d1556eea1a3d851cd90f3992dd00042e28ed5705c028444f",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-dsa-problem-contracts.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "44132dbc4f3af0318c2b7ca5176da1a244a9c702dc3e1a37132fbe8fc09a7cea",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-dsa-problem-contracts.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a0bb532bb2aa6dbce35b8daaf73136edb6063c956d5eb624ae6af5475259d5f6",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-interview-communication-introductions.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "087ca98884a5e949bca5392c4b260343d0ab70ebb903d5c4b6c2e2ad0f792a0d",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-interview-communication-introductions.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f2f5b189ef8cc7ce8f141c23b460c1adcf1430d4257970973c87d8c764434622",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-logical-reasoning-patterns-classification.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a22a10c01da6caef8c72f5e20c989cab14d6622eeb2ebd3e46bccc6871b6a6d4",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-logical-reasoning-patterns-classification.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "758950d8088ded210fc8fb52caaa7595227365efd55da4db6840c73f8bcf122a",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-python-values-expressions.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4c16c75279a95a4986afce8abcc225bd334d2c62ffc4e8909cb28a20bb5d4dff",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-python-values-expressions.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6e38131a188942d2aa96a17719e99e57cc6e77a4185f6f94f96b5b64435c7e17",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-quantitative-aptitude-number-operations.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6444ecfbe907e0e4127c2ad9671c03901e91f84344224bb2b6fe49c1aa31b2e0",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-quantitative-aptitude-number-operations.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "41901aaace73d7118ecbbeb1e344c1748978d904302d040c49b29bef9c065c84",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-sql-postgresql-tables-keys.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a7642a7dd590bb38fd2d5fb680ea2fa6268db6c5fc58ea715edc30ea519d840f",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-sql-postgresql-tables-keys.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d75b9006e971ca61057baf3048675d3a3d010540de1f3ce6cbd5d4724c648ab9",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-system-design-requirements.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "92998f9ace42a85a3f0271e0433d16f7c0712774e8ab5b6ae12d277606b00c29",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-system-design-requirements.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "bb4a948d6417dcb693ccd740f3ed66f12468ba89f68eff08908e01b0bc2ed772",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-verbal-english-sentence-structure.assessment.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a1b61b3fc88c6d8b8e0bceb82688162bac2ca3624b220ba976f55965a3809c3f",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/candidate-validation/phase5-verbal-english-sentence-structure.lesson.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1cff6488f70f77eee11c6ea34519968eb1d046da2c013358b83a2699cd3dae17",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/content-census.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e9178483eee811d445639eb15e3d2e3d58f91ba8b29e1016aad67049c4fea6c2",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/contract-probes.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/contract-probes.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "6ee1b6999c00dbd0189c7c1e245177114933e7b6b904e1d0253b11017b6fc096",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/contract-probes.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1e91126136b5fd98efd8a968778136ddce3e600fdb033a999aff6428ede7a8d3",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/contracts-red.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/contracts-red.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b9b450a92df0a007182fa9aa7605d8a1b5cea5dc4293984c33b6da98e49fdf24",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/correction-candidates.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/correction-candidates.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "951406bd3dd3ac72d8647ef9cd8d12004b78808ef4798c8f7c343893ef499910",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/engineering-overlay.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/engineering-overlay.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "9f62ee11c00b79da9d92b8895d5fdc6bc5d850fa5b92d21150623095da6347f2",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/engineering-overlay.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "81a49cbac06d6517b105fd6bce61d8c715521aba4d69c22cd083e77416a08d35",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/fresh-node-build.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/fresh-node-build.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ff66dc32c7c84fc1781af9b6f4e5c75d9387169f22e8f698e39da2615b0d863d",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/fresh-python-tests.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/fresh-python-tests.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "25b7da4d3031dff3cb304cf90891e3fe515cea21089fae9f1120a76fae7dbf61",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/frontend.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/frontend.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "598088db1cc7ba5f47f5257971ee251aaf29d6d09ec5f709068768182991cef3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/independent-browser.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c65845b1f7dbe351228029662447019db8d8e612e53c9896673f52ad586fc442",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/independent-last-browser.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "389278182ad04aa17c1dbfdbcc546f216581fa987468b4c9042727be882660e5",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/last-browser-state.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "251b55c96d2eb5093267aa223c88dd7645eef28c92c1463d463bd00573a2b82b",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/launcher.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/launcher.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/launcher.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/learning-coverage.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d7a591a8eaa0424d8634da93a5d23a5c0f2c6b6a37cb4a5978f55481f734b7b1",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/legacy-provenance.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c0dd137a171711fcfeb65ace63342086246987f9235a44958150eb43816ae66b",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/lessons-dsa.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f0c789e0d19f3a97f94ab242e475a5c9c2e24b9e3d6198cf892fa4b859bca408",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/lessons-python.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "595ffcb903be114f2b5ced0d5e8382a40a1f40cffa40fcdbb287106e4672c0dd",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/lessons-sql.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7baa8bb6dbccd48e2acee27409558cb54f9b14035cd04a6287b04c0a0b04e930",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/node-dependencies.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/node-dependencies.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "92ccbabb4316a6e81f66e7b6963ca319af97cf32ccc7e8ef2c78deffd99391b1",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/node-fresh-check.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "5faa4870c1c7ef0fef0a83e1eefe3931c5d28de89b64c801d001210f304e8fcf",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/node-install.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/node-install.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "47f2bcc4617743eaf8dcf110f209e4d0e79b85d4e3a97444d1a9e48f771b18c3",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/preservation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "fb666c1522a4bebec7b0ee04a9a55ef2a90501ae3b012673cd9d2aa7424239c0",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/problem-bank.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ec95d84b2060d6d2c17d9993994ee91a4bd55e61c108a780fb0c2d60f9f0cf47",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/python-dependencies.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/python-dependencies.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/python-factual-probes.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0c83f47f45a95b886db689138ae7545dbefbe218719156f2b02b3c334abbfcca",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/python-fresh-check.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/python-install.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/python-install.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "fddc565c2b1e7237175b9ae8e781a316c339ad63c64e24b59e8aab4952341d60",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/runtime-scan.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "62cc149f4690ed9eef79a4489d16c3f1d80ca1af1eaebb6e47a9fdbfa91be651",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/security-green.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/security-green.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b9d22d8c5093639cf3f1f8e9d3b9e9f7cc2885e78a89da1870e16d171b160d6a",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/security-red.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/security-red.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8267854ac6fe7bbdf19ae0315bed1f49d30f5c006cf6056176e1aae4f3df8167",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/source-register.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0dcd257f3e3233b7cd4149f599a2464f3616295839241fa5a2f0cb60267be31f",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/sql-bank.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "22be24ddc2ef00f9737bde40b6d256789daebcb7e422c0736fc5d7c1e827b915",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/sql-factual-probes.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/sql-factual-probes.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8736ec42e3f5f1badfb22b9f3d185d43aa30914929997abf9a4fae414d30d287",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/sql-factual-probes.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a1c9833ca80541b5d7c8288ce1c3edbdcaf1f55f5f2ef4a40fff07846822c0ee",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/sql-output-comparisons.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "09253635c50553071d61ed61ca58b06ac993e03af786e4e72e8bbe914168b123",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/summary.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ae72d0ed02f59e5b9c3e11252d7adb28c65a7bb151e9f31e9cf1d24554d6cf3b",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/synchronization.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ee092b1bab4515d37e369a96bb2330d5b93f33a8ec3018ae167126da0b4ff61",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/synthetic-mobile-dashboard.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0dfef8ff91071ac3a1babf0eb727793d92bf36d441e94375c53532d5a5f447c4",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/synthetic-mobile-tests.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "251b55c96d2eb5093267aa223c88dd7645eef28c92c1463d463bd00573a2b82b",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/timed-expiry-finish.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/timed-expiry-finish.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b60ff5e514589852b6826c856f48b9b745d4a1ac36b0803ff789d5f2dfa35980",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/timed-expiry-start.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/timed-expiry-start.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "eb27759723e8e97888c2b87c9e287f945ce37c6d0211940cae5f91a9c2a35873",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/timed-expiry-state.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "568f98ca83cb6464426bc2b6af8f9e03ca9a085b2d12bdc0b634c4e9acfaf432",
+      "recommendation": "LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/typecheck.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/audit-evidence/typecheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "bbeeed3135358dde635d4f70d8e5532bb10983b5b764f6f74cb55082c8e70921",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/README.md",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f3a01b32257d8d730a9a438c70592ed0b17aedee3ce65fae29daf27bc614fa0d",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/baseline-backend.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b8f7450efd12392caeb68087c53311efbe8840607f86649ea8cead41be1ca530",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/baseline-browser.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "250b93daf7e909f3c792c77640d34fcfe6eacee4ac598f7d44a85cd9012bc324",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/baseline-web-retry.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "80664532049ea126b66bf74e0e47ace7ca95d6c21cd23e6a08860b1c402fd96e",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/baseline-web.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1081dbd3c4f12f4c30b1b0fb101e6857c76a23377b0fe19977d155d2b3753ff0",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/before.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "23fbcb62d90fd58772c1dae675ea81652bd5bc8fe9b50d180e39cd0608d93c10",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/browser-report.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b65f14ef24bc049afc06c69649d8c959a41a58591161ba0e1e603d24f8adb2e3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/content-final.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "701d3df3ce061ba75a554b15dfc656354b1d0def133c98b6c785bf87dabf1b78",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-backend-recheck.exit",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-backend-recheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "85a1f164b475c1b86fe2620531bbff6f853bd1ecab7ee453c7a31ffdbaf1dde2",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-backend.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "41700ea36c8a7f24e4b841d9887715c9fc8f673aff08690e4463e31c579e9b10",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-build.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "859bc3a84deede9719d02b1bd9da74313ba44bc98d7e578b137bbaa91c296177",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-candidates.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "758d261e49897e490c2a011c7ab344aa8b27560a570209a7644943c3aaf62e15",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-frontend.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "135a8f7e78c44071a4982097e0841a2cdcce32747440c89f1759276d45a17756",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-inventory.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "acda52e920e8b583cf65f8e8e64ba361935a0ddfacb2730546797fe708c2c6bd",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-launcher.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-lessons-dsa.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f0c789e0d19f3a97f94ab242e475a5c9c2e24b9e3d6198cf892fa4b859bca408",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-lessons-python.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "595ffcb903be114f2b5ced0d5e8382a40a1f40cffa40fcdbb287106e4672c0dd",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-lessons-sql.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "7baa8bb6dbccd48e2acee27409558cb54f9b14035cd04a6287b04c0a0b04e930",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-problems.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ec95d84b2060d6d2c17d9993994ee91a4bd55e61c108a780fb0c2d60f9f0cf47",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-review.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "ac005353f74f90b63ead82b95f29ca39a17eaf9c50724bfcf8710f798af673ff",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-sql-bank.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "22be24ddc2ef00f9737bde40b6d256789daebcb7e422c0736fc5d7c1e827b915",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/final-typecheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "bbeeed3135358dde635d4f70d8e5532bb10983b5b764f6f74cb55082c8e70921",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/last-browser-state.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c81e0a41cdd7a0b13d1ff1af09a50d5a2029e3efca79aa0819947c1f63413cdc",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/launcher-harness-final.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/launcher-report.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8ac6cc2d869b3b9b7e04530de810b5322f23f3d9f76d1183dc54458704bbdab3",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/legacy-provenance.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c0dd137a171711fcfeb65ace63342086246987f9235a44958150eb43816ae66b",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/network-guard.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "388cf23973493e6c239b7d6994db4dc31edfef3883b7727022df882c85219080",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/offline-browser.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1450bf5dd6e1ab4998080eeebe3852b58452805b179e55a28f1f0adab9583119",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/planner-recheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1fa8aba53431087293cc2fed8338645ef299be1cd46dbab36ccfdce92a47aae9",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/preservation.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "e182f6b7749acd46607995016a783214337d90cf762ee624ac005bb055c50a56",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/summary.json",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f0d9c79e6af108992fbe7abae424a9dd5e8ace82a16cee05d38ff71aff091710",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/synthetic-mobile-dashboard.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0dfef8ff91071ac3a1babf0eb727793d92bf36d441e94375c53532d5a5f447c4",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/synthetic-mobile-tests.png",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "c81e0a41cdd7a0b13d1ff1af09a50d5a2029e3efca79aa0819947c1f63413cdc",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "docs/forge-v1/verification/timed-recheck.log",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4a735638fc8fc71659c097c939ce0b7a8a8a0fcc0a302bdc9538190aad2e2101",
+      "recommendation": "LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit"
+    },
+    {
+      "path": "scripts/audit-browser.cjs",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "4c4030f408c79af73a8ec89a3037a125e9d79a3c1b89fd58377949df4ed551ad",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/audit-expiry-browser.cjs",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f59019e7f78bb3e656080812887d168fcdf1cdb6e2cb3aff22b6a2bd63b6c00c",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "scripts/audit_content.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "a5925b833de0c4c9e374b56183a51714a4f68c9f8dd1bbec8995e1e35276ff25",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "scripts/audit_contract_probes.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f3525078423279bbdb74c97300c0deba9c1ef6140671483ebcbcf383e9a208d0",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "scripts/audit_coverage.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f7e1d6d8aab29eb6cf20c9593806ec31aeb8cd88145601f99cc5e6ae5a416382",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "scripts/audit_sql_facts.cjs",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "5cccbd3e1ac89ea60ccbf76e30743a7a388b8029868d610fc9e6863b77fed0f8",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "scripts/audit_sync_smoke.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "0bf229e778082e01ba22e727d2dc4ab828812b6a3a4ec51db94924b37b7233c9",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "scripts/close-forge.ps1",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "cff310d462216447b8691fc77a97d3c5aba8605ad4f45288cb92244adad9184f",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/finalize_independent_audit.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "d786f6ef47ade1a5d1e36a4c6d2f8b05084a6b43161746d320aac3b0f3bcc667",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "scripts/forge_server.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "f6c06ff6c559cf72b0ba5e05195a06234ec14c55be0f2633388ca50a02c56d90",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/launcher-common.ps1",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "44d47c6c571dcca068ad54edcecfcaf5d8503c3a6add58cb568cae3f3afc823b",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/offline_verify_guard.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "748deeb323c731c04510454a762897b4496c65a3f6e99d1abaa109b32771878a",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/open-forge.ps1",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "7600bb1dc1b31a8b6332f076a71892591abf83178cd2b0591b45dc0673f6db46",
+      "recommendation": "ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification"
+    },
+    {
+      "path": "scripts/prepare_audit_candidates.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "2076f64b7072ba009a60e74f6c7ba4fef845814b575d05b303761f272e0bb031",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "scripts/prepare_browser_fixture.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "1c76a8d259c10bf190738c9072a4696778b5eb30d86662aaa2ac4b2a8a3466cf",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/verify-browser.cjs",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "44e3804cde0713f6a0a52cecbd0328aac63d00e9712fda70ef7353e43b9d7c04",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/verify_independent.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b8f2464bce4e11c9b518be145fc0e50dae50562797c11f9ad251197df15869f2",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/verify_launcher.py",
+      "status": "modified",
+      "tracked_at_head": true,
+      "local_sha256": "6496acfdc87bb2923b23359ae03cf54085ae7260afc775a03a1745590737e87d",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    },
+    {
+      "path": "scripts/verify_offline.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b626a903175c0728a073c80af10498ada1587403c9bc90472f8067bd0a738608",
+      "recommendation": "KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit"
+    },
+    {
+      "path": "scripts/verify_timed_expiry.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "b995c0fae6acde02ddf4f6d1592707a1f2a89ef2d69ee3d7f70b5ba1339c3978",
+      "recommendation": "KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit"
+    },
+    {
+      "path": "scripts/write_educational_audit.py",
+      "status": "untracked",
+      "tracked_at_head": false,
+      "local_sha256": "8da20c00436d4fc8909830e0d08d8c42edc404288f964003100aa3f6a3d5fe32",
+      "recommendation": "REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement"
+    }
+  ],
+  "tested_engineering_only_paths": [
+    "apps/api/app/browser_security.py",
+    "apps/api/app/main.py",
+    "apps/api/app/migrations/runner.py",
+    "apps/api/app/migrations/study_release_schema.json",
+    "apps/api/app/migrations/v006_study_release.py",
+    "apps/api/app/models/__init__.py",
+    "apps/api/app/models/entities.py",
+    "apps/api/app/routers/adaptive.py",
+    "apps/api/app/routers/practice.py",
+    "apps/api/app/routers/timed_tests.py",
+    "apps/api/app/schemas/adaptive.py",
+    "apps/api/app/schemas/api.py",
+    "apps/api/app/schemas/assessment.py",
+    "apps/api/app/schemas/timed_tests.py",
+    "apps/api/app/services/assessment.py",
+    "apps/api/app/services/dashboard.py",
+    "apps/api/app/services/interview.py",
+    "apps/api/app/services/planner.py",
+    "apps/api/app/services/timed_tests.py",
+    "apps/api/requirements.txt",
+    "apps/api/scripts/content_checks/bundle.py",
+    "apps/api/scripts/content_checks/subject_accuracy.py",
+    "apps/api/tests/phase5_fixtures.py",
+    "apps/api/tests/test_adaptive.py",
+    "apps/api/tests/test_arena_curriculum_v2.py",
+    "apps/api/tests/test_assessment_migrations.py",
+    "apps/api/tests/test_content_publication.py",
+    "apps/api/tests/test_database_migrations.py",
+    "apps/api/tests/test_editions.py",
+    "apps/api/tests/test_independent_contracts.py",
+    "apps/api/tests/test_independent_security.py",
+    "apps/api/tests/test_planner_budgets.py",
+    "apps/api/tests/test_study_release_migration.py",
+    "apps/api/tests/test_timed_tests.py",
+    "data/timed-test-blueprints/v1.json",
+    "scripts/close-forge.ps1",
+    "scripts/forge_server.py",
+    "scripts/launcher-common.ps1",
+    "scripts/offline_verify_guard.py",
+    "scripts/open-forge.ps1",
+    "scripts/verify_launcher.py"
+  ],
+  "manifest_note": "files is the initial inventory; final_files is the closing inventory. Manifests/reports are self-referential and their own raw hashes can change while refreshing the report."
+}

@@ -1,0 +1,102 @@
+{
+  "key": "sql-age-from-birthdate",
+  "title": "Calculate age in years",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "For every member, return name and age in 2026 using birth_year. Show oldest members first.",
+  "constraints": [
+    "Return exactly: name, age.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible members tables",
+      "output": "[[\"Charlie\",41],[\"Alice\",36],[\"Bob\",26],[\"David\",16]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Age here is the target year minus birth_year.",
+    "Alias the calculated expression as age so it can be used in ORDER BY."
+  ],
+  "explanation": "This query creates a derived value with arithmetic: 2026 - birth_year. The alias makes the output meaningful and the ordering readable. A common mistake is reversing the subtraction. Real birth dates need date-aware logic, but the integer-year model is intentional here.",
+  "reference_solution": "SELECT name, (2026 - birth_year) AS age FROM members ORDER BY age DESC",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE members (id INT, name VARCHAR(50), birth_year INT); INSERT INTO members VALUES (1, 'Alice', 1990), (2, 'Bob', 2000), (3, 'Charlie', 1985), (4, 'David', 2010);",
+    "visible_tables": [
+      "members"
+    ],
+    "sample_rows": [
+      [
+        "Charlie",
+        41
+      ],
+      [
+        "Alice",
+        36
+      ],
+      [
+        "Bob",
+        26
+      ],
+      [
+        "David",
+        16
+      ]
+    ],
+    "expected_columns": [
+      "name",
+      "age"
+    ],
+    "expected_rows": [
+      [
+        "Charlie",
+        41
+      ],
+      [
+        "Alice",
+        36
+      ],
+      [
+        "Bob",
+        26
+      ],
+      [
+        "David",
+        16
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE members (id INT, name VARCHAR(50), birth_year INT); INSERT INTO members VALUES (10,'Nia',1975),(11,'Omar',2005),(12,'Pia',1999);",
+        "expected_rows": [
+          [
+            "Nia",
+            51
+          ],
+          [
+            "Pia",
+            27
+          ],
+          [
+            "Omar",
+            21
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

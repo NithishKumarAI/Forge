@@ -1,0 +1,63 @@
+{
+  "key": "communication-reflection",
+  "version": "1",
+  "status": "unscored_guidance",
+  "items": [
+    {
+      "key": "introduction",
+      "prompt": "Introduce yourself for an entry-level technical role.",
+      "rubric": [
+        "State your current background, one relevant skill and what you want to learn."
+      ],
+      "example": "I am a graduate who built a small Python study tool. I tested its core functions and want to improve my database skills."
+    },
+    {
+      "key": "hr",
+      "prompt": "Describe a situation where you had to learn something unfamiliar.",
+      "rubric": [
+        "Give a specific situation, your action, the result and what you would change."
+      ],
+      "example": "I did not know how to test an API, so I wrote a small failing example, read the local documentation and added a regression test."
+    },
+    {
+      "key": "star",
+      "prompt": "Describe a challenge using Situation, Task, Action and Result.",
+      "rubric": [
+        "Separate your personal contribution from the team result."
+      ],
+      "example": "Our demo failed on empty input. I reproduced it, added validation and tested the fix before the next demo."
+    },
+    {
+      "key": "project",
+      "prompt": "Explain one project you personally worked on.",
+      "rubric": [
+        "Explain the user problem, the data flow, your contribution and a limitation."
+      ],
+      "example": "My tool stores study notes locally. The interface calls a small API, which writes SQLite rows. I implemented validation; shared-device access remains a limitation."
+    },
+    {
+      "key": "system-design",
+      "prompt": "Explain a small application design and its failure modes.",
+      "rubric": [
+        "State assumptions, components, storage, failure handling and one tradeoff."
+      ],
+      "example": "For a small local tracker I would start with one process and SQLite. A backup protects against file loss; concurrent remote use would require revisiting that design."
+    },
+    {
+      "key": "rag",
+      "prompt": "Explain a retrieval-augmented generation project design.",
+      "rubric": [
+        "Describe ingestion, retrieval, citations, evaluation and a failure case."
+      ],
+      "example": "I would chunk permitted documents, retrieve relevant passages and test whether citations support each answer. Missing relevant passages would be reported rather than hidden."
+    },
+    {
+      "key": "tradeoffs",
+      "prompt": "Describe a technical decision and an alternative.",
+      "rubric": [
+        "Name a constraint, compare alternatives, explain the choice and when to revisit it."
+      ],
+      "example": "I chose a local database to simplify setup. It limits multi-user concurrency, so I would revisit the choice if remote collaboration became a requirement."
+    }
+  ]
+}

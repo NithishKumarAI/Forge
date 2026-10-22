@@ -1,0 +1,96 @@
+{
+  "key": "dsa-top-k-frequent",
+  "title": "Top k frequent elements",
+  "track": "dsa",
+  "topic_tags": [
+    "hash-maps",
+    "heaps"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an integer array `nums` and an integer `k`, return the `k` most frequent elements. Return the result in a sorted list.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "nums = [1,1,1,2,2,3], k = 2",
+      "output": "[1, 2]",
+      "explanation": "1 and 2 are the most frequent."
+    }
+  ],
+  "starter_code": "def top_k_frequent(nums: list[int], k: int) -> list[int]:\n    pass",
+  "hints": [
+    "Use a hash map to count frequencies.",
+    "Use a heap to keep track of the top k elements."
+  ],
+  "explanation": "Count the frequencies of all elements using a hash map. Then, use a max heap (or sort) based on the frequencies to find the top k elements. Sort the final result to make it deterministic.",
+  "reference_solution": "def top_k_frequent(nums: list[int], k: int) -> list[int]:\n    from collections import Counter\n    counts = Counter(nums)\n    top_k = sorted(counts.keys(), key=lambda x: counts[x], reverse=True)[:k]\n    return sorted(top_k)",
+  "complexity": "O(n log n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "top_k_frequent",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            1,
+            1,
+            2,
+            2,
+            3
+          ],
+          2
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            4,
+            1,
+            1,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2
+          ],
+          2
+        ],
+        "kwargs": {},
+        "expected": [
+          2,
+          4
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "kwargs": {},
+        "expected": [
+          1
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/heaps"
+}

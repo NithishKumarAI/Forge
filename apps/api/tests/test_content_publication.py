@@ -300,7 +300,7 @@ def test_phase1_to_phase2_upgrade_preserves_frozen_checksums_and_bindings(tmp_pa
         for migration in runner.MIGRATIONS[:2]:
             connection.exec_driver_sql("INSERT INTO schemamigration VALUES (?,?,?,?)", (migration.version,migration.name,migration.checksum,"2026-10-20"))
         before = connection.exec_driver_sql("SELECT * FROM schemamigration").all()
-    assert run_migrations(engine)["applied"] == [3, 4, 5]
+    assert run_migrations(engine)["applied"] == [3, 4, 5, 6]
     with engine.connect() as connection:
         assert connection.exec_driver_sql("SELECT * FROM schemamigration WHERE version<3").all() == before
         assert connection.exec_driver_sql("SELECT name FROM sqlite_master WHERE name='arenatopicbinding_type'").first()
@@ -412,7 +412,7 @@ def test_fresh_install_cli_restores_tracked_archive(session, tmp_path):
         "--database", str(destination)], cwd=ROOT / "apps/api", env=environment, text=True, capture_output=True, timeout=60)
     assert result.returncode == 0, result.stdout + result.stderr
     with sqlite3.connect(destination.as_uri() + "?mode=ro", uri=True) as connection:
-        assert connection.execute("SELECT count(*) FROM schemamigration").fetchone()[0] == 5
+        assert connection.execute("SELECT count(*) FROM schemamigration").fetchone()[0] == 6
         assert connection.execute("SELECT count(*) FROM contentrevision").fetchone()[0] == 164
         assert connection.execute("SELECT count(*) FROM exercise").fetchone()[0] == 702
         assert connection.execute("SELECT value FROM appsetting WHERE key='active_curriculum_id'").fetchone()[0] == "2"

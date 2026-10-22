@@ -1,0 +1,131 @@
+{
+  "content_key": "forge/placement-foundations/verbal-english/verbal-english-sentence-structure",
+  "revision": "1.0.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "placement-foundations",
+      "track_slug": "verbal-english",
+      "topic_slug": "verbal-english-sentence-structure",
+      "title": "Sentence structure",
+      "description": "Identify clauses, subjects and verbs in short sentences.",
+      "version": "1.0.0",
+      "learning_objectives": [
+        "Identify clauses, subjects and verbs in short sentences."
+      ],
+      "prerequisites": [],
+      "sections": [
+        {
+          "slug": "intuition",
+          "title": "Goal and intuition",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Identify clauses, subjects and verbs in short sentences.",
+          "markdown": "A sentence lets a reader connect something being discussed with what happens or is true about it. In a plain statement, look for the subject and its verb before extra detail. A clause contains a subject–verb relationship. An independent clause can stand as a complete statement; a dependent clause relies on surrounding text. These are useful checks for standard edited English, not a judgment about a person's accent or worth.",
+          "examples": [],
+          "key_points": [
+            "The nearest noun is not automatically the subject."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "worked-example",
+          "title": "A worked example and why it works",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Identify clauses, subjects and verbs in short sentences.",
+          "markdown": "In 'Mira checks the report', Mira is the subject, checks is the verb, and the report receives the action. 'Because Mira checks the report' still has a subject and verb, but because makes the thought dependent: the reader expects what follows. 'Because Mira checks the report, errors are found early' connects that reason with an independent clause. Descriptive words can lengthen a sentence without adding another clause. In 'The very small robot moves slowly', the subject is the robot and the verb is moves.",
+          "examples": [],
+          "key_points": [
+            "The nearest noun is not automatically the subject."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "practice-revision",
+          "title": "Guided practice, independent practice and revision",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Identify clauses, subjects and verbs in short sentences.",
+          "markdown": "Guided: in 'The trainees test the app', ask who performs the action (the trainees), then what action occurs (test). Independent: identify the subject and verb in 'A careful reviewer notices mistakes'.\n\n<details><summary>Explanation</summary>The subject is a careful reviewer, with reviewer as its head noun. Notices is the verb. Mistakes is the object, not the subject.</details>\n\nRevision: find the verb, identify its subject, distinguish the object, and ask whether the clause stands alone. Real writing allows several valid formulations. The objective items below ask about specified sentences; open rewrites should be reviewed as reflection, not rejected by matching one model sentence.",
+          "examples": [],
+          "key_points": [
+            "The nearest noun is not automatically the subject."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        }
+      ],
+      "summary": [
+        "The nearest noun is not automatically the subject.",
+        "A string with a subject and verb can still be a dependent clause."
+      ],
+      "interview_takeaways": [
+        "Explain your reasoning and limits; reading is not mastery."
+      ],
+      "common_mistakes": [
+        "The nearest noun is not automatically the subject.",
+        "A string with a subject and verb can still be a dependent clause."
+      ],
+      "sources": [
+        {
+          "source_id": "purdue-sentences",
+          "title": "Purdue OWL sentence structure",
+          "url": "https://owl.purdue.edu/owl/general_writing/academic_writing/sentence_variety/sentence_types.html",
+          "retrieved_at": "2026-10-22T00:00:00Z"
+        }
+      ],
+      "generated_at": "2026-10-22T00:00:00Z",
+      "content_hash": "0e45b20afb6bb555e9209f39ed333885f691073bce7a8121d2aafa7171d58683"
+    },
+    "exercises": [
+      {
+        "key": "lesson-reflection",
+        "exercise_type": "short_answer",
+        "title": "Explain the worked example",
+        "prompt_markdown": "Explain the worked example in your own words and identify one mistake to avoid.",
+        "difficulty": "learning",
+        "hints": [],
+        "content": {
+          "rubric": [
+            "Explain the stated steps.",
+            "Identify a specific misconception."
+          ],
+          "reference_answer": "The nearest noun is not automatically the subject."
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "purdue-sentences",
+        "url": "https://owl.purdue.edu/owl/general_writing/academic_writing/sentence_variety/sentence_types.html",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "example_checks": [],
+  "coverage": {
+    "key": "verbal-english-sentence-structure-teaching",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "verbal-english-sentence-structure",
+        "status": "covered",
+        "lesson_refs": [
+          "section/intuition",
+          "section/worked-example",
+          "section/practice-revision"
+        ],
+        "assessment_refs": [
+          "exercise/lesson-reflection"
+        ]
+      }
+    ]
+  }
+}

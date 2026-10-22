@@ -1,0 +1,95 @@
+{
+  "key": "dsa-max-sliding-window",
+  "title": "Maximum in each sliding window",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "sliding-window",
+    "queues"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "You are given an array of integers `nums`, there is a sliding window of size `k` which is moving from the very left of the array to the very right. Return the maximum element in each window.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "nums = [1,3,-1,-3,5,3,6,7], k = 3",
+      "output": "[3,3,5,5,6,7]",
+      "explanation": "Maximum in [1,3,-1] is 3."
+    }
+  ],
+  "starter_code": "def max_sliding_window(nums: list[int], k: int) -> list[int]:\n    pass",
+  "hints": [
+    "Use a monotonic deque."
+  ],
+  "explanation": "Maintain a deque of indices. The elements corresponding to the indices in the deque should be strictly decreasing. For each element, remove elements from the back of the deque that are smaller than the current element. Remove the front element if it's out of the window.",
+  "reference_solution": "def max_sliding_window(nums: list[int], k: int) -> list[int]:\n    from collections import deque\n    dq = deque()\n    res = []\n    for i, num in enumerate(nums):\n        if dq and dq[0] < i - k + 1:\n            dq.popleft()\n        while dq and nums[dq[-1]] < num:\n            dq.pop()\n        dq.append(i)\n        if i >= k - 1:\n            res.append(nums[dq[0]])\n    return res",
+  "complexity": "O(n) time and O(k) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "max_sliding_window",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            3,
+            -1,
+            -3,
+            5,
+            3,
+            6,
+            7
+          ],
+          3
+        ],
+        "kwargs": {},
+        "expected": [
+          3,
+          3,
+          5,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            1
+          ],
+          1
+        ],
+        "kwargs": {},
+        "expected": [
+          1
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            1,
+            -1
+          ],
+          1
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          -1
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/sliding-window"
+}

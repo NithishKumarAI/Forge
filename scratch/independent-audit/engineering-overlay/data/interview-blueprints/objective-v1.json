@@ -1,0 +1,23 @@
+{
+  "key": "foundations-objective",
+  "version": "1",
+  "allowed_seconds": 1800,
+  "scoring_policy": "forge-evidence/2",
+  "slots": [
+    {
+      "subject": "python",
+      "competency": "Python correctness",
+      "weight": 0.4
+    },
+    {
+      "subject": "sql-postgresql",
+      "competency": "Relational queries",
+      "weight": 0.3
+    },
+    {
+      "subject": "dsa",
+      "competency": "Algorithmic correctness",
+      "weight": 0.3
+    }
+  ]
+}

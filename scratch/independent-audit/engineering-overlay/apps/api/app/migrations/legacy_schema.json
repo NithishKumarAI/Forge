@@ -1,0 +1,284 @@
+[
+  {
+    "name": "appsetting",
+    "sql": "CREATE TABLE appsetting (\n\t\"key\" VARCHAR NOT NULL, \n\tvalue TEXT NOT NULL, \n\tPRIMARY KEY (\"key\")\n)",
+    "indexes": []
+  },
+  {
+    "name": "curriculum",
+    "sql": "CREATE TABLE curriculum (\n\tid INTEGER NOT NULL, \n\tname VARCHAR NOT NULL, \n\tdescription VARCHAR NOT NULL, \n\tsource_type VARCHAR NOT NULL, \n\tstatus VARCHAR NOT NULL, \n\tversion INTEGER NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tconfirmed_at DATETIME, \n\tPRIMARY KEY (id), \n\tCONSTRAINT uq_curriculum_name_version UNIQUE (name, version)\n)",
+    "indexes": [
+      "CREATE INDEX ix_curriculum_name ON curriculum (name)",
+      "CREATE INDEX ix_curriculum_source_type ON curriculum (source_type)",
+      "CREATE INDEX ix_curriculum_status ON curriculum (status)"
+    ]
+  },
+  {
+    "name": "modelusageevent",
+    "sql": "CREATE TABLE modelusageevent (\n\tid INTEGER NOT NULL, \n\tprovider VARCHAR NOT NULL, \n\tmodel VARCHAR NOT NULL, \n\tpurpose VARCHAR NOT NULL, \n\tthinking_level VARCHAR NOT NULL, \n\tinput_tokens INTEGER NOT NULL, \n\toutput_tokens INTEGER NOT NULL, \n\tthought_tokens INTEGER NOT NULL, \n\tcached_tokens INTEGER NOT NULL, \n\testimated_cost_usd FLOAT, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_modelusageevent_created_at ON modelusageevent (created_at)",
+      "CREATE INDEX ix_modelusageevent_model ON modelusageevent (model)",
+      "CREATE INDEX ix_modelusageevent_provider ON modelusageevent (provider)",
+      "CREATE INDEX ix_modelusageevent_purpose ON modelusageevent (purpose)"
+    ]
+  },
+  {
+    "name": "curriculumgenerationmetadata",
+    "sql": "CREATE TABLE curriculumgenerationmetadata (\n\tcurriculum_id INTEGER NOT NULL, \n\tgoal TEXT NOT NULL, \n\tsource_requirements TEXT NOT NULL, \n\ttopic_flags_json TEXT NOT NULL, \n\tPRIMARY KEY (curriculum_id), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "interviewsession",
+    "sql": "CREATE TABLE interviewsession (\n\tid INTEGER NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\tmode VARCHAR NOT NULL, \n\tstatus VARCHAR NOT NULL, \n\tstarted_at DATETIME NOT NULL, \n\tcompleted_at DATETIME, \n\toverall_score FLOAT, \n\tduration_seconds INTEGER, \n\tmetadata_json TEXT NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_interviewsession_curriculum_id ON interviewsession (curriculum_id)",
+      "CREATE INDEX ix_interviewsession_mode ON interviewsession (mode)",
+      "CREATE INDEX ix_interviewsession_started_at ON interviewsession (started_at)",
+      "CREATE INDEX ix_interviewsession_status ON interviewsession (status)"
+    ]
+  },
+  {
+    "name": "track",
+    "sql": "CREATE TABLE track (\n\tid INTEGER NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\tname VARCHAR NOT NULL, \n\tslug VARCHAR NOT NULL, \n\tdescription VARCHAR NOT NULL, \n\torder_index INTEGER NOT NULL, \n\tpriority INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT uq_track_curriculum_slug UNIQUE (curriculum_id, slug), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_track_curriculum_id ON track (curriculum_id)",
+      "CREATE INDEX ix_track_order_index ON track (order_index)",
+      "CREATE INDEX ix_track_priority ON track (priority)",
+      "CREATE INDEX ix_track_slug ON track (slug)"
+    ]
+  },
+  {
+    "name": "interviewreport",
+    "sql": "CREATE TABLE interviewreport (\n\tid INTEGER NOT NULL, \n\tsession_id INTEGER NOT NULL, \n\treport_json TEXT NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(session_id) REFERENCES interviewsession (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_interviewreport_created_at ON interviewreport (created_at)",
+      "CREATE UNIQUE INDEX ix_interviewreport_session_id ON interviewreport (session_id)"
+    ]
+  },
+  {
+    "name": "topic",
+    "sql": "CREATE TABLE topic (\n\tid INTEGER NOT NULL, \n\ttrack_id INTEGER NOT NULL, \n\tname VARCHAR NOT NULL, \n\tslug VARCHAR NOT NULL, \n\tdescription VARCHAR NOT NULL, \n\torder_index INTEGER NOT NULL, \n\tpriority INTEGER NOT NULL, \n\ttarget_level VARCHAR NOT NULL, \n\testimated_minutes INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT uq_topic_track_slug UNIQUE (track_id, slug), \n\tFOREIGN KEY(track_id) REFERENCES track (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_topic_order_index ON topic (order_index)",
+      "CREATE INDEX ix_topic_priority ON topic (priority)",
+      "CREATE INDEX ix_topic_slug ON topic (slug)",
+      "CREATE INDEX ix_topic_track_id ON topic (track_id)"
+    ]
+  },
+  {
+    "name": "arenaproblem",
+    "sql": "CREATE TABLE arenaproblem (\n\t\"key\" VARCHAR NOT NULL, \n\ttrack VARCHAR NOT NULL, \n\ttitle VARCHAR NOT NULL, \n\tdifficulty VARCHAR NOT NULL, \n\ttopic_tags_json TEXT NOT NULL, \n\tsource_path VARCHAR NOT NULL, \n\tcontent_hash VARCHAR NOT NULL, \n\tversion VARCHAR NOT NULL, \n\tactive BOOLEAN NOT NULL, \n\tmapped_topic_id INTEGER, \n\tPRIMARY KEY (\"key\"), \n\tFOREIGN KEY(mapped_topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_arenaproblem_active ON arenaproblem (active)",
+      "CREATE INDEX ix_arenaproblem_content_hash ON arenaproblem (content_hash)",
+      "CREATE INDEX ix_arenaproblem_difficulty ON arenaproblem (difficulty)",
+      "CREATE INDEX ix_arenaproblem_mapped_topic_id ON arenaproblem (mapped_topic_id)",
+      "CREATE INDEX ix_arenaproblem_track ON arenaproblem (track)"
+    ]
+  },
+  {
+    "name": "attempt",
+    "sql": "CREATE TABLE attempt (\n\tid INTEGER NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\tattempt_type VARCHAR NOT NULL, \n\tscore FLOAT NOT NULL, \n\tused_hint BOOLEAN NOT NULL, \n\tpassed BOOLEAN NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_attempt_attempt_type ON attempt (attempt_type)",
+      "CREATE INDEX ix_attempt_created_at ON attempt (created_at)",
+      "CREATE INDEX ix_attempt_passed ON attempt (passed)",
+      "CREATE INDEX ix_attempt_topic_id ON attempt (topic_id)"
+    ]
+  },
+  {
+    "name": "courselesson",
+    "sql": "CREATE TABLE courselesson (\n\tid INTEGER NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\tcontent_version VARCHAR NOT NULL, \n\ttitle VARCHAR NOT NULL, \n\tsource_path VARCHAR NOT NULL, \n\tcontent_hash VARCHAR NOT NULL, \n\tactive BOOLEAN NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT uq_course_lesson_version UNIQUE (topic_id, content_version), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_courselesson_active ON courselesson (active)",
+      "CREATE INDEX ix_courselesson_content_hash ON courselesson (content_hash)",
+      "CREATE INDEX ix_courselesson_content_version ON courselesson (content_version)",
+      "CREATE INDEX ix_courselesson_curriculum_id ON courselesson (curriculum_id)",
+      "CREATE INDEX ix_courselesson_topic_id ON courselesson (topic_id)"
+    ]
+  },
+  {
+    "name": "dailyplanitem",
+    "sql": "CREATE TABLE dailyplanitem (\n\tid INTEGER NOT NULL, \n\tplan_date VARCHAR NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\ttopic_id INTEGER, \n\titem_type VARCHAR NOT NULL, \n\treason TEXT NOT NULL, \n\testimated_minutes INTEGER NOT NULL, \n\torder_index INTEGER NOT NULL, \n\tstatus VARCHAR NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_dailyplanitem_curriculum_id ON dailyplanitem (curriculum_id)",
+      "CREATE INDEX ix_dailyplanitem_item_type ON dailyplanitem (item_type)",
+      "CREATE INDEX ix_dailyplanitem_plan_date ON dailyplanitem (plan_date)",
+      "CREATE INDEX ix_dailyplanitem_status ON dailyplanitem (status)",
+      "CREATE INDEX ix_dailyplanitem_topic_id ON dailyplanitem (topic_id)"
+    ]
+  },
+  {
+    "name": "exercise",
+    "sql": "CREATE TABLE exercise (\n\tid INTEGER NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\ttrack_id INTEGER NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\texercise_type VARCHAR NOT NULL, \n\ttitle VARCHAR NOT NULL, \n\tprompt_markdown TEXT NOT NULL, \n\tdifficulty VARCHAR NOT NULL, \n\tsource VARCHAR NOT NULL, \n\tgenerator_model VARCHAR, \n\tgenerator_version VARCHAR, \n\tcreated_at DATETIME NOT NULL, \n\tis_active BOOLEAN NOT NULL, \n\tvalidation_status VARCHAR NOT NULL, \n\tcontent_json TEXT NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id), \n\tFOREIGN KEY(track_id) REFERENCES track (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_exercise_created_at ON exercise (created_at)",
+      "CREATE INDEX ix_exercise_curriculum_id ON exercise (curriculum_id)",
+      "CREATE INDEX ix_exercise_difficulty ON exercise (difficulty)",
+      "CREATE INDEX ix_exercise_exercise_type ON exercise (exercise_type)",
+      "CREATE INDEX ix_exercise_is_active ON exercise (is_active)",
+      "CREATE INDEX ix_exercise_topic_id ON exercise (topic_id)",
+      "CREATE INDEX ix_exercise_track_id ON exercise (track_id)",
+      "CREATE INDEX ix_exercise_validation_status ON exercise (validation_status)"
+    ]
+  },
+  {
+    "name": "learnertopicstate",
+    "sql": "CREATE TABLE learnertopicstate (\n\ttopic_id INTEGER NOT NULL, \n\tmastery_score INTEGER NOT NULL, \n\tconfidence VARCHAR NOT NULL, \n\tstatus VARCHAR NOT NULL, \n\tattempts INTEGER NOT NULL, \n\tlast_studied_at DATETIME, \n\tlast_tested_at DATETIME, \n\tnext_review_at DATETIME, \n\tPRIMARY KEY (topic_id), \n\tCHECK (mastery_score >= 0 AND mastery_score <= 100), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_learnertopicstate_mastery_score ON learnertopicstate (mastery_score)",
+      "CREATE INDEX ix_learnertopicstate_next_review_at ON learnertopicstate (next_review_at)",
+      "CREATE INDEX ix_learnertopicstate_status ON learnertopicstate (status)"
+    ]
+  },
+  {
+    "name": "learningsession",
+    "sql": "CREATE TABLE learningsession (\n\tid INTEGER NOT NULL, \n\ttopic_id INTEGER, \n\tmode VARCHAR NOT NULL, \n\tstarted_at DATETIME NOT NULL, \n\tended_at DATETIME, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_learningsession_mode ON learningsession (mode)",
+      "CREATE INDEX ix_learningsession_started_at ON learningsession (started_at)",
+      "CREATE INDEX ix_learningsession_topic_id ON learningsession (topic_id)"
+    ]
+  },
+  {
+    "name": "lessonsectionprogress",
+    "sql": "CREATE TABLE lessonsectionprogress (\n\ttopic_id INTEGER NOT NULL, \n\tsection_slug VARCHAR NOT NULL, \n\tcompleted BOOLEAN NOT NULL, \n\tfirst_viewed_at DATETIME NOT NULL, \n\tlast_viewed_at DATETIME NOT NULL, \n\tcompleted_at DATETIME, \n\tPRIMARY KEY (topic_id, section_slug), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "mistake",
+    "sql": "CREATE TABLE mistake (\n\tid INTEGER NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\tcategory VARCHAR NOT NULL, \n\tdescription TEXT NOT NULL, \n\toccurrence_count INTEGER NOT NULL, \n\tlast_seen_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT uq_mistake UNIQUE (topic_id, category, description), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_mistake_category ON mistake (category)",
+      "CREATE INDEX ix_mistake_last_seen_at ON mistake (last_seen_at)",
+      "CREATE INDEX ix_mistake_topic_id ON mistake (topic_id)"
+    ]
+  },
+  {
+    "name": "reviewstate",
+    "sql": "CREATE TABLE reviewstate (\n\ttopic_id INTEGER NOT NULL, \n\tdue_at DATETIME NOT NULL, \n\tstate_json TEXT NOT NULL, \n\tPRIMARY KEY (topic_id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_reviewstate_due_at ON reviewstate (due_at)"
+    ]
+  },
+  {
+    "name": "topicmigrationmap",
+    "sql": "CREATE TABLE topicmigrationmap (\n\told_topic_id INTEGER NOT NULL, \n\tnew_topic_id INTEGER NOT NULL, \n\tmapping_key VARCHAR NOT NULL, \n\tmigrated_at DATETIME NOT NULL, \n\tPRIMARY KEY (old_topic_id, new_topic_id), \n\tFOREIGN KEY(old_topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(new_topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_topicmigrationmap_mapping_key ON topicmigrationmap (mapping_key)"
+    ]
+  },
+  {
+    "name": "topicprerequisite",
+    "sql": "CREATE TABLE topicprerequisite (\n\ttopic_id INTEGER NOT NULL, \n\tprerequisite_topic_id INTEGER NOT NULL, \n\tPRIMARY KEY (topic_id, prerequisite_topic_id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(prerequisite_topic_id) REFERENCES topic (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "arenaattempt",
+    "sql": "CREATE TABLE arenaattempt (\n\tid INTEGER NOT NULL, \n\tproblem_key VARCHAR NOT NULL, \n\ttrack VARCHAR NOT NULL, \n\tsubmitted_source TEXT NOT NULL, \n\tscore FLOAT NOT NULL, \n\tpassed BOOLEAN NOT NULL, \n\tgave_up BOOLEAN NOT NULL, \n\thints_used INTEGER NOT NULL, \n\truntime_ms INTEGER, \n\tresult_json TEXT NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(problem_key) REFERENCES arenaproblem (\"key\")\n)",
+    "indexes": [
+      "CREATE INDEX ix_arenaattempt_created_at ON arenaattempt (created_at)",
+      "CREATE INDEX ix_arenaattempt_passed ON arenaattempt (passed)",
+      "CREATE INDEX ix_arenaattempt_problem_key ON arenaattempt (problem_key)",
+      "CREATE INDEX ix_arenaattempt_track ON arenaattempt (track)"
+    ]
+  },
+  {
+    "name": "arenahintuse",
+    "sql": "CREATE TABLE arenahintuse (\n\tproblem_key VARCHAR NOT NULL, \n\tcount INTEGER NOT NULL, \n\tPRIMARY KEY (problem_key), \n\tFOREIGN KEY(problem_key) REFERENCES arenaproblem (\"key\")\n)",
+    "indexes": []
+  },
+  {
+    "name": "chatmessage",
+    "sql": "CREATE TABLE chatmessage (\n\tid INTEGER NOT NULL, \n\tsession_id INTEGER, \n\ttopic_id INTEGER, \n\trole VARCHAR NOT NULL, \n\tcontent TEXT NOT NULL, \n\tchat_type VARCHAR NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(session_id) REFERENCES learningsession (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_chatmessage_chat_type ON chatmessage (chat_type)",
+      "CREATE INDEX ix_chatmessage_created_at ON chatmessage (created_at)",
+      "CREATE INDEX ix_chatmessage_role ON chatmessage (role)",
+      "CREATE INDEX ix_chatmessage_session_id ON chatmessage (session_id)",
+      "CREATE INDEX ix_chatmessage_topic_id ON chatmessage (topic_id)"
+    ]
+  },
+  {
+    "name": "exerciseattemptdetail",
+    "sql": "CREATE TABLE exerciseattemptdetail (\n\tattempt_id INTEGER NOT NULL, \n\texercise_id INTEGER NOT NULL, \n\tsession_id INTEGER NOT NULL, \n\tanswer TEXT NOT NULL, \n\thints_used_count INTEGER NOT NULL, \n\texecution_summary_json TEXT NOT NULL, \n\tfeedback TEXT NOT NULL, \n\tgrading_source VARCHAR NOT NULL, \n\tevaluation_status VARCHAR NOT NULL, \n\tPRIMARY KEY (attempt_id), \n\tFOREIGN KEY(attempt_id) REFERENCES attempt (id), \n\tFOREIGN KEY(exercise_id) REFERENCES exercise (id), \n\tFOREIGN KEY(session_id) REFERENCES learningsession (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_exerciseattemptdetail_exercise_id ON exerciseattemptdetail (exercise_id)",
+      "CREATE INDEX ix_exerciseattemptdetail_session_id ON exerciseattemptdetail (session_id)"
+    ]
+  },
+  {
+    "name": "interviewquestion",
+    "sql": "CREATE TABLE interviewquestion (\n\tid INTEGER NOT NULL, \n\tsession_id INTEGER NOT NULL, \n\tsection VARCHAR NOT NULL, \n\tcompetency VARCHAR NOT NULL, \n\tquestion_type VARCHAR NOT NULL, \n\tprompt_markdown TEXT NOT NULL, \n\ttopic_id INTEGER, \n\texercise_id INTEGER, \n\tlearning_session_id INTEGER, \n\tfollow_up_of_id INTEGER, \n\trubric_json TEXT NOT NULL, \n\texpected_concepts_json TEXT NOT NULL, \n\tdifficulty VARCHAR NOT NULL, \n\tsuggested_seconds INTEGER NOT NULL, \n\tblueprint_slot INTEGER NOT NULL, \n\torder_index INTEGER NOT NULL, \n\tgenerated_by VARCHAR NOT NULL, \n\tstarted_at DATETIME NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(session_id) REFERENCES interviewsession (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(exercise_id) REFERENCES exercise (id), \n\tFOREIGN KEY(learning_session_id) REFERENCES learningsession (id), \n\tFOREIGN KEY(follow_up_of_id) REFERENCES interviewquestion (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_interviewquestion_blueprint_slot ON interviewquestion (blueprint_slot)",
+      "CREATE INDEX ix_interviewquestion_competency ON interviewquestion (competency)",
+      "CREATE INDEX ix_interviewquestion_created_at ON interviewquestion (created_at)",
+      "CREATE INDEX ix_interviewquestion_exercise_id ON interviewquestion (exercise_id)",
+      "CREATE INDEX ix_interviewquestion_follow_up_of_id ON interviewquestion (follow_up_of_id)",
+      "CREATE INDEX ix_interviewquestion_learning_session_id ON interviewquestion (learning_session_id)",
+      "CREATE INDEX ix_interviewquestion_order_index ON interviewquestion (order_index)",
+      "CREATE INDEX ix_interviewquestion_question_type ON interviewquestion (question_type)",
+      "CREATE INDEX ix_interviewquestion_section ON interviewquestion (section)",
+      "CREATE INDEX ix_interviewquestion_session_id ON interviewquestion (session_id)",
+      "CREATE INDEX ix_interviewquestion_started_at ON interviewquestion (started_at)",
+      "CREATE INDEX ix_interviewquestion_topic_id ON interviewquestion (topic_id)"
+    ]
+  },
+  {
+    "name": "masteryevidenceevent",
+    "sql": "CREATE TABLE masteryevidenceevent (\n\tid INTEGER NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\tevent_type VARCHAR NOT NULL, \n\tsource_attempt_id INTEGER, \n\tscore FLOAT NOT NULL, \n\tevidence_weight FLOAT NOT NULL, \n\tassisted BOOLEAN NOT NULL, \n\tmetadata_json TEXT NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(source_attempt_id) REFERENCES attempt (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_masteryevidenceevent_created_at ON masteryevidenceevent (created_at)",
+      "CREATE INDEX ix_masteryevidenceevent_event_type ON masteryevidenceevent (event_type)",
+      "CREATE INDEX ix_masteryevidenceevent_source_attempt_id ON masteryevidenceevent (source_attempt_id)",
+      "CREATE INDEX ix_masteryevidenceevent_topic_id ON masteryevidenceevent (topic_id)"
+    ]
+  },
+  {
+    "name": "practicehintuse",
+    "sql": "CREATE TABLE practicehintuse (\n\tsession_id INTEGER NOT NULL, \n\texercise_id INTEGER NOT NULL, \n\tcount INTEGER NOT NULL, \n\tPRIMARY KEY (session_id, exercise_id), \n\tFOREIGN KEY(session_id) REFERENCES learningsession (id), \n\tFOREIGN KEY(exercise_id) REFERENCES exercise (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "practicesessionexercise",
+    "sql": "CREATE TABLE practicesessionexercise (\n\tsession_id INTEGER NOT NULL, \n\texercise_id INTEGER NOT NULL, \n\torder_index INTEGER NOT NULL, \n\tPRIMARY KEY (session_id, exercise_id), \n\tFOREIGN KEY(session_id) REFERENCES learningsession (id), \n\tFOREIGN KEY(exercise_id) REFERENCES exercise (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "reviewevent",
+    "sql": "CREATE TABLE reviewevent (\n\tid INTEGER NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\tsession_id INTEGER, \n\tattempt_id INTEGER, \n\tscore FLOAT NOT NULL, \n\tfsrs_rating INTEGER NOT NULL, \n\treviewed_at DATETIME NOT NULL, \n\tprevious_due_at DATETIME, \n\tnext_due_at DATETIME NOT NULL, \n\tmetadata_json TEXT NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(session_id) REFERENCES learningsession (id), \n\tFOREIGN KEY(attempt_id) REFERENCES attempt (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_reviewevent_attempt_id ON reviewevent (attempt_id)",
+      "CREATE INDEX ix_reviewevent_next_due_at ON reviewevent (next_due_at)",
+      "CREATE INDEX ix_reviewevent_reviewed_at ON reviewevent (reviewed_at)",
+      "CREATE INDEX ix_reviewevent_session_id ON reviewevent (session_id)",
+      "CREATE INDEX ix_reviewevent_topic_id ON reviewevent (topic_id)"
+    ]
+  },
+  {
+    "name": "transfercheck",
+    "sql": "CREATE TABLE transfercheck (\n\tid INTEGER NOT NULL, \n\ttopic_id INTEGER NOT NULL, \n\texercise_id INTEGER NOT NULL, \n\tsession_id INTEGER NOT NULL, \n\tattempt_id INTEGER, \n\tscore FLOAT, \n\tpassed BOOLEAN NOT NULL, \n\tassisted BOOLEAN NOT NULL, \n\tcreated_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(exercise_id) REFERENCES exercise (id), \n\tFOREIGN KEY(session_id) REFERENCES learningsession (id), \n\tFOREIGN KEY(attempt_id) REFERENCES attempt (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_transfercheck_created_at ON transfercheck (created_at)",
+      "CREATE INDEX ix_transfercheck_exercise_id ON transfercheck (exercise_id)",
+      "CREATE UNIQUE INDEX ix_transfercheck_session_id ON transfercheck (session_id)",
+      "CREATE INDEX ix_transfercheck_topic_id ON transfercheck (topic_id)"
+    ]
+  },
+  {
+    "name": "tutorsessionstate",
+    "sql": "CREATE TABLE tutorsessionstate (\n\tsession_id INTEGER NOT NULL, \n\tlesson_version VARCHAR NOT NULL, \n\tsection_slug VARCHAR NOT NULL, \n\tPRIMARY KEY (session_id), \n\tFOREIGN KEY(session_id) REFERENCES learningsession (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "interviewresponse",
+    "sql": "CREATE TABLE interviewresponse (\n\tid INTEGER NOT NULL, \n\tquestion_id INTEGER NOT NULL, \n\tresponse_text TEXT, \n\tattempt_id INTEGER, \n\tscore FLOAT NOT NULL, \n\tevaluation_json TEXT NOT NULL, \n\tanswered_at DATETIME NOT NULL, \n\tduration_seconds INTEGER, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(question_id) REFERENCES interviewquestion (id), \n\tFOREIGN KEY(attempt_id) REFERENCES attempt (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_interviewresponse_answered_at ON interviewresponse (answered_at)",
+      "CREATE INDEX ix_interviewresponse_attempt_id ON interviewresponse (attempt_id)",
+      "CREATE UNIQUE INDEX ix_interviewresponse_question_id ON interviewresponse (question_id)"
+    ]
+  }
+]

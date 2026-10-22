@@ -1,0 +1,17 @@
+{
+  "objective": false,
+  "accurate_explanation": false,
+  "terminology": false,
+  "worked_example": false,
+  "reasoning_steps": false,
+  "common_mistakes": false,
+  "progressive_practice": false,
+  "worked_answers": false,
+  "progressive_hints": false,
+  "revision_summary": false,
+  "provenance": false,
+  "independent_technical_review": false,
+  "semantic_answers": false,
+  "coverage": false,
+  "statement_judge_agreement": false
+}

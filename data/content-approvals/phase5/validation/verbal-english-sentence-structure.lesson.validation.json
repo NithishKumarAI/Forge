@@ -1,0 +1,29 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "8c2a00dd9c9c19ab3197e549ec790ea8bf483bb5d960948c9e7d6a71995cb69c",
+  "payload_sha256": "95600c62267b9b4c0c2be1bf13a6c0e367572ebfba3f5a515e2bc87809ef2b3e",
+  "coverage_sha256": "75763f49e33481a3a0b43b143044680a3786e11eca053200fd79debd86eee50b",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "ee337c870fc0e4f43e86e7ba5ab07eb0e67446d2c75c61af18684cb7f67dc203"
+  },
+  "coverage": [
+    {
+      "id": "verbal-english-sentence-structure",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

@@ -1,0 +1,93 @@
+{
+  "key": "python-max-profit",
+  "title": "Best stock trade",
+  "track": "python",
+  "topic_tags": [
+    "arrays",
+    "greedy"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Write `max_profit(prices)` to find the maximum profit from one transaction (buy then sell). Return 0 if no profit.",
+  "constraints": [
+    "List contains non-negative integers."
+  ],
+  "examples": [
+    {
+      "input": "[7,1,5,3,6,4]",
+      "output": "5",
+      "explanation": "Buy at 1, sell at 6."
+    }
+  ],
+  "starter_code": "def max_profit(prices: list[int]) -> int:\n    pass",
+  "hints": [
+    "Track the minimum price seen so far."
+  ],
+  "explanation": "Iterate through the prices, updating the minimum price seen and calculating the potential profit at each step.",
+  "reference_solution": "def max_profit(prices: list[int]) -> int:\n    min_price = float('inf')\n    max_prof = 0\n    for price in prices:\n        if price < min_price:\n            min_price = price\n        elif price - min_price > max_prof:\n            max_prof = price - min_price\n    return max_prof",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "max_profit",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            7,
+            1,
+            5,
+            3,
+            6,
+            4
+          ]
+        ],
+        "kwargs": {},
+        "expected": 5
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            7,
+            6,
+            4,
+            3,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 0
+      },
+      {
+        "name": "sample3",
+        "args": [
+          [
+            1,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": 1
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          [
+            2,
+            4,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 2
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/arrays"
+}

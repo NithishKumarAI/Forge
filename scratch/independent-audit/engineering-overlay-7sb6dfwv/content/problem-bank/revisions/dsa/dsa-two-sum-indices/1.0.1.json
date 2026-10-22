@@ -1,0 +1,278 @@
+{
+  "key": "dsa-two-sum-indices",
+  "title": "Two sum indices",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "hash-maps"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Implement `two_sum` with parameters `nums: list[int]`, `target: int`.\n\nReturn a `list` (`list[int]`). Find distinct indices i < j with nums[i] + nums[j] == target. Return [i, j]. If several pairs work, choose the smallest j, then the smallest i. Do not modify nums.\n\nNo solution: Return an empty list []. Never reuse one index.\n\nExceptions: Inputs satisfy the declared constraints; no exception is expected.",
+  "constraints": [
+    "0 <= len(nums) <= 10000",
+    "Every nums element is an integer between -1000000000 and 1000000000 inclusive.",
+    "target is an integer between -2000000000 and 2000000000 inclusive.",
+    "A valid pair is not guaranteed."
+  ],
+  "examples": [
+    {
+      "input": "[2, 7, 11, 15], 9",
+      "output": "[0, 1]",
+      "explanation": "Use two distinct positions; their values sum to target."
+    },
+    {
+      "input": "[3, 2, 4], 6",
+      "output": "[1, 2]",
+      "explanation": "Use two distinct positions; their values sum to target."
+    }
+  ],
+  "starter_code": "def two_sum(nums: list[int], target: int) -> list[int]:\n    pass",
+  "hints": [
+    "Scan from left to right. For each value, what complement would reach target?",
+    "Keep the earliest index for each value. Check the complement before storing the current index.",
+    "Return the first matching pair you encounter; return [] if the scan finishes without a match."
+  ],
+  "explanation": "Scan increasing j. Before storing nums[j], look up its complement among earlier values. Keeping the first index for each value gives the smallest i for that j. Checking before insertion prevents reusing an index. If no match appears, return []. For [1, 1, 2] and target 3, keep index 0 for value 1 and return [0, 2].",
+  "reference_solution": "def two_sum(nums: list[int], target: int) -> list[int]:\n    seen = {}\n    for j, value in enumerate(nums):\n        complement = target - value\n        if complement in seen:\n            return [seen[complement], j]\n        seen.setdefault(value, j)\n    return []",
+  "complexity": "Expected O(n) time with dictionary lookups and O(n) extra space. The input list is unchanged.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "two_sum",
+    "sample_tests": [
+      {
+        "name": "normal",
+        "args": [
+          [
+            2,
+            7,
+            11,
+            15
+          ],
+          9
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1
+        ],
+        "case_tags": [
+          "normal"
+        ]
+      },
+      {
+        "name": "middle",
+        "args": [
+          [
+            3,
+            2,
+            4
+          ],
+          6
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2
+        ],
+        "case_tags": [
+          "normal"
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "duplicates",
+        "args": [
+          [
+            3,
+            3
+          ],
+          6
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1
+        ],
+        "case_tags": [
+          "edge",
+          "duplicate"
+        ]
+      },
+      {
+        "name": "repeated",
+        "args": [
+          [
+            1,
+            1,
+            2
+          ],
+          3
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          2
+        ],
+        "case_tags": [
+          "edge",
+          "repeated"
+        ]
+      },
+      {
+        "name": "negative",
+        "args": [
+          [
+            -3,
+            4,
+            3,
+            90
+          ],
+          0
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          2
+        ],
+        "case_tags": [
+          "normal"
+        ]
+      },
+      {
+        "name": "zeros",
+        "args": [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1
+        ],
+        "case_tags": [
+          "edge"
+        ]
+      },
+      {
+        "name": "empty",
+        "args": [
+          [],
+          0
+        ],
+        "kwargs": {},
+        "expected": [],
+        "case_tags": [
+          "edge",
+          "no_solution",
+          "boundary"
+        ]
+      },
+      {
+        "name": "single",
+        "args": [
+          [
+            3
+          ],
+          6
+        ],
+        "kwargs": {},
+        "expected": [],
+        "case_tags": [
+          "no_solution"
+        ]
+      },
+      {
+        "name": "absent",
+        "args": [
+          [
+            1,
+            2,
+            3
+          ],
+          100
+        ],
+        "kwargs": {},
+        "expected": [],
+        "case_tags": [
+          "no_solution"
+        ]
+      },
+      {
+        "name": "bounds",
+        "args": [
+          [
+            -1000000000,
+            1000000000
+          ],
+          0
+        ],
+        "kwargs": {},
+        "expected": [
+          0,
+          1
+        ],
+        "case_tags": [
+          "boundary"
+        ]
+      }
+    ],
+    "time_limit_ms": 5000
+  },
+  "source_type": "original",
+  "version": "1.0.1",
+  "mapped_topic": "dsa/hash-maps",
+  "publication_contract": {
+    "function_name": "two_sum",
+    "parameters": [
+      {
+        "name": "nums",
+        "annotation": "list[int]"
+      },
+      {
+        "name": "target",
+        "annotation": "int"
+      }
+    ],
+    "return_annotation": "list[int]",
+    "return_type": "list",
+    "behavior": "Find distinct indices i < j with nums[i] + nums[j] == target. Return [i, j]. If several pairs work, choose the smallest j, then the smallest i. Do not modify nums.",
+    "no_solution": "Return an empty list []. Never reuse one index.",
+    "exception_behavior": "Inputs satisfy the declared constraints; no exception is expected.",
+    "constraints": [
+      "0 <= len(nums) <= 10000",
+      "Every nums element is an integer between -1000000000 and 1000000000 inclusive.",
+      "target is an integer between -2000000000 and 2000000000 inclusive.",
+      "A valid pair is not guaranteed."
+    ],
+    "example_test_names": [
+      "normal",
+      "middle"
+    ],
+    "bounds": [
+      {
+        "parameter": "nums",
+        "kind": "list_int",
+        "min_length": 0,
+        "max_length": 10000,
+        "min": -1000000000,
+        "max": 1000000000
+      },
+      {
+        "parameter": "target",
+        "kind": "int",
+        "min": -2000000000,
+        "max": 2000000000
+      }
+    ]
+  },
+  "negative_solutions": [
+    "def two_sum(nums: list[int], target: int) -> list[int]:\n    return (0, 1)",
+    "def two_sum(nums: list[int], target: int) -> list[int]:\n    return [0, 0]"
+  ]
+}

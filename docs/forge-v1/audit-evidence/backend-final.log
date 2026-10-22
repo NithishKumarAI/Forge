@@ -1,0 +1,15 @@
+........................................................................ [ 25%]
+........................................................................ [ 51%]
+........................................................................ [ 77%]
+..............................................................           [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\starlette\testclient.py:40
+  C:\My PC\git\Forge\apps\api\.venv\Lib\site-packages\starlette\testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+tests/test_independent_contracts.py::test_committed_phase5_frontend_routes_are_registered_locally
+  C:\My PC\git\Forge\apps\api\.venv\Lib\site-packages\fastapi\openapi\utils.py:225: UserWarning: Duplicate Operation ID retired_api_practice__path__post for function retired at C:\My PC\git\Forge\apps\api\app\routers\practice.py
+    warnings.warn(message, stacklevel=1)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+278 passed, 2 warnings in 543.26s (0:09:03)

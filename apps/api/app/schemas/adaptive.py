@@ -48,6 +48,7 @@ class PlannerItemRead(BaseModel):
 
 
 class PlannerSettings(BaseModel):
+    study_timezone: str = "Asia/Kolkata"
     daily_study_target: int
     dsa_daily_minimum: int
     python_daily_minimum: int
@@ -57,6 +58,7 @@ class PlannerSettings(BaseModel):
 
 
 class PlannerSettingsUpdate(BaseModel):
+    study_timezone: str | None = None
     daily_study_target: int | None = None
     dsa_daily_minimum: int | None = None
     python_daily_minimum: int | None = None

@@ -1,0 +1,29 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "f16b8d96283677e13bb4fbe24dcd2a339f8504b9e348600ff0b31f65307bfcba",
+  "payload_sha256": "26a5b6410f1650fedfe508f6f72f63aa847f4cffd8cd2c115a6df64601604ddd",
+  "coverage_sha256": "e623afa9faec453d9e1ee2d9b73d15b69ad94d181e696a6d207e76fbe3532c00",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "7fa67ad6160b4524d46476c5a3843aa299f6ec7bab3882263468c00eb5a90ee2"
+  },
+  "coverage": [
+    {
+      "id": "system-design-requirements",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

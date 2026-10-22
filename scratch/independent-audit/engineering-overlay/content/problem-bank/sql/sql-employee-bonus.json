@@ -1,0 +1,106 @@
+{
+  "key": "sql-employee-bonus",
+  "title": "Employee bonus classification",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Classify every employee as High when salary is at least 80000, Medium when at least 50000, otherwise Low. Return name and bonus_tier, highest salary first.",
+  "constraints": [
+    "Return exactly: name, bonus_tier.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible employees tables",
+      "output": "[[\"Alice\",\"High\"],[\"David\",\"High\"],[\"Charlie\",\"Medium\"],[\"Bob\",\"Low\"]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "CASE conditions are checked from top to bottom.",
+    "Test the highest threshold first so it is not captured by the medium branch."
+  ],
+  "explanation": "CASE maps salary ranges to labels while retaining every row. Because the first true branch wins, the high threshold must come before medium. A common mistake is using > instead of >= at boundaries. A lookup table is an alternative when tiers change frequently.",
+  "reference_solution": "SELECT name, CASE WHEN salary >= 80000 THEN 'High' WHEN salary >= 50000 THEN 'Medium' ELSE 'Low' END AS bonus_tier FROM employees ORDER BY salary DESC",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'Alice', 90000), (2, 'Bob', 40000), (3, 'Charlie', 60000), (4, 'David', 80000);",
+    "visible_tables": [
+      "employees"
+    ],
+    "sample_rows": [
+      [
+        "Alice",
+        "High"
+      ],
+      [
+        "David",
+        "High"
+      ],
+      [
+        "Charlie",
+        "Medium"
+      ],
+      [
+        "Bob",
+        "Low"
+      ]
+    ],
+    "expected_columns": [
+      "name",
+      "bonus_tier"
+    ],
+    "expected_rows": [
+      [
+        "Alice",
+        "High"
+      ],
+      [
+        "David",
+        "High"
+      ],
+      [
+        "Charlie",
+        "Medium"
+      ],
+      [
+        "Bob",
+        "Low"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE employees (id INT,name VARCHAR(50),salary INT); INSERT INTO employees VALUES (10,'Ira',80000),(11,'Jin',50000),(12,'Koa',49999),(13,'Lia',95000);",
+        "expected_rows": [
+          [
+            "Lia",
+            "High"
+          ],
+          [
+            "Ira",
+            "High"
+          ],
+          [
+            "Jin",
+            "Medium"
+          ],
+          [
+            "Koa",
+            "Low"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

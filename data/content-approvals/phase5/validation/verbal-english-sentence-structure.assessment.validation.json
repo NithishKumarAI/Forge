@@ -1,0 +1,88 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "6e1fd90671386c37c12b03f938d772905a9fb7de0be46ff1b2cdb274a3d8f02c",
+  "payload_sha256": "613fc5bddac405f1d4e01de7d23b936ea9139eda0636901221747a8dbf306168",
+  "coverage_sha256": "bf79dbaf2fd95f12fff120b8d7578e7785a7196d94d248e9f81f422239913432",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "ee337c870fc0e4f43e86e7ba5ab07eb0e67446d2c75c61af18684cb7f67dc203"
+  },
+  "coverage": [
+    {
+      "id": "guided-subject",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/guided-subject"
+      ],
+      "assessment_refs": [
+        "item/guided-subject"
+      ]
+    },
+    {
+      "id": "independent-verb",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/independent-verb"
+      ],
+      "assessment_refs": [
+        "item/independent-verb"
+      ]
+    },
+    {
+      "id": "transfer-clause",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/transfer-clause"
+      ],
+      "assessment_refs": [
+        "item/transfer-clause"
+      ]
+    },
+    {
+      "id": "recall-dependent",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/recall-dependent"
+      ],
+      "assessment_refs": [
+        "item/recall-dependent"
+      ]
+    },
+    {
+      "id": "mock-head",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/mock-head"
+      ],
+      "assessment_refs": [
+        "item/mock-head"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "item": "guided-subject",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "independent-verb",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "transfer-clause",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "recall-dependent",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "mock-head",
+      "status": "requires_human_answer_review"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

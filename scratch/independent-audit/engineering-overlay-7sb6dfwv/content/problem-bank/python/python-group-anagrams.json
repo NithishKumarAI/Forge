@@ -1,0 +1,75 @@
+{
+  "key": "python-group-anagrams",
+  "title": "Group anagrams together",
+  "track": "python",
+  "topic_tags": [
+    "hash-maps",
+    "strings"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write `group_anagrams(words)` to group words that are anagrams. Return a list of groups, where each group is sorted alphabetically, and the list of groups is sorted by the first element.",
+  "constraints": [
+    "Words contain lowercase letters."
+  ],
+  "examples": [
+    {
+      "input": "['eat','tea','ate']",
+      "output": "[['ate','eat','tea']]",
+      "explanation": "Anagrams are grouped and sorted."
+    }
+  ],
+  "starter_code": "def group_anagrams(words: list[str]) -> list[list[str]]:\n    pass",
+  "hints": [
+    "Use sorted strings as dictionary keys."
+  ],
+  "explanation": "Iterate through words, sorting each to use as a hash map key. Group anagrams under the same key.",
+  "reference_solution": "def group_anagrams(words: list[str]) -> list[list[str]]:\n    from collections import defaultdict\n    groups = defaultdict(list)\n    for w in words:\n        groups[tuple(sorted(w))].append(w)\n    res = []\n    for g in groups.values():\n        res.append(sorted(g))\n    return sorted(res, key=lambda x: x[0] if x else \"\")",
+  "complexity": "O(n * k log k) time where k is max length of word, O(n*k) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "group_anagrams",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            "eat",
+            "tea",
+            "ate"
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            "ate",
+            "eat",
+            "tea"
+          ]
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          [
+            "tan",
+            "nat"
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          [
+            "nat",
+            "tan"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

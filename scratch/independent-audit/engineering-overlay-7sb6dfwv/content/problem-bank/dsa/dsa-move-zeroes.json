@@ -1,0 +1,106 @@
+{
+  "key": "dsa-move-zeroes",
+  "title": "Move zeroes to end",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "two-pointers"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an integer array `nums`, move all `0`s to the end of it while maintaining the relative order of the non-zero elements. Must do this in-place.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[0,1,0,3,12]",
+      "output": "[1,3,12,0,0]",
+      "explanation": "Zeroes are moved to the end."
+    }
+  ],
+  "starter_code": "def move_zeroes(nums: list[int]) -> list[int]:\n    pass",
+  "hints": [
+    "Use two pointers.",
+    "One pointer keeps track of where the next non-zero element should go."
+  ],
+  "explanation": "Maintain a pointer `insert_pos` for where the next non-zero element goes. Iterate through the array; if an element is non-zero, swap it with `nums[insert_pos]` and increment `insert_pos`.",
+  "reference_solution": "def move_zeroes(nums: list[int]) -> list[int]:\n    insert_pos = 0\n    for i in range(len(nums)):\n        if nums[i] != 0:\n            nums[insert_pos], nums[i] = nums[i], nums[insert_pos]\n            insert_pos += 1\n    return nums",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "move_zeroes",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            0,
+            1,
+            0,
+            3,
+            12
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          3,
+          12,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            0
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          0
+        ]
+      },
+      {
+        "name": "sample3",
+        "args": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          1,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/two-pointers"
+}

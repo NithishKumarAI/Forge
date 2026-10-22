@@ -1,0 +1,398 @@
+{
+  "content_key": "assessment/placement-foundations/dsa/dsa-problem-contracts",
+  "revision": "1.0.0",
+  "content_type": "assessment_bundle",
+  "payload": {
+    "assessment": {
+      "key": "assessment/placement-foundations/dsa/dsa-problem-contracts",
+      "version": "1.0.0",
+      "items": [
+        {
+          "key": "guided-distance",
+          "kind": "python",
+          "prompt": "Return the nonnegative integer distance between positions a and b, each between -1000 and 1000. Keep solve(a, b). Equal positions have distance 0.",
+          "explanation": "Subtract the positions and take the absolute value.",
+          "contract": {
+            "mode": "function",
+            "function_name": "solve",
+            "parameters": [
+              "a",
+              "b"
+            ],
+            "starter_code": "def solve(a, b):\n    # Replace pass with your return expression.\n    pass",
+            "reference_solution": "def solve(a, b):\n    return abs(a - b)",
+            "tests": [
+              {
+                "name": "case-0",
+                "args": [
+                  3,
+                  8
+                ],
+                "expected": 5
+              },
+              {
+                "name": "case-1",
+                "args": [
+                  8,
+                  3
+                ],
+                "expected": 5
+              },
+              {
+                "name": "case-2",
+                "args": [
+                  4,
+                  4
+                ],
+                "expected": 0
+              },
+              {
+                "name": "case-3",
+                "args": [
+                  -3,
+                  2
+                ],
+                "expected": 5
+              }
+            ],
+            "sample_tests": [
+              {
+                "name": "public",
+                "args": [
+                  3,
+                  8
+                ],
+                "expected": 5
+              }
+            ],
+            "negative_solutions": [
+              "def solve(a, b):\n    return 0"
+            ]
+          },
+          "family": "pf/dsa-problem-contracts/guided-distance",
+          "subject": "dsa",
+          "topic": "dsa-problem-contracts",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "independent-inclusive",
+          "kind": "python",
+          "prompt": "For integers start <= end between -100 and 100, return how many integer positions are in the inclusive interval [start, end]. Keep solve(start, end).",
+          "explanation": "The difference counts gaps; add one to count both endpoints.",
+          "contract": {
+            "mode": "function",
+            "function_name": "solve",
+            "parameters": [
+              "start",
+              "end"
+            ],
+            "starter_code": "def solve(start, end):\n    # Replace pass with your return expression.\n    pass",
+            "reference_solution": "def solve(start, end):\n    return end - start + 1",
+            "tests": [
+              {
+                "name": "case-0",
+                "args": [
+                  2,
+                  4
+                ],
+                "expected": 3
+              },
+              {
+                "name": "case-1",
+                "args": [
+                  0,
+                  0
+                ],
+                "expected": 1
+              },
+              {
+                "name": "case-2",
+                "args": [
+                  -2,
+                  1
+                ],
+                "expected": 4
+              }
+            ],
+            "sample_tests": [
+              {
+                "name": "public",
+                "args": [
+                  2,
+                  4
+                ],
+                "expected": 3
+              }
+            ],
+            "negative_solutions": [
+              "def solve(start, end):\n    return 0"
+            ]
+          },
+          "family": "pf/dsa-problem-contracts/independent-inclusive",
+          "subject": "dsa",
+          "topic": "dsa-problem-contracts",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "transfer-ring",
+          "kind": "python",
+          "prompt": "Twelve positions labeled 0 through 11 form a ring. One step moves to either adjacent position, with 0 adjacent to 11. Return the fewest steps from a to b, where both inputs are integer labels. Keep solve(a, b).",
+          "explanation": "Compare the direct distance with the complementary path around the twelve-position ring.",
+          "contract": {
+            "mode": "function",
+            "function_name": "solve",
+            "parameters": [
+              "a",
+              "b"
+            ],
+            "starter_code": "def solve(a, b):\n    pass",
+            "reference_solution": "def solve(a, b):\n    return min(abs(a-b), 12-abs(a-b))",
+            "tests": [
+              {
+                "name": "case-0",
+                "args": [
+                  1,
+                  11
+                ],
+                "expected": 2
+              },
+              {
+                "name": "case-1",
+                "args": [
+                  0,
+                  11
+                ],
+                "expected": 1
+              },
+              {
+                "name": "case-2",
+                "args": [
+                  0,
+                  6
+                ],
+                "expected": 6
+              },
+              {
+                "name": "case-3",
+                "args": [
+                  4,
+                  4
+                ],
+                "expected": 0
+              },
+              {
+                "name": "case-4",
+                "args": [
+                  10,
+                  2
+                ],
+                "expected": 4
+              }
+            ],
+            "sample_tests": [
+              {
+                "name": "public",
+                "args": [
+                  1,
+                  11
+                ],
+                "expected": 2
+              }
+            ],
+            "negative_solutions": [
+              "def solve(a, b):\n    return abs(a-b)",
+              "def solve(a, b):\n    return 0"
+            ]
+          },
+          "family": "pf/dsa-problem-contracts/transfer-ring",
+          "subject": "dsa",
+          "topic": "dsa-problem-contracts",
+          "level": 1,
+          "purposes": [
+            "transfer"
+          ],
+          "independent_variant": true,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "recall-distance",
+          "kind": "python",
+          "prompt": "Return the nonnegative integer distance between integer positions a and b in [-1000,1000].",
+          "explanation": "Absolute difference handles either order and equal positions.",
+          "contract": {
+            "mode": "function",
+            "function_name": "solve",
+            "parameters": [
+              "a",
+              "b"
+            ],
+            "starter_code": "def solve(a, b):\n    # Replace pass with your return expression.\n    pass",
+            "reference_solution": "def solve(a, b):\n    return abs(a-b)",
+            "tests": [
+              {
+                "name": "case-0",
+                "args": [
+                  -4,
+                  -1
+                ],
+                "expected": 3
+              },
+              {
+                "name": "case-1",
+                "args": [
+                  7,
+                  2
+                ],
+                "expected": 5
+              },
+              {
+                "name": "case-2",
+                "args": [
+                  0,
+                  0
+                ],
+                "expected": 0
+              }
+            ],
+            "sample_tests": [
+              {
+                "name": "public",
+                "args": [
+                  -4,
+                  -1
+                ],
+                "expected": 3
+              }
+            ],
+            "negative_solutions": [
+              "def solve(a, b):\n    return 0"
+            ]
+          },
+          "family": "pf/dsa-problem-contracts/recall-distance",
+          "subject": "dsa",
+          "topic": "dsa-problem-contracts",
+          "level": 1,
+          "purposes": [
+            "recall"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "mock-contract",
+          "kind": "single_choice",
+          "prompt": "A function promises a list of two integers. Which result satisfies that return-type contract?",
+          "explanation": "The first is a list; the second is a tuple even though its elements match.",
+          "contract": {
+            "choices": {
+              "a": "(2, 5)",
+              "b": "[2, 5]"
+            },
+            "correct": [
+              "b"
+            ]
+          },
+          "family": "pf/dsa-problem-contracts/mock-contract",
+          "subject": "dsa",
+          "topic": "dsa-problem-contracts",
+          "level": 1,
+          "purposes": [
+            "interview"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "mit-algorithms",
+        "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "coverage": {
+    "key": "dsa-problem-contracts-assessment",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "guided-distance",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/guided-distance"
+        ],
+        "assessment_refs": [
+          "item/guided-distance"
+        ]
+      },
+      {
+        "id": "independent-inclusive",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/independent-inclusive"
+        ],
+        "assessment_refs": [
+          "item/independent-inclusive"
+        ]
+      },
+      {
+        "id": "transfer-ring",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/transfer-ring"
+        ],
+        "assessment_refs": [
+          "item/transfer-ring"
+        ]
+      },
+      {
+        "id": "recall-distance",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/recall-distance"
+        ],
+        "assessment_refs": [
+          "item/recall-distance"
+        ]
+      },
+      {
+        "id": "mock-contract",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/mock-contract"
+        ],
+        "assessment_refs": [
+          "item/mock-contract"
+        ]
+      }
+    ]
+  }
+}

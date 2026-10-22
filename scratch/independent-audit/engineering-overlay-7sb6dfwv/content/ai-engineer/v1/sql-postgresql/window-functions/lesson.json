@@ -1,0 +1,146 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "sql-postgresql",
+  "topic_slug": "window-functions",
+  "title": "SQL Window Functions",
+  "description": "Compute rankings, comparisons, and running aggregates without collapsing detail rows.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Define a window with OVER, PARTITION BY, and ORDER BY",
+    "Choose ROW_NUMBER, RANK, or DENSE_RANK",
+    "Use LAG, LEAD, and explicit window frames"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "window-model",
+      "title": "Rows and windows",
+      "order_index": 0,
+      "estimated_minutes": 7,
+      "learning_objective": "Understand why window functions preserve detail rows.",
+      "markdown": "A window function computes over related rows while returning one output row for every input row. `OVER` marks the window; `PARTITION BY` restarts it for each group; `ORDER BY` establishes sequence inside a partition. Unlike `GROUP BY`, it does not collapse employees into one department row.\n\nInput `sales`: `day | amount` = `(1,10), (2,15), (3,7)`. Output can retain all three days while adding an aggregate column.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "SELECT day, amount, SUM(amount) OVER () AS grand_total\nFROM sales\nORDER BY day;",
+          "explanation": "`OVER` preserves input granularity.",
+          "expected_output": "day | amount | grand_total\n1 | 10 | 32\n2 | 15 | 32\n3 | 7 | 32"
+        }
+      ],
+      "key_points": [
+        "`OVER` preserves input granularity.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
+    },
+    {
+      "slug": "ranking",
+      "title": "ROW_NUMBER, RANK, and DENSE_RANK",
+      "order_index": 1,
+      "estimated_minutes": 7,
+      "learning_objective": "Choose ranking semantics deliberately.",
+      "markdown": "`ROW_NUMBER()` assigns a unique sequence even for ties. `RANK()` gives ties the same rank and leaves gaps afterward. `DENSE_RANK()` gives ties the same rank without gaps. Always add deterministic tie-breakers when a unique order is required.\n\nFor scores `100, 90, 90, 80`, row numbers are `1,2,3,4`, ranks are `1,2,2,4`, and dense ranks are `1,2,2,3`.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "SELECT player, score,\n  ROW_NUMBER() OVER (ORDER BY score DESC, player) AS row_no,\n  RANK() OVER (ORDER BY score DESC) AS rank_no,\n  DENSE_RANK() OVER (ORDER BY score DESC) AS dense_rank_no\nFROM scores;",
+          "explanation": "Ranking functions differ only when ties exist.",
+          "expected_output": "player | score | row_no | rank_no | dense_rank_no"
+        }
+      ],
+      "key_points": [
+        "Ranking functions differ only when ties exist.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
+    },
+    {
+      "slug": "partitioned-ranking",
+      "title": "Top row per group",
+      "order_index": 2,
+      "estimated_minutes": 7,
+      "learning_objective": "Rank independently inside each group.",
+      "markdown": "Partitioning is the standard path to top-per-group queries. Compute the rank in a CTE, then filter the derived column outside it because a window result is not available to the same query's `WHERE` clause. A stable secondary sort prevents arbitrary winners when salaries tie.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "WITH ranked AS (\n  SELECT employee_id, department, salary,\n    ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC, employee_id) AS rn\n  FROM employees\n)\nSELECT employee_id, department, salary FROM ranked WHERE rn = 1;",
+          "explanation": "Filter window outputs in an outer query.",
+          "expected_output": "One deterministic highest-paid employee per department"
+        }
+      ],
+      "key_points": [
+        "Filter window outputs in an outer query.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
+    },
+    {
+      "slug": "offset-functions",
+      "title": "LAG and LEAD",
+      "order_index": 3,
+      "estimated_minutes": 7,
+      "learning_objective": "Compare a row with its neighbors.",
+      "markdown": "`LAG(value)` reads a prior row and `LEAD(value)` reads a later row according to the window order. They replace fragile self-joins for period-over-period comparisons. The first `LAG` and last `LEAD` normally return NULL because no neighbor exists.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "SELECT month, revenue,\n  LAG(revenue) OVER (ORDER BY month) AS previous_revenue,\n  LEAD(revenue) OVER (ORDER BY month) AS next_revenue,\n  revenue - LAG(revenue) OVER (ORDER BY month) AS change\nFROM monthly_revenue;",
+          "explanation": "Neighbor functions require a meaningful order.",
+          "expected_output": "month | revenue | previous_revenue | next_revenue | change"
+        }
+      ],
+      "key_points": [
+        "Neighbor functions require a meaningful order.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
+    },
+    {
+      "slug": "running-frames",
+      "title": "Running totals and window frames",
+      "order_index": 4,
+      "estimated_minutes": 7,
+      "learning_objective": "Control which ordered rows feed an aggregate.",
+      "markdown": "A running aggregate combines an aggregate with an ordered frame. Write the frame explicitly: `ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW`. This means the first physical row through the current row. PostgreSQL's default with `ORDER BY` is often a value-based `RANGE` frame, which can include tied peers and surprise you.\n\nInput amounts `10,15,7` produce running totals `10,25,32`.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "SELECT day, amount,\n  SUM(amount) OVER (ORDER BY day ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total\nFROM sales\nORDER BY day;",
+          "explanation": "Explicit `ROWS` frames make running behavior obvious.",
+          "expected_output": "day | amount | running_total\n1 | 10 | 10\n2 | 15 | 25\n3 | 7 | 32"
+        }
+      ],
+      "key_points": [
+        "Explicit `ROWS` frames make running behavior obvious.",
+        "Verify ordering and NULL behavior explicitly."
+      ],
+      "checkpoint": "Change the data to include a tie or failure and predict the result."
+    }
+  ],
+  "summary": [
+    "Define a window with OVER, PARTITION BY, and ORDER BY",
+    "Choose ROW_NUMBER, RANK, or DENSE_RANK",
+    "Validate understanding with a trace, boundary case, and independent practice."
+  ],
+  "interview_takeaways": [
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
+  ],
+  "common_mistakes": [
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
+  ],
+  "sources": [
+    {
+      "source_id": "postgresql-official-docs",
+      "title": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/index.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "c7e3f585d65deb302709777101fa94f9d99926755d4f3aadeaec5702344cb3d3",
+  "generated_at": "2026-09-24T00:00:00Z"
+}

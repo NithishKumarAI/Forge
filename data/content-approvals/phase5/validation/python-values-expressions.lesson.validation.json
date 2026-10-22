@@ -1,0 +1,35 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "ccebb5c1622db89e642ae328e4d4fc9245adb25c28b2245d939e17ecd3763d0d",
+  "payload_sha256": "3ecd48937a8aa704ec35ae008c31ce7a41922f974b9945189db5c35b7229a107",
+  "coverage_sha256": "29a46d4b8bfa65c4f2db2c337f01a9fd87957b8c6a34104770b68bd8f7e61a5f",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "9d28cda967519eb3cdcfceb0360557961e7522c71e60b13963fa6ebd73a26560"
+  },
+  "coverage": [
+    {
+      "id": "python-values-expressions",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "section": "worked-example",
+      "index": 0,
+      "status": "executed"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

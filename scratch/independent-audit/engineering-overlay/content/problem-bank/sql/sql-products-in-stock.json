@@ -1,0 +1,90 @@
+{
+  "key": "sql-products-in-stock",
+  "title": "Products with stock above threshold",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return product name and stock_qty for products with more than 10 units in stock. Sort largest stock first.",
+  "constraints": [
+    "Return exactly: name, stock_qty.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible products tables",
+      "output": "[[\"Chair\",20],[\"Mouse\",15],[\"Keyboard\",12]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "The threshold belongs in WHERE.",
+    "Project only name and stock_qty, then order descending."
+  ],
+  "explanation": "WHERE removes products at or below the threshold and ORDER BY stock_qty DESC puts the largest inventory first. A common mistake is using >= 10 when the requirement says more than 10. An index on stock_qty may help selective inventory queries.",
+  "reference_solution": "SELECT name, stock_qty FROM products WHERE stock_qty > 10 ORDER BY stock_qty DESC",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE products (id INT, name VARCHAR(50), category VARCHAR(50), stock_qty INT, price DECIMAL); INSERT INTO products VALUES (1, 'Laptop', 'Tech', 5, 1000), (2, 'Mouse', 'Tech', 15, 20), (3, 'Keyboard', 'Tech', 12, 50), (4, 'Desk', 'Furniture', 2, 200), (5, 'Chair', 'Furniture', 20, 100);",
+    "visible_tables": [
+      "products"
+    ],
+    "sample_rows": [
+      [
+        "Chair",
+        20
+      ],
+      [
+        "Mouse",
+        15
+      ],
+      [
+        "Keyboard",
+        12
+      ]
+    ],
+    "expected_columns": [
+      "name",
+      "stock_qty"
+    ],
+    "expected_rows": [
+      [
+        "Chair",
+        20
+      ],
+      [
+        "Mouse",
+        15
+      ],
+      [
+        "Keyboard",
+        12
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE products (id INT,name VARCHAR(50),category VARCHAR(50),stock_qty INT,price DECIMAL); INSERT INTO products VALUES (10,'A','Tech',11,5),(11,'B','Tech',10,7),(12,'C','Home',30,9),(13,'D','Home',0,4);",
+        "expected_rows": [
+          [
+            "C",
+            30
+          ],
+          [
+            "A",
+            11
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

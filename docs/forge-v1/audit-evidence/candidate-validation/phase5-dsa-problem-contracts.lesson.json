@@ -1,0 +1,29 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "430fbb6ee59f5780bc4cca84d17f938f91eb54348126bf699314215ceb885e48",
+  "payload_sha256": "187a8f213e424d42a7f44ff4c2ffc4ff9cf43331dec085f90d517b68c3f08164",
+  "coverage_sha256": "4afa0abca194b69bdbe64243b75bc928e42f75d3ba39d7b8acdf2a2083605543",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "1b300b7a4f96fed77f54dcfb8e8635c6efc8753f50e71ddda620774c6f3f8b5a"
+  },
+  "coverage": [
+    {
+      "id": "dsa-problem-contracts",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

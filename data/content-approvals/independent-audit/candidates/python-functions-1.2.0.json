@@ -1,0 +1,517 @@
+{
+  "content_key": "ai-engineer/v1/python/functions",
+  "revision": "1.2.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "default-ai-engineer",
+      "track_slug": "python",
+      "topic_slug": "functions",
+      "title": "Python Functions",
+      "description": "Design functions with explicit inputs, useful return values, predictable scope, and maintainable signatures.",
+      "version": "1.2.0",
+      "learning_objectives": [
+        "Trace arguments, local names and return values",
+        "Use positional, keyword, variadic and default arguments safely",
+        "Avoid mutable-default and accidental caller-mutation bugs",
+        "Implement and test a fully specified pure normalization function"
+      ],
+      "prerequisites": [
+        "syntax-data-types",
+        "collections"
+      ],
+      "sections": [
+        {
+          "slug": "calls-and-return",
+          "title": "Calls, parameters and returned values",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Trace arguments, local names and return values",
+          "markdown": "A function groups instructions behind a name. In def cost(price, quantity=1), price and quantity are parameters. cost(4, 3) supplies arguments 4 and 3. Python binds local parameter names, executes the body, and sends the expression after return back to the caller. print displays text; it does not return that text. Reaching the end without return produces None.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def cost(price, quantity=1):\n    return price * quantity\nprint(cost(4, 3))\nprint(cost(quantity=2, price=5))",
+              "expected_output": "12\n10",
+              "explanation": "Execute the complete block independently; trace local names and compare the exact printed lines."
+            }
+          ],
+          "key_points": [
+            "State the exact input/output contract.",
+            "Use explicit boundary cases; reading is not mastery."
+          ],
+          "checkpoint": "Predict every printed line and explain the boundary case."
+        },
+        {
+          "slug": "local-names",
+          "title": "Local names and shared mutable objects",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Use positional, keyword, variadic and default arguments safely",
+          "markdown": "A parameter is a local name referring to the supplied object. Rebinding that name changes the local reference. Mutating a shared list changes the object the caller also sees. A pure helper reads inputs and returns a result without altering caller-owned objects. Use a new list when the contract promises no mutation.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def extended(values, extra):\n    return values + [extra]\noriginal = [2, 4]\nprint(extended(original, 6))\nprint(original)",
+              "expected_output": "[2, 4, 6]\n[2, 4]",
+              "explanation": "Execute the complete block independently; trace local names and compare the exact printed lines."
+            }
+          ],
+          "key_points": [
+            "State the exact input/output contract.",
+            "Use explicit boundary cases; reading is not mastery."
+          ],
+          "checkpoint": "Predict every printed line and explain the boundary case."
+        },
+        {
+          "slug": "argument-shapes",
+          "title": "Defaults, keyword arguments, *args and **kwargs",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Avoid mutable-default and accidental caller-mutation bugs",
+          "markdown": "Defaults make selected arguments optional. Keyword arguments state parameter names explicitly. A star before a parameter collects remaining positional arguments into a tuple; two stars collect remaining keyword arguments into a dictionary. The function below sums positional amounts and obtains an optional adjustment from named options. Unknown or conflicting arguments should have an explicit API policy in real code.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def adjusted_total(*amounts, **options):\n    return sum(amounts) + options.get('adjustment', 0)\nprint(adjusted_total(3, 5, adjustment=2))",
+              "expected_output": "10",
+              "explanation": "Execute the complete block independently; trace local names and compare the exact printed lines."
+            }
+          ],
+          "key_points": [
+            "State the exact input/output contract.",
+            "Use explicit boundary cases; reading is not mastery."
+          ],
+          "checkpoint": "Predict every printed line and explain the boundary case."
+        },
+        {
+          "slug": "safe-defaults",
+          "title": "A new list for each call",
+          "order_index": 3,
+          "estimated_minutes": 8,
+          "learning_objective": "Implement and test a fully specified pure normalization function",
+          "markdown": "A default expression is evaluated when def executes, not for every later call. A default list can therefore be shared across calls. Use None as a sentinel and allocate a fresh list inside the function when an omitted argument means a fresh collection. This example makes two independent lists; supplying an existing list deliberately allows mutation and should be documented.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def append_item(item, values=None):\n    if values is None:\n        values = []\n    values.append(item)\n    return values\nprint(append_item('a'))\nprint(append_item('b'))",
+              "expected_output": "['a']\n['b']",
+              "explanation": "Execute the complete block independently; trace local names and compare the exact printed lines."
+            }
+          ],
+          "key_points": [
+            "State the exact input/output contract.",
+            "Use explicit boundary cases; reading is not mastery."
+          ],
+          "checkpoint": "Predict every printed line and explain the boundary case."
+        },
+        {
+          "slug": "worked-normalization",
+          "title": "Worked solution: nonnegative score normalization",
+          "order_index": 4,
+          "estimated_minutes": 8,
+          "learning_objective": "Implement and test a fully specified pure normalization function",
+          "markdown": "Contract: scores is a finite list of nonnegative finite numbers. Return a new list; do not mutate scores. Return [] for an empty list. If the maximum is zero, return zeros of the same length; otherwise divide every score by that maximum. Reject negative values with ValueError. First check the domain, then the empty boundary, then find the maximum, then handle zero before division. For [2, 4], the maximum is 4 and the result is [0.5, 1.0]. The algorithm uses O(n) time and O(n) output space. Finite-number validation is an input precondition for this introductory contract, not silently implemented by type hints.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def normalized_scores(scores):\n    if any(value < 0 for value in scores):\n        raise ValueError(\"scores must be nonnegative\")\n    if not scores:\n        return []\n    maximum = max(scores)\n    if maximum == 0:\n        return [0 for value in scores]\n    return [value / maximum for value in scores]\nvalues = [2, 4]\nprint(normalized_scores(values))\nprint(values)\nprint(normalized_scores([]))\nprint(normalized_scores([0, 0]))",
+              "expected_output": "[0.5, 1.0]\n[2, 4]\n[]\n[0, 0]",
+              "explanation": "Execute the complete block independently; trace local names and compare the exact printed lines."
+            }
+          ],
+          "key_points": [
+            "State the exact input/output contract.",
+            "Use explicit boundary cases; reading is not mastery."
+          ],
+          "checkpoint": "Predict every printed line and explain the boundary case."
+        },
+        {
+          "slug": "revision",
+          "title": "Revision and independent practice",
+          "order_index": 5,
+          "estimated_minutes": 8,
+          "learning_objective": "Implement and test a fully specified pure normalization function",
+          "markdown": "Trace a new call before running it. Check return versus print, the binding of positional and keyword arguments, and whether a list is shared. For normalization, test an empty list, all zeros, unequal positive values, a negative value and unchanged caller input. Writing a reflection or reading this lesson never awards mastery. Scored coding requires a reviewed contract in an approved assessment pool; ordinary legacy Arena is not a clean-transfer shortcut.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def label(value):\n    print(value)\nresult = label(\"ready\")\nprint(result)",
+              "expected_output": "ready\nNone",
+              "explanation": "Execute the complete block independently; trace local names and compare the exact printed lines."
+            }
+          ],
+          "key_points": [
+            "State the exact input/output contract.",
+            "Use explicit boundary cases; reading is not mastery."
+          ],
+          "checkpoint": "Predict every printed line and explain the boundary case."
+        }
+      ],
+      "summary": [
+        "Parameters are local names; arguments supply objects.",
+        "return sends a value; print displays text.",
+        "Defaults are created at definition time.",
+        "A pure function preserves caller-owned state and follows a complete boundary contract."
+      ],
+      "interview_takeaways": [
+        "Trace a call with exact values.",
+        "Explain shared mutation and default lifetimes.",
+        "Support a claimed contract with boundary tests."
+      ],
+      "common_mistakes": [
+        "Forgetting return",
+        "Sharing a mutable default unintentionally",
+        "Mutating an input despite a pure-function contract",
+        "Dividing by a zero maximum or calling max on an empty list"
+      ],
+      "sources": [
+        {
+          "source_id": "python-official-tutorial",
+          "title": "Defining Functions",
+          "url": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions",
+          "retrieved_at": "2026-09-23T00:00:00Z"
+        }
+      ],
+      "content_hash": "aef181b4730b4d768f3de3d6052546daf0736240211c5578c34ec2b55a39278b",
+      "generated_at": "2026-10-22T00:00:00Z"
+    },
+    "exercises": [
+      {
+        "key": "functions-return-none",
+        "exercise_type": "multiple_choice",
+        "title": "What does result contain after def announce(): print(\"hi\") followed by result = announce()?",
+        "prompt_markdown": "What does result contain after def announce(): print(\"hi\") followed by result = announce()?",
+        "difficulty": "easy",
+        "hints": [
+          "Trace each call and distinguish a return value from printed output."
+        ],
+        "content": {
+          "choices": [
+            "\"hi\"",
+            "None",
+            "0"
+          ],
+          "correct_index": 1,
+          "answer_text": "None",
+          "assumptions": "Python 3; execute exactly the code shown in a fresh namespace.",
+          "explanation": "The call prints hi but has no return statement, so result is None."
+        }
+      },
+      {
+        "key": "functions-keyword-binding",
+        "exercise_type": "multiple_choice",
+        "title": "For def cost(price, quantity=1): return price * quantity, what is cost(quantity=3, price=4)?",
+        "prompt_markdown": "For def cost(price, quantity=1): return price * quantity, what is cost(quantity=3, price=4)?",
+        "difficulty": "easy",
+        "hints": [
+          "Trace each call and distinguish a return value from printed output."
+        ],
+        "content": {
+          "choices": [
+            "7",
+            "12",
+            "4"
+          ],
+          "correct_index": 1,
+          "answer_text": "12",
+          "assumptions": "Python 3; execute exactly the code shown in a fresh namespace.",
+          "explanation": "Keyword names bind price=4 and quantity=3, so multiplication returns 12."
+        }
+      },
+      {
+        "key": "functions-default-list",
+        "exercise_type": "multiple_choice",
+        "title": "For def add(x, items=[]): items.append(x); return items, what does print(add(1)); print(add(2)) display?",
+        "prompt_markdown": "For def add(x, items=[]): items.append(x); return items, what does print(add(1)); print(add(2)) display?",
+        "difficulty": "easy",
+        "hints": [
+          "Trace each call and distinguish a return value from printed output."
+        ],
+        "content": {
+          "choices": [
+            "[1] then [2]",
+            "[1] then [1, 2]",
+            "[1, 2] twice"
+          ],
+          "correct_index": 1,
+          "answer_text": "[1] then [1, 2]",
+          "assumptions": "Python 3; execute exactly the code shown in a fresh namespace.",
+          "explanation": "The same default list is reused. The first print happens before the second mutation, so it prints [1], then [1, 2]."
+        }
+      },
+      {
+        "key": "functions-trace-scope",
+        "exercise_type": "short_answer",
+        "title": "Trace: x=10; def double(x): return x*2",
+        "prompt_markdown": "Trace: x=10; def double(x): return x*2. Explain double(3) and the outer x afterwards.",
+        "difficulty": "medium",
+        "hints": [
+          "Write down inputs, the function body, its return value, and one boundary case."
+        ],
+        "content": {
+          "reference_answer": "double(3) returns 6. Its local parameter x refers to 3. The outer x remains 10 because the call does not assign to the outer name.",
+          "rubric": [
+            "Return value 6",
+            "Outer x remains 10",
+            "Distinguishes the two bindings"
+          ],
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "functions-fix-return",
+        "exercise_type": "short_answer",
+        "title": "Fix def square(n): print(n*n) so callers can use square(4)+1",
+        "prompt_markdown": "Fix def square(n): print(n*n) so callers can use square(4)+1. State the final value.",
+        "difficulty": "medium",
+        "hints": [
+          "Write down inputs, the function body, its return value, and one boundary case."
+        ],
+        "content": {
+          "reference_answer": "Use def square(n): return n*n. square(4) returns 16, so square(4)+1 is 17. Printing alone returns None, which cannot be added to 1.",
+          "rubric": [
+            "Uses return",
+            "Explains None from print-only body",
+            "Calculates 17"
+          ],
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "functions-normalize-contract",
+        "exercise_type": "short_answer",
+        "title": "Implement normalized_scores using the full nonnegative finite-list contract in the worked ",
+        "prompt_markdown": "Implement normalized_scores using the full nonnegative finite-list contract in the worked section. Include empty, zero, negative and no-mutation tests.",
+        "difficulty": "medium",
+        "hints": [
+          "Write down inputs, the function body, its return value, and one boundary case."
+        ],
+        "content": {
+          "reference_answer": "def normalized_scores(scores):\n    if any(value < 0 for value in scores):\n        raise ValueError(\"scores must be nonnegative\")\n    if not scores:\n        return []\n    maximum = max(scores)\n    if maximum == 0:\n        return [0 for value in scores]\n    return [value / maximum for value in scores]\nvalues = [2, 4]\nprint(normalized_scores(values))\nprint(values)\nprint(normalized_scores([]))\nprint(normalized_scores([0, 0]))\nExpected printed output:\n[0.5, 1.0]\n[2, 4]\n[]\n[0, 0]\nA call with [-1] must raise ValueError. Finite numbers are an explicit precondition.",
+          "rubric": [
+            "Empty returns []",
+            "All-zero avoids division",
+            "Rejects negatives",
+            "Returns a new list without input mutation",
+            "Divides by maximum"
+          ],
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "functions-explain-sharing",
+        "exercise_type": "short_answer",
+        "title": "Explain why items=[] is unsafe when an omitted argument should create a fresh list",
+        "prompt_markdown": "Explain why items=[] is unsafe when an omitted argument should create a fresh list. Give the repair.",
+        "difficulty": "medium",
+        "hints": [
+          "Write down inputs, the function body, its return value, and one boundary case."
+        ],
+        "content": {
+          "reference_answer": "The default list is constructed once when def executes, then reused. Use items=None and inside the body if items is None: items=[] before appending. Two omitted-argument calls then receive independent lists.",
+          "rubric": [
+            "Definition-time evaluation",
+            "Shared list across calls",
+            "None sentinel",
+            "New allocation per omitted-argument call"
+          ],
+          "minimum_pass_score": 70
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "AI-assisted audit correction draft; independent human review pending",
+    "sources": [
+      {
+        "source_id": "python-official-tutorial",
+        "url": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions",
+        "usage": "factual_reference",
+        "status": "resolved"
+      }
+    ]
+  },
+  "coverage": {
+    "key": "functions-audit-correction",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "correction",
+        "status": "covered",
+        "lesson_refs": [
+          "section/calls-and-return",
+          "section/local-names",
+          "section/argument-shapes",
+          "section/safe-defaults",
+          "section/worked-normalization",
+          "section/revision"
+        ],
+        "assessment_refs": [
+          "exercise/functions-return-none",
+          "exercise/functions-keyword-binding",
+          "exercise/functions-default-list",
+          "exercise/functions-trace-scope",
+          "exercise/functions-fix-return",
+          "exercise/functions-normalize-contract",
+          "exercise/functions-explain-sharing"
+        ]
+      }
+    ]
+  },
+  "example_checks": [
+    {
+      "section_slug": "calls-and-return",
+      "example_index": 0,
+      "mode": "python",
+      "expected_stdout": "12\n10"
+    },
+    {
+      "section_slug": "local-names",
+      "example_index": 0,
+      "mode": "python",
+      "expected_stdout": "[2, 4, 6]\n[2, 4]"
+    },
+    {
+      "section_slug": "argument-shapes",
+      "example_index": 0,
+      "mode": "python",
+      "expected_stdout": "10"
+    },
+    {
+      "section_slug": "safe-defaults",
+      "example_index": 0,
+      "mode": "python",
+      "expected_stdout": "['a']\n['b']"
+    },
+    {
+      "section_slug": "worked-normalization",
+      "example_index": 0,
+      "mode": "python",
+      "expected_stdout": "[0.5, 1.0]\n[2, 4]\n[]\n[0, 0]"
+    },
+    {
+      "section_slug": "revision",
+      "example_index": 0,
+      "mode": "python",
+      "expected_stdout": "ready\nNone"
+    }
+  ],
+  "prerequisite_keys": [
+    "syntax-data-types",
+    "collections"
+  ],
+  "known_content": [
+    "arena/dsa-container-most-water",
+    "arena/dsa-daily-temperatures",
+    "arena/dsa-decode-string",
+    "arena/dsa-evaluate-rpn",
+    "arena/dsa-find-cycle-start",
+    "arena/dsa-find-in-rotated",
+    "arena/dsa-first-last-position",
+    "arena/dsa-first-pair",
+    "arena/dsa-fruit-into-baskets",
+    "arena/dsa-isomorphic-strings",
+    "arena/dsa-kth-largest",
+    "arena/dsa-level-order-traversal",
+    "arena/dsa-longest-consecutive",
+    "arena/dsa-longest-substring-no-repeat",
+    "arena/dsa-max-consecutive-ones",
+    "arena/dsa-max-depth-tree",
+    "arena/dsa-max-sliding-window",
+    "arena/dsa-max-window-sum",
+    "arena/dsa-merge-intervals",
+    "arena/dsa-merge-two-sorted-lists",
+    "arena/dsa-min-stack",
+    "arena/dsa-min-window-substring",
+    "arena/dsa-move-zeroes",
+    "arena/dsa-number-of-islands-bfs",
+    "arena/dsa-permutation-in-string",
+    "arena/dsa-range-sum-query",
+    "arena/dsa-ransom-note",
+    "arena/dsa-remove-duplicates-sorted",
+    "arena/dsa-reverse-linked-list",
+    "arena/dsa-reverse-string",
+    "arena/dsa-search-insert-position",
+    "arena/dsa-sort-colors",
+    "arena/dsa-sqrt-integer",
+    "arena/dsa-subarray-sum-equals-k",
+    "arena/dsa-three-sum",
+    "arena/dsa-top-k-frequent",
+    "arena/dsa-trapping-rain-water",
+    "arena/dsa-two-sum-indices",
+    "arena/dsa-valid-anagram",
+    "arena/dsa-word-pattern",
+    "arena/python-anagram-check",
+    "arena/python-bob",
+    "arena/python-celsius-to-fahrenheit",
+    "arena/python-climbing-stairs",
+    "arena/python-collatz",
+    "arena/python-count-bits",
+    "arena/python-count-islands",
+    "arena/python-count-vowels",
+    "arena/python-deduplicate-list",
+    "arena/python-find-duplicate",
+    "arena/python-first-non-repeat",
+    "arena/python-fizzbuzz",
+    "arena/python-flatten-list",
+    "arena/python-generate-subsets",
+    "arena/python-group-anagrams",
+    "arena/python-group-errors",
+    "arena/python-implement-queue",
+    "arena/python-is-palindrome",
+    "arena/python-largest-product",
+    "arena/python-leap-year",
+    "arena/python-longest-common-prefix",
+    "arena/python-longest-increasing-subseq",
+    "arena/python-matrix-spiral",
+    "arena/python-max-profit",
+    "arena/python-max-subarray",
+    "arena/python-merge-sorted-lists",
+    "arena/python-missing-number",
+    "arena/python-normalize-name",
+    "arena/python-pangram",
+    "arena/python-product-except-self",
+    "arena/python-raindrops",
+    "arena/python-rotate-list",
+    "arena/python-running-sum",
+    "arena/python-stack-balanced-brackets",
+    "arena/python-two-fer",
+    "arena/python-two-sum",
+    "arena/python-valid-bst",
+    "arena/python-valid-parentheses-string",
+    "arena/python-valid-sudoku-row",
+    "arena/python-word-count",
+    "arena/sql-above-average-salary",
+    "arena/sql-active-users",
+    "arena/sql-age-from-birthdate",
+    "arena/sql-coalesce-address",
+    "arena/sql-cte-running-balance",
+    "arena/sql-cte-top-products",
+    "arena/sql-customer-totals",
+    "arena/sql-customers-with-orders",
+    "arena/sql-daily-sales",
+    "arena/sql-dept-avg-salary",
+    "arena/sql-dept-head-count",
+    "arena/sql-dept-max-earner",
+    "arena/sql-distinct-cities",
+    "arena/sql-employee-bonus",
+    "arena/sql-employees-by-dept",
+    "arena/sql-employees-with-manager",
+    "arena/sql-high-value-depts",
+    "arena/sql-monthly-active-users",
+    "arena/sql-null-email",
+    "arena/sql-order-count-by-status",
+    "arena/sql-orders-with-no-items",
+    "arena/sql-product-never-ordered",
+    "arena/sql-product-revenue",
+    "arena/sql-products-in-stock",
+    "arena/sql-recent-orders",
+    "arena/sql-second-highest-salary",
+    "arena/sql-students-all-subjects",
+    "arena/sql-three-table-join",
+    "arena/sql-top-customer-per-region",
+    "arena/sql-user-search"
+  ]
+}

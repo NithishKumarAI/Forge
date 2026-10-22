@@ -1,0 +1,139 @@
+[
+  {
+    "key": "exc-mcq-bare-except",
+    "exercise_type": "multiple_choice",
+    "title": "Hazard of bare except clauses",
+    "prompt_markdown": "Why is using a bare `except:` clause considered dangerous in production Python code?",
+    "difficulty": "easy",
+    "hints": [
+      "What system events inherit directly from BaseException?"
+    ],
+    "content": {
+      "choices": [
+        "It causes Python to automatically restart the operating system",
+        "It catches KeyboardInterrupt and SystemExit, preventing graceful shutdown or process termination",
+        "It invalidates all active database connection pools",
+        "It disables Python's garbage collection for the duration of the script"
+      ],
+      "correct_index": 1,
+      "explanation": "A bare except: catches BaseException, which includes KeyboardInterrupt and SystemExit. This prevents developers from stopping the program with Ctrl+C and prevents container orchestrators from terminating the process cleanly."
+    }
+  },
+  {
+    "key": "exc-mcq-else-clause",
+    "exercise_type": "multiple_choice",
+    "title": "Execution condition of the else clause",
+    "prompt_markdown": "Under what condition does the `else` block of a `try...except...else...finally` statement execute?",
+    "difficulty": "medium",
+    "hints": [
+      "Review the four-part exception lifecycle."
+    ],
+    "content": {
+      "choices": [
+        "Only if an exception was caught and handled by an except block",
+        "Only if the try block ran to completion without raising any exception",
+        "Unconditionally after the finally block executes",
+        "Only if the finally block encounters an error"
+      ],
+      "correct_index": 1,
+      "explanation": "The else block in a try statement runs if and only if the code in the try block executed without raising any exception."
+    }
+  },
+  {
+    "key": "exc-mcq-chaining",
+    "exercise_type": "multiple_choice",
+    "title": "Exception chaining syntax",
+    "prompt_markdown": "How do you re-raise a new exception while explicitly recording the original exception as its cause in Python 3?",
+    "difficulty": "medium",
+    "hints": [
+      "Which keyword connects the new exception to the original?"
+    ],
+    "content": {
+      "choices": [
+        "raise NewException() with original_exc",
+        "raise NewException() from original_exc",
+        "raise NewException(cause=original_exc)",
+        "raise NewException() -> original_exc"
+      ],
+      "correct_index": 1,
+      "explanation": "The syntax `raise NewException(...) from original_exc` links the original exception as `__cause__`, providing an unbroken traceback for debugging."
+    }
+  },
+  {
+    "key": "exc-short-predict-finally-override",
+    "exercise_type": "short_answer",
+    "title": "Predict finally return value override",
+    "prompt_markdown": "Predict the printed output of this function and explain how the `finally` block interacts with return values:\n\n```python\ndef compute() -> int:\n    try:\n        return 10\n    finally:\n        return 20\n\nprint(compute())\n```",
+    "difficulty": "medium",
+    "hints": [
+      "What happens when a finally block executes a return statement?"
+    ],
+    "content": {
+      "rubric": [
+        "States the correct printed output '20'",
+        "Explains that finally always executes before exiting the function scope",
+        "Explains that a return statement in finally discards any pending return value from the try block"
+      ],
+      "reference_answer": "Output: `20`.\nExplanation: The try block prepares to return 10, but the finally block executes unconditionally before the function exits. Because the finally block executes `return 20`, it overrides and discards the pending return value from the try block. Returning from inside a finally block is an anti-pattern because it masks returns and suppressed exceptions.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "exc-short-fix-swallowed-error",
+    "exercise_type": "short_answer",
+    "title": "Diagnose and fix swallowed exception",
+    "prompt_markdown": "A database repository contains this method. When a query fails due to a connection drop, the function returns `None` and masks the failure, causing data corruption downstream. Diagnose the defect and write the corrected method.\n\n```python\ndef get_user_profile(user_id: int):\n    try:\n        return db.query('SELECT * FROM users WHERE id = :id', id=user_id)\n    except Exception as e:\n        print(f'Error: {e}')\n        return None\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Use exception chaining or logging with re-raising."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that catching broad Exception and returning None silently hides infrastructure failures",
+        "Provides a corrected implementation that either re-raises or wraps in a domain exception using `raise ... from e`",
+        "Replaces print with proper logging or lets the error propagate to an error boundary"
+      ],
+      "reference_answer": "Defect: Catching broad `Exception` and returning `None` conflates 'user not found' with fatal database outages, swallowing stack traces and leading to silent corruption.\nCorrected implementation:\n```python\nclass DatabaseError(Exception):\n    \"\"\"Raised on database query failure.\"\"\"\n\ndef get_user_profile(user_id: int):\n    try:\n        return db.query('SELECT * FROM users WHERE id = :id', id=user_id)\n    except Exception as exc:\n        # Preserve stack trace and propagate to error boundary\n        raise DatabaseError(f'Failed fetching user {user_id}') from exc\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "exc-short-implement-custom-hierarchy",
+    "exercise_type": "short_answer",
+    "title": "Design a domain exception hierarchy",
+    "prompt_markdown": "Design an object-oriented domain exception hierarchy for an API client. Create a base `ApiClientError` and two specialized subclasses: `RateLimitError` (storing `retry_after_seconds: int`) and `NotFoundError` (storing `resource: str`). Show their class definitions.",
+    "difficulty": "medium",
+    "hints": [
+      "Inherit subclasses from ApiClientError, which inherits from Exception."
+    ],
+    "content": {
+      "rubric": [
+        "Creates base `ApiClientError` inheriting from `Exception`",
+        "Creates `RateLimitError(ApiClientError)` with custom constructor storing `retry_after_seconds`",
+        "Creates `NotFoundError(ApiClientError)` with custom constructor storing `resource`",
+        "Calls `super().__init__()` with formatted message in both subclasses"
+      ],
+      "reference_answer": "```python\nclass ApiClientError(Exception):\n    \"\"\"Base exception for API client operations.\"\"\"\n\nclass RateLimitError(ApiClientError):\n    def __init__(self, retry_after_seconds: int):\n        super().__init__(f'Rate limit exceeded. Retry in {retry_after_seconds}s')\n        self.retry_after_seconds = retry_after_seconds\n\nclass NotFoundError(ApiClientError):\n    def __init__(self, resource: str):\n        super().__init__(f'Requested resource not found: {resource}')\n        self.resource = resource\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "exc-short-explain-boundaries",
+    "exercise_type": "short_answer",
+    "title": "Explain error boundaries at architecture perimeters",
+    "prompt_markdown": "In microservice architectures, where should error boundaries be placed? Explain the responsibilities of an error boundary when an unhandled exception reaches an API endpoint handler.",
+    "difficulty": "medium",
+    "hints": [
+      "Discuss middleware, structured responses, logging, and rollback."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies perimeter layers (HTTP middleware, message queue worker loop, cron runner)",
+        "Lists core responsibilities: logging stack trace, rolling back active transactions, releasing locks",
+        "Explains returning a standardized error response (e.g. HTTP 500 JSON) without leaking internal system traces to the client"
+      ],
+      "reference_answer": "Error boundaries belong at system perimeters: HTTP middleware, event queue consumer loops, and scheduled job runners. When an unhandled exception bubbles up to the boundary, its responsibilities are:\n1. Rollback open database transactions and release shared locks.\n2. Log the full diagnostic stack trace securely using `logger.exception()` for debugging.\n3. Record monitoring metrics/alerts (e.g. increment 500 error counter).\n4. Return a sanitized, structured response (e.g. JSON `{'error': 'Internal server error', 'request_id': '...'}`) without leaking sensitive internal file paths or stack traces to end users.",
+      "minimum_pass_score": 70
+    }
+  }
+]

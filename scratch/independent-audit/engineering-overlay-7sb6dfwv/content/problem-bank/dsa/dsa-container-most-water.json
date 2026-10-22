@@ -1,0 +1,85 @@
+{
+  "key": "dsa-container-most-water",
+  "title": "Container with most water",
+  "track": "dsa",
+  "topic_tags": [
+    "arrays",
+    "two-pointers"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an integer array `heights` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `i`th line are `(i, 0)` and `(i, heights[i])`. Find two lines that together with the x-axis form a container, such that the container contains the most water.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[1,8,6,2,5,4,8,3,7]",
+      "output": "49",
+      "explanation": "Max area is bounded by height 7 (index 8) and height 8 (index 1). Area = 7 * (8 - 1) = 49."
+    }
+  ],
+  "starter_code": "def max_water(heights: list[int]) -> int:\n    pass",
+  "hints": [
+    "Use two pointers at both ends of the array.",
+    "Move the pointer pointing to the shorter line inward."
+  ],
+  "explanation": "Use two pointers, `left` and `right`. Calculate area. Since the height is limited by the shorter line, moving the shorter line's pointer might find a taller line to compensate for reduced width.",
+  "reference_solution": "def max_water(heights: list[int]) -> int:\n    left = 0\n    right = len(heights) - 1\n    max_area = 0\n    while left < right:\n        width = right - left\n        max_area = max(max_area, min(heights[left], heights[right]) * width)\n        if heights[left] < heights[right]:\n            left += 1\n        else:\n            right -= 1\n    return max_area",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "max_water",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            1,
+            8,
+            6,
+            2,
+            5,
+            4,
+            8,
+            3,
+            7
+          ]
+        ],
+        "kwargs": {},
+        "expected": 49
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            1,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 1
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            4,
+            3,
+            2,
+            1,
+            4
+          ]
+        ],
+        "kwargs": {},
+        "expected": 16
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/two-pointers"
+}

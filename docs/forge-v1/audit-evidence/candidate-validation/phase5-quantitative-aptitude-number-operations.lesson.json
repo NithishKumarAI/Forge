@@ -1,0 +1,29 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "335ed5e6a12e4b9151ef2ddab942ddeaa216f50ff5153fd15b22e075e6e24117",
+  "payload_sha256": "260334309df66ca9e3e6f7e987913be263f72c25dfdbca116c9a0da0df397a1a",
+  "coverage_sha256": "dbbf9c6e9bf37444c165489deede5973e885b332fbfbf6fe17b01ed902000f17",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "a7c1366f61002e360e896fbbd6bb79b1a2d5290e872952ffd6ad3d1f2a30d171"
+  },
+  "coverage": [
+    {
+      "id": "quantitative-aptitude-number-operations",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

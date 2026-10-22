@@ -1,0 +1,138 @@
+[
+  {
+    "key": "ve-mcq-creation-command",
+    "exercise_type": "multiple_choice",
+    "title": "Standard venv creation command",
+    "prompt_markdown": "What standard library command creates a virtual environment named `.venv` in the current directory?",
+    "difficulty": "easy",
+    "hints": [
+      "Review the standard Python module for virtual environments."
+    ],
+    "content": {
+      "choices": [
+        "python -m venv .venv",
+        "pip install venv .venv",
+        "virtualenv --create .venv",
+        "python --make-isolated .venv"
+      ],
+      "correct_index": 0,
+      "explanation": "`python -m venv .venv` invokes the standard library `venv` module to create an isolated environment in the specified `.venv` folder."
+    }
+  },
+  {
+    "key": "ve-mcq-activation-action",
+    "exercise_type": "multiple_choice",
+    "title": "What activation scripts modify",
+    "prompt_markdown": "What does running an activation script (such as `source .venv/bin/activate`) primarily do in the shell?",
+    "difficulty": "easy",
+    "hints": [
+      "How does the shell know where to find the 'python' command?"
+    ],
+    "content": {
+      "choices": [
+        "Compiles all Python files into shared C libraries",
+        "Prepends the virtual environment's bin/Scripts directory to the shell's PATH environment variable",
+        "Locks the directory with administrator privileges",
+        "Sends a telemetry signal to the Python Package Index"
+      ],
+      "correct_index": 1,
+      "explanation": "Activation scripts simply prepend the virtual environment's binary directory to the shell's `PATH` environment variable so typing `python` or `pip` resolves to the venv's binaries."
+    }
+  },
+  {
+    "key": "ve-mcq-git-exclusion",
+    "exercise_type": "multiple_choice",
+    "title": "Why .venv should not be committed",
+    "prompt_markdown": "Why should the `.venv` directory always be added to `.gitignore` and never committed to Git?",
+    "difficulty": "medium",
+    "hints": [
+      "Consider operating system binaries and absolute path symlinks."
+    ],
+    "content": {
+      "choices": [
+        "Git refuses to track directories starting with a dot",
+        "Virtual environments contain platform-specific binaries, compiled C-extensions, and absolute path symlinks that break on other machines",
+        "Virtual environments exceed GitHub's maximum file size limit automatically",
+        "Python licenses forbid redistributing the venv folder"
+      ],
+      "correct_index": 1,
+      "explanation": "Virtual environments contain platform-specific machine code, C-extensions, and hardcoded absolute paths that do not function across different machines or operating systems. Instead, commit `requirements.txt` to recreate the environment."
+    }
+  },
+  {
+    "key": "ve-short-predict-prefix",
+    "exercise_type": "short_answer",
+    "title": "Predict virtual environment detection",
+    "prompt_markdown": "Predict the printed output and explain how Python programmatically detects if it is running inside an active virtual environment:\n\n```python\nimport sys\nprint('In venv:', sys.prefix != sys.base_prefix)\n```",
+    "difficulty": "medium",
+    "hints": [
+      "sys.prefix points to the active environment; sys.base_prefix points to system Python."
+    ],
+    "content": {
+      "rubric": [
+        "States that the output is `In venv: True` when running inside a virtual environment",
+        "Explains that `sys.prefix` points to the isolated venv directory",
+        "Explains that `sys.base_prefix` points to the original root Python installation directory"
+      ],
+      "reference_answer": "Output: `In venv: True` (inside a venv) or `In venv: False` (in global Python).\nExplanation: When Python boots inside a virtual environment, it sets `sys.prefix` to the directory containing `pyvenv.cfg` (the `.venv` folder), while `sys.base_prefix` records the root host Python installation. If they differ, the process is running inside an isolated virtual environment.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "ve-short-fix-unpinned-requirements",
+    "exercise_type": "short_answer",
+    "title": "Diagnose CI/CD failure from unpinned dependencies",
+    "prompt_markdown": "A project's `requirements.txt` contains:\n```\nhttpx\npydantic\n```\nSix months later, deploying the project fails in CI/CD because a major release of `pydantic` introduced breaking API changes. Explain how to fix `requirements.txt` to achieve reproducible builds.",
+    "difficulty": "medium",
+    "hints": [
+      "Use exact version pins or lockfiles."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that unpinned dependencies install the latest version, exposing builds to breaking upstream releases",
+        "Recommends pinning exact versions using `==` (e.g. `pydantic==2.8.0`)",
+        "Mentions using `pip freeze` or a lockfile tool (pip-tools, uv, poetry) for deterministic sub-dependencies"
+      ],
+      "reference_answer": "Defect: Without version constraints, `pip install -r requirements.txt` downloads the latest release on every build. When upstream libraries release breaking major versions, builds fail unexpectedly.\nFix: Pin exact tested versions using `==`:\n```\nhttpx==0.27.0\npydantic==2.8.2\n```\nFor enterprise reproducibility, generate a fully resolved lockfile using `pip-tools` or `uv pip compile` to pin all direct and transitive dependencies.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "ve-short-implement-direct-execution",
+    "exercise_type": "short_answer",
+    "title": "Write crontab/systemd direct invocation",
+    "prompt_markdown": "Write the command to execute a script `/srv/app/worker.py` using a virtual environment located at `/srv/app/.venv` without activating the environment in the shell.",
+    "difficulty": "medium",
+    "hints": [
+      "Invoke the interpreter binary directly via its absolute path."
+    ],
+    "content": {
+      "rubric": [
+        "Specifies direct path to the python binary: `/srv/app/.venv/bin/python`",
+        "Appends the script path: `/srv/app/worker.py`",
+        "Explains that running the venv binary directly automatically runs inside the virtual environment without needing `activate`"
+      ],
+      "reference_answer": "```bash\n/srv/app/.venv/bin/python /srv/app/worker.py\n```\nExplanation: Direct invocation of the venv interpreter automatically sets `sys.prefix` and uses the venv's `site-packages` without needing shell activation scripts, making it the ideal pattern for cron jobs, Dockerfiles, and systemd services.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "ve-short-explain-docker-venv",
+    "exercise_type": "short_answer",
+    "title": "Explain virtual environment utility inside Docker containers",
+    "prompt_markdown": "In interviews, candidates often debate: 'Do you need a virtual environment inside a Docker container?' Explain the arguments for using a virtual environment inside Docker (PEP 668, separation from OS packages).",
+    "difficulty": "medium",
+    "hints": [
+      "Discuss system package managers (apt) vs pip, and modern PEP 668."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that base Linux images (Ubuntu, Debian) use system Python for OS utilities",
+        "Mentions PEP 668 'externally-managed-environment' preventing pip from overwriting system packages",
+        "Explains that installing into a dedicated `/opt/venv` keeps application dependencies cleanly isolated from system libraries"
+      ],
+      "reference_answer": "While Docker provides container-level isolation, using a virtual environment inside Docker is a best practice for two reasons:\n1. OS Protection (PEP 668): Modern base images (Debian 12, Ubuntu 24.04) mark system Python as externally managed, blocking global `pip install` to prevent breaking OS tools that rely on specific Python versions.\n2. Clean Image Layering: Installing dependencies into a dedicated `/opt/venv` allows multi-stage Docker builds to copy just the compiled venv directory from a builder image to a minimal runtime image, keeping final image sizes small.",
+      "minimum_pass_score": 70
+    }
+  }
+]

@@ -1,0 +1,179 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "virtual-environments",
+  "title": "Virtual Environments and Dependency Isolation",
+  "description": "Master dependency isolation, venv creation, activation mechanics, pip package management, requirements.txt, reproducibility, and interpreter selection.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Create isolated Python environments using standard library venv",
+    "Analyze PATH modification and activation mechanics across shells",
+    "Manage dependencies deterministically using pip, requirements.txt, and lockfiles",
+    "Configure IDE and CLI interpreter selection for reproducible development"
+  ],
+  "prerequisites": [
+    "modules-packages"
+  ],
+  "sections": [
+    {
+      "slug": "why-isolation-matters",
+      "title": "Why virtual environments and isolation matter",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Understand dependency collision hazards in shared environments.",
+      "markdown": "Python installs third-party packages into a global `site-packages` directory by default. When multiple projects share a single Python installation, conflicting dependency requirements inevitably collide: Project A requires `pydantic==1.10.8`, while Project B requires `pydantic>=2.0.0`. Installing one breaks the other. Virtual environments provide lightweight `isolation`: self-contained directory trees that contain their own Python binaries and isolated `site-packages`, protecting the operating system's system Python.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import sys\n\nis_virtual = sys.prefix != sys.base_prefix\nprint(f'Is virtual environment active? {is_virtual}')\nprint(f'Active prefix: {sys.prefix}')\nprint(f'Base Python: {sys.base_prefix}')",
+          "explanation": "sys.prefix differs from sys.base_prefix when running inside an isolated virtual environment.",
+          "expected_output": "Is virtual environment active? True\nActive prefix: C:\\My PC\\git\\Forge\\apps\\api\\.venv\nBase Python: C:\\Users\\nithi\\AppData\\Local\\Programs\\Python\\Python312"
+        }
+      ],
+      "key_points": [
+        "Virtual environments isolate package dependencies per project.",
+        "sys.prefix indicates the current active virtual environment path."
+      ],
+      "checkpoint": "Explain what occurs when two projects require incompatible versions of the same library in a global environment."
+    },
+    {
+      "slug": "venv-module-and-creation",
+      "title": "The venv module and directory structure",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Create virtual environments and inspect internal directory layouts.",
+      "markdown": "Python includes the `venv` module in the standard library. To create an environment, run `python -m venv .venv`. This creates an isolated directory containing:\n- `pyvenv.cfg`: configuration file pointing to the base Python installation.\n- `bin/` (Linux/macOS) or `Scripts/` (Windows): contains symlinks or copies of the `python` interpreter, `pip`, and shell activation scripts.\n- `lib/pythonX.Y/site-packages`: the private directory where all pip-installed packages reside.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# In bash / PowerShell:\n# python -m venv .venv\nimport os\nfrom pathlib import Path\n\ncfg = Path('.venv/pyvenv.cfg')\nprint('pyvenv.cfg exists:', cfg.exists())",
+          "explanation": "Verifies presence of pyvenv.cfg, the marker defining a Python virtual environment.",
+          "expected_output": "pyvenv.cfg exists: False"
+        }
+      ],
+      "key_points": [
+        "Create virtual environments with python -m venv <directory_name>.",
+        "pyvenv.cfg links the virtual environment to the host Python binary."
+      ],
+      "checkpoint": "Why should the .venv directory be added to .gitignore and never committed to source control?"
+    },
+    {
+      "slug": "activation-and-path-mechanics",
+      "title": "Activation scripts and PATH mechanics",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Trace how activation modifies the shell PATH variable.",
+      "markdown": "When you run an activation script (e.g. `source .venv/bin/activate` on Unix or `.\\.venv\\Scripts\\Activate.ps1` on Windows), it performs one primary action: it prepends `.venv/bin` (or `Scripts`) to the shell's `PATH` environment variable. When you type `python` or `pip`, the shell discovers the virtual environment's binaries first. However, activation is optional: executing directly via path (e.g. `./.venv/bin/python script.py`) automatically runs in the virtual environment without modifying shell state.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import sys\nimport os\n\n# The interpreter executable in use\nprint('Executable path:', sys.executable)\nprint('In venv folder?', '.venv' in sys.executable.lower())",
+          "explanation": "sys.executable identifies the exact interpreter binary executing the script.",
+          "expected_output": "Executable path: C:\\My PC\\git\\Forge\\apps\\api\\.venv\\Scripts\\python.exe\nIn venv folder? True"
+        }
+      ],
+      "key_points": [
+        "Activation prepends the venv binary directory to the shell PATH.",
+        "Directly invoking .venv/bin/python runs in the isolated environment without activation."
+      ],
+      "checkpoint": "How do containerized Docker deployments run Python without running activate scripts?"
+    },
+    {
+      "slug": "pip-and-reproducibility",
+      "title": "Package management with pip, requirements, and lockfiles",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Pin dependencies to achieve reproducible builds across environments.",
+      "markdown": "The `pip` package installer downloads and installs wheels from PyPI. To achieve `reproducibility`, record dependencies in a `requirements.txt` file. Loose pins (`fastapi>=0.100.0`) allow upgrades during development, while strict pins (`fastapi==0.115.0`) guarantee identical installations across CI/CD and production servers. Running `pip freeze > requirements.txt` records exact installed versions. Modern workflows use lockfile tools (pip-tools, uv, poetry) to capture transient sub-dependencies deterministically.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "sample_requirements = '''fastapi==0.115.0\npydantic==2.9.2\nuvicorn==0.30.6'''\nlines = [line.split('==')[0] for line in sample_requirements.strip().splitlines()]\nprint('Pinned packages:', lines)",
+          "explanation": "Demonstrates pinned dependency specifications for reproducible deployments.",
+          "expected_output": "Pinned packages: ['fastapi', 'pydantic', 'uvicorn']"
+        }
+      ],
+      "key_points": [
+        "Use requirements.txt with pinned versions (==) to achieve reproducibility.",
+        "pip freeze captures exact installed versions across the dependency tree."
+      ],
+      "checkpoint": "What is the difference between direct dependencies and transitive sub-dependencies?"
+    },
+    {
+      "slug": "interpreter-selection",
+      "title": "Interpreter selection in tooling and production",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Configure IDEs, linters, and service managers to use the correct venv.",
+      "markdown": "A frequent developer source of confusion is `interpreter selection`: executing code in VS Code, PyCharm, or system terminal against the global Python rather than the project's `.venv`. Modern IDEs provide interpreter pickers (`Python: Select Interpreter` in VS Code) that discover `.venv`. When writing systemd service units, Docker entrypoints, or crontabs, always specify the absolute path to the virtual environment interpreter (`/app/.venv/bin/python main.py`) to eliminate environment ambiguity.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import sys\n\n# Best practice for invoking subprocesses in the same environment\ncurrent_python = sys.executable\nprint('Command to run subprocess in same venv:', f'{current_python} -m pytest')",
+          "explanation": "sys.executable ensures subprocesses inherit the exact same isolated virtual environment.",
+          "expected_output": "Command to run subprocess in same venv: C:\\My PC\\git\\Forge\\apps\\api\\.venv\\Scripts\\python.exe -m pytest"
+        }
+      ],
+      "key_points": [
+        "Configure IDE interpreter selection to point directly to .venv.",
+        "Always use sys.executable when spawning subprocesses in the same environment."
+      ],
+      "checkpoint": "Why does 'ModuleNotFoundError' often occur in VS Code even after successfully running pip install in terminal?"
+    },
+    {
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 5,
+      "estimated_minutes": 8,
+      "learning_objective": "Review virtual environment interview questions and practice in Coding Arena.",
+      "markdown": "Environment questions evaluate your production deployment and operational reliability awareness.\n\n### Oral Interview Questions\n1. *How does Python determine whether it is running inside a virtual environment?*\n   *(It checks for pyvenv.cfg in or above sys.executable directory and compares `sys.prefix` with `sys.base_prefix`).*\n2. *What does the activation script actually do in your operating system shell?*\n   *(It exports a modified `PATH` environment variable with `.venv/bin` at the front and sets a `VIRTUAL_ENV` variable).* \n3. *Why should you never commit the .venv folder into Git?*\n   *(Virtual environments contain machine-specific absolute symlinks and platform-compiled C-extensions that fail on different operating systems or paths. Commit requirements.txt instead).* \n\n### Code Trace Challenge\nTrace this prefix check:\n```python\nimport sys\nprint('Venv active:', sys.prefix != sys.base_prefix)\n```\nInside a virtual environment, `sys.prefix` points to `.venv` while `sys.base_prefix` points to the root Python installation, outputting `True`.\n\n### Common Interview Trap\nUsing `pip install package` without activating the virtual environment or checking `which pip`. This installs packages into the global system Python, contaminating system packages or failing with permissions errors (`externally-managed-environment` under PEP 668).\n\n### Arena Practice Problems\nPractice standalone Python problem solving in Coding Arena:\n- `python-celsius-to-fahrenheit`: Numeric functions and standard library execution\n- `python-two-fer`: String manipulation and default arguments",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import sys\nprint('Prefixes match?', sys.prefix == sys.base_prefix)",
+          "explanation": "Evaluates to False in an isolated venv, proving dependency separation.",
+          "expected_output": "Prefixes match? False"
+        }
+      ],
+      "key_points": [
+        "Virtual environments are non-relocatable; recreate them via requirements.txt.",
+        "Always verify which pip is active before installing packages."
+      ],
+      "checkpoint": "Explain the significance of Debian's PEP 668 'externally-managed-environment' error."
+    }
+  ],
+  "summary": [
+    "Virtual environments isolate package dependencies per project, preventing version collisions.",
+    "The standard venv module creates directory structures linked via pyvenv.cfg.",
+    "Activation modifies the shell PATH variable, but direct execution via path is equally valid.",
+    "Requirements.txt and lockfiles provide deterministic reproducibility across environments.",
+    "Explicit interpreter selection in IDEs and production scripts eliminates path ambiguity."
+  ],
+  "interview_takeaways": [
+    "Never commit .venv directories to Git; commit requirements.txt or lockfiles instead.",
+    "Understand that activation simply modifies PATH; you can run .venv/bin/python directly.",
+    "Differentiate sys.prefix (active venv) from sys.base_prefix (host Python)."
+  ],
+  "common_mistakes": [
+    "Committing the .venv folder to version control repositories",
+    "Installing packages into the global system Python accidentally without an active venv",
+    "Using loose unpinned dependencies in production requirements.txt leading to breaking upgrades",
+    "Confusing IDE terminal shell activation with IDE editor interpreter selection"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "The Python Tutorial \u2014 Virtual Environments and Packages",
+      "url": "https://docs.python.org/3/tutorial/venv.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Standard Library \u2014 venv \u2014 Creation of virtual environments",
+      "url": "https://docs.python.org/3/library/venv.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "6607e114cde283780f7128c2f2744d6b0b82ede48ee23fbb212b700566846279",
+  "generated_at": "2026-09-24T08:26:46.496706+00:00"
+}

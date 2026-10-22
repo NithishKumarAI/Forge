@@ -1,0 +1,64 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "3f7c82613d987093d51124a1668bdb2c0d3df3e50589e09d03d21d0b733ebbf0",
+  "payload_sha256": "37bf488c5ba158eef25657a2fb177399d798bb8b3e57cb85e19bee1fb06552cd",
+  "coverage_sha256": "5e9194dfed1e4b5fb0260b7f2d505dd27d8e5127ffeafa61d2ae49c01ae9b80d",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "c8d3fb46408300bd0c7803620b91c5e3aab93c8583fb88beba1e9f6495592f38"
+  },
+  "coverage": [
+    {
+      "id": "correction",
+      "status": "covered",
+      "lesson_refs": [
+        "section/btree-fundamentals",
+        "section/composite-indexes-and-column-order",
+        "section/write-cost-and-index-tradeoffs",
+        "section/explain-and-query-plans",
+        "section/revision"
+      ],
+      "assessment_refs": [
+        "exercise/index-catalog-name",
+        "exercise/index-only-visibility",
+        "exercise/index-physical-writes",
+        "exercise/index-composite-query",
+        "exercise/index-fix-catalog",
+        "exercise/index-fixture-rows",
+        "exercise/index-explain-report"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "section": "btree-fundamentals",
+      "index": 0,
+      "status": "executed"
+    },
+    {
+      "section": "composite-indexes-and-column-order",
+      "index": 0,
+      "status": "executed"
+    },
+    {
+      "section": "write-cost-and-index-tradeoffs",
+      "index": 0,
+      "status": "executed"
+    },
+    {
+      "section": "explain-and-query-plans",
+      "index": 0,
+      "status": "requires_review",
+      "reason": "EXPLAIN plan/costs depend on data, statistics and engine version; inspect manually, not against invented exact output."
+    },
+    {
+      "section": "revision",
+      "index": 0,
+      "status": "executed"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

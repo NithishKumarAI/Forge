@@ -1,0 +1,84 @@
+{
+  "key": "python-longest-common-prefix",
+  "title": "Longest common prefix",
+  "track": "python",
+  "topic_tags": [
+    "strings",
+    "arrays"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Write `longest_common_prefix(words)` to find the longest prefix common to all words.",
+  "constraints": [
+    "Words contain lowercase letters.",
+    "List can be empty."
+  ],
+  "examples": [
+    {
+      "input": "['flower','flow','flight']",
+      "output": "'fl'",
+      "explanation": "Common prefix is fl."
+    }
+  ],
+  "starter_code": "def longest_common_prefix(words: list[str]) -> str:\n    pass",
+  "hints": [
+    "Start with the first word as the prefix and shorten it until it matches."
+  ],
+  "explanation": "Iterate through words, checking if the current prefix is a prefix of the word. If not, trim the prefix by one character at a time.",
+  "reference_solution": "def longest_common_prefix(words: list[str]) -> str:\n    if not words:\n        return \"\"\n    prefix = words[0]\n    for word in words[1:]:\n        while not word.startswith(prefix):\n            prefix = prefix[:-1]\n            if not prefix:\n                return \"\"\n    return prefix",
+  "complexity": "O(S) time where S is sum of all characters, O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "longest_common_prefix",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            "flower",
+            "flow",
+            "flight"
+          ]
+        ],
+        "kwargs": {},
+        "expected": "fl"
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            "dog",
+            "racecar"
+          ]
+        ],
+        "kwargs": {},
+        "expected": ""
+      },
+      {
+        "name": "sample3",
+        "args": [
+          [
+            "ab",
+            "ab"
+          ]
+        ],
+        "kwargs": {},
+        "expected": "ab"
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          []
+        ],
+        "kwargs": {},
+        "expected": ""
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/strings"
+}

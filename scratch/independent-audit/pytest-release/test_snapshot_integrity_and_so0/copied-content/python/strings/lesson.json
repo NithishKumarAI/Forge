@@ -1,0 +1,180 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "strings",
+  "title": "Strings and Text Processing",
+  "description": "Master string immutability, slicing mechanics, text transformations, f-string formatting, and core interview patterns.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Navigate and slice strings using positive, negative, and step indexing",
+    "Apply text cleaning methods including strip, split, join, replace, and find",
+    "Format dynamic data cleanly using f-strings and format specifiers",
+    "Implement canonical string interview algorithms for palindrome and anagram checks"
+  ],
+  "prerequisites": [
+    "syntax-data-types"
+  ],
+  "sections": [
+    {
+      "slug": "immutability-and-indexing",
+      "title": "String immutability and indexing",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Inspect characters by index and respect string immutability.",
+      "markdown": "In Python, a string (`str`) is an ordered, immutable sequence of Unicode characters. Each character occupies a discrete offset. Indexing begins at `0` for the initial character and extends to `len(s) - 1`. Python also supports negative indexing: `s[-1]` accesses the final character, while `s[-2]` accesses the penultimate character. Because strings are immutable, attempting in-place assignment like `s[0] = 'a'` raises a `TypeError`. Any transformation produces a brand-new string object in memory.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "text = 'Forge'\nfirst_char = text[0]\nlast_char = text[-1]\nprint(f'{first_char} -> {last_char}')\ntry:\n    text[0] = 'f'\nexcept TypeError as exc:\n    print('Mutation rejected:', type(exc).__name__)",
+          "explanation": "Indexing accesses characters in O(1) time; direct item assignment fails because strings are immutable.",
+          "expected_output": "F -> e\nMutation rejected: TypeError"
+        }
+      ],
+      "key_points": [
+        "Strings are 0-indexed forward and -1-indexed backwards.",
+        "Strings are immutable; mutating an index raises TypeError."
+      ],
+      "checkpoint": "Explain the time and space complexity of accessing an arbitrary character by index in Python."
+    },
+    {
+      "slug": "slicing-and-reversal",
+      "title": "Slicing mechanics and sequence reversal",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Extract substrings and reverse sequences using slice syntax.",
+      "markdown": "Python's slicing syntax `s[start:stop:step]` extracts a substring starting at index `start` (inclusive) up to index `stop` (exclusive), advancing by `step`. Omitting `start` defaults to `0`, while omitting `stop` defaults to the length of the string. A negative step strides backwards. For instance, `s[::-1]` creates a clean, reversed copy of the string in O(n) time. Slicing never raises an `IndexError` when indices exceed boundaries; Python gracefully truncates to the available range.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "word = 'racecar'\nsub = word[1:4]\nreversed_word = word[::-1]\nis_palindrome = word == reversed_word\nprint(f'Slice: {sub}, Palindrome: {is_palindrome}')",
+          "explanation": "word[1:4] yields 'ace'; word[::-1] reverses the characters to confirm palindrome symmetry.",
+          "expected_output": "Slice: ace, Palindrome: True"
+        }
+      ],
+      "key_points": [
+        "Slicing [start:stop:step] extracts a new string without boundary IndexError.",
+        "The slice idiom [::-1] reverses strings in O(n) time."
+      ],
+      "checkpoint": "What does 'python'[::2] produce and how does the step parameter govern execution?"
+    },
+    {
+      "slug": "text-methods-and-cleaning",
+      "title": "String methods: strip, split, join, replace, and find",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Transform and clean textual data using built-in string methods.",
+      "markdown": "Python provides optimized methods for parsing text. Use `strip()` to remove leading and trailing whitespace or specific characters. Use `split(delimiter)` to tokenize a string into a list of strings; `split()` with no arguments splits across arbitrary whitespace runs. Use `join(iterable)` to concatenate string collections efficiently with a separator. For substitutions, `replace(old, new, count)` creates a modified copy. Use `find(sub)` to locate the first index of a substring, returning `-1` if absent rather than raising an exception like `index()`.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "raw_input = '  alpha,beta,gamma  '\ncleaned = raw_input.strip()\ntokens = cleaned.split(',')\nrejoined = ' | '.join(tokens)\nreplaced = rejoined.replace('beta', 'omega')\nidx = replaced.find('omega')\nprint(f'{replaced} (found at {idx})')",
+          "explanation": "Cleans whitespace, splits tokens on commas, rejoins with pipes, and replaces a token.",
+          "expected_output": "alpha | omega | gamma (found at 8)"
+        }
+      ],
+      "key_points": [
+        "strip() removes boundary whitespace; split() tokenizes into lists.",
+        "'separator'.join(tokens) concatenates in O(n) linear time.",
+        "find() returns -1 on missing substrings, while index() raises ValueError."
+      ],
+      "checkpoint": "Why is ''.join(list_of_strings) significantly faster than repeatedly accumulating strings with + in a loop?"
+    },
+    {
+      "slug": "formatting-and-fstrings",
+      "title": "Modern string formatting with f-strings",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Interpolate expressions and control numeric formatting using f-strings.",
+      "markdown": "Formatted string literals (f-strings) provide readable, performant string interpolation. Prefix the literal with `f` and place expressions inside curly braces `{expr}`. F-strings support inline expressions, method calls, and format specifiers like `{val:.2f}` for rounding decimals, `{val:>10}` for right-alignment with padding, and `{count:04d}` for zero-padding integers. In Python 3.8+, using `{variable=}` prints the variable name and its evaluated value, offering lightweight debugging without extra tooling.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "rate = 42.8571\nuser_id = 7\nformatted = f'User {user_id:04d} spent ${rate:.2f}'\nprint(formatted)\nmetric = 100\nprint(f'{metric=}')",
+          "explanation": "f-string zero-pads the ID, rounds the float to 2 decimal places, and prints self-documenting debug text.",
+          "expected_output": "User 0007 spent $42.86\nmetric=100"
+        }
+      ],
+      "key_points": [
+        "f-strings evaluate expressions at runtime with high performance.",
+        "Format specifiers control precision, padding, alignment, and date representations."
+      ],
+      "checkpoint": "How do you format a floating-point number as a percentage with one decimal place using an f-string?"
+    },
+    {
+      "slug": "interview-patterns-palindrome-anagram",
+      "title": "Interview algorithms: Palindrome and anagram verification",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Implement two-pointer palindromes and frequency-map anagram checks.",
+      "markdown": "String questions are staple interview topics. A palindrome reads the same forwards and backwards. While `s == s[::-1]` works in O(n) space, an interview often requires an in-place two-pointer traversal using O(1) auxiliary space that skips non-alphanumeric characters. An anagram consists of two strings with identical character frequencies. Sorting both strings takes O(n log n) time, whereas tallying characters with a frequency dictionary or `collections.Counter` runs in optimal O(n) time and O(k) space where k is the alphabet size.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def are_anagrams(s1: str, s2: str) -> bool:\n    if len(s1) != len(s2):\n        return False\n    counts = {}\n    for c in s1:\n        counts[c] = counts.get(c, 0) + 1\n    for c in s2:\n        if c not in counts or counts[c] == 0:\n            return False\n        counts[c] -= 1\n    return True\n\nprint(are_anagrams('silent', 'listen'), are_anagrams('cat', 'rat'))",
+          "explanation": "A single frequency dictionary increments on string 1 and decrements on string 2 for optimal O(n) verification.",
+          "expected_output": "True False"
+        }
+      ],
+      "key_points": [
+        "Two pointers enable O(n) time and O(1) space palindrome validation.",
+        "Hash map frequency tallies resolve anagram checks in linear O(n) time."
+      ],
+      "checkpoint": "Compare the space and time trade-offs between sorted(s1) == sorted(s2) and frequency dictionary tallying."
+    },
+    {
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 5,
+      "estimated_minutes": 8,
+      "learning_objective": "Review oral interview questions and practice string problems in Coding Arena.",
+      "markdown": "Review key verbal questions and practice canonical string problems in Forge Arena.\n\n### Oral Interview Questions\n1. *Why are strings immutable in Python, and how does this affect memory hashing in dictionary keys?*\n2. *What is the difference between str.find() and str.index()?*\n3. *How does Python optimize repeated string concatenation, and why is str.join preferred?*\n\n### Code Trace Challenge\nTrace this snippet: `s = 'A man, a plan, a canal: Panama!'; cleaned = ''.join(c.lower() for c in s if c.isalnum()); is_pal = cleaned == cleaned[::-1]`. The cleaned string becomes `'amanaplanacanalpanama'`, which equals its reverse, returning True.\n\n### Common Interview Trap\nRepeatedly appending characters in a loop using `result += char`. In general, string concatenation creates a new string copy on each iteration, causing an O(n^2) time blowup. Always append to a list and call `''.join(chars)` at the end.\n\n### Arena Practice Problems\nReinforce your string mastery in Coding Arena:\n- `python-anagram-check`: Frequency tallying and anagram testing\n- `python-is-palindrome`: Two-pointer string symmetry\n- `python-count-vowels`: Text scanning and character filtering\n- `python-bob`: Conversational string rule classification",
+      "examples": [
+        {
+          "language": "python",
+          "code": "words = ['Forge', 'Engine', 'Interview']\njoined = '-'.join(w.lower() for w in words)\nprint(joined)",
+          "explanation": "join consumes the generator expression and allocates the final buffer once.",
+          "expected_output": "forge-engine-interview"
+        }
+      ],
+      "key_points": [
+        "String immutability guarantees safe dictionary hashing.",
+        "Use list buffering and str.join to avoid quadratic concatenation costs."
+      ],
+      "checkpoint": "Write a one-line generator expression that filters and lowers only ASCII alphabetic characters from a sentence."
+    }
+  ],
+  "summary": [
+    "Strings are immutable Unicode sequences supporting forward and negative index offsets.",
+    "Slicing [start:stop:step] extracts substrings and provides O(n) reversal via [::-1].",
+    "Built-in methods strip, split, join, replace, and find provide standard text processing.",
+    "F-strings provide performant, readable interpolation and numeric formatting.",
+    "Anagram and palindrome verification are foundational interview patterns solvable in O(n) time."
+  ],
+  "interview_takeaways": [
+    "Never accumulate strings with += in a loop; accumulate in a list and call ''.join().",
+    "Strings are hashable and valid dictionary keys because they are immutable.",
+    "Use two pointers for in-place palindrome checks with O(1) auxiliary space."
+  ],
+  "common_mistakes": [
+    "Attempting in-place mutation like s[0] = 'x' which raises TypeError",
+    "Using += concatenation inside loops leading to O(n^2) memory reallocation",
+    "Relying on str.index() without handling the ValueError when a substring is missing",
+    "Forgetting that slicing indices do not raise IndexError when out of bounds"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "The Python Tutorial \u2014 Strings",
+      "url": "https://docs.python.org/3/tutorial/introduction.html#text",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Standard Library \u2014 Text Sequence Type str",
+      "url": "https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "fb4093b37cf19e1e4226a53a03fd328c8ce8b854509be8ca324091d0e89c4c3b",
+  "generated_at": "2026-09-24T08:23:03.505366+00:00"
+}

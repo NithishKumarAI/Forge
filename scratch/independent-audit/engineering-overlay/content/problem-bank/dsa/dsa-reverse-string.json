@@ -1,0 +1,95 @@
+{
+  "key": "dsa-reverse-string",
+  "title": "Reverse string in place",
+  "track": "dsa",
+  "topic_tags": [
+    "strings",
+    "two-pointers"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a function that reverses a string. The input string is given as an array of characters. Do not allocate extra space for another array; you must do this by modifying the input array in-place. Return the modified list for testing purposes.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "['h','e','l','l','o']",
+      "output": "['o','l','l','e','h']",
+      "explanation": "Reversed in-place."
+    }
+  ],
+  "starter_code": "def reverse_string(chars: list[str]) -> list[str]:\n    pass",
+  "hints": [
+    "Use two pointers, one at the start and one at the end, and swap them."
+  ],
+  "explanation": "Swap characters at the start and end of the list, moving the pointers towards the center.",
+  "reference_solution": "def reverse_string(chars: list[str]) -> list[str]:\n    left, right = 0, len(chars) - 1\n    while left < right:\n        chars[left], chars[right] = chars[right], chars[left]\n        left += 1\n        right -= 1\n    return chars",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "reverse_string",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            "h",
+            "e",
+            "l",
+            "l",
+            "o"
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          "o",
+          "l",
+          "l",
+          "e",
+          "h"
+        ]
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            "a"
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          "a"
+        ]
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          [
+            "H",
+            "a",
+            "n",
+            "n",
+            "a",
+            "h"
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          "h",
+          "a",
+          "n",
+          "n",
+          "a",
+          "H"
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/two-pointers"
+}

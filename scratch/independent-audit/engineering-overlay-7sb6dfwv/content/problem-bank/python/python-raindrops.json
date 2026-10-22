@@ -1,0 +1,115 @@
+{
+  "key": "python-raindrops",
+  "title": "Raindrops sound",
+  "track": "python",
+  "topic_tags": [
+    "strings",
+    "conditionals"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Your task is to convert a number into a string that contains raindrop sounds corresponding to certain potential factors.\n\nRules:\n- If the number has 3 as a factor, output 'Pling'.\n- If the number has 5 as a factor, output 'Plang'.\n- If the number has 7 as a factor, output 'Plong'.\n- If the number does not have 3, 5, or 7 as a factor, just pass the number's digits straight through.\n\nImplement the `raindrops(n)` function.",
+  "constraints": [
+    "1 <= n <= 10000"
+  ],
+  "examples": [
+    {
+      "input": "3",
+      "output": "'Pling'",
+      "explanation": "3 is divisible by 3."
+    },
+    {
+      "input": "105",
+      "output": "'PlingPlangPlong'",
+      "explanation": "105 is divisible by 3, 5, and 7."
+    }
+  ],
+  "starter_code": "def raindrops(n: int) -> str:\n    pass",
+  "hints": [
+    "Check divisibility using the modulo operator `%`.",
+    "Concatenate strings if multiple conditions are met."
+  ],
+  "explanation": "We can build the result string step by step. If `n % 3 == 0`, we append 'Pling'. If `n % 5 == 0`, we append 'Plang'. If `n % 7 == 0`, we append 'Plong'. Finally, if the result string is empty, we return the number as a string.",
+  "reference_solution": "def raindrops(n: int) -> str:\n    res = \"\"\n    if n % 3 == 0: res += \"Pling\"\n    if n % 5 == 0: res += \"Plang\"\n    if n % 7 == 0: res += \"Plong\"\n    return res if res else str(n)",
+  "complexity": "O(1) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "raindrops",
+    "sample_tests": [
+      {
+        "name": "sample_1",
+        "args": [
+          1
+        ],
+        "kwargs": {},
+        "expected": "1"
+      },
+      {
+        "name": "sample_3",
+        "args": [
+          3
+        ],
+        "kwargs": {},
+        "expected": "Pling"
+      },
+      {
+        "name": "sample_5",
+        "args": [
+          5
+        ],
+        "kwargs": {},
+        "expected": "Plang"
+      },
+      {
+        "name": "sample_15",
+        "args": [
+          15
+        ],
+        "kwargs": {},
+        "expected": "PlingPlang"
+      },
+      {
+        "name": "sample_105",
+        "args": [
+          105
+        ],
+        "kwargs": {},
+        "expected": "PlingPlangPlong"
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden_2",
+        "args": [
+          2
+        ],
+        "kwargs": {},
+        "expected": "2"
+      },
+      {
+        "name": "hidden_7",
+        "args": [
+          7
+        ],
+        "kwargs": {},
+        "expected": "Plong"
+      },
+      {
+        "name": "hidden_35",
+        "args": [
+          35
+        ],
+        "kwargs": {},
+        "expected": "PlangPlong"
+      }
+    ]
+  },
+  "source_type": "original",
+  "source_project": "exercism",
+  "source_exercise": "raindrops",
+  "license": "MIT",
+  "adapted": true,
+  "version": "1.0.0",
+  "mapped_topic": "python/control-flow"
+}

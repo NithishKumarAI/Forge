@@ -1,0 +1,8 @@
+let nextId=1;
+export type SqlResult={ok:boolean;rows:Record<string,unknown>[];columns:string[];error?:string;errorCategory?:string;duration_ms:number};
+export type SqlColumn={name:string;dataType:string;nullable:boolean;primaryKey:boolean;foreignKey?:{table:string;column:string}};
+export type SqlTable={name:string;columns:SqlColumn[];rows:Record<string,unknown>[]};
+export type SqlSchemaResult={ok:boolean;tables:SqlTable[];error?:string;duration_ms:number};
+async function request<T>(payload:Record<string,unknown>,timeoutMs=10000):Promise<T>{const worker=new Worker(new URL("./sql.worker.ts",import.meta.url),{type:"module"});const id=nextId++;return new Promise(resolve=>{const timer=globalThis.setTimeout(()=>{worker.terminate();resolve({ok:false,rows:[],columns:[],tables:[],error:"SQL execution timed out; the isolated database was discarded.",errorCategory:"Timeout",duration_ms:timeoutMs} as T)},timeoutMs);worker.onmessage=(event)=>{if(event.data.id!==id)return;globalThis.clearTimeout(timer);worker.terminate();resolve(event.data as T)};worker.onerror=()=>{globalThis.clearTimeout(timer);worker.terminate();resolve({ok:false,rows:[],columns:[],tables:[],error:"SQL worker failed and was restarted.",errorCategory:"Worker error",duration_ms:0} as T)};worker.postMessage({id,...payload})})}
+export function runSql(setupSql:string,query:string,timeoutMs=10000):Promise<SqlResult>{return request<SqlResult>({action:"query",setupSql,query},timeoutMs)}
+export function inspectSql(setupSql:string,timeoutMs=10000):Promise<SqlSchemaResult>{return request<SqlSchemaResult>({action:"inspect",setupSql},timeoutMs)}

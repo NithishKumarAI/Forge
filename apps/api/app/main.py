@@ -4,6 +4,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 from sqlmodel import Session, select
 
 from . import models  # noqa: F401 -- registers SQLModel tables
@@ -19,12 +20,14 @@ from .routers.arena import router as arena_router
 from .routers.editions import router as editions_router
 from .routers.assessment import router as assessment_router
 from .routers.guidance import router as guidance_router
+from .routers.timed_tests import router as timed_tests_router
 from .services.course import sync_course_pack
 from .services.arena import sync_problem_bank
 from .schemas.api import HealthRead
 from .services.curriculum import seed_default_curriculum
 from .services.active_curriculum import activate_curriculum
 from .models import AppSetting, Curriculum
+from .browser_security import LocalBrowserBoundary
 
 
 @asynccontextmanager
@@ -47,6 +50,7 @@ async def lifespan(_: FastAPI):
 
 def create_app() -> FastAPI:
     app = FastAPI(title=settings.app_name, version="0.2.0", lifespan=lifespan)
+    app.add_middleware(LocalBrowserBoundary,allowed_origins=settings.cors_origins)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origins,
@@ -54,10 +58,13 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    # Loopback-only personal application. testserver is the in-process test host.
+    app.add_middleware(TrustedHostMiddleware,allowed_hosts=['127.0.0.1','localhost','[::1]','testserver'])
     # Specific curriculum routes must precede the legacy /{curriculum_id} route.
     app.include_router(curricula_router)
     app.include_router(assessment_router)
     app.include_router(guidance_router)
+    app.include_router(timed_tests_router)
     app.include_router(practice_router)
     app.include_router(adaptive_router)
     app.include_router(interviews_router)

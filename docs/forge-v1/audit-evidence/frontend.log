@@ -1,0 +1,13 @@
+
+> forge-web@0.1.0 test
+> vitest run --run
+
+
+ RUN  v5.0.1 C:/My PC/git/Forge/apps/web
+
+
+ Test Files  12 passed (12)
+      Tests  49 passed (49)
+   Start at  16:26:07
+   Duration  12.91s (tests 84%, import 10%, transform 6%)
+

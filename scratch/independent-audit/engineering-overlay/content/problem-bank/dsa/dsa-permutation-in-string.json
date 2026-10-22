@@ -1,0 +1,69 @@
+{
+  "key": "dsa-permutation-in-string",
+  "title": "Permutation in string",
+  "track": "dsa",
+  "topic_tags": [
+    "strings",
+    "sliding-window",
+    "hash-maps"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given two strings `s1` and `s2`, return `True` if `s2` contains a permutation of `s1`, or `False` otherwise.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "s1 = 'ab', s2 = 'eidbaooo'",
+      "output": "True",
+      "explanation": "'ba' is a permutation of 'ab'."
+    }
+  ],
+  "starter_code": "def check_inclusion(s1: str, s2: str) -> bool:\n    pass",
+  "hints": [
+    "Use a fixed-size sliding window of length `len(s1)`."
+  ],
+  "explanation": "Count character frequencies in `s1`. Slide a window of size `len(s1)` across `s2` and check if the character frequencies in the window match those of `s1`.",
+  "reference_solution": "def check_inclusion(s1: str, s2: str) -> bool:\n    from collections import Counter\n    if len(s1) > len(s2): return False\n    s1_counts = Counter(s1)\n    window_counts = Counter(s2[:len(s1)])\n    if s1_counts == window_counts: return True\n    for i in range(len(s1), len(s2)):\n        window_counts[s2[i]] += 1\n        window_counts[s2[i - len(s1)]] -= 1\n        if window_counts[s2[i - len(s1)]] == 0:\n            del window_counts[s2[i - len(s1)]]\n        if s1_counts == window_counts:\n            return True\n    return False",
+  "complexity": "O(n) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "check_inclusion",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "ab",
+          "eidbaooo"
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "ab",
+          "eidboaoo"
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          "a",
+          "ab"
+        ],
+        "kwargs": {},
+        "expected": true
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/sliding-window"
+}

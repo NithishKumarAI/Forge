@@ -1,0 +1,77 @@
+{
+  "key": "dsa-valid-anagram",
+  "title": "Valid anagram",
+  "track": "dsa",
+  "topic_tags": [
+    "strings",
+    "hash-maps"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given two strings `s` and `t`, return `True` if `t` is an anagram of `s`, and `False` otherwise.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "s = 'anagram', t = 'nagaram'",
+      "output": "True",
+      "explanation": "Both have same character frequencies."
+    }
+  ],
+  "starter_code": "def valid_anagram(s: str, t: str) -> bool:\n    pass",
+  "hints": [
+    "Count frequencies of characters in both strings."
+  ],
+  "explanation": "Count the frequency of each character in both strings. If they match, it's an anagram.",
+  "reference_solution": "def valid_anagram(s: str, t: str) -> bool:\n    from collections import Counter\n    return Counter(s) == Counter(t)",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "valid_anagram",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "anagram",
+          "nagaram"
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "rat",
+          "car"
+        ],
+        "kwargs": {},
+        "expected": false
+      },
+      {
+        "name": "sample3",
+        "args": [
+          "",
+          ""
+        ],
+        "kwargs": {},
+        "expected": true
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          "a",
+          "ab"
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

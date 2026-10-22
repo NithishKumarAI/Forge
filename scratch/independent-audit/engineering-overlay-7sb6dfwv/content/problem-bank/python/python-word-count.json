@@ -1,0 +1,99 @@
+{
+  "key": "python-word-count",
+  "title": "Word frequency count",
+  "track": "python",
+  "topic_tags": [
+    "strings",
+    "dictionaries"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a function `word_count(sentence: str) -> dict[str, int]` that counts the frequency of words in a sentence. Treat words case-insensitively and split on whitespace and punctuation (only alphanumeric characters form a word). Return a dictionary of lowercase words and their frequencies.",
+  "constraints": [
+    "A word is a contiguous sequence of alphanumeric characters."
+  ],
+  "examples": [
+    {
+      "input": "\"go go go\"",
+      "output": "{\"go\": 3}",
+      "explanation": "The word 'go' appears 3 times."
+    },
+    {
+      "input": "\"Hello, hello!\"",
+      "output": "{\"hello\": 2}",
+      "explanation": "Punctuation is ignored, so 'Hello' and 'hello' both count as 'hello'."
+    }
+  ],
+  "starter_code": "def word_count(sentence: str) -> dict[str, int]:\n    pass",
+  "hints": [
+    "You can use `re.findall(r'[a-zA-Z0-9]+', sentence.lower())` to extract words.",
+    "Use a dictionary to keep a tally of each word."
+  ],
+  "explanation": "Use regular expressions to extract alphanumeric sequences (words). Convert the input string to lowercase to ensure the counts are case-insensitive. Iterate over the matched words and populate a frequency dictionary.",
+  "reference_solution": "def word_count(sentence: str) -> dict[str, int]:\n    import re\n    words = re.findall(r'[a-z0-9]+', sentence.lower())\n    counts = {}\n    for w in words:\n        counts[w] = counts.get(w, 0) + 1\n    return counts",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "word_count",
+    "sample_tests": [
+      {
+        "name": "go",
+        "args": [
+          "go go go"
+        ],
+        "kwargs": {},
+        "expected": {
+          "go": 3
+        }
+      },
+      {
+        "name": "punctuation",
+        "args": [
+          "Hello, hello!"
+        ],
+        "kwargs": {},
+        "expected": {
+          "hello": 2
+        }
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "mixed_case_and_numbers",
+        "args": [
+          "Test 1, test 2, TEST 1!"
+        ],
+        "kwargs": {},
+        "expected": {
+          "test": 3,
+          "1": 2,
+          "2": 1
+        }
+      },
+      {
+        "name": "empty",
+        "args": [
+          ""
+        ],
+        "kwargs": {},
+        "expected": {}
+      },
+      {
+        "name": "no_words",
+        "args": [
+          "!@#$%^&*()"
+        ],
+        "kwargs": {},
+        "expected": {}
+      }
+    ]
+  },
+  "source_type": "original",
+  "source_project": "exercism",
+  "source_exercise": "word-count",
+  "license": "MIT",
+  "adapted": true,
+  "version": "1.0.0",
+  "mapped_topic": "python/collections"
+}

@@ -26,7 +26,15 @@ Phase 1 content-addressed snapshots and exact curriculum-topic bindings remain a
 
 Runtime pools derive only from the effective reviewed release. Legacy static course practice is available only through historical curricula and is explicitly unverified; it is not promoted into the new scored pools. Generated legacy exercises remain historical records. Transfer excludes exposed/revealed families; coding subjects require coding variants. Selection/exposure is persisted for resume. Missing pools never trigger generation.
 
-## Attempts, evidence and schema version 5
+## Phase 5 plans, tests and schema version 6
+
+Migration 6 adds StudyPlanRevision/Entry and TimedTestSession/Item. Frozen migrations 1–5 are unchanged. Plan revisions snapshot exact approved activities by selected IANA local date and timezone. Settings changes require explicit regeneration; terminal items survive across revisions. Due FSRS work, Python/SQL/DSA minima, weaknesses, prerequisites and subject rotation drive allocation. Insufficient approved content leaves free minutes, never invented tasks. Manual subject/topic access remains unrestricted.
+
+Timed tests use shared immutable AssessmentSelection snapshots with purpose `timed`, static versioned blueprints, fixed weights and server deadlines. Drafts survive refresh; submitted answers lock. Finishing after a deadline rolls back a transient evaluation and completes with previously committed responses. Answer grading is binary full-contract correctness; only the mixed blueprint deducts 0.25 for submitted incorrect answers. Unanswered items score zero. Reports are immutable and revealed only after completion. Timed work creates no mastery evidence, review ratings or global mistake updates. Scored interview/timed contexts share help and solution embargo guards.
+
+The Windows owner process prebinds loopback before starting the app and publishes its native creation identity, executable, exact command hash and unique runtime owner. Open/close use a per-runtime mutex and verify a held process handle before stopping it. Verification uses explicit disposable databases and runtime directories. The optional `FORGE_VERIFY_NO_NETWORK=1` guard denies external Python DNS/TCP and provider imports inside verification processes; it is not a machine-wide firewall. Browser verification separately rejects external requests. Monaco, fonts and worker assets resolve locally after installation/build.
+
+## Attempts and evidence
 
 Migrations 1–4 and their frozen DDL/checksums are unchanged. Additive migration 5 introduces:
 

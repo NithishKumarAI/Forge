@@ -82,6 +82,18 @@ def answer(session,row,qid,request):
     selected=selection(session,q)
     result=assessment.submit(session,selected,request,commit=False)
     if result.get("error"):raise ValueError(result["error"])
+    finished=assessment.utc(datetime.now(timezone.utc))
+    session.refresh(row)
+    if row.mode=="objective" and finished>=assessment.utc(row.started_at)+timedelta(seconds=json.loads(row.metadata_json)["blueprint"]["allowed_seconds"]):
+        key=row.id
+        session.rollback()
+        row=session.get(m.InterviewSession,key)
+        if row.status=="active":complete_interview(session,row,now=finished)
+        return interview_read(session,row)
+    if row.status!="active":
+        key=row.id
+        session.rollback()
+        return interview_read(session,session.get(m.InterviewSession,key))
     if selected.status in {"complete","reflection"} and not session.exec(select(m.InterviewResponse).where(m.InterviewResponse.question_id==qid)).first():
         result=json.loads(selected.result_json)
         session.add(m.InterviewResponse(question_id=qid,response_text=str(request.answer or request.source),attempt_id=selected.attempt_id,

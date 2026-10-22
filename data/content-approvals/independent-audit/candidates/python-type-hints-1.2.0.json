@@ -1,0 +1,531 @@
+{
+  "content_key": "ai-engineer/v1/python/type-hints",
+  "revision": "1.2.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "default-ai-engineer",
+      "track_slug": "python",
+      "topic_slug": "type-hints",
+      "title": "Type Hints and Static Checking",
+      "description": "Master Python type annotations, built-in generics, Union and Optional types, Callable, structural subtyping with Protocols, and runtime limits.",
+      "version": "1.2.0",
+      "learning_objectives": [
+        "Annotate function signatures and data structures using built-in generics (PEP 585)",
+        "Model nullable and polymorphic values using union and optional syntax (PEP 604)",
+        "Annotate higher-order functions with Callable and structural contracts with protocol awareness",
+        "Explain the boundary between static checking (mypy, pyright) and Python runtime limits"
+      ],
+      "prerequisites": [
+        "syntax-data-types",
+        "functions"
+      ],
+      "sections": [
+        {
+          "slug": "annotations-and-built-in-generics",
+          "title": "Type annotations and built-in generics (PEP 585)",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Annotate variables and parameters using native collection types.",
+          "markdown": "Python type annotations communicate developer intent to static analysis tools and IDEs without impacting runtime execution speed. In modern Python (PEP 585), use standard built-in generics directly: `list[str]`, `dict[str, int]`, `set[int]`, and `tuple[int, str]`. Variable annotations use `name: type = value`, and function annotations use `def func(param: type) -> return_type:`. Annotations act as machine-verifiable documentation that catches type mismatch bugs before deployment.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def calculate_totals(items: list[dict[str, float]]) -> float:\n    return sum(item['price'] for item in items)\n\ncart: list[dict[str, float]] = [{'price': 19.99}, {'price': 5.50}]\nprint(f'Total: ${calculate_totals(cart):.2f}')",
+              "explanation": "Uses standard list and dict generics to document nested data structures cleanly.",
+              "expected_output": "Total: $25.49"
+            }
+          ],
+          "key_points": [
+            "Modern Python uses standard collection names list[], dict[], set[], tuple[] as generics.",
+            "Type annotations do not change runtime bytecode or enforce types automatically."
+          ],
+          "checkpoint": "Explain the difference between tuple[int, ...] and tuple[int, str] in type annotations."
+        },
+        {
+          "slug": "union-and-optional",
+          "title": "Union, Optional, and nullability (PEP 604)",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Model nullable parameters and multi-type inputs cleanly.",
+          "markdown": "Functions frequently accept or return `None` or multiple distinct types. Modern Python expresses union types with the pipe operator `|`: `int | float` replaces `Union[int, float]`. A nullable value is represented as `str | None` instead of `Optional[str]`. When working with nullable types, static type checkers force developers to write explicit `if val is not None:` guards before calling methods on the underlying object, preventing `AttributeError: 'NoneType' object has no attribute` in production.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def find_user_id(email: str, users: dict[str, int]) -> int | None:\n    return users.get(email)\n\nregistry: dict[str, int] = {'alice@corp.test': 101}\nuid = find_user_id('bob@corp.test', registry)\nif uid is not None:\n    print(f'Found: {uid}')\nelse:\n    print('User not found')",
+              "explanation": "Returning int | None forces callers to handle the None branch explicitly.",
+              "expected_output": "User not found"
+            }
+          ],
+          "key_points": [
+            "Use type | None to model nullable parameters and returns.",
+            "Static checkers enforce checking is not None before dereferencing optional values."
+          ],
+          "checkpoint": "Why is Optional[int] identical to Union[int, None] in Python type theory?"
+        },
+        {
+          "slug": "callable-and-higher-order",
+          "title": "Callable types for higher-order functions",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Annotate function arguments, callbacks, and transformation pipelines.",
+          "markdown": "Higher-order functions that accept callbacks or return decorators require `Callable[[ArgTypes...], ReturnType]` from `collections.abc` (or `typing`). For example, a function accepting a predicate and a string is typed as `Callable[[str], bool]`. If a callback accepts arbitrary arguments or parameter counts vary, use `Callable[..., ReturnType]` with an ellipsis. This ensures caller callbacks fulfill the expected signature contract.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "from collections.abc import Callable\n\ndef apply_filter(items: list[str], predicate: Callable[[str], bool]) -> list[str]:\n    return [item for item in items if predicate(item)]\n\nwords: list[str] = ['forge', 'engine', 'ai', 'scale']\nshort_words = apply_filter(words, lambda w: len(w) <= 3)\nprint(short_words)",
+              "explanation": "Callable[[str], bool] verifies that the lambda takes a string and returns a boolean.",
+              "expected_output": "['ai']"
+            }
+          ],
+          "key_points": [
+            "Callable[[Arg1, Arg2], ReturnType] specifies parameter and return type contracts.",
+            "Use Callable[..., ReturnType] when argument signatures are dynamic or variable."
+          ],
+          "checkpoint": "Write the type annotation for a decorator that takes a function and returns a function of the same signature."
+        },
+        {
+          "slug": "protocol-awareness",
+          "title": "Structural subtyping with protocol awareness",
+          "order_index": 3,
+          "estimated_minutes": 8,
+          "learning_objective": "Implement duck typing using typing.Protocol.",
+          "markdown": "Python's idiomatic \"duck typing\" is formalized in static typing through `typing.Protocol` (PEP 544). Instead of requiring a class to explicitly inherit from a nominal base class, a Protocol declares required methods and attributes. Any class that implements those methods structurally matches the Protocol, even without explicit inheritance. Maintain `protocol awareness` when writing modular libraries, decoupling consumers from specific concrete classes.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "from typing import Protocol\n\nclass Renderable(Protocol):\n    def render(self) -> str:\n        ...\n\nclass UserCard:\n    def __init__(self, name: str):\n        self.name = name\n    def render(self) -> str:\n        return f'<div>{self.name}</div>'\n\ndef display(widget: Renderable) -> str:\n    return widget.render()\n\nprint(display(UserCard('Ada')))",
+              "explanation": "UserCard matches Renderable structurally without inheriting from Renderable directly.",
+              "expected_output": "<div>Ada</div>"
+            }
+          ],
+          "key_points": [
+            "Protocols enable static checking for duck typing without nominal subclassing.",
+            "Any object with matching method signatures satisfies the Protocol."
+          ],
+          "checkpoint": "Contrast nominal typing (subclassing ABC) with structural subtyping (typing.Protocol)."
+        },
+        {
+          "slug": "static-checking-and-runtime-limits",
+          "title": "Static checking vs runtime limits",
+          "order_index": 4,
+          "estimated_minutes": 8,
+          "learning_objective": "Identify what type hints can and cannot enforce at runtime.",
+          "markdown": "A critical mental model is understanding runtime limits: Python does NOT enforce type hints at runtime. Running `x: int = 'hello'` executes without raising an exception! Type hints exist for `static checking` performed by tools like Mypy, Pyright, or IDE type linters before execution. If runtime validation is needed at boundaries (e.g. parsing HTTP request payloads or database JSON), use data-validation libraries like Pydantic or manual `isinstance()` checks.",
+          "examples": [
+            {
+              "language": "python",
+              "code": "def add_numbers(a: int, b: int) -> int:\n    return a + b\n\n# Python runtime does NOT enforce type annotations!\nruntime_result = add_numbers('hello ', 'world')  # type: ignore\nprint(f'Runtime returned: {runtime_result} ({type(runtime_result).__name__})')",
+              "explanation": "Demonstrates that the Python runtime executes without error even when types violate annotations.",
+              "expected_output": "Runtime returned: hello world (str)"
+            }
+          ],
+          "key_points": [
+            "Python does not perform runtime type checking; annotations are metadata.",
+            "Static checking occurs out-of-band via tools like mypy and pyright."
+          ],
+          "checkpoint": "Why must an API endpoint perform runtime data validation even if all request models have type hints?"
+        },
+        {
+          "slug": "interview-check",
+          "title": "Interview check and practice",
+          "order_index": 5,
+          "estimated_minutes": 8,
+          "learning_objective": "Review type system interview questions and practice typed patterns in Coding Arena.",
+          "markdown": "Type hints are frequently tested in engineering interviews to assess code quality and architectural maturity.\n\n### Oral Interview Questions\n1. *Does Python's type hinting impact runtime performance?*\n   *(Annotations are not automatically enforced as runtime type checks, but their metadata remains available. Annotation evaluation/storage behavior depends on the Python version and configuration; tools can inspect it. Do not claim that annotations are stripped or universally cost-free.)* \n2. *What is the difference between typing.Any and object?*\n   *(`object` is the root of the class hierarchy; static checkers enforce that you cannot perform arbitrary operations on it without narrowing. `Any` turns off type checking entirely, allowing any operation).* \n3. *How does typing.TypeVar enable generic reusable functions?*\n\n### Code Trace Challenge\nTrace this generic function:\n```python\nfrom typing import TypeVar\nT = TypeVar('T')\ndef first_item(items: list[T]) -> T | None:\n    return items[0] if items else None\n```\nPassing `[1, 2, 3]` returns `1` typed as `int | None`. Passing `['a', 'b']` returns `'a'` typed as `str | None`.\n\n### Common Interview Trap\nConfusing type hints with runtime validation. For instance, expecting `def create_user(age: int):` to reject `create_user('twenty')` at runtime. Without Pydantic or `isinstance(age, int)` assertions, Python happily passes the string into the function.\n\n### Arena Practice Problems\nPractice typed data manipulation in Coding Arena:\n- `python-two-sum`: Type-annotated hash map lookups\n- `python-merge-sorted-lists`: Type annotations on list arguments\n- `python-valid-sudoku-row`: Validating typed grid subsets",
+          "examples": [
+            {
+              "language": "python",
+              "code": "from typing import TypeVar\nT = TypeVar('T')\ndef get_first(elements: list[T]) -> T | None:\n    return elements[0] if elements else None\n\nprint(get_first([10, 20]), get_first([]))",
+              "explanation": "Generic function preserves the inner type T across inputs while safely returning T | None.",
+              "expected_output": "10 None"
+            }
+          ],
+          "key_points": [
+            "Use TypeVar or modern generic syntax def func[T](...) for reusable typed algorithms.",
+            "Differentiate Any (untyped escape hatch) from object (safe base type)."
+          ],
+          "checkpoint": "Show how to define a generic dictionary mapping strings to an arbitrary type T."
+        }
+      ],
+      "summary": [
+        "Type annotations communicate intent and enable out-of-band static checking via mypy/pyright.",
+        "Built-in generics list[T], dict[K, V], set[T], tuple[...] replace obsolete typing aliases.",
+        "The pipe operator | cleanly represents Union and nullable (str | None) types.",
+        "Protocols formalize duck typing with structural subtyping without rigid inheritance.",
+        "Python runtime does not enforce type annotations; runtime validation requires explicit code."
+      ],
+      "interview_takeaways": [
+        "Type hints improve maintainability without adding runtime overhead.",
+        "Avoid using Any; prefer Union, Protocol, or generics (TypeVar) to preserve type safety.",
+        "Validate boundary data (JSON, HTTP, DB) at runtime using Pydantic or isinstance()."
+      ],
+      "common_mistakes": [
+        "Assuming Python enforces type hints at runtime automatically",
+        "Overusing Any and disabling the benefits of static analysis",
+        "Using Optional without checking for None before accessing attributes",
+        "Importing legacy typing.List and typing.Dict instead of built-in list and dict in Python 3.9+"
+      ],
+      "sources": [
+        {
+          "source_id": "python-stdlib-docs",
+          "title": "Python Standard Library — typing Support for type hints",
+          "url": "https://docs.python.org/3/library/typing.html",
+          "retrieved_at": "2026-09-24T00:00:00Z"
+        },
+        {
+          "source_id": "python-language-reference",
+          "title": "PEP 585 — Type Hinting Generics In Standard Collections",
+          "url": "https://peps.python.org/pep-0585/",
+          "retrieved_at": "2026-09-24T00:00:00Z"
+        }
+      ],
+      "content_hash": "b28bb53b9f38b983e7a35338dcfdae68581d1a474257d5900a2715a2d988cb9c",
+      "generated_at": "2026-10-22T00:00:00Z"
+    },
+    "exercises": [
+      {
+        "key": "th-mcq-builtin-generics",
+        "exercise_type": "multiple_choice",
+        "title": "Modern built-in generics syntax",
+        "prompt_markdown": "In modern Python (3.9+), what is the idiomatic way to type hint a function parameter as a dictionary mapping strings to lists of integers?",
+        "difficulty": "easy",
+        "hints": [
+          "Review PEP 585 built-in collection generics."
+        ],
+        "content": {
+          "choices": [
+            "dict[str, list[int]]",
+            "Dict(str, List(int))",
+            "map[str -> array[int]]",
+            "Dictionary<string, List<int>>"
+          ],
+          "correct_index": 0,
+          "explanation": "PEP 585 enabled standard built-in collections `dict` and `list` to act as generic type hints directly using square brackets: `dict[str, list[int]]`.",
+          "answer_text": "dict[str, list[int]]",
+          "assumptions": "Python 3 in the stated context; environment-dependent examples need the separately reviewed setup."
+        }
+      },
+      {
+        "key": "th-mcq-runtime-behavior",
+        "exercise_type": "multiple_choice",
+        "title": "Runtime enforcement of type hints",
+        "prompt_markdown": "What happens at runtime if you execute `val: int = 'hello world'` in standard CPython without third-party libraries?",
+        "difficulty": "easy",
+        "hints": [
+          "Does Python's runtime interpreter check annotations?"
+        ],
+        "content": {
+          "choices": [
+            "Raises a TypeError immediately upon variable assignment",
+            "CPython successfully assigns the string to val without any error",
+            "Raises a TypeAnnotationWarning",
+            "The string is automatically coerced to an integer"
+          ],
+          "correct_index": 1,
+          "explanation": "Type annotations in Python are pure metadata stored in `__annotations__`. CPython does not enforce them at runtime; assigning a string to `val: int` succeeds without error.",
+          "answer_text": "CPython successfully assigns the string to val without any error",
+          "assumptions": "Python 3 in the stated context; environment-dependent examples need the separately reviewed setup."
+        }
+      },
+      {
+        "key": "th-mcq-any-vs-object",
+        "exercise_type": "multiple_choice",
+        "title": "Difference between Any and object",
+        "prompt_markdown": "What is the key difference between `typing.Any` and `object` in static type checking?",
+        "difficulty": "medium",
+        "hints": [
+          "Which one bypasses the type checker entirely?"
+        ],
+        "content": {
+          "choices": [
+            "They are exact synonyms in mypy and pyright",
+            "`Any` turns off type checking allowing any operation, while `object` requires narrowing before accessing attributes",
+            "`object` only accepts classes, while `Any` accepts primitives",
+            "`Any` causes runtime type checks, while `object` does not"
+          ],
+          "correct_index": 1,
+          "explanation": "`Any` acts as a dynamic escape hatch that allows any attribute access or call without checking. `object` is the safe root of the hierarchy; static checkers forbid calling arbitrary methods on it without narrowing via `isinstance()`.",
+          "answer_text": "`Any` turns off type checking allowing any operation, while `object` requires narrowing before accessing attributes",
+          "assumptions": "Python 3 in the stated context; environment-dependent examples need the separately reviewed setup."
+        }
+      },
+      {
+        "key": "th-short-predict-callable",
+        "exercise_type": "short_answer",
+        "title": "Predict and annotate Callable callback",
+        "prompt_markdown": "Write the complete type annotation for the parameter `validator` in this function signature:\n\n```python\ndef validate_payload(data: dict[str, str], validator: ???) -> bool:\n    return validator(data['email'], len(data['password']))\n```",
+        "difficulty": "medium",
+        "hints": [
+          "validator takes a string email and integer password length, returning a boolean."
+        ],
+        "content": {
+          "rubric": [
+            "Uses `Callable[[str, int], bool]` from `collections.abc` or `typing`",
+            "Identifies that the first argument is `str` (from `data['email']`)",
+            "Identifies that the second argument is `int` (from `len(...)`)",
+            "Identifies the return type as `bool`"
+          ],
+          "reference_answer": "The type annotation is `Callable[[str, int], bool]`. Full signature:\n```python\nfrom collections.abc import Callable\ndef validate_payload(data: dict[str, str], validator: Callable[[str, int], bool]) -> bool:\n    return validator(data['email'], len(data['password']))\n```",
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "th-short-fix-none-dereference",
+        "exercise_type": "short_answer",
+        "title": "Diagnose unhandled Optional attribute error",
+        "prompt_markdown": "A static checker flags an error on line 4: `Item \"None\" of \"User | None\" has no attribute \"email\"`. Diagnose why the checker flags this and write the corrected code.\n\n```python\ndef notify_user(user_id: int, user_repo: dict[int, User]) -> None:\n    user: User | None = user_repo.get(user_id)\n    send_email(user.email, 'Welcome!')\n```",
+        "difficulty": "medium",
+        "hints": [
+          "What happens if user_id is missing from user_repo?"
+        ],
+        "content": {
+          "rubric": [
+            "Explains that `user` can be `None` when `user_id` is missing",
+            "Identifies that calling `.email` on `None` raises an `AttributeError` at runtime",
+            "Provides the corrected implementation with an explicit `if user is None:` guard"
+          ],
+          "reference_answer": "Defect: `user_repo.get()` returns `None` if the ID is missing. Directly accessing `user.email` risks `AttributeError: 'NoneType' object has no attribute 'email'`. The static checker enforces checking for None.\nCorrected implementation:\n```python\ndef notify_user(user_id: int, user_repo: dict[int, User]) -> None:\n    user: User | None = user_repo.get(user_id)\n    if user is None:\n        raise ValueError(f'User {user_id} not found')\n    send_email(user.email, 'Welcome!')\n```",
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "th-short-implement-protocol",
+        "exercise_type": "short_answer",
+        "title": "Implement structural Protocol interface",
+        "prompt_markdown": "Implement a `Serializable` Protocol using `typing.Protocol` requiring a method `to_dict() -> dict[str, str]`. Then write a function `dump_json(obj: Serializable) -> str` that calls it.",
+        "difficulty": "medium",
+        "hints": [
+          "Inherit from Protocol and define the method with an ellipsis (...)."
+        ],
+        "content": {
+          "rubric": [
+            "Defines `class Serializable(Protocol):` inheriting from `Protocol`",
+            "Declares `def to_dict(self) -> dict[str, str]: ...`",
+            "Implements `dump_json(obj: Serializable) -> str` using `json.dumps(obj.to_dict())`"
+          ],
+          "reference_answer": "```python\nimport json\nfrom typing import Protocol\n\nclass Serializable(Protocol):\n    def to_dict(self) -> dict[str, str]:\n        ...\n\ndef dump_json(obj: Serializable) -> str:\n    return json.dumps(obj.to_dict())\n```\nThis enables any class implementing `.to_dict()` to be accepted by `dump_json` without nominal inheritance.",
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "th-short-explain-runtime-limits",
+        "exercise_type": "short_answer",
+        "title": "Explain boundary validation vs static typing",
+        "prompt_markdown": "Explain to an interviewer why static typing alone cannot replace runtime validation (like Pydantic or Marshmallow) at web API boundaries.",
+        "difficulty": "medium",
+        "hints": [
+          "Where do external HTTP requests come from and when do static linters run?"
+        ],
+        "content": {
+          "rubric": [
+            "Explains that static type checkers only inspect source code before deployment",
+            "Explains that external network payloads (JSON strings, query params) enter dynamically at runtime",
+            "Concludes that runtime parsing and validation libraries are mandatory to sanitize external untrusted input"
+          ],
+          "reference_answer": "Static type checking (via mypy/pyright) operates purely at build/lint time on Python source code, verifying developer logic assumptions. In contrast, external HTTP requests arrive over the network as raw JSON or strings at runtime from untrusted clients. Because Python does not execute static checks on incoming network payloads, runtime parsing and validation libraries (like Pydantic) are mandatory to inspect types, validate constraints, and reject malformed data before internal business logic runs.",
+          "minimum_pass_score": 70
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "AI-assisted audit correction draft; independent human review pending",
+    "sources": [
+      {
+        "source_id": "python-stdlib-docs",
+        "url": "https://docs.python.org/3/library/typing.html",
+        "usage": "factual_reference",
+        "status": "resolved"
+      },
+      {
+        "source_id": "python-language-reference",
+        "url": "https://peps.python.org/pep-0585/",
+        "usage": "factual_reference",
+        "status": "resolved"
+      }
+    ]
+  },
+  "coverage": {
+    "key": "type-hints-audit-correction",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "correction",
+        "status": "covered",
+        "lesson_refs": [
+          "section/annotations-and-built-in-generics",
+          "section/union-and-optional",
+          "section/callable-and-higher-order",
+          "section/protocol-awareness",
+          "section/static-checking-and-runtime-limits",
+          "section/interview-check"
+        ],
+        "assessment_refs": [
+          "exercise/th-mcq-builtin-generics",
+          "exercise/th-mcq-runtime-behavior",
+          "exercise/th-mcq-any-vs-object",
+          "exercise/th-short-predict-callable",
+          "exercise/th-short-fix-none-dereference",
+          "exercise/th-short-implement-protocol",
+          "exercise/th-short-explain-runtime-limits"
+        ]
+      }
+    ]
+  },
+  "example_checks": [
+    {
+      "section_slug": "annotations-and-built-in-generics",
+      "example_index": 0,
+      "mode": "context",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section_slug": "union-and-optional",
+      "example_index": 0,
+      "mode": "context",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section_slug": "callable-and-higher-order",
+      "example_index": 0,
+      "mode": "context",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section_slug": "protocol-awareness",
+      "example_index": 0,
+      "mode": "context",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section_slug": "static-checking-and-runtime-limits",
+      "example_index": 0,
+      "mode": "context",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    },
+    {
+      "section_slug": "interview-check",
+      "example_index": 0,
+      "mode": "context",
+      "reason": "Unchanged legacy example requires its declared environment/setup and full independent human fixture review. Independent browser audit records actual runtime behavior; this context declaration is not an execution pass."
+    }
+  ],
+  "prerequisite_keys": [
+    "syntax-data-types",
+    "functions"
+  ],
+  "known_content": [
+    "arena/dsa-container-most-water",
+    "arena/dsa-daily-temperatures",
+    "arena/dsa-decode-string",
+    "arena/dsa-evaluate-rpn",
+    "arena/dsa-find-cycle-start",
+    "arena/dsa-find-in-rotated",
+    "arena/dsa-first-last-position",
+    "arena/dsa-first-pair",
+    "arena/dsa-fruit-into-baskets",
+    "arena/dsa-isomorphic-strings",
+    "arena/dsa-kth-largest",
+    "arena/dsa-level-order-traversal",
+    "arena/dsa-longest-consecutive",
+    "arena/dsa-longest-substring-no-repeat",
+    "arena/dsa-max-consecutive-ones",
+    "arena/dsa-max-depth-tree",
+    "arena/dsa-max-sliding-window",
+    "arena/dsa-max-window-sum",
+    "arena/dsa-merge-intervals",
+    "arena/dsa-merge-two-sorted-lists",
+    "arena/dsa-min-stack",
+    "arena/dsa-min-window-substring",
+    "arena/dsa-move-zeroes",
+    "arena/dsa-number-of-islands-bfs",
+    "arena/dsa-permutation-in-string",
+    "arena/dsa-range-sum-query",
+    "arena/dsa-ransom-note",
+    "arena/dsa-remove-duplicates-sorted",
+    "arena/dsa-reverse-linked-list",
+    "arena/dsa-reverse-string",
+    "arena/dsa-search-insert-position",
+    "arena/dsa-sort-colors",
+    "arena/dsa-sqrt-integer",
+    "arena/dsa-subarray-sum-equals-k",
+    "arena/dsa-three-sum",
+    "arena/dsa-top-k-frequent",
+    "arena/dsa-trapping-rain-water",
+    "arena/dsa-two-sum-indices",
+    "arena/dsa-valid-anagram",
+    "arena/dsa-word-pattern",
+    "arena/python-anagram-check",
+    "arena/python-bob",
+    "arena/python-celsius-to-fahrenheit",
+    "arena/python-climbing-stairs",
+    "arena/python-collatz",
+    "arena/python-count-bits",
+    "arena/python-count-islands",
+    "arena/python-count-vowels",
+    "arena/python-deduplicate-list",
+    "arena/python-find-duplicate",
+    "arena/python-first-non-repeat",
+    "arena/python-fizzbuzz",
+    "arena/python-flatten-list",
+    "arena/python-generate-subsets",
+    "arena/python-group-anagrams",
+    "arena/python-group-errors",
+    "arena/python-implement-queue",
+    "arena/python-is-palindrome",
+    "arena/python-largest-product",
+    "arena/python-leap-year",
+    "arena/python-longest-common-prefix",
+    "arena/python-longest-increasing-subseq",
+    "arena/python-matrix-spiral",
+    "arena/python-max-profit",
+    "arena/python-max-subarray",
+    "arena/python-merge-sorted-lists",
+    "arena/python-missing-number",
+    "arena/python-normalize-name",
+    "arena/python-pangram",
+    "arena/python-product-except-self",
+    "arena/python-raindrops",
+    "arena/python-rotate-list",
+    "arena/python-running-sum",
+    "arena/python-stack-balanced-brackets",
+    "arena/python-two-fer",
+    "arena/python-two-sum",
+    "arena/python-valid-bst",
+    "arena/python-valid-parentheses-string",
+    "arena/python-valid-sudoku-row",
+    "arena/python-word-count",
+    "arena/sql-above-average-salary",
+    "arena/sql-active-users",
+    "arena/sql-age-from-birthdate",
+    "arena/sql-coalesce-address",
+    "arena/sql-cte-running-balance",
+    "arena/sql-cte-top-products",
+    "arena/sql-customer-totals",
+    "arena/sql-customers-with-orders",
+    "arena/sql-daily-sales",
+    "arena/sql-dept-avg-salary",
+    "arena/sql-dept-head-count",
+    "arena/sql-dept-max-earner",
+    "arena/sql-distinct-cities",
+    "arena/sql-employee-bonus",
+    "arena/sql-employees-by-dept",
+    "arena/sql-employees-with-manager",
+    "arena/sql-high-value-depts",
+    "arena/sql-monthly-active-users",
+    "arena/sql-null-email",
+    "arena/sql-order-count-by-status",
+    "arena/sql-orders-with-no-items",
+    "arena/sql-product-never-ordered",
+    "arena/sql-product-revenue",
+    "arena/sql-products-in-stock",
+    "arena/sql-recent-orders",
+    "arena/sql-second-highest-salary",
+    "arena/sql-students-all-subjects",
+    "arena/sql-three-table-join",
+    "arena/sql-top-customer-per-region",
+    "arena/sql-user-search"
+  ]
+}

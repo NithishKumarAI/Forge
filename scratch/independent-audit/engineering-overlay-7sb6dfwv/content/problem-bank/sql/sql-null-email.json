@@ -1,0 +1,82 @@
+{
+  "key": "sql-null-email",
+  "title": "Find users with missing email",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return id and name for users whose email is missing. Sort by id.",
+  "constraints": [
+    "Return exactly: id, name.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible users tables",
+      "output": "[[2,\"Bob\"],[4,\"David\"]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "NULL is not equal to any value, including NULL.",
+    "Use IS NULL rather than = NULL."
+  ],
+  "explanation": "IS NULL performs the special missing-value check SQL requires. ORDER BY id makes output deterministic. A common mistake is email = NULL, which evaluates to unknown and matches nothing. COALESCE is useful when missing values should be displayed rather than filtered.",
+  "reference_solution": "SELECT id, name FROM users WHERE email IS NULL ORDER BY id",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE users (id INT, name VARCHAR(50), email VARCHAR(50)); INSERT INTO users VALUES (1, 'Alice', 'alice@test.com'), (2, 'Bob', NULL), (3, 'Charlie', 'charlie@test.com'), (4, 'David', NULL);",
+    "visible_tables": [
+      "users"
+    ],
+    "sample_rows": [
+      [
+        2,
+        "Bob"
+      ],
+      [
+        4,
+        "David"
+      ]
+    ],
+    "expected_columns": [
+      "id",
+      "name"
+    ],
+    "expected_rows": [
+      [
+        2,
+        "Bob"
+      ],
+      [
+        4,
+        "David"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE users (id INT,name VARCHAR(50),email VARCHAR(50)); INSERT INTO users VALUES (10,'Eli',NULL),(11,'Fay','f@example.com'),(12,'Gus',NULL);",
+        "expected_rows": [
+          [
+            10,
+            "Eli"
+          ],
+          [
+            12,
+            "Gus"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "name": "contentrevision",
+    "sql": "CREATE TABLE contentrevision (\n\tid INTEGER NOT NULL, \n\tcontent_key VARCHAR NOT NULL, \n\trevision VARCHAR NOT NULL, \n\tcontent_type VARCHAR NOT NULL, \n\tsource_path VARCHAR NOT NULL, \n\tsnapshot_path VARCHAR NOT NULL, \n\tsha256 VARCHAR NOT NULL, \n\tprovenance_json TEXT NOT NULL, \n\tapproval_status VARCHAR NOT NULL, \n\tregistered_at DATETIME NOT NULL, \n\tPRIMARY KEY (id), \n\tCONSTRAINT uq_content_revision UNIQUE (content_key, revision)\n)",
+    "indexes": [
+      "CREATE INDEX ix_contentrevision_content_key ON contentrevision (content_key)",
+      "CREATE INDEX ix_contentrevision_content_type ON contentrevision (content_type)"
+    ]
+  },
+  {
+    "name": "schemamigration",
+    "sql": "CREATE TABLE schemamigration (\n\tversion INTEGER NOT NULL, \n\tname VARCHAR NOT NULL, \n\tchecksum VARCHAR NOT NULL, \n\tapplied_at DATETIME NOT NULL, \n\tPRIMARY KEY (version)\n)",
+    "indexes": []
+  },
+  {
+    "name": "contentsectionprogress",
+    "sql": "CREATE TABLE contentsectionprogress (\n\ttopic_id INTEGER NOT NULL, \n\tcontent_revision_id INTEGER NOT NULL, \n\tsection_slug VARCHAR NOT NULL, \n\tcompleted BOOLEAN NOT NULL, \n\tfirst_viewed_at DATETIME NOT NULL, \n\tlast_viewed_at DATETIME NOT NULL, \n\tcompleted_at DATETIME, \n\tPRIMARY KEY (topic_id, content_revision_id, section_slug), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(content_revision_id) REFERENCES contentrevision (id)\n)",
+    "indexes": []
+  },
+  {
+    "name": "topiccontentbinding",
+    "sql": "CREATE TABLE topiccontentbinding (\n\ttopic_id INTEGER NOT NULL, \n\tcontent_revision_id INTEGER NOT NULL, \n\tcurriculum_id INTEGER NOT NULL, \n\torder_index INTEGER NOT NULL, \n\tlegacy_progress_compatible BOOLEAN NOT NULL, \n\tcoverage_note VARCHAR NOT NULL, \n\tPRIMARY KEY (topic_id, content_revision_id), \n\tCONSTRAINT uq_topic_content_order UNIQUE (topic_id, order_index), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(content_revision_id) REFERENCES contentrevision (id), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_topiccontentbinding_curriculum_id ON topiccontentbinding (curriculum_id)"
+    ]
+  },
+  {
+    "name": "arenatopicbinding",
+    "sql": "CREATE TABLE arenatopicbinding (\n\tcurriculum_id INTEGER NOT NULL, \n\tproblem_key VARCHAR NOT NULL, \n\tcontent_revision_id INTEGER NOT NULL, \n\ttopic_id INTEGER, \n\trationale VARCHAR NOT NULL, \n\tPRIMARY KEY (curriculum_id, problem_key), \n\tFOREIGN KEY(curriculum_id) REFERENCES curriculum (id), \n\tFOREIGN KEY(problem_key) REFERENCES arenaproblem (\"key\"), \n\tFOREIGN KEY(content_revision_id) REFERENCES contentrevision (id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_arenatopicbinding_topic_id ON arenatopicbinding (topic_id)"
+    ]
+  },
+  {
+    "name": "courseexercisebinding",
+    "sql": "CREATE TABLE courseexercisebinding (\n\ttopic_id INTEGER NOT NULL, \n\tcontent_revision_id INTEGER NOT NULL, \n\texercise_key VARCHAR NOT NULL, \n\texercise_id INTEGER NOT NULL, \n\tPRIMARY KEY (topic_id, content_revision_id, exercise_key), \n\tCONSTRAINT uq_registry_exercise UNIQUE (exercise_id), \n\tFOREIGN KEY(topic_id) REFERENCES topic (id), \n\tFOREIGN KEY(content_revision_id) REFERENCES contentrevision (id), \n\tFOREIGN KEY(exercise_id) REFERENCES exercise (id)\n)",
+    "indexes": [
+      "CREATE INDEX ix_courseexercisebinding_exercise_id ON courseexercisebinding (exercise_id)"
+    ]
+  }
+]

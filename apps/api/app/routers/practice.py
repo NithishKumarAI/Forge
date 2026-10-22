@@ -29,6 +29,8 @@ def legacy_session(session_id:int,session:Session=Depends(get_session)):
     responses=[{"exercise_id":d.exercise_id,"saved_answer":d.answer,"evaluation_status":d.evaluation_status,"grading_source":d.grading_source,"feedback":d.feedback}
         for d in session.exec(select(ExerciseAttemptDetail).where(ExerciseAttemptDetail.session_id==session_id))]
     return {"session_id":row.id,"topic_id":row.topic_id,"mode":row.mode,"read_only":True,"exercises":exercises,"responses":responses}
-@router.api_route("/{path:path}",methods=["GET","POST","PUT"])
+@router.get("/{path:path}",operation_id="retired_practice_get")
+@router.post("/{path:path}",operation_id="retired_practice_post")
+@router.put("/{path:path}",operation_id="retired_practice_put")
 def retired(path:str):
     raise HTTPException(410,"Use static assessment. Reference validation and generated sessions are retired; history is preserved.")

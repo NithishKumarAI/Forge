@@ -1,0 +1,142 @@
+[
+  {
+    "key": "pg-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "Financial calculation data type selection",
+    "prompt_markdown": "Why is `NUMERIC` mandatory rather than `FLOAT` or `REAL` for financial and currency balances in PostgreSQL?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider IEEE 754 binary floating-point representation."
+    ],
+    "content": {
+      "choices": [
+        "FLOAT consumes more storage space than NUMERIC on disk",
+        "FLOAT uses binary floating-point representation which introduces rounding errors, whereas NUMERIC is exact",
+        "PostgreSQL does not support mathematical operators (+, -, *) on FLOAT columns",
+        "NUMERIC columns are automatically backed by a B-tree index"
+      ],
+      "correct_index": 1,
+      "explanation": "Binary floating-point types (FLOAT/REAL) cannot represent decimal fractions like 0.1 exactly, causing cumulative rounding errors. NUMERIC stores exact base-10 numbers, making it essential for financial transactions."
+    }
+  },
+  {
+    "key": "pg-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "TIMESTAMP vs TIMESTAMPTZ storage",
+    "prompt_markdown": "How does PostgreSQL internally store a `TIMESTAMPTZ` (timestamp with time zone) value?",
+    "difficulty": "medium",
+    "hints": [
+      "What standard coordinate system does PostgreSQL normalize time to?"
+    ],
+    "content": {
+      "choices": [
+        "It stores the raw text string along with the timezone abbreviation (e.g. 'PST')",
+        "It converts the incoming timestamp to UTC and stores it as an integer timestamp offset",
+        "It converts all timestamps to Greenwich Mean Time and strips the hour information",
+        "It stores two columns: one for local time and one for timezone offset"
+      ],
+      "correct_index": 1,
+      "explanation": "When PostgreSQL receives a TIMESTAMPTZ, it converts the value to UTC and stores it as an internal UTC offset. On retrieval, it converts UTC to the client session's configured timezone."
+    }
+  },
+  {
+    "key": "pg-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "JSON vs JSONB comparison",
+    "prompt_markdown": "Why is `JSONB` almost always preferred over `JSON` in PostgreSQL?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about binary storage and indexing."
+    ],
+    "content": {
+      "choices": [
+        "JSONB allows storing up to 1GB per document, while JSON is limited to 1KB",
+        "JSONB stores decomposed binary data that supports GIN indexing and fast operator lookups without re-parsing",
+        "JSON requires an external extension to be installed in PostgreSQL",
+        "JSONB strictly forbids nested arrays and objects"
+      ],
+      "correct_index": 1,
+      "explanation": "JSON stores exact text and must be re-parsed on every access. JSONB parses text into decomposed binary format during insertion, enabling fast indexed searches and GIN indexing."
+    }
+  },
+  {
+    "key": "pg-short-predict-json-operators",
+    "exercise_type": "short_answer",
+    "title": "Predict output of JSONB -> and ->> operators",
+    "prompt_markdown": "Given table `settings` with a JSONB column `config` containing:\n`'{\"theme\": \"dark\", \"metrics\": {\"refresh_rate\": 60}}'::JSONB`.\nPredict the result and SQL datatype returned by:\n1. `SELECT config->'theme' FROM settings;`\n2. `SELECT config->>'theme' FROM settings;`",
+    "difficulty": "medium",
+    "hints": [
+      "One returns a JSON value including quotes; the other returns clean SQL TEXT."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that `config->'theme'` returns JSON value `\"dark\"` (with quotes as json/jsonb type)",
+        "Identifies that `config->>'theme'` returns text value `dark` (without quotes as text type)",
+        "Explains the difference between -> (JSON extraction) and ->> (text extraction)"
+      ],
+      "reference_answer": "1. `config->'theme'` returns `\"dark\"` as a `jsonb` datatype (preserving JSON string quotes).\n2. `config->>'theme'` returns `dark` as a PostgreSQL `text` datatype (without quotes).\n\nRule: The single arrow `->` extracts a JSON element preserving JSON type for further chaining. The double arrow `->>` extracts the scalar value as SQL `text` for string operations or filtering.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "pg-short-fix-type-selection",
+    "exercise_type": "short_answer",
+    "title": "Fix bad datatype choices in payment schema",
+    "prompt_markdown": "A payment service table was declared with poor datatype choices:\n\n```sql\nCREATE TABLE transactions (\n    id SERIAL PRIMARY KEY,\n    amount FLOAT NOT NULL,\n    currency VARCHAR(255) NOT NULL,\n    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,\n    metadata JSON\n);\n```\nIdentify the flaws and rewrite the table with production-grade PostgreSQL types.",
+    "difficulty": "medium",
+    "hints": [
+      "Upgrade SERIAL to IDENTITY, FLOAT to NUMERIC, TIMESTAMP to TIMESTAMPTZ, and JSON to JSONB."
+    ],
+    "content": {
+      "rubric": [
+        "Replaces SERIAL with GENERATED ALWAYS AS IDENTITY",
+        "Replaces FLOAT with NUMERIC(12,2) to eliminate rounding errors",
+        "Replaces VARCHAR(255) with VARCHAR(3) or TEXT for currency code",
+        "Replaces TIMESTAMP WITHOUT TIME ZONE with TIMESTAMPTZ",
+        "Replaces JSON with JSONB for indexing and performance"
+      ],
+      "reference_answer": "Flaws:\n1. `SERIAL`: Legacy syntax; prone to sequence permission issues. Use `INT GENERATED ALWAYS AS IDENTITY`.\n2. `FLOAT`: Binary floating-point causes precision loss on monetary values. Use `NUMERIC(12,2)`.\n3. `VARCHAR(255)`: Currency codes are ISO 3-character strings (e.g. 'USD'); use `CHAR(3)` or `TEXT`.\n4. `TIMESTAMP WITHOUT TIME ZONE`: Causes timezone ambiguity across servers; use `TIMESTAMPTZ`.\n5. `JSON`: Inefficient text storage; use `JSONB` for indexing and fast querying.\n\nProduction DDL:\n```sql\nCREATE TABLE transactions (\n    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n    amount NUMERIC(12,2) NOT NULL,\n    currency CHAR(3) NOT NULL,\n    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,\n    metadata JSONB NOT NULL DEFAULT '{}'::JSONB\n);\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "pg-short-implement-jsonb-table",
+    "exercise_type": "short_answer",
+    "title": "Implement webhook store with JSONB and GIN index",
+    "prompt_markdown": "Write SQL statements to create a `webhooks` table that stores incoming third-party events. Requirements:\n1. `id` generated identity primary key.\n2. `source` text not null.\n3. `received_at` timestamptz default current_timestamp.\n4. `payload` JSONB not null.\n5. Create a GIN index on `payload` to enable fast containment searches.",
+    "difficulty": "medium",
+    "hints": [
+      "Use GENERATED ALWAYS AS IDENTITY, TIMESTAMPTZ, JSONB, and CREATE INDEX ... USING GIN."
+    ],
+    "content": {
+      "rubric": [
+        "Declares webhooks table with GENERATED ALWAYS AS IDENTITY primary key",
+        "Uses TIMESTAMPTZ with DEFAULT CURRENT_TIMESTAMP",
+        "Uses JSONB for payload column",
+        "Creates GIN index on payload using `CREATE INDEX ... USING gin (payload)`"
+      ],
+      "reference_answer": "```sql\nCREATE TABLE webhooks (\n    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,\n    source TEXT NOT NULL,\n    received_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,\n    payload JSONB NOT NULL\n);\n\n-- GIN index for high-speed jsonb containment queries\nCREATE INDEX idx_webhooks_payload ON webhooks USING gin (payload);\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "pg-short-explain-jsonb-vs-relational",
+    "exercise_type": "short_answer",
+    "title": "Explain when to use JSONB vs relational tables in interviews",
+    "prompt_markdown": "In an engineering interview, you are asked: 'PostgreSQL has amazing JSONB support. Why shouldn't we just put everything into a single JSONB column instead of creating normalized relational tables?' Provide a structured technical response.",
+    "difficulty": "hard",
+    "hints": [
+      "Discuss referential integrity, schema enforcement, storage overhead, and join efficiency."
+    ],
+    "content": {
+      "rubric": [
+        "Discusses schema enforcement & domain integrity: relational columns enforce NOT NULL, CHECK, and foreign keys at the engine level",
+        "Discusses referential integrity: foreign keys cannot point to arbitrary keys inside a JSONB document",
+        "Discusses storage & update efficiency: updating a small field in a large JSONB document rewrites the entire JSONB value (MVCC overhead)",
+        "Concludes with optimal boundary: relational tables for core business entities; JSONB for polymorphic, rapidly evolving, or sparse attributes"
+      ],
+      "reference_answer": "Why Not Use JSONB for Everything:\n1. Lack of Referential Integrity: PostgreSQL cannot enforce foreign key constraints on keys inside a JSONB document. If you store `customer_id` inside JSONB, nothing prevents orphaned records when a customer is deleted.\n2. No Engine-Level Schema Enforcement: Relational columns enforce datatypes, NOT NULL, UNIQUE, and CHECK constraints. A JSONB column allows any client bug to insert corrupted, misspelled, or missing fields without error.\n3. Write Amplification & MVCC Overhead: Under PostgreSQL MVCC, updating a single property in a JSONB blob rewrites the entire row tuple on disk. In contrast, updating an integer column in a normalized table can qualify for high-speed Heap-Only Tuples (HOT) updates without index bloat.\n4. Query Optimizer & Statistics: PostgreSQL tracks detailed statistics (histograms, distinct counts) for relational columns to choose optimal join algorithms. Statistics on arbitrary nested JSONB paths are limited.\n\nOptimal Architecture: Use relational columns for identity, relationships, foreign keys, and core attributes. Use JSONB for variable third-party payloads, dynamic user-defined fields, or sparse configurations.",
+      "minimum_pass_score": 70
+    }
+  }
+]

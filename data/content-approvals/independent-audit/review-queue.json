@@ -1,0 +1,56 @@
+{
+  "approved": false,
+  "publication_performed": false,
+  "candidates": [
+    {
+      "name": "python-functions-1.2.0",
+      "candidate": "data/content-approvals/independent-audit/candidates/python-functions-1.2.0.json",
+      "candidate_sha256": "62288077de0124769174e6b37af48a2d9eb191499fcae8c5813d30b7faea83f5",
+      "validation": "data/content-approvals/independent-audit/validation/python-functions-1.2.0.json",
+      "review_state": "NOT REVIEWED",
+      "publication_state": "UNPUBLISHED",
+      "validation_scope": "all six standalone Python examples executed with exact stdout",
+      "notes": "Full replacement of generic Functions prompts and worked answers; no scored transfer pool is claimed."
+    },
+    {
+      "name": "python-exceptions-1.2.0",
+      "candidate": "data/content-approvals/independent-audit/candidates/python-exceptions-1.2.0.json",
+      "candidate_sha256": "7ba3d83f4a8ca13851c5855c700592d5c70a6ab9bfc67712180895dac45bef00",
+      "validation": "data/content-approvals/independent-audit/validation/python-exceptions-1.2.0.json",
+      "review_state": "NOT REVIEWED",
+      "publication_state": "UNPUBLISHED",
+      "validation_scope": "structural/context only; example setup/semantic review unresolved",
+      "notes": "Focused factual correction only; inherited examples/exercises still need complete environment, pedagogy and semantic review. Not a completed course replacement."
+    },
+    {
+      "name": "python-type-hints-1.2.0",
+      "candidate": "data/content-approvals/independent-audit/candidates/python-type-hints-1.2.0.json",
+      "candidate_sha256": "970b4bfefc1d0ac82619cc78df26e3b8512be91eda48261de665b79dbd1fd33b",
+      "validation": "data/content-approvals/independent-audit/validation/python-type-hints-1.2.0.json",
+      "review_state": "NOT REVIEWED",
+      "publication_state": "UNPUBLISHED",
+      "validation_scope": "structural/context only; example setup/semantic review unresolved",
+      "notes": "Focused factual correction only; inherited examples/exercises still need complete environment, pedagogy and semantic review. Not a completed course replacement."
+    },
+    {
+      "name": "python-control-flow-1.2.0",
+      "candidate": "data/content-approvals/independent-audit/candidates/python-control-flow-1.2.0.json",
+      "candidate_sha256": "987fdd2c145fd1c319ecc87dfceb3d2233592a4d2a294905a2d599f14113d427",
+      "validation": "data/content-approvals/independent-audit/validation/python-control-flow-1.2.0.json",
+      "review_state": "NOT REVIEWED",
+      "publication_state": "UNPUBLISHED",
+      "validation_scope": "structural/context only; example setup/semantic review unresolved",
+      "notes": "Focused factual correction only; inherited examples/exercises still need complete environment, pedagogy and semantic review. Not a completed course replacement."
+    },
+    {
+      "name": "sql-indexes-1.2.0",
+      "candidate": "data/content-approvals/independent-audit/candidates/sql-indexes-1.2.0.json",
+      "candidate_sha256": "3f7c82613d987093d51124a1668bdb2c0d3df3e50589e09d03d21d0b733ebbf0",
+      "validation": "data/content-approvals/independent-audit/validation/sql-indexes-1.2.0.json",
+      "review_state": "NOT REVIEWED",
+      "publication_state": "UNPUBLISHED",
+      "validation_scope": "Four exact SQL fixtures executed; one environment-dependent EXPLAIN example remains contextual, not a machine execution certification.",
+      "notes": "Corrects missing seed rows, relname/indexrelname confusion and universal planner/write/heap-fetch claims. Four exact PGlite examples; EXPLAIN plan intentionally requires contextual human review."
+    }
+  ]
+}

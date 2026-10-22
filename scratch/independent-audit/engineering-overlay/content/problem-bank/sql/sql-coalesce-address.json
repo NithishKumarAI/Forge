@@ -1,0 +1,102 @@
+{
+  "key": "sql-coalesce-address",
+  "title": "Default address fallback",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return each customer name and preferred address. Use shipping_address when present, otherwise billing_address, otherwise 'No address'. Sort by name.",
+  "constraints": [
+    "Return exactly: name, address.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible customers tables",
+      "output": "[[\"Alice\",\"123 Ship St\"],[\"Bob\",\"789 Bill St\"],[\"Charlie\",\"No address\"],[\"David\",\"321 Ship St\"]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "COALESCE returns the first non-NULL expression.",
+    "Place shipping, billing, and the fallback text in priority order."
+  ],
+  "explanation": "COALESCE checks its arguments from left to right and stops at the first non-NULL value. It models fallback rules without several CASE branches. A common mistake is comparing NULL with = instead of using NULL-aware functions. CASE is an alternative when fallback rules require conditions beyond NULL.",
+  "reference_solution": "SELECT name, COALESCE(shipping_address, billing_address, 'No address') AS address FROM customers ORDER BY name",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), shipping_address VARCHAR(100), billing_address VARCHAR(100)); INSERT INTO customers VALUES (1, 'Alice', '123 Ship St', '456 Bill St'), (2, 'Bob', NULL, '789 Bill St'), (3, 'Charlie', NULL, NULL), (4, 'David', '321 Ship St', NULL);",
+    "visible_tables": [
+      "customers"
+    ],
+    "sample_rows": [
+      [
+        "Alice",
+        "123 Ship St"
+      ],
+      [
+        "Bob",
+        "789 Bill St"
+      ],
+      [
+        "Charlie",
+        "No address"
+      ],
+      [
+        "David",
+        "321 Ship St"
+      ]
+    ],
+    "expected_columns": [
+      "name",
+      "address"
+    ],
+    "expected_rows": [
+      [
+        "Alice",
+        "123 Ship St"
+      ],
+      [
+        "Bob",
+        "789 Bill St"
+      ],
+      [
+        "Charlie",
+        "No address"
+      ],
+      [
+        "David",
+        "321 Ship St"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE customers (id INT,name VARCHAR(50),shipping_address VARCHAR(100),billing_address VARCHAR(100)); INSERT INTO customers VALUES (10,'Eli',NULL,'10 Bill Rd'),(11,'Fay','11 Ship Rd','11 Bill Rd'),(12,'Gus',NULL,NULL);",
+        "expected_rows": [
+          [
+            "Eli",
+            "10 Bill Rd"
+          ],
+          [
+            "Fay",
+            "11 Ship Rd"
+          ],
+          [
+            "Gus",
+            "No address"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

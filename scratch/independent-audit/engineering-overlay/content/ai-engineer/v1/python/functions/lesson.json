@@ -1,0 +1,132 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "functions",
+  "title": "Python Functions",
+  "description": "Design functions with explicit inputs, useful return values, predictable scope, and maintainable signatures.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Define functions and distinguish parameters from arguments",
+    "Use return values, defaults, keywords, *args, and **kwargs",
+    "Reason about scope and pure functions"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "mental-model",
+      "title": "Core mental model",
+      "order_index": 0,
+      "estimated_minutes": 7,
+      "learning_objective": "Define functions and distinguish parameters from arguments",
+      "markdown": "A function definition created with `def` binds a callable object to a name. Parameters belong to the definition; arguments are the values supplied by a caller. `return` sends a value to the caller and stops that invocation. Without an explicit return, Python returns `None`, which is different from printing a value for a human.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def total(price, quantity=1):\n    return price * quantity\n\nprint(total(12, quantity=3))",
+          "explanation": "A small executable example exposes the rule instead of only naming it.",
+          "expected_output": "36"
+        }
+      ],
+      "key_points": [
+        "Define functions and distinguish parameters from arguments",
+        "Predict execution before running code."
+      ],
+      "checkpoint": "Explain the example one line at a time without using vague terms."
+    },
+    {
+      "slug": "operations-and-tradeoffs",
+      "title": "Operations and trade-offs",
+      "order_index": 1,
+      "estimated_minutes": 7,
+      "learning_objective": "Use return values, defaults, keywords, *args, and **kwargs",
+      "markdown": "Positional arguments bind by position and keyword arguments bind by parameter name. Defaults are evaluated once when the function is defined, so use `None` instead of a mutable default such as `[]`. The args kwargs pattern uses `*args` to collect extra positional arguments into a tuple and `**kwargs` to collect extra keyword arguments into a dictionary. Use it when the interface truly needs flexibility, not to hide an unclear API.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def tagged(*names, prefix='user', **metadata):\n    return [f'{prefix}:{name}' for name in names], metadata\n\nprint(tagged('ada', 'lin', active=True))",
+          "explanation": "This example applies the most important operation at a realistic boundary.",
+          "expected_output": "(['user:ada', 'user:lin'], {'active': True})"
+        }
+      ],
+      "key_points": [
+        "Use return values, defaults, keywords, *args, and **kwargs",
+        "Choose an operation based on its contract."
+      ],
+      "checkpoint": "What input or state would make this code fail?"
+    },
+    {
+      "slug": "worked-practice",
+      "title": "Worked practice",
+      "order_index": 2,
+      "estimated_minutes": 7,
+      "learning_objective": "Trace the concept on concrete data.",
+      "markdown": "Work from the input and state the invariant before coding. Names assigned inside a function are local unless declared `global` or `nonlocal`. Prefer passing dependencies as arguments and returning results. A pure function depends only on inputs and has no observable side effects, which makes testing easier. Common mistakes are forgetting `return`, mutating caller-owned data unexpectedly, broad signatures, and shadowing a function with another value. For an interview, narrate the observation, the rule you are applying, and the resulting value. That sequence makes reasoning inspectable and exposes hidden assumptions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def tagged(*names, prefix='user', **metadata):\n    return [f'{prefix}:{name}' for name in names], metadata\n\nprint(tagged('ada', 'lin', active=True))",
+          "explanation": "Trace names and values after every important line, then compare with the expected output.",
+          "expected_output": "(['user:ada', 'user:lin'], {'active': True})"
+        }
+      ],
+      "key_points": [
+        "Use a concrete trace.",
+        "State assumptions at the input boundary."
+      ],
+      "checkpoint": "Change one input and predict the new result."
+    },
+    {
+      "slug": "mistakes",
+      "title": "Common mistakes and fixes",
+      "order_index": 3,
+      "estimated_minutes": 7,
+      "learning_objective": "Diagnose failures rather than memorize syntax.",
+      "markdown": "Names assigned inside a function are local unless declared `global` or `nonlocal`. Prefer passing dependencies as arguments and returning results. A pure function depends only on inputs and has no observable side effects, which makes testing easier. Common mistakes are forgetting `return`, mutating caller-owned data unexpectedly, broad signatures, and shadowing a function with another value. Turn each failure into a focused test. Preserve the original failing input, make the smallest correction, and run the test again. Avoid broad exception handling or a rewrite that hides the root cause.",
+      "examples": [],
+      "key_points": [
+        "Reproduce before fixing.",
+        "Prefer the smallest evidence-backed correction."
+      ],
+      "checkpoint": "Name one tempting fix that would only hide the defect."
+    },
+    {
+      "slug": "interview-summary",
+      "title": "Interview-focused summary",
+      "order_index": 4,
+      "estimated_minutes": 7,
+      "learning_objective": "Reason about scope and pure functions",
+      "markdown": "A strong explanation starts with the mental model, demonstrates it using a short executable example, names the trade-off, and closes with a common failure mode. Apply that structure to Python Functions. In Forge Arena, solve related Python problems without tutor help when you want the attempt to count as clean transfer evidence.",
+      "examples": [],
+      "key_points": [
+        "Explain the why, not only syntax.",
+        "Use Arena for independent transfer practice."
+      ],
+      "checkpoint": "Give a sixty-second explanation and one counterexample."
+    }
+  ],
+  "summary": [
+    "Define functions and distinguish parameters from arguments",
+    "Use return values, defaults, keywords, *args, and **kwargs",
+    "Validate understanding with a trace, boundary case, and independent practice."
+  ],
+  "interview_takeaways": [
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
+  ],
+  "common_mistakes": [
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "Defining Functions",
+      "url": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "af25a5079d6cb1ac97a43961c1dba8b5f97985f3688e7955ba3830620cd16de2",
+  "generated_at": "2026-09-24T00:00:00Z"
+}

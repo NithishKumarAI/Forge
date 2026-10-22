@@ -1,0 +1,10 @@
+{
+  "keyboard_interrupt_is_Exception_subclass": false,
+  "keyboard_interrupt_is_BaseException_subclass": true,
+  "custom_object_can_be_falsy": true,
+  "annotations_preserved": {
+    "value": "int",
+    "return": "str"
+  },
+  "scope": "Agent-controlled factual probes, no learner code or persistent database access"
+}

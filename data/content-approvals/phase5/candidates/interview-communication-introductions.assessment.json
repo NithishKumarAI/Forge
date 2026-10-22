@@ -1,0 +1,102 @@
+{
+  "content_key": "assessment/placement-foundations/interview-communication/interview-communication-introductions",
+  "revision": "1.0.0",
+  "content_type": "assessment_bundle",
+  "payload": {
+    "assessment": {
+      "key": "assessment/placement-foundations/interview-communication/interview-communication-introductions",
+      "version": "1.0.0",
+      "items": [
+        {
+          "key": "guided-introduction",
+          "kind": "reflection",
+          "prompt": "Write a concise, true introduction. Include current context, a concrete personal action and a learning direction.",
+          "explanation": "Use the rubric to inspect your own explanation; no correctness score is assigned.",
+          "contract": {
+            "example": "Illustrative structure: I am studying __. In __ I personally __. I learned __ and want to develop __.",
+            "rubric": [
+              "Use only true personal details.",
+              "Explain your own action rather than only naming tools.",
+              "Leave space for the interviewer to ask more."
+            ]
+          },
+          "family": "pf/interview-communication-introductions/guided-introduction",
+          "subject": "interview-communication",
+          "topic": "interview-communication-introductions",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "independent-project",
+          "kind": "reflection",
+          "prompt": "Adapt your introduction for a project discussion. State one limitation or uncertainty honestly.",
+          "explanation": "Use the rubric to inspect your own explanation; no correctness score is assigned.",
+          "contract": {
+            "example": "I implemented the search screen and tested empty results. I have not yet measured performance on a large corpus.",
+            "rubric": [
+              "Separate your work from team work.",
+              "State a limitation without inventing results."
+            ]
+          },
+          "family": "pf/interview-communication-introductions/independent-project",
+          "subject": "interview-communication",
+          "topic": "interview-communication-introductions",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "uk-interviews",
+        "url": "https://nationalcareers.service.gov.uk/careers-advice/interview-advice",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "coverage": {
+    "key": "interview-communication-introductions-assessment",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "guided-introduction",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/guided-introduction"
+        ],
+        "assessment_refs": [
+          "item/guided-introduction"
+        ]
+      },
+      {
+        "id": "independent-project",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/independent-project"
+        ],
+        "assessment_refs": [
+          "item/independent-project"
+        ]
+      }
+    ]
+  }
+}

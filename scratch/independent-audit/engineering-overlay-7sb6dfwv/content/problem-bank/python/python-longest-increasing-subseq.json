@@ -1,0 +1,88 @@
+{
+  "key": "python-longest-increasing-subseq",
+  "title": "Length of longest increasing subsequence",
+  "track": "python",
+  "topic_tags": [
+    "dynamic-programming",
+    "arrays"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 30,
+  "statement_markdown": "Given an integer array `nums`, return the length of the longest strictly increasing subsequence.\n\nA subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements.",
+  "constraints": [
+    "1 <= nums.length <= 2500",
+    "-10^4 <= nums[i] <= 10^4"
+  ],
+  "examples": [
+    {
+      "input": "[10,9,2,5,3,7,101,18]",
+      "output": "4",
+      "explanation": "The longest increasing subsequence is [2,3,7,101], therefore the length is 4."
+    },
+    {
+      "input": "[0,1,0,3,2,3]",
+      "output": "4",
+      "explanation": "LIS is [0,1,2,3]."
+    }
+  ],
+  "starter_code": "def lis_length(nums: list[int]) -> int:\n    pass",
+  "hints": [
+    "A standard dynamic programming approach (O(n^2)) works well here.",
+    "Let `dp[i]` be the length of the longest increasing subsequence that ends with `nums[i]`."
+  ],
+  "explanation": "We can solve this with dynamic programming. We create an array `dp` of the same length as `nums`, initialized to 1. Then we iterate through `nums` with an outer loop `i`. Inside, an inner loop `j` from 0 to `i-1` checks if `nums[i] > nums[j]`. If so, we can extend the LIS ending at `j`, updating `dp[i] = max(dp[i], dp[j] + 1)`. The result is the maximum value in `dp`.",
+  "reference_solution": "def lis_length(nums: list[int]) -> int:\n    if not nums: return 0\n    dp = [1] * len(nums)\n    for i in range(1, len(nums)):\n        for j in range(i):\n            if nums[i] > nums[j]:\n                dp[i] = max(dp[i], dp[j] + 1)\n    return max(dp)",
+  "complexity": "O(N^2) time and O(N) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "lis_length",
+    "sample_tests": [
+      {
+        "name": "sample_1",
+        "args": [
+          [10, 9, 2, 5, 3, 7, 101, 18]
+        ],
+        "kwargs": {},
+        "expected": 4
+      },
+      {
+        "name": "sample_2",
+        "args": [
+          [0, 1, 0, 3, 2, 3]
+        ],
+        "kwargs": {},
+        "expected": 4
+      },
+      {
+        "name": "sample_same",
+        "args": [
+          [7, 7, 7]
+        ],
+        "kwargs": {},
+        "expected": 1
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden_strictly_dec",
+        "args": [
+          [5, 4, 3, 2, 1]
+        ],
+        "kwargs": {},
+        "expected": 1
+      },
+      {
+        "name": "hidden_long",
+        "args": [
+          [1, 3, 6, 7, 9, 4, 10, 5, 6]
+        ],
+        "kwargs": {},
+        "expected": 6
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/dynamic-programming"
+}

@@ -1,0 +1,109 @@
+{
+  "key": "python-leap-year",
+  "title": "Leap year",
+  "track": "python",
+  "topic_tags": [
+    "basics",
+    "conditionals"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "low",
+  "estimated_minutes": 15,
+  "statement_markdown": "Write a function `is_leap_year(year: int) -> bool` that determines whether a given year is a leap year. A year is a leap year if it is divisible by 4, but not by 100, unless it is also divisible by 400.",
+  "constraints": [
+    "year > 0"
+  ],
+  "examples": [
+    {
+      "input": "2000",
+      "output": "True",
+      "explanation": "Divisible by 400."
+    },
+    {
+      "input": "1900",
+      "output": "False",
+      "explanation": "Divisible by 100 but not 400."
+    },
+    {
+      "input": "2024",
+      "output": "True",
+      "explanation": "Divisible by 4 and not 100."
+    },
+    {
+      "input": "2023",
+      "output": "False",
+      "explanation": "Not divisible by 4."
+    }
+  ],
+  "starter_code": "def is_leap_year(year: int) -> bool:\n    pass",
+  "hints": [
+    "Use the modulo operator `%` to test for divisibility.",
+    "Combine the conditions using logical `and` / `or`."
+  ],
+  "explanation": "A year is a leap year if it is evenly divisible by 4 AND (it is not evenly divisible by 100 OR it is evenly divisible by 400). This logic can be condensed into a single return statement.",
+  "reference_solution": "def is_leap_year(year: int) -> bool:\n    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)",
+  "complexity": "O(1) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "is_leap_year",
+    "sample_tests": [
+      {
+        "name": "y2000",
+        "args": [
+          2000
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "y1900",
+        "args": [
+          1900
+        ],
+        "kwargs": {},
+        "expected": false
+      },
+      {
+        "name": "y2024",
+        "args": [
+          2024
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "y2023",
+        "args": [
+          2023
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "y1600",
+        "args": [
+          1600
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "y1800",
+        "args": [
+          1800
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ]
+  },
+  "source_type": "original",
+  "source_project": "exercism",
+  "source_exercise": "leap",
+  "license": "MIT",
+  "adapted": true,
+  "version": "1.0.0",
+  "mapped_topic": "python/control-flow"
+}

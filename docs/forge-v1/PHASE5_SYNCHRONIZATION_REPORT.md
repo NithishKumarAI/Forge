@@ -1,0 +1,470 @@
+# Local / GitHub synchronization report
+
+GitHub connector verified commit `6ca192105bc58d20fe729d070dd7fe1942ff4fd1`; local `main` and `origin/main` match it. The commit changes 24 frontend files only. There is one checkout/worktree. No reset, fetch checkout replacement, commit or push was performed.
+
+The missing Phase 5 implementation is in the current checkout as modified tracked backend/launcher files and untracked migration, timed API, fixtures, content and reports. Nothing is lost or hidden in another branch/worktree. A clean checkout of the published commit cannot provide the committed frontend’s planner/timed routes.
+
+## Files requiring reconciliation
+
+- `ARCHITECTURE.md` — modified. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `README.md` — modified. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `apps/api/app/main.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/migrations/runner.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/models/__init__.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/models/entities.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/routers/adaptive.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/schemas/adaptive.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/schemas/api.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/schemas/assessment.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/assessment.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/dashboard.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/interview.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/planner.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/requirements.txt` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/scripts/content_checks/bundle.py` — modified. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `apps/api/tests/test_adaptive.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_arena_curriculum_v2.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_assessment_migrations.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_content_publication.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_database_migrations.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_editions.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/close-forge.ps1` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/open-forge.ps1` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/verify_launcher.py` — modified. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `apps/api/app/browser_security.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/migrations/study_release_schema.json` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/migrations/v006_study_release.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/routers/timed_tests.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/schemas/timed_tests.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/timed_tests.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/scripts/content_checks/subject_accuracy.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `apps/api/scripts/placement_batch.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `apps/api/scripts/placement_inventory.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `apps/api/scripts/placement_review.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `apps/api/tests/phase5_fixtures.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_independent_contracts.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_independent_security.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_placement_content.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `apps/api/tests/test_planner_budgets.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_study_release_migration.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_timed_tests.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `data/content-approvals/phase5/candidates/ai-fundamentals-ai-ml-dl.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/ai-fundamentals-ai-ml-dl.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/dsa-problem-contracts.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/dsa-problem-contracts.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/interview-communication-introductions.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/interview-communication-introductions.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/logical-reasoning-patterns-classification.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/logical-reasoning-patterns-classification.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/python-values-expressions.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/python-values-expressions.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/quantitative-aptitude-number-operations.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/quantitative-aptitude-number-operations.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/sql-postgresql-tables-keys.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/sql-postgresql-tables-keys.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/system-design-requirements.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/system-design-requirements.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/verbal-english-sentence-structure.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/verbal-english-sentence-structure.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review-checklist.template.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/ai-fundamentals-ai-ml-dl.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/dsa-problem-contracts.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/interview-communication-introductions.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/logical-reasoning-patterns-classification.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/python-values-expressions.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/quantitative-aptitude-number-operations.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/sql-postgresql-tables-keys.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/system-design-requirements.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/verbal-english-sentence-structure.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/sources.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/ai-fundamentals-ai-ml-dl.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/ai-fundamentals-ai-ml-dl.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/dsa-problem-contracts.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/dsa-problem-contracts.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/interview-communication-introductions.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/interview-communication-introductions.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/logical-reasoning-patterns-classification.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/logical-reasoning-patterns-classification.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/python-values-expressions.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/python-values-expressions.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/quantitative-aptitude-number-operations.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/quantitative-aptitude-number-operations.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/sql-postgresql-tables-keys.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/sql-postgresql-tables-keys.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/system-design-requirements.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/system-design-requirements.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/verbal-english-sentence-structure.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/verbal-english-sentence-structure.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/placement-foundations-coverage.json` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `data/timed-test-blueprints/v1.json` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `docs/forge-v1/FINAL_CONTENT_COVERAGE.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/FINAL_RELEASE_CHECKLIST.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/KNOWN_LIMITATIONS.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/PHASE5_CHECKPOINTS.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/PHASE5_IMPLEMENTATION_REPORT.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/audit-evidence/backend-baseline.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/backend-baseline.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/backend-final.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/before.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/browser-report.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/browser.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/build.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/build.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/content-census.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/contracts-red.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/contracts-red.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/frontend.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/frontend.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/last-browser-state.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/launcher.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/launcher.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/launcher.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/lessons-dsa.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/lessons-python.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/lessons-sql.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/node-dependencies.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/node-dependencies.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/problem-bank.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/python-dependencies.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/python-dependencies.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/security-green.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/security-green.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/security-red.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/security-red.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/source-register.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/sql-bank.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/synthetic-mobile-dashboard.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/synthetic-mobile-tests.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/typecheck.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/typecheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/README.md` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/baseline-backend.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/baseline-browser.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/baseline-web-retry.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/baseline-web.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/before.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/browser-report.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/content-final.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-backend-recheck.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-backend-recheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-backend.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-build.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-candidates.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-frontend.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-inventory.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-launcher.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-lessons-dsa.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-lessons-python.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-lessons-sql.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-problems.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-review.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-sql-bank.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-typecheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/last-browser-state.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/launcher-harness-final.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/launcher-report.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/legacy-provenance.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/network-guard.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/offline-browser.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/planner-recheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/preservation.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/summary.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/synthetic-mobile-dashboard.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/synthetic-mobile-tests.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/timed-recheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `scripts/audit-browser.cjs` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/audit_content.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `scripts/forge_server.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/launcher-common.ps1` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/offline_verify_guard.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/prepare_browser_fixture.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/verify-browser.cjs` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/verify_independent.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/verify_offline.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+
+## Sharing boundaries
+
+Do not stage the whole checkout. Exclude secrets, real learner databases, .runtime, backups/snapshots, scratch, dependencies and all unreviewed teaching candidates. The authoring generator embeds candidate prose, so it is also excluded from the proposed engineering-only synchronization. Candidate-dependent end-to-end tests cannot be recommended as a self-contained engineering commit without first replacing their inputs with explicit synthetic fixtures. Existing synthetic unit fixtures may ship as tests, never as approved teaching.
+
+The JSON companion records exact raw file SHA256 values. This is a recommendation only; no staging, commit or push occurred.
+
+## Final audit additions
+
+The initial inventory above is preserved. The closing inventory below refreshes every changed or untracked source/report path; exact raw digests are in synchronization.json final_files. Self-referential manifest/report hashes require a final packaging refresh. No staging, commit or push occurred. The explicit engineering-only overlay passed without candidate content, secrets or learner data. Audit scratch and evidence remain local.
+
+- `ARCHITECTURE.md` — modified. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `README.md` — modified. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `apps/api/app/browser_security.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/main.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/migrations/runner.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/migrations/study_release_schema.json` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/migrations/v006_study_release.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/models/__init__.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/models/entities.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/routers/adaptive.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/routers/practice.py` — modified. ENGINEERING SYNC: explicit engineering overlay verified; review before inclusion.
+- `apps/api/app/routers/timed_tests.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/schemas/adaptive.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/schemas/api.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/schemas/assessment.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/schemas/timed_tests.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/assessment.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/dashboard.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/interview.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/planner.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/app/services/timed_tests.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/requirements.txt` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/scripts/content_checks/bundle.py` — modified. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `apps/api/scripts/content_checks/subject_accuracy.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `apps/api/scripts/placement_batch.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `apps/api/scripts/placement_inventory.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `apps/api/scripts/placement_review.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `apps/api/tests/phase5_fixtures.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_adaptive.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_arena_curriculum_v2.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_assessment_migrations.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_content_publication.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_database_migrations.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_editions.py` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_independent_contracts.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_independent_security.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_placement_content.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `apps/api/tests/test_planner_budgets.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_study_release_migration.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `apps/api/tests/test_timed_tests.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `data/content-approvals/independent-audit/candidates/python-control-flow-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/candidates/python-exceptions-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/candidates/python-functions-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/candidates/python-type-hints-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/candidates/sql-indexes-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/review-checklist.template.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/review-queue.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/review/python-control-flow-1.2.0.md` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/review/python-exceptions-1.2.0.md` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/review/python-functions-1.2.0.md` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/review/python-type-hints-1.2.0.md` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/review/sql-indexes-1.2.0.md` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/validation/python-control-flow-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/validation/python-exceptions-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/validation/python-functions-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/validation/python-type-hints-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/independent-audit/validation/sql-indexes-1.2.0.json` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `data/content-approvals/phase5/candidates/ai-fundamentals-ai-ml-dl.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/ai-fundamentals-ai-ml-dl.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/dsa-problem-contracts.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/dsa-problem-contracts.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/interview-communication-introductions.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/interview-communication-introductions.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/logical-reasoning-patterns-classification.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/logical-reasoning-patterns-classification.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/python-values-expressions.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/python-values-expressions.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/quantitative-aptitude-number-operations.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/quantitative-aptitude-number-operations.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/sql-postgresql-tables-keys.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/sql-postgresql-tables-keys.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/system-design-requirements.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/system-design-requirements.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/verbal-english-sentence-structure.assessment.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/candidates/verbal-english-sentence-structure.lesson.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review-checklist.template.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/ai-fundamentals-ai-ml-dl.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/dsa-problem-contracts.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/interview-communication-introductions.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/logical-reasoning-patterns-classification.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/python-values-expressions.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/quantitative-aptitude-number-operations.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/sql-postgresql-tables-keys.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/system-design-requirements.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/review/verbal-english-sentence-structure.md` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/sources.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/ai-fundamentals-ai-ml-dl.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/ai-fundamentals-ai-ml-dl.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/dsa-problem-contracts.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/dsa-problem-contracts.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/interview-communication-introductions.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/interview-communication-introductions.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/logical-reasoning-patterns-classification.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/logical-reasoning-patterns-classification.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/python-values-expressions.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/python-values-expressions.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/quantitative-aptitude-number-operations.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/quantitative-aptitude-number-operations.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/sql-postgresql-tables-keys.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/sql-postgresql-tables-keys.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/system-design-requirements.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/system-design-requirements.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/verbal-english-sentence-structure.assessment.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/content-approvals/phase5/validation/verbal-english-sentence-structure.lesson.validation.json` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `data/placement-foundations-coverage.json` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `data/timed-test-blueprints/v1.json` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `docs/forge-v1/EDUCATIONAL_CONTENT_DEFECTS.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/FINAL_CONTENT_COVERAGE.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/FINAL_RELEASE_CHECKLIST.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/INDEPENDENT_AUDIT_CHECKPOINTS.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/INDEPENDENT_READINESS_AUDIT.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/KNOWN_LIMITATIONS.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/LEARNING_COVERAGE_GAPS.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/PHASE5_CHECKPOINTS.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/PHASE5_IMPLEMENTATION_REPORT.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/PHASE5_SYNCHRONIZATION_REPORT.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/RELEASE_BLOCKERS.md` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `docs/forge-v1/audit-evidence/README.md` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/all-candidates.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/all-candidates.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/backend-baseline.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/backend-baseline.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/backend-final.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/backend-final.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/backend-release.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/backend-release.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/before.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/browser-report.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/browser-upgrade-backup.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/browser.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/browser.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/build.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/build.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/content-approvals-two-sum-1.0.1.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/independent-audit-python-control-flow-1.2.0.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/independent-audit-python-exceptions-1.2.0.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/independent-audit-python-functions-1.2.0.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/independent-audit-python-type-hints-1.2.0.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/independent-audit-sql-indexes-1.2.0.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-ai-fundamentals-ai-ml-dl.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-ai-fundamentals-ai-ml-dl.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-dsa-problem-contracts.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-dsa-problem-contracts.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-interview-communication-introductions.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-interview-communication-introductions.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-logical-reasoning-patterns-classification.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-logical-reasoning-patterns-classification.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-python-values-expressions.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-python-values-expressions.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-quantitative-aptitude-number-operations.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-quantitative-aptitude-number-operations.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-sql-postgresql-tables-keys.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-sql-postgresql-tables-keys.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-system-design-requirements.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-system-design-requirements.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-verbal-english-sentence-structure.assessment.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/candidate-validation/phase5-verbal-english-sentence-structure.lesson.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/content-census.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/contract-probes.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/contract-probes.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/contract-probes.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/contracts-red.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/contracts-red.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/correction-candidates.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/correction-candidates.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/engineering-overlay.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/engineering-overlay.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/engineering-overlay.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/fresh-node-build.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/fresh-node-build.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/fresh-python-tests.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/fresh-python-tests.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/frontend.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/frontend.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/independent-browser.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/independent-last-browser.png` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/last-browser-state.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/launcher.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/launcher.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/launcher.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/learning-coverage.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/legacy-provenance.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/lessons-dsa.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/lessons-python.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/lessons-sql.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/node-dependencies.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/node-dependencies.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/node-fresh-check.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/node-install.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/node-install.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/preservation.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/problem-bank.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/python-dependencies.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/python-dependencies.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/python-factual-probes.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/python-fresh-check.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/python-install.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/python-install.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/runtime-scan.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/security-green.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/security-green.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/security-red.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/security-red.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/source-register.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/sql-bank.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/sql-factual-probes.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/sql-factual-probes.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/sql-factual-probes.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/sql-output-comparisons.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/summary.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/synchronization.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/synthetic-mobile-dashboard.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/synthetic-mobile-tests.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/timed-expiry-finish.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/timed-expiry-finish.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/timed-expiry-start.exit` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/timed-expiry-start.log` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/timed-expiry-state.json` — untracked. LOCAL EVIDENCE: inspect and redact private paths/learner-derived metadata before sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/typecheck.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/audit-evidence/typecheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/README.md` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/baseline-backend.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/baseline-browser.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/baseline-web-retry.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/baseline-web.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/before.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/browser-report.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/content-final.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-backend-recheck.exit` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-backend-recheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-backend.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-build.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-candidates.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-frontend.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-inventory.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-launcher.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-lessons-dsa.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-lessons-python.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-lessons-sql.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-problems.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-review.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-sql-bank.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/final-typecheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/last-browser-state.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/launcher-harness-final.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/launcher-report.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/legacy-provenance.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/network-guard.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/offline-browser.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/planner-recheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/preservation.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/summary.json` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/synthetic-mobile-dashboard.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/synthetic-mobile-tests.png` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `docs/forge-v1/verification/timed-recheck.log` — untracked. LOCAL EVIDENCE: review for private paths/learner-derived metadata before any sharing; exclude from engineering commit.
+- `scripts/audit-browser.cjs` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/audit-expiry-browser.cjs` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `scripts/audit_content.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `scripts/audit_contract_probes.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `scripts/audit_coverage.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `scripts/audit_sql_facts.cjs` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `scripts/audit_sync_smoke.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `scripts/close-forge.ps1` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/finalize_independent_audit.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `scripts/forge_server.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/launcher-common.ps1` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/offline_verify_guard.py` — untracked. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/open-forge.ps1` — modified. ENGINEERING SYNC: required runtime/config/regression support; eligible after review and isolated clean-tree verification.
+- `scripts/prepare_audit_candidates.py` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `scripts/prepare_browser_fixture.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/verify-browser.cjs` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/verify_independent.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/verify_launcher.py` — modified. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.
+- `scripts/verify_offline.py` — untracked. KEEP LOCAL: unreviewed candidate content or tool/test depends on that local-only content; do not include in recommended engineering commit.
+- `scripts/verify_timed_expiry.py` — untracked. KEEP LOCAL: unreviewed content or candidate-dependent harness; exclude from engineering commit.
+- `scripts/write_educational_audit.py` — untracked. REVIEW DOCUMENTATION/TOOL: inspect before sharing; not automatically a release requirement.

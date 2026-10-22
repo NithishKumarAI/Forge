@@ -1,0 +1,78 @@
+{
+  "key": "dsa-min-window-substring",
+  "title": "Minimum window containing all chars",
+  "track": "dsa",
+  "topic_tags": [
+    "strings",
+    "sliding-window",
+    "hash-maps"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given two strings `s` and `t`, return the minimum window in `s` which will contain all the characters in `t`. If there is no such window in `s` that covers all characters in `t`, return the empty string `\"\"`.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "s = 'ADOBECODEBANC', t = 'ABC'",
+      "output": "'BANC'",
+      "explanation": "The minimum window is 'BANC'."
+    }
+  ],
+  "starter_code": "def min_window(s: str, t: str) -> str:\n    pass",
+  "hints": [
+    "Use sliding window and keep character counts."
+  ],
+  "explanation": "Use a sliding window. Expand the right pointer to include characters until the window contains all characters in `t`. Then shrink the left pointer to find the minimum window.",
+  "reference_solution": "def min_window(s: str, t: str) -> str:\n    from collections import Counter\n    t_counts = Counter(t)\n    window_counts = {}\n    required = len(t_counts)\n    formed = 0\n    l = 0\n    ans = float('inf'), None, None\n    for r in range(len(s)):\n        char = s[r]\n        window_counts[char] = window_counts.get(char, 0) + 1\n        if char in t_counts and window_counts[char] == t_counts[char]:\n            formed += 1\n        while l <= r and formed == required:\n            if r - l + 1 < ans[0]:\n                ans = (r - l + 1, l, r)\n            char_l = s[l]\n            window_counts[char_l] -= 1\n            if char_l in t_counts and window_counts[char_l] < t_counts[char_l]:\n                formed -= 1\n            l += 1\n    return '' if ans[0] == float('inf') else s[ans[1]:ans[2]+1]",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "min_window",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "ADOBECODEBANC",
+          "ABC"
+        ],
+        "kwargs": {},
+        "expected": "BANC"
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "a",
+          "a"
+        ],
+        "kwargs": {},
+        "expected": "a"
+      },
+      {
+        "name": "sample3",
+        "args": [
+          "a",
+          "b"
+        ],
+        "kwargs": {},
+        "expected": ""
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          "ab",
+          "a"
+        ],
+        "kwargs": {},
+        "expected": "a"
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/sliding-window"
+}

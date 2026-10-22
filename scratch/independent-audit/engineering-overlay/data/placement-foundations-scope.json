@@ -1,0 +1,3019 @@
+{
+  "format_version": 1,
+  "edition_key": "placement-foundations",
+  "version": "1",
+  "name": "Forge Placement Foundations",
+  "description": "A nine-subject, three-level placement preparation outline. Content availability is verified separately; all topics remain manually accessible.",
+  "goal": "Build beginner-to-intermediate placement foundations through clear teaching, independent evidence and honest reflection.",
+  "availability_policy": "registry_bindings_only",
+  "topics": [
+    {
+      "key": "quantitative-aptitude-number-operations",
+      "subject_key": "quantitative-aptitude",
+      "title": "Numbers and operations",
+      "description": "Use order of operations, signed numbers and estimation to check calculations.",
+      "level": 1,
+      "learning_outcomes": [
+        "Use order of operations, signed numbers and estimation to check calculations."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Use order of operations, signed numbers and estimation to check calculations.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-number-operations"
+    },
+    {
+      "key": "quantitative-aptitude-factors-multiples",
+      "subject_key": "quantitative-aptitude",
+      "title": "Factors and multiples",
+      "description": "Find primes, divisibility, HCF and LCM for small whole numbers.",
+      "level": 1,
+      "learning_outcomes": [
+        "Find primes, divisibility, HCF and LCM for small whole numbers."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Find primes, divisibility, HCF and LCM for small whole numbers.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-factors-multiples"
+    },
+    {
+      "key": "quantitative-aptitude-fractions-decimals",
+      "subject_key": "quantitative-aptitude",
+      "title": "Fractions and decimals",
+      "description": "Convert fractions and decimals and compare their values.",
+      "level": 1,
+      "learning_outcomes": [
+        "Convert fractions and decimals and compare their values."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Convert fractions and decimals and compare their values.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-fractions-decimals"
+    },
+    {
+      "key": "quantitative-aptitude-ratios-proportions",
+      "subject_key": "quantitative-aptitude",
+      "title": "Ratios and proportions",
+      "description": "Scale quantities and distinguish ratios from differences.",
+      "level": 1,
+      "learning_outcomes": [
+        "Scale quantities and distinguish ratios from differences."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Scale quantities and distinguish ratios from differences.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-ratios-proportions"
+    },
+    {
+      "key": "quantitative-aptitude-percentages",
+      "subject_key": "quantitative-aptitude",
+      "title": "Percentages",
+      "description": "Choose the correct percentage base and calculate change.",
+      "level": 1,
+      "learning_outcomes": [
+        "Choose the correct percentage base and calculate change."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Choose the correct percentage base and calculate change.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-percentages"
+    },
+    {
+      "key": "quantitative-aptitude-averages-units",
+      "subject_key": "quantitative-aptitude",
+      "title": "Averages, units and estimation",
+      "description": "Use weighted averages and consistent units in word problems.",
+      "level": 1,
+      "learning_outcomes": [
+        "Use weighted averages and consistent units in word problems."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Use weighted averages and consistent units in word problems.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-averages-units"
+    },
+    {
+      "key": "quantitative-aptitude-profit-discount",
+      "subject_key": "quantitative-aptitude",
+      "title": "Profit, loss and discounts",
+      "description": "Distinguish cost, marked and selling prices and combine discounts.",
+      "level": 2,
+      "learning_outcomes": [
+        "Distinguish cost, marked and selling prices and combine discounts."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Distinguish cost, marked and selling prices and combine discounts.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-profit-discount"
+    },
+    {
+      "key": "quantitative-aptitude-interest",
+      "subject_key": "quantitative-aptitude",
+      "title": "Simple and compound interest",
+      "description": "Calculate growth over stated periods and compare interest conventions.",
+      "level": 2,
+      "learning_outcomes": [
+        "Calculate growth over stated periods and compare interest conventions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Calculate growth over stated periods and compare interest conventions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-interest"
+    },
+    {
+      "key": "quantitative-aptitude-mixtures",
+      "subject_key": "quantitative-aptitude",
+      "title": "Mixtures and replacement",
+      "description": "Use weighted quantities to solve mixture and replacement scenarios.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use weighted quantities to solve mixture and replacement scenarios."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Use weighted quantities to solve mixture and replacement scenarios.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-mixtures"
+    },
+    {
+      "key": "quantitative-aptitude-work-rates",
+      "subject_key": "quantitative-aptitude",
+      "title": "Work and rates",
+      "description": "Combine individual rates and interpret efficiency assumptions.",
+      "level": 2,
+      "learning_outcomes": [
+        "Combine individual rates and interpret efficiency assumptions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Combine individual rates and interpret efficiency assumptions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-work-rates"
+    },
+    {
+      "key": "quantitative-aptitude-speed-distance",
+      "subject_key": "quantitative-aptitude",
+      "title": "Speed, time and distance",
+      "description": "Use relative speed and average speed with compatible units.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use relative speed and average speed with compatible units."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Use relative speed and average speed with compatible units.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-speed-distance"
+    },
+    {
+      "key": "quantitative-aptitude-algebra-equations",
+      "subject_key": "quantitative-aptitude",
+      "title": "Algebra and equations",
+      "description": "Translate word problems into linear equations and check solutions.",
+      "level": 2,
+      "learning_outcomes": [
+        "Translate word problems into linear equations and check solutions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Translate word problems into linear equations and check solutions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-algebra-equations"
+    },
+    {
+      "key": "quantitative-aptitude-tables-charts",
+      "subject_key": "quantitative-aptitude",
+      "title": "Tables, charts and data",
+      "description": "Read scales and denominators before calculating comparisons.",
+      "level": 2,
+      "learning_outcomes": [
+        "Read scales and denominators before calculating comparisons."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Read scales and denominators before calculating comparisons.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-tables-charts"
+    },
+    {
+      "key": "quantitative-aptitude-sequences",
+      "subject_key": "quantitative-aptitude",
+      "title": "Sequences and series",
+      "description": "Apply explicit sequence rules and verify candidate terms.",
+      "level": 3,
+      "learning_outcomes": [
+        "Apply explicit sequence rules and verify candidate terms."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Apply explicit sequence rules and verify candidate terms.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-sequences"
+    },
+    {
+      "key": "quantitative-aptitude-counting-probability",
+      "subject_key": "quantitative-aptitude",
+      "title": "Counting and probability",
+      "description": "Count arrangements and outcomes with clear independence assumptions.",
+      "level": 3,
+      "learning_outcomes": [
+        "Count arrangements and outcomes with clear independence assumptions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Count arrangements and outcomes with clear independence assumptions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-counting-probability"
+    },
+    {
+      "key": "quantitative-aptitude-geometry-mensuration",
+      "subject_key": "quantitative-aptitude",
+      "title": "Geometry and measurement",
+      "description": "Compute lengths, areas and volumes with stated shapes and units.",
+      "level": 3,
+      "learning_outcomes": [
+        "Compute lengths, areas and volumes with stated shapes and units."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Compute lengths, areas and volumes with stated shapes and units.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-geometry-mensuration"
+    },
+    {
+      "key": "quantitative-aptitude-mixed-rate-problems",
+      "subject_key": "quantitative-aptitude",
+      "title": "Combined quantity problems",
+      "description": "Combine ratios, percentages and rates without losing track of bases.",
+      "level": 3,
+      "learning_outcomes": [
+        "Combine ratios, percentages and rates without losing track of bases."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Combine ratios, percentages and rates without losing track of bases.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-mixed-rate-problems"
+    },
+    {
+      "key": "quantitative-aptitude-mixed-data-interpretation",
+      "subject_key": "quantitative-aptitude",
+      "title": "Mixed data interpretation",
+      "description": "Compare several tables or charts and justify intermediate calculations.",
+      "level": 3,
+      "learning_outcomes": [
+        "Compare several tables or charts and justify intermediate calculations."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Compare several tables or charts and justify intermediate calculations.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-mixed-data-interpretation"
+    },
+    {
+      "key": "logical-reasoning-patterns-classification",
+      "subject_key": "logical-reasoning",
+      "title": "Patterns and classification",
+      "description": "Apply an explicit pattern and explain why a classification fits.",
+      "level": 1,
+      "learning_outcomes": [
+        "Apply an explicit pattern and explain why a classification fits."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 88,
+      "coverage_requirements": [
+        "Apply an explicit pattern and explain why a classification fits.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-patterns-classification"
+    },
+    {
+      "key": "logical-reasoning-ordering-ranking",
+      "subject_key": "logical-reasoning",
+      "title": "Ordering and ranking",
+      "description": "Translate before, after and rank statements into a consistent order.",
+      "level": 1,
+      "learning_outcomes": [
+        "Translate before, after and rank statements into a consistent order."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 88,
+      "coverage_requirements": [
+        "Translate before, after and rank statements into a consistent order.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-ordering-ranking"
+    },
+    {
+      "key": "logical-reasoning-directions",
+      "subject_key": "logical-reasoning",
+      "title": "Directions and movement",
+      "description": "Track turns and displacements using stated directions.",
+      "level": 1,
+      "learning_outcomes": [
+        "Track turns and displacements using stated directions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 88,
+      "coverage_requirements": [
+        "Track turns and displacements using stated directions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-directions"
+    },
+    {
+      "key": "logical-reasoning-relations",
+      "subject_key": "logical-reasoning",
+      "title": "People and relationships",
+      "description": "Draw relationship links without assuming unstated gender or roles.",
+      "level": 1,
+      "learning_outcomes": [
+        "Draw relationship links without assuming unstated gender or roles."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 88,
+      "coverage_requirements": [
+        "Draw relationship links without assuming unstated gender or roles.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-relations"
+    },
+    {
+      "key": "logical-reasoning-implication",
+      "subject_key": "logical-reasoning",
+      "title": "Statements and implication",
+      "description": "Distinguish sufficient conditions, necessary conditions and converses.",
+      "level": 1,
+      "learning_outcomes": [
+        "Distinguish sufficient conditions, necessary conditions and converses."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 88,
+      "coverage_requirements": [
+        "Distinguish sufficient conditions, necessary conditions and converses.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-implication"
+    },
+    {
+      "key": "logical-reasoning-arrangements",
+      "subject_key": "logical-reasoning",
+      "title": "Seating and arrangements",
+      "description": "Use position constraints to enumerate valid arrangements.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use position constraints to enumerate valid arrangements."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 88,
+      "coverage_requirements": [
+        "Use position constraints to enumerate valid arrangements.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-arrangements"
+    },
+    {
+      "key": "logical-reasoning-syllogisms",
+      "subject_key": "logical-reasoning",
+      "title": "Syllogisms",
+      "description": "Check categorical conclusions against explicit set relationships.",
+      "level": 2,
+      "learning_outcomes": [
+        "Check categorical conclusions against explicit set relationships."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 88,
+      "coverage_requirements": [
+        "Check categorical conclusions against explicit set relationships.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-syllogisms"
+    },
+    {
+      "key": "logical-reasoning-coding-conventions",
+      "subject_key": "logical-reasoning",
+      "title": "Coding and decoding",
+      "description": "Apply declared symbol or letter transformation rules.",
+      "level": 2,
+      "learning_outcomes": [
+        "Apply declared symbol or letter transformation rules."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 88,
+      "coverage_requirements": [
+        "Apply declared symbol or letter transformation rules.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-coding-conventions"
+    },
+    {
+      "key": "logical-reasoning-truth-falsehood",
+      "subject_key": "logical-reasoning",
+      "title": "Truth and falsehood",
+      "description": "Check consistent assignments for constrained truth statements.",
+      "level": 2,
+      "learning_outcomes": [
+        "Check consistent assignments for constrained truth statements."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 88,
+      "coverage_requirements": [
+        "Check consistent assignments for constrained truth statements.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-truth-falsehood"
+    },
+    {
+      "key": "logical-reasoning-series-elimination",
+      "subject_key": "logical-reasoning",
+      "title": "Series and elimination",
+      "description": "Eliminate candidates with stated rules rather than guessing an intended pattern.",
+      "level": 2,
+      "learning_outcomes": [
+        "Eliminate candidates with stated rules rather than guessing an intended pattern."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 88,
+      "coverage_requirements": [
+        "Eliminate candidates with stated rules rather than guessing an intended pattern.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-series-elimination"
+    },
+    {
+      "key": "logical-reasoning-constraint-puzzles",
+      "subject_key": "logical-reasoning",
+      "title": "Multi-constraint puzzles",
+      "description": "Combine clues, check satisfiability and identify multiple solutions.",
+      "level": 3,
+      "learning_outcomes": [
+        "Combine clues, check satisfiability and identify multiple solutions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 88,
+      "coverage_requirements": [
+        "Combine clues, check satisfiability and identify multiple solutions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-constraint-puzzles"
+    },
+    {
+      "key": "logical-reasoning-data-sufficiency",
+      "subject_key": "logical-reasoning",
+      "title": "Data sufficiency",
+      "description": "Decide whether given information determines an answer uniquely.",
+      "level": 3,
+      "learning_outcomes": [
+        "Decide whether given information determines an answer uniquely."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 88,
+      "coverage_requirements": [
+        "Decide whether given information determines an answer uniquely.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-data-sufficiency"
+    },
+    {
+      "key": "logical-reasoning-assumptions-conclusions",
+      "subject_key": "logical-reasoning",
+      "title": "Assumptions and conclusions",
+      "description": "Separate what is stated, assumed and logically implied.",
+      "level": 3,
+      "learning_outcomes": [
+        "Separate what is stated, assumed and logically implied."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 88,
+      "coverage_requirements": [
+        "Separate what is stated, assumed and logically implied.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-assumptions-conclusions"
+    },
+    {
+      "key": "logical-reasoning-argument-evaluation",
+      "subject_key": "logical-reasoning",
+      "title": "Evaluating arguments",
+      "description": "Identify relevant evidence and explain why an inference is weak.",
+      "level": 3,
+      "learning_outcomes": [
+        "Identify relevant evidence and explain why an inference is weak."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 88,
+      "coverage_requirements": [
+        "Identify relevant evidence and explain why an inference is weak.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-argument-evaluation"
+    },
+    {
+      "key": "logical-reasoning-mixed-reasoning",
+      "subject_key": "logical-reasoning",
+      "title": "Mixed reasoning sets",
+      "description": "Choose a representation and check all constraints under a time budget.",
+      "level": 3,
+      "learning_outcomes": [
+        "Choose a representation and check all constraints under a time budget."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 88,
+      "coverage_requirements": [
+        "Choose a representation and check all constraints under a time budget.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-mixed-reasoning"
+    },
+    {
+      "key": "verbal-english-sentence-structure",
+      "subject_key": "verbal-english",
+      "title": "Sentence structure",
+      "description": "Identify clauses, subjects and verbs in short sentences.",
+      "level": 1,
+      "learning_outcomes": [
+        "Identify clauses, subjects and verbs in short sentences."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 85,
+      "coverage_requirements": [
+        "Identify clauses, subjects and verbs in short sentences.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-sentence-structure"
+    },
+    {
+      "key": "verbal-english-parts-of-speech",
+      "subject_key": "verbal-english",
+      "title": "Words in context",
+      "description": "Recognise parts of speech by their use in a sentence.",
+      "level": 1,
+      "learning_outcomes": [
+        "Recognise parts of speech by their use in a sentence."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 85,
+      "coverage_requirements": [
+        "Recognise parts of speech by their use in a sentence.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-parts-of-speech"
+    },
+    {
+      "key": "verbal-english-agreement",
+      "subject_key": "verbal-english",
+      "title": "Subject and verb agreement",
+      "description": "Choose agreement that matches the actual subject.",
+      "level": 1,
+      "learning_outcomes": [
+        "Choose agreement that matches the actual subject."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 85,
+      "coverage_requirements": [
+        "Choose agreement that matches the actual subject.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-agreement"
+    },
+    {
+      "key": "verbal-english-tense-consistency",
+      "subject_key": "verbal-english",
+      "title": "Tense and consistency",
+      "description": "Keep time relationships and verb forms consistent.",
+      "level": 1,
+      "learning_outcomes": [
+        "Keep time relationships and verb forms consistent."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 85,
+      "coverage_requirements": [
+        "Keep time relationships and verb forms consistent.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-tense-consistency"
+    },
+    {
+      "key": "verbal-english-articles-prepositions",
+      "subject_key": "verbal-english",
+      "title": "Articles and prepositions",
+      "description": "Choose forms using explicit context and accepted usage.",
+      "level": 1,
+      "learning_outcomes": [
+        "Choose forms using explicit context and accepted usage."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 85,
+      "coverage_requirements": [
+        "Choose forms using explicit context and accepted usage.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-articles-prepositions"
+    },
+    {
+      "key": "verbal-english-short-passages",
+      "subject_key": "verbal-english",
+      "title": "Reading short passages",
+      "description": "Locate stated facts and distinguish them from assumptions.",
+      "level": 1,
+      "learning_outcomes": [
+        "Locate stated facts and distinguish them from assumptions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 85,
+      "coverage_requirements": [
+        "Locate stated facts and distinguish them from assumptions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-short-passages"
+    },
+    {
+      "key": "verbal-english-error-correction",
+      "subject_key": "verbal-english",
+      "title": "Editing sentences",
+      "description": "Explain grammatical errors and accept valid alternative forms.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain grammatical errors and accept valid alternative forms."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 85,
+      "coverage_requirements": [
+        "Explain grammatical errors and accept valid alternative forms.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-error-correction"
+    },
+    {
+      "key": "verbal-english-vocabulary-context",
+      "subject_key": "verbal-english",
+      "title": "Vocabulary in context",
+      "description": "Use surrounding sentences to infer meaning and tone.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use surrounding sentences to infer meaning and tone."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 85,
+      "coverage_requirements": [
+        "Use surrounding sentences to infer meaning and tone.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-vocabulary-context"
+    },
+    {
+      "key": "verbal-english-sentence-ordering",
+      "subject_key": "verbal-english",
+      "title": "Ordering and connectors",
+      "description": "Use references and logical links to order sentences.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use references and logical links to order sentences."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 85,
+      "coverage_requirements": [
+        "Use references and logical links to order sentences.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-sentence-ordering"
+    },
+    {
+      "key": "verbal-english-paragraph-comprehension",
+      "subject_key": "verbal-english",
+      "title": "Paragraph comprehension",
+      "description": "Find a main idea and distinguish supporting details.",
+      "level": 2,
+      "learning_outcomes": [
+        "Find a main idea and distinguish supporting details."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 85,
+      "coverage_requirements": [
+        "Find a main idea and distinguish supporting details.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-paragraph-comprehension"
+    },
+    {
+      "key": "verbal-english-supported-inference",
+      "subject_key": "verbal-english",
+      "title": "Supported inference",
+      "description": "Choose conclusions supported by the text rather than outside knowledge.",
+      "level": 2,
+      "learning_outcomes": [
+        "Choose conclusions supported by the text rather than outside knowledge."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 85,
+      "coverage_requirements": [
+        "Choose conclusions supported by the text rather than outside knowledge.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-supported-inference"
+    },
+    {
+      "key": "verbal-english-workplace-email",
+      "subject_key": "verbal-english",
+      "title": "Workplace email",
+      "description": "Write a clear purpose, request and respectful closing for a given audience.",
+      "level": 2,
+      "learning_outcomes": [
+        "Write a clear purpose, request and respectful closing for a given audience."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 85,
+      "coverage_requirements": [
+        "Write a clear purpose, request and respectful closing for a given audience.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-workplace-email"
+    },
+    {
+      "key": "verbal-english-longer-passages",
+      "subject_key": "verbal-english",
+      "title": "Longer passage analysis",
+      "description": "Combine information across paragraphs without inventing claims.",
+      "level": 3,
+      "learning_outcomes": [
+        "Combine information across paragraphs without inventing claims."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 85,
+      "coverage_requirements": [
+        "Combine information across paragraphs without inventing claims.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-longer-passages"
+    },
+    {
+      "key": "verbal-english-tone-argument",
+      "subject_key": "verbal-english",
+      "title": "Tone and argument structure",
+      "description": "Explain an author's stance using textual evidence.",
+      "level": 3,
+      "learning_outcomes": [
+        "Explain an author's stance using textual evidence."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 85,
+      "coverage_requirements": [
+        "Explain an author's stance using textual evidence.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-tone-argument"
+    },
+    {
+      "key": "verbal-english-clarity-editing",
+      "subject_key": "verbal-english",
+      "title": "Editing for clarity",
+      "description": "Remove ambiguity and unnecessary words while preserving meaning.",
+      "level": 3,
+      "learning_outcomes": [
+        "Remove ambiguity and unnecessary words while preserving meaning."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 85,
+      "coverage_requirements": [
+        "Remove ambiguity and unnecessary words while preserving meaning.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-clarity-editing"
+    },
+    {
+      "key": "verbal-english-summarising",
+      "subject_key": "verbal-english",
+      "title": "Summarising",
+      "description": "Retain the main points without adding unsupported interpretation.",
+      "level": 3,
+      "learning_outcomes": [
+        "Retain the main points without adding unsupported interpretation."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 85,
+      "coverage_requirements": [
+        "Retain the main points without adding unsupported interpretation.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-summarising"
+    },
+    {
+      "key": "verbal-english-mixed-verbal",
+      "subject_key": "verbal-english",
+      "title": "Mixed verbal practice",
+      "description": "Apply stated language conventions and review why alternatives are weaker.",
+      "level": 3,
+      "learning_outcomes": [
+        "Apply stated language conventions and review why alternatives are weaker."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 85,
+      "coverage_requirements": [
+        "Apply stated language conventions and review why alternatives are weaker.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/verbal-english/verbal-english-mixed-verbal"
+    },
+    {
+      "key": "python-values-expressions",
+      "subject_key": "python",
+      "title": "Values and expressions",
+      "description": "Trace variables, basic types and arithmetic expressions.",
+      "level": 1,
+      "learning_outcomes": [
+        "Trace variables, basic types and arithmetic expressions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Trace variables, basic types and arithmetic expressions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-values-expressions"
+    },
+    {
+      "key": "python-input-output",
+      "subject_key": "python",
+      "title": "Input and output",
+      "description": "Read text, convert types and produce exact documented output.",
+      "level": 1,
+      "learning_outcomes": [
+        "Read text, convert types and produce exact documented output."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Read text, convert types and produce exact documented output.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-input-output"
+    },
+    {
+      "key": "python-conditions",
+      "subject_key": "python",
+      "title": "Conditions and decisions",
+      "description": "Trace comparisons, Boolean expressions and branches.",
+      "level": 1,
+      "learning_outcomes": [
+        "Trace comparisons, Boolean expressions and branches."
+      ],
+      "prerequisites": [
+        "python-values-expressions"
+      ],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Trace comparisons, Boolean expressions and branches.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-conditions"
+    },
+    {
+      "key": "python-loops",
+      "subject_key": "python",
+      "title": "Loops and iteration",
+      "description": "Use loop bounds, accumulation and early exit correctly.",
+      "level": 1,
+      "learning_outcomes": [
+        "Use loop bounds, accumulation and early exit correctly."
+      ],
+      "prerequisites": [
+        "python-conditions"
+      ],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Use loop bounds, accumulation and early exit correctly.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-loops"
+    },
+    {
+      "key": "python-strings",
+      "subject_key": "python",
+      "title": "Strings",
+      "description": "Index, slice and transform text while checking empty inputs.",
+      "level": 1,
+      "learning_outcomes": [
+        "Index, slice and transform text while checking empty inputs."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Index, slice and transform text while checking empty inputs.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-strings"
+    },
+    {
+      "key": "python-collections",
+      "subject_key": "python",
+      "title": "Lists, tuples, dictionaries and sets",
+      "description": "Choose a collection and explain ordering, uniqueness and lookup.",
+      "level": 1,
+      "learning_outcomes": [
+        "Choose a collection and explain ordering, uniqueness and lookup."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Choose a collection and explain ordering, uniqueness and lookup.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-collections"
+    },
+    {
+      "key": "python-functions",
+      "subject_key": "python",
+      "title": "Functions",
+      "description": "Use parameters, return values and local scope in small functions.",
+      "level": 1,
+      "learning_outcomes": [
+        "Use parameters, return values and local scope in small functions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Use parameters, return values and local scope in small functions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-functions"
+    },
+    {
+      "key": "python-decomposition",
+      "subject_key": "python",
+      "title": "Decomposing problems",
+      "description": "Split a task into functions with explicit input and output contracts.",
+      "level": 2,
+      "learning_outcomes": [
+        "Split a task into functions with explicit input and output contracts."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Split a task into functions with explicit input and output contracts.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-decomposition"
+    },
+    {
+      "key": "python-mutation-aliasing",
+      "subject_key": "python",
+      "title": "Mutation and aliasing",
+      "description": "Predict changes when names refer to shared mutable values.",
+      "level": 2,
+      "learning_outcomes": [
+        "Predict changes when names refer to shared mutable values."
+      ],
+      "prerequisites": [
+        "python-collections"
+      ],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Predict changes when names refer to shared mutable values.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-mutation-aliasing"
+    },
+    {
+      "key": "python-comprehensions",
+      "subject_key": "python",
+      "title": "Comprehensions and built-ins",
+      "description": "Use comprehensions, enumerate, zip and sorting keys clearly.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use comprehensions, enumerate, zip and sorting keys clearly."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Use comprehensions, enumerate, zip and sorting keys clearly.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-comprehensions"
+    },
+    {
+      "key": "python-errors-debugging",
+      "subject_key": "python",
+      "title": "Exceptions and debugging",
+      "description": "Trace failures and distinguish handling from hiding an error.",
+      "level": 2,
+      "learning_outcomes": [
+        "Trace failures and distinguish handling from hiding an error."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Trace failures and distinguish handling from hiding an error.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-errors-debugging"
+    },
+    {
+      "key": "python-files-data",
+      "subject_key": "python",
+      "title": "Files, JSON and CSV",
+      "description": "Use context managers and parse small documented data formats safely.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use context managers and parse small documented data formats safely."
+      ],
+      "prerequisites": [
+        "python-errors-debugging"
+      ],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Use context managers and parse small documented data formats safely.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-files-data"
+    },
+    {
+      "key": "python-modules-environments",
+      "subject_key": "python",
+      "title": "Modules and environments",
+      "description": "Organise imports and explain packages and isolated environments.",
+      "level": 2,
+      "learning_outcomes": [
+        "Organise imports and explain packages and isolated environments."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Organise imports and explain packages and isolated environments.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-modules-environments"
+    },
+    {
+      "key": "python-classes",
+      "subject_key": "python",
+      "title": "Classes and objects",
+      "description": "Model small objects with clear responsibilities and state.",
+      "level": 2,
+      "learning_outcomes": [
+        "Model small objects with clear responsibilities and state."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Model small objects with clear responsibilities and state.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-classes"
+    },
+    {
+      "key": "python-testing",
+      "subject_key": "python",
+      "title": "Deterministic tests",
+      "description": "Check normal, boundary and error cases with repeatable tests.",
+      "level": 2,
+      "learning_outcomes": [
+        "Check normal, boundary and error cases with repeatable tests."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Check normal, boundary and error cases with repeatable tests.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-testing"
+    },
+    {
+      "key": "python-unfamiliar-code",
+      "subject_key": "python",
+      "title": "Reading unfamiliar code",
+      "description": "Trace a small codebase and explain data flow before editing it.",
+      "level": 3,
+      "learning_outcomes": [
+        "Trace a small codebase and explain data flow before editing it."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Trace a small codebase and explain data flow before editing it.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-unfamiliar-code"
+    },
+    {
+      "key": "python-iterators-generators",
+      "subject_key": "python",
+      "title": "Iterators and generators",
+      "description": "Explain lazy iteration and implement bounded iterable pipelines.",
+      "level": 3,
+      "learning_outcomes": [
+        "Explain lazy iteration and implement bounded iterable pipelines."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Explain lazy iteration and implement bounded iterable pipelines.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-iterators-generators"
+    },
+    {
+      "key": "python-typing-dataclasses",
+      "subject_key": "python",
+      "title": "Typing and data records",
+      "description": "Use practical type hints and dataclasses without treating hints as runtime checks.",
+      "level": 3,
+      "learning_outcomes": [
+        "Use practical type hints and dataclasses without treating hints as runtime checks."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Use practical type hints and dataclasses without treating hints as runtime checks.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-typing-dataclasses"
+    },
+    {
+      "key": "python-decorators-context",
+      "subject_key": "python",
+      "title": "Decorators and context managers",
+      "description": "Trace a simple wrapper and cleanup boundary.",
+      "level": 3,
+      "learning_outcomes": [
+        "Trace a simple wrapper and cleanup boundary."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Trace a simple wrapper and cleanup boundary.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-decorators-context"
+    },
+    {
+      "key": "python-collection-problems",
+      "subject_key": "python",
+      "title": "Intermediate collection problems",
+      "description": "Combine strings and collections with clear contracts and edge cases.",
+      "level": 3,
+      "learning_outcomes": [
+        "Combine strings and collections with clear contracts and edge cases."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Combine strings and collections with clear contracts and edge cases.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-collection-problems"
+    },
+    {
+      "key": "python-concurrency-awareness",
+      "subject_key": "python",
+      "title": "Concurrency awareness",
+      "description": "Distinguish threads, processes and async I/O and describe the GIL at a practical level.",
+      "level": 3,
+      "learning_outcomes": [
+        "Distinguish threads, processes and async I/O and describe the GIL at a practical level."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Distinguish threads, processes and async I/O and describe the GIL at a practical level.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/python/python-concurrency-awareness"
+    },
+    {
+      "key": "sql-postgresql-tables-keys",
+      "subject_key": "sql-postgresql",
+      "title": "Tables, rows and keys",
+      "description": "Explain relational tables, primary keys and foreign keys.",
+      "level": 1,
+      "learning_outcomes": [
+        "Explain relational tables, primary keys and foreign keys."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Explain relational tables, primary keys and foreign keys.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-tables-keys"
+    },
+    {
+      "key": "sql-postgresql-select-filter",
+      "subject_key": "sql-postgresql",
+      "title": "SELECT and filtering",
+      "description": "Choose columns and filter rows with explicit predicates.",
+      "level": 1,
+      "learning_outcomes": [
+        "Choose columns and filter rows with explicit predicates."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Choose columns and filter rows with explicit predicates.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-select-filter"
+    },
+    {
+      "key": "sql-postgresql-values-nulls",
+      "subject_key": "sql-postgresql",
+      "title": "Values, expressions and NULL",
+      "description": "Explain types, expressions and three-valued NULL logic.",
+      "level": 1,
+      "learning_outcomes": [
+        "Explain types, expressions and three-valued NULL logic."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Explain types, expressions and three-valued NULL logic.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-values-nulls"
+    },
+    {
+      "key": "sql-postgresql-ordering-limits",
+      "subject_key": "sql-postgresql",
+      "title": "Ordering and limits",
+      "description": "Use deterministic ORDER BY and LIMIT with explicit tie handling.",
+      "level": 1,
+      "learning_outcomes": [
+        "Use deterministic ORDER BY and LIMIT with explicit tie handling."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Use deterministic ORDER BY and LIMIT with explicit tie handling.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-ordering-limits"
+    },
+    {
+      "key": "sql-postgresql-aggregation-basics",
+      "subject_key": "sql-postgresql",
+      "title": "Basic aggregation",
+      "description": "Distinguish row counts, non-NULL counts and aggregate results.",
+      "level": 1,
+      "learning_outcomes": [
+        "Distinguish row counts, non-NULL counts and aggregate results."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 100,
+      "coverage_requirements": [
+        "Distinguish row counts, non-NULL counts and aggregate results.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-aggregation-basics"
+    },
+    {
+      "key": "sql-postgresql-joins",
+      "subject_key": "sql-postgresql",
+      "title": "Joins",
+      "description": "Predict inner and outer join results including duplicates and missing matches.",
+      "level": 2,
+      "learning_outcomes": [
+        "Predict inner and outer join results including duplicates and missing matches."
+      ],
+      "prerequisites": [
+        "sql-postgresql-tables-keys"
+      ],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Predict inner and outer join results including duplicates and missing matches.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-joins"
+    },
+    {
+      "key": "sql-postgresql-grouping-having",
+      "subject_key": "sql-postgresql",
+      "title": "Grouping and HAVING",
+      "description": "Choose grouping keys and distinguish WHERE from HAVING.",
+      "level": 2,
+      "learning_outcomes": [
+        "Choose grouping keys and distinguish WHERE from HAVING."
+      ],
+      "prerequisites": [
+        "sql-postgresql-aggregation-basics"
+      ],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Choose grouping keys and distinguish WHERE from HAVING.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-grouping-having"
+    },
+    {
+      "key": "sql-postgresql-subqueries",
+      "subject_key": "sql-postgresql",
+      "title": "Subqueries",
+      "description": "Use scalar and correlated subqueries with clear cardinality expectations.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use scalar and correlated subqueries with clear cardinality expectations."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Use scalar and correlated subqueries with clear cardinality expectations.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-subqueries"
+    },
+    {
+      "key": "sql-postgresql-ctes",
+      "subject_key": "sql-postgresql",
+      "title": "Common table expressions",
+      "description": "Break a query into readable named stages.",
+      "level": 2,
+      "learning_outcomes": [
+        "Break a query into readable named stages."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Break a query into readable named stages.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-ctes"
+    },
+    {
+      "key": "sql-postgresql-constraints",
+      "subject_key": "sql-postgresql",
+      "title": "Constraints and relationships",
+      "description": "Use uniqueness, checks and foreign keys to express data rules.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use uniqueness, checks and foreign keys to express data rules."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Use uniqueness, checks and foreign keys to express data rules.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-constraints"
+    },
+    {
+      "key": "sql-postgresql-data-modification",
+      "subject_key": "sql-postgresql",
+      "title": "Safe data modification",
+      "description": "Explain INSERT, UPDATE and DELETE with bounded predicates and rollback.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain INSERT, UPDATE and DELETE with bounded predicates and rollback."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Explain INSERT, UPDATE and DELETE with bounded predicates and rollback.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-data-modification"
+    },
+    {
+      "key": "sql-postgresql-transactions",
+      "subject_key": "sql-postgresql",
+      "title": "Transactions",
+      "description": "Explain atomicity, consistency, isolation and durability with simple examples.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain atomicity, consistency, isolation and durability with simple examples."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 100,
+      "coverage_requirements": [
+        "Explain atomicity, consistency, isolation and durability with simple examples.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-transactions"
+    },
+    {
+      "key": "sql-postgresql-window-functions",
+      "subject_key": "sql-postgresql",
+      "title": "Window functions",
+      "description": "Choose partitions, ordering and frames for ranking and running calculations.",
+      "level": 3,
+      "learning_outcomes": [
+        "Choose partitions, ordering and frames for ranking and running calculations."
+      ],
+      "prerequisites": [
+        "sql-postgresql-ordering-limits"
+      ],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Choose partitions, ordering and frames for ranking and running calculations.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-window-functions"
+    },
+    {
+      "key": "sql-postgresql-multi-table-queries",
+      "subject_key": "sql-postgresql",
+      "title": "Intermediate multi-table queries",
+      "description": "Combine joins, grouping and CTEs while checking cardinality.",
+      "level": 3,
+      "learning_outcomes": [
+        "Combine joins, grouping and CTEs while checking cardinality."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Combine joins, grouping and CTEs while checking cardinality.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-multi-table-queries"
+    },
+    {
+      "key": "sql-postgresql-null-duplicate-cases",
+      "subject_key": "sql-postgresql",
+      "title": "Duplicate, NULL and ordering edge cases",
+      "description": "Verify exact columns, duplicate-preserving rows and deterministic ordering.",
+      "level": 3,
+      "learning_outcomes": [
+        "Verify exact columns, duplicate-preserving rows and deterministic ordering."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Verify exact columns, duplicate-preserving rows and deterministic ordering.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-null-duplicate-cases"
+    },
+    {
+      "key": "sql-postgresql-indexes-explain",
+      "subject_key": "sql-postgresql",
+      "title": "Indexes and EXPLAIN",
+      "description": "Explain index tradeoffs and interpret a simple query plan.",
+      "level": 3,
+      "learning_outcomes": [
+        "Explain index tradeoffs and interpret a simple query plan."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Explain index tradeoffs and interpret a simple query plan.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-indexes-explain"
+    },
+    {
+      "key": "sql-postgresql-concurrent-transactions",
+      "subject_key": "sql-postgresql",
+      "title": "Concurrent transactions",
+      "description": "Recognise common isolation anomalies and retry boundaries.",
+      "level": 3,
+      "learning_outcomes": [
+        "Recognise common isolation anomalies and retry boundaries."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Recognise common isolation anomalies and retry boundaries.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-concurrent-transactions"
+    },
+    {
+      "key": "sql-postgresql-python-integration",
+      "subject_key": "sql-postgresql",
+      "title": "Python and PostgreSQL integration",
+      "description": "Explain parameterised queries and transaction handling without connecting to learner storage.",
+      "level": 3,
+      "learning_outcomes": [
+        "Explain parameterised queries and transaction handling without connecting to learner storage."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 100,
+      "coverage_requirements": [
+        "Explain parameterised queries and transaction handling without connecting to learner storage.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-python-integration"
+    },
+    {
+      "key": "dsa-problem-contracts",
+      "subject_key": "dsa",
+      "title": "Problem contracts and tracing",
+      "description": "State inputs, outputs, assumptions and small example traces.",
+      "level": 1,
+      "learning_outcomes": [
+        "State inputs, outputs, assumptions and small example traces."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 98,
+      "coverage_requirements": [
+        "State inputs, outputs, assumptions and small example traces.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-problem-contracts"
+    },
+    {
+      "key": "dsa-complexity",
+      "subject_key": "dsa",
+      "title": "Time and space complexity",
+      "description": "Compare bounded growth and distinguish auxiliary from input space.",
+      "level": 1,
+      "learning_outcomes": [
+        "Compare bounded growth and distinguish auxiliary from input space."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 98,
+      "coverage_requirements": [
+        "Compare bounded growth and distinguish auxiliary from input space.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-complexity"
+    },
+    {
+      "key": "dsa-arrays-strings",
+      "subject_key": "dsa",
+      "title": "Arrays and strings",
+      "description": "Traverse sequences and handle empty and boundary inputs.",
+      "level": 1,
+      "learning_outcomes": [
+        "Traverse sequences and handle empty and boundary inputs."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 98,
+      "coverage_requirements": [
+        "Traverse sequences and handle empty and boundary inputs.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-arrays-strings"
+    },
+    {
+      "key": "dsa-hashing-sets",
+      "subject_key": "dsa",
+      "title": "Hash maps and sets",
+      "description": "Use lookup and uniqueness to replace unnecessary repeated scans.",
+      "level": 1,
+      "learning_outcomes": [
+        "Use lookup and uniqueness to replace unnecessary repeated scans."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 98,
+      "coverage_requirements": [
+        "Use lookup and uniqueness to replace unnecessary repeated scans.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-hashing-sets"
+    },
+    {
+      "key": "dsa-search-sort",
+      "subject_key": "dsa",
+      "title": "Simple search and sorting",
+      "description": "Compare linear search and basic sorting behaviour.",
+      "level": 1,
+      "learning_outcomes": [
+        "Compare linear search and basic sorting behaviour."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 98,
+      "coverage_requirements": [
+        "Compare linear search and basic sorting behaviour.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-search-sort"
+    },
+    {
+      "key": "dsa-two-pointers",
+      "subject_key": "dsa",
+      "title": "Two pointers",
+      "description": "Identify a useful pointer invariant and update it safely.",
+      "level": 2,
+      "learning_outcomes": [
+        "Identify a useful pointer invariant and update it safely."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 98,
+      "coverage_requirements": [
+        "Identify a useful pointer invariant and update it safely.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-two-pointers"
+    },
+    {
+      "key": "dsa-sliding-window",
+      "subject_key": "dsa",
+      "title": "Sliding windows",
+      "description": "Maintain a bounded window and explain when it can shrink.",
+      "level": 2,
+      "learning_outcomes": [
+        "Maintain a bounded window and explain when it can shrink."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 98,
+      "coverage_requirements": [
+        "Maintain a bounded window and explain when it can shrink.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-sliding-window"
+    },
+    {
+      "key": "dsa-binary-search",
+      "subject_key": "dsa",
+      "title": "Binary search",
+      "description": "Define a search invariant and handle boundaries and missing values.",
+      "level": 2,
+      "learning_outcomes": [
+        "Define a search invariant and handle boundaries and missing values."
+      ],
+      "prerequisites": [
+        "dsa-search-sort"
+      ],
+      "estimated_minutes": 45,
+      "priority": 98,
+      "coverage_requirements": [
+        "Define a search invariant and handle boundaries and missing values.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-binary-search"
+    },
+    {
+      "key": "dsa-stacks-queues",
+      "subject_key": "dsa",
+      "title": "Stacks and queues",
+      "description": "Use LIFO and FIFO operations for matching and traversal tasks.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use LIFO and FIFO operations for matching and traversal tasks."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 98,
+      "coverage_requirements": [
+        "Use LIFO and FIFO operations for matching and traversal tasks.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-stacks-queues"
+    },
+    {
+      "key": "dsa-linked-lists",
+      "subject_key": "dsa",
+      "title": "Linked lists",
+      "description": "Trace pointer updates and preserve access to remaining nodes.",
+      "level": 2,
+      "learning_outcomes": [
+        "Trace pointer updates and preserve access to remaining nodes."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 98,
+      "coverage_requirements": [
+        "Trace pointer updates and preserve access to remaining nodes.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-linked-lists"
+    },
+    {
+      "key": "dsa-recursion",
+      "subject_key": "dsa",
+      "title": "Recursion",
+      "description": "State a base case and decreasing subproblem.",
+      "level": 2,
+      "learning_outcomes": [
+        "State a base case and decreasing subproblem."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 98,
+      "coverage_requirements": [
+        "State a base case and decreasing subproblem.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-recursion"
+    },
+    {
+      "key": "dsa-trees-traversal",
+      "subject_key": "dsa",
+      "title": "Trees and traversal",
+      "description": "Explain preorder, inorder, postorder and level order.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain preorder, inorder, postorder and level order."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 98,
+      "coverage_requirements": [
+        "Explain preorder, inorder, postorder and level order.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-trees-traversal"
+    },
+    {
+      "key": "dsa-sorting-applications",
+      "subject_key": "dsa",
+      "title": "Sorting applications",
+      "description": "Use ordering and merge ideas while accounting for complexity.",
+      "level": 2,
+      "learning_outcomes": [
+        "Use ordering and merge ideas while accounting for complexity."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 98,
+      "coverage_requirements": [
+        "Use ordering and merge ideas while accounting for complexity.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-sorting-applications"
+    },
+    {
+      "key": "dsa-heaps-top-k",
+      "subject_key": "dsa",
+      "title": "Heaps and top-k",
+      "description": "Maintain a useful heap invariant and choose a bounded heap.",
+      "level": 3,
+      "learning_outcomes": [
+        "Maintain a useful heap invariant and choose a bounded heap."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 98,
+      "coverage_requirements": [
+        "Maintain a useful heap invariant and choose a bounded heap.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-heaps-top-k"
+    },
+    {
+      "key": "dsa-graphs-bfs-dfs",
+      "subject_key": "dsa",
+      "title": "Graphs, BFS and DFS",
+      "description": "Represent edges and track visited nodes through components and cycles.",
+      "level": 3,
+      "learning_outcomes": [
+        "Represent edges and track visited nodes through components and cycles."
+      ],
+      "prerequisites": [
+        "dsa-stacks-queues"
+      ],
+      "estimated_minutes": 60,
+      "priority": 98,
+      "coverage_requirements": [
+        "Represent edges and track visited nodes through components and cycles.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-graphs-bfs-dfs"
+    },
+    {
+      "key": "dsa-backtracking",
+      "subject_key": "dsa",
+      "title": "Elementary backtracking",
+      "description": "Explore choices and undo state while pruning invalid branches.",
+      "level": 3,
+      "learning_outcomes": [
+        "Explore choices and undo state while pruning invalid branches."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 98,
+      "coverage_requirements": [
+        "Explore choices and undo state while pruning invalid branches.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-backtracking"
+    },
+    {
+      "key": "dsa-dynamic-programming",
+      "subject_key": "dsa",
+      "title": "Elementary dynamic programming",
+      "description": "Define state, recurrence, base cases and an evaluation order.",
+      "level": 3,
+      "learning_outcomes": [
+        "Define state, recurrence, base cases and an evaluation order."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 98,
+      "coverage_requirements": [
+        "Define state, recurrence, base cases and an evaluation order.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-dynamic-programming"
+    },
+    {
+      "key": "dsa-combined-patterns",
+      "subject_key": "dsa",
+      "title": "Combining patterns",
+      "description": "Choose among hashing, sorting, windows and traversal in unfamiliar contexts.",
+      "level": 3,
+      "learning_outcomes": [
+        "Choose among hashing, sorting, windows and traversal in unfamiliar contexts."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 98,
+      "coverage_requirements": [
+        "Choose among hashing, sorting, windows and traversal in unfamiliar contexts.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-combined-patterns"
+    },
+    {
+      "key": "dsa-correctness-edge-cases",
+      "subject_key": "dsa",
+      "title": "Correctness and independent transfer",
+      "description": "Justify invariants, test edge cases and solve a new bounded problem independently.",
+      "level": 3,
+      "learning_outcomes": [
+        "Justify invariants, test edge cases and solve a new bounded problem independently."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 98,
+      "coverage_requirements": [
+        "Justify invariants, test edge cases and solve a new bounded problem independently.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "coding",
+      "content_key": "forge/placement-foundations/dsa/dsa-correctness-edge-cases"
+    },
+    {
+      "key": "system-design-requirements",
+      "subject_key": "system-design",
+      "title": "Requirements and boundaries",
+      "description": "Turn a small scenario into functional requirements and explicit limits.",
+      "level": 1,
+      "learning_outcomes": [
+        "Turn a small scenario into functional requirements and explicit limits."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Turn a small scenario into functional requirements and explicit limits.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-requirements"
+    },
+    {
+      "key": "system-design-client-server",
+      "subject_key": "system-design",
+      "title": "Client and server",
+      "description": "Trace a request across a client, service and storage boundary.",
+      "level": 1,
+      "learning_outcomes": [
+        "Trace a request across a client, service and storage boundary."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Trace a request across a client, service and storage boundary.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-client-server"
+    },
+    {
+      "key": "system-design-http-apis",
+      "subject_key": "system-design",
+      "title": "HTTP and APIs",
+      "description": "Explain methods, status codes and request/response contracts.",
+      "level": 1,
+      "learning_outcomes": [
+        "Explain methods, status codes and request/response contracts."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Explain methods, status codes and request/response contracts.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-http-apis"
+    },
+    {
+      "key": "system-design-database-roles",
+      "subject_key": "system-design",
+      "title": "Database roles",
+      "description": "Choose simple relational storage and identify ownership of data.",
+      "level": 1,
+      "learning_outcomes": [
+        "Choose simple relational storage and identify ownership of data."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Choose simple relational storage and identify ownership of data.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-database-roles"
+    },
+    {
+      "key": "system-design-data-flow",
+      "subject_key": "system-design",
+      "title": "Data flow diagrams",
+      "description": "Draw and explain a small single-service application.",
+      "level": 1,
+      "learning_outcomes": [
+        "Draw and explain a small single-service application."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Draw and explain a small single-service application.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-data-flow"
+    },
+    {
+      "key": "system-design-schema-api-design",
+      "subject_key": "system-design",
+      "title": "Schema and API choices",
+      "description": "Connect entity relationships to safe API operations and pagination.",
+      "level": 2,
+      "learning_outcomes": [
+        "Connect entity relationships to safe API operations and pagination."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Connect entity relationships to safe API operations and pagination.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-schema-api-design"
+    },
+    {
+      "key": "system-design-caching",
+      "subject_key": "system-design",
+      "title": "Caching",
+      "description": "Explain cache keys, invalidation and stale data tradeoffs.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain cache keys, invalidation and stale data tradeoffs."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Explain cache keys, invalidation and stale data tradeoffs.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-caching"
+    },
+    {
+      "key": "system-design-queues",
+      "subject_key": "system-design",
+      "title": "Queues and background work",
+      "description": "Separate asynchronous work and consider retries and duplicate delivery.",
+      "level": 2,
+      "learning_outcomes": [
+        "Separate asynchronous work and consider retries and duplicate delivery."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Separate asynchronous work and consider retries and duplicate delivery.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-queues"
+    },
+    {
+      "key": "system-design-timeouts-retries",
+      "subject_key": "system-design",
+      "title": "Timeouts and retries",
+      "description": "Choose bounded retry and idempotency behaviour for failures.",
+      "level": 2,
+      "learning_outcomes": [
+        "Choose bounded retry and idempotency behaviour for failures."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Choose bounded retry and idempotency behaviour for failures.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-timeouts-retries"
+    },
+    {
+      "key": "system-design-authentication",
+      "subject_key": "system-design",
+      "title": "Authentication and authorisation",
+      "description": "Distinguish identity, permissions, secrets and session boundaries.",
+      "level": 2,
+      "learning_outcomes": [
+        "Distinguish identity, permissions, secrets and session boundaries."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Distinguish identity, permissions, secrets and session boundaries.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-authentication"
+    },
+    {
+      "key": "system-design-capacity",
+      "subject_key": "system-design",
+      "title": "Basic capacity estimates",
+      "description": "Estimate requests, storage and bandwidth with stated assumptions.",
+      "level": 3,
+      "learning_outcomes": [
+        "Estimate requests, storage and bandwidth with stated assumptions."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Estimate requests, storage and bandwidth with stated assumptions.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-capacity"
+    },
+    {
+      "key": "system-design-reliability",
+      "subject_key": "system-design",
+      "title": "Reliability and recovery",
+      "description": "Identify failure modes and explain observability and recovery.",
+      "level": 3,
+      "learning_outcomes": [
+        "Identify failure modes and explain observability and recovery."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Identify failure modes and explain observability and recovery.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-reliability"
+    },
+    {
+      "key": "system-design-security-tradeoffs",
+      "subject_key": "system-design",
+      "title": "Security and practical tradeoffs",
+      "description": "Explain a simple threat boundary and justify proportionate protection.",
+      "level": 3,
+      "learning_outcomes": [
+        "Explain a simple threat boundary and justify proportionate protection."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Explain a simple threat boundary and justify proportionate protection.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-security-tradeoffs"
+    },
+    {
+      "key": "system-design-small-app-design",
+      "subject_key": "system-design",
+      "title": "Designing a small application",
+      "description": "Compare simple designs against requirements without unnecessary infrastructure.",
+      "level": 3,
+      "learning_outcomes": [
+        "Compare simple designs against requirements without unnecessary infrastructure."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Compare simple designs against requirements without unnecessary infrastructure.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-small-app-design"
+    },
+    {
+      "key": "system-design-design-explanation",
+      "subject_key": "system-design",
+      "title": "Explaining decisions",
+      "description": "Communicate data flow, limitations and alternative design choices.",
+      "level": 3,
+      "learning_outcomes": [
+        "Communicate data flow, limitations and alternative design choices."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Communicate data flow, limitations and alternative design choices.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/system-design/system-design-design-explanation"
+    },
+    {
+      "key": "ai-fundamentals-ai-ml-dl",
+      "subject_key": "ai-fundamentals",
+      "title": "AI, ML and deep learning",
+      "description": "Distinguish AI, machine learning and deep learning with concrete examples.",
+      "level": 1,
+      "learning_outcomes": [
+        "Distinguish AI, machine learning and deep learning with concrete examples."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Distinguish AI, machine learning and deep learning with concrete examples.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-ai-ml-dl"
+    },
+    {
+      "key": "ai-fundamentals-neural-networks",
+      "subject_key": "ai-fundamentals",
+      "title": "Neural-network intuition",
+      "description": "Explain weights, layers and learning as a simplified model.",
+      "level": 1,
+      "learning_outcomes": [
+        "Explain weights, layers and learning as a simplified model."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Explain weights, layers and learning as a simplified model.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-neural-networks"
+    },
+    {
+      "key": "ai-fundamentals-training-inference",
+      "subject_key": "ai-fundamentals",
+      "title": "Training and inference",
+      "description": "Separate fitting a model from using it and explain data splits.",
+      "level": 1,
+      "learning_outcomes": [
+        "Separate fitting a model from using it and explain data splits."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Separate fitting a model from using it and explain data splits.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-training-inference"
+    },
+    {
+      "key": "ai-fundamentals-generative-llms",
+      "subject_key": "ai-fundamentals",
+      "title": "Generative AI and LLMs",
+      "description": "Describe generation, language models and prediction without claiming understanding.",
+      "level": 1,
+      "learning_outcomes": [
+        "Describe generation, language models and prediction without claiming understanding."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Describe generation, language models and prediction without claiming understanding.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-generative-llms"
+    },
+    {
+      "key": "ai-fundamentals-limitations-safety",
+      "subject_key": "ai-fundamentals",
+      "title": "Model limitations and responsible use",
+      "description": "Recognise hallucinations, bias, privacy risks and the need for evaluation.",
+      "level": 1,
+      "learning_outcomes": [
+        "Recognise hallucinations, bias, privacy risks and the need for evaluation."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 80,
+      "coverage_requirements": [
+        "Recognise hallucinations, bias, privacy risks and the need for evaluation.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-limitations-safety"
+    },
+    {
+      "key": "ai-fundamentals-tokens-context",
+      "subject_key": "ai-fundamentals",
+      "title": "Tokens and context windows",
+      "description": "Explain tokenisation, context limits and loss of relevant context.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain tokenisation, context limits and loss of relevant context."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Explain tokenisation, context limits and loss of relevant context.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-tokens-context"
+    },
+    {
+      "key": "ai-fundamentals-prompting-outputs",
+      "subject_key": "ai-fundamentals",
+      "title": "Prompting and structured outputs",
+      "description": "State instructions and validate output structure without assuming correctness.",
+      "level": 2,
+      "learning_outcomes": [
+        "State instructions and validate output structure without assuming correctness."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "State instructions and validate output structure without assuming correctness.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-prompting-outputs"
+    },
+    {
+      "key": "ai-fundamentals-embeddings-similarity",
+      "subject_key": "ai-fundamentals",
+      "title": "Embeddings and similarity",
+      "description": "Explain vector representations and compare similarity on fixed examples.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain vector representations and compare similarity on fixed examples."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Explain vector representations and compare similarity on fixed examples.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-embeddings-similarity"
+    },
+    {
+      "key": "ai-fundamentals-chunking-retrieval",
+      "subject_key": "ai-fundamentals",
+      "title": "Chunking and retrieval",
+      "description": "Choose chunk boundaries and retrieve relevant local passages.",
+      "level": 2,
+      "learning_outcomes": [
+        "Choose chunk boundaries and retrieve relevant local passages."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Choose chunk boundaries and retrieve relevant local passages.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-chunking-retrieval"
+    },
+    {
+      "key": "ai-fundamentals-vector-databases",
+      "subject_key": "ai-fundamentals",
+      "title": "Vector databases",
+      "description": "Explain indexing, metadata filters and retrieval tradeoffs.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain indexing, metadata filters and retrieval tradeoffs."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Explain indexing, metadata filters and retrieval tradeoffs.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-vector-databases"
+    },
+    {
+      "key": "ai-fundamentals-rag-pipelines",
+      "subject_key": "ai-fundamentals",
+      "title": "RAG pipelines",
+      "description": "Trace ingestion, retrieval and grounded answer construction.",
+      "level": 2,
+      "learning_outcomes": [
+        "Trace ingestion, retrieval and grounded answer construction."
+      ],
+      "prerequisites": [
+        "ai-fundamentals-chunking-retrieval",
+        "ai-fundamentals-embeddings-similarity"
+      ],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Trace ingestion, retrieval and grounded answer construction.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-rag-pipelines"
+    },
+    {
+      "key": "ai-fundamentals-citations-evaluation",
+      "subject_key": "ai-fundamentals",
+      "title": "Citations and evaluation",
+      "description": "Check source support, retrieval quality and hallucinations using recorded outputs.",
+      "level": 2,
+      "learning_outcomes": [
+        "Check source support, retrieval quality and hallucinations using recorded outputs."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 80,
+      "coverage_requirements": [
+        "Check source support, retrieval quality and hallucinations using recorded outputs.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-citations-evaluation"
+    },
+    {
+      "key": "ai-fundamentals-tool-calling",
+      "subject_key": "ai-fundamentals",
+      "title": "Tool calling",
+      "description": "Validate structured tool arguments and separate proposal from execution.",
+      "level": 3,
+      "learning_outcomes": [
+        "Validate structured tool arguments and separate proposal from execution."
+      ],
+      "prerequisites": [
+        "ai-fundamentals-prompting-outputs"
+      ],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Validate structured tool arguments and separate proposal from execution.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-tool-calling"
+    },
+    {
+      "key": "ai-fundamentals-agent-workflows",
+      "subject_key": "ai-fundamentals",
+      "title": "Agent workflows and planning",
+      "description": "Trace a bounded plan and choose a deterministic stopping condition.",
+      "level": 3,
+      "learning_outcomes": [
+        "Trace a bounded plan and choose a deterministic stopping condition."
+      ],
+      "prerequisites": [
+        "ai-fundamentals-tool-calling"
+      ],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Trace a bounded plan and choose a deterministic stopping condition.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-agent-workflows"
+    },
+    {
+      "key": "ai-fundamentals-state-memory",
+      "subject_key": "ai-fundamentals",
+      "title": "Agent state and memory",
+      "description": "Distinguish working state, stored history and retrieved memory.",
+      "level": 3,
+      "learning_outcomes": [
+        "Distinguish working state, stored history and retrieved memory."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Distinguish working state, stored history and retrieved memory.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-state-memory"
+    },
+    {
+      "key": "ai-fundamentals-human-approvals",
+      "subject_key": "ai-fundamentals",
+      "title": "Human approvals",
+      "description": "Identify actions requiring approval and preserve explicit boundaries.",
+      "level": 3,
+      "learning_outcomes": [
+        "Identify actions requiring approval and preserve explicit boundaries."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Identify actions requiring approval and preserve explicit boundaries.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-human-approvals"
+    },
+    {
+      "key": "ai-fundamentals-reliability-errors",
+      "subject_key": "ai-fundamentals",
+      "title": "Reliability and error handling",
+      "description": "Handle invalid outputs, timeouts, retries and budget limits.",
+      "level": 3,
+      "learning_outcomes": [
+        "Handle invalid outputs, timeouts, retries and budget limits."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Handle invalid outputs, timeouts, retries and budget limits.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-reliability-errors"
+    },
+    {
+      "key": "ai-fundamentals-architecture-decisions",
+      "subject_key": "ai-fundamentals",
+      "title": "Introductory RAG and agent architecture",
+      "description": "Compare simple retrieval and tool workflow designs against a stated need.",
+      "level": 3,
+      "learning_outcomes": [
+        "Compare simple retrieval and tool workflow designs against a stated need."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Compare simple retrieval and tool workflow designs against a stated need.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-architecture-decisions"
+    },
+    {
+      "key": "ai-fundamentals-failure-analysis",
+      "subject_key": "ai-fundamentals",
+      "title": "Practical failure analysis",
+      "description": "Classify recorded retrieval, reasoning and tool failures without a live model.",
+      "level": 3,
+      "learning_outcomes": [
+        "Classify recorded retrieval, reasoning and tool failures without a live model."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 80,
+      "coverage_requirements": [
+        "Classify recorded retrieval, reasoning and tool failures without a live model.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "objective",
+      "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-failure-analysis"
+    },
+    {
+      "key": "interview-communication-introductions",
+      "subject_key": "interview-communication",
+      "title": "Introducing yourself",
+      "description": "Give a concise, honest introduction suited to the conversation.",
+      "level": 1,
+      "learning_outcomes": [
+        "Give a concise, honest introduction suited to the conversation."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Give a concise, honest introduction suited to the conversation.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-introductions"
+    },
+    {
+      "key": "interview-communication-project-basics",
+      "subject_key": "interview-communication",
+      "title": "Explaining a simple project",
+      "description": "Describe a real project goal, your contribution and a concrete outcome.",
+      "level": 1,
+      "learning_outcomes": [
+        "Describe a real project goal, your contribution and a concrete outcome."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Describe a real project goal, your contribution and a concrete outcome.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-project-basics"
+    },
+    {
+      "key": "interview-communication-listening-clarifying",
+      "subject_key": "interview-communication",
+      "title": "Listening and clarification",
+      "description": "Ask useful questions and restate constraints before answering.",
+      "level": 1,
+      "learning_outcomes": [
+        "Ask useful questions and restate constraints before answering."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Ask useful questions and restate constraints before answering.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-listening-clarifying"
+    },
+    {
+      "key": "interview-communication-approach-explanation",
+      "subject_key": "interview-communication",
+      "title": "Explaining an approach",
+      "description": "Organise a technical explanation into clear, checkable steps.",
+      "level": 1,
+      "learning_outcomes": [
+        "Organise a technical explanation into clear, checkable steps."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Organise a technical explanation into clear, checkable steps.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-approach-explanation"
+    },
+    {
+      "key": "interview-communication-professional-communication",
+      "subject_key": "interview-communication",
+      "title": "Professional communication",
+      "description": "Write a respectful request or update for a stated audience.",
+      "level": 1,
+      "learning_outcomes": [
+        "Write a respectful request or update for a stated audience."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 30,
+      "priority": 90,
+      "coverage_requirements": [
+        "Write a respectful request or update for a stated audience.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-professional-communication"
+    },
+    {
+      "key": "interview-communication-behavioral-stories",
+      "subject_key": "interview-communication",
+      "title": "Structured behavioural stories",
+      "description": "Describe a real situation, your actions and evidence of the outcome.",
+      "level": 2,
+      "learning_outcomes": [
+        "Describe a real situation, your actions and evidence of the outcome."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Describe a real situation, your actions and evidence of the outcome.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-behavioral-stories"
+    },
+    {
+      "key": "interview-communication-project-tradeoffs",
+      "subject_key": "interview-communication",
+      "title": "Project decisions and tradeoffs",
+      "description": "Explain alternatives and why your choice met the actual constraints.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain alternatives and why your choice met the actual constraints."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Explain alternatives and why your choice met the actual constraints.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-project-tradeoffs"
+    },
+    {
+      "key": "interview-communication-bug-test-stories",
+      "subject_key": "interview-communication",
+      "title": "Bugs and testing stories",
+      "description": "Explain investigation, a fix and how you verified it.",
+      "level": 2,
+      "learning_outcomes": [
+        "Explain investigation, a fix and how you verified it."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Explain investigation, a fix and how you verified it.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-bug-test-stories"
+    },
+    {
+      "key": "interview-communication-think-aloud-coding",
+      "subject_key": "interview-communication",
+      "title": "Think-aloud coding",
+      "description": "State an invariant, code a solution and check examples while speaking.",
+      "level": 2,
+      "learning_outcomes": [
+        "State an invariant, code a solution and check examples while speaking."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "State an invariant, code a solution and check examples while speaking.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-think-aloud-coding"
+    },
+    {
+      "key": "interview-communication-written-answers",
+      "subject_key": "interview-communication",
+      "title": "Concise written answers",
+      "description": "Answer the question directly and state uncertainty without inventing experience.",
+      "level": 2,
+      "learning_outcomes": [
+        "Answer the question directly and state uncertainty without inventing experience."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 45,
+      "priority": 90,
+      "coverage_requirements": [
+        "Answer the question directly and state uncertainty without inventing experience.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-written-answers"
+    },
+    {
+      "key": "interview-communication-technical-mocks",
+      "subject_key": "interview-communication",
+      "title": "Mixed technical mock structure",
+      "description": "Understand objective coding, SQL and concept sections without assuming a new test engine exists.",
+      "level": 3,
+      "learning_outcomes": [
+        "Understand objective coding, SQL and concept sections without assuming a new test engine exists."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Understand objective coding, SQL and concept sections without assuming a new test engine exists.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-technical-mocks"
+    },
+    {
+      "key": "interview-communication-follow-ups",
+      "subject_key": "interview-communication",
+      "title": "Handling follow-ups",
+      "description": "Clarify a challenge and explain what evidence would change your answer.",
+      "level": 3,
+      "learning_outcomes": [
+        "Clarify a challenge and explain what evidence would change your answer."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Clarify a challenge and explain what evidence would change your answer.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-follow-ups"
+    },
+    {
+      "key": "interview-communication-design-discussion",
+      "subject_key": "interview-communication",
+      "title": "Project and design discussion",
+      "description": "Explain a practical architecture and defend bounded tradeoffs.",
+      "level": 3,
+      "learning_outcomes": [
+        "Explain a practical architecture and defend bounded tradeoffs."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Explain a practical architecture and defend bounded tradeoffs.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-design-discussion"
+    },
+    {
+      "key": "interview-communication-reflection",
+      "subject_key": "interview-communication",
+      "title": "Reflecting on evidence",
+      "description": "Review performance against a static rubric without fabricating behavioural scores.",
+      "level": 3,
+      "learning_outcomes": [
+        "Review performance against a static rubric without fabricating behavioural scores."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Review performance against a static rubric without fabricating behavioural scores.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-reflection"
+    },
+    {
+      "key": "interview-communication-uncertainty-next-steps",
+      "subject_key": "interview-communication",
+      "title": "Uncertainty and next steps",
+      "description": "Acknowledge limits and propose an honest verification step.",
+      "level": 3,
+      "learning_outcomes": [
+        "Acknowledge limits and propose an honest verification step."
+      ],
+      "prerequisites": [],
+      "estimated_minutes": 60,
+      "priority": 90,
+      "coverage_requirements": [
+        "Acknowledge limits and propose an honest verification step.",
+        "Worked example with stated assumptions, reviewed explanation, progressive practice and checked answers."
+      ],
+      "assessment_route": "reflection",
+      "content_key": "forge/placement-foundations/interview-communication/interview-communication-uncertainty-next-steps"
+    }
+  ]
+}

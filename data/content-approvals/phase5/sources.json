@@ -1,0 +1,114 @@
+{
+  "format_version": 1,
+  "registered_explicit_urls_only": true,
+  "sources": [
+    {
+      "subject": "quantitative-aptitude",
+      "source_id": "openstax-arithmetic",
+      "title": "OpenStax Prealgebra 2e order of operations",
+      "url": "https://openstax.org/books/prealgebra-2e/pages/2-1-use-the-language-of-algebra",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    },
+    {
+      "subject": "logical-reasoning",
+      "source_id": "openstax-logic",
+      "title": "OpenStax College Algebra 2e sequences",
+      "url": "https://openstax.org/books/college-algebra-2e/pages/9-1-sequences-and-their-notations",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    },
+    {
+      "subject": "verbal-english",
+      "source_id": "purdue-sentences",
+      "title": "Purdue OWL sentence structure",
+      "url": "https://owl.purdue.edu/owl/general_writing/academic_writing/sentence_variety/sentence_types.html",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    },
+    {
+      "subject": "python",
+      "source_id": "python-tutorial",
+      "title": "Python 3.12 tutorial",
+      "url": "https://docs.python.org/3.12/tutorial/introduction.html",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    },
+    {
+      "subject": "sql-postgresql",
+      "source_id": "postgresql-tables",
+      "title": "PostgreSQL 18 constraints",
+      "url": "https://www.postgresql.org/docs/18/ddl-constraints.html",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    },
+    {
+      "subject": "dsa",
+      "source_id": "mit-algorithms",
+      "title": "MIT Introduction to Algorithms",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    },
+    {
+      "subject": "system-design",
+      "source_id": "nasa-requirements",
+      "title": "NASA Systems Engineering Handbook",
+      "url": "https://www.nasa.gov/reference/systems-engineering-handbook/",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    },
+    {
+      "subject": "ai-fundamentals",
+      "source_id": "google-ml-intro",
+      "title": "Google Introduction to Machine Learning",
+      "url": "https://developers.google.com/machine-learning/intro-to-ml/what-is-ml",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    },
+    {
+      "subject": "interview-communication",
+      "source_id": "uk-interviews",
+      "title": "National Careers Service interview advice",
+      "url": "https://nationalcareers.service.gov.uk/careers-advice/interview-advice",
+      "usage": "factual_reference",
+      "redistribution_permission": "not_claimed; original text only",
+      "upstream_revision": null,
+      "status": "resolved",
+      "checked_on": "2026-10-22",
+      "verification": "Public primary-publisher page checked; factual reference only; human claim/coverage review pending"
+    }
+  ]
+}

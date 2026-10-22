@@ -1,0 +1,29 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "0dd1db4e014fe140bb3630dc6c7a2c0b7a172fbb955b99478d62c9c01fba6e5c",
+  "payload_sha256": "ce65f97730e7672503158491e3c39a67217bc5111557fcf9ac309215656cf555",
+  "coverage_sha256": "61766a7c0c3ecc8e5038b3e173b33fd24996ac3c8cf3607f847f988fbefb89e1",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "bfb769444e8d23c5c89200f3c9970e06294c69875c8d94d4d054013625f89d8e"
+  },
+  "coverage": [
+    {
+      "id": "ai-fundamentals-ai-ml-dl",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

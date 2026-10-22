@@ -16,7 +16,9 @@ The nine-subject, three-level scope contains 157 planned topics. It is an outlin
 - Practice is capped at 79, clean transfer at 89, and qualified delayed recall is needed for 90+. Weak recall can lower mastery. Coding tracks need independent coding evidence. New qualifying approved Arena solves contribute once; ambiguous old Arena events are preserved without inferred credit.
 - Objective interviews snapshot static items, exact revisions, fixed competencies and weights. Feedback is deferred until completion. Communication/project rehearsal stores written reflection with authored rubrics/examples and no automatic correctness score or technical mastery credit. Historical model-era interviews/reports remain readable without fabricated continuation.
 
-This is a personal local assessment system, not secure remote proctoring. Runtime provider imports, model settings, API-key requirements and model SDK dependencies have been removed. Complete browser/network-denial and installed offline release verification is deferred to the final combined phase; these changes alone are not a full offline-release certification.
+This is a personal local assessment system, not secure remote proctoring. Runtime provider imports, model settings, API-key requirements and model SDK dependencies have been removed. Phase 5 adds fixed timed subject/level/mixed/coding tests, saved drafts/deadlines, and a timezone-aware daily planner with 5/6/8-hour net targets. Plans preserve completed/skipped work and leave unavailable content unallocated. Tests never award technical mastery; detailed feedback waits until completion.
+
+The current authoring batch contains nine lesson candidates and nine validated assessment pools, all awaiting independent human review. **148 of 157 planned topics remain unauthored; no new Placement Foundations content is published.** See the [implementation report](docs/forge-v1/PHASE5_IMPLEMENTATION_REPORT.md), [all-topic inventory](docs/forge-v1/FINAL_CONTENT_COVERAGE.md), [release checklist](docs/forge-v1/FINAL_RELEASE_CHECKLIST.md) and [limitations](docs/forge-v1/KNOWN_LIMITATIONS.md).
 
 ## Setup
 
@@ -33,7 +35,7 @@ From `apps/api`, start the local app:
 python -m uvicorn app.main:app --host 127.0.0.1 --port 18100
 ```
 
-No model key or Google SDK is needed. SQL submission verification also needs the installed Node/PGlite files. Existing Windows launchers remain in the repository; their final packaging and process-safety verification belongs to the final combined phase and was not run here.
+No model key or Google SDK is needed. SQL submission verification also needs the installed Node/PGlite files. On Windows, `Open Forge.bat` builds no assets: install dependencies and build first. `Close Forge.bat` stops only the verified owned process. Launchers use process creation time, executable, exact command digest, owner identity and a per-runtime mutex; unverified stale state is quarantined. An isolated runtime requires an explicit database path. Never point verification at your learner database.
 
 Relative data/content settings in `apps/api/.env.example` are anchored to the repository. Startup applies numbered, checksum-verified migrations and backs up populated file databases before upgrades. Existing active curriculum selections are preserved. Do not delete the learner database or immutable snapshot store to upgrade.
 
@@ -43,7 +45,7 @@ The curriculum page provides edition/subject/level navigation and an explicit Pl
 
 The content registry distinguishes historical baselines from effective reviewed releases. Registration or structural validation is not editorial approval. New lessons, assessment bundles and Arena revisions use digest-bound validation, independent human review and exact confirmed-graph publication. See [publication workflow](data/content-approvals/README.md), [assessment pool contracts](data/assessment-pools/README.md), and [teaching checklist](docs/forge-v1/TEACHING_QUALITY_CHECKLIST.md).
 
-No new question bank or lesson was approved as part of the assessment-engine work. Corrected Two Sum 1.0.1 remains awaiting independent review/publication. Legacy adaptation notices and provenance gaps remain facts, not silently reapproved originals.
+No new question bank or lesson has been human-approved by this work. Review packets are in `data/content-approvals/phase5/review/`; validation is not editorial approval. Corrected Two Sum 1.0.1 remains awaiting independent review/publication. Legacy adaptation notices and provenance gaps remain facts, not silently reapproved originals.
 
 ## Verification
 

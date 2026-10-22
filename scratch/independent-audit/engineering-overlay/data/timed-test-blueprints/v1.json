@@ -1,0 +1,9 @@
+{
+  "format_version": 1,
+  "templates": {
+    "subject": {"id":"subject-v1","version":"1","title":"Forge subject practice test","question_count":3,"allowed_seconds":900,"negative_mark":0,"slots":[{"subject":"$subject","count":3,"weight":1}]},
+    "level": {"id":"level-v1","version":"1","title":"Forge level practice test","question_count":6,"allowed_seconds":1800,"negative_mark":0,"slots":[{"subject":"*","count":6,"weight":1}]},
+    "mixed": {"id":"mixed-v1","version":"1","title":"Forge mixed placement practice","question_count":6,"allowed_seconds":1800,"negative_mark":0.25,"slots":[{"subject":"quantitative-aptitude","count":1,"weight":1},{"subject":"logical-reasoning","count":1,"weight":1},{"subject":"verbal-english","count":1,"weight":1},{"subject":"python","count":1,"weight":1},{"subject":"sql-postgresql","count":1,"weight":1},{"subject":"dsa","count":1,"weight":1}]},
+    "coding": {"id":"coding-v1","version":"1","title":"Forge Python, SQL and DSA coding assessment","question_count":3,"allowed_seconds":2700,"negative_mark":0,"coding_only":true,"slots":[{"subject":"python","count":1,"weight":1},{"subject":"sql-postgresql","count":1,"weight":1},{"subject":"dsa","count":1,"weight":1}]}
+  }
+}

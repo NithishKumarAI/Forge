@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+*.db
+*.sqlite3
+node_modules/
+dist/
+.vite/
+coverage/
+*.tsbuildinfo*
+.DS_Store
+data/source-cache/
+*.candidate.json
+.runtime/
+
+# Local immutable content copies and learner database backups
+apps/api/data/content-snapshots/
+apps/api/data/db-backups/

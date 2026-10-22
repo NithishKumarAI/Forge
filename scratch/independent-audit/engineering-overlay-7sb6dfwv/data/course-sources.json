@@ -1,0 +1,326 @@
+{
+  "python": [
+    {
+      "id": "python-official-tutorial",
+      "name": "The Python Tutorial",
+      "base_url": "https://docs.python.org/3/tutorial/",
+      "source_type": "official_docs",
+      "category": "authoritative",
+      "enabled": true,
+      "allowed_paths": [
+        "/3/tutorial/",
+        "/3/library/",
+        "/3/reference/",
+        "/3/glossary.html"
+      ],
+      "license_note": "Python documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 100
+    },
+    {
+      "id": "python-language-reference",
+      "name": "Python Language Reference",
+      "base_url": "https://docs.python.org/3/reference/",
+      "source_type": "official_docs",
+      "category": "authoritative",
+      "enabled": true,
+      "allowed_paths": [
+        "/3/reference/"
+      ],
+      "license_note": "Python documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 90
+    },
+    {
+      "id": "python-stdlib-docs",
+      "name": "Python Standard Library",
+      "base_url": "https://docs.python.org/3/library/",
+      "source_type": "official_docs",
+      "category": "authoritative",
+      "enabled": true,
+      "allowed_paths": [
+        "/3/library/"
+      ],
+      "license_note": "Python documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 85
+    },
+    {
+      "id": "python-howto",
+      "name": "Python HOWTOs",
+      "base_url": "https://docs.python.org/3/howto/",
+      "source_type": "official_docs",
+      "category": "authoritative",
+      "enabled": true,
+      "allowed_paths": [
+        "/3/howto/"
+      ],
+      "license_note": "Python documentation; attribution retained.",
+      "priority": 80
+    },
+    {
+      "id": "exercism-python",
+      "name": "Exercism Python Track",
+      "base_url": "https://exercism.org/tracks/python/",
+      "source_type": "open_educational",
+      "category": "open_licensed",
+      "enabled": true,
+      "allowed_paths": [
+        "/tracks/python/"
+      ],
+      "license_note": "MIT License. Copyright Exercism contributors. Adapted exercises must retain attribution. See LICENSES/exercism-mit.txt.",
+      "license": "MIT",
+      "priority": 75
+    },
+    {
+      "id": "exercism-problem-specifications",
+      "name": "Exercism Problem Specifications",
+      "base_url": "https://github.com/exercism/problem-specifications/",
+      "source_type": "open_educational",
+      "category": "open_licensed",
+      "enabled": true,
+      "allowed_paths": [
+        "/exercism/problem-specifications/"
+      ],
+      "license_note": "MIT License. Copyright Exercism contributors.",
+      "license": "MIT",
+      "priority": 70
+    },
+    {
+      "id": "cs50p-harvard",
+      "name": "CS50P: CS50 Introduction to Programming with Python",
+      "base_url": "https://cs50.harvard.edu/python/2022/",
+      "source_type": "pedagogy_reference",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/python/"
+      ],
+      "license_note": "CC BY-NC-SA. Reference-only for pedagogical sequence and progression. No verbatim text copying.",
+      "priority": 60
+    },
+    {
+      "id": "mit-ocw-60001",
+      "name": "MIT 6.0001: Introduction to CS and Programming in Python",
+      "base_url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+      "source_type": "pedagogy_reference",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/"
+      ],
+      "license_note": "Reference-only for computational thinking and runtime tracing mindset.",
+      "priority": 55
+    },
+    {
+      "id": "py4e-coursera",
+      "name": "Python for Everybody Specialization",
+      "base_url": "https://www.coursera.org/specializations/python/",
+      "source_type": "pedagogy_reference",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/specializations/python/"
+      ],
+      "license_note": "Reference-only for syllabus progression and introductory explanations.",
+      "priority": 50
+    },
+    {
+      "id": "coursera-python-data-structures",
+      "name": "Python Data Structures (Coursera)",
+      "base_url": "https://www.coursera.org/learn/python-data/",
+      "source_type": "pedagogy_reference",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/learn/python-data/"
+      ],
+      "license_note": "Reference-only for data structures sequencing.",
+      "priority": 45
+    },
+    {
+      "id": "hackerrank-interview-prep",
+      "name": "HackerRank Interview Preparation Kit",
+      "base_url": "https://www.hackerrank.com/interview/interview-preparation-kit/",
+      "source_type": "interview_taxonomy",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/interview/interview-preparation-kit/"
+      ],
+      "license_note": "Reference-only for topic weighting and pattern taxonomy.",
+      "priority": 40
+    },
+    {
+      "id": "leetcode-75",
+      "name": "LeetCode 75 Study Plan",
+      "base_url": "https://leetcode.com/studyplan/leetcode-75/",
+      "source_type": "interview_taxonomy",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/studyplan/leetcode-75/"
+      ],
+      "license_note": "Reference-only for interview frequency and pattern progression.",
+      "priority": 35
+    },
+    {
+      "id": "leetcode-top-interview-150",
+      "name": "LeetCode Top Interview 150",
+      "base_url": "https://leetcode.com/studyplan/top-interview-150/",
+      "source_type": "interview_taxonomy",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/studyplan/top-interview-150/"
+      ],
+      "license_note": "Reference-only for pattern coverage and difficulty classification.",
+      "priority": 30
+    }
+  ],
+  "sql-postgresql": [
+    {
+      "id": "postgresql-official-docs",
+      "name": "PostgreSQL Documentation",
+      "base_url": "https://www.postgresql.org/docs/current/",
+      "source_type": "official_docs",
+      "category": "authoritative",
+      "enabled": true,
+      "allowed_paths": [
+        "/docs/current/"
+      ],
+      "license_note": "PostgreSQL documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 100
+    },
+    {
+      "id": "postgresql-tutorial",
+      "name": "PostgreSQL Tutorial",
+      "base_url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "source_type": "official_docs",
+      "category": "authoritative",
+      "enabled": true,
+      "allowed_paths": [
+        "/docs/current/"
+      ],
+      "license_note": "PostgreSQL documentation; attribution retained.",
+      "priority": 95
+    },
+    {
+      "id": "sqlbolt",
+      "name": "SQLBolt - Interactive SQL Lessons",
+      "base_url": "https://sqlbolt.com/",
+      "source_type": "pedagogy_reference",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/lesson/"
+      ],
+      "license_note": "Reference-only for pedagogical pattern: table visualization -> immediate query. All queries/tables original.",
+      "priority": 80
+    },
+    {
+      "id": "coursera-sql-data-science",
+      "name": "Coursera: SQL for Data Science (UC Davis)",
+      "base_url": "https://www.coursera.org/learn/sql-for-data-science/",
+      "source_type": "pedagogy_reference",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/learn/sql-for-data-science/"
+      ],
+      "license_note": "Reference-only for scenario framing and beginner sequence.",
+      "priority": 70
+    },
+    {
+      "id": "ibm-databases-sql",
+      "name": "IBM Databases and SQL for Data Science with Python",
+      "base_url": "https://www.coursera.org/learn/sql-data-science/",
+      "source_type": "pedagogy_reference",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/learn/sql-data-science/"
+      ],
+      "license_note": "Reference-only for relational database foundations and Python integration framing.",
+      "priority": 65
+    },
+    {
+      "id": "leetcode-sql-50",
+      "name": "LeetCode SQL 50 Study Plan",
+      "base_url": "https://leetcode.com/studyplan/top-sql-50/",
+      "source_type": "interview_taxonomy",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/studyplan/top-sql-50/"
+      ],
+      "license_note": "Reference-only for interview topic emphasis and query pattern coverage.",
+      "priority": 60
+    }
+  ],
+  "dsa": [
+    {
+      "id": "python-stdlib-docs",
+      "name": "Python Standard Library",
+      "base_url": "https://docs.python.org/3/library/",
+      "source_type": "official_docs",
+      "category": "authoritative",
+      "enabled": true,
+      "allowed_paths": [
+        "/3/library/",
+        "/3/tutorial/"
+      ],
+      "license_note": "Python documentation; attribution retained. Forge lessons must be original synthesis.",
+      "priority": 100
+    },
+    {
+      "id": "mit-ocw-60001",
+      "name": "MIT 6.0001: Introduction to CS and Programming in Python",
+      "base_url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+      "source_type": "pedagogy_reference",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/"
+      ],
+      "license_note": "Reference-only for algorithmic complexity and search/sort pedagogy.",
+      "priority": 85
+    },
+    {
+      "id": "hackerrank-interview-prep",
+      "name": "HackerRank Interview Preparation Kit",
+      "base_url": "https://www.hackerrank.com/interview/interview-preparation-kit/",
+      "source_type": "interview_taxonomy",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/interview/interview-preparation-kit/"
+      ],
+      "license_note": "Reference-only for interview frequency and problem categorization.",
+      "priority": 80
+    },
+    {
+      "id": "leetcode-75",
+      "name": "LeetCode 75 Study Plan",
+      "base_url": "https://leetcode.com/studyplan/leetcode-75/",
+      "source_type": "interview_taxonomy",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/studyplan/leetcode-75/"
+      ],
+      "license_note": "Reference-only for core pattern taxonomy.",
+      "priority": 75
+    },
+    {
+      "id": "leetcode-top-interview-150",
+      "name": "LeetCode Top Interview 150",
+      "base_url": "https://leetcode.com/studyplan/top-interview-150/",
+      "source_type": "interview_taxonomy",
+      "category": "reference_only",
+      "enabled": false,
+      "allowed_paths": [
+        "/studyplan/top-interview-150/"
+      ],
+      "license_note": "Reference-only for pattern coverage and trade-offs.",
+      "priority": 70
+    }
+  ]
+}

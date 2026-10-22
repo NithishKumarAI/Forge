@@ -1,0 +1,92 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "997cc199d4c5fc02a576bb948713ff91e8014404174dae60373cf88689fc62ec",
+  "payload_sha256": "2a60898507c416bb155b7f294168441a4bc2e2abe09c3af04dda24401c6d8926",
+  "coverage_sha256": "e11d9e146930cd5e7df1fc84589207cb27295df236b580b6b84dcfd7468af7f6",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "ee410b598fd5b2103dc289b85292aedf1616f5e1f2d0c9aa9fb4bed646eeb4f5"
+  },
+  "coverage": [
+    {
+      "id": "guided-sequence",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/guided-sequence"
+      ],
+      "assessment_refs": [
+        "item/guided-sequence"
+      ]
+    },
+    {
+      "id": "independent-descending",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/independent-descending"
+      ],
+      "assessment_refs": [
+        "item/independent-descending"
+      ]
+    },
+    {
+      "id": "transfer-positions",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/transfer-positions"
+      ],
+      "assessment_refs": [
+        "item/transfer-positions"
+      ]
+    },
+    {
+      "id": "recall-transition",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/recall-transition"
+      ],
+      "assessment_refs": [
+        "item/recall-transition"
+      ]
+    },
+    {
+      "id": "mock-classify",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/mock-classify"
+      ],
+      "assessment_refs": [
+        "item/mock-classify"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "item": "guided-sequence",
+      "status": "requires_human_answer_review",
+      "subject_check": "explicit_sequence_enumerated"
+    },
+    {
+      "item": "independent-descending",
+      "status": "requires_human_answer_review",
+      "subject_check": "explicit_sequence_enumerated"
+    },
+    {
+      "item": "transfer-positions",
+      "status": "requires_human_answer_review",
+      "subject_check": "explicit_sequence_enumerated"
+    },
+    {
+      "item": "recall-transition",
+      "status": "requires_human_answer_review",
+      "subject_check": "explicit_sequence_enumerated"
+    },
+    {
+      "item": "mock-classify",
+      "status": "requires_human_answer_review"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

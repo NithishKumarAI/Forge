@@ -1,0 +1,161 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "sql-postgresql",
+  "topic_slug": "ctes",
+  "title": "Common Table Expressions (CTEs) and Modular Query Architecture",
+  "description": "Master modular query composition using WITH, common table expressions, chaining multiple CTEs, query readability, recursion awareness, and performance trade-offs.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Structure complex SQL queries into logical, sequential steps using the WITH syntax and common table expressions",
+    "Chain multiple CTE blocks to break down multi-stage data pipelines and enable result reuse",
+    "Compare query readability and maintainability between CTEs and nested subqueries",
+    "Understand recursive CTE awareness for processing hierarchical structures such as org charts and trees"
+  ],
+  "prerequisites": [
+    "query-basics",
+    "joins",
+    "subqueries"
+  ],
+  "sections": [
+    {
+      "slug": "with-and-common-table-expressions",
+      "title": "The WITH clause and common table expression fundamentals",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Define temporary named result sets using the WITH keyword.",
+      "markdown": "A `common table expression` (CTE) is a temporary named result set defined within the scope of a single SQL statement using the `WITH` clause. Instead of nesting deeply indented subqueries inside `FROM` or `WHERE` clauses, a CTE allows you to define intermediate data transformations at the very top of your query. This top-down structure mirrors linear procedural programming, allowing other developers and interviewers to follow your logical steps cleanly from input filtering down to final aggregation.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE orders (\n    order_id INT,\n    customer_id INT,\n    total_amount NUMERIC(10,2)\n);\nINSERT INTO orders VALUES (1, 101, 600.00), (2, 101, 150.00), (3, 102, 750.00);\n\n-- Basic CTE computing high-value orders\nWITH high_value_orders AS (\n    SELECT order_id, customer_id, total_amount\n    FROM orders\n    WHERE total_amount > 500.00\n)\nSELECT customer_id, COUNT(*) AS count_high_orders\nFROM high_value_orders\nGROUP BY customer_id;",
+          "explanation": "Defines a CTE named high_value_orders, then aggregates over it in the main query.",
+          "expected_output": "| customer_id | count_high_orders |\n|---|---|\n| 101 | 1 |\n| 102 | 1 |"
+        }
+      ],
+      "key_points": [
+        "A common table expression creates a temporary named result set scoped to a single query.",
+        "Defined using the WITH keyword before the primary SELECT, INSERT, UPDATE, or DELETE."
+      ],
+      "checkpoint": "What is the primary syntactic difference between a subquery in FROM and a CTE using WITH?"
+    },
+    {
+      "slug": "multiple-ctes-and-reuse",
+      "title": "Chaining multiple CTEs and enabling intermediate reuse",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Chain multiple comma-separated CTEs where subsequent CTEs reference earlier ones.",
+      "markdown": "You can define a `multiple CTE` block by separating each CTE definition with a comma after a single initial `WITH` keyword. Subsequent CTEs can immediately reference any previously declared CTEs in the sequence. Furthermore, the final query can join or reference a CTE multiple times, providing convenient `reuse` of expensive computations without duplicating SQL code or creating physical temp tables in the database.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE employees (\n    id INT,\n    department VARCHAR(50),\n    salary INT\n);\nINSERT INTO employees VALUES (1, 'AI', 90000), (2, 'AI', 100000), (3, 'HR', 60000);\n\nWITH dept_stats AS (\n    SELECT department, AVG(salary) AS avg_sal\n    FROM employees\n    GROUP BY department\n),\ncompany_benchmarks AS (\n    SELECT AVG(avg_sal) AS benchmark_sal\n    FROM dept_stats\n)\nSELECT d.department, d.avg_sal, b.benchmark_sal\nFROM dept_stats d\nCROSS JOIN company_benchmarks b\nWHERE d.avg_sal > b.benchmark_sal;",
+          "explanation": "Chains dept_stats into company_benchmarks, demonstrating multiple CTE composition and reuse.",
+          "expected_output": "| department | avg_sal | benchmark_sal |\n|---|---|---|\n| AI | 95000.000000000000 | 77500.000000000000 |"
+        }
+      ],
+      "key_points": [
+        "Separate multiple CTE definitions with commas; do not repeat the WITH keyword.",
+        "Subsequent CTEs can reference prior CTEs, forming a DAG of transformations."
+      ],
+      "checkpoint": "Can a CTE declared first reference another CTE declared later in the query?"
+    },
+    {
+      "slug": "readability-and-subquery-comparison",
+      "title": "Query readability and maintenance trade-offs",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Refactor unreadable nested subqueries into clean linear CTE pipelines.",
+      "markdown": "Code `readability` is a critical engineering quality standard in production databases and technical interviews. When subqueries are nested 3 or 4 levels deep inside `FROM` clauses, code becomes 'inside-out': the innermost logic executes first, forcing readers to jump back and forth across parentheses. By refactoring to CTEs, each business logic stage is isolated with an expressive name, vastly improving debugging and peer review. In modern PostgreSQL (v12+), CTEs are inlined by default unless declared with `MATERIALIZED`.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE users (id INT, email VARCHAR(100), is_active BOOLEAN);\nCREATE TABLE auth_logs (user_id INT, login_time TIMESTAMP);\nINSERT INTO users VALUES (1, 'ana@example.com', TRUE), (2, 'bob@example.com', FALSE);\nINSERT INTO auth_logs VALUES (1, '2026-09-24 10:00:00');\n\n-- Clean CTE pattern vs nested subquery\nWITH verified_users AS (\n    SELECT id, email FROM users WHERE is_active = TRUE\n),\nrecent_logins AS (\n    SELECT user_id, MAX(login_time) AS last_login\n    FROM auth_logs\n    GROUP BY user_id\n)\nSELECT u.email, l.last_login\nFROM verified_users u\nINNER JOIN recent_logins l ON u.id = l.user_id;",
+          "explanation": "Breaks a multi-table condition into two readable named units before joining.",
+          "expected_output": "| email | last_login |\n|---|---|\n| ana@example.com | 2026-09-24 10:00:00 |"
+        }
+      ],
+      "key_points": [
+        "CTEs transform nested 'inside-out' queries into top-down, self-documenting pipelines.",
+        "PostgreSQL 12+ inlines non-recursive CTEs automatically for performance optimization."
+      ],
+      "checkpoint": "Why do engineering teams prefer CTEs over deeply nested derived tables in code reviews?"
+    },
+    {
+      "slug": "recursive-ctes-awareness",
+      "title": "Recursive awareness: Traversing hierarchies and graph structures",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Develop recursive awareness to query hierarchical org charts and tree nodes.",
+      "markdown": "Having `recursive awareness` is essential when dealing with self-referencing hierarchical data such as manager-employee org charts, bill of materials, or category taxonomies. Using `WITH RECURSIVE`, you construct a query with two parts combined by `UNION` or `UNION ALL`:\n1. **Anchor member**: The base case query that returns the root nodes (e.g. top executives with `manager_id IS NULL`).\n2. **Recursive member**: The inductive query that joins the CTE against the underlying table to find children of the previous iteration.\nThe recursion terminates automatically when the recursive member yields zero rows.",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "CREATE TABLE org (id INT, name VARCHAR(50), manager_id INT);\nINSERT INTO org VALUES (1, 'Maya (CEO)', NULL), (2, 'Liam (VP)', 1), (3, 'Noah (Dev)', 2);\n\nWITH RECURSIVE org_chart AS (\n    -- Anchor member: root CEO\n    SELECT id, name, manager_id, 1 AS depth\n    FROM org\n    WHERE manager_id IS NULL\n    UNION ALL\n    -- Recursive member: direct reports\n    SELECT o.id, o.name, o.manager_id, c.depth + 1\n    FROM org o\n    INNER JOIN org_chart c ON o.manager_id = c.id\n)\nSELECT id, name, depth FROM org_chart ORDER BY depth, id;",
+          "explanation": "Traverses an employee hierarchy from root to leaves, incrementing depth at each level.",
+          "expected_output": "| id | name | depth |\n|---|---|---|\n| 1 | Maya (CEO) | 1 |\n| 2 | Liam (VP) | 2 |\n| 3 | Noah (Dev) | 3 |"
+        }
+      ],
+      "key_points": [
+        "WITH RECURSIVE requires an anchor query, UNION ALL, and a recursive member.",
+        "PostgreSQL evaluates the recursive member iteratively until no new rows are produced.",
+        "Always ensure a termination condition exists to prevent infinite recursion loops."
+      ],
+      "checkpoint": "What happens if a recursive CTE has a cyclical relationship (A reports to B, B reports to A)?"
+    },
+    {
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Prepare for CTE interview challenges and optimize multi-CTE queries.",
+      "markdown": "CTEs are a staple in technical SQL interviews for data engineering and backend roles.\n\n### Common Interview Questions\n1. *When should you use a CTE instead of a subquery?*\n   *(Use CTEs for query readability, self-documenting code, when intermediate results need reuse across multiple joins, or when recursion is required).* \n2. *How did CTE optimization change in PostgreSQL 12?*\n   *(Prior to PostgreSQL 12, CTEs acted as optimization fences; they were materialized separately, preventing the optimizer from pushing down WHERE predicates. In v12+, non-recursive CTEs are inlined by default).* \n3. *How do you write a recursive CTE to generate a continuous sequence of dates?*\n\n### Common Trap\nRepeating the `WITH` keyword before subsequent CTEs (e.g. `WITH a AS (...), WITH b AS (...)`). In standard SQL, you must use a single `WITH` followed by comma-separated expressions.\n\n### Arena Practice Problems\n- `sql-cte-running-balance`: Multi-stage CTE computing running balances and ledger states\n- `sql-cte-top-products`: Chained CTEs ranking and filtering top-selling products by category",
+      "examples": [
+        {
+          "language": "sql",
+          "code": "-- Sequence generation using recursive CTE\nWITH RECURSIVE days AS (\n    SELECT '2026-09-01'::DATE AS day\n    UNION ALL\n    SELECT (day + INTERVAL '1 day')::DATE FROM days WHERE day < '2026-09-03'::DATE\n)\nSELECT day FROM days;",
+          "explanation": "Generates a date series recursively without external tables.",
+          "expected_output": "| day |\n|---|\n| 2026-09-01 |\n| 2026-09-02 |\n| 2026-09-03 |"
+        }
+      ],
+      "key_points": [
+        "Interviewers evaluate CTEs for code structure, naming clarity, and recursion mastery.",
+        "Avoid repeating the WITH keyword when defining multiple CTEs."
+      ],
+      "checkpoint": "What clause in modern PostgreSQL forces a CTE to be evaluated as a temporary table? (Hint: MATERIALIZED)"
+    }
+  ],
+  "summary": [
+    "CTEs define temporary named result sets using the WITH keyword to structure complex SQL queries.",
+    "Multiple CTEs can be chained together with commas, enabling intermediate result reuse and clear data flow.",
+    "CTEs greatly enhance code readability and maintainability compared to deeply nested subqueries.",
+    "WITH RECURSIVE enables graph and tree hierarchy traversal through anchor and recursive members.",
+    "Modern PostgreSQL inlines non-recursive CTEs by default, eliminating older optimization fence penalties."
+  ],
+  "interview_takeaways": [
+    "In interviews, break complex problems into 2-3 named CTEs rather than one giant nested subquery.",
+    "Explain PostgreSQL 12's CTE inlining behavior to show deep database internals knowledge.",
+    "Always check for termination conditions in recursive CTEs to prevent runaway queries."
+  ],
+  "common_mistakes": [
+    "Writing multiple WITH keywords in the same query instead of comma-separating CTEs",
+    "Creating unnecessary CTEs for simple 1-line filters where a basic WHERE clause is more concise",
+    "Forgetting termination predicates in recursive queries leading to infinite loop errors",
+    "Assuming CTEs persist across queries; they exist only during the execution of the enclosing statement"
+  ],
+  "sources": [
+    {
+      "source_id": "postgresql-official-docs",
+      "title": "PostgreSQL Documentation \u2014 WITH Queries (Common Table Expressions)",
+      "url": "https://www.postgresql.org/docs/current/queries-with.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "postgresql-tutorial",
+      "title": "PostgreSQL CTE Tutorial",
+      "url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "5a9b47a549942a65e9021e98c253542f45375b18b3206d11c01dc65ddcc4f040",
+  "generated_at": "2026-09-24T08:34:57.182488+00:00"
+}

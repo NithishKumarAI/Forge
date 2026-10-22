@@ -1,0 +1,946 @@
+{
+  "method": "One constant-answer mutant per eligible non-SQL function, plus four input-mutation probes. Not a proof of complete contract correctness.",
+  "constant_answer_probes": [
+    {
+      "key": "dsa-container-most-water",
+      "file": "content/problem-bank/dsa/dsa-container-most-water.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-daily-temperatures",
+      "file": "content/problem-bank/dsa/dsa-daily-temperatures.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-decode-string",
+      "file": "content/problem-bank/dsa/dsa-decode-string.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-evaluate-rpn",
+      "file": "content/problem-bank/dsa/dsa-evaluate-rpn.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-find-cycle-start",
+      "file": "content/problem-bank/dsa/dsa-find-cycle-start.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-find-in-rotated",
+      "file": "content/problem-bank/dsa/dsa-find-in-rotated.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-first-last-position",
+      "file": "content/problem-bank/dsa/dsa-first-last-position.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-first-pair",
+      "file": "content/problem-bank/dsa/dsa-first-pair.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-fruit-into-baskets",
+      "file": "content/problem-bank/dsa/dsa-fruit-into-baskets.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-isomorphic-strings",
+      "file": "content/problem-bank/dsa/dsa-isomorphic-strings.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-kth-largest",
+      "file": "content/problem-bank/dsa/dsa-kth-largest.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-level-order-traversal",
+      "file": "content/problem-bank/dsa/dsa-level-order-traversal.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-longest-consecutive",
+      "file": "content/problem-bank/dsa/dsa-longest-consecutive.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-longest-substring-no-repeat",
+      "file": "content/problem-bank/dsa/dsa-longest-substring-no-repeat.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-max-consecutive-ones",
+      "file": "content/problem-bank/dsa/dsa-max-consecutive-ones.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-max-depth-tree",
+      "file": "content/problem-bank/dsa/dsa-max-depth-tree.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-max-sliding-window",
+      "file": "content/problem-bank/dsa/dsa-max-sliding-window.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-max-window-sum",
+      "file": "content/problem-bank/dsa/dsa-max-window-sum.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-merge-intervals",
+      "file": "content/problem-bank/dsa/dsa-merge-intervals.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-merge-two-sorted-lists",
+      "file": "content/problem-bank/dsa/dsa-merge-two-sorted-lists.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-min-stack",
+      "file": "content/problem-bank/dsa/dsa-min-stack.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 2
+      }
+    },
+    {
+      "key": "dsa-min-window-substring",
+      "file": "content/problem-bank/dsa/dsa-min-window-substring.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-move-zeroes",
+      "file": "content/problem-bank/dsa/dsa-move-zeroes.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-number-of-islands-bfs",
+      "file": "content/problem-bank/dsa/dsa-number-of-islands-bfs.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-permutation-in-string",
+      "file": "content/problem-bank/dsa/dsa-permutation-in-string.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-range-sum-query",
+      "file": "content/problem-bank/dsa/dsa-range-sum-query.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 2
+      }
+    },
+    {
+      "key": "dsa-ransom-note",
+      "file": "content/problem-bank/dsa/dsa-ransom-note.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-remove-duplicates-sorted",
+      "file": "content/problem-bank/dsa/dsa-remove-duplicates-sorted.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-reverse-linked-list",
+      "file": "content/problem-bank/dsa/dsa-reverse-linked-list.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-reverse-string",
+      "file": "content/problem-bank/dsa/dsa-reverse-string.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-search-insert-position",
+      "file": "content/problem-bank/dsa/dsa-search-insert-position.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "dsa-sort-colors",
+      "file": "content/problem-bank/dsa/dsa-sort-colors.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-sqrt-integer",
+      "file": "content/problem-bank/dsa/dsa-sqrt-integer.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 5
+      }
+    },
+    {
+      "key": "dsa-subarray-sum-equals-k",
+      "file": "content/problem-bank/dsa/dsa-subarray-sum-equals-k.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-three-sum",
+      "file": "content/problem-bank/dsa/dsa-three-sum.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-top-k-frequent",
+      "file": "content/problem-bank/dsa/dsa-top-k-frequent.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-trapping-rain-water",
+      "file": "content/problem-bank/dsa/dsa-trapping-rain-water.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-two-sum-indices",
+      "file": "content/problem-bank/dsa/dsa-two-sum-indices.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-valid-anagram",
+      "file": "content/problem-bank/dsa/dsa-valid-anagram.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-word-pattern",
+      "file": "content/problem-bank/dsa/dsa-word-pattern.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-anagram-check",
+      "file": "content/problem-bank/python/python-anagram-check.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-bob",
+      "file": "content/problem-bank/python/python-bob.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 7
+      }
+    },
+    {
+      "key": "python-celsius-to-fahrenheit",
+      "file": "content/problem-bank/python/python-celsius-to-fahrenheit.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-climbing-stairs",
+      "file": "content/problem-bank/python/python-climbing-stairs.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 6
+      }
+    },
+    {
+      "key": "python-collatz",
+      "file": "content/problem-bank/python/python-collatz.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 6
+      }
+    },
+    {
+      "key": "python-count-bits",
+      "file": "content/problem-bank/python/python-count-bits.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-count-islands",
+      "file": "content/problem-bank/python/python-count-islands.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-count-vowels",
+      "file": "content/problem-bank/python/python-count-vowels.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-deduplicate-list",
+      "file": "content/problem-bank/python/python-deduplicate-list.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-find-duplicate",
+      "file": "content/problem-bank/python/python-find-duplicate.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 3
+      }
+    },
+    {
+      "key": "python-first-non-repeat",
+      "file": "content/problem-bank/python/python-first-non-repeat.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-fizzbuzz",
+      "file": "content/problem-bank/python/python-fizzbuzz.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-flatten-list",
+      "file": "content/problem-bank/python/python-flatten-list.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 6
+      }
+    },
+    {
+      "key": "python-generate-subsets",
+      "file": "content/problem-bank/python/python-generate-subsets.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "python-group-anagrams",
+      "file": "content/problem-bank/python/python-group-anagrams.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 2
+      }
+    },
+    {
+      "key": "python-group-errors",
+      "file": "content/problem-bank/python/python-group-errors.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "python-implement-queue",
+      "file": "content/problem-bank/python/python-implement-queue.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 2
+      }
+    },
+    {
+      "key": "python-is-palindrome",
+      "file": "content/problem-bank/python/python-is-palindrome.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 6,
+        "total": 7
+      }
+    },
+    {
+      "key": "python-largest-product",
+      "file": "content/problem-bank/python/python-largest-product.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 6
+      }
+    },
+    {
+      "key": "python-leap-year",
+      "file": "content/problem-bank/python/python-leap-year.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 3,
+        "total": 6
+      }
+    },
+    {
+      "key": "python-longest-common-prefix",
+      "file": "content/problem-bank/python/python-longest-common-prefix.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-longest-increasing-subseq",
+      "file": "content/problem-bank/python/python-longest-increasing-subseq.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-matrix-spiral",
+      "file": "content/problem-bank/python/python-matrix-spiral.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "python-max-profit",
+      "file": "content/problem-bank/python/python-max-profit.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-max-subarray",
+      "file": "content/problem-bank/python/python-max-subarray.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-merge-sorted-lists",
+      "file": "content/problem-bank/python/python-merge-sorted-lists.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-missing-number",
+      "file": "content/problem-bank/python/python-missing-number.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-normalize-name",
+      "file": "content/problem-bank/python/python-normalize-name.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "python-pangram",
+      "file": "content/problem-bank/python/python-pangram.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-product-except-self",
+      "file": "content/problem-bank/python/python-product-except-self.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "python-raindrops",
+      "file": "content/problem-bank/python/python-raindrops.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 8
+      }
+    },
+    {
+      "key": "python-rotate-list",
+      "file": "content/problem-bank/python/python-rotate-list.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-running-sum",
+      "file": "content/problem-bank/python/python-running-sum.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-stack-balanced-brackets",
+      "file": "content/problem-bank/python/python-stack-balanced-brackets.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 3,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-two-fer",
+      "file": "content/problem-bank/python/python-two-fer.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-two-sum",
+      "file": "content/problem-bank/python/python-two-sum.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 4
+      }
+    },
+    {
+      "key": "python-valid-bst",
+      "file": "content/problem-bank/python/python-valid-bst.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "python-valid-parentheses-string",
+      "file": "content/problem-bank/python/python-valid-parentheses-string.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 2,
+        "total": 5
+      }
+    },
+    {
+      "key": "python-valid-sudoku-row",
+      "file": "content/problem-bank/python/python-valid-sudoku-row.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 3
+      }
+    },
+    {
+      "key": "python-word-count",
+      "file": "content/problem-bank/python/python-word-count.json",
+      "probe": "constant first-sample answer",
+      "accepted": false,
+      "result": {
+        "status": "verified",
+        "passed": 1,
+        "total": 5
+      }
+    }
+  ],
+  "constant_answers_accepted": 0,
+  "in_place_probes": [
+    {
+      "key": "dsa-move-zeroes",
+      "file": "content/problem-bank/dsa/dsa-move-zeroes.json",
+      "probe": "returns correct values without required input mutation",
+      "source": "def move_zeroes(nums):\n    return [x for x in nums if x != 0] + [0] * nums.count(0)",
+      "accepted": true,
+      "result": {
+        "status": "verified",
+        "passed": 4,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-sort-colors",
+      "file": "content/problem-bank/dsa/dsa-sort-colors.json",
+      "probe": "returns correct values without required input mutation",
+      "source": "def sort_colors(nums):\n    return sorted(nums)",
+      "accepted": true,
+      "result": {
+        "status": "verified",
+        "passed": 4,
+        "total": 4
+      }
+    },
+    {
+      "key": "dsa-reverse-string",
+      "file": "content/problem-bank/dsa/dsa-reverse-string.json",
+      "probe": "returns correct values without required input mutation",
+      "source": "def reverse_string(chars):\n    return chars[::-1]",
+      "accepted": true,
+      "result": {
+        "status": "verified",
+        "passed": 3,
+        "total": 3
+      }
+    },
+    {
+      "key": "dsa-remove-duplicates-sorted",
+      "file": "content/problem-bank/dsa/dsa-remove-duplicates-sorted.json",
+      "probe": "returns correct values without required input mutation",
+      "source": "def remove_duplicates(nums):\n    return sorted(set(nums))",
+      "accepted": true,
+      "result": {
+        "status": "verified",
+        "passed": 3,
+        "total": 3
+      }
+    }
+  ],
+  "two_sum_tuple_statement_probe": {
+    "source": "def two_sum(nums, target):\n    seen = {}\n    for i, value in enumerate(nums):\n        if target - value in seen:\n            return (seen[target-value], i)\n        seen[value] = i\n    return ()",
+    "result": {
+      "status": "verified",
+      "passed": 0,
+      "total": 3
+    },
+    "statement_requires_tuple": true
+  },
+  "no_database_access": true
+}

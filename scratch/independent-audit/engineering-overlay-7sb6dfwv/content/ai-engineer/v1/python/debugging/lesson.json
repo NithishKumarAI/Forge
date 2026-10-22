@@ -1,0 +1,132 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "debugging",
+  "title": "Systematic Debugging",
+  "description": "Turn failures into small, testable hypotheses using tracebacks, inspection, logs, and breakpoints.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Reproduce and minimize a defect",
+    "Read tracebacks and inspect runtime state",
+    "Test hypotheses instead of guessing"
+  ],
+  "prerequisites": [],
+  "sections": [
+    {
+      "slug": "mental-model",
+      "title": "Core mental model",
+      "order_index": 0,
+      "estimated_minutes": 7,
+      "learning_objective": "Reproduce and minimize a defect",
+      "markdown": "Debugging starts with a reliable reproduction: record the input, environment, expected result, and actual result. Read a traceback from the final exception upward to the first frame owned by your code. The exception type explains the category, while the message and failing line narrow the immediate cause.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def average(values):\n    return sum(values) / len(values)\n\ntry:\n    average([])\nexcept ZeroDivisionError as error:\n    print(type(error).__name__)",
+          "explanation": "A small executable example exposes the rule instead of only naming it.",
+          "expected_output": "ZeroDivisionError"
+        }
+      ],
+      "key_points": [
+        "Reproduce and minimize a defect",
+        "Predict execution before running code."
+      ],
+      "checkpoint": "Explain the example one line at a time without using vague terms."
+    },
+    {
+      "slug": "operations-and-tradeoffs",
+      "title": "Operations and trade-offs",
+      "order_index": 1,
+      "estimated_minutes": 7,
+      "learning_objective": "Read tracebacks and inspect runtime state",
+      "markdown": "Reduce the failure into minimal cases, then use hypothesis testing: form one falsifiable explanation and seek evidence against it. Inspect types, values, boundaries, and side effects. Use focused logging with context rather than scattered prints; use a breakpoint (`breakpoint()` or an IDE) to step through control flow and inspect state. Tests make the reproduction durable and prevent regression.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def first_even(values):\n    for value in values:\n        if value % 2 == 0:\n            return value\n    return None\n\nassert first_even([1, 3, 4]) == 4",
+          "explanation": "This example applies the most important operation at a realistic boundary.",
+          "expected_output": ""
+        }
+      ],
+      "key_points": [
+        "Read tracebacks and inspect runtime state",
+        "Choose an operation based on its contract."
+      ],
+      "checkpoint": "What input or state would make this code fail?"
+    },
+    {
+      "slug": "worked-practice",
+      "title": "Worked practice",
+      "order_index": 2,
+      "estimated_minutes": 7,
+      "learning_objective": "Trace the concept on concrete data.",
+      "markdown": "Work from the input and state the invariant before coding. Change one variable at a time, predict what evidence would support the hypothesis, and record the result. If the hypothesis fails, discard it. Common mistakes are fixing the symptom before finding the cause, catching every exception, logging secrets, changing several things together, and assuming the most recent code caused the problem without checking version history. For an interview, narrate the observation, the rule you are applying, and the resulting value. That sequence makes reasoning inspectable and exposes hidden assumptions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def first_even(values):\n    for value in values:\n        if value % 2 == 0:\n            return value\n    return None\n\nassert first_even([1, 3, 4]) == 4",
+          "explanation": "Trace names and values after every important line, then compare with the expected output.",
+          "expected_output": ""
+        }
+      ],
+      "key_points": [
+        "Use a concrete trace.",
+        "State assumptions at the input boundary."
+      ],
+      "checkpoint": "Change one input and predict the new result."
+    },
+    {
+      "slug": "mistakes",
+      "title": "Common mistakes and fixes",
+      "order_index": 3,
+      "estimated_minutes": 7,
+      "learning_objective": "Diagnose failures rather than memorize syntax.",
+      "markdown": "Change one variable at a time, predict what evidence would support the hypothesis, and record the result. If the hypothesis fails, discard it. Common mistakes are fixing the symptom before finding the cause, catching every exception, logging secrets, changing several things together, and assuming the most recent code caused the problem without checking version history. Turn each failure into a focused test. Preserve the original failing input, make the smallest correction, and run the test again. Avoid broad exception handling or a rewrite that hides the root cause.",
+      "examples": [],
+      "key_points": [
+        "Reproduce before fixing.",
+        "Prefer the smallest evidence-backed correction."
+      ],
+      "checkpoint": "Name one tempting fix that would only hide the defect."
+    },
+    {
+      "slug": "interview-summary",
+      "title": "Interview-focused summary",
+      "order_index": 4,
+      "estimated_minutes": 7,
+      "learning_objective": "Test hypotheses instead of guessing",
+      "markdown": "A strong explanation starts with the mental model, demonstrates it using a short executable example, names the trade-off, and closes with a common failure mode. Apply that structure to Systematic Debugging. In Forge Arena, solve related Python problems without tutor help when you want the attempt to count as clean transfer evidence.",
+      "examples": [],
+      "key_points": [
+        "Explain the why, not only syntax.",
+        "Use Arena for independent transfer practice."
+      ],
+      "checkpoint": "Give a sixty-second explanation and one counterexample."
+    }
+  ],
+  "summary": [
+    "Reproduce and minimize a defect",
+    "Read tracebacks and inspect runtime state",
+    "Validate understanding with a trace, boundary case, and independent practice."
+  ],
+  "interview_takeaways": [
+    "Lead with the mental model and invariant.",
+    "Compare a naive baseline with the chosen approach.",
+    "State assumptions, failure modes, and complexity precisely."
+  ],
+  "common_mistakes": [
+    "Memorizing syntax without tracing data",
+    "Ignoring boundary cases or preconditions",
+    "Claiming a result or complexity without evidence"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "traceback",
+      "url": "https://docs.python.org/3/library/traceback.html",
+      "retrieved_at": "2026-09-23T00:00:00Z"
+    }
+  ],
+  "content_hash": "e9c28a3dec4f2a9178b53c4636a10f8c257b9263d6dd98c0e2d8164a3d6c910e",
+  "generated_at": "2026-09-24T00:00:00Z"
+}

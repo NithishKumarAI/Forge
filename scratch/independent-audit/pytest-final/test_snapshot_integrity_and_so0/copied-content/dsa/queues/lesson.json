@@ -1,0 +1,153 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "queues",
+  "title": "Queue Data Structures, Deques, and Breadth-First Buffers",
+  "description": "Master queue data structures: FIFO mechanics, enqueue/dequeue operations, collections.deque double-ended queues, BFS buffers, and monotonic deques for sliding window maximums.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Explain First-In First-Out (FIFO) semantics and implement O(1) enqueue and dequeue operations",
+    "Differentiate Python list pop(0) performance penalties from collections.deque doubly linked block lists",
+    "Implement breadth-first search (BFS) level-order traversal using queues as frontier buffers",
+    "Apply monotonic deques to solve the Sliding Window Maximum problem in linear O(n) time"
+  ],
+  "prerequisites": [
+    "big-o",
+    "arrays"
+  ],
+  "sections": [
+    {
+      "slug": "queue-foundations-and-fifo",
+      "title": "Queue fundamentals: FIFO semantics and collections.deque",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Understand FIFO mechanics and choose optimal queue implementations in Python.",
+      "markdown": "## When to recognize this pattern\nFirst-in-first-out (FIFO) order, breadth-first search (BFS) level buffering, task scheduling, or sliding window extrema.\n\n## Core idea\nA `queue` is a linear data structure governed by `FIFO` (`first-in first-out`) semantics: elements are inserted at the back and removed from the front (like people waiting in a ticket line). The primary operations are `enqueue` (add to back) and `dequeue` (remove from front). In Python, NEVER use a standard `list` to implement a queue! Calling `list.pop(0)` removes the first element but forces all remaining $N-1$ elements to shift left in memory, taking $O(n)$ linear time. Instead, always use `collections.deque` (double-ended queue), which provides guaranteed `O(1)` time for both `append()` and `popleft()`.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from collections import deque\n\n# Efficient FIFO Queue using collections.deque\nq = deque()\n\n# Enqueue operations: O(1)\nq.append(\"first\")\nq.append(\"second\")\nq.append(\"third\")\n\n# Dequeue operations: O(1) FIFO order\nprint(f\"Dequeued: {q.popleft()}\")\nprint(f\"Dequeued: {q.popleft()}\")\nprint(f\"Remaining in queue: {list(q)}\")",
+          "explanation": "Demonstrates O(1) enqueue and FIFO dequeue operations using collections.deque.",
+          "expected_output": "Dequeued: first\nDequeued: second\nRemaining in queue: ['third']"
+        }
+      ],
+      "key_points": [
+        "FIFO semantics guarantee that items are processed in the exact order they arrived.",
+        "Always use collections.deque for queues in Python; list.pop(0) is an O(n) performance trap."
+      ],
+      "checkpoint": "What is the time complexity of dequeuing 10,000 items from a list of size 10,000 vs from a collections.deque?"
+    },
+    {
+      "slug": "deque-internals-and-double-ended",
+      "title": "Double-ended queues (deque) and memory architecture",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Understand the memory architecture of collections.deque in Python.",
+      "markdown": "## Naive approach\nUsing Python list pop(0) triggers an O(N) memory shift for every element, degrading queue operations to O(N^2) overall.\n\n## Better approach\nA `deque` (double-ended queue) supports $O(1)$ insertions and removals from *both* ends: `append()`, `appendleft()`, `pop()`, and `popleft()`. Internally in CPython, a `deque` is implemented as a doubly linked list of fixed-size memory blocks (typically 64 elements per block). This block-based design avoids the expensive memory reallocations and element shifting required by dynamic arrays, making insertions at both ends blazing fast. However, random index access `q[i]` in the middle of a large deque takes $O(n)$ time.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from collections import deque\n\nd = deque([10, 20, 30])\n# Double-ended insertions\nd.appendleft(5)   # Add to head: O(1)\nd.append(40)      # Add to tail: O(1)\nprint(list(d))\n\n# Double-ended removals\nprint(f\"Popped head: {d.popleft()}\")\nprint(f\"Popped tail: {d.pop()}\")\nprint(list(d))",
+          "explanation": "Demonstrates symmetric O(1) push and pop operations on both ends of a deque.",
+          "expected_output": "[5, 10, 20, 30, 40]\nPopped head: 5\nPopped tail: 40\n[10, 20, 30]"
+        }
+      ],
+      "key_points": [
+        "collections.deque provides O(1) operations at both the head and tail.",
+        "Random indexing in a deque is O(n); use standard lists if random access is required."
+      ],
+      "checkpoint": "When should you prefer a list over a deque in Python?"
+    },
+    {
+      "slug": "bfs-buffers-and-level-order",
+      "title": "Queues as BFS buffers and level-order traversal",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Use queues to manage state exploration in Breadth-First Search.",
+      "markdown": "## Python implementation\nUse collections.deque with O(1) append() and popleft() operations implemented as a doubly linked block list.\n\n## Step-by-step example\nThe most fundamental interview application of queues is acting as a `BFS buffer` in Breadth-First Search. In tree and graph traversals, BFS explores nodes level by level. Because nodes from level $k$ must be explored *before* nodes from level $k+1$, a FIFO queue guarantees correct traversal ordering. To process nodes level-by-level (e.g. 'Binary Tree Level Order Traversal'), snapshot the queue's length (`level_size = len(queue)`) at the start of each level loop.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from collections import deque\n\nclass TreeNode:\n    def __init__(self, val=0, left=None, right=None):\n        self.val = val\n        self.left = left\n        self.right = right\n\ndef level_order(root: TreeNode) -> list[list[int]]:\n    if not root:\n        return []\n    results = []\n    q = deque([root])  # BFS buffer\n    while q:\n        level_size = len(q)\n        current_level = []\n        for _ in range(level_size):\n            node = q.popleft()\n            current_level.append(node.val)\n            if node.left:\n                q.append(node.left)\n            if node.right:\n                q.append(node.right)\n        results.append(current_level)\n    return results\n\n# Construct tree: [3, 9, 20, null, null, 15, 7]\nroot = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))\nprint(level_order(root))",
+          "explanation": "Executes level-order traversal using a FIFO queue buffer to group nodes by tree depth.",
+          "expected_output": "[[3], [9, 20], [15, 7]]"
+        }
+      ],
+      "key_points": [
+        "BFS requires a FIFO queue to guarantee shortest path and level-order properties.",
+        "Using `for _ in range(len(q))` cleanly isolates each tree level in a single loop iteration."
+      ],
+      "checkpoint": "Why does using a stack instead of a queue turn BFS into DFS?"
+    },
+    {
+      "slug": "monotonic-deque-sliding-window",
+      "title": "Monotonic deques and sliding window maximum",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Implement monotonic deques to solve Sliding Window Maximum in linear time.",
+      "markdown": "## Time complexity\nO(1) push and pop from both ends; amortized O(N) total time for monotonic deque sliding window processing.\n\n## Space complexity\nO(K) or O(N) auxiliary space to store buffered elements or sliding window candidate indices.\n\n## Common mistakes\nThe `sliding window maximum` problem asks for the maximum element in every contiguous subarray of size $k$ as it slides across an array of length $n$. Finding the maximum naively takes $O(k)$ per window, yielding $O(n \\cdot k)$ overall. A `monotonic deque` solves this in optimal `O(n)` time. The deque maintains indices of candidate maximums in strictly decreasing order of values. As the window slides:\n1. Evict indices from the left if they fall outside the window (`d[0] <= i - k`).\n2. Before appending new index `i`, pop smaller elements from the right of the deque (they can never be the maximum again).\n3. The maximum of the current window is always at `d[0]`!",
+      "examples": [
+        {
+          "language": "python",
+          "code": "from collections import deque\n\ndef max_sliding_window(nums: list[int], k: int) -> list[int]:\n    d = deque()  # stores indices in monotonically decreasing value order\n    result = []\n    for i, num in enumerate(nums):\n        # 1. Evict elements outside the current window\n        if d and d[0] <= i - k:\n            d.popleft()\n        # 2. Maintain monotonic decreasing order\n        while d and nums[d[-1]] < num:\n            d.pop()\n        d.append(i)\n        # 3. Append window maximum once first window of size k is formed\n        if i >= k - 1:\n            result.append(nums[d[0]])\n    return result\n\nprint(max_sliding_window([1, 3, -1, -3, 5, 3, 6, 7], 3))",
+          "explanation": "Finds maximum for all sliding windows of size k in linear O(n) time using a monotonic deque.",
+          "expected_output": "[3, 3, 5, 5, 6, 7]"
+        }
+      ],
+      "key_points": [
+        "Monotonic deques maintain candidate maximums in decreasing order.",
+        "Total time complexity is O(n) because each index is added and removed at most once."
+      ],
+      "checkpoint": "Why does nums[d[0]] always represent the maximum value in the active window?"
+    },
+    {
+      "slug": "arena-transfer",
+      "title": "Queue interview check and Arena practice",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Master queue patterns and solve Coding Arena challenges.",
+      "markdown": "## Arena reference\nPractice with `dsa-max-sliding-window` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nQueue interview questions test your systems intuition and ability to handle state pipelines.\n\n### Common Interview Questions\n1. *Why is `list.pop(0)` considered a critical interview mistake in Python?*\n   *(Because Python lists are contiguous arrays. Removing index 0 forces the runtime to shift all subsequent pointers left, turning an O(1) operation into an O(n) penalty and ruining the time complexity of the entire algorithm).* \n2. *How do you implement a circular queue with a fixed capacity?*\n   *(Use a fixed-size list with `head` and `tail` pointers using modular arithmetic: `tail = (tail + 1) % capacity`)*. \n3. *How do you solve unweighted shortest path in a grid?*\n   *(Use BFS with a FIFO queue; the first time the destination cell is dequeued, the step count is guaranteed to be the shortest path).* \n\n### Arena Practice Problems\n- `dsa-level-order-traversal`: Grouping binary tree nodes by depth level\n- `dsa-max-sliding-window`: Monotonic decreasing deque window maximum\n- `dsa-number-of-islands-bfs`: Multi-source BFS flood fill on 2D grids",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Circular queue modular arithmetic snippet\nclass CircularQueue:\n    def __init__(self, k: int):\n        self.data = [0] * k\n        self.head = 0\n        self.tail = 0\n        self.size = 0\n        self.capacity = k\n        \n    def enQueue(self, value: int) -> bool:\n        if self.size == self.capacity: return False\n        self.data[self.tail] = value\n        self.tail = (self.tail + 1) % self.capacity\n        self.size += 1\n        return True",
+          "explanation": "Demonstrates circular queue pointer wrapping using modular arithmetic.",
+          "expected_output": "CircularQueue initialized."
+        }
+      ],
+      "key_points": [
+        "Always import `deque` from `collections` in interviews when a queue is required.",
+        "Remember that BFS guarantees shortest path in unweighted graphs."
+      ],
+      "checkpoint": "Why is BFS guaranteed to find the shortest path in an unweighted grid while DFS is not?"
+    }
+  ],
+  "summary": [
+    "Queues enforce First-In First-Out (FIFO) semantics for scheduling and buffering.",
+    "Always use collections.deque for O(1) append() and popleft() operations in Python.",
+    "Never use list.pop(0) due to hidden O(n) memory element shifting.",
+    "BFS utilizes a FIFO queue buffer to traverse trees and graphs level by level.",
+    "Monotonic deques solve the Sliding Window Maximum problem in optimal linear O(n) time."
+  ],
+  "interview_takeaways": [
+    "State immediately that you are using `collections.deque` to guarantee O(1) queue operations.",
+    "Explain the `level_size = len(q)` pattern when solving level-order tree traversal.",
+    "Recognize monotonic deques whenever an interviewer asks for maximums or minimums over sliding intervals."
+  ],
+  "common_mistakes": [
+    "Using a Python list as a queue and calling `list.pop(0)`, ruining an optimal O(n) algorithm into O(n^2)",
+    "Forgetting to check queue emptiness before calling `popleft()`",
+    "Modifying queue size inside the level traversal loop instead of taking a snapshot `len(q)`",
+    "Mixing up FIFO (queue) with LIFO (stack) when implementing graph exploration"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Standard Library \u2014 collections.deque",
+      "url": "https://docs.python.org/3/library/collections.html#collections.deque",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "9388a6ce53e5349e391e555316cffc9073f17d8bfd7873e6b4a5f768497a5d00",
+  "generated_at": "2026-09-24T08:42:13.792144+00:00"
+}

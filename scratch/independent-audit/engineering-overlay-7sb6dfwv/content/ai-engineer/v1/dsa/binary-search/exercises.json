@@ -1,0 +1,140 @@
+[
+  {
+    "key": "bs-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "Binary search time complexity",
+    "prompt_markdown": "What is the worst-case time complexity of binary search on a sorted array of $N$ elements?",
+    "difficulty": "easy",
+    "hints": [
+      "Each step eliminates half the search space."
+    ],
+    "content": {
+      "choices": [
+        "O(1)",
+        "O(log N)",
+        "O(N)",
+        "O(N log N)"
+      ],
+      "correct_index": 1,
+      "explanation": "Because the search space is divided by 2 on every comparison, the maximum number of steps required to reduce N items to 1 is ceil(log2(N)), which is O(log N)."
+    }
+  },
+  {
+    "key": "bs-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Midpoint calculation overflow avoidance",
+    "prompt_markdown": "Why do engineers recommend calculating `mid` as `lo + (hi - lo) // 2` instead of `(lo + hi) // 2`?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider fixed-width 32-bit integer limits."
+    ],
+    "content": {
+      "choices": [
+        "lo + (hi - lo) // 2 executes twice as fast on modern CPU architectures",
+        "(lo + hi) can exceed the maximum value of a 32-bit integer and cause integer overflow in fixed-width languages",
+        "lo + (hi - lo) // 2 rounds toward positive infinity instead of zero",
+        "It automatically sorts the array during calculation"
+      ],
+      "correct_index": 1,
+      "explanation": "In languages with fixed-width integers (C++, Java), if `lo` and `hi` are large, `lo + hi` can overflow the 32-bit integer limit (2,147,483,647) becoming negative. `lo + (hi - lo) // 2` avoids overflow."
+    }
+  },
+  {
+    "key": "bs-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Monotonicity requirement for Binary Search on Answer",
+    "prompt_markdown": "What property must a validation function `is_possible(x)` possess for 'Binary Search on Answer' to be applicable?",
+    "difficulty": "medium",
+    "hints": [
+      "The function must not fluctuate back and forth between True and False."
+    ],
+    "content": {
+      "choices": [
+        "It must execute in O(1) constant time",
+        "It must be monotonic (e.g. all False followed by all True, or vice versa)",
+        "It must be differentiable and have a continuous first derivative",
+        "It must return an integer rather than a boolean"
+      ],
+      "correct_index": 1,
+      "explanation": "Binary search requires monotonicity: the feasibility function must partition the search space into two contiguous halves (e.g. False for all x < threshold, and True for all x >= threshold)."
+    }
+  },
+  {
+    "key": "bs-short-predict-trace",
+    "exercise_type": "short_answer",
+    "title": "Predict binary search execution trace",
+    "prompt_markdown": "Given sorted array `nums = [3, 8, 12, 17, 24, 31, 45, 59, 70]` and `target = 31`, trace the values of `lo`, `hi`, and `mid` for each iteration until the target is found.",
+    "difficulty": "medium",
+    "hints": [
+      "Initial lo=0, hi=8. Calculate mid and check nums[mid]."
+    ],
+    "content": {
+      "rubric": [
+        "Iteration 1: lo=0, hi=8, mid=4 (nums[4]=24 < 31), lo advances to 5",
+        "Iteration 2: lo=5, hi=8, mid=6 (nums[6]=45 > 31), hi decrements to 5",
+        "Iteration 3: lo=5, hi=5, mid=5 (nums[5]=31 == target), returns index 5"
+      ],
+      "reference_answer": "Iteration 1:\n- `lo = 0`, `hi = 8`\n- `mid = 0 + (8 - 0) // 2 = 4`\n- `nums[4] = 24`. Because $24 < 31$, search right: `lo = mid + 1 = 5`.\n\nIteration 2:\n- `lo = 5`, `hi = 8`\n- `mid = 5 + (8 - 5) // 2 = 6`\n- `nums[6] = 45`. Because $45 > 31$, search left: `hi = mid - 1 = 5`.\n\nIteration 3:\n- `lo = 5`, `hi = 5`\n- `mid = 5 + (5 - 5) // 2 = 5`\n- `nums[5] = 31`. Target match! Return index `5`.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bs-short-fix-infinite-loop",
+    "exercise_type": "short_answer",
+    "title": "Fix infinite loop in binary search boundary implementation",
+    "prompt_markdown": "This binary search function gets stuck in an infinite loop on `nums = [2, 5]` and `target = 5`:\n\n```python\ndef search(nums, target):\n    lo, hi = 0, len(nums) - 1\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if nums[mid] <= target:\n            lo = mid\n        else:\n            hi = mid - 1\n    return lo\n```\nExplain why the infinite loop occurs, and provide the corrected loop logic.",
+    "difficulty": "hard",
+    "hints": [
+      "When lo=0 and hi=1, what is mid? What happens when lo = mid?"
+    ],
+    "content": {
+      "rubric": [
+        "Explains that when hi = lo + 1, integer division floors mid to lo",
+        "Explains that `lo = mid` fails to advance lo, repeating with identical lo and hi forever",
+        "Fixes either by using upper-mid bias `mid = (lo + hi + 1) // 2` or using `lo = mid + 1`"
+      ],
+      "reference_answer": "Cause of Infinite Loop:\nWhen two elements remain (`lo = 0, hi = 1`), integer division `(0 + 1) // 2` evaluates `mid = 0`. If `nums[0] <= target`, the branch executes `lo = mid`, setting `lo = 0`. The pointers remain `lo = 0, hi = 1`, and the loop repeats infinitely.\n\nCorrection (Upper-Mid Bias):\nWhen your branch contains `lo = mid`, you must bias `mid` upwards using `(lo + hi + 1) // 2`:\n```python\ndef search(nums, target):\n    lo, hi = 0, len(nums) - 1\n    while lo < hi:\n        mid = (lo + hi + 1) // 2  # Upper-mid bias prevents stagnation\n        if nums[mid] <= target:\n            lo = mid\n        else:\n            hi = mid - 1\n    return lo\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bs-short-implement-search-insert",
+    "exercise_type": "short_answer",
+    "title": "Write Search Insert Position implementation",
+    "prompt_markdown": "Write a Python function `search_insert(nums: list[int], target: int) -> int` that returns the index of `target` if present, or the index where it would be if it were inserted in order. Runtime must be $O(\\log n)$.",
+    "difficulty": "medium",
+    "hints": [
+      "Use the bisect_left template: while lo <= hi or while lo < hi."
+    ],
+    "content": {
+      "rubric": [
+        "Implements binary search in O(log n) time",
+        "Handles exact target match",
+        "Returns correct insertion index when target is absent",
+        "Correctly handles insertion at index 0 or index len(nums)"
+      ],
+      "reference_answer": "```python\ndef search_insert(nums: list[int], target: int) -> int:\n    lo, hi = 0, len(nums) - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return lo\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bs-short-explain-binary-search-answer",
+    "exercise_type": "short_answer",
+    "title": "Explain Binary Search on Answer pattern in interviews",
+    "prompt_markdown": "In an interview, you are presented with this problem: 'A conveyor belt has packages with given weights. Determine the minimum ship capacity to deliver all packages within D days.' Explain how to apply the 'Binary Search on Answer' pattern to solve this problem.",
+    "difficulty": "hard",
+    "hints": [
+      "Define the search space bounds [lo, hi], the feasibility function, and overall complexity."
+    ],
+    "content": {
+      "rubric": [
+        "Defines the search space: lower bound `lo = max(weights)`, upper bound `hi = sum(weights)`",
+        "Defines the monotonic feasibility function `can_ship(capacity)`: greedy pack scan in O(n) checking if days <= D",
+        "Explains monotonicity: if capacity C is valid, any C' > C is also valid",
+        "States overall complexity: O(n * log(sum(weights) - max(weights)))"
+      ],
+      "reference_answer": "1. Recognizing Binary Search on Answer:\nThe problem asks for the minimum capacity satisfying a constraint. If a ship capacity of $C$ can ship all packages in $D$ days, then any capacity larger than $C$ can obviously also ship them. This establishes a monotonic boolean predicate:\n`[False, False, ..., True, True, True]`.\n\n2. Defining Search Space:\n- Minimum possible capacity (`lo`): `max(weights)`. The ship must be able to hold the single heaviest package.\n- Maximum possible capacity (`hi`): `sum(weights)`. A ship holding all packages delivers everything in 1 day.\n\n3. Greedy Feasibility Validation (`can_ship(cap)`):\nIterate through `weights` greedily packing as many packages as possible into the current day's load. When adding a package exceeds `cap`, start a new day. If total days required $\\le D$, return `True`; otherwise `False`. This runs in $O(N)$ time.\n\n4. Binary Search Execution:\nPerform binary search over $[\\text{lo}, \\text{hi}]$. If `can_ship(mid)` is `True`, record `mid` and search left (`hi = mid - 1`) to find a smaller valid capacity. If `False`, search right (`lo = mid + 1`).\n\nTotal Time Complexity: $O(N \\log(\\sum W - \\max W))$, which is massively faster than testing all capacities linearly.",
+      "minimum_pass_score": 70
+    }
+  }
+]

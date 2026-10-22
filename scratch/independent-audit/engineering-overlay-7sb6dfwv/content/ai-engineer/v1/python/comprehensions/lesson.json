@@ -1,0 +1,180 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "comprehensions",
+  "title": "List, Dict, and Set Comprehensions",
+  "description": "Transform and filter data concisely with list, set, and dict comprehensions, nested readability boundaries, and generator expressions.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Construct expressive list comprehensions combining transformation and filtering",
+    "Build deduplicated set comprehensions and key-value mapping dict comprehensions",
+    "Maintain nested readability boundaries without writing unmaintainable one-liners",
+    "Differentiate memory usage between materialized comprehensions and generator expressions"
+  ],
+  "prerequisites": [
+    "collections",
+    "control-flow"
+  ],
+  "sections": [
+    {
+      "slug": "list-comprehensions-basics",
+      "title": "List comprehension syntax and mechanics",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Write clean list comprehensions to transform sequences.",
+      "markdown": "A list comprehension provides a concise syntax for creating a new list by transforming items from an iterable. The standard structure is `[expression for item in iterable]`. Under the hood, Python optimizes comprehensions into specialized bytecode that avoids repeated `.append()` attribute lookups, making them noticeably faster than equivalent manual accumulator loops. Keep expressions focused on a single transformation; if the transformation requires multiple side effects or statements, use an explicit for loop.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "raw_prices = [19.99, 5.50, 40.0, 120.0]\nwith_tax = [round(price * 1.08, 2) for price in raw_prices]\nprint(with_tax)",
+          "explanation": "Each price is multiplied by 1.08 and rounded, materializing a new list in a single expression.",
+          "expected_output": "[21.59, 5.94, 43.2, 129.6]"
+        }
+      ],
+      "key_points": [
+        "List comprehensions map an expression across an iterable to produce a new list.",
+        "Comprehensions are faster than manual append loops due to specialized C-level bytecode."
+      ],
+      "checkpoint": "Contrast [x * 2 for x in data] with a traditional accumulator loop in terms of readability and performance."
+    },
+    {
+      "slug": "conditional-comprehensions",
+      "title": "Filtering with conditions vs conditional expressions",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Apply filtering conditions and ternary branching correctly within comprehensions.",
+      "markdown": "Conditions in comprehensions serve two distinct purposes based on placement. A trailing `if condition` at the end filters elements: only items satisfying the condition are included. Conversely, a ternary conditional expression `value_if_true if condition else value_if_false` placed at the beginning transforms every item, altering the output value while preserving the element count. Mixing up their placement is a common beginner error.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "scores = [85, 42, 91, 58, 77]\npassing = [s for s in scores if s >= 60]\nlabels = ['pass' if s >= 60 else 'fail' for s in scores]\nprint(f'Filtered: {passing}')\nprint(f'Transformed: {labels}')",
+          "explanation": "Trailing if filters items (<60 excluded); ternary if-else at the start maps every score to a label.",
+          "expected_output": "Filtered: [85, 91, 77]\nTransformed: ['pass', 'fail', 'pass', 'fail', 'pass']"
+        }
+      ],
+      "key_points": [
+        "Trailing if condition filters out non-matching elements.",
+        "Leading ternary expr if cond else expr maps every element to an alternate value."
+      ],
+      "checkpoint": "Why does [x for x in data if x % 2 == 0 else 0] cause a SyntaxError in Python?"
+    },
+    {
+      "slug": "dict-and-set-comprehensions",
+      "title": "Dict comprehensions and set comprehensions",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Build mappings and unique sets with comprehension syntax.",
+      "markdown": "Python extends comprehensions to sets and dictionaries. A set comprehension uses curly braces `{expr for item in iterable}` to construct a unique, deduplicated collection in O(n) time. A dict comprehension uses key-value syntax `{key_expr: value_expr for item in iterable}`. Common applications include inverting key-value pairs in a dictionary, filtering out invalid configuration entries, or mapping object IDs directly to object instances for constant-time lookups.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "users = [{'id': 101, 'role': 'admin'}, {'id': 102, 'role': 'user'}, {'id': 103, 'role': 'user'}]\nunique_roles = {u['role'] for u in users}\nuser_by_id = {u['id']: u['role'] for u in users}\nprint(f'Roles: {sorted(unique_roles)}')\nprint(f'Mapping: {user_by_id}')",
+          "explanation": "Set comprehension eliminates duplicate roles; dict comprehension indexes roles by integer user ID.",
+          "expected_output": "Roles: ['admin', 'user']\nMapping: {101: 'admin', 102: 'user', 103: 'user'}"
+        }
+      ],
+      "key_points": [
+        "Set comprehensions {x for x in s} automatically deduplicate values.",
+        "Dict comprehensions {k: v for ...} build lookup tables and index datasets."
+      ],
+      "checkpoint": "Write a dict comprehension that inverts a dictionary mapping unique usernames to user IDs."
+    },
+    {
+      "slug": "nested-readability",
+      "title": "Nested comprehensions and nested readability boundaries",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Flatten matrices and identify when nesting harms code maintainability.",
+      "markdown": "Comprehensions can contain multiple `for` clauses, matching the order of nested loops. For example, flattening a 2D matrix uses `[cell for row in matrix for cell in row]`: the outer loop comes first, followed by the inner loop. However, engineers must respect nested readability boundaries: when a comprehension requires multiple loops, complex nested conditions, or exceeds two lines, replace it with an explicit multi-line loop. Comprehensions should simplify comprehension, not obscure business logic.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nflattened_evens = [x for row in matrix for x in row if x % 2 == 0]\nprint(f'Flattened evens: {flattened_evens}')",
+          "explanation": "Iterates each row, then each element x in that row, keeping only even integers.",
+          "expected_output": "Flattened evens: [2, 4, 6, 8]"
+        }
+      ],
+      "key_points": [
+        "Clause order in nested comprehensions follows the order of standard nested for loops.",
+        "Respect nested readability: avoid triple loops or dense logic in a single expression."
+      ],
+      "checkpoint": "Rewrite a 2-level nested comprehension as a standard nested for-loop with append."
+    },
+    {
+      "slug": "generator-expressions",
+      "title": "Generator expressions vs list comprehensions",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Select between eager list materialization and lazy generator streaming.",
+      "markdown": "A generator expression uses parentheses instead of brackets: `(expr for item in iterable)`. While list comprehensions eagerly allocate and populate the entire list in memory, generator expressions evaluate lazily, producing items one at a time on demand. When passing data into consumer functions like `sum()`, `max()`, `min()`, or `any()`, a generator expression avoids allocating auxiliary O(n) memory, making it ideal for processing massive log files or database result streams.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "import sys\nlist_comp = [x * x for x in range(1000)]\ngen_exp = (x * x for x in range(1000))\nprint(f'List size bytes: {sys.getsizeof(list_comp)}')\nprint(f'Gen size bytes: {sys.getsizeof(gen_exp)}')\nprint('Total sum:', sum(x * x for x in range(5)))",
+          "explanation": "The generator expression maintains an O(1) constant memory footprint regardless of item count.",
+          "expected_output": "List size bytes: 8856\nGen size bytes: 200\nTotal sum: 30"
+        }
+      ],
+      "key_points": [
+        "List comprehensions materialize all items immediately in O(n) memory.",
+        "Generator expressions stream items on demand with O(1) memory."
+      ],
+      "checkpoint": "When should you choose a list comprehension over a generator expression?"
+    },
+    {
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 5,
+      "estimated_minutes": 8,
+      "learning_objective": "Answer interview questions on comprehensions and practice in Coding Arena.",
+      "markdown": "Comprehensions are frequent topics in technical screens to evaluate clean code habits.\n\n### Oral Interview Questions\n1. *What is the scope of loop variables in a Python 3 list comprehension compared to a standard for loop?*\n   *(In Python 3, comprehensions have their own local function-like scope, preventing loop variable leakage into outer scope).*\n2. *How do memory footprints differ between `[x for x in stream]` and `(x for x in stream)`?*\n3. *When does a comprehension become an anti-pattern?*\n\n### Code Trace Challenge\nTrace this dict comprehension: `words = ['apple', 'bat', 'car', 'apple']; d = {w: len(w) for w in words}`. The duplicate 'apple' key simply overwrites itself, resulting in `{'apple': 5, 'bat': 3, 'car': 3}`.\n\n### Common Interview Trap\nUsing a list comprehension purely for its side effects without using the returned list (e.g. `[print(x) for x in items]`). This needlessly allocates an array of `[None, None, ...]` in memory. Use a standard `for` loop whenever side effects are the primary objective.\n\n### Arena Practice Problems\nTest your comprehension fluency in Coding Arena:\n- `python-deduplicate-list`: Sequence filtering and preserving order\n- `python-word-count`: Frequency mapping and dictionary accumulation\n- `python-running-sum`: Transforming numerical arrays",
+      "examples": [
+        {
+          "language": "python",
+          "code": "names = ['alice', 'bob', 'charlie']\nuppers = [n.upper() for n in names if len(n) > 3]\nprint(uppers)",
+          "explanation": "Filters names with length > 3 and maps them to uppercase.",
+          "expected_output": "['ALICE', 'CHARLIE']"
+        }
+      ],
+      "key_points": [
+        "Do not use comprehensions for side effects; use standard loops.",
+        "Comprehensions in Python 3 do not leak loop variables into outer scopes."
+      ],
+      "checkpoint": "Demonstrate why [print(x) for x in range(3)] is an anti-pattern."
+    }
+  ],
+  "summary": [
+    "List comprehensions provide concise, performant sequence transformation and filtering.",
+    "Set and dict comprehensions cleanly construct unique sets and indexed mappings.",
+    "Condition placement dictates whether elements are filtered (trailing if) or transformed (ternary).",
+    "Nested comprehensions follow loop ordering but must respect readability boundaries.",
+    "Generator expressions evaluate lazily, consuming O(1) memory for streaming operations."
+  ],
+  "interview_takeaways": [
+    "Avoid using comprehensions solely for side effects like printing or logging.",
+    "Prefer generator expressions when passing data directly into aggregators like sum() or any().",
+    "Refactor multi-line or nested comprehensions into explicit loops to maintain readability."
+  ],
+  "common_mistakes": [
+    "Placing an else clause after a trailing if filter instead of using leading ternary syntax",
+    "Writing unreadable 3-level nested comprehensions instead of clean helper functions",
+    "Using list comprehensions for massive streams where generator expressions prevent OOM crashes",
+    "Using a comprehension when an in-place mutation or standard loop is clearer"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "The Python Tutorial \u2014 Data Structures: List Comprehensions",
+      "url": "https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Language Reference \u2014 Displays for lists, sets and dictionaries",
+      "url": "https://docs.python.org/3/reference/expressions.html#displays-for-lists-sets-and-dictionaries",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "f51f9a2db41f4f1613fa5ab7ee25c68e1dc8a972a93c685aed2ac71d6790b21f",
+  "generated_at": "2026-09-24T08:23:03.507378+00:00"
+}

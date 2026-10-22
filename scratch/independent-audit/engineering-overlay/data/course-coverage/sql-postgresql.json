@@ -1,0 +1,16 @@
+{
+  "relational-foundations": {"required_concepts":["database","schema","table","row","column","data types","primary key","foreign key","relationship","relational model","normalization"]},
+  "query-basics": {"required_concepts":["SELECT","WHERE","ORDER BY","LIMIT","DISTINCT","OFFSET","comparison","AND","OR","NOT","IN","BETWEEN","LIKE"]},
+  "values-expressions": {"required_concepts":["aliases","NULL","IS NULL","COALESCE","CASE","string functions","numeric functions","date","CAST","expressions"]},
+  "aggregation": {"required_concepts":["COUNT","SUM","AVG","MIN","MAX","GROUP BY","HAVING","aggregate","NULL handling"]},
+  "joins": {"required_concepts":["INNER JOIN","LEFT JOIN","RIGHT JOIN","FULL JOIN","self join","multi-table","join condition","pitfalls","cartesian"]},
+  "subqueries": {"required_concepts":["scalar subquery","IN","EXISTS","correlated subquery","nested query","dependent"]},
+  "ctes": {"required_concepts":["WITH","common table expression","multiple CTE","readability","recursive awareness","reuse"]},
+  "window-functions": {"required_concepts":["OVER","PARTITION BY","ORDER BY","ROW_NUMBER","RANK","DENSE_RANK","LAG","LEAD","running aggregate","window frame"]},
+  "data-modification": {"required_concepts":["INSERT","UPDATE","DELETE","RETURNING","DML","mutation","WHERE clause"]},
+  "constraints-design": {"required_concepts":["NOT NULL","UNIQUE","CHECK","PRIMARY KEY","FOREIGN KEY","1NF","2NF","3NF","normalization","referential integrity"]},
+  "indexes": {"required_concepts":["B-tree","indexed lookup","write cost","composite index","column order","EXPLAIN","query plan","index trade-offs"]},
+  "transactions": {"required_concepts":["ACID","atomicity","consistency","isolation","durability","BEGIN","COMMIT","ROLLBACK","concurrency","isolation levels"]},
+  "postgresql-practicals": {"required_concepts":["PostgreSQL data types","boolean","timestamps","JSONB","JSON","serial","identity","arrays","text","integer","numeric"]},
+  "database-python": {"required_concepts":["parameterized query","SQL injection","connection","session","ORM","SQLAlchemy","raw SQL","transaction boundaries","cursor"]}
+}

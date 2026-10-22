@@ -1,0 +1,139 @@
+[
+  {
+    "key": "iter-mcq-exhaustion",
+    "exercise_type": "multiple_choice",
+    "title": "Iterator re-usability",
+    "prompt_markdown": "What is the printed result of this code snippet?\n\n```python\nitems = iter([1, 2, 3])\nsum1 = sum(items)\nsum2 = sum(items)\nprint(f'{sum1}:{sum2}')\n```",
+    "difficulty": "easy",
+    "hints": [
+      "What remains in an iterator after sum() consumes it?"
+    ],
+    "content": {
+      "choices": [
+        "'6:6'",
+        "'6:0'",
+        "'6:None'",
+        "Raises a StopIteration error"
+      ],
+      "correct_index": 1,
+      "explanation": "The first sum(items) consumes all elements (1+2+3 = 6). On the second call, the iterator is exhausted, so sum() receives no elements and returns 0."
+    }
+  },
+  {
+    "key": "iter-mcq-protocol-methods",
+    "exercise_type": "multiple_choice",
+    "title": "Methods of the Iterator Protocol",
+    "prompt_markdown": "What two methods must a Python class implement to fully satisfy the Iterator Protocol?",
+    "difficulty": "easy",
+    "hints": [
+      "One returns the iterator; the other produces the next value."
+    ],
+    "content": {
+      "choices": [
+        "__len__() and __getitem__()",
+        "__iter__() and __next__()",
+        "__enter__() and __exit__()",
+        "__start__() and __step__()"
+      ],
+      "correct_index": 1,
+      "explanation": "The Iterator Protocol requires `__iter__()` (which returns self) and `__next__()` (which returns the next value or raises StopIteration)."
+    }
+  },
+  {
+    "key": "iter-mcq-sentinel-iter",
+    "exercise_type": "multiple_choice",
+    "title": "Two-argument iter() behavior",
+    "prompt_markdown": "What does `iter(func, sentinel)` do in Python?",
+    "difficulty": "medium",
+    "hints": [
+      "It repeatedly invokes func until a condition is met."
+    ],
+    "content": {
+      "choices": [
+        "Runs func in a background thread until sentinel seconds elapse",
+        "Creates an iterator that calls func() repeatedly until it returns sentinel, then terminates",
+        "Raises a ValueError if func is not a generator",
+        "Passes sentinel as the first argument to func"
+      ],
+      "correct_index": 1,
+      "explanation": "The two-argument form of `iter(callable, sentinel)` calls the zero-argument callable on each step, stopping iteration when the return value equals sentinel."
+    }
+  },
+  {
+    "key": "iter-short-predict-next-default",
+    "exercise_type": "short_answer",
+    "title": "Predict next() with default fallback",
+    "prompt_markdown": "Predict the printed output and explain the execution of each step:\n\n```python\nstream = iter(['event_A'])\nval1 = next(stream, 'default')\nval2 = next(stream, 'default')\nprint(f'1:{val1}, 2:{val2}')\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Follow the iterator consumption on the first and second next() calls."
+    ],
+    "content": {
+      "rubric": [
+        "States the correct printed output '1:event_A, 2:default'",
+        "Explains that the first call consumes 'event_A' from the stream",
+        "Explains that the second call encounters exhaustion and returns the fallback 'default' without raising StopIteration"
+      ],
+      "reference_answer": "Output: `1:event_A, 2:default`.\nExplanation: The first call `next(stream, 'default')` retrieves the single available element `'event_A'`. On the second call, the stream is exhausted. Because a fallback default was provided, `next()` returns `'default'` instead of raising a `StopIteration` exception.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "iter-short-fix-missing-iter-return",
+    "exercise_type": "short_answer",
+    "title": "Diagnose custom iterator TypeError",
+    "prompt_markdown": "A custom iterator class raises `TypeError: iter() returned non-iterator of type 'NoneType'` when passed into a for loop. Diagnose the missing line in `__iter__` and write the corrected method.\n\n```python\nclass StepRange:\n    def __init__(self, limit: int):\n        self.limit = limit\n        self.n = 0\n    def __iter__(self):\n        pass\n    def __next__(self):\n        if self.n >= self.limit:\n            raise StopIteration\n        val = self.n\n        self.n += 1\n        return val\n```",
+    "difficulty": "medium",
+    "hints": [
+      "What must __iter__ return for an iterator object?"
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that `__iter__` currently returns `None` due to `pass`",
+        "Explains that an iterator's `__iter__` method must return `self`",
+        "Provides the corrected `def __iter__(self): return self`"
+      ],
+      "reference_answer": "Defect: `__iter__` contains only `pass`, implicitly returning `None`. The Python iteration protocol requires that an iterator's `__iter__()` method return the iterator instance itself (`self`).\nCorrected method:\n```python\ndef __iter__(self):\n    return self\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "iter-short-implement-cycle",
+    "exercise_type": "short_answer",
+    "title": "Implement circular iterator class",
+    "prompt_markdown": "Implement a custom iterator class `CircularIterator` that takes a list of items and cycles through them indefinitely without using `itertools.cycle`.",
+    "difficulty": "medium",
+    "hints": [
+      "Use a modulo index calculation: self.idx = (self.idx + 1) % len(self.items)."
+    ],
+    "content": {
+      "rubric": [
+        "Implements `__init__`, validating that the items collection is not empty",
+        "Implements `__iter__(self)` returning `self`",
+        "Implements `__next__(self)` indexing items and wrapping index with modulo operator",
+        "Never raises StopIteration so iteration continues indefinitely"
+      ],
+      "reference_answer": "```python\nclass CircularIterator:\n    def __init__(self, items: list):\n        if not items:\n            raise ValueError('Cannot cycle empty collection')\n        self.items = items\n        self.idx = 0\n\n    def __iter__(self):\n        return self\n\n    def __next__(self):\n        val = self.items[self.idx]\n        self.idx = (self.idx + 1) % len(self.items)\n        return val\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "iter-short-explain-memory-limits",
+    "exercise_type": "short_answer",
+    "title": "Explain iterator memory efficiency in large data processing",
+    "prompt_markdown": "In a backend data pipeline processing a 50GB server access log, explain why using an iterator or generator pipeline is mandatory compared to loading records with `list(file)`. Discuss memory allocation and time-to-first-record.",
+    "difficulty": "medium",
+    "hints": [
+      "Compare O(1) buffer space vs O(N) heap allocation, and streaming throughput."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that `list(file)` attempts to load all 50GB into RAM at once, causing Out Of Memory (OOM) crashes",
+        "Explains that an iterator loads one line/record at a time, keeping RAM consumption constant O(1)",
+        "Mentions time-to-first-record: iterators process immediately without waiting for the full file to read"
+      ],
+      "reference_answer": "1. Memory Safety: Loading 50GB with `list(file)` attempts to allocate 50GB+ of Python objects on the heap, instantly triggering an Out Of Memory (OOM) crash on standard servers. An iterator processes records line-by-line, consuming constant O(1) memory (only a few kilobytes for the current buffer).\n2. Time-to-First-Record: An iterator begins yielding and processing data immediately on line 1, whereas materializing a list blocks execution until the entire 50GB file is parsed into memory.",
+      "minimum_pass_score": 70
+    }
+  }
+]

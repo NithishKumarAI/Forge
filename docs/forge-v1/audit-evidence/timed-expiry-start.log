@@ -1,0 +1,2 @@
+PASS actual timed-test browser start
+{"synthetic_only": true, "base": "http://127.0.0.1:24000", "runtime": "C:\\My PC\\git\\Forge\\scratch\\independent-browser-pqkbx68f\\content\\expiry-runtime", "id": "b5965621-dc1e-4c0c-8424-6537757eac6f", "deadline_at": "2026-10-22T11:35:10.118479", "restart_preserved_deadline_and_draft": true, "status": "waiting_for_real_deadline"}

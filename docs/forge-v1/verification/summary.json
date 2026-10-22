@@ -1,0 +1,51 @@
+{
+  "baseline_commit": "1d7bffdc6d0f121c5dab60d29332d3831d7f1169",
+  "backend": {
+    "passed": 271,
+    "skipped": 0,
+    "warnings": 1,
+    "seconds": 529.5
+  },
+  "frontend": {
+    "passed": 49,
+    "files": 12,
+    "seconds": 11.49,
+    "typecheck": "passed",
+    "build": "passed"
+  },
+  "validators": {
+    "python_lessons": 19,
+    "sql_lessons": 14,
+    "dsa_lessons": 20,
+    "problem_files": 111,
+    "sql_problems": 30,
+    "sql_datasets": 60,
+    "candidate_files": 18
+  },
+  "browser": {
+    "passed": 17,
+    "failed": 0,
+    "external_requests": 0,
+    "page_errors": 0,
+    "expected_console_409s": 2,
+    "seconds": 46.636
+  },
+  "launcher": {
+    "passed": 18,
+    "normal_runtime_accessed": false
+  },
+  "preservation": {
+    "protected_files": 228,
+    "learner_tables": 38,
+    "mismatches": 0
+  },
+  "content": {
+    "scope_topics": 157,
+    "validated_topic_pairs": 9,
+    "unauthored_topics": 148,
+    "human_reviews": 0,
+    "published_lessons": 0
+  },
+  "readiness": "Engineering complete, content review/publishing pending",
+  "qualification": "Additional content authoring is also required for 148 topics; no full-syllabus readiness claimed."
+}

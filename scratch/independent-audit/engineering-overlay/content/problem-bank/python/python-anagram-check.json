@@ -1,0 +1,105 @@
+{
+  "key": "python-anagram-check",
+  "title": "Anagram check",
+  "track": "python",
+  "topic_tags": [
+    "strings",
+    "sets"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "medium",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a function `is_anagram(word: str, candidates: list[str]) -> list[str]` that takes a target word and a list of candidate words, and returns a list containing only the candidates that are anagrams of the target word. The check should be case-insensitive, and a word is not an anagram of itself.",
+  "constraints": [
+    "Words contain only alphabetic characters."
+  ],
+  "examples": [
+    {
+      "input": "word = \"listen\", candidates = [\"enlist\", \"google\", \"inlets\", \"banana\"]",
+      "output": "[\"enlist\", \"inlets\"]",
+      "explanation": "Both 'enlist' and 'inlets' contain the same letters as 'listen'."
+    },
+    {
+      "input": "word = \"hello\", candidates = [\"hello\", \"world\"]",
+      "output": "[]",
+      "explanation": "A word is not an anagram of itself, so 'hello' is not returned."
+    }
+  ],
+  "starter_code": "def is_anagram(word: str, candidates: list[str]) -> list[str]:\n    pass",
+  "hints": [
+    "Convert strings to lowercase to ensure case-insensitivity.",
+    "Two words are anagrams if their sorted letters are identical.",
+    "Make sure to handle the 'not same word' requirement by checking that the lowercase word and candidate aren't equal."
+  ],
+  "explanation": "To identify anagrams, we can sort the characters of both strings (converted to lowercase). If the sorted characters match and the lowercase strings themselves are not identical, the candidate is an anagram.",
+  "reference_solution": "def is_anagram(word: str, candidates: list[str]) -> list[str]:\n    word_lower = word.lower()\n    word_sorted = sorted(word_lower)\n    return [c for c in candidates if c.lower() != word_lower and sorted(c.lower()) == word_sorted]",
+  "complexity": "O(c * n log n) where c is the number of candidates and n is the length of the words.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "is_anagram",
+    "sample_tests": [
+      {
+        "name": "listen",
+        "args": [
+          "listen",
+          [
+            "enlist",
+            "google",
+            "inlets",
+            "banana"
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          "enlist",
+          "inlets"
+        ]
+      },
+      {
+        "name": "identical",
+        "args": [
+          "hello",
+          [
+            "hello",
+            "world"
+          ]
+        ],
+        "kwargs": {},
+        "expected": []
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "case_insensitive",
+        "args": [
+          "Orchestra",
+          [
+            "cashregister",
+            "Carthorse",
+            "radish"
+          ]
+        ],
+        "kwargs": {},
+        "expected": [
+          "Carthorse"
+        ]
+      },
+      {
+        "name": "empty_candidates",
+        "args": [
+          "test",
+          []
+        ],
+        "kwargs": {},
+        "expected": []
+      }
+    ]
+  },
+  "source_type": "original",
+  "source_project": "exercism",
+  "source_exercise": "anagram",
+  "license": "MIT",
+  "adapted": true,
+  "version": "1.0.0",
+  "mapped_topic": "python/strings"
+}

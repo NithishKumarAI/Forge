@@ -1,0 +1,273 @@
+{
+  "content_key": "assessment/placement-foundations/quantitative-aptitude/quantitative-aptitude-number-operations",
+  "revision": "1.0.0",
+  "content_type": "assessment_bundle",
+  "payload": {
+    "assessment": {
+      "key": "assessment/placement-foundations/quantitative-aptitude/quantitative-aptitude-number-operations",
+      "version": "1.0.0",
+      "items": [
+        {
+          "key": "guided-order",
+          "kind": "numeric",
+          "prompt": "Evaluate 9 - 2 * 3 using conventional arithmetic order. Enter a number, with no unit.",
+          "explanation": "Multiply 2 by 3 to get 6; subtract 6 from 9 to get 3.",
+          "contract": {
+            "answer": "3",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "exact_derivation": {
+              "op": "subtract",
+              "args": [
+                "9",
+                {
+                  "op": "multiply",
+                  "args": [
+                    "2",
+                    "3"
+                  ]
+                }
+              ]
+            }
+          },
+          "family": "pf/quantitative-aptitude-number-operations/guided-order",
+          "subject": "quantitative-aptitude",
+          "topic": "quantitative-aptitude-number-operations",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "independent-group",
+          "kind": "numeric",
+          "prompt": "Evaluate (7 + 5) / 3 exactly. Enter a number, with no unit.",
+          "explanation": "The bracket gives 12; dividing 12 by 3 gives 4.",
+          "contract": {
+            "answer": "4",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "exact_derivation": {
+              "op": "divide",
+              "args": [
+                {
+                  "op": "add",
+                  "args": [
+                    "7",
+                    "5"
+                  ]
+                },
+                "3"
+              ]
+            }
+          },
+          "family": "pf/quantitative-aptitude-number-operations/independent-group",
+          "subject": "quantitative-aptitude",
+          "topic": "quantitative-aptitude-number-operations",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "transfer-balance",
+          "kind": "numeric",
+          "prompt": "A prepaid account holds 23 credits. Two bookings each deduct 6 credits; a single refund adds 4 credits. No other changes occur. What balance remains? Enter the number of credits, without a unit.",
+          "explanation": "Two deductions total 12. The balance is 23 - 12 + 4 = 15 credits.",
+          "contract": {
+            "answer": "15",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "exact_derivation": {
+              "op": "add",
+              "args": [
+                {
+                  "op": "subtract",
+                  "args": [
+                    "23",
+                    {
+                      "op": "multiply",
+                      "args": [
+                        "2",
+                        "6"
+                      ]
+                    }
+                  ]
+                },
+                "4"
+              ]
+            }
+          },
+          "family": "pf/quantitative-aptitude-number-operations/transfer-balance",
+          "subject": "quantitative-aptitude",
+          "topic": "quantitative-aptitude-number-operations",
+          "level": 1,
+          "purposes": [
+            "transfer"
+          ],
+          "independent_variant": true,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "recall-signed",
+          "kind": "numeric",
+          "prompt": "A value starts at -4 and increases by 9. What is its final value? Enter a number.",
+          "explanation": "Move nine units right from -4: -4 + 9 = 5.",
+          "contract": {
+            "answer": "5",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "exact_derivation": {
+              "op": "add",
+              "args": [
+                "-4",
+                "9"
+              ]
+            }
+          },
+          "family": "pf/quantitative-aptitude-number-operations/recall-signed",
+          "subject": "quantitative-aptitude",
+          "topic": "quantitative-aptitude-number-operations",
+          "level": 1,
+          "purposes": [
+            "recall"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "mock-order",
+          "kind": "numeric",
+          "prompt": "Evaluate 18 / 3 * 2. Multiplication and division have equal precedence. Enter a number.",
+          "explanation": "Work left to right: 18 / 3 = 6, then 6 * 2 = 12.",
+          "contract": {
+            "answer": "12",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "exact_derivation": {
+              "op": "multiply",
+              "args": [
+                {
+                  "op": "divide",
+                  "args": [
+                    "18",
+                    "3"
+                  ]
+                },
+                "2"
+              ]
+            }
+          },
+          "family": "pf/quantitative-aptitude-number-operations/mock-order",
+          "subject": "quantitative-aptitude",
+          "topic": "quantitative-aptitude-number-operations",
+          "level": 1,
+          "purposes": [
+            "interview"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "openstax-arithmetic",
+        "url": "https://openstax.org/books/prealgebra-2e/pages/2-1-use-the-language-of-algebra",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "coverage": {
+    "key": "quantitative-aptitude-number-operations-assessment",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "guided-order",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/guided-order"
+        ],
+        "assessment_refs": [
+          "item/guided-order"
+        ]
+      },
+      {
+        "id": "independent-group",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/independent-group"
+        ],
+        "assessment_refs": [
+          "item/independent-group"
+        ]
+      },
+      {
+        "id": "transfer-balance",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/transfer-balance"
+        ],
+        "assessment_refs": [
+          "item/transfer-balance"
+        ]
+      },
+      {
+        "id": "recall-signed",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/recall-signed"
+        ],
+        "assessment_refs": [
+          "item/recall-signed"
+        ]
+      },
+      {
+        "id": "mock-order",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/mock-order"
+        ],
+        "assessment_refs": [
+          "item/mock-order"
+        ]
+      }
+    ]
+  }
+}

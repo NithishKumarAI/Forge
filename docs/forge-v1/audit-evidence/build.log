@@ -1,0 +1,154 @@
+
+> forge-web@0.1.0 build
+> tsc -b && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+[plugin rolldown:vite-resolve] Module "node:url" has been externalized for browser compatibility, imported by "C:/My PC/git/Forge/apps/web/node_modules/pyodide/pyodide.mjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "node:fs/promises" has been externalized for browser compatibility, imported by "C:/My PC/git/Forge/apps/web/node_modules/pyodide/pyodide.mjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "node:path" has been externalized for browser compatibility, imported by "C:/My PC/git/Forge/apps/web/node_modules/pyodide/pyodide.mjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "node:vm" has been externalized for browser compatibility, imported by "C:/My PC/git/Forge/apps/web/node_modules/pyodide/pyodide.mjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "node:crypto" has been externalized for browser compatibility, imported by "C:/My PC/git/Forge/apps/web/node_modules/pyodide/pyodide.mjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "node:child_process" has been externalized for browser compatibility, imported by "C:/My PC/git/Forge/apps/web/node_modules/pyodide/pyodide.mjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[plugin rolldown:vite-resolve] Module "node:fs" has been externalized for browser compatibility, imported by "C:/My PC/git/Forge/apps/web/node_modules/pyodide/pyodide.mjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+[EVAL] Use of direct `eval` function is strongly discouraged as it poses security risks and may cause issues with minification.
+ - Use of direct `eval` here. in node_modules/@electric-sql/pglite/dist/index.js at 88718..88722
+  │ 
+  │ Help: Consider using indirect eval. For more information, check the documentation: https://rolldown.rs/guide/troubleshooting#avoiding-direct-eval
+
+[EVAL] Use of direct `eval` function is strongly discouraged as it poses security risks and may cause issues with minification.
+ - Use of direct `eval` here. in node_modules/@electric-sql/pglite/dist/index.js at 89196..89200
+  │ 
+  │ Help: Consider using indirect eval. For more information, check the documentation: https://rolldown.rs/guide/troubleshooting#avoiding-direct-eval
+
+[EVAL] Use of direct `eval` function is strongly discouraged as it poses security risks and may cause issues with minification.
+ - Use of direct `eval` here. in node_modules/@electric-sql/pglite/dist/chunk-DDJLRBDX.js at 26324..26328
+  │ 
+  │ Help: Consider using indirect eval. For more information, check the documentation: https://rolldown.rs/guide/troubleshooting#avoiding-direct-eval
+
+[EVAL] Use of direct `eval` function is strongly discouraged as it poses security risks and may cause issues with minification.
+ - Use of direct `eval` here. in node_modules/@electric-sql/pglite/dist/chunk-DDJLRBDX.js at 26802..26806
+  │ 
+  │ Help: Consider using indirect eval. For more information, check the documentation: https://rolldown.rs/guide/troubleshooting#avoiding-direct-eval
+
+✓ 3318 modules transformed.
+rendering chunks...
+[vite-plugin-static-copy] Copied 5 items.
+computing gzip size...
+dist/index.html                                   0.63 kB │ gzip:     0.36 kB
+dist/assets/python.worker-Btk10y1E.js            26.33 kB
+dist/assets/codicon-Brq4_Ui5.ttf                140.95 kB
+dist/assets/editor.worker-BbVB3hfz.js           301.07 kB
+dist/assets/initdb-DwLcS450.wasm                395.24 kB │ gzip:   148.17 kB
+dist/assets/json.worker-2CEmYLij.js             430.43 kB
+dist/assets/sql.worker-FiJBgBxS.js              622.44 kB
+dist/assets/html.worker-ChWxMUlM.js             740.68 kB
+dist/assets/css.worker-CR6cVwG0.js            1,075.63 kB
+dist/assets/pglite-n8RDJ3Sw.data              6,295.31 kB
+dist/assets/ts.worker-BSZ_obF4.js             6,926.00 kB
+dist/assets/pglite-DgipwPsY.wasm             10,088.16 kB │ gzip: 3,471.85 kB
+dist/assets/index-C9hmFj35.css                   20.78 kB │ gzip:     4.99 kB
+dist/assets/editor-BRB7K78j.css                  79.58 kB │ gzip:    12.33 kB
+dist/assets/CodeEditor-BjcJOjAX.css              82.40 kB │ gzip:    12.97 kB
+dist/assets/javascript-BWNYTdmq.js                0.68 kB │ gzip:     0.41 kB
+dist/assets/azcli-Bc_sGQ0U.js                     0.70 kB │ gzip:     0.28 kB
+dist/assets/ini-sBoK_t0W.js                       0.96 kB │ gzip:     0.49 kB
+dist/assets/preload-helper-BZ1Pz5am.js            1.21 kB │ gzip:     0.69 kB
+dist/assets/workers-D05XexAA.js                   1.25 kB │ gzip:     0.59 kB
+dist/assets/csp-bTuwJoIa.js                       1.27 kB │ gzip:     0.48 kB
+dist/assets/pla-CopQ2nXW.js                       1.54 kB │ gzip:     0.60 kB
+dist/assets/scheme-BeGwcela.js                    1.62 kB │ gzip:     0.77 kB
+dist/assets/flow9-C5_-GSwl.js                     1.66 kB │ gzip:     0.80 kB
+dist/assets/sb-CcwsVR0C.js                        1.68 kB │ gzip:     0.78 kB
+dist/assets/bat-i0X4ZdIN.js                       1.69 kB │ gzip:     0.82 kB
+dist/assets/dockerfile-DZFCIeNp.js                1.72 kB │ gzip:     0.63 kB
+dist/assets/pascaligo-D-ptJ9y-.js                 1.85 kB │ gzip:     0.86 kB
+dist/assets/xml-BMuKrgdW.js                       1.92 kB │ gzip:     0.73 kB
+dist/assets/cameligo-DMUM7wLl.js                  1.97 kB │ gzip:     0.91 kB
+dist/assets/lua-CsQS60Ue.js                       1.98 kB │ gzip:     0.88 kB
+dist/assets/objective-c-FvmIjYaQ.js               2.10 kB │ gzip:     1.01 kB
+dist/assets/graphql-fmXr3nnJ.js                   2.11 kB │ gzip:     0.99 kB
+dist/assets/sparql-D_Lu-MrJ.js                    2.21 kB │ gzip:     1.10 kB
+dist/assets/lexon-CfSJPG6W.js                     2.28 kB │ gzip:     0.88 kB
+dist/assets/mips-CIPQ_RoX.js                      2.32 kB │ gzip:     1.02 kB
+dist/assets/go-C-y9NEjX.js                        2.35 kB │ gzip:     1.11 kB
+dist/assets/bicep-B5-_aFwp.js                     2.36 kB │ gzip:     0.91 kB
+dist/assets/sophia-CRfGWb83.js                    2.48 kB │ gzip:     1.15 kB
+dist/assets/m3-D-oSqn_W.js                        2.52 kB │ gzip:     1.29 kB
+dist/assets/typespec-B8J7ngcE.js                  2.62 kB │ gzip:     1.01 kB
+dist/assets/pascal-DrH0SRf2.js                    2.63 kB │ gzip:     1.35 kB
+dist/assets/fsharp-C8Ef5oNN.js                    2.65 kB │ gzip:     1.27 kB
+dist/assets/qsharp-DkqhCAOL.js                    2.72 kB │ gzip:     1.37 kB
+dist/assets/shell-CC2rA5mh.js                     2.81 kB │ gzip:     1.16 kB
+dist/assets/r-BwWrilGY.js                         2.83 kB │ gzip:     1.25 kB
+dist/assets/java-BEtHBSE6.js                      2.90 kB │ gzip:     1.34 kB
+dist/assets/cssMode-urFo0mqv.js                   2.95 kB │ gzip:     1.13 kB
+dist/assets/redis-ClamHrr6.js                     3.03 kB │ gzip:     1.41 kB
+dist/assets/kotlin-BOotOW0E.js                    3.04 kB │ gzip:     1.41 kB
+dist/assets/cypher-CVaqCwHa.js                    3.04 kB │ gzip:     1.40 kB
+dist/assets/powershell-DmHpPYUd.js                3.05 kB │ gzip:     1.33 kB
+dist/assets/tcl-DISqw1ZD.js                       3.27 kB │ gzip:     1.32 kB
+dist/assets/liquid-eptP6eVJ.js                    3.34 kB │ gzip:     1.42 kB
+dist/assets/coffee-Ba7i2nA0.js                    3.36 kB │ gzip:     1.24 kB
+dist/assets/htmlMode-BfdTECYs.js                  3.40 kB │ gzip:     1.24 kB
+dist/assets/hcl-CpzslTdj.js                       3.44 kB │ gzip:     1.45 kB
+dist/assets/python-BCl87VQm.js                    3.45 kB │ gzip:     1.42 kB
+dist/assets/apex-BWPQTe0t.js                      3.46 kB │ gzip:     1.70 kB
+dist/assets/yaml-Byj04Lou.js                      3.54 kB │ gzip:     1.29 kB
+dist/assets/markdown-Cimd5fb3.js                  3.63 kB │ gzip:     1.34 kB
+dist/assets/rust-DdL9SqIa.js                      3.66 kB │ gzip:     1.80 kB
+dist/assets/restructuredtext-BYgofb2h.js          3.74 kB │ gzip:     1.32 kB
+dist/assets/less-B9JPFI3C.js                      3.74 kB │ gzip:     1.36 kB
+dist/assets/dart-onAF5SnQ.js                      3.93 kB │ gzip:     1.60 kB
+dist/assets/csharp-BKxtCVv1.js                    4.11 kB │ gzip:     1.66 kB
+dist/assets/msdax-DauUninz.js                     4.27 kB │ gzip:     1.87 kB
+dist/assets/mdx-9LGWfM7M.js                       4.31 kB │ gzip:     1.21 kB
+dist/assets/css-DIMkf-bt.js                       4.36 kB │ gzip:     1.33 kB
+dist/assets/pug-Z5eAx3Zn.js                       4.46 kB │ gzip:     1.60 kB
+dist/assets/swift-Bxkupp3x.js                     4.48 kB │ gzip:     1.99 kB
+dist/assets/html-BBbjHQU6.js                      4.51 kB │ gzip:     1.15 kB
+dist/assets/ecl-D05T4iGw.js                       4.62 kB │ gzip:     2.19 kB
+dist/assets/typescript-Bs4PJUJ4.js                4.67 kB │ gzip:     1.94 kB
+dist/assets/cpp-C7h46wYY.js                       4.74 kB │ gzip:     2.02 kB
+dist/assets/vb-DV3o63ZY.js                        5.30 kB │ gzip:     2.01 kB
+dist/assets/twig-De2hgUGE.js                      5.78 kB │ gzip:     1.48 kB
+dist/assets/scss-gp-XZpBa.js                      6.26 kB │ gzip:     1.70 kB
+dist/assets/handlebars-DpHEthRc.js                6.28 kB │ gzip:     1.37 kB
+dist/assets/InterviewPage-Cv2bbRep.js             6.37 kB │ gzip:     2.01 kB
+dist/assets/julia-Bri6UV-V.js                     6.50 kB │ gzip:     2.64 kB
+dist/assets/systemverilog-Bz4Y3fRF.js             6.85 kB │ gzip:     2.72 kB
+dist/assets/st-DbInun42.js                        6.94 kB │ gzip:     2.24 kB
+dist/assets/scala-DHpiXF5c.js                     7.11 kB │ gzip:     2.07 kB
+dist/assets/wgsl-DpFanUEy.js                      7.18 kB │ gzip:     2.73 kB
+dist/assets/perl-oz_6vUea.js                      7.35 kB │ gzip:     3.10 kB
+dist/assets/postiats-43DmfD33.js                  7.36 kB │ gzip:     2.39 kB
+dist/assets/TimedTestPage-r18CZ0qv.js             7.60 kB │ gzip:     2.63 kB
+dist/assets/php-nr791fC2.js                       7.74 kB │ gzip:     2.03 kB
+dist/assets/razor-jetjnJV1.js                     8.11 kB │ gzip:     2.05 kB
+dist/assets/clojure-Cm7r79vr.js                   8.21 kB │ gzip:     3.49 kB
+dist/assets/ruby-DezsRK8O.js                      8.21 kB │ gzip:     2.55 kB
+dist/assets/sql-NEE52Syq.js                       8.84 kB │ gzip:     3.73 kB
+dist/assets/protobuf-C531GsRP.js                  8.89 kB │ gzip:     2.04 kB
+dist/assets/jsx-runtime-D3jfb0Ew.js               8.90 kB │ gzip:     3.38 kB
+dist/assets/mysql-SOo6toE5.js                     9.65 kB │ gzip:     3.98 kB
+dist/assets/elixir-6RTg0lbw.js                   10.11 kB │ gzip:     2.50 kB
+dist/assets/redshift-DT7zqm-g.js                 10.33 kB │ gzip:     4.24 kB
+dist/assets/abap-08VXUWAP.js                     11.69 kB │ gzip:     5.15 kB
+dist/assets/pgsql-DTj74zXo.js                    11.91 kB │ gzip:     4.42 kB
+dist/assets/jsonMode-sBpdNsna.js                 12.18 kB │ gzip:     4.45 kB
+dist/assets/powerquery-D3hlyOfw.js               15.34 kB │ gzip:     4.73 kB
+dist/assets/freemarker2-D4Q3kHSS.js              15.54 kB │ gzip:     3.97 kB
+dist/assets/solidity-BEEn4gHE.js                 15.99 kB │ gzip:     4.39 kB
+dist/assets/ArenaPage-BcUQuwE_.js                20.13 kB │ gzip:     5.72 kB
+dist/assets/tsMode-__j4khAJ.js                   21.85 kB │ gzip:     6.15 kB
+dist/assets/lspLanguageFeatures-DOfyiYVd.js      28.22 kB │ gzip:     7.17 kB
+dist/assets/index-WVaqtCMY.js                   464.49 kB │ gzip:   139.79 kB
+dist/assets/CodeEditor-B54vyQIz.js            1,281.69 kB │ gzip:   324.53 kB
+dist/assets/editor.api-DLp60tKr.js            2,653.96 kB │ gzip:   682.05 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.13s

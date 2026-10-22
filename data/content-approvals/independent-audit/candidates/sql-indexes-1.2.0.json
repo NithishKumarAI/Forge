@@ -1,0 +1,540 @@
+{
+  "content_key": "ai-engineer/v1/sql-postgresql/indexes",
+  "revision": "1.2.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "default-ai-engineer",
+      "track_slug": "sql-postgresql",
+      "topic_slug": "indexes",
+      "title": "Database Indexing, B-Trees, and Query Plan Optimization",
+      "description": "Master indexing mechanics: B-tree indexed lookup, composite indexes, column order, write cost overhead, EXPLAIN query plan analysis, and index trade-offs.",
+      "version": "1.2.0",
+      "learning_objectives": [
+        "Explain balanced-tree lookup and index maintenance tradeoffs",
+        "Choose and inspect composite indexes without universal planner claims",
+        "Read plans and distinguish index-only eligibility from zero heap fetches"
+      ],
+      "prerequisites": [
+        "relational-foundations",
+        "query-basics"
+      ],
+      "sections": [
+        {
+          "slug": "btree-fundamentals",
+          "title": "B-tree lookup with explicit data",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Explain balanced-tree lookup and index maintenance tradeoffs",
+          "markdown": "A B-tree organizes keys so an equality lookup navigates a balanced tree. Traversal is logarithmic in indexed entries, but total query cost also includes matches, visibility checks and possible heap access. A small table may still be cheaper to scan. This complete fixture inserts the row before selecting it.\n\nRun this declared setup in a fresh database before the query below:\n```sql\nCREATE TABLE customers(id int PRIMARY KEY,email text,signup_date date);\nINSERT INTO customers VALUES(1,'user@example.com','2026-09-24');\nCREATE INDEX idx_customers_email ON customers(email);\n```",
+          "examples": [
+            {
+              "language": "sql",
+              "code": "SELECT id,signup_date::text AS signup_date FROM customers WHERE email='user@example.com';",
+              "expected_output": "{\"columns\": [\"id\", \"signup_date\"], \"rows\": [[1, \"2026-09-24\"]]}",
+              "explanation": "Use the complete disposable schema/data declared immediately above. Display casts make deterministic fixture output explicit."
+            }
+          ],
+          "key_points": [
+            "Planner choices depend on data and version.",
+            "Use indexrelname to identify an index."
+          ],
+          "checkpoint": "Explain the input data, result and one limit of the example."
+        },
+        {
+          "slug": "composite-indexes-and-column-order",
+          "title": "Composite key order",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Choose and inspect composite indexes without universal planner claims",
+          "markdown": "An index on (customer_id,order_date) sorts primarily by customer and then date. Equality on the leading key plus a date range directly matches that ordering. Filtering only on a later key is not universally forbidden: the planner may scan the index or use version-dependent strategies, whose cost depends on data. Inspect the actual plan.\n\nRun this declared setup in a fresh database before the query below:\n```sql\nCREATE TABLE orders(id int PRIMARY KEY,customer_id int,order_date date,total_amount numeric(10,2));\nINSERT INTO orders VALUES(5,101,'2026-02-01',120);\nCREATE INDEX idx_orders_cust_date ON orders(customer_id,order_date);\n```",
+          "examples": [
+            {
+              "language": "sql",
+              "code": "SELECT id,total_amount::int AS total_amount FROM orders WHERE customer_id=101 AND order_date>='2026-01-01';",
+              "expected_output": "{\"columns\": [\"id\", \"total_amount\"], \"rows\": [[5, 120]]}",
+              "explanation": "Use the complete disposable schema/data declared immediately above. Display casts make deterministic fixture output explicit."
+            }
+          ],
+          "key_points": [
+            "Planner choices depend on data and version.",
+            "Use indexrelname to identify an index."
+          ],
+          "checkpoint": "Explain the input data, result and one limit of the example."
+        },
+        {
+          "slug": "write-cost-and-index-tradeoffs",
+          "title": "Index maintenance and inspection",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Read plans and distinguish index-only eligibility from zero heap fetches",
+          "markdown": "Indexes consume storage and add maintenance work. Do not equate an insert with a fixed count of physical writes. PostgreSQL uses MVCC and WAL; eligible HOT updates can avoid new index entries, and index cleanup for deleted versions is coordinated with vacuum. In pg_stat_user_indexes, relname is the table name and indexrelname is the index name. Sizes depend on data and environment; no fixed byte count is promised.\n\nRun this declared setup in a fresh database before the query below:\n```sql\nCREATE TABLE orders(id int PRIMARY KEY,customer_id int,order_date date,total_amount numeric(10,2));\nINSERT INTO orders VALUES(5,101,'2026-02-01',120);\nCREATE INDEX idx_orders_cust_date ON orders(customer_id,order_date);\n```",
+          "examples": [
+            {
+              "language": "sql",
+              "code": "SELECT indexrelname AS index_name FROM pg_stat_user_indexes WHERE indexrelname='idx_orders_cust_date';",
+              "expected_output": "{\"columns\": [\"index_name\"], \"rows\": [[\"idx_orders_cust_date\"]]}",
+              "explanation": "Use the complete disposable schema/data declared immediately above. Display casts make deterministic fixture output explicit."
+            }
+          ],
+          "key_points": [
+            "Planner choices depend on data and version.",
+            "Use indexrelname to identify an index."
+          ],
+          "checkpoint": "Explain the input data, result and one limit of the example."
+        },
+        {
+          "slug": "explain-and-query-plans",
+          "title": "Inspect a plan instead of inventing it",
+          "order_index": 3,
+          "estimated_minutes": 8,
+          "learning_objective": "Read plans and distinguish index-only eligibility from zero heap fetches",
+          "markdown": "EXPLAIN shows an estimated plan. EXPLAIN (ANALYZE, BUFFERS) executes the query and reports measured behavior. Never run a mutating EXPLAIN ANALYZE on valuable data without an appropriate disposable transaction. An Index Only Scan still may fetch heap pages for visibility checks unless the relevant pages are marked all-visible. Plans and timings depend on version, statistics, visibility and data, so the example below has no universal exact plan.\n\nRun this declared setup in a fresh database before the query below:\n```sql\nCREATE TABLE customers(id int PRIMARY KEY,email text,signup_date date);\nINSERT INTO customers VALUES(1,'user@example.com','2026-09-24');\nCREATE INDEX idx_customers_email ON customers(email);\n```",
+          "examples": [
+            {
+              "language": "sql",
+              "code": "EXPLAIN (ANALYZE, BUFFERS) SELECT email FROM customers WHERE email='user@example.com';",
+              "expected_output": "Plan is environment-dependent; inspect node type, rows and heap fetches rather than a fixed cost or timing.",
+              "explanation": "Use the complete disposable schema/data declared immediately above. Display casts make deterministic fixture output explicit."
+            }
+          ],
+          "key_points": [
+            "Planner choices depend on data and version.",
+            "Use indexrelname to identify an index."
+          ],
+          "checkpoint": "Explain the input data, result and one limit of the example."
+        },
+        {
+          "slug": "revision",
+          "title": "Boundary checks and a revision question",
+          "order_index": 4,
+          "estimated_minutes": 8,
+          "learning_objective": "Read plans and distinguish index-only eligibility from zero heap fetches",
+          "markdown": "Before adding an index, identify the query, expected selectivity, write workload and existing keys. Compare plans and measured work on representative data. Do not infer production latency from a one-row fixture. The following count only checks that the explicitly inserted fixture is present.\n\nRun this declared setup in a fresh database before the query below:\n```sql\nCREATE TABLE customers(id int PRIMARY KEY,email text,signup_date date);\nINSERT INTO customers VALUES(1,'user@example.com','2026-09-24');\nCREATE INDEX idx_customers_email ON customers(email);\n```",
+          "examples": [
+            {
+              "language": "sql",
+              "code": "SELECT count(*)::int AS n FROM customers;",
+              "expected_output": "{\"columns\": [\"n\"], \"rows\": [[1]]}",
+              "explanation": "Use the complete disposable schema/data declared immediately above. Display casts make deterministic fixture output explicit."
+            }
+          ],
+          "key_points": [
+            "Planner choices depend on data and version.",
+            "Use indexrelname to identify an index."
+          ],
+          "checkpoint": "Explain the input data, result and one limit of the example."
+        }
+      ],
+      "summary": [
+        "An index is a tradeoff, not a guarantee of a chosen plan.",
+        "Use explicit fixtures and correct catalog columns.",
+        "Index Only Scan can still require heap visibility checks."
+      ],
+      "interview_takeaways": [
+        "State workload and selectivity before proposing an index.",
+        "Measure and explain the plan with visibility and write-cost limits."
+      ],
+      "common_mistakes": [
+        "Inventing rows without inserting data",
+        "Filtering a table-name catalog column using an index name",
+        "Treating all update paths and physical writes as identical",
+        "Treating planner costs or index sizes as portable constants"
+      ],
+      "sources": [
+        {
+          "source_id": "postgresql-official-docs",
+          "title": "PostgreSQL Documentation — Indexes (B-tree, Multicolumn, EXPLAIN)",
+          "url": "https://www.postgresql.org/docs/current/indexes.html",
+          "retrieved_at": "2026-09-24T00:00:00Z"
+        },
+        {
+          "source_id": "postgresql-tutorial",
+          "title": "PostgreSQL Indexes Tutorial",
+          "url": "https://www.postgresql.org/docs/current/tutorial.html",
+          "retrieved_at": "2026-09-24T00:00:00Z"
+        }
+      ],
+      "content_hash": "db6f2b0aea7ffc6c540dfae4b84ecea1945b0c7859b636cbb04f47afaf2abb4f",
+      "generated_at": "2026-10-22T00:00:00Z"
+    },
+    "exercises": [
+      {
+        "key": "index-catalog-name",
+        "exercise_type": "multiple_choice",
+        "title": "Which pg_stat_user_indexes column identifies the index name?",
+        "prompt_markdown": "Which pg_stat_user_indexes column identifies the index name?",
+        "difficulty": "easy",
+        "hints": [
+          "Identify the schema, rows and exact catalog fields named in the question.",
+          "Separate a logical guarantee from a data-dependent planner or storage observation."
+        ],
+        "content": {
+          "choices": [
+            "relname",
+            "indexrelname",
+            "schemaname"
+          ],
+          "correct_index": 1,
+          "answer_text": "indexrelname",
+          "assumptions": "PostgreSQL; exact catalog-column names and visibility semantics; no universal planner-cost claim.",
+          "explanation": "indexrelname names the index; relname names its table."
+        }
+      },
+      {
+        "key": "index-only-visibility",
+        "exercise_type": "multiple_choice",
+        "title": "Does an Index Only Scan always guarantee zero heap fetches?",
+        "prompt_markdown": "Does an Index Only Scan always guarantee zero heap fetches?",
+        "difficulty": "easy",
+        "hints": [
+          "Identify the schema, rows and exact catalog fields named in the question.",
+          "Separate a logical guarantee from a data-dependent planner or storage observation."
+        ],
+        "content": {
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "correct_index": 1,
+          "answer_text": "No",
+          "assumptions": "PostgreSQL; exact catalog-column names and visibility semantics; no universal planner-cost claim.",
+          "explanation": "Visibility checks may still require heap access when pages are not all-visible."
+        }
+      },
+      {
+        "key": "index-physical-writes",
+        "exercise_type": "multiple_choice",
+        "title": "Does adding ten indexes imply exactly eleven physical writes for each insert?",
+        "prompt_markdown": "Does adding ten indexes imply exactly eleven physical writes for each insert?",
+        "difficulty": "easy",
+        "hints": [
+          "Identify the schema, rows and exact catalog fields named in the question.",
+          "Separate a logical guarantee from a data-dependent planner or storage observation."
+        ],
+        "content": {
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "correct_index": 1,
+          "answer_text": "No",
+          "assumptions": "PostgreSQL; exact catalog-column names and visibility semantics; no universal planner-cost claim.",
+          "explanation": "Logical index maintenance, buffers and WAL do not imply a fixed physical write count."
+        }
+      },
+      {
+        "key": "index-composite-query",
+        "exercise_type": "short_answer",
+        "title": "For (customer_id,order_date), describe the query pattern that directly uses the leading ke",
+        "prompt_markdown": "For (customer_id,order_date), describe the query pattern that directly uses the leading key and explain the limitation.",
+        "difficulty": "medium",
+        "hints": [
+          "Identify the schema, rows and exact catalog fields named in the question.",
+          "Separate a logical guarantee from a data-dependent planner or storage observation."
+        ],
+        "content": {
+          "reference_answer": "Equality on customer_id followed by a range on order_date matches the ordering. Queries omitting the leading key are not universally impossible; inspect plan and cost for the engine version and data.",
+          "rubric": [
+            "Leading equality",
+            "Trailing range",
+            "Qualifies planner claims"
+          ],
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "index-fix-catalog",
+        "exercise_type": "short_answer",
+        "title": "Fix a query that filters relname = 'idx_orders_cust_date' to find that index",
+        "prompt_markdown": "Fix a query that filters relname = 'idx_orders_cust_date' to find that index.",
+        "difficulty": "medium",
+        "hints": [
+          "Identify the schema, rows and exact catalog fields named in the question.",
+          "Separate a logical guarantee from a data-dependent planner or storage observation."
+        ],
+        "content": {
+          "reference_answer": "SELECT indexrelname AS index_name FROM pg_stat_user_indexes WHERE indexrelname = 'idx_orders_cust_date'; relname is the table name.",
+          "rubric": [
+            "Uses indexrelname in projection and filter",
+            "Explains table/index difference"
+          ],
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "index-fixture-rows",
+        "exercise_type": "short_answer",
+        "title": "A sample creates an empty table and then promises a selected row",
+        "prompt_markdown": "A sample creates an empty table and then promises a selected row. What must its fixture add?",
+        "difficulty": "medium",
+        "hints": [
+          "Identify the schema, rows and exact catalog fields named in the question.",
+          "Separate a logical guarantee from a data-dependent planner or storage observation."
+        ],
+        "content": {
+          "reference_answer": "Insert the exact row before querying, or change the expected result to empty. Declare schema, inserted data, query and ordering together; never invent a row in the answer.",
+          "rubric": [
+            "Explicit inserted data",
+            "Correct expected rows",
+            "Ordering"
+          ],
+          "minimum_pass_score": 70
+        }
+      },
+      {
+        "key": "index-explain-report",
+        "exercise_type": "short_answer",
+        "title": "What should a worked EXPLAIN example promise instead of a fixed cost or runtime?",
+        "prompt_markdown": "What should a worked EXPLAIN example promise instead of a fixed cost or runtime?",
+        "difficulty": "medium",
+        "hints": [
+          "Identify the schema, rows and exact catalog fields named in the question.",
+          "Separate a logical guarantee from a data-dependent planner or storage observation."
+        ],
+        "content": {
+          "reference_answer": "Provide complete setup and ask the reader to inspect plan nodes, actual rows and visibility/heap behavior. State engine version and data. Timings and selected plans are observations, not universal expected constants.",
+          "rubric": [
+            "Setup",
+            "Measured plan",
+            "Version/data context",
+            "No invented universal timing"
+          ],
+          "minimum_pass_score": 70
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "AI-assisted audit correction draft; independent human review pending",
+    "sources": [
+      {
+        "source_id": "postgresql-official-docs",
+        "url": "https://www.postgresql.org/docs/current/indexes.html",
+        "usage": "factual_reference",
+        "status": "resolved"
+      },
+      {
+        "source_id": "postgresql-tutorial",
+        "url": "https://www.postgresql.org/docs/current/tutorial.html",
+        "usage": "factual_reference",
+        "status": "resolved"
+      }
+    ]
+  },
+  "coverage": {
+    "key": "indexes-audit-correction",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "correction",
+        "status": "covered",
+        "lesson_refs": [
+          "section/btree-fundamentals",
+          "section/composite-indexes-and-column-order",
+          "section/write-cost-and-index-tradeoffs",
+          "section/explain-and-query-plans",
+          "section/revision"
+        ],
+        "assessment_refs": [
+          "exercise/index-catalog-name",
+          "exercise/index-only-visibility",
+          "exercise/index-physical-writes",
+          "exercise/index-composite-query",
+          "exercise/index-fix-catalog",
+          "exercise/index-fixture-rows",
+          "exercise/index-explain-report"
+        ]
+      }
+    ]
+  },
+  "example_checks": [
+    {
+      "section_slug": "btree-fundamentals",
+      "example_index": 0,
+      "mode": "sql",
+      "setup_sql": "CREATE TABLE customers(id int PRIMARY KEY,email text,signup_date date); INSERT INTO customers VALUES(1,'user@example.com','2026-09-24'); CREATE INDEX idx_customers_email ON customers(email);",
+      "expected_columns": [
+        "id",
+        "signup_date"
+      ],
+      "expected_rows": [
+        [
+          1,
+          "2026-09-24"
+        ]
+      ],
+      "order_sensitive": true
+    },
+    {
+      "section_slug": "composite-indexes-and-column-order",
+      "example_index": 0,
+      "mode": "sql",
+      "setup_sql": "CREATE TABLE orders(id int PRIMARY KEY,customer_id int,order_date date,total_amount numeric(10,2)); INSERT INTO orders VALUES(5,101,'2026-02-01',120); CREATE INDEX idx_orders_cust_date ON orders(customer_id,order_date);",
+      "expected_columns": [
+        "id",
+        "total_amount"
+      ],
+      "expected_rows": [
+        [
+          5,
+          120
+        ]
+      ],
+      "order_sensitive": true
+    },
+    {
+      "section_slug": "write-cost-and-index-tradeoffs",
+      "example_index": 0,
+      "mode": "sql",
+      "setup_sql": "CREATE TABLE orders(id int PRIMARY KEY,customer_id int,order_date date,total_amount numeric(10,2)); INSERT INTO orders VALUES(5,101,'2026-02-01',120); CREATE INDEX idx_orders_cust_date ON orders(customer_id,order_date);",
+      "expected_columns": [
+        "index_name"
+      ],
+      "expected_rows": [
+        [
+          "idx_orders_cust_date"
+        ]
+      ],
+      "order_sensitive": true
+    },
+    {
+      "section_slug": "explain-and-query-plans",
+      "example_index": 0,
+      "mode": "context",
+      "reason": "EXPLAIN plan/costs depend on data, statistics and engine version; inspect manually, not against invented exact output."
+    },
+    {
+      "section_slug": "revision",
+      "example_index": 0,
+      "mode": "sql",
+      "setup_sql": "CREATE TABLE customers(id int PRIMARY KEY,email text,signup_date date); INSERT INTO customers VALUES(1,'user@example.com','2026-09-24'); CREATE INDEX idx_customers_email ON customers(email);",
+      "expected_columns": [
+        "n"
+      ],
+      "expected_rows": [
+        [
+          1
+        ]
+      ],
+      "order_sensitive": true
+    }
+  ],
+  "prerequisite_keys": [
+    "relational-foundations",
+    "query-basics"
+  ],
+  "known_content": [
+    "arena/dsa-container-most-water",
+    "arena/dsa-daily-temperatures",
+    "arena/dsa-decode-string",
+    "arena/dsa-evaluate-rpn",
+    "arena/dsa-find-cycle-start",
+    "arena/dsa-find-in-rotated",
+    "arena/dsa-first-last-position",
+    "arena/dsa-first-pair",
+    "arena/dsa-fruit-into-baskets",
+    "arena/dsa-isomorphic-strings",
+    "arena/dsa-kth-largest",
+    "arena/dsa-level-order-traversal",
+    "arena/dsa-longest-consecutive",
+    "arena/dsa-longest-substring-no-repeat",
+    "arena/dsa-max-consecutive-ones",
+    "arena/dsa-max-depth-tree",
+    "arena/dsa-max-sliding-window",
+    "arena/dsa-max-window-sum",
+    "arena/dsa-merge-intervals",
+    "arena/dsa-merge-two-sorted-lists",
+    "arena/dsa-min-stack",
+    "arena/dsa-min-window-substring",
+    "arena/dsa-move-zeroes",
+    "arena/dsa-number-of-islands-bfs",
+    "arena/dsa-permutation-in-string",
+    "arena/dsa-range-sum-query",
+    "arena/dsa-ransom-note",
+    "arena/dsa-remove-duplicates-sorted",
+    "arena/dsa-reverse-linked-list",
+    "arena/dsa-reverse-string",
+    "arena/dsa-search-insert-position",
+    "arena/dsa-sort-colors",
+    "arena/dsa-sqrt-integer",
+    "arena/dsa-subarray-sum-equals-k",
+    "arena/dsa-three-sum",
+    "arena/dsa-top-k-frequent",
+    "arena/dsa-trapping-rain-water",
+    "arena/dsa-two-sum-indices",
+    "arena/dsa-valid-anagram",
+    "arena/dsa-word-pattern",
+    "arena/python-anagram-check",
+    "arena/python-bob",
+    "arena/python-celsius-to-fahrenheit",
+    "arena/python-climbing-stairs",
+    "arena/python-collatz",
+    "arena/python-count-bits",
+    "arena/python-count-islands",
+    "arena/python-count-vowels",
+    "arena/python-deduplicate-list",
+    "arena/python-find-duplicate",
+    "arena/python-first-non-repeat",
+    "arena/python-fizzbuzz",
+    "arena/python-flatten-list",
+    "arena/python-generate-subsets",
+    "arena/python-group-anagrams",
+    "arena/python-group-errors",
+    "arena/python-implement-queue",
+    "arena/python-is-palindrome",
+    "arena/python-largest-product",
+    "arena/python-leap-year",
+    "arena/python-longest-common-prefix",
+    "arena/python-longest-increasing-subseq",
+    "arena/python-matrix-spiral",
+    "arena/python-max-profit",
+    "arena/python-max-subarray",
+    "arena/python-merge-sorted-lists",
+    "arena/python-missing-number",
+    "arena/python-normalize-name",
+    "arena/python-pangram",
+    "arena/python-product-except-self",
+    "arena/python-raindrops",
+    "arena/python-rotate-list",
+    "arena/python-running-sum",
+    "arena/python-stack-balanced-brackets",
+    "arena/python-two-fer",
+    "arena/python-two-sum",
+    "arena/python-valid-bst",
+    "arena/python-valid-parentheses-string",
+    "arena/python-valid-sudoku-row",
+    "arena/python-word-count",
+    "arena/sql-above-average-salary",
+    "arena/sql-active-users",
+    "arena/sql-age-from-birthdate",
+    "arena/sql-coalesce-address",
+    "arena/sql-cte-running-balance",
+    "arena/sql-cte-top-products",
+    "arena/sql-customer-totals",
+    "arena/sql-customers-with-orders",
+    "arena/sql-daily-sales",
+    "arena/sql-dept-avg-salary",
+    "arena/sql-dept-head-count",
+    "arena/sql-dept-max-earner",
+    "arena/sql-distinct-cities",
+    "arena/sql-employee-bonus",
+    "arena/sql-employees-by-dept",
+    "arena/sql-employees-with-manager",
+    "arena/sql-high-value-depts",
+    "arena/sql-monthly-active-users",
+    "arena/sql-null-email",
+    "arena/sql-order-count-by-status",
+    "arena/sql-orders-with-no-items",
+    "arena/sql-product-never-ordered",
+    "arena/sql-product-revenue",
+    "arena/sql-products-in-stock",
+    "arena/sql-recent-orders",
+    "arena/sql-second-highest-salary",
+    "arena/sql-students-all-subjects",
+    "arena/sql-three-table-join",
+    "arena/sql-top-customer-per-region",
+    "arena/sql-user-search"
+  ]
+}

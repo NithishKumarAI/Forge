@@ -81,6 +81,9 @@ class TopicStateUpdate(BaseModel):
 
 
 class DashboardRead(BaseModel):
+    content_status: dict = Field(default_factory=dict)
+    reading_progress: dict = Field(default_factory=dict)
+    recent_mistakes: list[dict] = Field(default_factory=list)
     interview_readiness: int
     active_curriculum: dict[str, int | str] | None = None
     tracks: list[TrackSummary]

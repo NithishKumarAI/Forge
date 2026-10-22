@@ -1,0 +1,139 @@
+[
+  {
+    "key": "oop-mcq-mutable-class-attr",
+    "exercise_type": "multiple_choice",
+    "title": "Shared mutable class attribute bug",
+    "prompt_markdown": "What is the printed output of this code snippet?\n\n```python\nclass Cache:\n    items = []\n\nc1 = Cache()\nc2 = Cache()\nc1.items.append('session_1')\nprint(c2.items)\n```",
+    "difficulty": "easy",
+    "hints": [
+      "Review where items is defined."
+    ],
+    "content": {
+      "choices": [
+        "[]",
+        "['session_1']",
+        "Raises an AttributeError",
+        "None"
+      ],
+      "correct_index": 1,
+      "explanation": "Because `items` is defined on the class body, it is a class attribute shared across all instances. Appending to it via c1 mutates the shared list accessed by c2."
+    }
+  },
+  {
+    "key": "oop-mcq-super-call",
+    "exercise_type": "multiple_choice",
+    "title": "Role of super() in inheritance",
+    "prompt_markdown": "Why should a subclass `__init__` method call `super().__init__(*args, **kwargs)`?",
+    "difficulty": "medium",
+    "hints": [
+      "Consider how parent class attributes are initialized."
+    ],
+    "content": {
+      "choices": [
+        "It is required by the Python compiler; omitting it causes a SyntaxError",
+        "It executes parent class initialization logic, setting up inherited attributes and invariants",
+        "It prevents subclasses from overriding parent class methods",
+        "It converts all instance attributes to class attributes"
+      ],
+      "correct_index": 1,
+      "explanation": "Calling `super().__init__()` executes the base class constructor, ensuring all attributes and invariant checks declared in parent classes are properly initialized."
+    }
+  },
+  {
+    "key": "oop-mcq-repr-vs-str",
+    "exercise_type": "multiple_choice",
+    "title": "Purpose of __repr__ vs __str__",
+    "prompt_markdown": "What is the primary design goal of the `__repr__` dunder method according to Python conventions?",
+    "difficulty": "medium",
+    "hints": [
+      "Think about debugging and developer tooling."
+    ],
+    "content": {
+      "choices": [
+        "To return an encrypted binary hash of the object state",
+        "To produce a user-friendly localized string for end users",
+        "To provide an unambiguous, developer-focused representation, ideally executable as code",
+        "To automatically persist the object to SQLite"
+      ],
+      "correct_index": 2,
+      "explanation": "__repr__ should provide an unambiguous description of the object, primarily for debugging. When possible, it should look like valid Python code that could recreate the object."
+    }
+  },
+  {
+    "key": "oop-short-predict-property",
+    "exercise_type": "short_answer",
+    "title": "Predict property setter behavior and validation",
+    "prompt_markdown": "Predict the output of the following code and explain how `@property` protects instance invariants:\n\n```python\nclass BoundedCounter:\n    def __init__(self, limit: int):\n        self.limit = limit\n        self._val = 0\n\n    @property\n    def val(self) -> int:\n        return self._val\n\n    @val.setter\n    def val(self, new_val: int) -> None:\n        if new_val > self.limit:\n            raise ValueError('Limit exceeded')\n        self._val = new_val\n\nc = BoundedCounter(10)\nc.val = 5\nprint(c.val)\ntry:\n    c.val = 15\nexcept ValueError as e:\n    print(f'Error: {e}')\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Follow the setter logic when assigning 5 and 15."
+    ],
+    "content": {
+      "rubric": [
+        "States the correct printed output (5 followed by Error: Limit exceeded)",
+        "Explains that `@property` allows method encapsulation while retaining dot-access syntax",
+        "Explains that setter validation intercepts illegal state changes before assigning `_val`"
+      ],
+      "reference_answer": "Output:\n```\n5\nError: Limit exceeded\n```\nExplanation: Assigning `c.val = 5` invokes the `@val.setter` method, which verifies `5 <= 10` and assigns `self._val = 5`. Reading `c.val` invokes the getter, printing 5. Assigning `c.val = 15` triggers the validation guard `15 > 10`, raising a ValueError caught and printed by the except block.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "oop-short-fix-missing-super",
+    "exercise_type": "short_answer",
+    "title": "Diagnose missing super() in subclass",
+    "prompt_markdown": "A subclass fails with `AttributeError: 'Square' object has no attribute 'color'` when calling `s.get_color()`. Diagnose the missing line and write the corrected subclass.\n\n```python\nclass Shape:\n    def __init__(self, color: str):\n        self.color = color\n    def get_color(self) -> str:\n        return self.color\n\nclass Square(Shape):\n    def __init__(self, side: float, color: str):\n        self.side = side\n```",
+    "difficulty": "medium",
+    "hints": [
+      "What happens to Shape.__init__ when Square overrides __init__?"
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that `Square.__init__` overrides `Shape.__init__` without calling `super().__init__(color)`",
+        "Provides the corrected `Square` class with `super().__init__(color)`",
+        "Explains that `self.color` was never bound on the instance"
+      ],
+      "reference_answer": "Defect: `Square.__init__` completely overrides the parent constructor without invoking `super()`. Consequently, `Shape.__init__` never runs, and `self.color` is never initialized.\nCorrected implementation:\n```python\nclass Square(Shape):\n    def __init__(self, side: float, color: str):\n        super().__init__(color)\n        self.side = side\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "oop-short-implement-composition",
+    "exercise_type": "short_answer",
+    "title": "Refactor inheritance to composition",
+    "prompt_markdown": "Refactor the tightly-coupled inheritance below to use composition. Create an `AuthService` that accepts a token validator dependency rather than inheriting from it.\n\n```python\nclass JwtValidator:\n    def validate(self, token: str) -> bool:\n        return token.startswith('valid_')\n\nclass AuthService(JwtValidator):\n    def login(self, token: str) -> str:\n        if self.validate(token):\n            return 'authenticated'\n        return 'denied'\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Pass validator into AuthService.__init__ and store as self.validator."
+    ],
+    "content": {
+      "rubric": [
+        "Removes `JwtValidator` as a base class of `AuthService`",
+        "Injects validator instance into `AuthService.__init__` as an attribute",
+        "Calls `self.validator.validate(token)` in `login` method",
+        "Explains the testing benefit: validator can be easily mocked"
+      ],
+      "reference_answer": "Refactored implementation:\n```python\nclass AuthService:\n    def __init__(self, validator):\n        self.validator = validator\n\n    def login(self, token: str) -> str:\n        if self.validator.validate(token):\n            return 'authenticated'\n        return 'denied'\n```\nBenefit: `AuthService` now has a decoupled 'has-a' relationship. Any validator implementing `.validate(token)` can be passed in, making unit testing straightforward with mock validators.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "oop-short-explain-mro",
+    "exercise_type": "short_answer",
+    "title": "Explain Method Resolution Order in interviews",
+    "prompt_markdown": "Explain how Python resolves method calls in multiple inheritance. What is the C3 Linearization / Method Resolution Order (MRO), and how can a developer inspect it in code?",
+    "difficulty": "medium",
+    "hints": [
+      "Mention Class.mro() and the depth/breadth ordering algorithm."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that MRO determines the search order for methods in class hierarchies",
+        "Identifies that Python uses the C3 linearization algorithm to guarantee consistency and monotonicity",
+        "Explains how to inspect MRO using `ClassName.mro()` or `ClassName.__mro__`"
+      ],
+      "reference_answer": "In Python, Method Resolution Order (MRO) defines the exact sequence in which base classes are searched when a method or attribute is accessed on an instance. Python uses the C3 Linearization algorithm to construct this order, ensuring that subclasses precede parents and preserving local precedence order without cyclic dependencies. Developers can inspect this resolution list by calling `ClassName.mro()` or accessing `ClassName.__mro__`.",
+      "minimum_pass_score": 70
+    }
+  }
+]

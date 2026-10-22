@@ -1,0 +1,153 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "dsa",
+  "topic_slug": "sorting",
+  "title": "Sorting Algorithms, Stability, Custom Keys, and Non-Comparison Sorts",
+  "description": "Master algorithmic sorting: comparison sort bounds, O(n log n) efficiency, Python's built-in sort (Timsort), key functions, stability, and O(n) counting sort.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Explain the Omega(n log n) theoretical lower bound for comparison sort algorithms",
+    "Leverage Python's built-in sort (Timsort) with custom key functions and lambda expressions",
+    "Evaluate algorithm stability and identify why stability matters in multi-pass sorting pipelines",
+    "Implement counting sort for non-comparison integer sorting in linear O(n + k) time"
+  ],
+  "prerequisites": [
+    "big-o",
+    "arrays"
+  ],
+  "sections": [
+    {
+      "slug": "comparison-sort-foundations",
+      "title": "Comparison sort foundations and the O(n log n) bound",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Understand decision trees and the mathematical lower bound for comparison sorting.",
+      "markdown": "## When to recognize this pattern\nPrompts requiring ordered output, finding medians, interval scheduling, or preprocessing data for binary search.\n\n## Core idea\nA `comparison sort` determines order solely by comparing pairs of elements with operators like `<` or `>`. In computer science, any `comparison` sort can be modeled as a decision tree with $n!$ leaves corresponding to all possible permutations. Because a binary decision tree of height $h$ has at most $2^h$ leaves, $2^h \\ge n! \\implies h \\ge \\log_2(n!) = \\Omega(n \\log n)$. Therefore, no `comparison sort` (e.g. merge sort, heap sort, quicksort) can ever beat `O(n log n)` worst-case `sorting` time. Quadratic algorithms like bubble sort and insertion sort are bounded by $O(n^2)$.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Python built-in sort: O(n log n) Timsort\nnumbers = [42, 17, 89, 5, 23]\n# in-place mutation\nnumbers.sort()\nprint(numbers)\n\n# returns new sorted list\nwords = [\"banana\", \"apple\", \"cherry\"]\nprint(sorted(words))",
+          "explanation": "Demonstrates in-place .sort() mutation and sorted() immutable sorting.",
+          "expected_output": "[5, 17, 23, 42, 89]\n['apple', 'banana', 'cherry']"
+        }
+      ],
+      "key_points": [
+        "Comparison sorting has a proven theoretical lower bound of Omega(n log n).",
+        "Quicksort, Merge Sort, and Heap Sort represent classic O(n log n) comparison sort implementations."
+      ],
+      "checkpoint": "Why can an algorithm like Counting Sort achieve O(n) time when comparison sorts cannot?"
+    },
+    {
+      "slug": "python-builtin-sort-and-keys",
+      "title": "Built-in sort and custom key function customization",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Master Python's built-in sort (Timsort) and custom key function patterns.",
+      "markdown": "## Naive approach\nQuadratic sorts like bubble sort or selection sort compare every pair O(N^2), failing large input constraints.\n\n## Better approach\nPython's `built-in sort` (`list.sort()` and `sorted()`) uses Timsort, an adaptive hybrid of merge sort and insertion sort designed to exploit pre-existing sorted runs in real-world data. It guarantees $O(n \\log n)$ worst-case time and $O(n)$ best-case time on already-sorted data. You customize ordering using the `key function` parameter: `key=lambda x: ...`. The `key function` computes a proxy comparison value exactly once per element before `sort` execution, making it dramatically faster than old-style two-argument comparison functions.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Multi-attribute sorting using key function tuples\nstudents = [\n    {\"name\": \"Alice\", \"gpa\": 3.8, \"age\": 22},\n    {\"name\": \"Bob\", \"gpa\": 3.9, \"age\": 20},\n    {\"name\": \"Charlie\", \"gpa\": 3.8, \"age\": 20}\n]\n\n# Sort by GPA descending (-gpa), then by age ascending (age)\nstudents.sort(key=lambda s: (-s[\"gpa\"], s[\"age\"]))\nfor s in students:\n    print(f\"{s['name']}: GPA {s['gpa']}, Age {s['age']}\")",
+          "explanation": "Customizes multi-key sorting using tuple proxies: negative float for descending order.",
+          "expected_output": "Bob: GPA 3.9, Age 20\nCharlie: GPA 3.8, Age 20\nAlice: GPA 3.8, Age 22"
+        }
+      ],
+      "key_points": [
+        "Timsort executes in O(n log n) worst case and O(n) best case on nearly-sorted data.",
+        "The key function computes transformation values once per element (Schwartzian transform)."
+      ],
+      "checkpoint": "How can you sort a list of strings primarily by length, and secondarily alphabetically?"
+    },
+    {
+      "slug": "stability-in-sorting",
+      "title": "Algorithm stability and multi-pass sorting",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Understand stability guarantees and leverage stability in multi-pass pipelines.",
+      "markdown": "## Python implementation\nTimsort (Python's sort() and sorted()) combines merge sort and insertion sort to guarantee O(N log N) worst-case performance.\n\n## Step-by-step example\nA sorting algorithm possesses `stability` if it preserves the relative original order of elements that have equal keys. For example, if Card $A$ (3 of Hearts) appears before Card $B$ (3 of Spades) in the input, a stable sort guarantees Card $A$ will remain before Card $B$ in the sorted output. Python's Timsort and Merge Sort are stable; Quicksort and Heap Sort are inherently unstable. `Stability` is vital when performing multi-pass sorts (e.g. sorting by first name, and subsequently sorting by last name).",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Demonstrating stability\nevents = [(\"login\", 1), (\"click\", 2), (\"logout\", 1), (\"scroll\", 2)]\n# Sort solely by user_id (the second element of tuple)\nstable_sorted = sorted(events, key=lambda x: x[1])\nprint(stable_sorted)",
+          "explanation": "Stable sort preserves original relative order: 'login' precedes 'logout' for user 1.",
+          "expected_output": "[('login', 1), ('logout', 1), ('click', 2), ('scroll', 2)]"
+        }
+      ],
+      "key_points": [
+        "Stability guarantees elements with identical keys maintain their original relative sequence.",
+        "Timsort and Merge Sort are stable; Quicksort and Heapsort are unstable."
+      ],
+      "checkpoint": "Why is stability critical when building an interactive spreadsheet where users click column headers?"
+    },
+    {
+      "slug": "counting-sort-non-comparison",
+      "title": "Counting sort: Bypassing comparison limits in O(n + k)",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Implement counting sort for bounded integer ranges in linear O(n + k) time.",
+      "markdown": "## Time complexity\nO(N log N) for comparison sorts; O(N + K) for counting sort when integer ranges K are small.\n\n## Space complexity\nO(N) auxiliary memory for merge sort buffers; O(1) auxiliary space for three-way in-place partitioning.\n\n## Common mistakes\nTo beat the $\\Omega(n \\log n)$ comparison bound, an algorithm must not use element comparisons. `Counting sort` is a non-comparison sorting algorithm that operates on integer values within a known bounded range $[0, k]$. Instead of comparing pairs, it counts the occurrences of each distinct integer in an auxiliary array of size $k$, calculates cumulative prefix positions, and places each element directly into its sorted slot. `Counting sort` runs in $O(n + k)$ time and $O(k)$ auxiliary space, making it blazing fast when $k = O(n)$.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def counting_sort(nums: list[int], max_val: int) -> list[int]:\n    # Count frequencies of values 0..max_val\n    counts = [0] * (max_val + 1)\n    for num in nums:\n        counts[num] += 1\n    \n    # Reconstruct sorted array\n    sorted_nums = []\n    for val, count in enumerate(counts):\n        sorted_nums.extend([val] * count)\n    return sorted_nums\n\nprint(counting_sort([4, 2, 2, 8, 3, 3, 1], 8))",
+          "explanation": "Sorts bounded integer values in O(n + k) time without any element comparisons.",
+          "expected_output": "[1, 2, 2, 3, 3, 4, 8]"
+        }
+      ],
+      "key_points": [
+        "Counting sort achieves O(n + k) linear runtime by avoiding pairwise comparisons.",
+        "Optimal only when the integer range k is relatively small compared to n."
+      ],
+      "checkpoint": "What happens to the space complexity of counting sort if an array has 5 elements with max_val = 1,000,000,000?"
+    },
+    {
+      "slug": "arena-transfer",
+      "title": "Sorting interview check and Arena practice",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Apply sorting algorithms to solve interval and partitioning interview problems.",
+      "markdown": "## Arena reference\nPractice with `dsa-sort-colors` in Forge Arena. Restate the invariant and derive your solution independently before submitting to deterministic grading.\n\nSorting is often the critical preprocessing step that reduces intractable problems to clean linear scans.\n\n### Common Interview Questions\n1. *When should you sort an array before solving an interview problem?*\n   *(Sort when searching for pairs [Two Pointers], merging overlapping intervals, finding duplicates, or when greedy choices depend on sorted order).* \n2. *How do you sort an array of 0s, 1s, and 2s in-place in a single pass?*\n   *(Using the Dutch National Flag algorithm with three pointers: low, mid, high in O(n) time and O(1) space).* \n3. *What is the difference between list.sort() and sorted(iterable)?*\n   *(list.sort() modifies the list in-place and returns None. sorted() accepts any iterable and returns a brand-new sorted list).* \n\n### Arena Practice Problems\n- `dsa-sort-colors`: Dutch National Flag three-way partitioning\n- `dsa-merge-intervals`: Interval merging after sorting by start time\n- `dsa-top-k-frequent`: Bucket sort vs heap-based partial sorting",
+      "examples": [
+        {
+          "language": "python",
+          "code": "# Interval merging pattern\ndef merge_intervals(intervals):\n    # Sort intervals by start time\n    intervals.sort(key=lambda x: x[0])\n    merged = []\n    for interval in intervals:\n        if not merged or merged[-1][1] < interval[0]:\n            merged.append(interval)\n        else:\n            merged[-1][1] = max(merged[-1][1], interval[1])\n    return merged\n\nprint(merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]]))",
+          "explanation": "Sorts intervals by start time to merge overlapping spans in O(n log n) time.",
+          "expected_output": "[[1, 6], [8, 10], [15, 18]]"
+        }
+      ],
+      "key_points": [
+        "Sorting intervals by start time is the universal precondition for interval scheduling problems.",
+        "Remember that list.sort() mutates in-place; do not assign `nums = nums.sort()` (sets nums to None)."
+      ],
+      "checkpoint": "Why does nums = nums.sort() assign None to nums?"
+    }
+  ],
+  "summary": [
+    "Comparison sorting has a provable lower bound of Omega(n log n) based on decision tree height.",
+    "Python's Timsort delivers O(n log n) worst-case and O(n) best-case adaptive runtime with stability.",
+    "Custom sorting is cleanly configured using key functions returning sorting proxies or comparison tuples.",
+    "Stability preserves the original relative order of elements with equal keys in multi-stage sorts.",
+    "Counting sort achieves O(n + k) linear runtime on bounded integers by eliminating element comparisons."
+  ],
+  "interview_takeaways": [
+    "Identify when sorting unlocks a simpler algorithm: intervals, two pointers, and greedy selection.",
+    "Highlight Timsort stability when explaining multi-column sorting to interviewers.",
+    "Never make the rookie mistake of assigning `x = x.sort()` in Python interview code."
+  ],
+  "common_mistakes": [
+    "Assigning `x = x.sort()` which overwrites x with None",
+    "Attempting to use counting sort when numbers have huge ranges (e.g. up to 10^9), exhausting memory",
+    "Writing custom bubble sort or selection sort in interviews instead of using built-in Timsort",
+    "Overlooking the O(n) auxiliary space overhead of Python's sorted() or Timsort merge buffers"
+  ],
+  "sources": [
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python HOWTOs \u2014 Sorting HOW TO",
+      "url": "https://docs.python.org/3/howto/sorting.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "4a7b9bcbe2ad6f0eb6a6e6bd684760c333ceb3c03d9d7713384fc820d89d183a",
+  "generated_at": "2026-09-24T08:40:52.377689+00:00"
+}

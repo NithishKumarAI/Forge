@@ -1,0 +1,29 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "99dac25fa920a0f75704892467f25baab2e6b55989d2512742c21d8f30cfc31f",
+  "payload_sha256": "506433595be29d2c26b69f7ca1034af72e330172ab86529aab33bdc2d23936d9",
+  "coverage_sha256": "b49061fd1033deaec26eb74b6cf5f75076acb7f388fb85e0ff8d4abd9565f924",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "ee410b598fd5b2103dc289b85292aedf1616f5e1f2d0c9aa9fb4bed646eeb4f5"
+  },
+  "coverage": [
+    {
+      "id": "logical-reasoning-patterns-classification",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

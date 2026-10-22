@@ -1,0 +1,106 @@
+{
+  "key": "sql-employees-with-manager",
+  "title": "Employee and manager names",
+  "track": "sql",
+  "topic_tags": [
+    "joins"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return every employee and their manager name. Show 'No Manager' when manager_id is NULL or unmatched. Sort by employee name.",
+  "constraints": [
+    "Return exactly: employee, manager.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible employees tables",
+      "output": "[[\"Alice\",\"No Manager\"],[\"Bob\",\"Alice\"],[\"Charlie\",\"Alice\"],[\"David\",\"Bob\"]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "The employee and manager are rows in the same table.",
+    "Use a self LEFT JOIN and COALESCE the manager name."
+  ],
+  "explanation": "A self join gives the employees table two roles: e is the employee and m is the manager. LEFT JOIN preserves top-level employees, and COALESCE supplies the label. A common mistake is an inner join, which removes people without managers. Recursive CTEs are needed only for full reporting chains.",
+  "reference_solution": "SELECT e.name AS employee, COALESCE(m.name, 'No Manager') AS manager FROM employees e LEFT JOIN employees m ON e.manager_id = m.id ORDER BY e.name",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), manager_id INT); INSERT INTO employees VALUES (1, 'Alice', NULL), (2, 'Bob', 1), (3, 'Charlie', 1), (4, 'David', 2);",
+    "visible_tables": [
+      "employees"
+    ],
+    "sample_rows": [
+      [
+        "Alice",
+        "No Manager"
+      ],
+      [
+        "Bob",
+        "Alice"
+      ],
+      [
+        "Charlie",
+        "Alice"
+      ],
+      [
+        "David",
+        "Bob"
+      ]
+    ],
+    "expected_columns": [
+      "employee",
+      "manager"
+    ],
+    "expected_rows": [
+      [
+        "Alice",
+        "No Manager"
+      ],
+      [
+        "Bob",
+        "Alice"
+      ],
+      [
+        "Charlie",
+        "Alice"
+      ],
+      [
+        "David",
+        "Bob"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE employees (id INT,name VARCHAR(50),manager_id INT); INSERT INTO employees VALUES (10,'Ira',NULL),(11,'Jin',10),(12,'Koa',99),(13,'Lia',11);",
+        "expected_rows": [
+          [
+            "Ira",
+            "No Manager"
+          ],
+          [
+            "Jin",
+            "Ira"
+          ],
+          [
+            "Koa",
+            "No Manager"
+          ],
+          [
+            "Lia",
+            "Jin"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/joins"
+}

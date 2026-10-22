@@ -1,0 +1,141 @@
+[
+  {
+    "key": "queues-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "Queue data structure operational semantics",
+    "prompt_markdown": "What operational ordering principle governs a standard `queue`?",
+    "difficulty": "easy",
+    "hints": [
+      "Think of a line of people waiting for service."
+    ],
+    "content": {
+      "choices": [
+        "LIFO (Last-In First-Out)",
+        "FIFO (First-In First-Out)",
+        "FILO (First-In Last-Out)",
+        "Heap Priority Ordering"
+      ],
+      "correct_index": 1,
+      "explanation": "A queue operates on FIFO (First-In First-Out) semantics: the first element inserted is the first element removed."
+    }
+  },
+  {
+    "key": "queues-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Python list.pop(0) time complexity penalty",
+    "prompt_markdown": "Why is `list.pop(0)` strongly discouraged for implementing queues in Python?",
+    "difficulty": "easy",
+    "hints": [
+      "What must happen to the other elements in the list?"
+    ],
+    "content": {
+      "choices": [
+        "It raises a DeprecationWarning in Python 3.12+",
+        "It requires O(N) time because all remaining elements must be shifted one position left in memory",
+        "It converts all remaining elements to strings",
+        "It can only be called if the list contains fewer than 100 elements"
+      ],
+      "correct_index": 1,
+      "explanation": "Python lists are contiguous arrays. Removing index 0 forces Python to shift all remaining N-1 elements left by one slot in memory, taking O(N) time per pop."
+    }
+  },
+  {
+    "key": "queues-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "collections.deque double-ended operations complexity",
+    "prompt_markdown": "What is the time complexity of `popleft()` on a `collections.deque` containing $N$ elements?",
+    "difficulty": "easy",
+    "hints": [
+      "Deques are implemented as linked blocks of memory."
+    ],
+    "content": {
+      "choices": [
+        "O(1)",
+        "O(log N)",
+        "O(N)",
+        "O(N^2)"
+      ],
+      "correct_index": 0,
+      "explanation": "Because collections.deque is implemented as a doubly linked list of blocks, removing from the head via popleft() takes guaranteed O(1) constant time."
+    }
+  },
+  {
+    "key": "queues-short-predict-deque-state",
+    "exercise_type": "short_answer",
+    "title": "Predict monotonic deque state for sliding window maximum",
+    "prompt_markdown": "Given array `nums = [1, 3, -1, -3, 5]` and window size `k = 3`, trace the indices stored in the monotonic decreasing deque after processing indices 0, 1, and 2 (the first complete window).",
+    "difficulty": "medium",
+    "hints": [
+      "Pop smaller elements from right before appending. Store indices."
+    ],
+    "content": {
+      "rubric": [
+        "i=0 (num=1): deque=[0]",
+        "i=1 (num=3): 3 > nums[0] (1) -> pops 0 from right; pushes 1 -> deque=[1]",
+        "i=2 (num=-1): -1 < nums[1] (3) -> pushes 2 -> deque=[1, 2]",
+        "States window maximum is nums[deque[0]] = nums[1] = 3"
+      ],
+      "reference_answer": "Trace:\n- `i = 0` (val = 1): Deque is empty -> append index 0. `deque = [0]`.\n- `i = 1` (val = 3): `nums[0] (1) < 3` -> pop index 0 from right. Append index 1. `deque = [1]`.\n- `i = 2` (val = -1): `nums[1] (3) > -1` -> append index 2. `deque = [1, 2]`.\n\nResult after first window: `deque = [1, 2]`. The window maximum is at index `d[0] = 1`, which is value `3`.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "queues-short-fix-level-order-bug",
+    "exercise_type": "short_answer",
+    "title": "Fix dynamic length mutation bug in BFS level traversal",
+    "prompt_markdown": "A candidate attempts to implement binary tree level-order traversal with this buggy loop:\n\n```python\ndef level_order(root):\n    if not root: return []\n    q = deque([root])\n    result = []\n    while q:\n        level = []\n        for node in list(q):  # Attempting to loop over current level\n            curr = q.popleft()\n            level.append(curr.val)\n            if curr.left: q.append(curr.left)\n            if curr.right: q.append(curr.right)\n        result.append(level)\n    return result\n```\nExplain why `for node in list(q)` is inefficient, and show the idiomatic Python BFS level-size pattern.",
+    "difficulty": "medium",
+    "hints": [
+      "Snapshot len(q) into an integer rather than creating list(q) copies."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that `list(q)` allocates a new list on every single tree level, consuming unnecessary memory and time",
+        "Explains the canonical pattern: snapshotting `level_size = len(q)` as an integer",
+        "Provides the idiomatic `for _ in range(len(q)):` implementation"
+      ],
+      "reference_answer": "Inefficiency: `list(q)` allocates and copies a brand new Python list containing all nodes in the current level on every loop iteration, creating unnecessary memory churn and $O(N)$ extra allocations.\n\nIdiomatic Python BFS Pattern:\nTake an integer snapshot of the queue length: `level_size = len(q)`.\n```python\ndef level_order(root):\n    if not root:\n        return []\n    q = deque([root])\n    result = []\n    while q:\n        level = []\n        for _ in range(len(q)):  # Evaluated once at start of loop in Python\n            curr = q.popleft()\n            level.append(curr.val)\n            if curr.left:\n                q.append(curr.left)\n            if curr.right:\n                q.append(curr.right)\n        result.append(level)\n    return result\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "queues-short-implement-queue-two-stacks",
+    "exercise_type": "short_answer",
+    "title": "Write MyQueue implementation using two Stacks",
+    "prompt_markdown": "Implement a FIFO queue `MyQueue` using only two standard Python lists as stacks (using only `append()` and `pop()`). Support `push(x)`, `pop()`, `peek()`, and `empty()`. `pop()` and `peek()` must have $O(1)$ amortized time complexity.",
+    "difficulty": "hard",
+    "hints": [
+      "Use in_stack for push, out_stack for pop. Transfer when out_stack is empty."
+    ],
+    "content": {
+      "rubric": [
+        "Uses two lists: self.in_stack and self.out_stack",
+        "push(x) appends to self.in_stack in O(1)",
+        "pop() and peek() transfer elements from in_stack to out_stack only when out_stack is empty",
+        "empty() checks if both stacks are empty"
+      ],
+      "reference_answer": "```python\nclass MyQueue:\n    def __init__(self):\n        self.in_stack = []\n        self.out_stack = []\n        \n    def push(self, x: int) -> None:\n        self.in_stack.append(x)\n        \n    def _move(self) -> None:\n        if not self.out_stack:\n            while self.in_stack:\n                self.out_stack.append(self.in_stack.pop())\n                \n    def pop(self) -> int:\n        self._move()\n        return self.out_stack.pop()\n        \n    def peek(self) -> int:\n        self._move()\n        return self.out_stack[-1]\n        \n    def empty(self) -> bool:\n        return not self.in_stack and not self.out_stack\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "queues-short-explain-fifo-bfs",
+    "exercise_type": "short_answer",
+    "title": "Explain why BFS requires a FIFO queue to guarantee shortest path in interviews",
+    "prompt_markdown": "In a graph interview, the interviewer asks: 'Why does Breadth-First Search (BFS) guarantee finding the shortest path in an unweighted graph, and why does this guarantee break if we substitute the FIFO queue with a LIFO stack?' Explain rigorously.",
+    "difficulty": "hard",
+    "hints": [
+      "Explain layer-by-layer exploration and how FIFO preserves distance order."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that BFS visits vertices in non-decreasing order of their distance from the start node",
+        "Explains FIFO queue role: all nodes at distance d are dequeued and processed before any node at distance d+1 is dequeued",
+        "Explains why LIFO breaks: a stack dives deeply along a single path first (DFS), finding a path of arbitrary length before exploring closer neighbors",
+        "Concludes that FIFO guarantees the first time target is dequeued, the distance is minimal"
+      ],
+      "reference_answer": "1. Why BFS Guarantees Shortest Path:\nIn an unweighted graph, all edges have equal cost (1 step). BFS explores the graph in concentric layers of increasing distance:\n- First, the start node (distance 0).\n- Then, all immediate neighbors (distance 1).\n- Then, all neighbors of neighbors (distance 2), and so forth.\n\nA FIFO queue maintains this invariant: because nodes at distance $d$ are enqueued before nodes at distance $d+1$, the queue guarantees that every node at distance $d$ is dequeued and explored *before* any node at distance $d+1$. Therefore, the very first time the target node is dequeued, the path taken to reach it is guaranteed to have the minimum possible number of edges.\n\n2. Why a LIFO Stack Breaks the Guarantee:\nIf you replace the FIFO queue with a LIFO stack, the most recently discovered neighbor is popped first. The algorithm immediately charges down that single branch to maximum depth before backtracking (becoming Depth-First Search). It might discover a path of length 15 to the target, completely missing a direct 1-step edge that existed right at the start node!",
+      "minimum_pass_score": 70
+    }
+  }
+]

@@ -95,14 +95,18 @@ def test_review_created_only_after_meaningful_evidence(session: Session) -> None
 
 
 def test_planner_prioritizes_due_high_priority_and_dsa_with_reasons(session: Session) -> None:
+    from tests.phase5_fixtures import published_scope
+    published_scope(session)
     curriculum = get_active_curriculum(session); topics = session.exec(select(Topic).join(Track).where(Track.curriculum_id == curriculum.id)).all(); now = datetime.now(timezone.utc)
-    high = max(topics, key=lambda item: item.priority)
+    high = next(item for item in topics if session.get(Track,item.track_id).slug=='quantitative-aptitude')
     session.add(ReviewState(topic_id=high.id, due_at=now - timedelta(days=1), state_json=json.dumps({"fsrs_schema_version": 1, "card": json.loads(Card().to_json())})))
     update_planner_settings(session, {"daily_study_target": 120, "dsa_daily_minimum": 30, "max_review_topics": 10, "desired_retention": .9})
     plan = today_plan(session, now=now)
     assert plan["items"][0]["item_type"] == "review"
     assert all(item["reason"] for item in plan["items"])
-    assert any("High-priority" in item["reason"] or "DSA daily" in item["reason"] for item in plan["items"])
+    assert any(item['subject']=='dsa' for item in plan['items'])
+    assert all(item['content_references'] for item in plan['items'])
+    assert plan['planned_minutes']<=120
 
 
 def test_readiness_is_weighted_scoped_and_not_probability(session: Session) -> None:

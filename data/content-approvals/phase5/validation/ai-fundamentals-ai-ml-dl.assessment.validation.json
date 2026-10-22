@@ -1,0 +1,88 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "3106c95cf8fa2500acf41f01f470e6ccd27ae7e16463360238ee9a9af13c44cc",
+  "payload_sha256": "9d73bd88c059b468086161de3d60bb64ea60d0024ae23d24d555fedd7719f292",
+  "coverage_sha256": "e5a82f5b57b1dfcae1e26e80aef647c35b20e39ab9a1e4a2244e3e9c047e8782",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "bfb769444e8d23c5c89200f3c9970e06294c69875c8d94d4d054013625f89d8e"
+  },
+  "coverage": [
+    {
+      "id": "guided-learning",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/guided-learning"
+      ],
+      "assessment_refs": [
+        "item/guided-learning"
+      ]
+    },
+    {
+      "id": "independent-inference",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/independent-inference"
+      ],
+      "assessment_refs": [
+        "item/independent-inference"
+      ]
+    },
+    {
+      "id": "transfer-evidence",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/transfer-evidence"
+      ],
+      "assessment_refs": [
+        "item/transfer-evidence"
+      ]
+    },
+    {
+      "id": "recall-fixed-rule",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/recall-fixed-rule"
+      ],
+      "assessment_refs": [
+        "item/recall-fixed-rule"
+      ]
+    },
+    {
+      "id": "mock-limits",
+      "status": "covered",
+      "lesson_refs": [
+        "explanation/mock-limits"
+      ],
+      "assessment_refs": [
+        "item/mock-limits"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "item": "guided-learning",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "independent-inference",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "transfer-evidence",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "recall-fixed-rule",
+      "status": "requires_human_answer_review"
+    },
+    {
+      "item": "mock-limits",
+      "status": "requires_human_answer_review"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

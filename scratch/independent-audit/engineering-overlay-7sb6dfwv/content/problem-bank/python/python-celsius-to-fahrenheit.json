@@ -1,0 +1,42 @@
+{
+  "key": "python-celsius-to-fahrenheit",
+  "title": "Temperature converter",
+  "track": "python",
+  "topic_tags": ["basics", "functions"],
+  "difficulty": "easy",
+  "interview_frequency": "low",
+  "estimated_minutes": 15,
+  "statement_markdown": "Write a function `celsius_to_fahrenheit(c: float) -> float` that converts Celsius to Fahrenheit using the formula `(c * 9/5) + 32`. Round the result to 2 decimal places.",
+  "constraints": [
+    "The input `c` is a float or int."
+  ],
+  "examples": [
+    {"input": "0", "output": "32.0", "explanation": "0 Celsius is 32 Fahrenheit."},
+    {"input": "100", "output": "212.0", "explanation": "100 Celsius is boiling point, 212 Fahrenheit."},
+    {"input": "-40", "output": "-40.0", "explanation": "-40 is the point where Celsius and Fahrenheit intersect."}
+  ],
+  "starter_code": "def celsius_to_fahrenheit(c: float) -> float:\n    pass",
+  "hints": [
+    "Multiply `c` by `9 / 5` and then add `32`.",
+    "Use the built-in `round(number, ndigits)` function."
+  ],
+  "explanation": "The formula to convert Celsius to Fahrenheit is standard. We apply it and then round to 2 decimal places to satisfy the output requirement.",
+  "reference_solution": "def celsius_to_fahrenheit(c: float) -> float:\n    return round((c * 9 / 5) + 32, 2)",
+  "complexity": "O(1) time and O(1) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "celsius_to_fahrenheit",
+    "sample_tests": [
+      {"name": "zero", "args": [0], "kwargs": {}, "expected": 32.0},
+      {"name": "boiling", "args": [100], "kwargs": {}, "expected": 212.0},
+      {"name": "intersect", "args": [-40], "kwargs": {}, "expected": -40.0}
+    ],
+    "hidden_tests": [
+      {"name": "fractional", "args": [37.5], "kwargs": {}, "expected": 99.5},
+      {"name": "negative_fractional", "args": [-17.77778], "kwargs": {}, "expected": 0.0}
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/syntax-data-types"
+}

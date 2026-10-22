@@ -1,0 +1,14 @@
+{
+  "purpose": "Read-only primary-reference checks for specific audit findings; no publisher text is redistributed as course content",
+  "urls": [
+    "https://docs.python.org/3/library/exceptions.html",
+    "https://docs.python.org/3/reference/datamodel.html#object.__bool__",
+    "https://docs.python.org/3/library/sys.html#sys.getsizeof",
+    "https://www.postgresql.org/docs/current/queries-table-expressions.html",
+    "https://www.postgresql.org/docs/18/ddl-constraints.html",
+    "https://www.postgresql.org/docs/18/indexes-index-only-scans.html",
+    "https://www.postgresql.org/docs/18/queries-with.html",
+    "https://www.postgresql.org/docs/18/sql-expressions.html",
+    "https://github.com/python/cpython/blob/v3.12.0/Objects/listobject.c"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "key": "python-deduplicate-list",
+  "title": "Deduplicate preserving order",
+  "track": "python",
+  "topic_tags": ["lists", "sets"],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Write a function `deduplicate(items: list) -> list` that takes a list and returns a new list with duplicates removed, while preserving the original order of the first occurrence of each item.",
+  "constraints": [
+    "Items will be hashable."
+  ],
+  "examples": [
+    {"input": "[1, 2, 1, 3, 2]", "output": "[1, 2, 3]", "explanation": "Duplicates of 1 and 2 are removed."},
+    {"input": "[]", "output": "[]", "explanation": "An empty list returns an empty list."},
+    {"input": "[\"a\", \"b\", \"a\"]", "output": "[\"a\", \"b\"]", "explanation": "Duplicate 'a' is removed."}
+  ],
+  "starter_code": "def deduplicate(items: list) -> list:\n    pass",
+  "hints": [
+    "A standard `set(items)` will remove duplicates but won't preserve order.",
+    "Use a set to keep track of items you have seen so far while iterating through the list and building the result."
+  ],
+  "explanation": "Iterate through the input list, keeping track of elements that have already been seen using a set for fast O(1) lookups. Append an element to the result list only if it's not in the seen set.",
+  "reference_solution": "def deduplicate(items: list) -> list:\n    seen = set()\n    res = []\n    for item in items:\n        if item not in seen:\n            res.append(item)\n            seen.add(item)\n    return res",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "deduplicate",
+    "sample_tests": [
+      {"name": "numbers", "args": [[1, 2, 1, 3, 2]], "kwargs": {}, "expected": [1, 2, 3]},
+      {"name": "empty", "args": [[]], "kwargs": {}, "expected": []},
+      {"name": "strings", "args": [["a", "b", "a"]], "kwargs": {}, "expected": ["a", "b"]}
+    ],
+    "hidden_tests": [
+      {"name": "all_same", "args": [[5, 5, 5, 5]], "kwargs": {}, "expected": [5]},
+      {"name": "no_duplicates", "args": [[1, 2, 3, 4]], "kwargs": {}, "expected": [1, 2, 3, 4]}
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/collections"
+}

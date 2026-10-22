@@ -1,0 +1,35 @@
+{
+  "policy_version": "forge-content-checks/1",
+  "candidate_sha256": "e64a8cd92b7dc7180b7145d9fdd14162592a79e9dafc7422ce3f9b2b95cc98be",
+  "payload_sha256": "bf3f792206de279739c0b7c74cd3e197d7db40888da6c9c02449829c73fa1bd7",
+  "coverage_sha256": "92aad4fdda6a6fc19fadb50462f38221dca17c8a60badb487c7d811f153d6f61",
+  "provenance": {
+    "status": "requires_human_review",
+    "sha256": "27bb3281ed2953414d03d915a19f44f81078f575a59c2335ae1e896662e71501"
+  },
+  "coverage": [
+    {
+      "id": "sql-postgresql-tables-keys",
+      "status": "covered",
+      "lesson_refs": [
+        "section/intuition",
+        "section/worked-example",
+        "section/practice-revision"
+      ],
+      "assessment_refs": [
+        "exercise/lesson-reflection"
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "section": "worked-example",
+      "index": 0,
+      "status": "executed"
+    }
+  ],
+  "structurally_valid": true,
+  "executable_checks_passed": true,
+  "editorial_status": "awaiting_human_review",
+  "approved": false
+}

@@ -24,6 +24,8 @@ class AssessmentItem(StrictModel):
         c = self.contract
         if self.kind in {"single_choice", "multi_choice"}:
             choices = c.get("choices", {})
+            if isinstance(choices,dict) and any(str(key).casefold() in {"correct","incorrect","right","wrong","answer","solution"} for key in choices):
+                raise ValueError("Public choice identities must not encode correctness")
             correct = c.get("correct", [])
             if (not isinstance(choices, dict) or not 2 <= len(choices) <= 8 or not isinstance(correct,list) or not correct
                     or len(correct) != len(set(correct)) or not set(correct) <= set(choices)

@@ -1,0 +1,131 @@
+{
+  "content_key": "forge/placement-foundations/dsa/dsa-problem-contracts",
+  "revision": "1.0.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "placement-foundations",
+      "track_slug": "dsa",
+      "topic_slug": "dsa-problem-contracts",
+      "title": "Problem contracts and tracing",
+      "description": "State inputs, outputs, assumptions and small example traces.",
+      "version": "1.0.0",
+      "learning_objectives": [
+        "State inputs, outputs, assumptions and small example traces."
+      ],
+      "prerequisites": [],
+      "sections": [
+        {
+          "slug": "intuition",
+          "title": "Goal and intuition",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "State inputs, outputs, assumptions and small example traces.",
+          "markdown": "Before choosing an algorithm, agree on what counts as a correct answer. A contract states inputs, outputs, bounds and awkward cases. A trace then follows one small input through the proposed steps. This prevents solving the wrong task quickly. No prior sorting or graph knowledge is needed: our first examples use integer arithmetic and a fully provided function wrapper.",
+          "examples": [],
+          "key_points": [
+            "A method that works only when a >= b does not implement absolute distance."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "worked-example",
+          "title": "A worked example and why it works",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "State inputs, outputs, assumptions and small example traces.",
+          "markdown": "Define the distance between integer positions a and b as a nonnegative integer. For positions 3 and 8, subtracting gives -5; taking its absolute value gives 5. Reversing the positions still gives 5. Equal positions give 0. In Python, abs(x) returns the magnitude of x, so `return abs(a - b)` matches the contract. Simply returning a - b fails when a is smaller. The work and extra storage are constant for the bounded integers used here; passing these cases is not a proof about arbitrary huge-integer cost.",
+          "examples": [],
+          "key_points": [
+            "A method that works only when a >= b does not implement absolute distance."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "practice-revision",
+          "title": "Guided practice, independent practice and revision",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "State inputs, outputs, assumptions and small example traces.",
+          "markdown": "Guided: trace a=9, b=4: difference 5, magnitude 5, return integer 5. Independent: state the contract for remaining capacity when used may exceed capacity.\n\n<details><summary>Contract and checked examples</summary>Inputs are two nonnegative integers. Return max(0, capacity - used), never a negative capacity. For capacity 8 and used 3 return 5; for used 11 return 0. Python max(0, difference) chooses the larger value. The exact signature and bounds must be written before submission.</details>\n\nRevision: read the return type, list valid input ranges, trace normal/equal/boundary cases, and construct a counterexample to a tempting wrong method. Hidden tests supplement a clear contract; they cannot rescue an ambiguous statement. Do not print or return a string when an integer is requested.",
+          "examples": [],
+          "key_points": [
+            "A method that works only when a >= b does not implement absolute distance."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        }
+      ],
+      "summary": [
+        "A method that works only when a >= b does not implement absolute distance.",
+        "A list, tuple, string and integer are distinct return types in Forge."
+      ],
+      "interview_takeaways": [
+        "Explain your reasoning and limits; reading is not mastery."
+      ],
+      "common_mistakes": [
+        "A method that works only when a >= b does not implement absolute distance.",
+        "A list, tuple, string and integer are distinct return types in Forge."
+      ],
+      "sources": [
+        {
+          "source_id": "mit-algorithms",
+          "title": "MIT Introduction to Algorithms",
+          "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+          "retrieved_at": "2026-10-22T00:00:00Z"
+        }
+      ],
+      "generated_at": "2026-10-22T00:00:00Z",
+      "content_hash": "686e4d67f11cb53d8b385c90fbff051645946e835b4e89f317c0a2fc5b4a5b7d"
+    },
+    "exercises": [
+      {
+        "key": "lesson-reflection",
+        "exercise_type": "short_answer",
+        "title": "Explain the worked example",
+        "prompt_markdown": "Explain the worked example in your own words and identify one mistake to avoid.",
+        "difficulty": "learning",
+        "hints": [],
+        "content": {
+          "rubric": [
+            "Explain the stated steps.",
+            "Identify a specific misconception."
+          ],
+          "reference_answer": "A method that works only when a >= b does not implement absolute distance."
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "mit-algorithms",
+        "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "example_checks": [],
+  "coverage": {
+    "key": "dsa-problem-contracts-teaching",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "dsa-problem-contracts",
+        "status": "covered",
+        "lesson_refs": [
+          "section/intuition",
+          "section/worked-example",
+          "section/practice-revision"
+        ],
+        "assessment_refs": [
+          "exercise/lesson-reflection"
+        ]
+      }
+    ]
+  }
+}

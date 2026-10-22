@@ -12,7 +12,7 @@ from ..schemas.adaptive import AdaptiveSubmission, PlannerSettingsUpdate
 from ..schemas.practice import CodeSubmission, MCQSubmission, ShortAnswerSubmission
 from ..services.active_curriculum import get_active_curriculum
 from ..services.mastery import mastery_breakdown, recalculate_topic
-from ..services.planner import planner_settings, set_plan_status, today_plan, update_planner_settings
+from ..services.planner import planner_settings, set_plan_status, today_plan, update_planner_settings,replace_item,replacement_options
 from ..services.readiness import curriculum_readiness, track_readiness
 from ..services.review import apply_review
 from ..services.course import current_course_exercise_ids
@@ -80,6 +80,25 @@ def reviews_upcoming(session: Session = Depends(get_session)) -> dict:
 
 @router.get("/planner/today")
 def planner_today(session: Session = Depends(get_session)) -> dict: return today_plan(session)
+
+
+@router.post("/planner/regenerate")
+def planner_regenerate(session: Session = Depends(get_session)):
+    try:return today_plan(session,regenerate=True)
+    except ValueError as exc:
+        session.rollback();raise HTTPException(409,str(exc)) from exc
+
+
+@router.get("/planner/options")
+def planner_options(session: Session = Depends(get_session)):
+    return replacement_options(session)
+
+
+@router.post("/planner/items/{item_id}/replace")
+def planner_replace(item_id:int,activity_key:str,session: Session = Depends(get_session)):
+    try:return replace_item(session,item_id,activity_key)
+    except ValueError as exc:
+        session.rollback();raise HTTPException(409,str(exc)) from exc
 
 
 @router.post("/planner/items/{item_id}/skip")

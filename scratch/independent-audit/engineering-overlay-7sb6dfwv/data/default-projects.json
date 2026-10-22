@@ -1,0 +1,32 @@
+{
+  "projects": [
+    {
+      "key": "robin",
+      "name": "Robin",
+      "description": "A local-first Windows personal AI assistant.",
+      "concepts": [
+        "Electron frontend", "FastAPI backend", "LLM routing", "tool planning and execution",
+        "human approval", "Gmail, Calendar, and Tasks integrations", "OAuth",
+        "browser and filesystem tools", "persistent memory", "local and cloud LLMs",
+        "voice", "privacy and local-first architecture"
+      ],
+      "boundaries": [
+        "Questions must not invent integrations or deployment scale beyond this profile.",
+        "Treat voice and local/cloud routing as architectural capabilities, not production-scale claims."
+      ]
+    },
+    {
+      "key": "cognitive-memory-engine",
+      "name": "Cognitive Memory Engine",
+      "description": "A semantic-memory and retrieval system for storing and recalling contextual knowledge.",
+      "concepts": [
+        "FastAPI", "PostgreSQL", "pgvector", "embeddings", "semantic search",
+        "retrieval-augmented generation", "Gemini", "Docker", "GCP Cloud Run", "Next.js"
+      ],
+      "boundaries": [
+        "Questions must stay within the listed stack and retrieval pipeline.",
+        "Do not invent user counts, latency claims, or unlisted production features."
+      ]
+    }
+  ]
+}

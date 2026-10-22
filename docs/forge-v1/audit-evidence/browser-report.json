@@ -1,0 +1,132 @@
+{
+  "checks": [
+    {
+      "name": "new installation, preview, explicit confirmation/activation and missing pools",
+      "status": "passed",
+      "milliseconds": 7145
+    },
+    {
+      "name": "approved fixture lesson navigation and section completion do not change mastery",
+      "status": "passed",
+      "milliseconds": 487
+    },
+    {
+      "name": "static local search, exact revision navigation and legacy chat",
+      "status": "passed",
+      "milliseconds": 479
+    },
+    {
+      "name": "MCQ incorrect response and exact numeric grading with duplicate-submit protection",
+      "status": "passed",
+      "milliseconds": 611
+    },
+    {
+      "name": "Python browser Run and backend Submit on two independent practice items",
+      "status": "passed",
+      "milliseconds": 6195
+    },
+    {
+      "name": "SQL browser Run and full backend Submit use isolated databases",
+      "status": "passed",
+      "milliseconds": 7331
+    },
+    {
+      "name": "clean Python transfer uses stored independent variant and preserves 89 cap",
+      "status": "passed",
+      "milliseconds": 1901
+    },
+    {
+      "name": "due delayed recall after actual 24-hour fixture gate updates FSRS/mastery",
+      "status": "passed",
+      "milliseconds": 1962
+    },
+    {
+      "name": "Arena failure, tracked hint, pass and explicit pre-pass Give Up",
+      "status": "passed",
+      "milliseconds": 2608
+    },
+    {
+      "name": "coding timed test uses local workers and embargoes feedback until completion",
+      "status": "passed",
+      "milliseconds": 6936
+    },
+    {
+      "name": "timed draft survives refresh with its original deadline and fixed scoring",
+      "status": "passed",
+      "milliseconds": 2164
+    },
+    {
+      "name": "mixed test applies the disclosed fixed negative marking",
+      "status": "passed",
+      "milliseconds": 1712
+    },
+    {
+      "name": "objective interview withholds feedback and communication remains unscored",
+      "status": "passed",
+      "milliseconds": 3586
+    },
+    {
+      "name": "saved legacy report remains readable with its original raw fields",
+      "status": "passed",
+      "milliseconds": 404
+    },
+    {
+      "name": "planner presets regenerate explicitly and preserve terminal task history",
+      "status": "passed",
+      "milliseconds": 4600
+    },
+    {
+      "name": "mobile layout and visible keyboard focus",
+      "status": "passed",
+      "milliseconds": 2656
+    },
+    {
+      "name": "all exercised browser assets remain local with no page errors",
+      "status": "passed",
+      "milliseconds": 2
+    }
+  ],
+  "passed": 17,
+  "failed": 0,
+  "external_requests": [],
+  "page_errors": [],
+  "console_errors": [
+    "Failed to load resource: the server responded with a status of 409 (Conflict)",
+    "Failed to load resource: the server responded with a status of 409 (Conflict)"
+  ],
+  "asset_requests": [
+    "http://127.0.0.1:24000/assets/index-WVaqtCMY.js",
+    "http://127.0.0.1:24000/assets/jsx-runtime-D3jfb0Ew.js",
+    "http://127.0.0.1:24000/assets/preload-helper-BZ1Pz5am.js",
+    "http://127.0.0.1:24000/assets/index-C9hmFj35.css",
+    "http://127.0.0.1:24000/assets/TimedTestPage-r18CZ0qv.js",
+    "http://127.0.0.1:24001/assets/index-WVaqtCMY.js",
+    "http://127.0.0.1:24001/assets/jsx-runtime-D3jfb0Ew.js",
+    "http://127.0.0.1:24001/assets/preload-helper-BZ1Pz5am.js",
+    "http://127.0.0.1:24001/assets/index-C9hmFj35.css",
+    "http://127.0.0.1:24001/assets/CodeEditor-B54vyQIz.js",
+    "http://127.0.0.1:24001/assets/editor.api-DLp60tKr.js",
+    "http://127.0.0.1:24001/assets/editor-BRB7K78j.css",
+    "http://127.0.0.1:24001/assets/CodeEditor-BjcJOjAX.css",
+    "http://127.0.0.1:24001/assets/python-BCl87VQm.js",
+    "http://127.0.0.1:24001/assets/editor.worker-BbVB3hfz.js",
+    "http://127.0.0.1:24001/assets/codicon-Brq4_Ui5.ttf",
+    "http://127.0.0.1:24001/assets/python.worker-Btk10y1E.js",
+    "http://127.0.0.1:24001/assets/pyodide/pyodide-lock.json",
+    "http://127.0.0.1:24001/assets/pyodide/python_stdlib.zip",
+    "http://127.0.0.1:24001/assets/pyodide/pyodide.asm.wasm",
+    "http://127.0.0.1:24001/assets/pyodide/pyodide.asm.mjs",
+    "http://127.0.0.1:24001/assets/sql-NEE52Syq.js",
+    "http://127.0.0.1:24001/assets/sql.worker-FiJBgBxS.js",
+    "http://127.0.0.1:24001/assets/pglite-DgipwPsY.wasm",
+    "http://127.0.0.1:24001/assets/initdb-DwLcS450.wasm",
+    "http://127.0.0.1:24001/assets/pglite-n8RDJ3Sw.data",
+    "http://127.0.0.1:24001/assets/ArenaPage-BcUQuwE_.js",
+    "http://127.0.0.1:24001/assets/TimedTestPage-r18CZ0qv.js",
+    "http://127.0.0.1:24001/assets/InterviewPage-Cv2bbRep.js"
+  ],
+  "external_browser_network_denied": true,
+  "python_network_provider_guard": true,
+  "synthetic_fixtures_only": true,
+  "duration_ms": 52041
+}

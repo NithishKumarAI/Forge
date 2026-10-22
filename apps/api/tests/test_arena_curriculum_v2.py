@@ -43,4 +43,4 @@ def test_sql_hidden_dataset_and_planner_foundation_targets(session):
     activate_v2(session);sync_problem_bank(session);sql=validation_payload("sql-active-users",session=session)
     assert "hidden_datasets" not in sql and "expected_rows" not in sql
     settings=planner_settings(session);assert (settings["python_daily_minimum"],settings["sql_daily_minimum"],settings["dsa_daily_minimum"])==(45,30,30)
-    plan=today_plan(session);reasons=" ".join(x["reason"] for x in plan["items"]);assert all(x in reasons for x in ("Python","SQL","DSA"))
+    plan=today_plan(session);assert plan['items']==[] and plan['unallocated_minutes']==plan['target_minutes']

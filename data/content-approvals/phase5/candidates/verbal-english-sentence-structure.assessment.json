@@ -1,0 +1,213 @@
+{
+  "content_key": "assessment/placement-foundations/verbal-english/verbal-english-sentence-structure",
+  "revision": "1.0.0",
+  "content_type": "assessment_bundle",
+  "payload": {
+    "assessment": {
+      "key": "assessment/placement-foundations/verbal-english/verbal-english-sentence-structure",
+      "version": "1.0.0",
+      "items": [
+        {
+          "key": "guided-subject",
+          "kind": "single_choice",
+          "prompt": "In the statement 'The courier carries a parcel', which phrase is the subject?",
+          "explanation": "The courier performs the action carries; a parcel receives it.",
+          "contract": {
+            "choices": {
+              "a": "a parcel",
+              "b": "The courier"
+            },
+            "correct": [
+              "b"
+            ]
+          },
+          "family": "pf/verbal-english-sentence-structure/guided-subject",
+          "subject": "verbal-english",
+          "topic": "verbal-english-sentence-structure",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "independent-verb",
+          "kind": "single_choice",
+          "prompt": "In 'Our team reviews changes', which word is the verb?",
+          "explanation": "Reviews describes the action; changes is its object here.",
+          "contract": {
+            "choices": {
+              "a": "reviews",
+              "b": "changes"
+            },
+            "correct": [
+              "a"
+            ]
+          },
+          "family": "pf/verbal-english-sentence-structure/independent-verb",
+          "subject": "verbal-english",
+          "topic": "verbal-english-sentence-structure",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "transfer-clause",
+          "kind": "single_choice",
+          "prompt": "Which option is an independent clause in standard edited English?",
+          "explanation": "The first is a complete statement. Although makes the second clause dependent.",
+          "contract": {
+            "choices": {
+              "a": "Although the service restarted",
+              "b": "The service restarted."
+            },
+            "correct": [
+              "b"
+            ]
+          },
+          "family": "pf/verbal-english-sentence-structure/transfer-clause",
+          "subject": "verbal-english",
+          "topic": "verbal-english-sentence-structure",
+          "level": 1,
+          "purposes": [
+            "transfer"
+          ],
+          "independent_variant": true,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "recall-dependent",
+          "kind": "single_choice",
+          "prompt": "In 'Because the build failed, we checked the logs', which clause is dependent?",
+          "explanation": "Because marks the reason as dependent on the main statement.",
+          "contract": {
+            "choices": {
+              "a": "Because the build failed",
+              "b": "we checked the logs"
+            },
+            "correct": [
+              "a"
+            ]
+          },
+          "family": "pf/verbal-english-sentence-structure/recall-dependent",
+          "subject": "verbal-english",
+          "topic": "verbal-english-sentence-structure",
+          "level": 1,
+          "purposes": [
+            "recall"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "mock-head",
+          "kind": "single_choice",
+          "prompt": "In 'The quiet student near the window asks a question', who asks?",
+          "explanation": "The subject is the student phrase; near the window only describes its location.",
+          "contract": {
+            "choices": {
+              "a": "the window",
+              "b": "The quiet student near the window"
+            },
+            "correct": [
+              "b"
+            ]
+          },
+          "family": "pf/verbal-english-sentence-structure/mock-head",
+          "subject": "verbal-english",
+          "topic": "verbal-english-sentence-structure",
+          "level": 1,
+          "purposes": [
+            "interview"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "purdue-sentences",
+        "url": "https://owl.purdue.edu/owl/general_writing/academic_writing/sentence_variety/sentence_types.html",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "coverage": {
+    "key": "verbal-english-sentence-structure-assessment",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "guided-subject",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/guided-subject"
+        ],
+        "assessment_refs": [
+          "item/guided-subject"
+        ]
+      },
+      {
+        "id": "independent-verb",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/independent-verb"
+        ],
+        "assessment_refs": [
+          "item/independent-verb"
+        ]
+      },
+      {
+        "id": "transfer-clause",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/transfer-clause"
+        ],
+        "assessment_refs": [
+          "item/transfer-clause"
+        ]
+      },
+      {
+        "id": "recall-dependent",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/recall-dependent"
+        ],
+        "assessment_refs": [
+          "item/recall-dependent"
+        ]
+      },
+      {
+        "id": "mock-head",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/mock-head"
+        ],
+        "assessment_refs": [
+          "item/mock-head"
+        ]
+      }
+    ]
+  }
+}

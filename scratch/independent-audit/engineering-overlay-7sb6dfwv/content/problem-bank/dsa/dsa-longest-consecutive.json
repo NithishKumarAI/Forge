@@ -1,0 +1,84 @@
+{
+  "key": "dsa-longest-consecutive",
+  "title": "Longest consecutive sequence",
+  "track": "dsa",
+  "topic_tags": [
+    "hash-maps",
+    "arrays"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in `O(n)` time.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "[100,4,200,1,3,2]",
+      "output": "4",
+      "explanation": "Longest consecutive sequence is [1, 2, 3, 4]."
+    }
+  ],
+  "starter_code": "def longest_consecutive(nums: list[int]) -> int:\n    pass",
+  "hints": [
+    "Add all elements to a hash set.",
+    "Look for the start of a sequence (where num - 1 is not in the set)."
+  ],
+  "explanation": "Put all numbers in a set for O(1) lookups. Iterate through the set. If `num - 1` is not in the set, it's the start of a sequence. Count how many consecutive numbers exist from this start.",
+  "reference_solution": "def longest_consecutive(nums: list[int]) -> int:\n    num_set = set(nums)\n    max_len = 0\n    for num in num_set:\n        if num - 1 not in num_set:\n            current_num = num\n            current_len = 1\n            while current_num + 1 in num_set:\n                current_num += 1\n                current_len += 1\n            max_len = max(max_len, current_len)\n    return max_len",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "longest_consecutive",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          [
+            100,
+            4,
+            200,
+            1,
+            3,
+            2
+          ]
+        ],
+        "kwargs": {},
+        "expected": 4
+      },
+      {
+        "name": "sample2",
+        "args": [
+          [
+            0,
+            3,
+            7,
+            2,
+            5,
+            8,
+            4,
+            6,
+            0,
+            1
+          ]
+        ],
+        "kwargs": {},
+        "expected": 9
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          []
+        ],
+        "kwargs": {},
+        "expected": 0
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/hash-maps"
+}

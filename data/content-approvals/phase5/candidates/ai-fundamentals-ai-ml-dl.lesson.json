@@ -1,0 +1,131 @@
+{
+  "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-ai-ml-dl",
+  "revision": "1.0.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "placement-foundations",
+      "track_slug": "ai-fundamentals",
+      "topic_slug": "ai-fundamentals-ai-ml-dl",
+      "title": "AI, ML and deep learning",
+      "description": "Distinguish AI, machine learning and deep learning with concrete examples.",
+      "version": "1.0.0",
+      "learning_objectives": [
+        "Distinguish AI, machine learning and deep learning with concrete examples."
+      ],
+      "prerequisites": [],
+      "sections": [
+        {
+          "slug": "intuition",
+          "title": "Goal and intuition",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Distinguish AI, machine learning and deep learning with concrete examples.",
+          "markdown": "AI is a broad label for computer systems performing tasks associated with intelligent behaviour. Machine learning is an approach in which behaviour is fitted from data rather than every rule being hand-written. Deep learning is a family of machine-learning methods using neural networks with multiple learned layers. These are overlapping categories, not three separate products. A system can use ordinary rules without learning from examples.",
+          "examples": [],
+          "key_points": [
+            "A confident output is not evidence that a model is correct."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "worked-example",
+          "title": "A worked example and why it works",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Distinguish AI, machine learning and deep learning with concrete examples.",
+          "markdown": "Imagine sorting incoming messages. A fixed rule that flags a message when its subject contains a specified word uses no training data. A model fitted to labeled examples of spam and normal messages is machine learning. A multi-layer neural-network classifier is both deep learning and machine learning. Training adjusts learned parameters; inference applies the trained model to a new input. A correct-looking output alone does not establish how the system was built, and a learned model can still make mistakes.",
+          "examples": [],
+          "key_points": [
+            "A confident output is not evidence that a model is correct."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "practice-revision",
+          "title": "Guided practice, independent practice and revision",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Distinguish AI, machine learning and deep learning with concrete examples.",
+          "markdown": "Guided: a hand-written multiplication function does not become machine learning because it runs on a computer. Independent: a classifier is trained on past labeled messages using a multi-layer neural network. Which categories include it?\n\n<details><summary>Explanation</summary>It is deep learning, which is within machine learning, used for an AI task. The evidence is the stated training method, not a brand name. This tells us nothing by itself about accuracy, fairness or reliability.</details>\n\nRevision: distinguish task, learning method, training and inference; ask what data and evaluation support a claim. These offline scenarios do not require an API key or live model. Product-specific model features change; this lesson deliberately avoids claims about current model prices or capabilities.",
+          "examples": [],
+          "key_points": [
+            "A confident output is not evidence that a model is correct."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        }
+      ],
+      "summary": [
+        "A confident output is not evidence that a model is correct.",
+        "Calling every ordinary deterministic program machine learning hides the role of training data."
+      ],
+      "interview_takeaways": [
+        "Explain your reasoning and limits; reading is not mastery."
+      ],
+      "common_mistakes": [
+        "A confident output is not evidence that a model is correct.",
+        "Calling every ordinary deterministic program machine learning hides the role of training data."
+      ],
+      "sources": [
+        {
+          "source_id": "google-ml-intro",
+          "title": "Google Introduction to Machine Learning",
+          "url": "https://developers.google.com/machine-learning/intro-to-ml/what-is-ml",
+          "retrieved_at": "2026-10-22T00:00:00Z"
+        }
+      ],
+      "generated_at": "2026-10-22T00:00:00Z",
+      "content_hash": "0469a82d891cc24d809ae52f4fda304b70e432db7288a63dbc00512737a74661"
+    },
+    "exercises": [
+      {
+        "key": "lesson-reflection",
+        "exercise_type": "short_answer",
+        "title": "Explain the worked example",
+        "prompt_markdown": "Explain the worked example in your own words and identify one mistake to avoid.",
+        "difficulty": "learning",
+        "hints": [],
+        "content": {
+          "rubric": [
+            "Explain the stated steps.",
+            "Identify a specific misconception."
+          ],
+          "reference_answer": "A confident output is not evidence that a model is correct."
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "google-ml-intro",
+        "url": "https://developers.google.com/machine-learning/intro-to-ml/what-is-ml",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "example_checks": [],
+  "coverage": {
+    "key": "ai-fundamentals-ai-ml-dl-teaching",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "ai-fundamentals-ai-ml-dl",
+        "status": "covered",
+        "lesson_refs": [
+          "section/intuition",
+          "section/worked-example",
+          "section/practice-revision"
+        ],
+        "assessment_refs": [
+          "exercise/lesson-reflection"
+        ]
+      }
+    ]
+  }
+}

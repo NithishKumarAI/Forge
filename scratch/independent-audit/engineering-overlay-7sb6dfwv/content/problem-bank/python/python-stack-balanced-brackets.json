@@ -1,0 +1,81 @@
+{
+  "key": "python-stack-balanced-brackets",
+  "title": "Balanced brackets",
+  "track": "python",
+  "topic_tags": [
+    "stacks",
+    "strings"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Write a function `is_balanced(s)` to check if brackets ()[]{} are balanced.",
+  "constraints": [
+    "String contains only bracket characters."
+  ],
+  "examples": [
+    {
+      "input": "()[]{}",
+      "output": "True",
+      "explanation": "All brackets closed properly."
+    }
+  ],
+  "starter_code": "def is_balanced(s: str) -> bool:\n    pass",
+  "hints": [
+    "Use a stack to keep track of opening brackets."
+  ],
+  "explanation": "Push opening brackets onto a stack. When encountering a closing bracket, pop the stack and check if they match.",
+  "reference_solution": "def is_balanced(s: str) -> bool:\n    stack = []\n    mapping = {')': '(', ']': '[', '}': '{'}\n    for char in s:\n        if char in mapping:\n            top_element = stack.pop() if stack else '#'\n            if mapping[char] != top_element:\n                return False\n        else:\n            stack.append(char)\n    return not stack",
+  "complexity": "O(n) time and O(n) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "is_balanced",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "()[]{}"
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "([)]"
+        ],
+        "kwargs": {},
+        "expected": false
+      },
+      {
+        "name": "sample3",
+        "args": [
+          "{[]}"
+        ],
+        "kwargs": {},
+        "expected": true
+      },
+      {
+        "name": "empty",
+        "args": [
+          ""
+        ],
+        "kwargs": {},
+        "expected": true
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden",
+        "args": [
+          "((("
+        ],
+        "kwargs": {},
+        "expected": false
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/stacks"
+}

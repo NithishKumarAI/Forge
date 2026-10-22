@@ -1,0 +1,66 @@
+{
+  "key": "sql-second-highest-salary",
+  "title": "Second highest salary",
+  "track": "sql",
+  "topic_tags": [
+    "subqueries"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return the second-highest distinct salary as second_highest_salary. Duplicate top salaries should not change the answer.",
+  "constraints": [
+    "Return exactly: second_highest_salary.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible employees tables",
+      "output": "[[60000]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "First find the maximum salary.",
+    "Then find the maximum value strictly below that maximum."
+  ],
+  "explanation": "The inner scalar subquery finds the highest salary. The outer MAX chooses the greatest salary below it, which handles duplicate top salaries. A common mistake is OFFSET without considering duplicates. DENSE_RANK is an alternative and generalizes to the nth distinct salary.",
+  "reference_solution": "SELECT MAX(salary) AS second_highest_salary FROM employees WHERE salary < (SELECT MAX(salary) FROM employees)",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE employees (id INT, name VARCHAR(50), salary INT); INSERT INTO employees VALUES (1, 'A', 40000), (2, 'B', 50000), (3, 'C', 60000), (4, 'D', 70000);",
+    "visible_tables": [
+      "employees"
+    ],
+    "sample_rows": [
+      [
+        60000
+      ]
+    ],
+    "expected_columns": [
+      "second_highest_salary"
+    ],
+    "expected_rows": [
+      [
+        60000
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE employees (id INT,name VARCHAR(50),salary INT); INSERT INTO employees VALUES (10,'I',100),(11,'J',100),(12,'K',80),(13,'L',80),(14,'M',50);",
+        "expected_rows": [
+          [
+            80
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/subqueries"
+}

@@ -1,0 +1,43 @@
+{
+  "key": "python-count-vowels",
+  "title": "Count vowels",
+  "track": "python",
+  "topic_tags": ["strings", "basics"],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 15,
+  "statement_markdown": "Write a function `count_vowels(s: str) -> int` that takes a string `s` and returns the number of lowercase vowels ('a', 'e', 'i', 'o', 'u') it contains.",
+  "constraints": [
+    "The input string may contain uppercase and lowercase letters, numbers, and symbols.",
+    "Only count lowercase vowels."
+  ],
+  "examples": [
+    {"input": "\"hello\"", "output": "2", "explanation": "'e' and 'o' are vowels."},
+    {"input": "\"\"", "output": "0", "explanation": "Empty string has 0 vowels."},
+    {"input": "\"aeiou\"", "output": "5", "explanation": "All characters are vowels."}
+  ],
+  "starter_code": "def count_vowels(s: str) -> int:\n    pass",
+  "hints": [
+    "You can iterate over each character in the string.",
+    "Check if the character is in the string or list of vowels 'aeiou'."
+  ],
+  "explanation": "We can solve this by iterating through the string and incrementing a counter for each character that is a vowel. A list comprehension or generator expression with `sum()` is a Pythonic way to do this.",
+  "reference_solution": "def count_vowels(s: str) -> int:\n    return sum(1 for char in s if char in 'aeiou')",
+  "complexity": "O(n) time and O(1) space, where n is the length of the string.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "count_vowels",
+    "sample_tests": [
+      {"name": "hello", "args": ["hello"], "kwargs": {}, "expected": 2},
+      {"name": "empty", "args": [""], "kwargs": {}, "expected": 0},
+      {"name": "all_vowels", "args": ["aeiou"], "kwargs": {}, "expected": 5}
+    ],
+    "hidden_tests": [
+      {"name": "mixed_case", "args": ["HEllo"], "kwargs": {}, "expected": 1},
+      {"name": "no_vowels", "args": ["bcdfg"], "kwargs": {}, "expected": 0}
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "python/strings"
+}

@@ -30,7 +30,7 @@ def test_four_to_five_failure_atomic_upgrade_backup_restore(tmp_path,monkeypatch
     with engine.connect() as c:assert c.exec_driver_sql('SELECT * FROM schemamigration').all()==before
     monkeypatch.setattr(runner.v005_assessment,'apply',apply)
     result=runner.run_migrations(engine)
-    assert result['applied']==[5]
+    assert result['applied']==[5,6]
     backup=Path(result['backup_path']);assert verify_database_backup(backup)['schema_version']==4
     assert runner.run_migrations(engine)['applied']==[]
     with engine.connect() as c:

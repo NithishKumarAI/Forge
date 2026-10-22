@@ -1,0 +1,139 @@
+[
+  {
+    "key": "dec-mcq-desugaring",
+    "exercise_type": "multiple_choice",
+    "title": "Decorator syntax desugaring",
+    "prompt_markdown": "What is the exact equivalent code for this decorator declaration?\n\n```python\n@tracer\ndef process(data):\n    return data.strip()\n```",
+    "difficulty": "easy",
+    "hints": [
+      "Review how Python desugars @decorator."
+    ],
+    "content": {
+      "choices": [
+        "tracer(process(data))",
+        "process = tracer(process)",
+        "process = tracer(data)",
+        "tracer.wrap(process)"
+      ],
+      "correct_index": 1,
+      "explanation": "In Python, the decorator syntax `@tracer def process(...)` desugars exactly to `process = tracer(process)` after the function is created."
+    }
+  },
+  {
+    "key": "dec-mcq-wraps-purpose",
+    "exercise_type": "multiple_choice",
+    "title": "Why functools.wraps is required",
+    "prompt_markdown": "What happens if a decorator does NOT use `@functools.wraps(func)` on its inner wrapper function?",
+    "difficulty": "easy",
+    "hints": [
+      "What happens to the decorated function's __name__ attribute?"
+    ],
+    "content": {
+      "choices": [
+        "The wrapped function raises a TypeError on execution",
+        "The function's `__name__` becomes 'wrapper' and its docstring is replaced by the wrapper's docstring",
+        "The function cannot accept keyword arguments",
+        "Python disables recursion for that function"
+      ],
+      "correct_index": 1,
+      "explanation": "Without `functools.wraps`, the decorated function assumes the identity of the inner wrapper function, overwriting `__name__`, `__doc__`, and `__annotations__`."
+    }
+  },
+  {
+    "key": "dec-mcq-stacking-order",
+    "exercise_type": "multiple_choice",
+    "title": "Stacked decorators execution order",
+    "prompt_markdown": "Given this decorated function:\n\n```python\n@auth_check\n@rate_limit\ndef handle_request():\n    return 'OK'\n```\nWhen `handle_request()` is called, which decorator wrapper executes first?",
+    "difficulty": "medium",
+    "hints": [
+      "Runtime execution proceeds from top to bottom."
+    ],
+    "content": {
+      "choices": [
+        "rate_limit executes first, then auth_check",
+        "auth_check executes first, then rate_limit",
+        "They execute simultaneously in parallel threads",
+        "Python chooses randomly unless order is specified"
+      ],
+      "correct_index": 1,
+      "explanation": "At definition time, decorators wrap from bottom to top: `handle_request = auth_check(rate_limit(handle_request))`. At runtime call time, `auth_check` executes first, then delegates to `rate_limit`, which finally calls `handle_request`."
+    }
+  },
+  {
+    "key": "dec-short-predict-stacked-output",
+    "exercise_type": "short_answer",
+    "title": "Predict output of stacked decorators",
+    "prompt_markdown": "Predict the printed output of the following code and explain how the stacked wrappers modify the result:\n\n```python\nimport functools\n\ndef add_stars(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        return f'*{func(*args, **kwargs)}*'\n    return wrapper\n\ndef add_brackets(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        return f'[{func(*args, **kwargs)}]'\n    return wrapper\n\n@add_stars\n@add_brackets\ndef text():\n    return 'core'\n\nprint(text())\n```",
+    "difficulty": "medium",
+    "hints": [
+      "add_brackets wraps 'core' first, then add_stars wraps that output."
+    ],
+    "content": {
+      "rubric": [
+        "States the correct printed output '*[core]*'",
+        "Explains that add_brackets wraps text first, producing '[core]'",
+        "Explains that add_stars wraps the outer result, adding stars around '[core]'"
+      ],
+      "reference_answer": "Output: `*[core]*`.\nExplanation: Stacking is evaluated bottom-up: `text = add_stars(add_brackets(text))`. Calling `text()` invokes `add_stars` wrapper, which calls `add_brackets` wrapper, which calls the base function returning `'core'`. `add_brackets` returns `'[core]'`, and `add_stars` wraps it to produce `'*[core]*'`.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dec-short-fix-missing-level",
+    "exercise_type": "short_answer",
+    "title": "Diagnose decorator factory missing layer",
+    "prompt_markdown": "A developer attempts to create a parameterized decorator `@tag('div')` but writes only two nested functions:\n\n```python\ndef tag(name):\n    def wrapper(func):\n        return f'<{name}>{func()}</{name}>'\n    return wrapper\n```\nExplain why using `@tag('div') def hello(): return 'Hi'` fails with a TypeError when calling `hello()`, and provide the corrected 3-level structure.",
+    "difficulty": "medium",
+    "hints": [
+      "A decorator with arguments needs an outer factory, middle decorator, and inner wrapper."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that `wrapper(func)` immediately executes `func()` at definition time rather than returning a callable wrapper",
+        "Explains that calling `hello()` fails because `hello` became a string instead of a function",
+        "Provides the correct 3-tier structure (factory -> decorator -> wrapper)"
+      ],
+      "reference_answer": "Defect: `tag('div')` returns `wrapper(func)` which returns a formatted string immediately at definition time. Consequently, `hello` becomes a string (`'<div>Hi</div>'`) instead of a function, raising `TypeError: 'str' object is not callable` when invoked.\nCorrected 3-tier implementation:\n```python\nimport functools\ndef tag(name):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            return f'<{name}>{func(*args, **kwargs)}</{name}>'\n        return wrapper\n    return decorator\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dec-short-implement-retry",
+    "exercise_type": "short_answer",
+    "title": "Write a retry decorator with attempts",
+    "prompt_markdown": "Implement a parameterized decorator `@retry(attempts=3)` that retries a function if it raises any subclass of `Exception`. If all attempts fail, it should re-raise the final exception.",
+    "difficulty": "medium",
+    "hints": [
+      "Use a 3-level structure; loop range(attempts), catching Exception and storing the last error."
+    ],
+    "content": {
+      "rubric": [
+        "Uses 3-level nesting (factory -> decorator -> wrapper)",
+        "Decorates wrapper with `@functools.wraps(func)`",
+        "Implements retry loop for `attempts` count, catching `Exception`",
+        "Re-raises the last exception if all attempts are exhausted"
+      ],
+      "reference_answer": "```python\nimport functools\n\ndef retry(attempts: int = 3):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            last_exc = None\n            for _ in range(attempts):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as exc:\n                    last_exc = exc\n            if last_exc:\n                raise last_exc\n        return wrapper\n    return decorator\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dec-short-explain-auth-placement",
+    "exercise_type": "short_answer",
+    "title": "Explain architectural ordering of auth and cache decorators",
+    "prompt_markdown": "In an API endpoint, explain why `@auth_required` MUST be placed above `@cache_response` when stacking decorators:\n\n```python\n# Order 1 vs Order 2:\n@auth_required\n@cache_response\ndef get_financial_record(user_id): ...\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Think about what happens if unauthenticated requests hit the cache."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that the top decorator executes first at runtime",
+        "Explains that if `@cache_response` were on top, an unauthenticated attacker could receive cached confidential data without auth checks",
+        "Concludes that placing `@auth_required` on top guarantees every request is authenticated before cache lookup or execution occurs"
+      ],
+      "reference_answer": "Decorators execute from top to bottom at runtime call time. Placing `@auth_required` on top ensures that authentication is evaluated before any other logic. If `@cache_response` were placed on top, an unauthenticated user's request would hit the cache first. If a previous authenticated user had cached the financial record, the cache decorator would return confidential data directly to the unauthenticated caller without ever triggering `@auth_required`. Placing security decorators outermost is a vital security requirement.",
+      "minimum_pass_score": 70
+    }
+  }
+]

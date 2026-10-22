@@ -1,0 +1,131 @@
+{
+  "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-number-operations",
+  "revision": "1.0.0",
+  "content_type": "lesson_bundle",
+  "payload": {
+    "lesson": {
+      "curriculum_key": "placement-foundations",
+      "track_slug": "quantitative-aptitude",
+      "topic_slug": "quantitative-aptitude-number-operations",
+      "title": "Numbers and operations",
+      "description": "Use order of operations, signed numbers and estimation to check calculations.",
+      "version": "1.0.0",
+      "learning_objectives": [
+        "Use order of operations, signed numbers and estimation to check calculations."
+      ],
+      "prerequisites": [],
+      "sections": [
+        {
+          "slug": "intuition",
+          "title": "Goal and intuition",
+          "order_index": 0,
+          "estimated_minutes": 8,
+          "learning_objective": "Use order of operations, signed numbers and estimation to check calculations.",
+          "markdown": "An expression is an instruction with a shared reading order. A bill for a fixed delivery charge plus several identical items should multiply the item cost first; otherwise the delivery charge would be multiplied too. Brackets make a group explicit. Work inside groups first, then powers, multiplication/division from left to right, then addition/subtraction from left to right. Multiplication does not outrank division; they share a level.",
+          "examples": [],
+          "key_points": [
+            "Reading every operation strictly left to right changes the expression."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "worked-example",
+          "title": "A worked example and why it works",
+          "order_index": 1,
+          "estimated_minutes": 8,
+          "learning_objective": "Use order of operations, signed numbers and estimation to check calculations.",
+          "markdown": "A stationery order has a ₹4 delivery charge and three ₹2 pencils. The total is 4 + 3 × 2. First the pencils cost 6; then add delivery: 4 + 6 = ₹10. By contrast, (4 + 3) × 2 = 14: the brackets change the instruction. For signed values, a temperature of −3°C rising by 5°C becomes 2°C. Estimate before calculating: the order must cost more than the ₹6 pencils, so a result below ₹6 cannot fit this story.",
+          "examples": [],
+          "key_points": [
+            "Reading every operation strictly left to right changes the expression."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        },
+        {
+          "slug": "practice-revision",
+          "title": "Guided practice, independent practice and revision",
+          "order_index": 2,
+          "estimated_minutes": 8,
+          "learning_objective": "Use order of operations, signed numbers and estimation to check calculations.",
+          "markdown": "Guided: evaluate 9 − 2 × 3. Mark multiplication first: 2 × 3 = 6, then 9 − 6 = 3. Independent: a ₹5 booking fee plus four ₹3 tickets costs how much? Stop before opening the solution.\n\n<details><summary>Step-by-step solution</summary>Four tickets cost 4 × 3 = 12 rupees; add the single fee, 5 + 12 = 17 rupees. The fee is charged once, not per ticket.</details>\n\nCheck your work: identify the quantities, write their units, group where needed, calculate in the shared order, and compare with an estimate. Never round an intermediate exact integer merely because an answer looks awkward.",
+          "examples": [],
+          "key_points": [
+            "Reading every operation strictly left to right changes the expression."
+          ],
+          "checkpoint": "Can you explain why each step follows from the stated assumptions?"
+        }
+      ],
+      "summary": [
+        "Reading every operation strictly left to right changes the expression.",
+        "Multiplying a once-only fee by the number of items confuses the quantities."
+      ],
+      "interview_takeaways": [
+        "Explain your reasoning and limits; reading is not mastery."
+      ],
+      "common_mistakes": [
+        "Reading every operation strictly left to right changes the expression.",
+        "Multiplying a once-only fee by the number of items confuses the quantities."
+      ],
+      "sources": [
+        {
+          "source_id": "openstax-arithmetic",
+          "title": "OpenStax Prealgebra 2e order of operations",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/2-1-use-the-language-of-algebra",
+          "retrieved_at": "2026-10-22T00:00:00Z"
+        }
+      ],
+      "generated_at": "2026-10-22T00:00:00Z",
+      "content_hash": "5b4392ac772eac91aa577394545d0e11457bc011cfdb939097c2dc7eff3e7193"
+    },
+    "exercises": [
+      {
+        "key": "lesson-reflection",
+        "exercise_type": "short_answer",
+        "title": "Explain the worked example",
+        "prompt_markdown": "Explain the worked example in your own words and identify one mistake to avoid.",
+        "difficulty": "learning",
+        "hints": [],
+        "content": {
+          "rubric": [
+            "Explain the stated steps.",
+            "Identify a specific misconception."
+          ],
+          "reference_answer": "Reading every operation strictly left to right changes the expression."
+        }
+      }
+    ]
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "openstax-arithmetic",
+        "url": "https://openstax.org/books/prealgebra-2e/pages/2-1-use-the-language-of-algebra",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "example_checks": [],
+  "coverage": {
+    "key": "quantitative-aptitude-number-operations-teaching",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "quantitative-aptitude-number-operations",
+        "status": "covered",
+        "lesson_refs": [
+          "section/intuition",
+          "section/worked-example",
+          "section/practice-revision"
+        ],
+        "assessment_refs": [
+          "exercise/lesson-reflection"
+        ]
+      }
+    ]
+  }
+}

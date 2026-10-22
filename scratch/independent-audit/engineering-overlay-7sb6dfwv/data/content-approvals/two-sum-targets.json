@@ -1,0 +1,16 @@
+[
+  {
+    "curriculum_name": "Default AI Engineer Interview Curriculum",
+    "curriculum_version": 1,
+    "graph_sha256": "3541cefc9e11288aed265b3f46903cf42df6eb9860cc91c2b2bc8d6918db42c1",
+    "topic": "dsa/hash-maps",
+    "order_index": 0
+  },
+  {
+    "curriculum_name": "Default AI / Python Engineer Interview Curriculum",
+    "curriculum_version": 2,
+    "graph_sha256": "6220b33b9917a707fd230d1913df3b9ed62935b7bd1c0091cd0ea3c324a2a37f",
+    "topic": "dsa/hash-maps",
+    "order_index": 0
+  }
+]

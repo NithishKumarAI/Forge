@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "fresh initialization/dashboard rendered",
+    "edition scope navigation rendered",
+    "offline static search returned stored explanations",
+    "communication rehearsal saved seven responses and rendered unscored report",
+    "390px dashboard has no horizontal overflow"
+  ],
+  "blocked_external_requests": [
+    "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+  ],
+  "page_errors": [],
+  "external_network_denied": true
+}

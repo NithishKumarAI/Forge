@@ -1,0 +1,229 @@
+{
+  "content_key": "assessment/placement-foundations/logical-reasoning/logical-reasoning-patterns-classification",
+  "revision": "1.0.0",
+  "content_type": "assessment_bundle",
+  "payload": {
+    "assessment": {
+      "key": "assessment/placement-foundations/logical-reasoning/logical-reasoning-patterns-classification",
+      "version": "1.0.0",
+      "items": [
+        {
+          "key": "guided-sequence",
+          "kind": "numeric",
+          "prompt": "The first term is 2. Every following term adds exactly 3. What is term 5? Enter a number.",
+          "explanation": "Enumerate 2, 5, 8, 11, 14; four transitions reach term five.",
+          "contract": {
+            "answer": "14",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "sequence_proof": {
+              "start": 2,
+              "step": 3,
+              "position": 5
+            }
+          },
+          "family": "pf/logical-reasoning-patterns-classification/guided-sequence",
+          "subject": "logical-reasoning",
+          "topic": "logical-reasoning-patterns-classification",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "independent-descending",
+          "kind": "numeric",
+          "prompt": "Term 1 is 10. Each following term subtracts exactly 2. What is term 4?",
+          "explanation": "The trace is 10, 8, 6, 4.",
+          "contract": {
+            "answer": "4",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "sequence_proof": {
+              "start": 10,
+              "step": -2,
+              "position": 4
+            }
+          },
+          "family": "pf/logical-reasoning-patterns-classification/independent-descending",
+          "subject": "logical-reasoning",
+          "topic": "logical-reasoning-patterns-classification",
+          "level": 1,
+          "purposes": [
+            "practice"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "transfer-positions",
+          "kind": "numeric",
+          "prompt": "A marker starts at coordinate -3 at observation 1. Between consecutive observations it moves exactly 4 units right. What coordinate is observed at observation 6?",
+          "explanation": "Five moves add 20 to -3, giving 17. Observation 1 involves no move.",
+          "contract": {
+            "answer": "17",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "sequence_proof": {
+              "start": -3,
+              "step": 4,
+              "position": 6
+            }
+          },
+          "family": "pf/logical-reasoning-patterns-classification/transfer-positions",
+          "subject": "logical-reasoning",
+          "topic": "logical-reasoning-patterns-classification",
+          "level": 1,
+          "purposes": [
+            "transfer"
+          ],
+          "independent_variant": true,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "recall-transition",
+          "kind": "numeric",
+          "prompt": "Term 1 is 7. Add exactly 5 for each next term. What is term 3?",
+          "explanation": "7, 12, 17 requires two transitions.",
+          "contract": {
+            "answer": "17",
+            "tolerance": "0",
+            "unit": "",
+            "rounding": "none",
+            "boundary": "inclusive",
+            "representation": "decimal",
+            "sequence_proof": {
+              "start": 7,
+              "step": 5,
+              "position": 3
+            }
+          },
+          "family": "pf/logical-reasoning-patterns-classification/recall-transition",
+          "subject": "logical-reasoning",
+          "topic": "logical-reasoning-patterns-classification",
+          "level": 1,
+          "purposes": [
+            "recall"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        },
+        {
+          "key": "mock-classify",
+          "kind": "single_choice",
+          "prompt": "The classification rule is 'whole numbers divisible by 2'. Which pair both belongs?",
+          "explanation": "Both 6 and 12 have zero remainder on division by 2; 9 does not.",
+          "contract": {
+            "choices": {
+              "a": "6 and 9",
+              "b": "6 and 12"
+            },
+            "correct": [
+              "b"
+            ]
+          },
+          "family": "pf/logical-reasoning-patterns-classification/mock-classify",
+          "subject": "logical-reasoning",
+          "topic": "logical-reasoning-patterns-classification",
+          "level": 1,
+          "purposes": [
+            "interview"
+          ],
+          "independent_variant": false,
+          "hints": [
+            "Restate the exact quantities, entities or contract before answering."
+          ]
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "origin": "original",
+    "author": "Forge coding agent — draft author, not a human reviewer",
+    "sources": [
+      {
+        "source_id": "openstax-logic",
+        "url": "https://openstax.org/books/college-algebra-2e/pages/9-1-sequences-and-their-notations",
+        "usage": "factual_reference",
+        "status": "resolved",
+        "upstream_revision": null,
+        "notice": "Original Forge prose and questions; no source text/images redistributed. Human factual/coverage review pending."
+      }
+    ]
+  },
+  "coverage": {
+    "key": "logical-reasoning-patterns-classification-assessment",
+    "version": "1",
+    "competencies": [
+      {
+        "id": "guided-sequence",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/guided-sequence"
+        ],
+        "assessment_refs": [
+          "item/guided-sequence"
+        ]
+      },
+      {
+        "id": "independent-descending",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/independent-descending"
+        ],
+        "assessment_refs": [
+          "item/independent-descending"
+        ]
+      },
+      {
+        "id": "transfer-positions",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/transfer-positions"
+        ],
+        "assessment_refs": [
+          "item/transfer-positions"
+        ]
+      },
+      {
+        "id": "recall-transition",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/recall-transition"
+        ],
+        "assessment_refs": [
+          "item/recall-transition"
+        ]
+      },
+      {
+        "id": "mock-classify",
+        "status": "covered",
+        "lesson_refs": [
+          "explanation/mock-classify"
+        ],
+        "assessment_refs": [
+          "item/mock-classify"
+        ]
+      }
+    ]
+  }
+}

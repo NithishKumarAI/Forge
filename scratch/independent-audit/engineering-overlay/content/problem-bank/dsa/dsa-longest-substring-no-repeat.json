@@ -1,0 +1,73 @@
+{
+  "key": "dsa-longest-substring-no-repeat",
+  "title": "Longest substring without repeating",
+  "track": "dsa",
+  "topic_tags": [
+    "strings",
+    "sliding-window"
+  ],
+  "difficulty": "medium",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Given a string `s`, find the length of the longest substring without repeating characters.",
+  "constraints": [
+    "Reasonable constraints for the problem"
+  ],
+  "examples": [
+    {
+      "input": "'abcabcbb'",
+      "output": "3",
+      "explanation": "The answer is 'abc'."
+    }
+  ],
+  "starter_code": "def longest_no_repeat(s: str) -> int:\n    pass",
+  "hints": [
+    "Use a sliding window with a set or dictionary."
+  ],
+  "explanation": "Maintain a sliding window `[left, right]`. If the character at `right` is already in the window, shrink from `left`.",
+  "reference_solution": "def longest_no_repeat(s: str) -> int:\n    char_set = set()\n    left = 0\n    max_len = 0\n    for right in range(len(s)):\n        while s[right] in char_set:\n            char_set.remove(s[left])\n            left += 1\n        char_set.add(s[right])\n        max_len = max(max_len, right - left + 1)\n    return max_len",
+  "complexity": "O(n) time and O(min(n, m)) space.",
+  "validation": {
+    "judge_mode": "function",
+    "function_name": "longest_no_repeat",
+    "sample_tests": [
+      {
+        "name": "sample1",
+        "args": [
+          "abcabcbb"
+        ],
+        "kwargs": {},
+        "expected": 3
+      },
+      {
+        "name": "sample2",
+        "args": [
+          "bbbbb"
+        ],
+        "kwargs": {},
+        "expected": 1
+      },
+      {
+        "name": "sample3",
+        "args": [
+          ""
+        ],
+        "kwargs": {},
+        "expected": 0
+      }
+    ],
+    "hidden_tests": [
+      {
+        "name": "hidden1",
+        "args": [
+          "pwwkew"
+        ],
+        "kwargs": {},
+        "expected": 3
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.0.0",
+  "mapped_topic": "dsa/sliding-window"
+}

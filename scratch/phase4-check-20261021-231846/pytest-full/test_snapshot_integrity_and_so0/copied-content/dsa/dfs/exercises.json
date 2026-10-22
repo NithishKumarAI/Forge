@@ -1,0 +1,141 @@
+[
+  {
+    "key": "dfs-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "Cycle detection in directed graphs state model",
+    "prompt_markdown": "Why is a 3-state coloring model (`unvisited`, `visiting`, `visited`) required to detect cycles in directed graphs?",
+    "difficulty": "medium",
+    "hints": [
+      "Consider two independent paths leading to the same destination node."
+    ],
+    "content": {
+      "choices": [
+        "Because Python sets cannot store directed edge tuples",
+        "To distinguish between harmless cross-edges (already visited) and true back-edges (currently on the active recursion stack)",
+        "To automatically compute the shortest path",
+        "To balance the graph like an AVL tree"
+      ],
+      "correct_index": 1,
+      "explanation": "In a directed graph, multiple paths can converge on a node without creating a cycle. A cycle exists only if a path leads back to a node that is currently active on the recursion call stack (state 1: 'visiting')."
+    }
+  },
+  {
+    "key": "dfs-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Traversal timing for subtree aggregation",
+    "prompt_markdown": "Which DFS traversal timing is required to calculate the total size or maximum depth of a subtree?",
+    "difficulty": "easy",
+    "hints": [
+      "You need the answers from both child subtrees before calculating the parent."
+    ],
+    "content": {
+      "choices": [
+        "Pre-order traversal",
+        "Post-order traversal",
+        "Level-order traversal",
+        "Breadth-first traversal"
+      ],
+      "correct_index": 1,
+      "explanation": "Post-order traversal executes after the recursive calls on children return. This allows the parent node to aggregate the returned values (height, size) of its left and right subtrees."
+    }
+  },
+  {
+    "key": "dfs-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "DFS space complexity on degenerate tree",
+    "prompt_markdown": "What is the worst-case auxiliary space complexity of recursive DFS on a binary tree of $N$ nodes that forms a single straight line (skewed tree)?",
+    "difficulty": "easy",
+    "hints": [
+      "Think about the maximum call stack depth."
+    ],
+    "content": {
+      "choices": [
+        "O(1)",
+        "O(log N)",
+        "O(N)",
+        "O(N^2)"
+      ],
+      "correct_index": 2,
+      "explanation": "In a skewed tree (degenerate linked list), the tree height is N. Recursive DFS pushes N activation frames onto the call stack before reaching a leaf, consuming O(N) auxiliary space."
+    }
+  },
+  {
+    "key": "dfs-short-predict-topological",
+    "exercise_type": "short_answer",
+    "title": "Predict post-order finishing times and topological order",
+    "prompt_markdown": "Given directed acyclic graph (DAG): `A -> B -> C`, and `A -> C`. Trace the order in which nodes finish their DFS execution (post-order), and state the resulting topological sort order.",
+    "difficulty": "medium",
+    "hints": [
+      "A node finishes only after all its outgoing neighbors finish."
+    ],
+    "content": {
+      "rubric": [
+        "Traces DFS from A -> B -> C: C has no outgoing edges, finishes first",
+        "B finishes second after C",
+        "A finishes last after exploring all branches",
+        "Reverses post-order [C, B, A] to produce topological sort: [A, B, C]"
+      ],
+      "reference_answer": "Execution Trace:\n1. DFS starts at `A`. Explores neighbor `B`.\n2. At `B`, explores neighbor `C`.\n3. At `C`, no outgoing edges exist -> `C` finishes first.\n4. Returns to `B` -> `B` finishes second.\n5. Returns to `A` -> checks edge to `C` (already finished). `A` finishes third.\n\nPost-Order Finishing Order: `[C, B, A]`\nTopological Sort (Reverse of Post-Order): `[A, B, C]`.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dfs-short-fix-disconnected-components",
+    "exercise_type": "short_answer",
+    "title": "Fix disconnected components bug in graph search",
+    "prompt_markdown": "A candidate attempts to count total connected components with this function, but it misses vertices in disconnected islands:\n\n```python\ndef count_components(n, edges):\n    graph = {i: [] for i in range(n)}\n    for u, v in edges:\n        graph[u].append(v); graph[v].append(u)\n    visited = set()\n    def dfs(node):\n        visited.add(node)\n        for neighbor in graph[node]:\n            if neighbor not in visited:\n                dfs(neighbor)\n    dfs(0)  # Bug: only runs from vertex 0!\n    return 1\n```\nExplain why this fails on disconnected graphs and write the correct outer loop logic.",
+    "difficulty": "easy",
+    "hints": [
+      "Iterate through all vertices 0..n-1 and start DFS on any unvisited vertex."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that calling `dfs(0)` only visits nodes connected to 0, missing separate components",
+        "Adds outer loop iterating through `range(n)`",
+        "Increments component counter each time an unvisited vertex is encountered"
+      ],
+      "reference_answer": "Bug: Calling `dfs(0)` once only traverses the single component containing vertex 0. If vertices are in separate components (e.g. 0-1 and 2-3), vertices 2 and 3 are never visited, and the function returns 1 regardless of actual component count.\n\nCorrected Outer Loop:\n```python\ndef count_components(n, edges):\n    graph = {i: [] for i in range(n)}\n    for u, v in edges:\n        graph[u].append(v); graph[v].append(u)\n    visited = set()\n    def dfs(node):\n        visited.add(node)\n        for neighbor in graph[node]:\n            if neighbor not in visited:\n                dfs(neighbor)\n    count = 0\n    for i in range(n):\n        if i not in visited:\n            count += 1\n            dfs(i)\n    return count\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dfs-short-implement-path-sum",
+    "exercise_type": "short_answer",
+    "title": "Write Path Sum binary tree DFS implementation",
+    "prompt_markdown": "Write a Python function `has_path_sum(root: TreeNode, target_sum: int) -> bool` that returns `True` if the binary tree has a root-to-leaf path such that adding up all values along the path equals `target_sum`. Must handle empty trees.",
+    "difficulty": "medium",
+    "hints": [
+      "Base case: if not root return False. If leaf, check if val == target_sum."
+    ],
+    "content": {
+      "rubric": [
+        "Handles empty tree returning False",
+        "Identifies leaf node (not root.left and not root.right)",
+        "Returns `root.val == target_sum` at leaf",
+        "Recurses left and right subtracting root.val from target_sum"
+      ],
+      "reference_answer": "```python\ndef has_path_sum(root: TreeNode, target_sum: int) -> bool:\n    if not root:\n        return False\n    # Leaf node check\n    if not root.left and not root.right:\n        return root.val == target_sum\n    new_sum = target_sum - root.val\n    return has_path_sum(root.left, new_sum) or has_path_sum(root.right, new_sum)\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "dfs-short-explain-recursion-limits",
+    "exercise_type": "short_answer",
+    "title": "Explain Python recursion limits and iterative DFS conversion in interviews",
+    "prompt_markdown": "In a backend interview, the interviewer notes: 'Your DFS solution looks clean, but our production graph contains 50,000 nodes in a long chain. What happens when this runs in Python, and how do you re-architect it?' Explain recursion limits and write the iterative stack equivalent.",
+    "difficulty": "hard",
+    "hints": [
+      "Explain sys.getrecursionlimit() and simulate the call stack with an explicit list."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that Python's default recursion limit is 1000, causing a 50,000-deep recursion to crash with RecursionError",
+        "Explains why increasing sys.setrecursionlimit is dangerous (causes OS process segmentation faults when C-stack overflows)",
+        "Provides the production architecture: convert to iterative DFS using an explicit heap-allocated list as a stack",
+        "Shows complete iterative DFS code template"
+      ],
+      "reference_answer": "1. What Happens in Python:\nPython's CPython interpreter enforces a default recursion limit of 1000 frames (inspectable via `sys.getrecursionlimit()`). If a graph chain has 50,000 nodes, Python will immediately crash with `RecursionError: maximum recursion depth exceeded`.\nWhile `sys.setrecursionlimit(60000)` exists, it is dangerous in production because Python stack frames consume OS C-stack memory; exceeding OS stack memory causes an unrecoverable process crash (Segmentation Fault).\n\n2. The Production Solution (Iterative Stack):\nRe-architect the DFS to be iterative using an explicit heap-allocated Python list as a stack. Python lists are allocated on the heap (virtually unbounded by RAM):\n\n```python\ndef dfs_production(graph, start):\n    visited = set()\n    stack = [start]\n    while stack:\n        node = stack.pop()\n        if node not in visited:\n            visited.add(node)\n            for neighbor in graph.get(node, []):\n                if neighbor not in visited:\n                    stack.append(neighbor)\n    return visited\n```\nThis handles 50,000+ nodes safely in $O(V + E)$ time without ever touching the OS call stack.",
+      "minimum_pass_score": 70
+    }
+  }
+]

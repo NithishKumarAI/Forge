@@ -1,0 +1,180 @@
+{
+  "curriculum_key": "default-ai-engineer",
+  "track_slug": "python",
+  "topic_slug": "exceptions",
+  "title": "Exception Handling and Error Boundaries",
+  "description": "Master try-except-else-finally blocks, the Python exception hierarchy, custom domain exceptions, and system error boundaries.",
+  "version": "1.1.0",
+  "learning_objectives": [
+    "Structure robust error handling using try, except, else, and finally blocks",
+    "Navigate the built-in exception hierarchy (BaseException vs Exception) accurately",
+    "Author and raise custom domain exceptions with contextual exception chaining",
+    "Implement resilient error boundaries at service, API, and worker perimeters"
+  ],
+  "prerequisites": [
+    "syntax-data-types",
+    "functions"
+  ],
+  "sections": [
+    {
+      "slug": "try-except-blocks",
+      "title": "Try and except mechanics: Specific vs bare exceptions",
+      "order_index": 0,
+      "estimated_minutes": 8,
+      "learning_objective": "Catch explicit exceptions without masking unexpected defects.",
+      "markdown": "Exception handling allows programs to intercept runtime errors gracefully. Code that might fail is placed in a `try` block. If an error occurs, execution stops and transfers to the matching `except` block. Always catch specific exceptions (e.g. `except ValueError:`). Catching bare `except:` or broad `except Exception:` without re-raising is a severe anti-pattern that swallows critical system signals like `KeyboardInterrupt`, memory errors, and subtle programming bugs like typos.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def parse_port(port_str: str) -> int:\n    try:\n        port = int(port_str)\n        if not (1 <= port <= 65535):\n            raise ValueError(f'Port {port} out of range (1-65535)')\n        return port\n    except ValueError as exc:\n        print(f'Validation failed: {exc}')\n        return 8000\n\nprint('Port 1:', parse_port('9000'))\nprint('Port 2:', parse_port('invalid'))",
+          "explanation": "Specific ValueError handling intercepts invalid strings and range violations with a fallback.",
+          "expected_output": "Port 1: 9000\nValidation failed: invalid literal for int() with base 10: 'invalid'\nPort 2: 8000"
+        }
+      ],
+      "key_points": [
+        "Catch only the specific exceptions your code is equipped to handle.",
+        "Never use bare except:; it intercepts SystemExit and KeyboardInterrupt."
+      ],
+      "checkpoint": "Why is 'except Exception as e: pass' considered one of the worst anti-patterns in production Python?"
+    },
+    {
+      "slug": "else-and-finally",
+      "title": "The complete flow: try, except, else, and finally",
+      "order_index": 1,
+      "estimated_minutes": 8,
+      "learning_objective": "Separate guarded operations, error handlers, success paths, and cleanup logic.",
+      "markdown": "Python's exception handling supports four coordinated clauses:\n- `try`: Runs the code that could raise an error.\n- `except`: Executes only if an exception is raised in the try block.\n- `else`: Executes only if the try block succeeds without raising an exception.\n- `finally`: Executes unconditionally, regardless of whether exceptions were raised, caught, or unhandled.\n\nUse the `else` clause for logic that should only run upon success but should not be shielded by the `try` block. Use `finally` for resource cleanup like closing sockets or releasing locks.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def run_task(success: bool) -> str:\n    log = []\n    try:\n        log.append('try')\n        if not success:\n            raise RuntimeError('boom')\n    except RuntimeError:\n        log.append('caught')\n    else:\n        log.append('success')\n    finally:\n        log.append('cleanup')\n    return ' -> '.join(log)\n\nprint(run_task(True))\nprint(run_task(False))",
+          "explanation": "Demonstrates that else runs only on success, while finally runs unconditionally.",
+          "expected_output": "try -> success -> cleanup\ntry -> caught -> cleanup"
+        }
+      ],
+      "key_points": [
+        "The else block runs only if no exception occurred in the try block.",
+        "The finally block always executes, making it ideal for deterministic cleanup."
+      ],
+      "checkpoint": "If a function returns a value inside a try block, does its finally block still execute before returning?"
+    },
+    {
+      "slug": "exception-hierarchy",
+      "title": "The Python exception hierarchy",
+      "order_index": 2,
+      "estimated_minutes": 8,
+      "learning_objective": "Navigate built-in exception inheritance to catch errors at the right granularity.",
+      "markdown": "All Python exceptions inherit from `BaseException`. Direct subclasses of `BaseException` include system-level events: `KeyboardInterrupt`, `SystemExit`, and `GeneratorExit`. Regular application exceptions inherit from `Exception`. Common subclasses include `ValueError` (correct type, invalid value), `TypeError` (unsupported type), `LookupError` (base for `KeyError` and `IndexError`), and `OSError` (system/file I/O). Because `except` catches the specified class and all its subclasses, catching `LookupError` intercepts both dictionary and list indexing failures.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "lookup_table = {'a': 1}\nsequence = [10, 20]\nfor container, key in [(lookup_table, 'b'), (sequence, 5)]:\n    try:\n        val = container[key]\n    except LookupError as exc:\n        print(f'Caught {type(exc).__name__} via LookupError base class')",
+          "explanation": "LookupError catches both KeyError on dictionaries and IndexError on lists.",
+          "expected_output": "Caught KeyError via LookupError base class\nCaught IndexError via LookupError base class"
+        }
+      ],
+      "key_points": [
+        "BaseException is the root; standard errors inherit from Exception.",
+        "LookupError is the common base class for KeyError and IndexError."
+      ],
+      "checkpoint": "Draw or describe why catching Exception does not catch KeyboardInterrupt."
+    },
+    {
+      "slug": "custom-exceptions-and-raise",
+      "title": "Custom exceptions and exception chaining with raise",
+      "order_index": 3,
+      "estimated_minutes": 8,
+      "learning_objective": "Define domain-specific exceptions and chain underlying causes with raise from.",
+      "markdown": "Production software defines custom exception hierarchies that mirror domain concepts (e.g. `PaymentFailedError(Exception)`, `InsufficientBalanceError(PaymentFailedError)`). This allows caller modules to catch high-level domain failures. When catching a low-level library exception and re-raising a domain exception, use `raise DomainError(...) from original_exc`. This establishes exception chaining: Python preserves the original traceback in `__cause__`, providing complete debugging context.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "class PaymentError(Exception):\n    \"\"\"Base exception for payment domain.\"\"\"\n\nclass CardDeclinedError(PaymentError):\n    \"\"\"Raised when card processor rejects transaction.\"\"\"\n\ndef charge(amount: float):\n    try:\n        raise ConnectionError('Gateway timeout')\n    except ConnectionError as err:\n        raise CardDeclinedError(f'Declined charge of ${amount:.2f}') from err\n\ntry:\n    charge(99.0)\nexcept CardDeclinedError as e:\n    print(f'Domain error: {e}')\n    print(f'Original cause: {e.__cause__}')",
+          "explanation": "Custom domain exception wraps the raw network error while preserving the causal traceback.",
+          "expected_output": "Domain error: Declined charge of $99.00\nOriginal cause: Gateway timeout"
+        }
+      ],
+      "key_points": [
+        "Inherit custom exceptions from Exception or domain base classes, never BaseException.",
+        "Use 'raise NewException() from old_exc' to retain diagnostic tracebacks."
+      ],
+      "checkpoint": "What is the difference in traceback presentation between 'raise e' and 'raise DomainError() from e'?"
+    },
+    {
+      "slug": "error-boundaries",
+      "title": "Architecting resilient error boundaries",
+      "order_index": 4,
+      "estimated_minutes": 8,
+      "learning_objective": "Isolate failures at system boundaries to prevent total application crashes.",
+      "markdown": "An error boundary is a structural architectural perimeter that intercepts unhandled exceptions, logs diagnostic details with tracebacks, and returns a safe fallback or structured response. In backend services, error boundaries live at HTTP middleware perimeters, background message queue consumers, or scheduled task runners. Within the boundary, let specific operations raise freely; at the boundary, log with `logger.exception()` and return an HTTP 500 or dead-letter the queue message.",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def boundary_handler(task_func, task_id: str) -> dict:\n    try:\n        result = task_func()\n        return {'status': 'ok', 'task_id': task_id, 'result': result}\n    except Exception as exc:\n        # In real services: logging.exception('Task failed')\n        return {'status': 'error', 'task_id': task_id, 'error_type': type(exc).__name__, 'detail': str(exc)}\n\nprint(boundary_handler(lambda: 100 // 2, 'task_1'))\nprint(boundary_handler(lambda: 100 // 0, 'task_2'))",
+          "explanation": "The error boundary traps the ZeroDivisionError, returning a safe structured response without crashing.",
+          "expected_output": "{'status': 'ok', 'task_id': 'task_1', 'result': 50}\n{'status': 'error', 'task_id': 'task_2', 'error_type': 'ZeroDivisionError', 'detail': 'division by zero'}"
+        }
+      ],
+      "key_points": [
+        "Error boundaries live at system entry points (HTTP middleware, queue workers).",
+        "Log unhandled exceptions with full tracebacks before returning fallback responses."
+      ],
+      "checkpoint": "Why should database transactions always be rolled back inside an error boundary handler?"
+    },
+    {
+      "slug": "interview-check",
+      "title": "Interview check and practice",
+      "order_index": 5,
+      "estimated_minutes": 8,
+      "learning_objective": "Review exception interview questions and practice error handling in Coding Arena.",
+      "markdown": "Exception handling questions evaluate your understanding of program reliability and defensive coding.\n\n### Oral Interview Questions\n1. *Why should custom exceptions inherit from Exception rather than BaseException?*\n   *(BaseException is reserved for system exits and interrupts. Inheriting from BaseException prevents your exception from being caught by standard `except Exception:` handlers, risking unhandled process termination).*\n2. *What is the difference between `except (TypeError, ValueError):` and two separate except blocks?*\n3. *How does Python's `raise ... from None` suppress exception context?*\n\n### Code Trace Challenge\nTrace this flow:\n```python\ndef test():\n    try:\n        return 1\n    finally:\n        return 2\nprint(test())\n```\nThe `finally` block executes before the function exits and its return statement overrides the try return, printing `2`! Never place return statements inside finally blocks.\n\n### Common Interview Trap\nCatching an exception and calling `print(e)` without re-raising or logging the stack trace. The caller receives `None` and proceeds in an invalid state, turning an immediate, localized error into a mysterious failure hundreds of lines later.\n\n### Arena Practice Problems\nPractice error handling in Coding Arena:\n- `python-celsius-to-fahrenheit`: Input conversion and range validation\n- `python-bob`: Graceful text rule parsing and default fallbacks",
+      "examples": [
+        {
+          "language": "python",
+          "code": "def safe_divide(a: float, b: float) -> float:\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return float('inf')\n\nprint(safe_divide(10, 2), safe_divide(10, 0))",
+          "explanation": "Guards division by zero explicitly, returning infinity as the mathematical fallback.",
+          "expected_output": "5.0 inf"
+        }
+      ],
+      "key_points": [
+        "Never return from inside a finally block.",
+        "Log stack traces with logger.exception() rather than print(e)."
+      ],
+      "checkpoint": "Show how to suppress the original exception traceback using raise CustomError() from None."
+    }
+  ],
+  "summary": [
+    "Specific except clauses catch anticipated errors without swallowing system interrupts.",
+    "The try-except-else-finally construct cleanly isolates execution, recovery, and cleanup.",
+    "The exception hierarchy separates BaseException (system) from Exception (application).",
+    "Custom domain exceptions with 'raise from' maintain clean architectural boundaries and tracebacks.",
+    "Error boundaries at perimeter layers ensure services log failures and recover gracefully."
+  ],
+  "interview_takeaways": [
+    "Never use bare except:; always catch explicit subclasses of Exception.",
+    "Use raise ... from err to preserve root cause tracebacks during domain exception wrapping.",
+    "Do not place return statements inside finally blocks as they overwrite try return values."
+  ],
+  "common_mistakes": [
+    "Using bare except: or catching BaseException, intercepting KeyboardInterrupt",
+    "Putting return statements inside finally blocks which silently override try returns",
+    "Catching exceptions and silently ignoring them with pass without logging",
+    "Re-raising exceptions without chaining, losing root-cause tracebacks"
+  ],
+  "sources": [
+    {
+      "source_id": "python-official-tutorial",
+      "title": "The Python Tutorial \u2014 Errors and Exceptions",
+      "url": "https://docs.python.org/3/tutorial/errors.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    },
+    {
+      "source_id": "python-stdlib-docs",
+      "title": "Python Standard Library \u2014 Built-in Exceptions",
+      "url": "https://docs.python.org/3/library/exceptions.html",
+      "retrieved_at": "2026-09-24T00:00:00Z"
+    }
+  ],
+  "content_hash": "70c273030e1ace4e58a6446b0ae161c30eaf7d728354ea97f2ae38b62808b148",
+  "generated_at": "2026-09-24T08:23:03.510379+00:00"
+}

@@ -1,0 +1,139 @@
+[
+  {
+    "key": "test-mcq-aaa-order",
+    "exercise_type": "multiple_choice",
+    "title": "Arrange-Act-Assert sequence",
+    "prompt_markdown": "What are the three structural phases of the AAA unit testing pattern in chronological order?",
+    "difficulty": "easy",
+    "hints": [
+      "First prepare data, then call the function, then check the result."
+    ],
+    "content": {
+      "choices": [
+        "Assert -> Act -> Arrange",
+        "Arrange -> Act -> Assert",
+        "Act -> Arrange -> Assert",
+        "Allocate -> Compute -> Commit"
+      ],
+      "correct_index": 1,
+      "explanation": "The AAA pattern structures tests into: 1. Arrange (set up inputs and state), 2. Act (invoke the target function), and 3. Assert (verify results and side effects)."
+    }
+  },
+  {
+    "key": "test-mcq-pytest-exception",
+    "exercise_type": "multiple_choice",
+    "title": "Testing exceptions in pytest",
+    "prompt_markdown": "What is the idiomatic pytest construct for verifying that a function raises a `ValueError`?",
+    "difficulty": "easy",
+    "hints": [
+      "Pytest provides a context manager for expecting exceptions."
+    ],
+    "content": {
+      "choices": [
+        "assert raises(ValueError): func()",
+        "with pytest.raises(ValueError): func()",
+        "try: func() catch ValueError",
+        "pytest.expect_error(ValueError, func)"
+      ],
+      "correct_index": 1,
+      "explanation": "In pytest, `with pytest.raises(ExpectedException):` is the standard context manager that catches the specified exception and fails the test if no exception is raised."
+    }
+  },
+  {
+    "key": "test-mcq-mock-boundary",
+    "exercise_type": "multiple_choice",
+    "title": "Where to place mocks",
+    "prompt_markdown": "What is the recommended best practice regarding where to place mocking boundaries in unit testing?",
+    "difficulty": "medium",
+    "hints": [
+      "Should you mock internal functions or external system boundaries?"
+    ],
+    "content": {
+      "choices": [
+        "Mock every internal helper function so no real code runs",
+        "Mock external system boundaries (network APIs, database connections, clock) while executing real internal logic",
+        "Mocks should only be placed in production code",
+        "Never use mocks under any circumstances"
+      ],
+      "correct_index": 1,
+      "explanation": "Mocks should isolate external boundaries (HTTP requests, database servers, payment gateways) while letting internal domain code execute normally to test real business logic."
+    }
+  },
+  {
+    "key": "test-short-predict-fixture-flow",
+    "exercise_type": "short_answer",
+    "title": "Predict fixture setup and teardown sequence",
+    "prompt_markdown": "Predict the printed output and explain the execution sequence of this pytest fixture test:\n\n```python\ndef test_runner():\n    log = []\n    def sample_fixture():\n        log.append('SETUP')\n        yield 'RESOURCE'\n        log.append('TEARDOWN')\n\n    # Simulating test execution\n    f = sample_fixture()\n    res = next(f)\n    log.append(f'TEST USING {res}')\n    try:\n        next(f)\n    except StopIteration:\n        pass\n    print(' -> '.join(log))\n\ntest_runner()\n```",
+    "difficulty": "medium",
+    "hints": [
+      "Follow the generator yield lifecycle."
+    ],
+    "content": {
+      "rubric": [
+        "States the correct printed output 'SETUP -> TEST USING RESOURCE -> TEARDOWN'",
+        "Explains that code before `yield` runs prior to test execution",
+        "Explains that code after `yield` runs after test completion during teardown"
+      ],
+      "reference_answer": "Output: `SETUP -> TEST USING RESOURCE -> TEARDOWN`.\nExplanation: Pytest fixtures use yield generators. Code prior to `yield` runs during test setup, providing the resource to the test. After the test function completes, pytest resumes the fixture generator to execute teardown cleanup code.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "test-short-fix-flaky-time",
+    "exercise_type": "short_answer",
+    "title": "Diagnose and fix flaky time dependency",
+    "prompt_markdown": "This test passes during the day but intermittently fails at midnight because it depends directly on `datetime.now()`:\n\n```python\ndef is_trial_active(created_at: datetime) -> bool:\n    return datetime.now() - created_at < timedelta(days=14)\n\ndef test_trial_active():\n    created = datetime.now() - timedelta(days=13, hours=23, minutes=59)\n    assert is_trial_active(created) is True\n```\nExplain why this test is non-deterministic and refactor the code and test to make it 100% deterministic.",
+    "difficulty": "medium",
+    "hints": [
+      "Inject the current time as a parameter with a default."
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that depending on real system clock `datetime.now()` causes timing flakiness and race conditions",
+        "Refactors `is_trial_active` to accept an optional `now: datetime | None = None` parameter",
+        "Passes a fixed frozen datetime in the test to ensure complete determinism"
+      ],
+      "reference_answer": "Defect: Direct dependency on `datetime.now()` introduces clock drift and timing race conditions, making the test flaky.\nRefactoring:\n```python\ndef is_trial_active(created_at: datetime, now: datetime | None = None) -> bool:\n    current_time = now or datetime.now()\n    return current_time - created_at < timedelta(days=14)\n\ndef test_trial_active():\n    frozen_now = datetime(2026, 1, 15, 12, 0, 0)\n    created = frozen_now - timedelta(days=13)\n    assert is_trial_active(created, now=frozen_now) is True\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "test-short-implement-parametrized",
+    "exercise_type": "short_answer",
+    "title": "Implement pytest.mark.parametrize matrix",
+    "prompt_markdown": "Write a parametrized test using `@pytest.mark.parametrize` for a discount calculator `calculate_discount(tier: str, amount: float) -> float`. Test three tiers: 'bronze' (0% discount), 'silver' (10% discount on $100 -> $90), and 'gold' (20% discount on $100 -> $80).",
+    "difficulty": "medium",
+    "hints": [
+      "Use @pytest.mark.parametrize('tier, amount, expected', [...])."
+    ],
+    "content": {
+      "rubric": [
+        "Uses `@pytest.mark.parametrize('tier, amount, expected', [...])`",
+        "Defines 3 test tuples for 'bronze', 'silver', and 'gold'",
+        "Defines test function accepting `(tier, amount, expected)`",
+        "Asserts `calculate_discount(tier, amount) == expected`"
+      ],
+      "reference_answer": "```python\nimport pytest\n\n@pytest.mark.parametrize('tier, amount, expected', [\n    ('bronze', 100.0, 100.0),\n    ('silver', 100.0, 90.0),\n    ('gold', 100.0, 80.0),\n])\ndef test_calculate_discount(tier: str, amount: float, expected: float):\n    assert calculate_discount(tier, amount) == expected\n```",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "test-short-explain-mock-spy",
+    "exercise_type": "short_answer",
+    "title": "Explain testing behavior vs implementation details",
+    "prompt_markdown": "Explain to an interviewer why tests that assert private internal method calls (over-mocking) make refactoring difficult and how focusing on public observable behavior solves this.",
+    "difficulty": "medium",
+    "hints": [
+      "What happens to tests when internal helper functions are renamed?"
+    ],
+    "content": {
+      "rubric": [
+        "Explains that mocking private methods couples tests tightly to internal implementation details",
+        "Notes that refactoring or renaming internal methods causes tests to fail even when business behavior is intact (false negatives)",
+        "Concludes that tests should treat units as black boxes, verifying public inputs, return values, and external boundary effects"
+      ],
+      "reference_answer": "When tests mock internal private methods (e.g. `assert self._helper_b.called`), the test is coupled to internal implementation details rather than business behavior. If an engineer refactors internal code (renaming functions, combining helpers, or optimizing algorithms) without changing public behavior, all over-mocked tests break, producing false negative failures. The solution is treating components as black boxes: supply inputs to public methods and assert public return values or observable boundary side effects, allowing internal code to be refactored safely.",
+      "minimum_pass_score": 70
+    }
+  }
+]

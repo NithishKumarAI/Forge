@@ -1,0 +1,65 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+__________ test_untrusted_web_origin_cannot_create_or_change_a_plan ___________
+
+session = <sqlmodel.orm.session.Session object at 0x0000019E8FACF4D0>
+
+    def test_untrusted_web_origin_cannot_create_or_change_a_plan(session):
+        client=client_for(session)
+        response=client.get('/api/planner/today',headers={'Origin':'https://untrusted.example','Sec-Fetch-Site':'cross-site'})
+>       assert response.status_code==403
+E       assert 200 == 403
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests\test_independent_security.py:26: AssertionError
+_____ test_dns_rebinding_host_is_rejected_and_local_browser_is_supported ______
+
+session = <sqlmodel.orm.session.Session object at 0x0000019E904FED80>
+
+    def test_dns_rebinding_host_is_rejected_and_local_browser_is_supported(session):
+        client=client_for(session)
+>       assert client.get('/health',headers={'Host':'rebound.untrusted.example'}).status_code==400
+E       AssertionError: assert 200 == 400
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = get('/health', headers={'Host': 'rebound.untrusted.example'})
+E        +      where get = <starlette.testclient.TestClient object at 0x0000019E90700380>.get
+
+tests\test_independent_security.py:34: AssertionError
+______ test_objective_interview_cannot_commit_a_grade_after_its_deadline ______
+
+session = <sqlmodel.orm.session.Session object at 0x0000019E90655160>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000019E902B7D40>
+
+    def test_objective_interview_cannot_commit_a_grade_after_its_deadline(session,monkeypatch):
+        published_scope(session,1)
+        row=interviews.start_interview(session,'objective')
+        question=interviews.questions(session,row)[0];selected=interviews.selection(session,question)
+        deadline=a.utc(row.started_at)+timedelta(seconds=1800)
+        clock={'now':deadline-timedelta(seconds=1)}
+        class TestClock(datetime):
+            @classmethod
+            def now(cls,tz=None):return clock['now']
+        monkeypatch.setattr(a,'datetime',TestClock);monkeypatch.setattr(interviews,'datetime',TestClock)
+        def slow_grade(*args):
+            clock['now']=deadline+timedelta(seconds=1)
+            return True
+        monkeypatch.setattr(a,'objective',slow_grade)
+        result=interviews.answer(session,row,question.id,AssessmentSubmission(content_sha256=selected.content_sha256,answer=['a']))
+>       assert result['status']=='completed'
+E       AssertionError: assert 'active' == 'completed'
+E         
+E         - completed
+E         + active
+
+tests\test_independent_security.py:54: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\starlette\testclient.py:40
+  C:\My PC\git\Forge\apps\api\.venv\Lib\site-packages\starlette\testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_independent_security.py::test_untrusted_web_origin_cannot_create_or_change_a_plan
+FAILED tests/test_independent_security.py::test_dns_rebinding_host_is_rejected_and_local_browser_is_supported
+FAILED tests/test_independent_security.py::test_objective_interview_cannot_commit_a_grade_after_its_deadline
+3 failed, 1 warning in 4.61s

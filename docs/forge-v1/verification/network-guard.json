@@ -1,0 +1,8 @@
+{
+  "checks": [
+    "external DNS denied",
+    "external TCP denied",
+    "provider import denied"
+  ],
+  "scope": "Python verification process only; no OS firewall or Node sandbox claimed"
+}

@@ -1,0 +1,140 @@
+[
+  {
+    "key": "bigo-mcq-1",
+    "exercise_type": "multiple_choice",
+    "title": "Simplification to dominant term",
+    "prompt_markdown": "What is the simplified Big-O time complexity of an algorithm that performs `4 * n^2 + 50 * n * log(n) + 1000` operations?",
+    "difficulty": "easy",
+    "hints": [
+      "Identify the term that grows fastest as n approaches infinity."
+    ],
+    "content": {
+      "choices": [
+        "O(1000)",
+        "O(n * log(n))",
+        "O(n^2)",
+        "O(n^3)"
+      ],
+      "correct_index": 2,
+      "explanation": "In asymptotic analysis, we keep only the dominant term with the fastest growth rate and drop constant coefficients. n^2 dominates n * log(n) and 1000, so the complexity is O(n^2)."
+    }
+  },
+  {
+    "key": "bigo-mcq-2",
+    "exercise_type": "multiple_choice",
+    "title": "Python list append amortized complexity",
+    "prompt_markdown": "What is the amortized time complexity of appending an item to a Python `list` using `list.append(x)`?",
+    "difficulty": "easy",
+    "hints": [
+      "Consider geometric array resizing."
+    ],
+    "content": {
+      "choices": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n^2)"
+      ],
+      "correct_index": 0,
+      "explanation": "Python lists are dynamic arrays with geometric over-allocation. Although an occasional resize requires copying elements in O(n), across N appends the total cost is O(N), yielding an amortized time of O(1) per append."
+    }
+  },
+  {
+    "key": "bigo-mcq-3",
+    "exercise_type": "multiple_choice",
+    "title": "Two-dimensional matrix traversal complexity",
+    "prompt_markdown": "Given a matrix with `R` rows and `C` columns, what is the exact time complexity of iterating through every cell?",
+    "difficulty": "medium",
+    "hints": [
+      "Do not assume R equals C."
+    ],
+    "content": {
+      "choices": [
+        "O(R + C)",
+        "O(R * C)",
+        "O(N^2)",
+        "O(log(R * C))"
+      ],
+      "correct_index": 1,
+      "explanation": "The total number of cells visited is R * C. It is incorrect to write O(N^2) because R and C can differ drastically (e.g. 2 rows and 1,000,000 columns)."
+    }
+  },
+  {
+    "key": "bigo-short-predict-runtime",
+    "exercise_type": "short_answer",
+    "title": "Predict time complexity of nested while loops",
+    "prompt_markdown": "Analyze the exact time and auxiliary space complexity of this function:\n\n```python\ndef process_halves(n):\n    count = 0\n    i = n\n    while i > 0:\n        j = 0\n        while j < n:\n            count += 1\n            j += 1\n        i = i // 2\n    return count\n```",
+    "difficulty": "medium",
+    "hints": [
+      "How many times does the outer loop run when dividing i by 2 each step?"
+    ],
+    "content": {
+      "rubric": [
+        "Identifies that the outer loop divides i by 2, running O(log n) times",
+        "Identifies that the inner loop runs n times for each outer iteration",
+        "Concludes time complexity is O(n log n)",
+        "States auxiliary space complexity is O(1)"
+      ],
+      "reference_answer": "Time Complexity: `O(n log n)`\nAuxiliary Space Complexity: `O(1)`\n\nExplanation: The outer loop starts at `i = n` and halves `i` on each step (`i = i // 2`), which executes $\\log_2(n)$ times. The inner loop executes `n` times unconditionally for each step of the outer loop. Total operations: $n \\times \\log_2(n) = O(n \\log n)$. Only scalar integer counters are allocated, requiring $O(1)$ auxiliary space.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bigo-short-fix-quadratic-concat",
+    "exercise_type": "short_answer",
+    "title": "Diagnose and fix quadratic string builder bottleneck",
+    "prompt_markdown": "A data ingestion worker processes a stream of 100,000 strings using this code:\n\n```python\ndef build_document(chunks):\n    document = \"\"\n    for chunk in chunks:\n        document += chunk\n    return document\n```\nExplain why this code runs in quadratic `O(N^2)` time in Python and provide the linear `O(N)` refactor.",
+    "difficulty": "medium",
+    "hints": [
+      "Remember that strings are immutable in Python."
+    ],
+    "content": {
+      "rubric": [
+        "Explains that strings are immutable in Python; += creates a new string copying all previous characters",
+        "Calculates sum of 1 + 2 + ... + N = O(N^2) total character copying operations",
+        "Refactors to `''.join(chunks)` to achieve linear O(N) time"
+      ],
+      "reference_answer": "Diagnosis: Python strings are immutable. Each execution of `document += chunk` cannot mutate the existing string in-place; it allocates a brand-new string in memory and copies all previous characters plus the new chunk. Across $N$ chunks of average length $L$, total character copying operations sum to $L + 2L + 3L + \\dots + NL = O(N^2 \\cdot L)$, resulting in quadratic runtime.\n\nLinear Refactor:\n```python\ndef build_document(chunks):\n    return \"\".join(chunks)\n```\n`str.join()` calculates the total required memory buffer in advance, allocates the buffer once, and copies all chunks in a single linear $O(N)$ pass.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bigo-short-implement-complexity-proof",
+    "exercise_type": "short_answer",
+    "title": "Write recursive Fibonacci vs memoized complexity comparison",
+    "prompt_markdown": "Write two Python functions computing the nth Fibonacci number:\n1. Naive recursive Fibonacci `fib_naive(n)`\n2. Memoized Fibonacci `fib_memo(n, memo={})`\nState the exact time and space complexity for both implementations.",
+    "difficulty": "medium",
+    "hints": [
+      "Naive recursion forms an exponential binary tree; memoization caches previously computed subproblems."
+    ],
+    "content": {
+      "rubric": [
+        "Implements naive recursive Fibonacci with O(2^n) time and O(n) space",
+        "Implements memoized Fibonacci with O(n) time and O(n) space",
+        "Explains call tree branching reduction caused by memoization"
+      ],
+      "reference_answer": "```python\n# 1. Naive Recursive: Time O(2^n), Space O(n)\ndef fib_naive(n):\n    if n <= 1:\n        return n\n    return fib_naive(n - 1) + fib_naive(n - 2)\n\n# 2. Memoized: Time O(n), Space O(n)\ndef fib_memo(n, memo=None):\n    if memo is None:\n        memo = {}\n    if n <= 1:\n        return n\n    if n not in memo:\n        memo[n] = fib_memo(n - 1, memo) + fib_memo(n - 2, memo)\n    return memo[n]\n```\nExplanation: The naive version branches twice at each level, generating $O(2^n)$ calls. The memoized version solves each subproblem $0 \\dots n$ exactly once, executing in $O(n)$ linear time. Both consume $O(n)$ auxiliary space for call stack frames and the memo dictionary.",
+      "minimum_pass_score": 70
+    }
+  },
+  {
+    "key": "bigo-short-explain-amortized-interview",
+    "exercise_type": "short_answer",
+    "title": "Explain amortized analysis to an interviewer",
+    "prompt_markdown": "In a senior engineering interview, you are asked: 'What is the mathematical concept behind amortized time complexity, and how does a dynamic array justify its O(1) amortized append guarantee despite periodic O(n) resizing copies?' Explain clearly.",
+    "difficulty": "hard",
+    "hints": [
+      "Use the accounting or potential method intuition: each cheap operation saves credit for the expensive copy."
+    ],
+    "content": {
+      "rubric": [
+        "Defines amortized analysis: total cost of a sequence of M operations divided by M, providing an average bound over sequences",
+        "Explains geometric doubling: array capacity doubles (e.g. 1, 2, 4, 8, 16 ...), so copies occur at powers of 2",
+        "Shows mathematical sum: 1 + 2 + 4 + ... + N = 2N total copy operations across N appends",
+        "Concludes: 2N total operations / N appends = 2 operations per append on average, which is O(1)"
+      ],
+      "reference_answer": "1. Concept of Amortized Analysis:\nAmortized analysis guarantees the average performance of each operation in the worst-case sequence of operations. Unlike average-case complexity (which assumes random probabilistic input distributions), amortized complexity guarantees that even under adversarial inputs, the total runtime of $M$ consecutive operations is bounded by $M \\times O(1)$.\n\n2. The Dynamic Array Proof (Geometric Resizing):\n- When an array of capacity $N$ fills up, it doubles its capacity to $2N$, copying all $N$ elements. This individual resize step costs $O(N)$.\n- However, because the capacity was doubled, the array can now accept $N$ subsequent appends before the next resize occurs!\n- Summing the total copy costs across all resizes up to size $N$:\n  $$1 + 2 + 4 + 8 + \\dots + N < 2N$$\n- Dividing the total copy work ($2N$) by the total number of insertions ($N$) yields $\\frac{2N}{N} = 2$ operations per insertion.\n- Adding the $O(1)$ cost of writing the element into the empty slot gives $2 + 1 = 3 = O(1)$ amortized cost per append.\n\nNote: If the array resized arithmetically (e.g. adding 10 slots each time), the total work would sum to $10 + 20 + \\dots + N = O(N^2)$, destroying the amortized $O(1)$ guarantee and resulting in $O(N)$ amortized cost!",
+      "minimum_pass_score": 70
+    }
+  }
+]

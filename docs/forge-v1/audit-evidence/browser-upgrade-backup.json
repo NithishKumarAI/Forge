@@ -1,0 +1,7 @@
+{
+  "schema_after": 6,
+  "backup_schema": 0,
+  "restored_sentinel": true,
+  "synthetic_only": true,
+  "normal_database_accessed": false
+}

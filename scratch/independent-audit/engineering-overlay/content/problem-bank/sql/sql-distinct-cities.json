@@ -1,0 +1,84 @@
+{
+  "key": "sql-distinct-cities",
+  "title": "Distinct customer cities",
+  "track": "sql",
+  "topic_tags": [
+    "select-filtering"
+  ],
+  "difficulty": "easy",
+  "interview_frequency": "high",
+  "estimated_minutes": 20,
+  "statement_markdown": "Return the unique cities represented by customers. Sort city names alphabetically.",
+  "constraints": [
+    "Return exactly: city.",
+    "Preserve the requested row ordering."
+  ],
+  "examples": [
+    {
+      "input": "Visible customers tables",
+      "output": "[[\"London\"],[\"New York\"],[\"Paris\"]]",
+      "explanation": "This output comes from the visible sample data."
+    }
+  ],
+  "starter_query": "SELECT ",
+  "hints": [
+    "Several customers may share the same city.",
+    "Use DISTINCT on the projected city column before ordering."
+  ],
+  "explanation": "DISTINCT removes duplicate projected city values, then ORDER BY gives stable alphabetical output. A common mistake is including customer name too, which makes otherwise repeated cities distinct. GROUP BY city can produce the same set when no aggregate is needed.",
+  "reference_solution": "SELECT DISTINCT city FROM customers ORDER BY city",
+  "complexity": "O(n) depending on indexes.",
+  "validation": {
+    "mode": "result_set",
+    "order_sensitive": true,
+    "setup_sql": "CREATE TABLE customers (id INT, name VARCHAR(50), city VARCHAR(50), country VARCHAR(50)); INSERT INTO customers VALUES (1, 'Alice', 'New York', 'USA'), (2, 'Bob', 'London', 'UK'), (3, 'Charlie', 'New York', 'USA'), (4, 'David', 'Paris', 'France');",
+    "visible_tables": [
+      "customers"
+    ],
+    "sample_rows": [
+      [
+        "London"
+      ],
+      [
+        "New York"
+      ],
+      [
+        "Paris"
+      ]
+    ],
+    "expected_columns": [
+      "city"
+    ],
+    "expected_rows": [
+      [
+        "London"
+      ],
+      [
+        "New York"
+      ],
+      [
+        "Paris"
+      ]
+    ],
+    "hidden_datasets": [
+      {
+        "name": "Alternate data",
+        "setup_sql": "CREATE TABLE customers (id INT,name VARCHAR(50),city VARCHAR(50),country VARCHAR(50)); INSERT INTO customers VALUES (10,'I','Delhi','India'),(11,'J','Delhi','India'),(12,'K','Oslo','Norway'),(13,'L','Tokyo','Japan');",
+        "expected_rows": [
+          [
+            "Delhi"
+          ],
+          [
+            "Oslo"
+          ],
+          [
+            "Tokyo"
+          ]
+        ]
+      }
+    ]
+  },
+  "source_type": "original",
+  "version": "1.1.0",
+  "mapped_topic": "sql-cs/select-filtering"
+}

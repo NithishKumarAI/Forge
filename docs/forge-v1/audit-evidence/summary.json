@@ -1,0 +1,165 @@
+{
+  "decision": "A. NOT READY \u2014 major engineering or educational blockers",
+  "sole_platform_answer": "No",
+  "head": "6ca192105bc58d20fe729d070dd7fe1942ff4fd1",
+  "branch": "main",
+  "exit_codes": {
+    "all-candidates": 0,
+    "backend-baseline": 0,
+    "backend-final": 0,
+    "backend-release": 0,
+    "browser": 0,
+    "build": 0,
+    "contract-probes": 0,
+    "contracts-red": 1,
+    "correction-candidates": 0,
+    "engineering-overlay": 0,
+    "fresh-node-build": 0,
+    "fresh-python-tests": 0,
+    "frontend": 0,
+    "launcher": 0,
+    "node-dependencies": 0,
+    "node-install": 0,
+    "python-dependencies": 0,
+    "python-install": 0,
+    "security-green": 0,
+    "security-red": 1,
+    "sql-factual-probes": 0,
+    "timed-expiry-finish": 0,
+    "timed-expiry-start": 0,
+    "typecheck": 0
+  },
+  "backend_release": {
+    "passed": 278,
+    "warnings": 1,
+    "seconds": 603.54,
+    "skipped": 0
+  },
+  "frontend": {
+    "passed": 49,
+    "files": 12,
+    "seconds": 12.91,
+    "typecheck_exit": 0,
+    "build_exit": 0
+  },
+  "fresh_python_regressions_passed": 20,
+  "fresh_node_packages_installed": 220,
+  "fresh_node_lifecycle_scripts_enabled": false,
+  "fresh_node_build_exit": 0,
+  "lesson_structural_validation": {
+    "python": 19,
+    "sql": 14,
+    "dsa": 20
+  },
+  "problem_validator_files": 111,
+  "sql_bank": {
+    "problems": 30,
+    "datasets": 60,
+    "failures": 0
+  },
+  "portable_candidates_validated": 24,
+  "new_correction_digests_and_packets_matched": 5,
+  "human_reviews_or_publications_created": 0,
+  "launcher": {
+    "checks": [
+      "corrupt state quarantined",
+      "occupied preferred port skipped",
+      "owned identity health matched",
+      "fresh isolated initialization",
+      "duplicate launch reused exact owned process",
+      "refused tampered pid",
+      "refused tampered creation_filetime",
+      "refused tampered executable",
+      "refused tampered command_sha256",
+      "refused tampered owner",
+      "refused tampered runtime_dir",
+      "verified shutdown",
+      "idempotent close",
+      "unrelated sentinel preserved",
+      "restart resumed persisted study plan",
+      "dead process state quarantined without PID termination",
+      "missing build rejected before launch",
+      "failed startup cleaned owned runtime state"
+    ],
+    "passed": 18,
+    "normal_runtime_accessed": false,
+    "normal_database_accessed": false
+  },
+  "engine_browser_journeys": {
+    "passed": 17,
+    "failed": 0
+  },
+  "extra_browser_checks": [
+    "unversioned legacy DB upgrades and opens in the actual browser",
+    "all nine real course journeys distinguish blocked content from engine fixtures",
+    "keyboard focus has a visible outline on the mobile app",
+    "all 258 lesson examples attempted in actual Pyodide/PGlite browser workers; defects retained, not converted to passes"
+  ],
+  "real_course_journeys": {
+    "completed": 0,
+    "blocked_by_content": 9
+  },
+  "actual_elapsed_expiry_with_restart": {
+    "status": "passed_actual_elapsed_time",
+    "seconds_allowed": 900,
+    "score": 33.33
+  },
+  "census": {
+    "lessons": 53,
+    "exercises": 371,
+    "examples": 258,
+    "problem_files": 110,
+    "exercise_kinds": {
+      "multiple_choice": 159,
+      "short_answer": 212
+    },
+    "example_languages": {
+      "python": 189,
+      "sql": 69
+    },
+    "finding_categories": {
+      "generic_objective_question": 26,
+      "generic_reference_answer": 52,
+      "missing_program_contract": 13,
+      "arena_transfer_claim": 5
+    }
+  },
+  "python_examples": {
+    "attempted": 189,
+    "matched_stdout": 166,
+    "context_or_execution_errors": 23
+  },
+  "sql_examples": {
+    "attempted": 69,
+    "executed": 37,
+    "missing_setup": 32,
+    "verified_declared_table": 26,
+    "requires_driver_date_null_display_context": 5,
+    "non_deterministic_documented_timestamp": 1,
+    "requires_human_output_review": 2,
+    "actual_table_output_mismatch": 3
+  },
+  "contract_probes": {
+    "constant_mutants_rejected": 80,
+    "input_mutation_constraint_bypasses": 4
+  },
+  "placement_coverage": {
+    "topics": 157,
+    "outline_only": 148,
+    "candidate_lesson_pairs": 9,
+    "automatically_validated_pairs": 9,
+    "independent_human_reviews": 0,
+    "published_lessons": 0,
+    "completed_real_subject_journeys": 0
+  },
+  "preservation": {
+    "protected_files_checked": 229,
+    "protected_file_mismatches": [],
+    "complete_tables_checked": 38,
+    "table_mismatches": [],
+    "new_tables": [],
+    "head_unchanged": true
+  },
+  "no_commit_or_push": true,
+  "offline_scope": "Browser deny policy plus Python process guard; not a machine-wide firewall or OS sandbox."
+}
