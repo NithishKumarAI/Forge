@@ -27,6 +27,7 @@ export interface EditionOverview {
     graph_sha256: string; reviewed_by: string | null; is_active: boolean} | null;
 }
 export interface EditionIndex {
+  subjects: {key:string;name:string}[];
   editions: EditionDefinition[]; selected_edition_key: string | null; active_curriculum_id: number | null;
 }
 export interface EditionConfirmation {

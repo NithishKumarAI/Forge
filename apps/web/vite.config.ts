@@ -12,6 +12,7 @@ export default defineConfig({
   plugins: [react(), viteStaticCopy({ targets: [{
     src: pyodideFiles.map((name) => `${pyodideDirectory}/${name}`),
     dest: "assets/pyodide",
+    rename: { stripBase: true },
   }] }), {
     name: "serve-pyodide-core-in-dev",
     configureServer(server) {

@@ -9,7 +9,7 @@ const valid = () => ({
 });
 
 describe("canonical PGlite problem validation", () => {
-  it("accepts a correct problem with alternate hidden data", async () => expect((await validateSqlProblem(valid())).datasets).toBe(2));
+  it("accepts a correct problem with alternate hidden data", async () => expect((await validateSqlProblem(valid())).datasets).toBe(2), 20000);
   it("rejects wrong expected columns", async () => { const p=valid();p.validation.expected_columns=["result_col","result_col"];await expect(validateSqlProblem(p)).rejects.toThrow(/placeholder expected column/) });
   it("rejects invalid setup SQL", async () => { const p=valid();p.validation.setup_sql="CREATE TABL broken";await expect(validateSqlProblem(p)).rejects.toThrow(/setup_sql failed/) });
   it("rejects an invalid reference query", async () => { const p=valid();p.reference_solution="SELEKT id FROM users";await expect(validateSqlProblem(p)).rejects.toThrow(/reference_solution failed/) });

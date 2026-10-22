@@ -88,6 +88,9 @@ export interface CurriculumProposal {
 }
 
 export interface Dashboard {
+  content_status?:{approved_lessons:number;legacy_lessons:number;missing_topics:number;total_topics:number};
+  reading_progress?:{saved_revision_sections:number;completed_revision_sections:number};
+  recent_mistakes?:{topic_id:number;topic_name:string;description:string;occurrence_count:number}[];
   interview_readiness: number;
   active_curriculum: { id: number; name: string; version: number } | null;
   tracks: TrackSummary[];

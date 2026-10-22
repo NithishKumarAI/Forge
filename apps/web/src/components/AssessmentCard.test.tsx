@@ -45,7 +45,7 @@ describe("objective inputs and feedback safety",()=>{
     const item=fixture();item.purpose="interview";
     let html=render(item);expect(html).not.toContain("Reveal hint");expect(html).not.toContain("Give up");
     item.status="complete";html=render(item);
-    expect(html).toContain("after the full interview is complete");
+    expect(html).toContain("after the full assessment is complete");
     expect(html).not.toContain("View worked answer");expect(html).not.toContain("100%");
   });
   it("labels historical unverified practice and reflection without fake scores",()=>{
