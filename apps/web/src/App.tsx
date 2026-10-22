@@ -18,6 +18,7 @@ const InterviewReportPage = lazy(() => import("./pages/InterviewPage").then((mod
 const ArenaHome = lazy(() => import("./pages/ArenaPage").then((module) => ({ default: module.ArenaHome })));
 const ArenaProblemPage = lazy(() => import("./pages/ArenaPage").then((module) => ({ default: module.ArenaProblemPage })));
 const BeginnerExercisePage = lazy(() => import("./pages/BeginnerExercisePage").then((module) => ({ default: module.BeginnerExercisePage })));
+const ConceptLearnPage = lazy(() => import("./pages/ConceptLearnPage").then((module) => ({ default: module.ConceptLearnPage })));
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="topics/:topicId/tutor" element={<TutorPage />} />
         <Route path="topics/:topicId/practice" element={<PracticePage />} />
         <Route path="topics/:topicId/transfer" element={<TransferPage />} />
+        <Route path="concepts/:stepKey" element={<Suspense fallback={<div>Loading concept…</div>}><ConceptLearnPage /></Suspense>} />
         <Route path="arena" element={<Suspense fallback={<div>Loading Arena…</div>}><ArenaHome /></Suspense>} />
         <Route path="arena/:track" element={<Suspense fallback={<div>Loading Arena…</div>}><ArenaHome /></Suspense>} />
         <Route path="arena/exercises/:key" element={<Suspense fallback={<div>Loading exercise…</div>}><BeginnerExercisePage /></Suspense>} />

@@ -85,6 +85,7 @@ def concept_step(
         action_label=action_label,
         teaching_ref=concept.get("teaching_ref"),
         worked_example=concept.get("worked_example"),
+        teaching_content=concept.get("teaching_content"),
         guided_practice_refs=concept.get("guided_practice_refs", []),
         independent_practice_refs=concept.get("independent_practice_refs", []),
         availability_status=availability,

@@ -19,6 +19,34 @@ export interface WorkedExample {
   explanation: string;
 }
 
+export interface TracingStep {
+  step_number: number;
+  line_or_expression: string;
+  state_description: string;
+  result_or_value: string;
+}
+
+export interface CommonMistake {
+  mistake_description: string;
+  wrong_code: string;
+  explanation: string;
+  correct_code: string;
+}
+
+export interface ConceptTeachingContent {
+  summary: string;
+  why_it_matters: string;
+  intuition: string;
+  analogy: string;
+  syntax_guide: string;
+  worked_example_title: string;
+  worked_example_code: string;
+  worked_example_explanation: string;
+  tracing_steps: TracingStep[];
+  common_mistakes: CommonMistake[];
+  revision_notes: string[];
+}
+
 export interface TeachingRef {
   source_type: string;
   content_key: string;
@@ -44,6 +72,7 @@ export interface ConceptStepSummary {
 export interface ConceptStepDetail extends ConceptStepSummary {
   teaching_ref?: TeachingRef;
   worked_example?: WorkedExample;
+  teaching_content?: ConceptTeachingContent;
   guided_practice_refs: string[];
   independent_practice_refs: string[];
   availability_status: string;
@@ -141,6 +170,7 @@ export interface BeginnerExerciseData {
   stage: string;
   title: string;
   concept_key: string;
+  concept_title?: string;
   instructions: string;
   starter_code?: string;
   starter_query?: string;

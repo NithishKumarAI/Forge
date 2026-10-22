@@ -1,5 +1,6 @@
 import ast
 from datetime import datetime, timezone
+import hashlib
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -11,6 +12,7 @@ from ..config import settings
 from ..models import (
     AppSetting,
     ArenaAttempt,
+    ArenaAttemptContent,
     AssessmentSelection,
     ContentRevision,
     ContentSectionProgress,
@@ -91,13 +93,162 @@ def get_subject_name(subject_key: str) -> str:
     return fallback.get(subject_key, subject_key.replace("-", " ").title())
 
 
+TOPIC_SLUG_ALIASES: dict[str, tuple[str, str]] = {
+    # Python
+    "python-values-expressions": ("python", "foundations"),
+    "python-input-output": ("python", "foundations"),
+    "python-conditions": ("python", "control-flow"),
+    "python-loops": ("python", "control-flow"),
+    "python-strings": ("python", "strings"),
+    "python-collections": ("python", "collections"),
+    "python-functions": ("python", "functions"),
+    # SQL
+    "sql-postgresql-tables-keys": ("sql-postgresql", "relational-foundations"),
+    "sql-postgresql-select-filter": ("sql-postgresql", "query-basics"),
+    "sql-postgresql-values-nulls": ("sql-postgresql", "values-expressions"),
+    "sql-postgresql-ordering-limits": ("sql-postgresql", "query-basics"),
+    "sql-postgresql-aggregation": ("sql-postgresql", "aggregation"),
+    "sql-postgresql-aggregation-basics": ("sql-postgresql", "aggregation"),
+    "sql-postgresql-joins": ("sql-postgresql", "joins"),
+    # DSA
+    "dsa-problem-contracts": ("dsa", "big-o"),
+    "dsa-complexity": ("dsa", "big-o"),
+    "dsa-arrays-strings": ("dsa", "arrays"),
+    "dsa-hashing-sets": ("dsa", "hash-maps"),
+    "dsa-two-pointers": ("dsa", "two-pointers"),
+    "dsa-search-sort": ("dsa", "sorting"),
+}
+
+
+def get_curriculum_topic(session: Session, topic_slug: str, subject_key: str | None = None) -> Topic | None:
+    """Finds the authoritative topic in the active confirmed curriculum."""
+    active = get_active_curriculum(session)
+    if not active:
+        return session.exec(select(Topic).where(Topic.slug == topic_slug)).first()
+
+    # 1. Exact match on Topic.slug in active curriculum
+    q = select(Topic).join(Track).where(Track.curriculum_id == active.id, Topic.slug == topic_slug)
+    if subject_key:
+        q = q.where(Track.slug == subject_key)
+    row = session.exec(q).first()
+    if row:
+        return row
+
+    # 2. Scope alias mapping
+    if topic_slug in TOPIC_SLUG_ALIASES:
+        t_track, t_slug = TOPIC_SLUG_ALIASES[topic_slug]
+        alias_row = session.exec(
+            select(Topic).join(Track).where(
+                Track.curriculum_id == active.id,
+                Track.slug == t_track,
+                Topic.slug == t_slug,
+            )
+        ).first()
+        if alias_row:
+            return alias_row
+
+    # 3. Fallback: match by slug in active curriculum
+    return session.exec(
+        select(Topic).join(Track).where(Track.curriculum_id == active.id, Topic.slug == topic_slug)
+    ).first()
+
+
+def get_exercise_fingerprint(ex: dict[str, Any]) -> str:
+    """Computes a deterministic SHA-256 fingerprint of the beginner exercise contract and test suite."""
+    identity_dict = {
+        "key": ex["key"],
+        "track": ex["track"],
+        "stage": ex["stage"],
+        "title": ex["title"],
+        "concept_key": ex["concept_key"],
+        "instructions": ex["instructions"],
+        "starter_code": ex.get("starter_code", ""),
+        "starter_query": ex.get("starter_query", ""),
+        "setup_sql": ex.get("setup_sql", ""),
+        "tests": ex.get("tests", []),
+        "ordered": ex.get("ordered", False),
+        "function_name": ex.get("function_name", ""),
+    }
+    raw = json.dumps(identity_dict, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
+
+
+def is_beginner_exercise_solved(session: Session, exercise_key: str, ex: dict[str, Any] | None = None) -> bool:
+    """Determines whether a beginner exercise has verified solved status matching its revision fingerprint."""
+    if ex is None:
+        manifest = load_beginner_exercises_manifest()
+        ex = next((e for e in manifest.get("exercises", []) if e["key"] == exercise_key), None)
+    if not ex:
+        setting = session.get(AppSetting, f"lp_ex_solved:{exercise_key}")
+        return bool(setting and setting.value in ("true", "verified"))
+    fp = get_exercise_fingerprint(ex)
+    if session.get(AppSetting, f"lp_ex_solved:{exercise_key}:{fp}"):
+        return True
+    legacy = session.get(AppSetting, f"lp_ex_solved:{exercise_key}")
+    if legacy and legacy.value in (fp, "true", "verified"):
+        return True
+    return False
+
+
+def is_qualified_independent_attempt(
+    session: Session, attempt: ArenaAttempt, problem_key: str, topic_id: int | None = None
+) -> bool:
+    """Authoritative eligibility check for independent practice evidence.
+
+    Requires:
+    - attempt.passed is True and attempt.score >= 100.0
+    - attempt.gave_up is False
+    - attempt.hints_used == 0 (clean unassisted)
+    - Valid ContentRevision link via ArenaAttemptContent or legacy baseline
+    - Verified judge outcome (rejects disqualified or failed judge runs)
+    """
+    if not attempt.passed or attempt.score < 100.0:
+        return False
+    if attempt.gave_up or (attempt.hints_used or 0) > 0:
+        return False
+
+    content_link = session.get(ArenaAttemptContent, attempt.id)
+    if not content_link:
+        rev = session.exec(
+            select(ContentRevision).where(
+                ContentRevision.content_key == f"arena/{problem_key}",
+                ContentRevision.content_type == "arena_problem",
+            )
+        ).first()
+        if not rev or rev.approval_status != "legacy_baseline":
+            return False
+    else:
+        rev = session.get(ContentRevision, content_link.content_revision_id)
+        if not rev or rev.content_key != f"arena/{problem_key}":
+            return False
+
+    if attempt.result_json and attempt.result_json != "{}":
+        try:
+            res_data = json.loads(attempt.result_json)
+            if res_data:
+                status = res_data.get("status")
+                verification = res_data.get("verification")
+                if status and status != "verified":
+                    return False
+                if verification and verification not in (
+                    "backend_bounded_worker",
+                    "pglite_isolated",
+                    "isolated_worker",
+                ):
+                    return False
+        except Exception:
+            return False
+    return True
+
+
 def get_concept_step_progress(session: Session, concept: dict[str, Any]) -> LearningStage:
     """Deterministically derive learner progress on a concept step strictly from verified evidence."""
     step_key = concept["key"]
+    subject_key = concept.get("subject_key", "")
+    topic_slug = concept.get("topic_slug", "")
 
     # 1. Check due review
-    topic_slug = concept.get("topic_slug", "")
-    topic_row = session.exec(select(Topic).where(Topic.slug == topic_slug)).first()
+    topic_row = get_curriculum_topic(session, topic_slug, subject_key=subject_key)
     now = utc_now()
     is_review_due = False
     is_retained = False
@@ -113,39 +264,36 @@ def get_concept_step_progress(session: Session, concept: dict[str, Any]) -> Lear
     if is_review_due:
         return "review_due"
 
-    # 2. Check guided practice solved in AppSetting
+    # 2. Check guided practice solved in AppSetting (revision-aware)
     guided_refs = concept.get("guided_practice_refs", [])
+    beginner_manifest = load_beginner_exercises_manifest()
     all_guided_solved = False
     some_guided_solved = False
     if guided_refs:
+        exercises_by_key = {e["key"]: e for e in beginner_manifest.get("exercises", [])}
         solved_count = sum(
-            1 for g in guided_refs if session.get(AppSetting, f"lp_ex_solved:{g}")
+            1 for g in guided_refs if is_beginner_exercise_solved(session, g, exercises_by_key.get(g))
         )
         if solved_count == len(guided_refs):
             all_guided_solved = True
         if solved_count > 0:
             some_guided_solved = True
 
-    # 3. Check independent practice arena attempts
+    # 3. Check independent practice arena attempts (unassisted, verified, 100%)
     independent_refs = concept.get("independent_practice_refs", [])
     passed_independent = False
     attempted_independent = False
     if independent_refs:
-        passed_attempt = session.exec(
+        attempts = session.exec(
             select(ArenaAttempt).where(
-                ArenaAttempt.problem_key.in_(independent_refs),
-                ArenaAttempt.passed == True,
+                ArenaAttempt.problem_key.in_(independent_refs)
             )
-        ).first()
-        passed_independent = (passed_attempt is not None)
-
-        if not passed_independent:
-            any_attempt = session.exec(
-                select(ArenaAttempt).where(
-                    ArenaAttempt.problem_key.in_(independent_refs)
-                )
-            ).first()
-            attempted_independent = (any_attempt is not None)
+        ).all()
+        for att in attempts:
+            attempted_independent = True
+            if is_qualified_independent_attempt(session, att, att.problem_key, topic_row.id if topic_row else None):
+                passed_independent = True
+                break
 
     # 4. Completion condition: Requires ALL guided exercises solved AND (if independent problems defined) passed independent problem
     can_advance = False
@@ -157,6 +305,28 @@ def get_concept_step_progress(session: Session, concept: dict[str, Any]) -> Lear
         can_advance = passed_independent
 
     if can_advance:
+        # PREREQUISITE INTEGRITY:
+        # Cannot advance if prerequisites are not yet completed!
+        prereqs = concept.get("prerequisite_keys", [])
+        if prereqs:
+            manifest = load_concept_steps_manifest()
+            all_concepts_map = {c["key"]: c for c in manifest.get("concepts", [])}
+            all_prereqs_met = True
+            for pk in prereqs:
+                p_concept = all_concepts_map.get(pk)
+                if p_concept:
+                    # Recursive check: prerequisites must be ready_to_advance or retained
+                    p_state = get_concept_step_progress(session, p_concept)
+                    if p_state not in ("ready_to_advance", "retained"):
+                        all_prereqs_met = False
+                        break
+                else:
+                    all_prereqs_met = False
+                    break
+            if not all_prereqs_met:
+                # Learner solved problem ahead of order: keep honest at practising
+                return "practising"
+
         if is_retained:
             return "retained"
         return "ready_to_advance"
@@ -227,16 +397,23 @@ def check_prerequisites_met(
 def derive_step_action(session: Session, concept: dict[str, Any], state: LearningStage) -> tuple[str, str, bool]:
     """
     Returns (action_path, action_label, has_usable_content)
-    Guarantees every link points to a real, valid route in Forge.
+    Guarantees every link points to a real, valid route in Forge with truthful labels.
     """
     guided = concept.get("guided_practice_refs", [])
     independent = concept.get("independent_practice_refs", [])
     topic_slug = concept.get("topic_slug", "")
+    subject_key = concept.get("subject_key", "")
+    has_teaching_content = bool(concept.get("teaching_content"))
 
     # Check available beginner exercises
     beginner_manifest = load_beginner_exercises_manifest()
-    available_exercises = {e["key"] for e in beginner_manifest.get("exercises", [])}
+    available_exercises = {e["key"]: e for e in beginner_manifest.get("exercises", [])}
     usable_guided = [g for g in guided if g in available_exercises]
+
+    # Find first unsolved guided exercise if any
+    unsolved_guided = [
+        g for g in usable_guided if not is_beginner_exercise_solved(session, g, available_exercises.get(g))
+    ]
 
     # Check available arena problems
     arena_manifest = load_arena_stages_manifest()
@@ -244,7 +421,7 @@ def derive_step_action(session: Session, concept: dict[str, Any], state: Learnin
     usable_independent = [p for p in independent if p in available_problems]
 
     # Check if topic has bound static lessons in database
-    topic_row = session.exec(select(Topic).where(Topic.slug == topic_slug)).first()
+    topic_row = get_curriculum_topic(session, topic_slug, subject_key=subject_key)
     has_bound_lesson = False
     topic_id = None
     if topic_row:
@@ -256,36 +433,64 @@ def derive_step_action(session: Session, concept: dict[str, Any], state: Learnin
         except Exception:
             has_bound_lesson = False
 
-    if state in ("not_started", "learning"):
-        if usable_guided:
-            label = "Resume exercise" if state == "learning" else "Start concept"
-            return f"/arena/exercises/{usable_guided[0]}", label, True
+    # A step has genuinely usable interactive content if it has beginner exercises or approved bound lessons.
+    has_usable = bool(usable_guided) or has_bound_lesson
+
+    if not has_usable:
+        if topic_id:
+            return f"/topics/{topic_id}", "Preview topic", False
+        else:
+            return f"/curriculum?track={subject_key}", "View track", False
+
+    if state == "not_started":
+        if has_teaching_content:
+            return f"/concepts/{concept['key']}", "Learn concept", True
+        elif usable_guided:
+            return f"/arena/exercises/{usable_guided[0]}", "Start exercise", True
         elif has_bound_lesson and topic_id:
-            label = "Resume lesson" if state == "learning" else "Start lesson"
-            return f"/topics/{topic_id}/learn", label, True
+            return f"/topics/{topic_id}/learn", "Start lesson", True
         elif topic_id:
             return f"/topics/{topic_id}", "Preview topic", False
         else:
-            return f"/curriculum?track={concept.get('subject_key', '')}", "View track", False
+            return f"/curriculum?track={subject_key}", "View track", False
+
+    elif state == "learning":
+        if has_teaching_content:
+            return f"/concepts/{concept['key']}", "Resume concept", True
+        elif usable_guided:
+            target = unsolved_guided[0] if unsolved_guided else usable_guided[0]
+            return f"/arena/exercises/{target}", "Resume exercise", True
+        elif has_bound_lesson and topic_id:
+            return f"/topics/{topic_id}/learn", "Resume lesson", True
+        elif topic_id:
+            return f"/topics/{topic_id}", "Preview topic", False
+        else:
+            return f"/curriculum?track={subject_key}", "View track", False
 
     elif state == "practising":
-        if usable_independent:
-            return f"/arena/problems/{usable_independent[0]}", "Continue practice", True
+        if unsolved_guided:
+            return f"/arena/exercises/{unsolved_guided[0]}", "Continue exercises", True
+        elif usable_independent:
+            return f"/arena/problems/{usable_independent[0]}", "Independent practice", True
         elif usable_guided:
-            return f"/arena/exercises/{usable_guided[0]}", "Continue exercises", True
+            return f"/arena/exercises/{usable_guided[0]}", "Review exercises", True
+        elif has_teaching_content:
+            return f"/concepts/{concept['key']}", "Review concept", True
         elif has_bound_lesson and topic_id:
             return f"/topics/{topic_id}/learn", "Continue lesson", True
         elif topic_id:
             return f"/topics/{topic_id}", "Topic overview", False
         else:
-            return f"/curriculum?track={concept.get('subject_key', '')}", "View track", False
+            return f"/curriculum?track={subject_key}", "View track", False
 
     elif state == "review_due":
         return "/review", "Review now", True
 
     else:
         # ready_to_advance or retained
-        if usable_independent:
+        if has_teaching_content:
+            return f"/concepts/{concept['key']}", "Review concept", True
+        elif usable_independent:
             return f"/arena/problems/{usable_independent[0]}", "Practice again", True
         elif has_bound_lesson and topic_id:
             return f"/topics/{topic_id}/learn", "Review lesson", True
@@ -294,7 +499,7 @@ def derive_step_action(session: Session, concept: dict[str, Any], state: Learnin
         elif topic_id:
             return f"/topics/{topic_id}", "Topic overview", False
         else:
-            return f"/curriculum?track={concept.get('subject_key', '')}", "View track", False
+            return f"/curriculum?track={subject_key}", "View track", False
 
 
 def get_all_concepts_summary(session: Session) -> list[ConceptStepSummary]:
@@ -687,12 +892,15 @@ def get_learning_path_dashboard(session: Session, active_subject: str = "python"
         for m in mistakes
     ]
 
+    beginner_manifest = load_beginner_exercises_manifest()
+    total_beginner_exercises = len(beginner_manifest.get("exercises", []))
+
     availability = {
         "status": "ready_for_learning",
         "description": "Placement Foundations concept progression active. 9 foundations courses available with beginner exercises.",
         "approved_lessons": approved_count,
         "legacy_reference_lessons": 53,
-        "beginner_exercises_ready": 14,
+        "beginner_exercises_ready": total_beginner_exercises,
         "total_curriculum_topics": 157,
         "note": "Lessons marked 'legacy baseline' are reference material. Approved candidate lessons undergo independent review."
     }
@@ -775,15 +983,21 @@ def get_arena_stages_detail(session: Session, track: str | None = None) -> list[
 
 def get_beginner_exercise(session: Session, exercise_key: str) -> BeginnerExerciseRead | None:
     manifest = load_beginner_exercises_manifest()
+    concepts_manifest = load_concept_steps_manifest()
+    concepts_by_key = {c["key"]: c for c in concepts_manifest.get("concepts", [])}
+
     for ex in manifest.get("exercises", []):
         if ex["key"] == exercise_key:
-            solved = bool(session.get(AppSetting, f"lp_ex_solved:{exercise_key}"))
+            solved = is_beginner_exercise_solved(session, exercise_key, ex)
+            concept = concepts_by_key.get(ex.get("concept_key", ""))
+            concept_title = concept["title"] if concept else None
             return BeginnerExerciseRead(
                 key=ex["key"],
                 track=ex["track"],
                 stage=ex["stage"],
                 title=ex["title"],
                 concept_key=ex["concept_key"],
+                concept_title=concept_title,
                 instructions=ex["instructions"],
                 starter_code=ex.get("starter_code"),
                 starter_query=ex.get("starter_query"),
@@ -837,11 +1051,17 @@ def evaluate_beginner_exercise(
         score = round((passed_count / total) * 100, 1) if total else 0.0
 
         if overall_pass:
-            setting_key = f"lp_ex_solved:{exercise_key}"
-            setting = session.get(AppSetting, setting_key)
-            if not setting:
-                session.add(AppSetting(key=setting_key, value="true"))
-                session.commit()
+            fp = get_exercise_fingerprint(ex)
+            setting_key = f"lp_ex_solved:{exercise_key}:{fp}"
+            if not session.get(AppSetting, setting_key):
+                session.add(AppSetting(key=setting_key, value="verified"))
+            legacy_key = f"lp_ex_solved:{exercise_key}"
+            legacy_setting = session.get(AppSetting, legacy_key)
+            if not legacy_setting:
+                session.add(AppSetting(key=legacy_key, value=fp))
+            else:
+                legacy_setting.value = fp
+            session.commit()
 
         error_msg = judge_res.get("error") or judge_res.get("reason")
         output = (
@@ -868,31 +1088,30 @@ def evaluate_beginner_exercise(
     else:
         # Python / DSA: verify via bounded isolated worker
         tests = ex.get("tests", [])
-        function_name = ex.get("function_name")
+        declared_func = ex.get("function_name")
+        function_name = declared_func
 
-        if not function_name:
-            # Fallback: inspect AST to find function definition
-            try:
-                tree = ast.parse(source)
-                funcs = [n.name for n in tree.body if isinstance(n, ast.FunctionDef)]
-                if len(funcs) == 1:
-                    function_name = funcs[0]
-                else:
-                    return BeginnerExerciseSubmitResponse(
-                        exercise_key=exercise_key,
-                        passed=False,
-                        score=0.0,
-                        output="Required function definition missing or ambiguous.",
-                        feedback="Define exactly one function matching the exercise instructions.",
-                    )
-            except SyntaxError as e:
+        try:
+            tree = ast.parse(source)
+            funcs = [n.name for n in tree.body if isinstance(n, ast.FunctionDef)]
+            if len(funcs) == 1:
+                function_name = funcs[0]
+            elif not function_name:
                 return BeginnerExerciseSubmitResponse(
                     exercise_key=exercise_key,
                     passed=False,
                     score=0.0,
-                    output=f"SyntaxError: {e}",
-                    feedback="Check your Python syntax.",
+                    output="Required function definition missing or ambiguous.",
+                    feedback="Define exactly one function matching the exercise instructions.",
                 )
+        except SyntaxError as e:
+            return BeginnerExerciseSubmitResponse(
+                exercise_key=exercise_key,
+                passed=False,
+                score=0.0,
+                output=f"SyntaxError: {e}",
+                feedback="Check your Python syntax.",
+            )
 
         item = SimpleNamespace(
             kind="python",
@@ -910,11 +1129,17 @@ def evaluate_beginner_exercise(
         score = round((passed_count / total) * 100, 1) if total else 0.0
 
         if overall_pass:
-            setting_key = f"lp_ex_solved:{exercise_key}"
-            setting = session.get(AppSetting, setting_key)
-            if not setting:
-                session.add(AppSetting(key=setting_key, value="true"))
-                session.commit()
+            fp = get_exercise_fingerprint(ex)
+            setting_key = f"lp_ex_solved:{exercise_key}:{fp}"
+            if not session.get(AppSetting, setting_key):
+                session.add(AppSetting(key=setting_key, value="verified"))
+            legacy_key = f"lp_ex_solved:{exercise_key}"
+            legacy_setting = session.get(AppSetting, legacy_key)
+            if not legacy_setting:
+                session.add(AppSetting(key=legacy_key, value=fp))
+            else:
+                legacy_setting.value = fp
+            session.commit()
 
         reason = judge_res.get("reason")
         output = (

@@ -104,7 +104,20 @@ async function run() {{
     const initialActionHref = await startLink.getAttribute('href');
     console.log('PASS: Continue Learning action ready, linking to:', initialActionHref);
 
+    console.log('--- Step 3b: Verify Concept Teaching View (/concepts/step-py-values-1) ---');
+    await page.goto('{base_url}/concepts/step-py-values-1');
+    await page.getByRole('heading', {{ name: 'Values, variables and basic types', exact: false }}).waitFor();
+    await page.getByText('Concept Meaning & Mental Model', {{ exact: false }}).first().waitFor();
+    await page.getByText('Mental Intuition', {{ exact: false }}).first().waitFor();
+    await page.getByText('Real-World Analogy', {{ exact: false }}).first().waitFor();
+    await page.getByText('Syntax & Mechanics', {{ exact: false }}).first().waitFor();
+    await page.getByText('Step-by-Step Execution Trace', {{ exact: false }}).first().waitFor();
+    await page.getByText('Common Mistakes & Fixes', {{ exact: false }}).first().waitFor();
+    await page.getByText('Key Takeaways Checklist', {{ exact: false }}).first().waitFor();
+    console.log('PASS: Concept teaching view renders mental model, trace, mistakes, and checklist');
+
     console.log('--- Step 4: Test Focus Subject Switcher ---');
+    await page.goto('{base_url}/');
     const sqlButton = page.getByRole('button', {{ name: /SQL/i }}).first();
     await sqlButton.click();
     await page.waitForTimeout(500);

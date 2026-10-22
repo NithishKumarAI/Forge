@@ -23,6 +23,31 @@ class WorkedExample(BaseModel):
     code: str
     explanation: str
 
+class TracingStep(BaseModel):
+    step_number: int
+    line_or_expression: str
+    state_description: str
+    result_or_value: str
+
+class CommonMistake(BaseModel):
+    mistake_description: str
+    wrong_code: str
+    explanation: str
+    correct_code: str
+
+class ConceptTeachingContent(BaseModel):
+    summary: str
+    why_it_matters: str
+    intuition: str
+    analogy: str
+    syntax_guide: str
+    worked_example_title: str
+    worked_example_code: str
+    worked_example_explanation: str
+    tracing_steps: list[TracingStep] = Field(default_factory=list)
+    common_mistakes: list[CommonMistake] = Field(default_factory=list)
+    revision_notes: list[str] = Field(default_factory=list)
+
 class TeachingRef(BaseModel):
     source_type: str
     content_key: str
@@ -46,6 +71,7 @@ class ConceptStepSummary(BaseModel):
 class ConceptStepDetail(ConceptStepSummary):
     teaching_ref: TeachingRef | None = None
     worked_example: WorkedExample | None = None
+    teaching_content: ConceptTeachingContent | None = None
     guided_practice_refs: list[str] = []
     independent_practice_refs: list[str] = []
     availability_status: str = "available"
@@ -113,6 +139,7 @@ class BeginnerExerciseRead(BaseModel):
     stage: str
     title: str
     concept_key: str
+    concept_title: str | None = None
     instructions: str
     starter_code: str | None = None
     starter_query: str | None = None

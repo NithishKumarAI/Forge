@@ -131,7 +131,7 @@ def test_recommendation_priority_tier_1_resume_unfinished(session: Session):
     assert primary.priority_tier == 1  # Resume unfinished work
     assert primary.concept_key == "step-py-values-1"
     assert primary.kind == "resume"
-    assert primary.action_label in ("Resume learning", "Resume exercise")
+    assert primary.action_label in ("Resume learning", "Resume exercise", "Resume concept")
 
 
 def test_recommendation_priority_tier_2_due_review(session: Session):
@@ -318,6 +318,7 @@ def test_recommendation_urls_are_resolvable(session: Session):
         "/curriculum",
         "/review",
         "/practice",
+        "/concepts/",
     )
     subjects = [
         "python",
@@ -440,3 +441,219 @@ def test_prerequisite_violations_prevent_advancing(session: Session):
     # Once prerequisite is ready_to_advance, check_prerequisites_met succeeds
     progress_by_key["step-py-values-1"] = "ready_to_advance"
     assert check_prerequisites_met(step_2, progress_by_key) is True
+
+
+def test_concept_teaching_content_schema_and_detail_endpoint(session: Session):
+    try:
+        app.dependency_overrides[get_session] = lambda: session
+        client = TestClient(app)
+
+        # GET /api/learning-path/steps/step-py-values-1
+        resp = client.get("/api/learning-path/steps/step-py-values-1")
+        assert resp.status_code == 200
+        data = resp.json()
+
+        assert data["key"] == "step-py-values-1"
+        assert data["subject_key"] == "python"
+        assert data["title"] == "Values, variables and basic types"
+        assert data["action_path"] == "/concepts/step-py-values-1"
+        assert data["action_label"] == "Learn concept"
+
+        # Teaching content presence
+        tc = data.get("teaching_content")
+        assert tc is not None, "Teaching content must be present on concept step"
+        assert "summary" in tc and len(tc["summary"]) > 20
+        assert "why_it_matters" in tc
+        assert "intuition" in tc
+        assert "analogy" in tc
+        assert "syntax_guide" in tc
+        assert "worked_example_title" in tc
+        assert "worked_example_code" in tc
+        assert "worked_example_explanation" in tc
+
+        # Step-by-step trace
+        assert len(tc["tracing_steps"]) >= 3
+        for trace in tc["tracing_steps"]:
+            assert trace["step_number"] >= 1
+            assert trace["line_or_expression"]
+            assert trace["state_description"]
+
+        # Common beginner mistakes
+        assert len(tc["common_mistakes"]) >= 2
+        for mistake in tc["common_mistakes"]:
+            assert mistake["mistake_description"]
+            assert mistake["wrong_code"]
+            assert mistake["correct_code"]
+
+        # Revision notes
+        assert len(tc["revision_notes"]) >= 3
+    finally:
+        app.dependency_overrides.pop(get_session, None)
+
+
+def test_revision_aware_exercise_fingerprint(session: Session):
+    from app.services.learning_path import (
+        get_exercise_fingerprint,
+        is_beginner_exercise_solved,
+    )
+    manifest = load_beginner_exercises_manifest()
+    ex = manifest["exercises"][0]
+    fp = get_exercise_fingerprint(ex)
+    assert len(fp) == 16
+
+    # Initially unsolved
+    assert is_beginner_exercise_solved(session, ex["key"], ex) is False
+
+    # Submit valid solution
+    res = evaluate_beginner_exercise(session, ex["key"], ex["reference_solution"])
+    assert res.passed is True
+    assert res.score == 100.0
+
+    # Solved setting stored with fingerprint
+    assert session.get(AppSetting, f"lp_ex_solved:{ex['key']}:{fp}") is not None
+    assert is_beginner_exercise_solved(session, ex["key"], ex) is True
+
+    # If exercise contract changes materially, previous solve does NOT grant credit to altered version
+    altered_ex = dict(ex)
+    altered_ex["instructions"] = "Altered instructions that change contract."
+    altered_fp = get_exercise_fingerprint(altered_ex)
+    assert altered_fp != fp
+    assert is_beginner_exercise_solved(session, ex["key"], altered_ex) is False
+
+
+def test_unassisted_independent_attempt_qualification(session: Session):
+    from app.services.learning_path import is_qualified_independent_attempt
+    from app.services.arena import sync_problem_bank
+    sync_problem_bank(session)
+
+    # 1. Clean unassisted passing attempt -> Qualifies
+    clean_attempt = ArenaAttempt(
+        problem_key="python-two-fer",
+        track="python",
+        submitted_source="def solution(): pass",
+        passed=True,
+        score=100.0,
+        hints_used=0,
+        gave_up=False,
+    )
+    session.add(clean_attempt)
+    session.commit()
+    assert is_qualified_independent_attempt(session, clean_attempt, "python-two-fer") is True
+
+    # 2. Assisted attempt (hints_used > 0) -> Fails qualification
+    assisted_attempt = ArenaAttempt(
+        problem_key="python-two-fer",
+        track="python",
+        submitted_source="def solution(): pass",
+        passed=True,
+        score=100.0,
+        hints_used=1,
+        gave_up=False,
+    )
+    session.add(assisted_attempt)
+    session.commit()
+    assert is_qualified_independent_attempt(session, assisted_attempt, "python-two-fer") is False
+
+    # 3. Gave up attempt -> Fails qualification
+    gave_up_attempt = ArenaAttempt(
+        problem_key="python-two-fer",
+        track="python",
+        submitted_source="# gave up",
+        passed=False,
+        score=0.0,
+        hints_used=0,
+        gave_up=True,
+    )
+    session.add(gave_up_attempt)
+    session.commit()
+    assert is_qualified_independent_attempt(session, gave_up_attempt, "python-two-fer") is False
+
+    # 4. Partial score (< 100.0) -> Fails qualification
+    partial_attempt = ArenaAttempt(
+        problem_key="python-two-fer",
+        track="python",
+        submitted_source="def solution(): pass",
+        passed=False,
+        score=66.7,
+        hints_used=0,
+        gave_up=False,
+    )
+    session.add(partial_attempt)
+    session.commit()
+    assert is_qualified_independent_attempt(session, partial_attempt, "python-two-fer") is False
+
+
+def test_prerequisite_blocker_caps_at_practising(session: Session):
+    from app.services.arena import sync_problem_bank
+    sync_problem_bank(session)
+
+    manifest = load_concept_steps_manifest()
+    concepts = manifest.get("concepts", [])
+    step_2 = next(c for c in concepts if c["key"] == "step-py-values-2")
+    assert "step-py-values-1" in step_2.get("prerequisite_keys", [])
+
+    # Learner solves all guided exercises and independent problem for step 2 ahead of order
+    for g in step_2.get("guided_practice_refs", []):
+        session.add(AppSetting(key=f"lp_ex_solved:{g}", value="true"))
+    for p in step_2.get("independent_practice_refs", []):
+        session.add(
+            ArenaAttempt(
+                problem_key=p,
+                track="python",
+                submitted_source="def solution(): pass",
+                passed=True,
+                score=100.0,
+                hints_used=0,
+                gave_up=False,
+            )
+        )
+    session.commit()
+
+    # Step 1 is NOT completed (prerequisite missing!)
+    # State MUST be capped at "practising", NEVER "ready_to_advance"
+    state = get_concept_step_progress(session, step_2)
+    assert state == "practising", f"Expected 'practising' due to missing prerequisite, got {state}"
+
+    # Client cannot force advancement either
+    with pytest.raises(ValueError):
+        set_concept_step_progress(session, "step-py-values-2", "ready_to_advance")
+
+    # Complete step 1 prerequisites
+    step_1 = next(c for c in concepts if c["key"] == "step-py-values-1")
+    for g in step_1.get("guided_practice_refs", []):
+        session.add(AppSetting(key=f"lp_ex_solved:{g}", value="true"))
+    for p in step_1.get("independent_practice_refs", []):
+        session.add(
+            ArenaAttempt(
+                problem_key=p,
+                track="python",
+                submitted_source="def solution(): pass",
+                passed=True,
+                score=100.0,
+                hints_used=0,
+                gave_up=False,
+            )
+        )
+    session.commit()
+    assert get_concept_step_progress(session, step_1) == "ready_to_advance"
+
+    # Now step 2 can advance!
+    assert get_concept_step_progress(session, step_2) == "ready_to_advance"
+
+
+def test_beginner_exercises_35_inventory_coverage():
+    manifest = load_beginner_exercises_manifest()
+    exercises = manifest.get("exercises", [])
+    assert len(exercises) == 35, f"Expected exactly 35 beginner exercises, found {len(exercises)}"
+
+    tracks = [e["track"] for e in exercises]
+    assert tracks.count("python") == 18, f"Expected 18 Python exercises, found {tracks.count('python')}"
+    assert tracks.count("sql") == 10, f"Expected 10 SQL exercises, found {tracks.count('sql')}"
+    assert tracks.count("dsa") == 7, f"Expected 7 DSA exercises, found {tracks.count('dsa')}"
+
+    # Every exercise must have non-empty tests and instructions
+    for ex in exercises:
+        assert len(ex["instructions"]) > 10
+        assert len(ex.get("tests", [])) >= 1
+        assert ex.get("reference_solution")
+        assert ex.get("hints")

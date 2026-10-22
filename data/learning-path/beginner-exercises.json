@@ -9,7 +9,7 @@
       "concept_key": "step-py-values-1",
       "function_name": "say_hello",
       "instructions": "Write a function `say_hello()` that returns the string `'Hello, Forge!'`.",
-      "starter_code": "def say_hello():\n    # Return the message\n    pass",
+      "starter_code": "def say_hello():\n    # Return the greeting\n    pass",
       "examples": [
         {
           "input": "say_hello()",
@@ -25,9 +25,9 @@
         }
       ],
       "hints": [
-        "Use the return keyword followed by the string in single or double quotes."
+        "Use the return keyword followed by 'Hello, Forge!'."
       ],
-      "explanation": "Functions return values using `return`. Quoted characters form a string in Python.",
+      "explanation": "Functions return values using `return`. In Python, strings are enclosed in quotes.",
       "reference_solution": "def say_hello():\n    return 'Hello, Forge!'"
     },
     {
@@ -70,10 +70,55 @@
         }
       ],
       "hints": [
-        "Use `*` for multiplication and store the answer in a variable before returning."
+        "Use `result = x * 2` and then `return result`."
       ],
-      "explanation": "Assignment binds a name to the evaluated result of an expression.",
+      "explanation": "Assignment binds a name to the evaluated expression.",
       "reference_solution": "def double_value(x):\n    result = x * 2\n    return result"
+    },
+    {
+      "key": "py-first-type-convert",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Convert string to integer",
+      "concept_key": "step-py-values-1",
+      "function_name": "parse_and_increment",
+      "instructions": "Write a function `parse_and_increment(s)` that converts the numeric string `s` to an integer, adds 10, and returns the result.",
+      "starter_code": "def parse_and_increment(s):\n    # Convert s to int and add 10\n    pass",
+      "examples": [
+        {
+          "input": "parse_and_increment('42')",
+          "output": "52",
+          "explanation": "int('42') + 10 = 52"
+        }
+      ],
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            "42"
+          ],
+          "expected": 52
+        },
+        {
+          "name": "zero",
+          "args": [
+            "0"
+          ],
+          "expected": 10
+        },
+        {
+          "name": "negative",
+          "args": [
+            "-5"
+          ],
+          "expected": 5
+        }
+      ],
+      "hints": [
+        "Use the built-in `int(s)` constructor to convert a string to an integer."
+      ],
+      "explanation": "`int(s)` parses numeric characters into an integer object before arithmetic.",
+      "reference_solution": "def parse_and_increment(s):\n    return int(s) + 10"
     },
     {
       "key": "py-first-add-two",
@@ -101,27 +146,135 @@
           "expected": 7
         },
         {
-          "name": "neg",
-          "args": [
-            -10,
-            5
-          ],
-          "expected": -5
-        },
-        {
-          "name": "zeros",
+          "name": "zero",
           "args": [
             0,
             0
           ],
           "expected": 0
+        },
+        {
+          "name": "neg",
+          "args": [
+            -2,
+            5
+          ],
+          "expected": 3
         }
       ],
       "hints": [
         "Use the `+` operator between `a` and `b`."
       ],
-      "explanation": "The `+` operator adds two numeric values.",
+      "explanation": "Binary addition sums two numeric operands.",
       "reference_solution": "def add_numbers(a, b):\n    return a + b"
+    },
+    {
+      "key": "py-first-quotient-remainder",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Integer division and remainder",
+      "concept_key": "step-py-values-2",
+      "function_name": "div_and_mod",
+      "instructions": "Write a function `div_and_mod(a, b)` that returns a list `[quotient, remainder]` where `quotient` is integer division `a // b` and `remainder` is modulo `a % b`.",
+      "starter_code": "def div_and_mod(a, b):\n    pass",
+      "examples": [
+        {
+          "input": "div_and_mod(17, 5)",
+          "output": "[3, 2]",
+          "explanation": "17 // 5 = 3 and 17 % 5 = 2"
+        }
+      ],
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            17,
+            5
+          ],
+          "expected": [
+            3,
+            2
+          ]
+        },
+        {
+          "name": "exact",
+          "args": [
+            20,
+            4
+          ],
+          "expected": [
+            5,
+            0
+          ]
+        },
+        {
+          "name": "smaller",
+          "args": [
+            3,
+            10
+          ],
+          "expected": [
+            0,
+            3
+          ]
+        }
+      ],
+      "hints": [
+        "Use `//` for floor division and `%` for remainder, returning `[a // b, a % b]`."
+      ],
+      "explanation": "Integer division discards any fractional part; modulo gives the remainder.",
+      "reference_solution": "def div_and_mod(a, b):\n    return [a // b, a % b]"
+    },
+    {
+      "key": "py-first-calc-average",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Calculate average of three numbers",
+      "concept_key": "step-py-values-2",
+      "function_name": "calculate_average",
+      "instructions": "Write a function `calculate_average(a, b, c)` that calculates and returns the arithmetic mean `(a + b + c) / 3.0`.",
+      "starter_code": "def calculate_average(a, b, c):\n    pass",
+      "examples": [
+        {
+          "input": "calculate_average(10, 20, 30)",
+          "output": "20.0",
+          "explanation": "(10 + 20 + 30) / 3 = 20.0"
+        }
+      ],
+      "tests": [
+        {
+          "name": "integers",
+          "args": [
+            10,
+            20,
+            30
+          ],
+          "expected": 20.0
+        },
+        {
+          "name": "mixed",
+          "args": [
+            1,
+            2,
+            6
+          ],
+          "expected": 3.0
+        },
+        {
+          "name": "zeros",
+          "args": [
+            0,
+            0,
+            0
+          ],
+          "expected": 0.0
+        }
+      ],
+      "hints": [
+        "Make sure to wrap the addition in parentheses `(a + b + c)` before dividing by 3."
+      ],
+      "explanation": "Parentheses override the higher precedence of division over addition.",
+      "reference_solution": "def calculate_average(a, b, c):\n    return (a + b + c) / 3.0"
     },
     {
       "key": "py-first-compare-two",
@@ -134,17 +287,17 @@
       "starter_code": "def is_greater(a, b):\n    pass",
       "examples": [
         {
-          "input": "is_greater(5, 3)",
+          "input": "is_greater(10, 5)",
           "output": "True",
-          "explanation": "5 > 3 is True"
+          "explanation": "10 > 5 is True"
         }
       ],
       "tests": [
         {
           "name": "greater",
           "args": [
-            5,
-            3
+            10,
+            5
           ],
           "expected": true
         },
@@ -157,19 +310,64 @@
           "expected": false
         },
         {
-          "name": "less",
+          "name": "smaller",
           "args": [
             2,
-            9
+            7
           ],
           "expected": false
         }
       ],
       "hints": [
-        "Use the `>` comparison operator directly."
+        "Use the relational operator `>` directly: `return a > b`."
       ],
-      "explanation": "Comparison operators in Python evaluate to boolean values (`True` or `False`).",
+      "explanation": "Relational operators evaluate directly to boolean `True` or `False` values.",
       "reference_solution": "def is_greater(a, b):\n    return a > b"
+    },
+    {
+      "key": "py-first-is-positive",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Classify sign of a number",
+      "concept_key": "step-py-cond-1",
+      "function_name": "check_sign",
+      "instructions": "Write a function `check_sign(n)` that returns `'positive'` if `n > 0`, `'negative'` if `n < 0`, and `'zero'` if `n == 0`.",
+      "starter_code": "def check_sign(n):\n    pass",
+      "examples": [
+        {
+          "input": "check_sign(5)",
+          "output": "'positive'",
+          "explanation": "5 is positive."
+        }
+      ],
+      "tests": [
+        {
+          "name": "pos",
+          "args": [
+            5
+          ],
+          "expected": "positive"
+        },
+        {
+          "name": "neg",
+          "args": [
+            -3
+          ],
+          "expected": "negative"
+        },
+        {
+          "name": "zero",
+          "args": [
+            0
+          ],
+          "expected": "zero"
+        }
+      ],
+      "hints": [
+        "Use `if n > 0:`, `elif n < 0:`, and `else:`."
+      ],
+      "explanation": "Multi-way conditional branching tests conditions in sequence.",
+      "reference_solution": "def check_sign(n):\n    if n > 0:\n        return 'positive'\n    elif n < 0:\n        return 'negative'\n    else:\n        return 'zero'"
     },
     {
       "key": "py-first-even-odd",
@@ -177,12 +375,12 @@
       "stage": "first_steps",
       "title": "Check even or odd",
       "concept_key": "step-py-cond-2",
-      "function_name": "even_or_odd",
-      "instructions": "Write a function `even_or_odd(n)` that returns `'even'` if `n` is even, and `'odd'` if `n` is odd.",
-      "starter_code": "def even_or_odd(n):\n    pass",
+      "function_name": "check_even_odd",
+      "instructions": "Write a function `check_even_odd(n)` that returns `'even'` if `n` is divisible by 2, and `'odd'` otherwise.",
+      "starter_code": "def check_even_odd(n):\n    pass",
       "examples": [
         {
-          "input": "even_or_odd(4)",
+          "input": "check_even_odd(4)",
           "output": "'even'",
           "explanation": "4 % 2 == 0"
         }
@@ -210,18 +408,120 @@
           "expected": "even"
         },
         {
-          "name": "neg_odd",
+          "name": "negative",
           "args": [
-            -5
+            -3
           ],
           "expected": "odd"
         }
       ],
       "hints": [
-        "Use modulo operator `% 2 == 0` to check for even numbers."
+        "Use the modulo operator `%` with 2: `if n % 2 == 0:`."
       ],
-      "explanation": "An integer is even if divided by 2 leaves no remainder (n % 2 == 0).",
-      "reference_solution": "def even_or_odd(n):\n    if n % 2 == 0:\n        return 'even'\n    return 'odd'"
+      "explanation": "Even numbers leave zero remainder when divided by 2.",
+      "reference_solution": "def check_even_odd(n):\n    return 'even' if n % 2 == 0 else 'odd'"
+    },
+    {
+      "key": "py-first-fizz-check",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "FizzBuzz single number check",
+      "concept_key": "step-py-cond-2",
+      "function_name": "fizz_buzz_single",
+      "instructions": "Write a function `fizz_buzz_single(n)` that returns `'FizzBuzz'` if `n` is divisible by both 3 and 5, `'Fizz'` if divisible by 3, `'Buzz'` if divisible by 5, or `str(n)` if divisible by neither.",
+      "starter_code": "def fizz_buzz_single(n):\n    pass",
+      "examples": [
+        {
+          "input": "fizz_buzz_single(15)",
+          "output": "'FizzBuzz'",
+          "explanation": "15 is divisible by 3 and 5."
+        },
+        {
+          "input": "fizz_buzz_single(9)",
+          "output": "'Fizz'",
+          "explanation": "9 is divisible by 3."
+        }
+      ],
+      "tests": [
+        {
+          "name": "both",
+          "args": [
+            15
+          ],
+          "expected": "FizzBuzz"
+        },
+        {
+          "name": "three",
+          "args": [
+            9
+          ],
+          "expected": "Fizz"
+        },
+        {
+          "name": "five",
+          "args": [
+            10
+          ],
+          "expected": "Buzz"
+        },
+        {
+          "name": "neither",
+          "args": [
+            7
+          ],
+          "expected": "7"
+        }
+      ],
+      "hints": [
+        "Check the compound condition `n % 3 == 0 and n % 5 == 0` first!"
+      ],
+      "explanation": "Compound conditions must be ordered from most specific to least specific.",
+      "reference_solution": "def fizz_buzz_single(n):\n    if n % 15 == 0:\n        return 'FizzBuzz'\n    elif n % 3 == 0:\n        return 'Fizz'\n    elif n % 5 == 0:\n        return 'Buzz'\n    else:\n        return str(n)"
+    },
+    {
+      "key": "py-first-range-sum",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Sum from 1 to N",
+      "concept_key": "step-py-loops-1",
+      "function_name": "sum_to_n",
+      "instructions": "Write a function `sum_to_n(n)` that uses a for loop with `range()` to calculate and return the sum of all integers from 1 up to and including `n` (assume `n >= 1`).",
+      "starter_code": "def sum_to_n(n):\n    pass",
+      "examples": [
+        {
+          "input": "sum_to_n(4)",
+          "output": "10",
+          "explanation": "1 + 2 + 3 + 4 = 10"
+        }
+      ],
+      "tests": [
+        {
+          "name": "four",
+          "args": [
+            4
+          ],
+          "expected": 10
+        },
+        {
+          "name": "one",
+          "args": [
+            1
+          ],
+          "expected": 1
+        },
+        {
+          "name": "five",
+          "args": [
+            5
+          ],
+          "expected": 15
+        }
+      ],
+      "hints": [
+        "Remember `range(1, n + 1)` stops before the second argument."
+      ],
+      "explanation": "`range(start, stop)` produces integers up to `stop - 1`.",
+      "reference_solution": "def sum_to_n(n):\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total"
     },
     {
       "key": "py-first-count-numbers",
@@ -230,13 +530,13 @@
       "title": "Count positive numbers",
       "concept_key": "step-py-loops-1",
       "function_name": "count_positives",
-      "instructions": "Write a function `count_positives(nums)` that counts how many numbers in a list `nums` are strictly greater than 0.",
-      "starter_code": "def count_positives(nums):\n    pass",
+      "instructions": "Write a function `count_positives(numbers)` that takes a list of integers and returns how many of them are strictly greater than 0.",
+      "starter_code": "def count_positives(numbers):\n    pass",
       "examples": [
         {
-          "input": "count_positives([-1, 0, 2, 5])",
+          "input": "count_positives([-2, 0, 3, 5])",
           "output": "2",
-          "explanation": "2 and 5 are positive."
+          "explanation": "3 and 5 are positive."
         }
       ],
       "tests": [
@@ -244,9 +544,9 @@
           "name": "mixed",
           "args": [
             [
-              -1,
+              -2,
               0,
-              2,
+              3,
               5
             ]
           ],
@@ -263,7 +563,7 @@
           "name": "all_neg",
           "args": [
             [
-              -2,
+              -1,
               -4
             ]
           ],
@@ -271,64 +571,341 @@
         }
       ],
       "hints": [
-        "Initialize a counter variable to 0, loop through `nums`, and increment when `num > 0`."
+        "Initialize a counter at 0, iterate over numbers, and increment the counter when `x > 0`."
       ],
-      "explanation": "Accumulating counts using a loop is the foundation of iterative algorithms.",
-      "reference_solution": "def count_positives(nums):\n    count = 0\n    for x in nums:\n        if x > 0:\n            count += 1\n    return count"
+      "explanation": "Filtered accumulation counts elements matching a specific predicate.",
+      "reference_solution": "def count_positives(numbers):\n    count = 0\n    for x in numbers:\n        if x > 0:\n            count += 1\n    return count"
     },
     {
       "key": "py-first-find-max",
       "track": "python",
       "stage": "first_steps",
-      "title": "Find a maximum manually",
+      "title": "Find maximum in a list",
       "concept_key": "step-py-loops-2",
-      "function_name": "find_max",
-      "instructions": "Write a function `find_max(nums)` that takes a non-empty list of integers and returns the largest value by iterating through it.",
-      "starter_code": "def find_max(nums):\n    pass",
+      "function_name": "find_maximum",
+      "instructions": "Write a function `find_maximum(numbers)` that returns the largest value in a non-empty list of numbers without using Python's built-in `max()` function.",
+      "starter_code": "def find_maximum(numbers):\n    pass",
       "examples": [
         {
-          "input": "find_max([3, 1, 9, 2])",
+          "input": "find_maximum([3, 1, 9, 4])",
           "output": "9",
-          "explanation": "9 is the highest value."
+          "explanation": "9 is the largest."
         }
       ],
       "tests": [
         {
-          "name": "normal",
+          "name": "mixed",
           "args": [
             [
               3,
               1,
               9,
-              2
+              4
             ]
           ],
           "expected": 9
         },
         {
-          "name": "single",
-          "args": [
-            42
-          ],
-          "expected": 42
-        },
-        {
-          "name": "all_negative",
+          "name": "all_neg",
           "args": [
             [
               -10,
               -3,
-              -50
+              -7
             ]
           ],
           "expected": -3
+        },
+        {
+          "name": "single",
+          "args": [
+            [
+              42
+            ]
+          ],
+          "expected": 42
         }
       ],
       "hints": [
-        "Set `max_val = nums[0]` before looping so negative values are handled correctly."
+        "Initialize `best = numbers[0]` and update `best = x` whenever `x > best`."
       ],
-      "explanation": "Initializing with the first element guarantees correct comparison across all number ranges.",
-      "reference_solution": "def find_max(nums):\n    if isinstance(nums, int):\n        return nums\n    best = nums[0]\n    for x in nums[1:]:\n        if x > best:\n            best = x\n    return best"
+      "explanation": "Initializing with the first element ensures negative numbers are handled correctly.",
+      "reference_solution": "def find_maximum(numbers):\n    best = numbers[0]\n    for x in numbers[1:]:\n        if x > best:\n            best = x\n    return best"
+    },
+    {
+      "key": "py-first-find-min",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Find minimum in a list",
+      "concept_key": "step-py-loops-2",
+      "function_name": "find_minimum",
+      "instructions": "Write a function `find_minimum(numbers)` that returns the smallest value in a non-empty list of numbers without using Python's built-in `min()` function.",
+      "starter_code": "def find_minimum(numbers):\n    pass",
+      "examples": [
+        {
+          "input": "find_minimum([8, 2, 5, 1])",
+          "output": "1",
+          "explanation": "1 is the smallest."
+        }
+      ],
+      "tests": [
+        {
+          "name": "mixed",
+          "args": [
+            [
+              8,
+              2,
+              5,
+              1
+            ]
+          ],
+          "expected": 1
+        },
+        {
+          "name": "negatives",
+          "args": [
+            [
+              -2,
+              -9,
+              0
+            ]
+          ],
+          "expected": -9
+        },
+        {
+          "name": "single",
+          "args": [
+            [
+              15
+            ]
+          ],
+          "expected": 15
+        }
+      ],
+      "hints": [
+        "Initialize `best = numbers[0]` and loop through the list updating if `x < best`."
+      ],
+      "explanation": "Extreme value tracking keeps the best-so-far candidate in an accumulator variable.",
+      "reference_solution": "def find_minimum(numbers):\n    best = numbers[0]\n    for x in numbers[1:]:\n        if x < best:\n            best = x\n    return best"
+    },
+    {
+      "key": "py-first-str-first-last",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "First and last characters",
+      "concept_key": "step-py-strings-1",
+      "function_name": "first_and_last",
+      "instructions": "Write a function `first_and_last(s)` that takes a non-empty string `s` and returns a 2-element list `[s[0], s[-1]]` containing the first and last characters.",
+      "starter_code": "def first_and_last(s):\n    pass",
+      "examples": [
+        {
+          "input": "first_and_last('hello')",
+          "output": "['h', 'o']",
+          "explanation": "First character is 'h', last is 'o'."
+        }
+      ],
+      "tests": [
+        {
+          "name": "word",
+          "args": [
+            "hello"
+          ],
+          "expected": [
+            "h",
+            "o"
+          ]
+        },
+        {
+          "name": "single",
+          "args": [
+            "a"
+          ],
+          "expected": [
+            "a",
+            "a"
+          ]
+        },
+        {
+          "name": "forge",
+          "args": [
+            "Forge"
+          ],
+          "expected": [
+            "F",
+            "e"
+          ]
+        }
+      ],
+      "hints": [
+        "Use index `0` for the first character and `-1` for the last character, returning `[s[0], s[-1]]`."
+      ],
+      "explanation": "Negative indices in Python index backwards from the end of sequences.",
+      "reference_solution": "def first_and_last(s):\n    return [s[0], s[-1]]"
+    },
+    {
+      "key": "py-first-list-append-even",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Filter even numbers into new list",
+      "concept_key": "step-py-collections-1",
+      "function_name": "filter_evens",
+      "instructions": "Write a function `filter_evens(numbers)` that returns a new list containing only the even numbers from the input list `numbers`, in their original order.",
+      "starter_code": "def filter_evens(numbers):\n    pass",
+      "examples": [
+        {
+          "input": "filter_evens([1, 2, 3, 4, 5, 6])",
+          "output": "[2, 4, 6]",
+          "explanation": "2, 4, 6 are even."
+        }
+      ],
+      "tests": [
+        {
+          "name": "mixed",
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          ],
+          "expected": [
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "name": "no_evens",
+          "args": [
+            [
+              1,
+              3,
+              5
+            ]
+          ],
+          "expected": []
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": []
+        }
+      ],
+      "hints": [
+        "Create an empty list `evens = []` and call `evens.append(x)` when `x % 2 == 0`."
+      ],
+      "explanation": "`list.append()` appends elements to the end of a dynamic array.",
+      "reference_solution": "def filter_evens(numbers):\n    evens = []\n    for x in numbers:\n        if x % 2 == 0:\n            evens.append(x)\n    return evens"
+    },
+    {
+      "key": "py-first-dict-count",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Word frequency counter",
+      "concept_key": "step-py-collections-2",
+      "function_name": "word_frequencies",
+      "instructions": "Write a function `word_frequencies(words)` that takes a list of strings and returns a dictionary mapping each word to the number of times it appears in the list.",
+      "starter_code": "def word_frequencies(words):\n    pass",
+      "examples": [
+        {
+          "input": "word_frequencies(['apple', 'banana', 'apple'])",
+          "output": "{'apple': 2, 'banana': 1}",
+          "explanation": "'apple' appears twice."
+        }
+      ],
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              "apple",
+              "banana",
+              "apple"
+            ]
+          ],
+          "expected": {
+            "apple": 2,
+            "banana": 1
+          }
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": {}
+        },
+        {
+          "name": "distinct",
+          "args": [
+            [
+              "a",
+              "b",
+              "c"
+            ]
+          ],
+          "expected": {
+            "a": 1,
+            "b": 1,
+            "c": 1
+          }
+        }
+      ],
+      "hints": [
+        "Use `counts[w] = counts.get(w, 0) + 1` inside a loop."
+      ],
+      "explanation": "Dictionaries provide fast key-value lookups ideal for counting occurrences.",
+      "reference_solution": "def word_frequencies(words):\n    counts = {}\n    for w in words:\n        counts[w] = counts.get(w, 0) + 1\n    return counts"
+    },
+    {
+      "key": "py-first-celsius-to-fahr",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Convert Celsius to Fahrenheit",
+      "concept_key": "step-py-functions-1",
+      "function_name": "celsius_to_fahrenheit",
+      "instructions": "Write a function `celsius_to_fahrenheit(c)` that converts temperature in Celsius to Fahrenheit using the formula `F = C * 9/5 + 32` and returns the result rounded to 1 decimal place using `round(val, 1)`.",
+      "starter_code": "def celsius_to_fahrenheit(c):\n    pass",
+      "examples": [
+        {
+          "input": "celsius_to_fahrenheit(0)",
+          "output": "32.0",
+          "explanation": "0 * 9/5 + 32 = 32.0"
+        }
+      ],
+      "tests": [
+        {
+          "name": "freezing",
+          "args": [
+            0
+          ],
+          "expected": 32.0
+        },
+        {
+          "name": "boiling",
+          "args": [
+            100
+          ],
+          "expected": 212.0
+        },
+        {
+          "name": "body_temp",
+          "args": [
+            37
+          ],
+          "expected": 98.6
+        }
+      ],
+      "hints": [
+        "Calculate `f = c * 9 / 5 + 32` and return `round(f, 1)`."
+      ],
+      "explanation": "Functions encapsulate domain formulas with clear argument contracts.",
+      "reference_solution": "def celsius_to_fahrenheit(c):\n    return round(c * 9 / 5 + 32, 1)"
     },
     {
       "key": "sql-first-select-constant",
@@ -336,7 +913,7 @@
       "stage": "first_steps",
       "title": "SELECT a constant",
       "concept_key": "step-sql-tables-1",
-      "instructions": "Write a query that selects the integer `42` with column alias `answer`.",
+      "instructions": "Write a query that selects the number `42` with column name `answer`.",
       "starter_query": "SELECT ",
       "setup_sql": "CREATE TABLE sentinel (id INT);",
       "examples": [
@@ -362,8 +939,43 @@
       "hints": [
         "Use `SELECT 42 AS answer;`."
       ],
-      "explanation": "SQL can evaluate and project scalar expressions without touching a table.",
+      "explanation": "SQL can project scalar expressions without touching a table.",
       "reference_solution": "SELECT 42 AS answer;"
+    },
+    {
+      "key": "sql-first-calc-constant",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Calculate sum of numbers",
+      "concept_key": "step-sql-tables-1",
+      "instructions": "Write a query that computes `100 + 5` and aliases the column as `total_sum`.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE sentinel (id INT);",
+      "examples": [
+        {
+          "input": "SELECT 100 + 5 AS total_sum;",
+          "output": "| total_sum |\n| 105 |",
+          "explanation": "Calculates 100 + 5."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_sum",
+          "expected_columns": [
+            "total_sum"
+          ],
+          "expected_rows": [
+            [
+              105
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "Use `SELECT 100 + 5 AS total_sum;`."
+      ],
+      "explanation": "Arithmetic operations can be computed directly in SELECT projections.",
+      "reference_solution": "SELECT 100 + 5 AS total_sum;"
     },
     {
       "key": "sql-first-read-one-col",
@@ -398,10 +1010,51 @@
         }
       ],
       "hints": [
-        "Specify `title` right after `SELECT`."
+        "Specify `title` right after `SELECT` and `FROM books;`."
       ],
-      "explanation": "Projection retrieves only the requested columns, saving bandwidth and memory.",
+      "explanation": "Column projection fetches only the specified attributes.",
       "reference_solution": "SELECT title FROM books;"
+    },
+    {
+      "key": "sql-first-col-aliases",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Column aliases",
+      "concept_key": "step-sql-tables-2",
+      "instructions": "Select `first_name` aliased as `given_name`, and `email` aliased as `contact_email` from the `members` table.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE members (id INT PRIMARY KEY, first_name TEXT, email TEXT);\nINSERT INTO members VALUES (1, 'Ada', 'ada@example.com'), (2, 'Alan', 'alan@example.com');",
+      "examples": [
+        {
+          "input": "SELECT first_name AS given_name, email AS contact_email FROM members;",
+          "output": "| given_name | contact_email |",
+          "explanation": "Renames columns in the result set."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_aliases",
+          "expected_columns": [
+            "given_name",
+            "contact_email"
+          ],
+          "expected_rows": [
+            [
+              "Ada",
+              "ada@example.com"
+            ],
+            [
+              "Alan",
+              "alan@example.com"
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "Use `column_name AS alias_name`."
+      ],
+      "explanation": "Aliases rename columns in the query output without affecting table definitions.",
+      "reference_solution": "SELECT first_name AS given_name, email AS contact_email FROM members;"
     },
     {
       "key": "sql-first-where",
@@ -421,7 +1074,7 @@
       ],
       "tests": [
         {
-          "name": "check_where",
+          "name": "check_active_users",
           "expected_columns": [
             "name"
           ],
@@ -436,60 +1089,230 @@
         }
       ],
       "hints": [
-        "Add `WHERE is_active = true` at the end of the query."
+        "Add `WHERE is_active = true` to filter rows."
       ],
-      "explanation": "The WHERE clause acts as a predicate filtering table rows before projection.",
+      "explanation": "The WHERE clause restricts output to rows satisfying the predicate.",
       "reference_solution": "SELECT name FROM users WHERE is_active = true;"
     },
     {
-      "key": "sql-first-null-check",
+      "key": "sql-first-where-range",
       "track": "sql",
       "stage": "first_steps",
-      "title": "Check for NULL values",
-      "concept_key": "step-sql-nulls",
-      "instructions": "Select `id` and `name` from `customers` whose `phone` is NULL.",
+      "title": "Filter numeric range",
+      "concept_key": "step-sql-select-filter",
+      "instructions": "Select `id` and `score` from `exam_results` where `score >= 75` and `score <= 90`.",
       "starter_query": "SELECT ",
-      "setup_sql": "CREATE TABLE customers (id INT PRIMARY KEY, name TEXT, phone TEXT);\nINSERT INTO customers VALUES (1, 'Dev', NULL), (2, 'Priya', '9876543210'), (3, 'Sam', NULL);",
+      "setup_sql": "CREATE TABLE exam_results (id INT PRIMARY KEY, student_name TEXT, score INT);\nINSERT INTO exam_results VALUES (1, 'Dev', 60), (2, 'Maya', 75), (3, 'Sam', 85), (4, 'Priya', 95);",
       "examples": [
         {
-          "input": "SELECT id, name FROM customers WHERE phone IS NULL;",
-          "output": "Dev, Sam",
-          "explanation": "NULL cannot be checked with =."
+          "input": "SELECT id, score FROM exam_results WHERE score >= 75 AND score <= 90;",
+          "output": "| id | score |\n| 2 | 75 |\n| 3 | 85 |",
+          "explanation": "Selects scores between 75 and 90."
         }
       ],
       "tests": [
         {
-          "name": "check_null",
+          "name": "check_range",
           "expected_columns": [
             "id",
-            "name"
+            "score"
           ],
           "expected_rows": [
             [
-              1,
-              "Dev"
+              2,
+              75
             ],
             [
               3,
-              "Sam"
+              85
             ]
           ]
         }
       ],
       "hints": [
-        "In SQL, test for missing data using `IS NULL`, never `= NULL`."
+        "Use `AND` to combine the two comparison conditions in `WHERE`."
       ],
-      "explanation": "NULL represents missing information; standard equality comparisons with NULL yield UNKNOWN.",
-      "reference_solution": "SELECT id, name FROM customers WHERE phone IS NULL;"
+      "explanation": "Logical AND requires both boolean conditions to be true.",
+      "reference_solution": "SELECT id, score FROM exam_results WHERE score >= 75 AND score <= 90;"
     },
     {
-      "key": "dsa-first-tracing-list",
+      "key": "sql-first-null-filter",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Filter missing values with IS NULL",
+      "concept_key": "step-sql-nulls",
+      "instructions": "Select `id` and `customer_name` from `orders` where `delivered_at` is NULL.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE orders (id INT PRIMARY KEY, customer_name TEXT, delivered_at TIMESTAMP);\nINSERT INTO orders VALUES (101, 'Rohan', '2026-01-10 14:00:00'), (102, 'Ananya', NULL), (103, 'Kiran', NULL);",
+      "examples": [
+        {
+          "input": "SELECT id, customer_name FROM orders WHERE delivered_at IS NULL;",
+          "output": "| id | customer_name |\n| 102 | Ananya |\n| 103 | Kiran |",
+          "explanation": "Returns undelivered orders."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_nulls",
+          "expected_columns": [
+            "id",
+            "customer_name"
+          ],
+          "expected_rows": [
+            [
+              102,
+              "Ananya"
+            ],
+            [
+              103,
+              "Kiran"
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "Never use `= NULL`. Always use `IS NULL` to check for missing values."
+      ],
+      "explanation": "NULL represents unknown data; standard equality `= NULL` evaluates to UNKNOWN.",
+      "reference_solution": "SELECT id, customer_name FROM orders WHERE delivered_at IS NULL;"
+    },
+    {
+      "key": "sql-first-coalesce",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Provide fallback with COALESCE",
+      "concept_key": "step-sql-nulls",
+      "instructions": "Select `id`, and use `COALESCE(nickname, username)` aliased as `display_name` from the `profiles` table.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE profiles (id INT PRIMARY KEY, username TEXT, nickname TEXT);\nINSERT INTO profiles VALUES (1, 'vikram99', 'Vik'), (2, 'sara_k', NULL);",
+      "examples": [
+        {
+          "input": "SELECT id, COALESCE(nickname, username) AS display_name FROM profiles;",
+          "output": "| id | display_name |\n| 1 | Vik |\n| 2 | sara_k |",
+          "explanation": "Uses nickname if present, else username."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_coalesce",
+          "expected_columns": [
+            "id",
+            "display_name"
+          ],
+          "expected_rows": [
+            [
+              1,
+              "Vik"
+            ],
+            [
+              2,
+              "sara_k"
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "`COALESCE(a, b)` returns the first non-null argument."
+      ],
+      "explanation": "COALESCE provides clean fallback defaults for missing attributes.",
+      "reference_solution": "SELECT id, COALESCE(nickname, username) AS display_name FROM profiles;"
+    },
+    {
+      "key": "sql-first-order-limit",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Sort and limit results",
+      "concept_key": "step-sql-ordering-limits",
+      "instructions": "Select `name` and `salary` from `employees` ordered by `salary` in descending order (`DESC`), returning only the top 3 rows (`LIMIT 3`).",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE employees (id INT PRIMARY KEY, name TEXT, salary INT);\nINSERT INTO employees VALUES (1, 'Zara', 90000), (2, 'Leo', 120000), (3, 'Asha', 110000), (4, 'Omar', 80000);",
+      "ordered": true,
+      "examples": [
+        {
+          "input": "SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;",
+          "output": "| Leo | 120000 |\n| Asha | 110000 |\n| Zara | 90000 |",
+          "explanation": "Returns top 3 earners."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_top3",
+          "expected_columns": [
+            "name",
+            "salary"
+          ],
+          "expected_rows": [
+            [
+              "Leo",
+              120000
+            ],
+            [
+              "Asha",
+              110000
+            ],
+            [
+              "Zara",
+              90000
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "Use `ORDER BY salary DESC LIMIT 3` at the end of the query."
+      ],
+      "explanation": "ORDER BY defines explicit output sequence; LIMIT caps the row count.",
+      "reference_solution": "SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;"
+    },
+    {
+      "key": "sql-first-group-count",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Count grouped rows",
+      "concept_key": "step-sql-aggregations",
+      "instructions": "Select `department` and `COUNT(*) AS employee_count` from `staff` grouped by `department`, ordered by `department` ascending.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE staff (id INT PRIMARY KEY, name TEXT, department TEXT);\nINSERT INTO staff VALUES (1, 'Alice', 'Engineering'), (2, 'Bob', 'Design'), (3, 'Charlie', 'Engineering'), (4, 'Dana', 'Design'), (5, 'Eve', 'Engineering');",
+      "ordered": true,
+      "examples": [
+        {
+          "input": "SELECT department, COUNT(*) AS employee_count FROM staff GROUP BY department ORDER BY department ASC;",
+          "output": "| Design | 2 |\n| Engineering | 3 |",
+          "explanation": "Counts staff per department."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_counts",
+          "expected_columns": [
+            "department",
+            "employee_count"
+          ],
+          "expected_rows": [
+            [
+              "Design",
+              2
+            ],
+            [
+              "Engineering",
+              3
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "Use `GROUP BY department` and `ORDER BY department ASC`."
+      ],
+      "explanation": "GROUP BY aggregates rows that share the same department value.",
+      "reference_solution": "SELECT department, COUNT(*) AS employee_count FROM staff GROUP BY department ORDER BY department ASC;"
+    },
+    {
+      "key": "dsa-first-trace-sum",
       "track": "dsa",
       "stage": "first_steps",
-      "title": "Trace and sum a list",
+      "title": "Sum list of integers",
       "concept_key": "step-dsa-contracts-1",
       "function_name": "sum_list",
-      "instructions": "Write a function `sum_list(elements)` that computes the sum of numbers in `elements` without using the built-in `sum()` function.",
+      "instructions": "Write a function `sum_list(elements)` that returns the sum of all numbers in the list `elements`. If `elements` is empty, return 0.",
       "starter_code": "def sum_list(elements):\n    pass",
       "examples": [
         {
@@ -530,9 +1353,9 @@
         }
       ],
       "hints": [
-        "Use a running total variable initialized to 0 and loop over each item."
+        "Use an accumulator variable starting at 0 and iterate through each element."
       ],
-      "explanation": "Sequential accumulation is the simplest linear scanning pattern.",
+      "explanation": "Accumulation loops maintain a running total across linear array traversals.",
       "reference_solution": "def sum_list(elements):\n    total = 0\n    for x in elements:\n        total += x\n    return total"
     },
     {
@@ -548,7 +1371,7 @@
         {
           "input": "find_index([10, 20, 30], 20)",
           "output": "1",
-          "explanation": "20 is at index 1"
+          "explanation": "20 is at index 1."
         }
       ],
       "tests": [
@@ -592,8 +1415,118 @@
       "hints": [
         "Use `for i, x in enumerate(elements):` and return `i` immediately when `x == target`."
       ],
-      "explanation": "Linear search inspects elements from left to right with O(n) time complexity.",
+      "explanation": "Linear search inspects elements from left to right with O(N) time complexity.",
       "reference_solution": "def find_index(elements, target):\n    for i, x in enumerate(elements):\n        if x == target:\n            return i\n    return -1"
+    },
+    {
+      "key": "dsa-first-count-target",
+      "track": "dsa",
+      "stage": "first_steps",
+      "title": "Count occurrences of target",
+      "concept_key": "step-dsa-scan-1",
+      "function_name": "count_occurrences",
+      "instructions": "Write a function `count_occurrences(elements, target)` that returns how many times `target` appears in `elements`.",
+      "starter_code": "def count_occurrences(elements, target):\n    pass",
+      "examples": [
+        {
+          "input": "count_occurrences([1, 2, 2, 3, 2], 2)",
+          "output": "3",
+          "explanation": "2 appears 3 times."
+        }
+      ],
+      "tests": [
+        {
+          "name": "multiple",
+          "args": [
+            [
+              1,
+              2,
+              2,
+              3,
+              2
+            ],
+            2
+          ],
+          "expected": 3
+        },
+        {
+          "name": "zero",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ],
+            4
+          ],
+          "expected": 0
+        },
+        {
+          "name": "empty",
+          "args": [
+            [],
+            5
+          ],
+          "expected": 0
+        }
+      ],
+      "hints": [
+        "Loop through `elements` and increment a counter whenever `x == target`."
+      ],
+      "explanation": "Counting scans the entire array in a single O(N) pass.",
+      "reference_solution": "def count_occurrences(elements, target):\n    count = 0\n    for x in elements:\n        if x == target:\n            count += 1\n    return count"
+    },
+    {
+      "key": "dsa-first-is-palindrome",
+      "track": "dsa",
+      "stage": "first_steps",
+      "title": "Check palindrome with two pointers",
+      "concept_key": "step-dsa-two-pointers",
+      "function_name": "is_palindrome_str",
+      "instructions": "Write a function `is_palindrome_str(s)` that uses two pointers (left at start, right at end) to determine whether string `s` is a palindrome (reads identically forwards and backwards). Return `True` or `False`.",
+      "starter_code": "def is_palindrome_str(s):\n    pass",
+      "examples": [
+        {
+          "input": "is_palindrome_str('radar')",
+          "output": "True",
+          "explanation": "'radar' is a palindrome."
+        }
+      ],
+      "tests": [
+        {
+          "name": "palindrome",
+          "args": [
+            "radar"
+          ],
+          "expected": true
+        },
+        {
+          "name": "not_pal",
+          "args": [
+            "forge"
+          ],
+          "expected": false
+        },
+        {
+          "name": "single",
+          "args": [
+            "a"
+          ],
+          "expected": true
+        },
+        {
+          "name": "empty",
+          "args": [
+            ""
+          ],
+          "expected": true
+        }
+      ],
+      "hints": [
+        "Set `left = 0, right = len(s) - 1`. While `left < right`: if `s[left] != s[right]`, return False. Increment `left` and decrement `right`."
+      ],
+      "explanation": "Converging two pointers verifies symmetry in O(N) time with O(1) extra space.",
+      "reference_solution": "def is_palindrome_str(s):\n    left, right = 0, len(s) - 1\n    while left < right:\n        if s[left] != s[right]:\n            return False\n        left += 1\n        right -= 1\n    return True"
     },
     {
       "key": "dsa-first-freq-counting",
@@ -639,6 +1572,124 @@
       ],
       "explanation": "Frequency counting using hash maps enables O(1) lookups for anagram and duplicate checks.",
       "reference_solution": "def build_counts(items):\n    counts = {}\n    for x in items:\n        counts[x] = counts.get(x, 0) + 1\n    return counts"
+    },
+    {
+      "key": "dsa-first-has-duplicate",
+      "track": "dsa",
+      "stage": "first_steps",
+      "title": "Detect duplicates using a set",
+      "concept_key": "step-dsa-complexity-1",
+      "function_name": "has_duplicate",
+      "instructions": "Write a function `has_duplicate(elements)` that returns `True` if any value appears at least twice in `elements`, and `False` if all elements are distinct.",
+      "starter_code": "def has_duplicate(elements):\n    pass",
+      "examples": [
+        {
+          "input": "has_duplicate([1, 2, 3, 1])",
+          "output": "True",
+          "explanation": "1 appears twice."
+        }
+      ],
+      "tests": [
+        {
+          "name": "has_dup",
+          "args": [
+            [
+              1,
+              2,
+              3,
+              1
+            ]
+          ],
+          "expected": true
+        },
+        {
+          "name": "distinct",
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "expected": false
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": false
+        }
+      ],
+      "hints": [
+        "Maintain a `seen = set()`. If `x in seen:` return True, else `seen.add(x)`."
+      ],
+      "explanation": "Hash set membership test is O(1) on average, giving overall O(N) time complexity.",
+      "reference_solution": "def has_duplicate(elements):\n    seen = set()\n    for x in elements:\n        if x in seen:\n            return True\n        seen.add(x)\n    return False"
+    },
+    {
+      "key": "dsa-first-unique-elements",
+      "track": "dsa",
+      "stage": "first_steps",
+      "title": "Extract sorted unique elements",
+      "concept_key": "step-dsa-hash-sets",
+      "function_name": "get_unique_elements",
+      "instructions": "Write a function `get_unique_elements(items)` that returns a sorted list of all unique elements from `items`.",
+      "starter_code": "def get_unique_elements(items):\n    pass",
+      "examples": [
+        {
+          "input": "get_unique_elements([4, 2, 4, 1, 2])",
+          "output": "[1, 2, 4]",
+          "explanation": "Unique values are 1, 2, 4 in sorted order."
+        }
+      ],
+      "tests": [
+        {
+          "name": "duplicates",
+          "args": [
+            [
+              4,
+              2,
+              4,
+              1,
+              2
+            ]
+          ],
+          "expected": [
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "name": "already_unique",
+          "args": [
+            [
+              3,
+              1,
+              2
+            ]
+          ],
+          "expected": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": []
+        }
+      ],
+      "hints": [
+        "Convert the list to a `set` to remove duplicates, then use `sorted()` on the set."
+      ],
+      "explanation": "Sets discard duplicate items in O(N); sorting produces the deterministic canonical order.",
+      "reference_solution": "def get_unique_elements(items):\n    return sorted(list(set(items)))"
     }
   ]
 }

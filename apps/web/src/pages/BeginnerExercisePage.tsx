@@ -67,12 +67,22 @@ export function BeginnerExercisePage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
-      <Link
-        to="/arena"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900"
-      >
-        <ArrowLeft size={16} /> Back to Coding Arena
-      </Link>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <Link
+          to="/arena"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900"
+        >
+          <ArrowLeft size={16} /> Back to Coding Arena
+        </Link>
+        {ex.concept_key && (
+          <Link
+            to={`/concepts/${ex.concept_key}`}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 hover:bg-emerald-100"
+          >
+            ← Back to Concept: {ex.concept_title ?? ex.concept_key}
+          </Link>
+        )}
+      </div>
 
       <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>

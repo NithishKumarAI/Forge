@@ -1,6 +1,5 @@
 {
   "format_version": 1,
-  "version": "1.0.0",
   "concepts": [
     {
       "key": "step-py-values-1",
@@ -9,27 +8,84 @@
       "title": "Values, variables and basic types",
       "stage": "first_steps",
       "order_index": 1,
+      "objective": "Understand how Python binds names to typed values in memory and convert between strings and numbers.",
       "prerequisite_keys": [],
-      "objective": "Understand variables, basic types (int, float, str, bool), and assignments.",
       "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/python/python-values-expressions",
-        "section_slug": "intuition"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/python/syntax-data-types",
+        "section_slug": "values-and-variables"
+      },
+      "teaching_content": {
+        "summary": "Programs process data stored in memory. In Python, every piece of data has a value and a type (such as integer, float, string, or boolean). A variable is a named reference that points to a value.",
+        "why_it_matters": "Every algorithm, API payload, and database row begins as typed values in memory. Understanding types prevents type mismatch crashes like adding text to numbers.",
+        "intuition": "Think of variables as adhesive label tags attached to objects in a room, rather than boxes containing values. Moving the tag to another object doesn't destroy the original object.",
+        "analogy": "A variable is like a name badge placed on a person. You can take the badge 'manager' and pin it on someone else. The person didn't change identity; only the label moved.",
+        "syntax_guide": "# Assigning values to variable names\nuser_age = 21         # int\ntemperature = 98.6    # float\nusername = 'ada'      # str\nis_active = True      # bool\n\n# Converting types\ncount = int('42')     # string to integer",
+        "worked_example_title": "Parsing User Input and Incrementing",
+        "worked_example_code": "def parse_and_increment(s):\n    # 1. Convert text to integer\n    val = int(s)\n    # 2. Add 10\n    result = val + 10\n    # 3. Return final value\n    return result",
+        "worked_example_explanation": "Given input string '32', `int('32')` evaluates to integer `32`. Adding 10 evaluates to `42`. The function returns `42`.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "parse_and_increment('32')",
+            "state_description": "Function invoked with parameter s = '32' (type str)",
+            "result_or_value": "s = '32'"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "val = int(s)",
+            "state_description": "int() parses string characters into an integer",
+            "result_or_value": "val = 32"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "result = val + 10",
+            "state_description": "Binary integer addition: 32 + 10",
+            "result_or_value": "result = 42"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "return result",
+            "state_description": "Function terminates and passes 42 to caller",
+            "result_or_value": "42"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Adding string to integer directly without conversion",
+            "wrong_code": "age = '25'\nnext_year = age + 1",
+            "explanation": "Python does not automatically convert strings to numbers. This raises a TypeError: can only concatenate str (not 'int') to str.",
+            "correct_code": "age = '25'\nnext_year = int(age) + 1"
+          },
+          {
+            "mistake_description": "Using variable name before assignment",
+            "wrong_code": "total = total + 5",
+            "explanation": "Variables cannot be read before they have been assigned a value. This raises NameError: name 'total' is not defined.",
+            "correct_code": "total = 0\ntotal = total + 5"
+          }
+        ],
+        "revision_notes": [
+          "Basic types: int (whole numbers), float (decimals), str (text in quotes), bool (True/False).",
+          "Assignment (`=`) binds a name to the evaluated result of the right-hand expression.",
+          "`int()`, `float()`, `str()` explicitly cast between compatible types.",
+          "Variable names cannot begin with numbers or contain spaces/hyphens."
+        ]
       },
       "worked_example": {
-        "title": "Variable assignment and type inspection",
-        "code": "x = 42\ny = 3.14\nname = 'Forge'\nis_active = True\nprint(type(x), type(y), type(name), type(is_active))",
-        "explanation": "Variables store references to values. Types are assigned dynamically at runtime."
+        "title": "Variable assignment and type conversion",
+        "code": "raw_input = '42'\nparsed = int(raw_input)\ndoubled = parsed * 2\nprint(doubled)",
+        "explanation": "Demonstrates converting string text to an integer before arithmetic."
       },
       "guided_practice_refs": [
         "py-first-print-message",
-        "py-first-variable"
+        "py-first-variable",
+        "py-first-type-convert"
       ],
       "independent_practice_refs": [
         "python-two-fer"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-py-values-2",
@@ -38,210 +94,808 @@
       "title": "Arithmetic expressions and precedence",
       "stage": "first_steps",
       "order_index": 2,
+      "objective": "Combine numeric operators respecting PEMDAS precedence, integer division, and modulo operations.",
       "prerequisite_keys": [
         "step-py-values-1"
       ],
-      "objective": "Evaluate arithmetic expressions using order of operations, floor division and modulo.",
       "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/python/python-values-expressions",
-        "section_slug": "worked-example"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/python/syntax-data-types",
+        "section_slug": "arithmetic-expressions"
+      },
+      "teaching_content": {
+        "summary": "Arithmetic expressions combine numbers using operators: `+` (add), `-` (subtract), `*` (multiply), `/` (float divide), `//` (integer divide), `%` (modulo), and `**` (power).",
+        "why_it_matters": "Formulas for metrics, latency percentiles, pagination offsets, and geometry rely on exact operator precedence. Forgetting parentheses produces silent logic bugs.",
+        "intuition": "Python follows standard mathematical precedence rules (PEMDAS). Operators with equal precedence evaluate from left to right.",
+        "analogy": "Order of operations is like traffic hierarchy: pedestrians and ambulances go before ordinary cars. In math, parentheses and powers take priority before addition.",
+        "syntax_guide": "# Basic arithmetic\nsum_val = 10 + 5       # 15\nquotient = 7 / 2       # 3.5 (float division)\nint_div = 7 // 2       # 3 (truncates decimal)\nremainder = 7 % 2      # 1 (modulo)\n\n# Parentheses override precedence\navg = (10 + 20 + 30) / 3  # 20.0",
+        "worked_example_title": "Calculating Mean with Parentheses",
+        "worked_example_code": "def calculate_average(a, b, c):\n    # Group sum in parentheses before division\n    total = a + b + c\n    mean = total / 3.0\n    return mean",
+        "worked_example_explanation": "For inputs 10, 20, 30: `a + b + c` is 60. `60 / 3.0` evaluates to float `20.0`.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "calculate_average(10, 20, 30)",
+            "state_description": "Called with a=10, b=20, c=30",
+            "result_or_value": "a=10, b=20, c=30"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "total = a + b + c",
+            "state_description": "Sum inputs: 10 + 20 + 30",
+            "result_or_value": "total = 60"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "mean = total / 3.0",
+            "state_description": "Float division: 60 / 3.0",
+            "result_or_value": "mean = 20.0"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "return mean",
+            "state_description": "Return calculated float result",
+            "result_or_value": "20.0"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Forgetting parentheses in average formula",
+            "wrong_code": "average = a + b + c / 3",
+            "explanation": "Division has higher precedence than addition, so only `c` gets divided by 3.",
+            "correct_code": "average = (a + b + c) / 3"
+          },
+          {
+            "mistake_description": "Using single slash `/` when integer index is required",
+            "wrong_code": "midpoint = len(items) / 2\nelement = items[midpoint]",
+            "explanation": "Single `/` produces float (e.g. 2.0), raising TypeError: list indices must be integers or slices, not float.",
+            "correct_code": "midpoint = len(items) // 2\nelement = items[midpoint]"
+          }
+        ],
+        "revision_notes": [
+          "`/` always yields a float in Python 3; `//` rounds down towards negative infinity.",
+          "`%` yields the remainder (e.g. `14 % 5 == 4`).",
+          "`**` is exponentiation (e.g. `2 ** 3 == 8`).",
+          "Always wrap numerator expressions in parentheses when calculating ratios or averages."
+        ]
       },
       "worked_example": {
-        "title": "Floor division and precedence",
-        "code": "total = 10 + 2 * 5\nquotient = 17 // 3\nremainder = 17 % 3\nprint(total, quotient, remainder)",
-        "explanation": "Multiplication has higher precedence than addition. // performs floor division, % gives remainder."
+        "title": "Modulo and integer division",
+        "code": "total_minutes = 135\nhours = total_minutes // 60\nremaining_minutes = total_minutes % 60\nprint(f'{hours}h {remaining_minutes}m')",
+        "explanation": "Uses floor division and modulo to convert minutes into hours and remaining minutes."
       },
       "guided_practice_refs": [
-        "py-first-add-two"
+        "py-first-add-two",
+        "py-first-quotient-remainder",
+        "py-first-calc-average"
       ],
       "independent_practice_refs": [
         "python-celsius-to-fahrenheit"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-py-cond-1",
       "subject_key": "python",
       "topic_slug": "python-conditions",
       "title": "Comparisons and Boolean branching",
-      "stage": "beginner",
+      "stage": "first_steps",
       "order_index": 3,
+      "objective": "Form comparison predicates and control execution flow using if, elif, and else statements.",
       "prerequisite_keys": [
         "step-py-values-2"
       ],
-      "objective": "Use relational operators (==, !=, <, >) and if/elif/else statements.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
+        "source_type": "lesson_bundle",
         "content_key": "ai-engineer/v1/python/control-flow",
-        "section_slug": "conditional-statements"
+        "section_slug": "conditionals"
+      },
+      "teaching_content": {
+        "summary": "Branching allows programs to take different paths depending on whether a condition is true or false. Comparison operators (`==`, `!=`, `<`, `<=`, `>`, `>=`) evaluate to boolean `True` or `False`.",
+        "why_it_matters": "Real applications make decisions: checking user permissions, detecting input errors, and adjusting prices. Conditionals are the foundation of decision making in code.",
+        "intuition": "An if-statement is a fork in the road. You inspect a condition (the signpost). If it's true, you take the left path; if false, you take the right path.",
+        "analogy": "A bouncer checking IDs at a door. If age is 21 or over, enter; otherwise, turn away. Exactly one branch executes.",
+        "syntax_guide": "# Single branch\nif score >= 50:\n    print('Pass')\n\n# Multi-branch decision\nif score >= 90:\n    grade = 'A'\nelif score >= 75:\n    grade = 'B'\nelse:\n    grade = 'C'",
+        "worked_example_title": "Classifying Number Sign",
+        "worked_example_code": "def check_sign(n):\n    if n > 0:\n        return 'positive'\n    elif n < 0:\n        return 'negative'\n    else:\n        return 'zero'",
+        "worked_example_explanation": "For input -5: `n > 0` evaluates to False. `n < 0` evaluates to True. The elif block executes and returns 'negative'.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "check_sign(-5)",
+            "state_description": "Function called with n = -5",
+            "result_or_value": "n = -5"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "if n > 0:",
+            "state_description": "Evaluate comparison -5 > 0",
+            "result_or_value": "False (skip branch)"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "elif n < 0:",
+            "state_description": "Evaluate comparison -5 < 0",
+            "result_or_value": "True (enter branch)"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "return 'negative'",
+            "state_description": "Return string result immediately",
+            "result_or_value": "'negative'"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Using assignment `=` instead of equality `==` in if condition",
+            "wrong_code": "if x = 5:\n    print('Five')",
+            "explanation": "`=` is assignment, not equality. Python raises a SyntaxError: invalid syntax.",
+            "correct_code": "if x == 5:\n    print('Five')"
+          },
+          {
+            "mistake_description": "Inconsistent indentation within blocks",
+            "wrong_code": "if x > 0:\n  print('Positive')\n    return True",
+            "explanation": "Python uses indentation to define code blocks. Mixing indentation levels raises IndentationError.",
+            "correct_code": "if x > 0:\n    print('Positive')\n    return True"
+          }
+        ],
+        "revision_notes": [
+          "`==` checks value equality, while `!=` checks inequality.",
+          "`if` conditions must end with a colon `:`.",
+          "Branches inside `if`, `elif`, and `else` must be indented (standard 4 spaces).",
+          "Once a matching branch executes, all subsequent `elif`/`else` branches are skipped."
+        ]
       },
       "worked_example": {
-        "title": "Branching with if/else",
-        "code": "score = 85\nif score >= 90:\n    grade = 'A'\nelif score >= 80:\n    grade = 'B'\nelse:\n    grade = 'C'\nprint(grade)",
-        "explanation": "Branches are evaluated from top to bottom; the first true condition executes its block."
+        "title": "Pass / Fail classification",
+        "code": "def evaluate_grade(score):\n    if score >= 60:\n        return 'pass'\n    else:\n        return 'fail'",
+        "explanation": "Checks if score meets threshold and returns corresponding status."
       },
       "guided_practice_refs": [
-        "py-first-compare-two"
+        "py-first-compare-two",
+        "py-first-is-positive"
       ],
       "independent_practice_refs": [
-        "python-leap-year",
-        "python-raindrops"
+        "python-leap-year"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-py-cond-2",
       "subject_key": "python",
       "topic_slug": "python-conditions",
       "title": "Modulo and compound conditions",
-      "stage": "beginner",
+      "stage": "first_steps",
       "order_index": 4,
+      "objective": "Combine multiple boolean conditions using and, or, not, and apply modulo for divisibility patterns.",
       "prerequisite_keys": [
         "step-py-cond-1"
       ],
-      "objective": "Combine conditions using and, or, not, and modulo checks.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
+        "source_type": "lesson_bundle",
         "content_key": "ai-engineer/v1/python/control-flow",
-        "section_slug": "truthiness-and-falsiness"
+        "section_slug": "compound-conditions"
+      },
+      "teaching_content": {
+        "summary": "Compound conditions connect multiple expressions using logical operators: `and` (both must be true), `or` (at least one must be true), and `not` (inverts truth). The modulo operator `%` tests divisibility (e.g. `n % 2 == 0` for even numbers).",
+        "why_it_matters": "FizzBuzz, leap year checks, scheduling intervals, and access validation require checking multiple simultaneous constraints.",
+        "intuition": "In `A and B`, if `A` is false, Python short-circuits and never checks `B`. In `A or B`, if `A` is true, Python short-circuits and returns true immediately.",
+        "analogy": "Boarding an airplane requires both a ticket AND valid photo ID (`ticket and id`). To pay, you can use credit card OR cash (`card or cash`).",
+        "syntax_guide": "# Logical AND\nif age >= 18 and has_id:\n    permit = True\n\n# Logical OR\nif day == 'Saturday' or day == 'Sunday':\n    is_weekend = True\n\n# Divisibility\nif number % 3 == 0 and number % 5 == 0:\n    result = 'FizzBuzz'",
+        "worked_example_title": "FizzBuzz Single Number Check",
+        "worked_example_code": "def fizz_buzz_single(n):\n    if n % 15 == 0:     # Divisible by both 3 and 5\n        return 'FizzBuzz'\n    elif n % 3 == 0:\n        return 'Fizz'\n    elif n % 5 == 0:\n        return 'Buzz'\n    else:\n        return str(n)",
+        "worked_example_explanation": "For input 15: `15 % 15 == 0` is True, so 'FizzBuzz' is returned. Testing `n % 15 == 0` first ensures the combined case isn't shadowed by `n % 3 == 0`.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "fizz_buzz_single(15)",
+            "state_description": "Called with n = 15",
+            "result_or_value": "n = 15"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "if n % 15 == 0:",
+            "state_description": "Evaluate 15 % 15 == 0",
+            "result_or_value": "True (0 == 0)"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "return 'FizzBuzz'",
+            "state_description": "Return 'FizzBuzz' without testing subsequent elif branches",
+            "result_or_value": "'FizzBuzz'"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Putting specific compound condition after individual conditions",
+            "wrong_code": "if n % 3 == 0:\n    return 'Fizz'\nelif n % 5 == 0:\n    return 'Buzz'\nelif n % 15 == 0:\n    return 'FizzBuzz'",
+            "explanation": "If n is 15, `n % 3 == 0` matches first, returning 'Fizz' and never reaching 'FizzBuzz'.",
+            "correct_code": "if n % 15 == 0:\n    return 'FizzBuzz'\nelif n % 3 == 0:\n    return 'Fizz'\nelif n % 5 == 0:\n    return 'Buzz'"
+          },
+          {
+            "mistake_description": "Writing `if x == 1 or 2:` instead of `if x == 1 or x == 2:`",
+            "wrong_code": "if x == 1 or 2:\n    print('Matched')",
+            "explanation": "In Python, `2` evaluates to truthy, so the condition is always True regardless of `x`.",
+            "correct_code": "if x == 1 or x == 2:\n    print('Matched')"
+          }
+        ],
+        "revision_notes": [
+          "`and` requires all conditions to be True; short-circuits on first False.",
+          "`or` requires any condition to be True; short-circuits on first True.",
+          "Always check the most restrictive compound condition before less restrictive individual branches.",
+          "`n % k == 0` proves that `n` is an exact multiple of `k`."
+        ]
       },
       "worked_example": {
-        "title": "Compound conditions",
-        "code": "n = 15\nis_fizzbuzz = (n % 3 == 0) and (n % 5 == 0)\nprint('Divisible by 3 and 5:', is_fizzbuzz)",
-        "explanation": "The and operator requires both operands to be truthy."
+        "title": "Even or Odd check",
+        "code": "def check_parity(n):\n    if n % 2 == 0:\n        return 'even'\n    return 'odd'",
+        "explanation": "Checks if number leaves 0 remainder when divided by 2."
       },
       "guided_practice_refs": [
-        "py-first-even-odd"
+        "py-first-even-odd",
+        "py-first-fizz-check"
       ],
       "independent_practice_refs": [
         "python-fizzbuzz"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-py-loops-1",
       "subject_key": "python",
       "topic_slug": "python-loops",
       "title": "For loops and range iteration",
-      "stage": "beginner",
+      "stage": "first_steps",
       "order_index": 5,
+      "objective": "Iterate sequentially over ranges and collections using for loops and maintain accumulator variables.",
       "prerequisite_keys": [
         "step-py-cond-2"
       ],
-      "objective": "Iterate using for loops over ranges and collections, updating accumulators.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
+        "source_type": "lesson_bundle",
         "content_key": "ai-engineer/v1/python/control-flow",
-        "section_slug": "loops"
+        "section_slug": "for-loops"
+      },
+      "teaching_content": {
+        "summary": "Loops repeat a block of code multiple times. A `for` loop in Python iterates over members of a sequence in order. `range(start, stop)` generates a sequence of integers up to `stop - 1`.",
+        "why_it_matters": "Computers excel at repeating operations accurately millions of times. Processing lists, summing metrics, and batching requests all rely on iteration.",
+        "intuition": "A for loop visits items one by one. In each pass (iteration), the loop variable receives the next item in line.",
+        "analogy": "An assembly line inspector picking up boxes one by one from a conveyor belt, examining each box, and tallying the count.",
+        "syntax_guide": "# Range with stop only (0 to 4)\nfor i in range(5):\n    print(i)\n\n# Range with start and stop (1 to 5)\nfor i in range(1, 6):\n    print(i)\n\n# Accumulator pattern\ntotal = 0\nfor x in [10, 20, 30]:\n    total += x",
+        "worked_example_title": "Summing Integers 1 to N",
+        "worked_example_code": "def sum_to_n(n):\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total",
+        "worked_example_explanation": "For n = 4, range(1, 5) yields 1, 2, 3, 4. In iteration 1, total becomes 1; iteration 2: 3; iteration 3: 6; iteration 4: 10. The function returns 10.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "total = 0",
+            "state_description": "Initialize accumulator",
+            "result_or_value": "total = 0"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "for i = 1",
+            "state_description": "total += 1",
+            "result_or_value": "total = 1"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "for i = 2",
+            "state_description": "total += 2",
+            "result_or_value": "total = 3"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "for i = 3",
+            "state_description": "total += 3",
+            "result_or_value": "total = 6"
+          },
+          {
+            "step_number": 5,
+            "line_or_expression": "for i = 4",
+            "state_description": "total += 4",
+            "result_or_value": "total = 10"
+          },
+          {
+            "step_number": 6,
+            "line_or_expression": "return total",
+            "state_description": "Loop terminates; return accumulated sum",
+            "result_or_value": "10"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Off-by-one error using `range(1, n)` instead of `range(1, n + 1)`",
+            "wrong_code": "for i in range(1, n):\n    total += i",
+            "explanation": "`range(1, n)` stops at `n - 1`, excluding `n` from the sum.",
+            "correct_code": "for i in range(1, n + 1):\n    total += i"
+          },
+          {
+            "mistake_description": "Re-initializing the accumulator inside the loop body",
+            "wrong_code": "for x in items:\n    total = 0\n    total += x",
+            "explanation": "Resetting `total = 0` every iteration destroys the running sum, leaving only the last item.",
+            "correct_code": "total = 0\nfor x in items:\n    total += x"
+          }
+        ],
+        "revision_notes": [
+          "`range(stop)` generates `0` through `stop - 1`.",
+          "`range(start, stop)` generates `start` through `stop - 1`.",
+          "Accumulator variables must be initialized before the loop begins.",
+          "`+=` is the in-place addition operator (`total += x` is equivalent to `total = total + x`)."
+        ]
       },
       "worked_example": {
-        "title": "Accumulation over range",
-        "code": "total = 0\nfor i in range(1, 6):\n    total += i\nprint('Sum 1 to 5:', total)",
-        "explanation": "range(start, stop) generates integers from start up to stop - 1."
+        "title": "Filtered counting in a list",
+        "code": "def count_positives(numbers):\n    count = 0\n    for x in numbers:\n        if x > 0:\n            count += 1\n    return count",
+        "explanation": "Iterates through elements and increments count only when element is strictly positive."
       },
       "guided_practice_refs": [
+        "py-first-range-sum",
         "py-first-count-numbers"
       ],
       "independent_practice_refs": [
         "python-collatz"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-py-loops-2",
       "subject_key": "python",
       "topic_slug": "python-loops",
-      "title": "Loop tracing and finding extremes",
-      "stage": "beginner",
+      "title": "Loop tracing and extreme values",
+      "stage": "first_steps",
       "order_index": 6,
+      "objective": "Track best-so-far states to determine maximum and minimum elements in collections without built-ins.",
       "prerequisite_keys": [
         "step-py-loops-1"
       ],
-      "objective": "Track loop state across iterations and identify minimums or maximums.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
+        "source_type": "lesson_bundle",
         "content_key": "ai-engineer/v1/python/control-flow",
-        "section_slug": "loop-control"
+        "section_slug": "finding-extremes"
+      },
+      "teaching_content": {
+        "summary": "Finding the maximum or minimum value in an unsorted collection requires examining every element and tracking the extreme value seen so far.",
+        "why_it_matters": "Extreme tracking is the foundation of greedy algorithms, high-water mark detection, peak memory profiling, and minimax decision making.",
+        "intuition": "Start by assuming the first item you see is the champion. Walk through every other item. Whenever you meet someone taller than the champion, crown them the new champion.",
+        "analogy": "King of the Hill. The first person climbs the hill. Any subsequent challenger who beats them takes their spot on top.",
+        "syntax_guide": "# Finding maximum in non-empty list\nbest = numbers[0]  # Initialize with first element!\nfor x in numbers[1:]:\n    if x > best:\n        best = x\n\n# Finding minimum in non-empty list\nlowest = numbers[0]\nfor x in numbers[1:]:\n    if x < lowest:\n        lowest = x",
+        "worked_example_title": "Finding Maximum Without Built-in max()",
+        "worked_example_code": "def find_maximum(numbers):\n    # 1. Assume first item is maximum\n    best = numbers[0]\n    # 2. Compare against remaining items\n    for x in numbers[1:]:\n        if x > best:\n            best = x\n    # 3. Return champion\n    return best",
+        "worked_example_explanation": "For [3, 1, 9, 4]: `best` starts at 3. Next x=1 (not > 3). Next x=9 (9 > 3, so `best` becomes 9). Next x=4 (not > 9). Returns 9.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "find_maximum([3, 1, 9, 4])",
+            "state_description": "Initial state",
+            "result_or_value": "numbers = [3, 1, 9, 4]"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "best = numbers[0]",
+            "state_description": "Initialize champion with first element",
+            "result_or_value": "best = 3"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "x = 1",
+            "state_description": "1 > 3 is False",
+            "result_or_value": "best remains 3"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "x = 9",
+            "state_description": "9 > 3 is True -> update champion",
+            "result_or_value": "best = 9"
+          },
+          {
+            "step_number": 5,
+            "line_or_expression": "x = 4",
+            "state_description": "4 > 9 is False",
+            "result_or_value": "best remains 9"
+          },
+          {
+            "step_number": 6,
+            "line_or_expression": "return best",
+            "state_description": "All elements inspected; return maximum",
+            "result_or_value": "9"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Initializing `best = 0` when searching for maximum",
+            "wrong_code": "best = 0\nfor x in numbers:\n    if x > best:\n        best = x",
+            "explanation": "If all numbers are negative (e.g. [-5, -2, -9]), `best` incorrectly returns 0 instead of -2.",
+            "correct_code": "best = numbers[0]\nfor x in numbers[1:]:\n    if x > best:\n        best = x"
+          },
+          {
+            "mistake_description": "Calling `find_maximum([])` on an empty list",
+            "wrong_code": "best = numbers[0]  # IndexError if empty",
+            "explanation": "Attempting to index an empty list raises IndexError. Non-empty preconditions must be verified.",
+            "correct_code": "if not numbers:\n    return None\nbest = numbers[0]"
+          }
+        ],
+        "revision_notes": [
+          "Always initialize the champion candidate with `numbers[0]`, not 0 or arbitrary constants.",
+          "Iterating through `numbers[1:]` saves one redundant self-comparison.",
+          "Linear scan checks each item exactly once in O(N) time with O(1) auxiliary memory.",
+          "To find minimum, simply flip the comparison operator from `>` to `<`."
+        ]
       },
       "worked_example": {
-        "title": "Tracing maximum value",
-        "code": "values = [12, 45, 7, 89, 23]\nlargest = values[0]\nfor v in values:\n    if v > largest:\n        largest = v\nprint('Largest:', largest)",
-        "explanation": "Comparing each item against the running maximum finds the peak in one pass."
+        "title": "Finding minimum element",
+        "code": "def find_min(arr):\n    lowest = arr[0]\n    for val in arr[1:]:\n        if val < lowest:\n            lowest = val\n    return lowest",
+        "explanation": "Inspects array elements sequentially, preserving the smallest value seen."
       },
       "guided_practice_refs": [
-        "py-first-find-max"
+        "py-first-find-max",
+        "py-first-find-min"
       ],
       "independent_practice_refs": [
-        "python-running-sum",
-        "python-largest-product"
+        "python-raindrops"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-py-strings-1",
       "subject_key": "python",
       "topic_slug": "python-strings",
       "title": "String indexing and transformations",
-      "stage": "beginner",
+      "stage": "first_steps",
       "order_index": 7,
+      "objective": "Access string characters using zero-based and negative indices, extract substrings via slicing, and apply methods.",
       "prerequisite_keys": [
         "step-py-loops-1"
       ],
-      "objective": "Index characters, slice substrings, and check character properties.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
+        "source_type": "lesson_bundle",
         "content_key": "ai-engineer/v1/python/strings",
-        "section_slug": "string-basics"
+        "section_slug": "indexing-and-slicing"
+      },
+      "teaching_content": {
+        "summary": "Strings in Python are immutable sequences of Unicode characters. Characters are indexed starting from 0 at the beginning, or -1 at the end. Slicing `[start:stop]` extracts a new substring.",
+        "why_it_matters": "Text parsing, data cleansing, URL parsing, and tokenization depend on string indexing and slicing.",
+        "intuition": "Indices point between characters or directly at character positions. Positive indices count forward from the left; negative indices count backward from the right.",
+        "analogy": "A tape measure marked in inches. 0 is the start edge. -1 is the final mark before the end.",
+        "syntax_guide": "text = 'Python'\nfirst = text[0]        # 'P'\nlast = text[-1]        # 'n'\nslice_py = text[0:2]   # 'Py' (indices 0 and 1, stops before 2)\nlower = text.lower()   # 'python'\nstripped = ' hi '.strip()  # 'hi'",
+        "worked_example_title": "Extracting First and Last Characters",
+        "worked_example_code": "def first_and_last(s):\n    # Extract index 0 and index -1\n    return [s[0], s[-1]]",
+        "worked_example_explanation": "For input 'hello', `s[0]` is 'h' and `s[-1]` is 'o'. The function returns `['h', 'o']`.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "first_and_last('hello')",
+            "state_description": "Input string length is 5",
+            "result_or_value": "s = 'hello'"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "s[0]",
+            "state_description": "Access character at index 0",
+            "result_or_value": "'h'"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "s[-1]",
+            "state_description": "Access last character (index 4)",
+            "result_or_value": "'o'"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "return [s[0], s[-1]]",
+            "state_description": "Combine into 2-element list",
+            "result_or_value": "['h', 'o']"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Attempting to mutate string characters in place",
+            "wrong_code": "s = 'hello'\ns[0] = 'H'",
+            "explanation": "Strings in Python are immutable. This raises TypeError: 'str' object does not support item assignment.",
+            "correct_code": "s = 'H' + s[1:]"
+          },
+          {
+            "mistake_description": "Off-by-one thinking index `len(s)` is the last character",
+            "wrong_code": "last = s[len(s)]",
+            "explanation": "Because indexing is 0-based, the last valid index is `len(s) - 1`. `s[len(s)]` raises IndexError: string index out of range.",
+            "correct_code": "last = s[-1]"
+          }
+        ],
+        "revision_notes": [
+          "0-based indexing: first character is at `0`, second at `1`.",
+          "Negative indexing: last character is at `-1`, second to last at `-2`.",
+          "Slices `[start:stop]` include `start` and exclude `stop`.",
+          "Strings are immutable; methods like `.lower()` return new string instances."
+        ]
       },
       "worked_example": {
-        "title": "Reversing and indexing strings",
-        "code": "word = 'level'\nis_palindrome = (word == word[::-1])\nprint(word, 'palindrome?', is_palindrome)",
-        "explanation": "Slice `[::-1]` produces the reversed string in Python."
+        "title": "String sanitization",
+        "code": "def clean_username(raw):\n    return raw.strip().lower()",
+        "explanation": "Removes surrounding whitespace and standardizes text to lowercase."
       },
-      "guided_practice_refs": [],
+      "guided_practice_refs": [
+        "py-first-str-first-last"
+      ],
       "independent_practice_refs": [
-        "python-count-vowels",
-        "python-is-palindrome",
         "python-normalize-name"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-py-collections-1",
       "subject_key": "python",
       "topic_slug": "python-collections",
-      "title": "Lists, sets, and frequency tracking",
-      "stage": "developing",
+      "title": "Lists and sequential operations",
+      "stage": "first_steps",
       "order_index": 8,
+      "objective": "Construct, index, append to, and filter dynamic lists in Python.",
       "prerequisite_keys": [
-        "step-py-strings-1"
+        "step-py-loops-2"
       ],
-      "objective": "Use lists, sets for uniqueness, and dictionaries for frequency counts.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
+        "source_type": "lesson_bundle",
         "content_key": "ai-engineer/v1/python/collections",
-        "section_slug": "common-collections"
+        "section_slug": "lists"
+      },
+      "teaching_content": {
+        "summary": "Lists are mutable, ordered collections of items enclosed in square brackets `[...]`. You can append items, remove items, modify items by index, and filter them sequentially.",
+        "why_it_matters": "Lists are the most widely used collection in Python. Arrays of query results, incoming messages, and batch items are stored as lists.",
+        "intuition": "A list is an expandable row of numbered cubbies. You can read any cubby, change what is in it, or tack a new cubby onto the end.",
+        "analogy": "A shopping list on a notepad. You can add items to the bottom, cross items off, or read the 3rd item.",
+        "syntax_guide": "# Create list\nitems = [10, 20, 30]\n\n# Append item\nitems.append(40)       # [10, 20, 30, 40]\n\n# Access by index\nfirst = items[0]       # 10\n\n# Length\ncount = len(items)     # 4\n\n# Filter pattern\nevens = []\nfor x in items:\n    if x % 2 == 0:\n        evens.append(x)",
+        "worked_example_title": "Filtering Even Numbers Into New List",
+        "worked_example_code": "def filter_evens(numbers):\n    evens = []\n    for x in numbers:\n        if x % 2 == 0:\n            evens.append(x)\n    return evens",
+        "worked_example_explanation": "For [1, 2, 3, 4, 5, 6]: 1 is odd (skipped); 2 is even (appended); 3 is odd; 4 is even; 5 is odd; 6 is even. Returns [2, 4, 6].",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "evens = []",
+            "state_description": "Create empty result list",
+            "result_or_value": "evens = []"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "for x in [1, 2, 3, 4]",
+            "state_description": "x=1: 1%2!=0 (skip)",
+            "result_or_value": "evens = []"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "x = 2",
+            "state_description": "2%2==0: evens.append(2)",
+            "result_or_value": "evens = [2]"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "x = 3",
+            "state_description": "3%2!=0 (skip)",
+            "result_or_value": "evens = [2]"
+          },
+          {
+            "step_number": 5,
+            "line_or_expression": "x = 4",
+            "state_description": "4%2==0: evens.append(4)",
+            "result_or_value": "evens = [2, 4]"
+          },
+          {
+            "step_number": 6,
+            "line_or_expression": "return evens",
+            "state_description": "Return populated filtered list",
+            "result_or_value": "[2, 4]"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Modifying a list while iterating over it with for loop",
+            "wrong_code": "for x in numbers:\n    if x % 2 != 0:\n        numbers.remove(x)",
+            "explanation": "Mutating a collection while iterating shifts internal index pointers, causing elements to be silently skipped.",
+            "correct_code": "evens = [x for x in numbers if x % 2 == 0]"
+          },
+          {
+            "mistake_description": "Assigning result of `list.append()` to variable",
+            "wrong_code": "my_list = my_list.append(5)",
+            "explanation": "`append()` modifies the list in place and returns `None`. `my_list` becomes `None`.",
+            "correct_code": "my_list.append(5)"
+          }
+        ],
+        "revision_notes": [
+          "Lists are ordered and mutable; elements can be modified in place via `list[i] = val`.",
+          "`list.append(item)` appends to the end in amortized O(1) time.",
+          "`len(list)` returns the number of elements in O(1) time.",
+          "To filter, construct a clean new list rather than deleting from the active iteration."
+        ]
       },
       "worked_example": {
-        "title": "Deduplicating while counting",
-        "code": "items = ['apple', 'banana', 'apple', 'orange']\nunique = set(items)\nprint('Unique items:', sorted(unique))",
-        "explanation": "Sets drop duplicate entries in O(1) average lookup time."
+        "title": "Accumulating filtered numbers",
+        "code": "def select_positives(nums):\n    result = []\n    for n in nums:\n        if n > 0:\n            result.append(n)\n    return result",
+        "explanation": "Collects positive numbers into a newly allocated output list."
       },
-      "guided_practice_refs": [],
-      "independent_practice_refs": [
-        "python-word-count",
-        "python-pangram",
-        "python-deduplicate-list"
+      "guided_practice_refs": [
+        "py-first-list-append-even"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "independent_practice_refs": [
+        "python-running-sum"
+      ],
+      "availability_status": "available",
+      "review_eligible": true
+    },
+    {
+      "key": "step-py-collections-2",
+      "subject_key": "python",
+      "topic_slug": "python-collections",
+      "title": "Dictionaries and frequency tracking",
+      "stage": "first_steps",
+      "order_index": 9,
+      "objective": "Map unique keys to values using dictionaries, retrieve with fallbacks, and build frequency counts.",
+      "prerequisite_keys": [
+        "step-py-collections-1"
+      ],
+      "teaching_ref": {
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/python/collections",
+        "section_slug": "dictionaries"
+      },
+      "teaching_content": {
+        "summary": "Dictionaries (`dict`) store key-value mappings enclosed in curly braces `{key: value}`. Keys must be unique and immutable (such as strings or integers). Dictionaries provide O(1) average-time lookups.",
+        "why_it_matters": "JSON payloads, database records, HTTP headers, and caches are structured as key-value dictionaries. Counting word frequencies and finding duplicates relies on dictionaries.",
+        "intuition": "A dictionary is like a real dictionary or phone directory: you look up a word (key) and immediately jump to its definition (value) without reading from page 1.",
+        "analogy": "A coat check room. You give them your coat check number (key) and they hand you back your coat (value).",
+        "syntax_guide": "# Create dictionary\nuser = {'name': 'Ada', 'age': 36}\n\n# Read key\nname = user['name']     # 'Ada'\n\n# Safe read with fallback default\nrole = user.get('role', 'guest')  # 'guest'\n\n# Update / insert\nuser['role'] = 'admin'\n\n# Frequency counting idiom\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1",
+        "worked_example_title": "Word Frequency Counter",
+        "worked_example_code": "def word_frequencies(words):\n    counts = {}\n    for w in words:\n        counts[w] = counts.get(w, 0) + 1\n    return counts",
+        "worked_example_explanation": "For ['apple', 'banana', 'apple']: 'apple' seen first time: get('apple', 0) is 0, + 1 = 1. 'banana' seen: get is 0, + 1 = 1. 'apple' seen second time: get is 1, + 1 = 2. Returns {'apple': 2, 'banana': 1}.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "counts = {}",
+            "state_description": "Initialize empty hash map",
+            "result_or_value": "counts = {}"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "w = 'apple'",
+            "state_description": "counts.get('apple', 0) -> 0 + 1",
+            "result_or_value": "counts = {'apple': 1}"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "w = 'banana'",
+            "state_description": "counts.get('banana', 0) -> 0 + 1",
+            "result_or_value": "counts = {'apple': 1, 'banana': 1}"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "w = 'apple'",
+            "state_description": "counts.get('apple', 0) -> 1 + 1",
+            "result_or_value": "counts = {'apple': 2, 'banana': 1}"
+          },
+          {
+            "step_number": 5,
+            "line_or_expression": "return counts",
+            "state_description": "Return frequency dictionary",
+            "result_or_value": "{'apple': 2, 'banana': 1}"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Accessing missing key directly with bracket syntax",
+            "wrong_code": "score = player_scores['unknown_user']",
+            "explanation": "If the key does not exist, bracket lookup raises a KeyError.",
+            "correct_code": "score = player_scores.get('unknown_user', 0)"
+          },
+          {
+            "mistake_description": "Using mutable types (like lists) as dictionary keys",
+            "wrong_code": "lookup = {[1, 2]: 'values'}",
+            "explanation": "Dictionary keys must be hashable. Lists are mutable and unhashable, raising TypeError: unhashable type: 'list'.",
+            "correct_code": "lookup = {(1, 2): 'values'}"
+          }
+        ],
+        "revision_notes": [
+          "Keys must be immutable and hashable (str, int, tuple). Values can be any type.",
+          "`dict.get(key, default)` returns `default` if `key` is missing without raising KeyError.",
+          "Dictionary key lookups, insertions, and updates average O(1) time complexity.",
+          "Iterating `for k in d:` iterates over keys; `for k, v in d.items():` iterates over key-value pairs."
+        ]
+      },
+      "worked_example": {
+        "title": "Character counting",
+        "code": "def count_chars(text):\n    freq = {}\n    for c in text:\n        freq[c] = freq.get(c, 0) + 1\n    return freq",
+        "explanation": "Tallies how often each character appears in a string."
+      },
+      "guided_practice_refs": [
+        "py-first-dict-count"
+      ],
+      "independent_practice_refs": [
+        "python-word-count"
+      ],
+      "availability_status": "available",
+      "review_eligible": true
+    },
+    {
+      "key": "step-py-functions-1",
+      "subject_key": "python",
+      "topic_slug": "python-functions",
+      "title": "Functions, parameters, and returns",
+      "stage": "first_steps",
+      "order_index": 10,
+      "objective": "Define reusable functions with explicit parameters, docstrings, and return value contracts.",
+      "prerequisite_keys": [
+        "step-py-collections-2"
+      ],
+      "teaching_ref": {
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/python/functions",
+        "section_slug": "defining-functions"
+      },
+      "teaching_content": {
+        "summary": "A function is a named, reusable block of code defined with the `def` keyword. Functions accept arguments through parameters and pass back results using `return`.",
+        "why_it_matters": "Functions eliminate copy-paste code duplication, establish clear boundaries between program components, and make code testable.",
+        "intuition": "A function is a math machine or vending machine. You drop inputs into the slot (arguments), the internal gears turn, and the result drops into the tray (return).",
+        "analogy": "A recipe in a cookbook. You don't rewrite the recipe every time you cook dinner; you refer to 'bake_cookies(flour, sugar)'.",
+        "syntax_guide": "# Define function\ndef calculate_tax(subtotal, rate=0.08):\n    \"\"\"Calculates tax amount from subtotal and tax rate.\"\"\"\n    tax = subtotal * rate\n    return tax\n\n# Call function\nresult = calculate_tax(100.0)      # 8.0\ncustom = calculate_tax(100.0, 0.1) # 10.0",
+        "worked_example_title": "Temperature Conversion Function",
+        "worked_example_code": "def celsius_to_fahrenheit(c):\n    # F = C * 9/5 + 32\n    fahrenheit = c * 9 / 5 + 32\n    return round(fahrenheit, 1)",
+        "worked_example_explanation": "For c = 0: 0 * 9/5 + 32 = 32.0. Returns 32.0. For c = 100: 100 * 9/5 + 32 = 212.0.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "celsius_to_fahrenheit(0)",
+            "state_description": "Call function passing parameter c = 0",
+            "result_or_value": "c = 0"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "fahrenheit = c * 9 / 5 + 32",
+            "state_description": "Compute formula: 0 + 32",
+            "result_or_value": "fahrenheit = 32.0"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "return round(fahrenheit, 1)",
+            "state_description": "Round and return float to caller",
+            "result_or_value": "32.0"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Using `print()` instead of `return`",
+            "wrong_code": "def add(a, b):\n    print(a + b)\n\nres = add(2, 3)\nprint(res * 2)  # TypeError",
+            "explanation": "`print()` only displays text in console. If a function lacks `return`, it implicitly returns `None`, causing `res * 2` to fail with TypeError.",
+            "correct_code": "def add(a, b):\n    return a + b"
+          },
+          {
+            "mistake_description": "Writing statements after `return`",
+            "wrong_code": "def compute(x):\n    return x * 2\n    x = x + 1  # Unreachable!",
+            "explanation": "`return` immediately halts function execution and exits. Any code below it in the same block is dead code.",
+            "correct_code": "def compute(x):\n    x = x + 1\n    return x * 2"
+          }
+        ],
+        "revision_notes": [
+          "`def` declares a function name and formal parameters.",
+          "`return` terminates function execution and hands the result back to the caller.",
+          "Parameters are local to the function scope and cannot be seen from outer scope.",
+          "Always return values rather than printing them when writing testable logic."
+        ]
+      },
+      "worked_example": {
+        "title": "Pure calculation function",
+        "code": "def rectangle_area(width, height):\n    return width * height",
+        "explanation": "Calculates and returns the area of a rectangle."
+      },
+      "guided_practice_refs": [
+        "py-first-celsius-to-fahr"
+      ],
+      "independent_practice_refs": [
+        "python-count-vowels"
+      ],
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-sql-tables-1",
@@ -250,26 +904,77 @@
       "title": "Tables, rows and scalar projection",
       "stage": "first_steps",
       "order_index": 1,
+      "objective": "Understand the relational table model and execute scalar SELECT expressions without table dependencies.",
       "prerequisite_keys": [],
-      "objective": "Understand relational tables, data types, and simple SELECT expressions.",
       "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-tables-keys",
-        "section_slug": "intuition"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/sql-postgresql/relational-foundations",
+        "section_slug": "tables-and-rows"
+      },
+      "teaching_content": {
+        "summary": "Relational databases store structured data in tables. A table consists of named columns with strict types, and rows representing individual records. `SELECT` is the primary command used to query and compute data.",
+        "why_it_matters": "PostgreSQL is the backbone of production backend systems. Every query you write begins with understanding how SELECT retrieves and transforms tabular data.",
+        "intuition": "A table is a strictly validated spreadsheet. Columns define the questions you can ask; rows are the answers filled in by users.",
+        "analogy": "A physical filing cabinet. The drawer is the table. Each folder inside is a row. The labels on the folders are columns.",
+        "syntax_guide": "-- Select constant value\nSELECT 42 AS answer;\n\n-- Compute scalar expression\nSELECT 100 + 5 AS total_sum;\n\n-- Query current timestamp\nSELECT CURRENT_DATE;",
+        "worked_example_title": "Scalar Calculation in PostgreSQL",
+        "worked_example_code": "SELECT 100 + 5 AS total_sum;",
+        "worked_example_explanation": "Executes addition on literal constants and returns a 1-row, 1-column table named `total_sum` containing integer 105.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "SELECT 100 + 5",
+            "state_description": "Engine evaluates constant arithmetic",
+            "result_or_value": "105"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "AS total_sum",
+            "state_description": "Applies column alias to result header",
+            "result_or_value": "Column: total_sum"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": ";",
+            "state_description": "Terminates query statement and transmits result set",
+            "result_or_value": "| total_sum |\n| 105 |"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Omitting semicolon at the end of SQL queries",
+            "wrong_code": "SELECT 42 AS answer",
+            "explanation": "While some interactive consoles tolerate missing semicolons, SQL standards require `;` to delineate query statements.",
+            "correct_code": "SELECT 42 AS answer;"
+          },
+          {
+            "mistake_description": "Using double quotes for string literals",
+            "wrong_code": "SELECT \"hello\" AS greeting;",
+            "explanation": "In SQL, double quotes are for table/column identifiers. Single quotes `'hello'` are for string literals.",
+            "correct_code": "SELECT 'hello' AS greeting;"
+          }
+        ],
+        "revision_notes": [
+          "Tables have fixed columns (schema) and dynamic rows (data).",
+          "`SELECT` can evaluate arithmetic expressions directly without a `FROM` clause in PostgreSQL.",
+          "`AS alias_name` renames the output column in the result set.",
+          "String literals in SQL use single quotes `'text'`."
+        ]
       },
       "worked_example": {
-        "title": "Scalar SELECT",
-        "code": "SELECT 100 AS base_score, 'Active' AS status;",
-        "explanation": "SELECT computes and labels output columns."
+        "title": "Constant projection",
+        "code": "SELECT 42 AS answer;",
+        "explanation": "Outputs literal 42 with header answer."
       },
       "guided_practice_refs": [
-        "sql-first-select-constant"
+        "sql-first-select-constant",
+        "sql-first-calc-constant"
       ],
       "independent_practice_refs": [
-        "sql-distinct-cities"
+        "sql-active-users"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-sql-tables-2",
@@ -278,28 +983,79 @@
       "title": "Reading columns and table structure",
       "stage": "first_steps",
       "order_index": 2,
+      "objective": "Project specific columns from existing database tables and apply explicit column aliases.",
       "prerequisite_keys": [
         "step-sql-tables-1"
       ],
-      "objective": "Project specific columns from an existing table.",
       "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-tables-keys",
-        "section_slug": "worked-example"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/sql-postgresql/query-basics",
+        "section_slug": "column-projection"
+      },
+      "teaching_content": {
+        "summary": "The `FROM` clause specifies the source table. Projection chooses which columns to retrieve (`SELECT col1, col2 FROM table;`). Selecting only required columns conserves memory and network bandwidth.",
+        "why_it_matters": "Using `SELECT *` in production wastes database I/O, breaks caching, and can leak sensitive fields like hashed passwords. Explicit column projection is a production best practice.",
+        "intuition": "Don't haul the entire warehouse when you only need one box. Name the specific columns you need.",
+        "analogy": "Ordering groceries online. You select specific items (milk, eggs) rather than checking 'deliver everything in the store'.",
+        "syntax_guide": "-- Select single column\nSELECT title FROM books;\n\n-- Select multiple columns with aliases\nSELECT first_name AS given_name, email AS contact_email\nFROM members;",
+        "worked_example_title": "Projecting and Renaming User Fields",
+        "worked_example_code": "SELECT first_name AS given_name, email AS contact_email\nFROM members;",
+        "worked_example_explanation": "Reads the `members` table, extracts only `first_name` and `email`, and outputs them under the headers `given_name` and `contact_email`.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "FROM members",
+            "state_description": "Locate and scan the members table",
+            "result_or_value": "All rows in members"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "SELECT first_name, email",
+            "state_description": "Project only specified columns; discard remaining columns",
+            "result_or_value": "2 columns per row"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "AS given_name, AS contact_email",
+            "state_description": "Rename headers in result set metadata",
+            "result_or_value": "given_name, contact_email"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Using trailing comma in SELECT list",
+            "wrong_code": "SELECT first_name, email, FROM members;",
+            "explanation": "A comma after the last column causes a syntax error before `FROM`.",
+            "correct_code": "SELECT first_name, email FROM members;"
+          },
+          {
+            "mistake_description": "Relying on `SELECT *` in application queries",
+            "wrong_code": "SELECT * FROM users;",
+            "explanation": "Retrieves unneeded columns, prevents index-only scans, and creates fragile API bindings.",
+            "correct_code": "SELECT id, username, email FROM users;"
+          }
+        ],
+        "revision_notes": [
+          "`FROM <table>` defines the primary data source.",
+          "Comma-separated column names specify the exact output attributes.",
+          "`AS alias` renames columns for frontend readability.",
+          "Never use `SELECT *` when only specific columns are needed."
+        ]
       },
       "worked_example": {
-        "title": "Column projection",
-        "code": "SELECT first_name, email FROM employees;",
-        "explanation": "Selecting specific columns reduces unnecessary data transfer."
+        "title": "Selecting one column",
+        "code": "SELECT title FROM books;",
+        "explanation": "Fetches title column from books."
       },
       "guided_practice_refs": [
-        "sql-first-read-one-col"
+        "sql-first-read-one-col",
+        "sql-first-col-aliases"
       ],
       "independent_practice_refs": [
-        "sql-products-in-stock"
+        "sql-user-search"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-sql-select-filter",
@@ -308,29 +1064,79 @@
       "title": "Filtering rows with WHERE",
       "stage": "first_steps",
       "order_index": 3,
+      "objective": "Filter rows using relational predicates (=, !=, <, >, AND, OR) to return only rows that satisfy business criteria.",
       "prerequisite_keys": [
         "step-sql-tables-2"
       ],
-      "objective": "Filter rows using comparison operators, AND, OR, and string matches.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
-        "content_key": "ai-engineer/v1/sql-postgresql/select-basics",
-        "section_slug": "filtering-rows"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/sql-postgresql/query-basics",
+        "section_slug": "where-filtering"
+      },
+      "teaching_content": {
+        "summary": "The `WHERE` clause filters rows before projection. Only rows for which the WHERE predicate evaluates to `TRUE` are included in the result set.",
+        "why_it_matters": "Databases hold millions of rows. Effective WHERE filters leverage indexes to find matching records in milliseconds instead of scanning the whole disk.",
+        "intuition": "WHERE acts as a sieve. You pour all rows from the table into the sieve; only rows that meet the criteria fall through to the output.",
+        "analogy": "A security gate where only people with valid passes (`pass_status = 'active'`) are permitted through.",
+        "syntax_guide": "-- Equality filter\nSELECT name FROM users WHERE is_active = true;\n\n-- Range filter with AND\nSELECT id, score FROM exam_results\nWHERE score >= 75 AND score <= 90;\n\n-- String comparison\nSELECT id, title FROM courses WHERE category = 'Backend';",
+        "worked_example_title": "Filtering Active Users",
+        "worked_example_code": "SELECT name FROM users WHERE is_active = true;",
+        "worked_example_explanation": "Scans `users`. If a row has `is_active = true`, its `name` is emitted. Rows where `is_active = false` or `NULL` are discarded.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "FROM users",
+            "state_description": "Load users table rows",
+            "result_or_value": "All user records"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "WHERE is_active = true",
+            "state_description": "Evaluate boolean predicate per row; discard false/null",
+            "result_or_value": "Filtered rows"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "SELECT name",
+            "state_description": "Project only the name column for remaining rows",
+            "result_or_value": "Alice, Charlie"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Confusing single quotes (values) with column identifiers",
+            "wrong_code": "SELECT name FROM users WHERE category = \"Active\";",
+            "explanation": "Double quotes indicate a column name named `Active`, which does not exist. String values require single quotes `'Active'`.",
+            "correct_code": "SELECT name FROM users WHERE category = 'Active';"
+          },
+          {
+            "mistake_description": "Writing `WHERE col = true OR false` incorrectly",
+            "wrong_code": "SELECT * FROM items WHERE status = 'shipped' OR 'pending';",
+            "explanation": "Each condition in an OR clause must be a complete boolean predicate.",
+            "correct_code": "SELECT * FROM items WHERE status = 'shipped' OR status = 'pending';"
+          }
+        ],
+        "revision_notes": [
+          "`WHERE` executes before `SELECT` projection.",
+          "`AND` requires both predicates to be true; `OR` requires at least one.",
+          "Comparison operators: `=`, `!=` (or `<>`), `<`, `<=`, `>`, `>=`.",
+          "String comparisons are case-sensitive by default in standard PostgreSQL."
+        ]
       },
       "worked_example": {
-        "title": "Row filtering with predicates",
-        "code": "SELECT id, product_name FROM products WHERE price > 50 AND in_stock = true;",
-        "explanation": "Only rows satisfying all WHERE predicates are returned."
+        "title": "Score range filtering",
+        "code": "SELECT id, score FROM exam_results WHERE score >= 75 AND score <= 90;",
+        "explanation": "Filters exam results within the 75-90 score range."
       },
       "guided_practice_refs": [
-        "sql-first-where"
+        "sql-first-where",
+        "sql-first-where-range"
       ],
       "independent_practice_refs": [
-        "sql-active-users",
-        "sql-user-search"
+        "sql-products-in-stock"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-sql-nulls",
@@ -339,29 +1145,79 @@
       "title": "Handling missing data (NULL)",
       "stage": "first_steps",
       "order_index": 4,
+      "objective": "Distinguish NULL from zero or empty strings, use IS NULL / IS NOT NULL, and apply COALESCE for defaults.",
       "prerequisite_keys": [
         "step-sql-select-filter"
       ],
-      "objective": "Distinguish NULL from empty values and use IS NULL and COALESCE.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
-        "content_key": "ai-engineer/v1/sql-postgresql/relational-foundations",
-        "section_slug": "nullability"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/sql-postgresql/values-expressions",
+        "section_slug": "null-handling"
+      },
+      "teaching_content": {
+        "summary": "In SQL, `NULL` represents missing or unknown data. NULL is not 0, and not an empty string `''`. Standard equality `= NULL` evaluates to `UNKNOWN` (not TRUE), so you must use `IS NULL` or `IS NOT NULL`.",
+        "why_it_matters": "Real databases contain missing delivery dates, optional phone numbers, and unverified emails. Handling NULL incorrectly causes missing records and corrupted aggregation calculations.",
+        "intuition": "NULL means 'I don't know'. If I don't know Alice's salary, and I don't know Bob's salary, is Alice's salary equal to Bob's? You can't say yes; the answer is unknown.",
+        "analogy": "A blank field on a paper application form. It doesn't mean zero; it means no information was provided.",
+        "syntax_guide": "-- Checking for missing values\nSELECT id, customer_name FROM orders\nWHERE delivered_at IS NULL;\n\n-- Checking for present values\nSELECT id FROM users WHERE phone IS NOT NULL;\n\n-- Fallback default with COALESCE\nSELECT id, COALESCE(nickname, username, 'Anonymous') AS display_name\nFROM profiles;",
+        "worked_example_title": "Providing Fallback Display Names",
+        "worked_example_code": "SELECT id, COALESCE(nickname, username) AS display_name\nFROM profiles;",
+        "worked_example_explanation": "If `nickname` is non-null, it is used. If `nickname` is NULL, `COALESCE` falls back to `username`. Output is aliased as `display_name`.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "Row 1: nickname='Vik', username='vikram99'",
+            "state_description": "COALESCE finds 'Vik' non-null",
+            "result_or_value": "display_name = 'Vik'"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "Row 2: nickname=NULL, username='sara_k'",
+            "state_description": "nickname is NULL -> falls back to username 'sara_k'",
+            "result_or_value": "display_name = 'sara_k'"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "SELECT id, display_name",
+            "state_description": "Emit final projected columns",
+            "result_or_value": "Clean non-null display names"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Using `= NULL` or `!= NULL` in WHERE clauses",
+            "wrong_code": "SELECT * FROM orders WHERE delivered_at = NULL;",
+            "explanation": "Any comparison with `= NULL` evaluates to UNKNOWN. The query will return zero rows even if rows have NULL values.",
+            "correct_code": "SELECT * FROM orders WHERE delivered_at IS NULL;"
+          },
+          {
+            "mistake_description": "Assuming COUNT(column) counts NULL rows",
+            "wrong_code": "SELECT COUNT(email) FROM users;",
+            "explanation": "`COUNT(column_name)` ignores NULL rows. `COUNT(*)` counts all rows regardless of NULLs.",
+            "correct_code": "SELECT COUNT(*) FROM users;"
+          }
+        ],
+        "revision_notes": [
+          "NULL signifies absent or unknown data.",
+          "Always check for NULL using `IS NULL` or `IS NOT NULL`, never `= NULL`.",
+          "`COALESCE(val1, val2, ...)` returns the first non-null argument in order.",
+          "Three-valued logic in SQL: TRUE, FALSE, and UNKNOWN."
+        ]
       },
       "worked_example": {
-        "title": "COALESCE fallback for NULL",
-        "code": "SELECT name, COALESCE(phone, 'No phone') AS contact_phone FROM customers;",
-        "explanation": "COALESCE returns the first non-null argument."
+        "title": "Filtering undelivered orders",
+        "code": "SELECT id, customer_name FROM orders WHERE delivered_at IS NULL;",
+        "explanation": "Retrieves orders that have not yet been marked delivered."
       },
       "guided_practice_refs": [
-        "sql-first-null-check"
+        "sql-first-null-filter",
+        "sql-first-coalesce"
       ],
       "independent_practice_refs": [
-        "sql-null-email",
-        "sql-coalesce-address"
+        "sql-null-email"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-sql-ordering-limits",
@@ -370,86 +1226,164 @@
       "title": "Sorting and limiting results",
       "stage": "first_steps",
       "order_index": 5,
+      "objective": "Sort result sets deterministically using ORDER BY (ASC/DESC) and constrain row counts with LIMIT.",
       "prerequisite_keys": [
         "step-sql-nulls"
       ],
-      "objective": "Sort rows with ORDER BY ASC/DESC and truncate with LIMIT.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
-        "content_key": "ai-engineer/v1/sql-postgresql/select-basics",
-        "section_slug": "sorting-and-pagination"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/sql-postgresql/query-basics",
+        "section_slug": "ordering-and-pagination"
+      },
+      "teaching_content": {
+        "summary": "Relational tables are unordered bags of rows. To guarantee the order of query results, you must explicitly use `ORDER BY <column> ASC|DESC`. `LIMIT <n>` restricts the output to the first `n` rows.",
+        "why_it_matters": "Leaderboards, latest transactions, paginated search results, and top-salary reporting all require deterministic ordering and pagination limits.",
+        "intuition": "Without ORDER BY, the database returns rows in whatever physical disk order is fastest. That order can change between runs. ORDER BY ensures repeatable results.",
+        "analogy": "Ranking marathon finishers. You sort runners by race time ascending; the first 3 across the line get medals (`LIMIT 3`).",
+        "syntax_guide": "-- Sort ascending (default)\nSELECT name, score FROM leaderboard ORDER BY score ASC;\n\n-- Sort descending with limit (top 3)\nSELECT name, salary FROM employees\nORDER BY salary DESC\nLIMIT 3;\n\n-- Multi-column tie breaking\nSELECT name, department, salary FROM employees\nORDER BY department ASC, salary DESC;",
+        "worked_example_title": "Top 3 Highest Paid Employees",
+        "worked_example_code": "SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;",
+        "worked_example_explanation": "Sorts all employee records from highest salary to lowest salary (`DESC`), and returns only the top 3 rows.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "FROM employees",
+            "state_description": "Read all employee rows",
+            "result_or_value": "All employees"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "ORDER BY salary DESC",
+            "state_description": "Sort rows descending: 120000, 110000, 90000, 80000",
+            "result_or_value": "Sorted sequence"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "LIMIT 3",
+            "state_description": "Take only the first 3 rows; discard remaining",
+            "result_or_value": "Leo (120k), Asha (110k), Zara (90k)"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Using `LIMIT` without `ORDER BY`",
+            "wrong_code": "SELECT name FROM employees LIMIT 3;",
+            "explanation": "Without `ORDER BY`, the database returns an arbitrary set of 3 rows. The result is non-deterministic.",
+            "correct_code": "SELECT name FROM employees ORDER BY id ASC LIMIT 3;"
+          },
+          {
+            "mistake_description": "Placing `LIMIT` before `ORDER BY`",
+            "wrong_code": "SELECT name FROM employees LIMIT 3 ORDER BY salary DESC;",
+            "explanation": "SQL syntax requires clauses in order: SELECT ... FROM ... WHERE ... ORDER BY ... LIMIT.",
+            "correct_code": "SELECT name FROM employees ORDER BY salary DESC LIMIT 3;"
+          }
+        ],
+        "revision_notes": [
+          "Table storage is inherently unordered; never assume row order without `ORDER BY`.",
+          "`ASC` sorts smallest to largest (default); `DESC` sorts largest to smallest.",
+          "`LIMIT n` caps the output to `n` rows.",
+          "Include a unique column (like primary key `id`) as a tie-breaker for deterministic pagination."
+        ]
       },
       "worked_example": {
-        "title": "ORDER BY and LIMIT",
-        "code": "SELECT product_name, price FROM products ORDER BY price DESC LIMIT 5;",
-        "explanation": "Sorts descending by price and returns the top 5 most expensive products."
+        "title": "Top salaries query",
+        "code": "SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;",
+        "explanation": "Sorts employees by salary descending and takes top 3."
       },
-      "guided_practice_refs": [],
+      "guided_practice_refs": [
+        "sql-first-order-limit"
+      ],
       "independent_practice_refs": [
         "sql-recent-orders"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-sql-aggregations",
       "subject_key": "sql-postgresql",
-      "topic_slug": "sql-postgresql-aggregation",
-      "title": "GROUP BY and summary aggregates",
-      "stage": "beginner",
+      "topic_slug": "sql-postgresql-aggregation-basics",
+      "title": "Aggregate functions and grouping",
+      "stage": "first_steps",
       "order_index": 6,
+      "objective": "Summarize rows using COUNT, SUM, AVG and partition calculations across subsets using GROUP BY.",
       "prerequisite_keys": [
         "step-sql-ordering-limits"
       ],
-      "objective": "Aggregate rows using COUNT, SUM, AVG, and GROUP BY.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
+        "source_type": "lesson_bundle",
         "content_key": "ai-engineer/v1/sql-postgresql/aggregation",
-        "section_slug": "group-by-partitioning"
+        "section_slug": "group-by-aggregates"
+      },
+      "teaching_content": {
+        "summary": "Aggregate functions (`COUNT`, `SUM`, `AVG`, `MIN`, `MAX`) collapse multiple rows into summary metrics. `GROUP BY` partitions rows into distinct buckets and calculates aggregates for each bucket.",
+        "why_it_matters": "Business dashboards, financial summaries, conversion rates, and inventory reporting rely completely on SQL aggregation and GROUP BY.",
+        "intuition": "Imagine sorting laundry into piles by color (GROUP BY color). Then you count how many shirts are in each pile (COUNT(*)).",
+        "analogy": "Counting votes in an election grouped by state. Each state gets a single total.",
+        "syntax_guide": "-- Overall summary\nSELECT COUNT(*) AS total_users, AVG(age) AS avg_age FROM users;\n\n-- Grouped aggregation\nSELECT department, COUNT(*) AS employee_count\nFROM staff\nGROUP BY department\nORDER BY department ASC;",
+        "worked_example_title": "Employee Count by Department",
+        "worked_example_code": "SELECT department, COUNT(*) AS employee_count FROM staff GROUP BY department ORDER BY department ASC;",
+        "worked_example_explanation": "Groups staff into unique departments ('Design', 'Engineering') and counts how many employees belong to each.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "FROM staff",
+            "state_description": "Read all rows from staff table",
+            "result_or_value": "5 staff records"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "GROUP BY department",
+            "state_description": "Form buckets: 'Design' (2 rows), 'Engineering' (3 rows)",
+            "result_or_value": "2 department buckets"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "COUNT(*) AS employee_count",
+            "state_description": "Calculate row count per bucket",
+            "result_or_value": "Design: 2, Engineering: 3"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "ORDER BY department ASC",
+            "state_description": "Sort output alphabetically by department",
+            "result_or_value": "| Design | 2 |\n| Engineering | 3 |"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Selecting a non-aggregated column that is missing from GROUP BY",
+            "wrong_code": "SELECT department, name, COUNT(*) FROM staff GROUP BY department;",
+            "explanation": "If a department has 3 employees, which employee's `name` should be shown? PostgreSQL raises error: column 'staff.name' must appear in the GROUP BY clause or be used in an aggregate function.",
+            "correct_code": "SELECT department, COUNT(*) FROM staff GROUP BY department;"
+          },
+          {
+            "mistake_description": "Filtering aggregates in WHERE instead of HAVING",
+            "wrong_code": "SELECT department, COUNT(*) FROM staff WHERE COUNT(*) > 2 GROUP BY department;",
+            "explanation": "WHERE filters individual rows before grouping. To filter summary aggregates, use `HAVING COUNT(*) > 2` after GROUP BY.",
+            "correct_code": "SELECT department, COUNT(*) FROM staff GROUP BY department HAVING COUNT(*) > 2;"
+          }
+        ],
+        "revision_notes": [
+          "Common aggregate functions: `COUNT(*)`, `SUM(col)`, `AVG(col)`, `MIN(col)`, `MAX(col)`.",
+          "Every non-aggregate column in the `SELECT` list must be included in `GROUP BY`.",
+          "`WHERE` filters rows before grouping; `HAVING` filters grouped results after aggregation.",
+          "`COUNT(*)` counts all rows; `COUNT(column)` ignores NULL values in that column."
+        ]
       },
       "worked_example": {
-        "title": "Department average salary",
-        "code": "SELECT department_id, COUNT(*) AS headcount, AVG(salary) AS avg_sal FROM employees GROUP BY department_id;",
-        "explanation": "GROUP BY collapses rows with identical department_id into summary rows."
+        "title": "Staff grouping query",
+        "code": "SELECT department, COUNT(*) AS employee_count FROM staff GROUP BY department ORDER BY department ASC;",
+        "explanation": "Groups staff by department and counts records in each group."
       },
-      "guided_practice_refs": [],
+      "guided_practice_refs": [
+        "sql-first-group-count"
+      ],
       "independent_practice_refs": [
-        "sql-dept-avg-salary",
-        "sql-daily-sales",
         "sql-order-count-by-status"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
-    },
-    {
-      "key": "step-sql-joins",
-      "subject_key": "sql-postgresql",
-      "topic_slug": "sql-postgresql-joins",
-      "title": "Relational joins (INNER and LEFT)",
-      "stage": "developing",
-      "order_index": 7,
-      "prerequisite_keys": [
-        "step-sql-aggregations"
-      ],
-      "objective": "Combine related tables using explicit join predicates.",
-      "teaching_ref": {
-        "source_type": "legacy_lesson",
-        "content_key": "ai-engineer/v1/sql-postgresql/joins",
-        "section_slug": "inner-and-outer-joins"
-      },
-      "worked_example": {
-        "title": "INNER JOIN on foreign key",
-        "code": "SELECT o.id, c.customer_name, o.amount FROM orders o JOIN customers c ON o.customer_id = c.id;",
-        "explanation": "Matches rows where order customer_id equals customer primary key id."
-      },
-      "guided_practice_refs": [],
-      "independent_practice_refs": [
-        "sql-customers-with-orders",
-        "sql-dept-head-count",
-        "sql-customer-totals"
-      ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-dsa-contracts-1",
@@ -458,57 +1392,337 @@
       "title": "Problem contracts, input bounds, and tracing",
       "stage": "first_steps",
       "order_index": 1,
-      "prerequisite_keys": [],
-      "objective": "Trace algorithm execution step-by-step and verify boundary behavior.",
+      "objective": "Analyze input/output specifications, verify boundary constraints (e.g. empty inputs, negatives), and manually trace variables.",
+      "prerequisite_keys": [
+        "step-py-values-2"
+      ],
       "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/dsa/dsa-problem-contracts",
-        "section_slug": "intuition"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/dsa/big-o",
+        "section_slug": "problem-contracts"
+      },
+      "teaching_content": {
+        "summary": "Every coding challenge is governed by a problem contract: input types and sizes (constraints), required return types, and time/space complexity bounds. Tracing variables step-by-step verifies logic before implementation.",
+        "why_it_matters": "Most bugs in coding assessments and production systems stem from unhandled edge cases: empty lists, single elements, negative numbers, or integer overflow.",
+        "intuition": "Read the contract like a legal agreement. What are you guaranteed? What edge cases are possible? What is the expected behavior when inputs are minimal?",
+        "analogy": "An architectural blueprint. You verify the dimensions and soil constraints before pouring the concrete foundation.",
+        "syntax_guide": "# Contract Analysis Checklist:\n# 1. Input: elements: list[int] (size 0 <= N <= 10^5)\n# 2. Output: int (sum of elements)\n# 3. Edge cases:\n#    - Empty list: return 0\n#    - Negative numbers: handle signed addition\n# 4. Expected Complexity: O(N) time, O(1) auxiliary space",
+        "worked_example_title": "Summing Elements with Contract Validation",
+        "worked_example_code": "def sum_list(elements):\n    # Contract: Return 0 for empty list\n    total = 0\n    for x in elements:\n        total += x\n    return total",
+        "worked_example_explanation": "For input [1, 2, 3]: accumulator starts at 0, loops through elements, reaches 6, and returns 6. For empty input `[]`: loop never runs, returns initial 0 safely.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "sum_list([])",
+            "state_description": "Empty list edge case",
+            "result_or_value": "total = 0"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "for x in elements:",
+            "state_description": "Sequence has length 0; loop does not execute",
+            "result_or_value": "total remains 0"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "return total",
+            "state_description": "Satisfies contract for empty list",
+            "result_or_value": "0"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Assuming lists are always non-empty without checking contract",
+            "wrong_code": "def sum_list(elements):\n    first = elements[0]  # Crashes on empty list!",
+            "explanation": "If the problem allows `0 <= N <= 1000`, an empty list raises IndexError immediately.",
+            "correct_code": "def sum_list(elements):\n    if not elements:\n        return 0"
+          },
+          {
+            "mistake_description": "Writing code before working through an example on paper",
+            "wrong_code": "# Typing code without tracing input",
+            "explanation": "Leads to off-by-one errors and missing edge conditions that fail test cases.",
+            "correct_code": "# 1. Trace sample input\n# 2. Trace empty input\n# 3. Write implementation"
+          }
+        ],
+        "revision_notes": [
+          "Always identify input types and constraint bounds (N = 0, 1, 10^5) first.",
+          "Identify return type (bool, int, list, tuple).",
+          "Trace through a small manual example with a variable table before coding.",
+          "Verify behavior on edge cases: empty, 1-element, duplicates, negative values."
+        ]
       },
       "worked_example": {
-        "title": "Tracing loop invariants",
-        "code": "def trace_sum(nums):\n    s = 0\n    for x in nums:\n        s += x\n    return s\nprint(trace_sum([1, 2, 3]))",
-        "explanation": "Before loop s=0; after element 1, s=1; after element 2, s=3; after 3, s=6."
+        "title": "Sum of list",
+        "code": "def sum_list(elements):\n    total = 0\n    for x in elements:\n        total += x\n    return total",
+        "explanation": "Calculates sum across a list of integers with zero default for empty inputs."
       },
       "guided_practice_refs": [
-        "dsa-first-tracing-list"
+        "dsa-first-trace-sum"
       ],
       "independent_practice_refs": [
-        "dsa-reverse-string"
+        "dsa-first-pair"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
+    },
+    {
+      "key": "step-dsa-complexity-1",
+      "subject_key": "dsa",
+      "topic_slug": "dsa-complexity",
+      "title": "Time and space complexity intuition",
+      "stage": "first_steps",
+      "order_index": 2,
+      "objective": "Evaluate Big-O time and space growth rates (O(1), O(N), O(N^2)) and recognize nested loop traps.",
+      "prerequisite_keys": [
+        "step-dsa-contracts-1"
+      ],
+      "teaching_ref": {
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/dsa/big-o",
+        "section_slug": "asymptotic-notation"
+      },
+      "teaching_content": {
+        "summary": "Big-O notation describes how execution time and memory usage scale as the input size $N$ increases. $O(1)$ is constant time, $O(N)$ is linear time, and $O(N^2)$ is quadratic time.",
+        "why_it_matters": "An $O(N^2)$ algorithm with $N = 100,000$ requires 10 billion operations and times out (taking ~10 seconds). An $O(N)$ algorithm finishes in ~0.01 seconds.",
+        "intuition": "Measure operations relative to input size $N$, ignoring hardware speed and constant multipliers. As $N$ grows huge, higher-order terms dominate.",
+        "analogy": "Reading a book. Looking up a page number directly is $O(1)$. Reading every page in order is $O(N)$. Comparing every page to every other page is $O(N^2)$.",
+        "syntax_guide": "# O(1) - Constant: direct index or dict lookup\nval = items[0]\n\n# O(N) - Linear: single loop through N elements\nfor x in items:\n    total += x\n\n# O(N^2) - Quadratic: nested loop comparing pairs\nfor i in range(len(items)):\n    for j in range(len(items)):\n        if i != j and items[i] == items[j]:\n            return True",
+        "worked_example_title": "Detecting Duplicates: O(N^2) vs O(N)",
+        "worked_example_code": "def has_duplicate(elements):\n    # O(N) Time and O(N) Space using hash set\n    seen = set()\n    for x in elements:\n        if x in seen:\n            return True\n        seen.add(x)\n    return False",
+        "worked_example_explanation": "Instead of comparing every pair using nested loops ($O(N^2)$), we maintain a set `seen`. Set lookup is $O(1)$ on average. In a single pass ($O(N)$), we check each item and return True on the first duplicate.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "has_duplicate([1, 2, 3, 1])",
+            "state_description": "Input list N = 4",
+            "result_or_value": "seen = set()"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "x = 1",
+            "state_description": "1 in seen: False -> seen.add(1)",
+            "result_or_value": "seen = {1}"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "x = 2",
+            "state_description": "2 in seen: False -> seen.add(2)",
+            "result_or_value": "seen = {1, 2}"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "x = 3",
+            "state_description": "3 in seen: False -> seen.add(3)",
+            "result_or_value": "seen = {1, 2, 3}"
+          },
+          {
+            "step_number": 5,
+            "line_or_expression": "x = 1",
+            "state_description": "1 in seen: True! Duplicate found",
+            "result_or_value": "True"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Using `x in list` inside a loop, unintentionally creating $O(N^2)$",
+            "wrong_code": "for x in elements:\n    if x in seen_list:  # Linear search on list is O(N)!\n        return True\n    seen_list.append(x)",
+            "explanation": "`x in list` scans the list sequentially ($O(N)$). Inside a loop over $N$ items, the total time becomes $O(N^2)$.",
+            "correct_code": "seen_set = set()\nfor x in elements:\n    if x in seen_set:   # Hash set lookup is O(1)!\n        return True\n    seen_set.add(x)"
+          },
+          {
+            "mistake_description": "Confusing Time Complexity with Space Complexity",
+            "wrong_code": "# Thinking set optimization uses zero space",
+            "explanation": "Using a hash set achieves $O(N)$ time by spending $O(N)$ auxiliary memory space to store seen elements.",
+            "correct_code": "# Time: O(N), Space: O(N)"
+          }
+        ],
+        "revision_notes": [
+          "$O(1)$ constant: basic math, array indexing, hash map lookups.",
+          "$O(N)$ linear: single loop through $N$ items.",
+          "$O(N^2)$ quadratic: nested loops where inner loop runs $N$ times for each outer step.",
+          "Hash sets trade $O(N)$ auxiliary space to reduce $O(N^2)$ brute force to $O(N)$ time."
+        ]
+      },
+      "worked_example": {
+        "title": "Duplicate detection with set",
+        "code": "def has_duplicate(arr):\n    seen = set()\n    for x in arr:\n        if x in seen:\n            return True\n        seen.add(x)\n    return False",
+        "explanation": "Detects duplicates in O(N) time using O(N) set."
+      },
+      "guided_practice_refs": [
+        "dsa-first-has-duplicate"
+      ],
+      "independent_practice_refs": [
+        "dsa-two-sum-indices"
+      ],
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-dsa-scan-1",
       "subject_key": "dsa",
       "topic_slug": "dsa-arrays-strings",
-      "title": "Linear scanning and in-place manipulation",
+      "title": "Linear scanning and element search",
       "stage": "first_steps",
-      "order_index": 2,
+      "order_index": 3,
+      "objective": "Traverse arrays linearly to search for targets, track index positions, and count occurrences in-place.",
       "prerequisite_keys": [
-        "step-dsa-contracts-1"
+        "step-dsa-complexity-1"
       ],
-      "objective": "Traverse arrays linearly, maintaining read and write pointers.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
+        "source_type": "lesson_bundle",
         "content_key": "ai-engineer/v1/dsa/arrays",
         "section_slug": "linear-traversal"
       },
+      "teaching_content": {
+        "summary": "Linear scanning inspects array elements one by one from index 0 to $N-1$. It is the fundamental technique for searching, counting, and filtering unsorted arrays in $O(N)$ time with $O(1)$ space.",
+        "why_it_matters": "When data is unsorted and lacks special index structures, linear scanning is the optimal and only way to locate elements.",
+        "intuition": "Flip through a deck of cards card by card from top to bottom. You stop when you see the Ace of Spades, or announce it's missing when you run out of cards.",
+        "analogy": "Walking down a hallway checking each door number sequentially until you reach room 204.",
+        "syntax_guide": "# Linear search for target index\ndef find_index(elements, target):\n    for i, x in enumerate(elements):\n        if x == target:\n            return i\n    return -1\n\n# Count occurrences\ndef count_matches(elements, target):\n    count = 0\n    for x in elements:\n        if x == target:\n            count += 1\n    return count",
+        "worked_example_title": "Finding First Index of Target",
+        "worked_example_code": "def find_index(elements, target):\n    for i, x in enumerate(elements):\n        if x == target:\n            return i\n    return -1",
+        "worked_example_explanation": "For elements = [10, 20, 30] and target = 20: index 0 is 10 (no match); index 1 is 20 (match!). Immediately returns 1 without checking remaining elements.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "find_index([10, 20, 30], 20)",
+            "state_description": "Search for 20 in 3-element list",
+            "result_or_value": "target = 20"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "i=0, x=10",
+            "state_description": "10 == 20 is False",
+            "result_or_value": "Continue loop"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "i=1, x=20",
+            "state_description": "20 == 20 is True -> return index 1",
+            "result_or_value": "1"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Returning -1 inside the loop on the first mismatch",
+            "wrong_code": "for i, x in enumerate(elements):\n    if x == target:\n        return i\n    else:\n        return -1  # Premature exit!",
+            "explanation": "If the first element is not the target, the else block executes and returns -1 immediately without checking any other elements.",
+            "correct_code": "for i, x in enumerate(elements):\n    if x == target:\n        return i\nreturn -1  # Only return -1 after loop finishes!"
+          },
+          {
+            "mistake_description": "Using `range(len(elements))` when elements themselves are needed",
+            "wrong_code": "for i in range(len(elements)):\n    x = elements[i]",
+            "explanation": "Python's `enumerate()` provides both index and value cleanly: `for i, x in enumerate(elements):`.",
+            "correct_code": "for i, x in enumerate(elements):"
+          }
+        ],
+        "revision_notes": [
+          "Linear scan operates in $O(N)$ time and $O(1)$ space.",
+          "`enumerate(sequence)` yields `(index, value)` pairs.",
+          "Return early as soon as the target is found to avoid unnecessary iterations.",
+          "The 'not found' return (like `-1`) must be placed after the loop completes."
+        ]
+      },
       "worked_example": {
-        "title": "Moving elements in a scan",
-        "code": "def move_zeros(nums):\n    write = 0\n    for read in range(len(nums)):\n        if nums[read] != 0:\n            nums[write] = nums[read]\n            write += 1\n    while write < len(nums):\n        nums[write] = 0\n        write += 1\n    return nums",
-        "explanation": "Separating read and write indices avoids allocating extra memory."
+        "title": "Counting target occurrences",
+        "code": "def count_occurrences(elements, target):\n    count = 0\n    for x in elements:\n        if x == target:\n            count += 1\n    return count",
+        "explanation": "Counts occurrences of target in a single linear pass."
       },
       "guided_practice_refs": [
-        "dsa-first-linear-scan"
+        "dsa-first-linear-scan",
+        "dsa-first-count-target"
       ],
       "independent_practice_refs": [
-        "dsa-move-zeroes",
-        "dsa-range-sum-query"
+        "dsa-move-zeroes"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
+    },
+    {
+      "key": "step-dsa-two-pointers",
+      "subject_key": "dsa",
+      "topic_slug": "dsa-two-pointers",
+      "title": "Two-pointer convergence and symmetry",
+      "stage": "first_steps",
+      "order_index": 4,
+      "objective": "Traverse sequences from opposite ends using converging indices to evaluate palindromes and reversals in O(N) time and O(1) space.",
+      "prerequisite_keys": [
+        "step-dsa-scan-1"
+      ],
+      "teaching_ref": {
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/dsa/two-pointers",
+        "section_slug": "converging-pointers"
+      },
+      "teaching_content": {
+        "summary": "The two-pointer technique uses two integer indices: `left` starting at index 0 and `right` starting at index $N-1$. They advance toward each other (`left += 1`, `right -= 1`) until they meet.",
+        "why_it_matters": "Two pointers solves palindrome verification, array reversal, container with most water, and sorted two-sum in $O(N)$ time without allocating auxiliary memory ($O(1)$ space).",
+        "intuition": "Squeeze from both ends simultaneously. If characters at both ends match, step inward. If they don't match, symmetry is broken.",
+        "analogy": "Folding a piece of paper in half to see if the two halves line up perfectly.",
+        "syntax_guide": "# Two-pointer palindrome check\ndef is_palindrome(s):\n    left = 0\n    right = len(s) - 1\n    while left < right:\n        if s[left] != s[right]:\n            return False\n        left += 1\n        right -= 1\n    return True",
+        "worked_example_title": "Verifying Palindrome String",
+        "worked_example_code": "def is_palindrome_str(s):\n    left, right = 0, len(s) - 1\n    while left < right:\n        if s[left] != s[right]:\n            return False\n        left += 1\n        right -= 1\n    return True",
+        "worked_example_explanation": "For s = 'radar': left=0 ('r'), right=4 ('r') -> match. left=1 ('a'), right=3 ('a') -> match. left=2, right=2 -> loop terminates (left < right false). Returns True.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "s = 'radar'",
+            "state_description": "Initialize pointers",
+            "result_or_value": "left = 0, right = 4"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "s[0] == s[4]",
+            "state_description": "'r' == 'r': match -> left=1, right=3",
+            "result_or_value": "left = 1, right = 3"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "s[1] == s[3]",
+            "state_description": "'a' == 'a': match -> left=2, right=2",
+            "result_or_value": "left = 2, right = 2"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "while left < right",
+            "state_description": "2 < 2 is False: pointers met at middle",
+            "result_or_value": "True"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Using `while left <= right` when swapping items",
+            "wrong_code": "while left <= right:\n    swap(left, right)\n    left += 1\n    right -= 1",
+            "explanation": "When `left == right` on odd-length arrays, an element is swapped with itself redundantly. For palindrome checks, `left < right` is sufficient.",
+            "correct_code": "while left < right:"
+          },
+          {
+            "mistake_description": "Forgetting to update pointer positions inside while loop",
+            "wrong_code": "while left < right:\n    if s[left] != s[right]:\n        return False\n    # Missing left += 1 and right -= 1!",
+            "explanation": "If pointers aren't adjusted, `left < right` stays True forever, causing an infinite loop.",
+            "correct_code": "left += 1\nright -= 1"
+          }
+        ],
+        "revision_notes": [
+          "`left = 0` and `right = len(s) - 1` start at opposite ends.",
+          "Loop condition `while left < right:` guarantees pointers never cross.",
+          "Time complexity: $O(N)$ because each step moves pointers closer.",
+          "Space complexity: $O(1)$ because no new string or array is allocated."
+        ]
+      },
+      "worked_example": {
+        "title": "Two-pointer palindrome",
+        "code": "def is_pal(s):\n    l, r = 0, len(s) - 1\n    while l < r:\n        if s[l] != s[r]:\n            return False\n        l += 1\n        r -= 1\n    return True",
+        "explanation": "Converges inward comparing symmetric character pairs."
+      },
+      "guided_practice_refs": [
+        "dsa-first-is-palindrome"
+      ],
+      "independent_practice_refs": [
+        "dsa-reverse-string"
+      ],
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-dsa-hash-1",
@@ -516,60 +1730,245 @@
       "topic_slug": "dsa-hashing-sets",
       "title": "Hash maps and frequency counting",
       "stage": "first_steps",
-      "order_index": 3,
+      "order_index": 5,
+      "objective": "Build and query frequency tables using hash maps to solve anagram, majority element, and uniqueness problems.",
       "prerequisite_keys": [
         "step-dsa-scan-1"
       ],
-      "objective": "Trade space for time by caching element occurrences in a hash map.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
-        "content_key": "ai-engineer/v1/dsa/hash-tables",
-        "section_slug": "frequency-maps"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/dsa/hash-maps",
+        "section_slug": "frequency-tables"
+      },
+      "teaching_content": {
+        "summary": "A hash map (Python dictionary) maps keys to values in $O(1)$ average time. Building a frequency table tracks how many times each element appears in a collection.",
+        "why_it_matters": "Counting frequencies is the core pattern behind finding anagrams, detecting the first non-repeating character, finding majority elements, and computing intersections.",
+        "intuition": "Tally marks on a chalkboard. Every time you see a character, make a tick mark under its heading.",
+        "analogy": "Voting ballot box. Every time a vote is cast for candidate A, you increment candidate A's tally by 1.",
+        "syntax_guide": "# Frequency table pattern\ncounts = {}\nfor item in items:\n    counts[item] = counts.get(item, 0) + 1\n\n# Query frequency\nif counts.get('target', 0) > 1:\n    print('Repeated')",
+        "worked_example_title": "Building Frequency Map",
+        "worked_example_code": "def build_counts(items):\n    counts = {}\n    for x in items:\n        counts[x] = counts.get(x, 0) + 1\n    return counts",
+        "worked_example_explanation": "For ['a', 'b', 'a']: 'a' counted once, 'b' once, 'a' again. Returns {'a': 2, 'b': 1}.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "counts = {}",
+            "state_description": "Initialize empty table",
+            "result_or_value": "{}"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "x = 'a'",
+            "state_description": "counts.get('a', 0) + 1 = 1",
+            "result_or_value": "{'a': 1}"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "x = 'b'",
+            "state_description": "counts.get('b', 0) + 1 = 1",
+            "result_or_value": "{'a': 1, 'b': 1}"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "x = 'a'",
+            "state_description": "counts.get('a', 0) + 1 = 2",
+            "result_or_value": "{'a': 2, 'b': 1}"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Forgetting to supply default value 0 to `.get()`",
+            "wrong_code": "counts[x] = counts.get(x) + 1",
+            "explanation": "If `x` is missing, `counts.get(x)` returns `None`. `None + 1` raises TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'.",
+            "correct_code": "counts[x] = counts.get(x, 0) + 1"
+          },
+          {
+            "mistake_description": "Iterating through list inside loop to count frequencies ($O(N^2)$)",
+            "wrong_code": "for x in items:\n    count = items.count(x)  # count() is O(N)!",
+            "explanation": "Calling `items.count()` inside a loop repeats an $O(N)$ scan for every item, taking $O(N^2)$ time overall.",
+            "correct_code": "# Use a single dictionary pass in O(N) time!"
+          }
+        ],
+        "revision_notes": [
+          "Hash map lookups and updates are $O(1)$ on average.",
+          "Building a frequency table takes $O(N)$ time and $O(U)$ space where $U$ is unique keys.",
+          "`dict.get(key, 0)` is the canonical idiom for frequency counting.",
+          "Two strings are anagrams if their character frequency maps are identical."
+        ]
       },
       "worked_example": {
-        "title": "Two-sum hash map lookup",
-        "code": "def two_sum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        diff = target - x\n        if diff in seen:\n            return (seen[diff], i)\n        seen[x] = i\n    return ()\nprint(two_sum([2, 7, 11, 15], 9))",
-        "explanation": "Looking up the complement in `seen` reduces time complexity from O(n^2) to O(n)."
+        "title": "Frequency counting",
+        "code": "def build_counts(items):\n    counts = {}\n    for x in items:\n        counts[x] = counts.get(x, 0) + 1\n    return counts",
+        "explanation": "Produces frequency map of items in O(N) time."
       },
       "guided_practice_refs": [
         "dsa-first-freq-counting"
       ],
       "independent_practice_refs": [
-        "dsa-valid-anagram",
-        "dsa-two-sum-indices",
-        "dsa-ransom-note"
+        "dsa-valid-anagram"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
-      "key": "step-dsa-two-pointers",
+      "key": "step-dsa-hash-sets",
       "subject_key": "dsa",
-      "topic_slug": "dsa-two-pointers",
-      "title": "Two-pointer convergence and sorting",
-      "stage": "developing",
-      "order_index": 4,
+      "topic_slug": "dsa-hashing-sets",
+      "title": "Hash sets and deduplication",
+      "stage": "first_steps",
+      "order_index": 6,
+      "objective": "Leverage hash set membership tests for O(1) deduplication, intersection, and difference operations.",
       "prerequisite_keys": [
         "step-dsa-hash-1"
       ],
-      "objective": "Use converging pointers on sorted arrays to achieve optimal O(n) solutions.",
       "teaching_ref": {
-        "source_type": "legacy_lesson",
-        "content_key": "ai-engineer/v1/dsa/two-pointers",
-        "section_slug": "converging-pointers"
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/dsa/sets",
+        "section_slug": "set-deduplication"
+      },
+      "teaching_content": {
+        "summary": "A hash set stores unique elements without duplicates. Inserting, deleting, and checking membership (`item in seen_set`) takes $O(1)$ average time.",
+        "why_it_matters": "Filtering duplicate IDs, finding common friends (intersection), and tracking visited graph nodes rely on set membership.",
+        "intuition": "A bouncer's guest list where every name appears at most once. Checking if someone is on the list is instantaneous.",
+        "analogy": "A collection of unique stamps in an album. If you get a duplicate stamp, you discard it.",
+        "syntax_guide": "# Create set\nunique_nums = set([4, 2, 4, 1, 2])  # {1, 2, 4}\n\n# O(1) membership check\nif 2 in unique_nums:\n    print('Found')\n\n# Set deduplication + sorting\nsorted_unique = sorted(list(unique_nums))  # [1, 2, 4]",
+        "worked_example_title": "Extracting Sorted Unique Elements",
+        "worked_example_code": "def get_unique_elements(items):\n    # 1. Deduplicate via set\n    unique_set = set(items)\n    # 2. Return sorted list\n    return sorted(list(unique_set))",
+        "worked_example_explanation": "For [4, 2, 4, 1, 2]: `set()` removes duplicates to produce {1, 2, 4}. `sorted()` sorts the unique values into `[1, 2, 4]`.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "get_unique_elements([4, 2, 4, 1, 2])",
+            "state_description": "Input list with duplicates",
+            "result_or_value": "[4, 2, 4, 1, 2]"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "unique_set = set(items)",
+            "state_description": "Hash set stores unique values in O(N)",
+            "result_or_value": "{1, 2, 4}"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "return sorted(list(unique_set))",
+            "state_description": "Sort unique values in O(U log U)",
+            "result_or_value": "[1, 2, 4]"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Assuming sets maintain insertion order",
+            "wrong_code": "first = list(my_set)[0]",
+            "explanation": "Standard sets are unordered. The iteration order of elements is not guaranteed unless sorted explicitly.",
+            "correct_code": "ordered = sorted(list(my_set))"
+          },
+          {
+            "mistake_description": "Attempting to store unhashable lists inside a set",
+            "wrong_code": "seen = set()\nseen.add([1, 2])  # TypeError!",
+            "explanation": "Lists are mutable and cannot be hashed into a set. Convert them to tuples first.",
+            "correct_code": "seen.add((1, 2))"
+          }
+        ],
+        "revision_notes": [
+          "Sets store strictly unique elements; duplicate additions are ignored.",
+          "Membership test `x in my_set` is $O(1)$ on average.",
+          "`set(list)` eliminates duplicates in $O(N)$ time.",
+          "Use `sorted(set)` when deterministic output sequence is required."
+        ]
       },
       "worked_example": {
-        "title": "Pair sum on sorted array",
-        "code": "def find_pair(nums, target):\n    left, right = 0, len(nums) - 1\n    while left < right:\n        cur = nums[left] + nums[right]\n        if cur == target:\n            return (left, right)\n        elif cur < target:\n            left += 1\n        else:\n            right -= 1\n    return ()",
-        "explanation": "Adjusting either pointer deterministically moves the sum closer to target."
+        "title": "Unique element sorting",
+        "code": "def unique_sorted(arr):\n    return sorted(list(set(arr)))",
+        "explanation": "Deduplicates array and returns sorted unique list."
       },
-      "guided_practice_refs": [],
+      "guided_practice_refs": [
+        "dsa-first-unique-elements"
+      ],
       "independent_practice_refs": [
-        "dsa-first-pair",
         "dsa-remove-duplicates-sorted"
       ],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
+    },
+    {
+      "key": "step-dsa-search-sort",
+      "subject_key": "dsa",
+      "topic_slug": "dsa-search-sort",
+      "title": "Binary search and logarithmic scaling",
+      "stage": "first_steps",
+      "order_index": 7,
+      "objective": "Understand how sorted data enables binary search, halving the search space in O(log N) time.",
+      "prerequisite_keys": [
+        "step-dsa-hash-sets"
+      ],
+      "teaching_ref": {
+        "source_type": "lesson_bundle",
+        "content_key": "ai-engineer/v1/dsa/binary-search",
+        "section_slug": "binary-search-intuition"
+      },
+      "teaching_content": {
+        "summary": "While searching an unsorted array takes $O(N)$ time, a sorted array allows Binary Search. By comparing the target with the midpoint, we can discard half the remaining search space at each step, achieving $O(\\log N)$ time.",
+        "why_it_matters": "In a database with 1,000,000,000 items, linear search takes up to 1,000,000,000 operations. Binary search finds any item in at most 30 comparisons ($2^{30} \\approx 10^9$).",
+        "intuition": "Guess a number between 1 and 100. Guess 50. If the answer is 'higher', you instantly eliminate 1-50. Now guess 75.",
+        "analogy": "Looking up a word in a printed dictionary. You open to the middle. If you see 'M' and want 'T', you ignore the entire front half of the book.",
+        "syntax_guide": "# Binary search on sorted array\ndef binary_search(sorted_arr, target):\n    low = 0\n    high = len(sorted_arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if sorted_arr[mid] == target:\n            return mid\n        elif sorted_arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+        "worked_example_title": "Binary Search on Sorted Array",
+        "worked_example_code": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+        "worked_example_explanation": "For arr = [2, 4, 6, 8, 10] and target = 8: mid = index 2 (val 6). 6 < 8, so low becomes mid + 1 = 3. Next mid = (3 + 4) // 2 = 3 (val 8). Match found at index 3!",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "arr = [2, 4, 6, 8, 10], target = 8",
+            "state_description": "low = 0, high = 4",
+            "result_or_value": "mid = (0+4)//2 = 2"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "arr[2] = 6 < 8",
+            "state_description": "Target is larger; discard left half",
+            "result_or_value": "low = 3, high = 4"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "mid = (3+4)//2 = 3",
+            "state_description": "arr[3] = 8 == 8: match found!",
+            "result_or_value": "return 3"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Applying binary search on an unsorted array",
+            "wrong_code": "binary_search([5, 1, 9, 3], 9)",
+            "explanation": "Binary search strictly requires the array to be sorted. On unsorted arrays, discarding half can discard the target itself.",
+            "correct_code": "binary_search(sorted([5, 1, 9, 3]), 9)"
+          },
+          {
+            "mistake_description": "Using `low = mid` or `high = mid` instead of `mid + 1` / `mid - 1`",
+            "wrong_code": "elif arr[mid] < target:\n    low = mid  # Infinite loop!",
+            "explanation": "If `low` does not advance past `mid`, `(low + high) // 2` evaluates to the same index repeatedly, creating an infinite loop.",
+            "correct_code": "low = mid + 1"
+          }
+        ],
+        "revision_notes": [
+          "Binary search requires the input array to be pre-sorted.",
+          "At each step, search space is halved: $N \\to N/2 \\to N/4 \\to \\dots \\to 1$.",
+          "Time complexity: $O(\\log N)$. Space complexity: $O(1)$.",
+          "Loop condition is `while low <= high:` and updates must use `mid + 1` and `mid - 1`."
+        ]
+      },
+      "worked_example": {
+        "title": "Binary search template",
+        "code": "def bs(arr, target):\n    l, r = 0, len(arr) - 1\n    while l <= r:\n        m = (l + r) // 2\n        if arr[m] == target:\n            return m\n        if arr[m] < target:\n            l = m + 1\n        else:\n            r = m - 1\n    return -1",
+        "explanation": "Halves sorted search space in O(log N) time."
+      },
+      "guided_practice_refs": [
+        "dsa-first-linear-scan"
+      ],
+      "independent_practice_refs": [
+        "dsa-ransom-note"
+      ],
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-apt-numbers-1",
@@ -578,22 +1977,59 @@
       "title": "Numbers, operations and precedence",
       "stage": "first_steps",
       "order_index": 1,
+      "objective": "Apply order of operations (BODMAS/PEMDAS) and signed arithmetic to check mathematical claims without calculator.",
       "prerequisite_keys": [],
-      "objective": "Apply order of operations (BODMAS/PEMDAS) and signed arithmetic to calculations.",
-      "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-number-operations",
-        "section_slug": "intuition"
+      "teaching_content": {
+        "summary": "Quantitative reasoning tests mathematical foundations: order of operations, fractions, percentages, and signed numbers.",
+        "why_it_matters": "Aptitude assessments measure problem-solving speed and accuracy under time constraints.",
+        "intuition": "Group and simplify inside parentheses first, resolve powers, then multiply/divide, and finish with add/subtract.",
+        "analogy": "A recipe where certain ingredients must be mixed together before adding them to the hot pan.",
+        "syntax_guide": "# BODMAS: Brackets, Orders, Division/Multiplication, Addition/Subtraction\nresult = 20 - 4 * (3 + 2)  # 20 - 4 * 5 = 20 - 20 = 0",
+        "worked_example_title": "Evaluating Precedence Expression",
+        "worked_example_code": "val = (15 + 5) / 2 * 3 - 4  # (20)/2 * 3 - 4 = 10 * 3 - 4 = 30 - 4 = 26",
+        "worked_example_explanation": "Parentheses (15 + 5) evaluate to 20. 20 / 2 is 10. 10 * 3 is 30. 30 - 4 is 26.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "(15 + 5)",
+            "state_description": "Parentheses evaluated first",
+            "result_or_value": "20"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "20 / 2",
+            "state_description": "Division next",
+            "result_or_value": "10"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "10 * 3",
+            "state_description": "Multiplication next",
+            "result_or_value": "30"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "30 - 4",
+            "state_description": "Subtraction final",
+            "result_or_value": "26"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Evaluating left to right without respecting multiplication precedence",
+            "wrong_code": "10 - 2 * 3 = 8 * 3 = 24",
+            "explanation": "Multiplication has priority over subtraction. 2 * 3 is 6, so 10 - 6 = 4.",
+            "correct_code": "10 - (2 * 3) = 4"
+          }
+        ],
+        "revision_notes": [
+          "BODMAS / PEMDAS determines calculation order.",
+          "Parentheses override standard precedence.",
+          "Multiplication and division have equal precedence from left to right."
+        ]
       },
-      "worked_example": {
-        "title": "Order of operations",
-        "code": "# 8 + 4 * (6 - 2) / 2 = 8 + 4 * 4 / 2 = 8 + 16 / 2 = 8 + 8 = 16",
-        "explanation": "Brackets are evaluated first, then multiplication and division left-to-right, then addition."
-      },
-      "guided_practice_refs": [],
-      "independent_practice_refs": [],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-reason-patterns-1",
@@ -602,22 +2038,59 @@
       "title": "Pattern recognition and classification",
       "stage": "first_steps",
       "order_index": 1,
+      "objective": "Identify underlying invariants, arithmetic progressions, and categorical distinctions in symbolic sequences.",
       "prerequisite_keys": [],
-      "objective": "Identify underlying rules in sequences and classify items based on stated constraints.",
-      "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-patterns-classification",
-        "section_slug": "intuition"
+      "teaching_content": {
+        "summary": "Logical reasoning tests inductive and deductive inference: identifying progression rules, alternating signs, and category mismatches.",
+        "why_it_matters": "Engineers debug systems by observing patterns in error rates, latency spikes, and log sequences.",
+        "intuition": "Examine the delta between consecutive terms. Is it adding a constant? Multiplying? Alternating?",
+        "analogy": "Detecting a musical rhythm where beats follow a recurring sequence of pulses.",
+        "syntax_guide": "# Series: 2, 4, 8, 16, ?\n# Rule: multiply by 2 -> next is 32",
+        "worked_example_title": "Geometric Sequence Detection",
+        "worked_example_code": "series = [3, 6, 12, 24]\n# Delta: * 2 at each step\nnext_val = 24 * 2  # 48",
+        "worked_example_explanation": "Each term is twice the previous term. Next term is 48.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "3 -> 6",
+            "state_description": "6 / 3 = 2",
+            "result_or_value": "Ratio 2"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "6 -> 12",
+            "state_description": "12 / 6 = 2",
+            "result_or_value": "Ratio 2"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "12 -> 24",
+            "state_description": "24 / 12 = 2",
+            "result_or_value": "Ratio 2"
+          },
+          {
+            "step_number": 4,
+            "line_or_expression": "24 * 2",
+            "state_description": "Project next term",
+            "result_or_value": "48"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Assuming arithmetic addition when sequence is geometric",
+            "wrong_code": "3, 6 (+3), 12 (+6) -> assuming +9 for 21",
+            "explanation": "Check ratios before assuming linear addition.",
+            "correct_code": "3 * 2 = 6, 6 * 2 = 12, 12 * 2 = 24"
+          }
+        ],
+        "revision_notes": [
+          "Compute differences between consecutive elements.",
+          "Check for geometric ratios if differences grow exponentially.",
+          "Look for alternating patterns if deltas change sign."
+        ]
       },
-      "worked_example": {
-        "title": "Rule deduction",
-        "code": "# Sequence: 2, 6, 12, 20, 30 ...\n# Differences: +4, +6, +8, +10 -> Next difference is +12 -> 42.",
-        "explanation": "Analyzing differences between consecutive terms reveals a linear progression of +2."
-      },
-      "guided_practice_refs": [],
-      "independent_practice_refs": [],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-verbal-structure-1",
@@ -626,22 +2099,53 @@
       "title": "Sentence structure and clause boundaries",
       "stage": "first_steps",
       "order_index": 1,
+      "objective": "Distinguish independent and dependent clauses, avoid comma splices, and ensure subject-verb agreement.",
       "prerequisite_keys": [],
-      "objective": "Identify subject, verb, and object components and avoid comma splices or run-on sentences.",
-      "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/verbal-english/verbal-english-sentence-structure",
-        "section_slug": "intuition"
+      "teaching_content": {
+        "summary": "Clear technical communication requires grammatically sound sentences: an independent clause contains a subject and a verb and expresses a complete thought.",
+        "why_it_matters": "Technical documentation, pull request summaries, and engineering post-mortems must be unambiguous.",
+        "intuition": "A sentence is like an executable statement. If a subject or verb is missing, the statement fails to parse.",
+        "analogy": "Building blocks: you cannot support a second floor (dependent clause) without a solid ground floor (independent clause).",
+        "syntax_guide": "# Correct: Semicolon or coordinating conjunction joins independent clauses\n# 'The test passed; the build was deployed.'\n# 'The test passed, and the build was deployed.'",
+        "worked_example_title": "Fixing Comma Splices",
+        "worked_example_code": "# Wrong: 'The API returned 500, we restarted the pod.'\n# Correct: 'The API returned 500, so we restarted the pod.'",
+        "worked_example_explanation": "Two independent clauses cannot be joined by a bare comma; they require a coordinating conjunction or a semicolon.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "Clause 1: 'The API returned 500'",
+            "state_description": "Complete independent thought",
+            "result_or_value": "Valid clause"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "Clause 2: 'we restarted the pod'",
+            "state_description": "Complete independent thought",
+            "result_or_value": "Valid clause"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "Join with ', so'",
+            "state_description": "Coordinating conjunction creates legal compound sentence",
+            "result_or_value": "Grammatically sound"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Subject-verb agreement error with singular collective nouns",
+            "wrong_code": "The team of engineers are ready.",
+            "explanation": "The subject is 'team' (singular), not 'engineers'. The verb must be singular 'is'.",
+            "correct_code": "The team of engineers is ready."
+          }
+        ],
+        "revision_notes": [
+          "Every complete sentence requires a subject and a finite verb.",
+          "Never join two independent clauses with a comma alone (comma splice).",
+          "Ensure subject and verb agree in grammatical number (singular vs plural)."
+        ]
       },
-      "worked_example": {
-        "title": "Subject-verb alignment",
-        "code": "# Incorrect: 'The group of students were studying.'\n# Correct: 'The group of students was studying.' (Subject is singular 'group')",
-        "explanation": "Prepositional phrases between the subject and verb do not alter subject number."
-      },
-      "guided_practice_refs": [],
-      "independent_practice_refs": [],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-sys-requirements-1",
@@ -650,22 +2154,53 @@
       "title": "Functional vs non-functional requirements",
       "stage": "first_steps",
       "order_index": 1,
+      "objective": "Classify software system requirements into functional features versus operational non-functional constraints.",
       "prerequisite_keys": [],
-      "objective": "Distinguish feature capabilities (functional) from quality attributes like latency and uptime.",
-      "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/system-design/system-design-requirements",
-        "section_slug": "intuition"
+      "teaching_content": {
+        "summary": "System design begins with requirement scoping. Functional requirements define what the system does (features). Non-functional requirements define how well it performs (latency, throughput, availability, consistency).",
+        "why_it_matters": "A system that functions correctly but crashes under 100 requests per second or loses user transactions is a failed engineering project.",
+        "intuition": "Functional is the verbs (post a message, search for users). Non-functional is the adverbs (securely, quickly, reliably, at scale).",
+        "analogy": "An automobile. Functional: it drives, steers, and brakes. Non-functional: top speed 120 mph, 5-star crash safety, 40 mpg fuel efficiency.",
+        "syntax_guide": "# Functional: What system does\n- User can shorten a URL\n- User visiting short URL is redirected to original URL\n\n# Non-functional: Performance & Reliability\n- Redirection latency < 50ms\n- 99.99% availability\n- 10,000 requests per second read traffic",
+        "worked_example_title": "Scoping URL Shortener (TinyURL)",
+        "worked_example_code": "requirements = {\n    'functional': ['Shorten URL', 'Redirect URL', 'Custom alias'],\n    'non_functional': ['Latency < 20ms', 'Read-heavy 100:1 ratio', 'High availability']\n}",
+        "worked_example_explanation": "Separating features from operational constraints guides architecture choices (e.g. read replicas and in-memory Redis caches).",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "Identify user actions",
+            "state_description": "Create short URL, access short URL",
+            "result_or_value": "Functional"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "Estimate traffic volume",
+            "state_description": "100M URLs generated per month",
+            "result_or_value": "Capacity planning"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "Determine SLA bounds",
+            "state_description": "p99 latency < 50ms, 99.9% uptime",
+            "result_or_value": "Non-functional"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Designing architecture before clarifying requirements and scale",
+            "wrong_code": "Jumping directly to Kafka + Kubernetes without asking traffic numbers",
+            "explanation": "Over-engineering adds massive operational complexity when simple PostgreSQL queries satisfy the requirements.",
+            "correct_code": "Clarify read vs write ratios and latency targets first."
+          }
+        ],
+        "revision_notes": [
+          "Functional: actions the system must perform.",
+          "Non-functional: speed, availability, consistency, durability, security.",
+          "Always calculate read-to-write ratios to determine caching strategies."
+        ]
       },
-      "worked_example": {
-        "title": "Requirement categorization",
-        "code": "# 'A user can upload an image' -> Functional requirement\n# 'The image must be processed within 500ms' -> Non-functional (performance)",
-        "explanation": "Functional requirements define what the system does; non-functional define how well it performs."
-      },
-      "guided_practice_refs": [],
-      "independent_practice_refs": [],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-ai-foundations-1",
@@ -674,22 +2209,48 @@
       "title": "AI, ML, and deep learning boundaries",
       "stage": "first_steps",
       "order_index": 1,
+      "objective": "Delineate the hierarchy connecting Artificial Intelligence, Machine Learning, Deep Learning, and Generative AI.",
       "prerequisite_keys": [],
-      "objective": "Understand the hierarchy between artificial intelligence, machine learning, and deep neural nets.",
-      "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-ai-ml-dl",
-        "section_slug": "intuition"
+      "teaching_content": {
+        "summary": "Artificial Intelligence is the broad umbrella of machines executing tasks requiring human-like intelligence. Machine Learning learns rules from data. Deep Learning uses multi-layer neural networks. Generative AI creates novel text, code, or images.",
+        "why_it_matters": "Choosing the right tool prevents deploying multi-billion parameter LLMs for simple problems that a deterministic regex or decision tree solves in 1 millisecond.",
+        "intuition": "Concentric Russian nesting dolls. AI is the outermost doll; ML is inside it; DL is inside ML; GenAI is a modern subset of DL.",
+        "analogy": "Transportation -> Motor Vehicles -> Electric Cars -> Autonomous Electric Shuttles.",
+        "syntax_guide": "# Rule-based (Classical AI): IF-ELSE logic\n# Machine Learning: Feature vectors + Logistic Regression / XGBoost\n# Deep Learning: Multi-layer perceptrons, CNNs, Transformers\n# Generative AI: Autoregressive next-token prediction (LLMs)",
+        "worked_example_title": "Classifying Technical Problem Types",
+        "worked_example_code": "def choose_approach(problem_type):\n    if problem_type == 'structured_tabular':\n        return 'Gradient Boosted Trees (XGBoost)'\n    elif problem_type == 'creative_text_generation':\n        return 'Generative AI (Transformer LLM)'\n    else:\n        return 'Deterministic Algorithm'",
+        "worked_example_explanation": "Selects the minimal, most reliable technology tier suitable for the problem contract.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "Problem: Spam detection with tabular flags",
+            "state_description": "Tabular feature inputs",
+            "result_or_value": "Classical ML (XGBoost)"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "Problem: Summarize 20-page legal contract",
+            "state_description": "Natural language understanding and generation",
+            "result_or_value": "Generative AI (LLM)"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Calling an LLM API to compute deterministic arithmetic",
+            "wrong_code": "llm.generate('What is 4529 * 382?')",
+            "explanation": "LLMs predict tokens probabilistically and hallucinate arithmetic. Code does math deterministically in 1 nanosecond.",
+            "correct_code": "result = 4529 * 382"
+          }
+        ],
+        "revision_notes": [
+          "AI is the overall domain; ML is learning patterns from data.",
+          "Deep Learning uses deep neural architectures (like Transformers).",
+          "Generative AI predicts probabilistic next tokens.",
+          "Never spend LLM tokens on tasks code can calculate deterministically."
+        ]
       },
-      "worked_example": {
-        "title": "Rule-based vs Learning-based",
-        "code": "# Rule-based: if email.contains('lottery') -> spam\n# ML-based: model trained on 100k labeled emails learns token statistical weights",
-        "explanation": "Traditional software relies on explicit coded rules; machine learning learns parameters from data."
-      },
-      "guided_practice_refs": [],
-      "independent_practice_refs": [],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     },
     {
       "key": "step-interview-intro-1",
@@ -698,22 +2259,54 @@
       "title": "Structuring a technical self-introduction",
       "stage": "first_steps",
       "order_index": 1,
+      "objective": "Formulate a concise 90-second technical introduction using the Present-Past-Future narrative structure.",
       "prerequisite_keys": [],
-      "objective": "Deliver a concise 60-90 second introduction covering education, technical strengths, and recent projects.",
-      "teaching_ref": {
-        "source_type": "candidate_lesson",
-        "content_key": "forge/placement-foundations/interview-communication/interview-communication-introductions",
-        "section_slug": "intuition"
+      "teaching_content": {
+        "summary": "The technical self-introduction ('Tell me about yourself') sets the tone for engineering interviews. A concise, structured response demonstrates technical clarity, professional focus, and communication discipline.",
+        "why_it_matters": "Interviewers evaluate whether you communicate concisely like an engineering teammate or ramble without structure.",
+        "intuition": "Pitch your technical profile like a clean README file: headline, what you build, key stack strengths, and what engineering problems excite you.",
+        "analogy": "An executive summary at the top of an engineering design document.",
+        "syntax_guide": "# Present-Past-Future Framework (60-90 seconds):\n1. Present: Current technical focus, core stack (Python, PostgreSQL, FastAPI)\n2. Past: Key project built, engineering challenge solved, quantitative impact\n3. Future: Why this specific role and domain aligns with your trajectory",
+        "worked_example_title": "90-Second Engineering Introduction",
+        "worked_example_code": "\"\"\"\nHi, I'm an engineer specializing in backend Python services and PostgreSQL.\nRecently, I built a reliable learning platform that verifies learner code in isolated\nworkers and calculates spaced repetition schedules deterministically.\nBefore that, I completed foundational work in algorithms and system design.\nI'm excited about this role because your team tackles high-throughput data reliability,\nwhich matches the systems engineering problems I enjoy solving.\n\"\"\"",
+        "worked_example_explanation": "Clean 5-sentence delivery: 20 seconds on current strengths, 40 seconds on concrete project evidence, 20 seconds on aligned future goals.",
+        "tracing_steps": [
+          {
+            "step_number": 1,
+            "line_or_expression": "Opening hook",
+            "state_description": "Define engineering identity and core stack",
+            "result_or_value": "Python + PostgreSQL backend"
+          },
+          {
+            "step_number": 2,
+            "line_or_expression": "Concrete evidence",
+            "state_description": "Highlight real project and architectural decision",
+            "result_or_value": "Isolated worker execution"
+          },
+          {
+            "step_number": 3,
+            "line_or_expression": "Forward alignment",
+            "state_description": "Connect past evidence to target team problems",
+            "result_or_value": "High-throughput reliability"
+          }
+        ],
+        "common_mistakes": [
+          {
+            "mistake_description": "Reciting chronological resume bullet points from school forward",
+            "wrong_code": "I was born in..., then in 2018 I joined high school..., then in 2020...",
+            "explanation": "Loses the interviewer's attention. Focus on your current engineering capabilities and strongest evidence.",
+            "correct_code": "Lead with Present strengths, highlight 1 key project, and state Future goals."
+          }
+        ],
+        "revision_notes": [
+          "Target duration: 60 to 90 seconds maximum.",
+          "Structure: Present (identity/stack) -> Past (concrete project/impact) -> Future (why here).",
+          "Highlight technical decisions and trade-offs rather than generic adjectives.",
+          "Speak with calm, honest engineering confidence."
+        ]
       },
-      "worked_example": {
-        "title": "Present-Past-Future model",
-        "code": "# 1. Present: Current status and core strengths (e.g. backend Python & SQL)\n# 2. Past: Meaningful project built and deterministic test evidence\n# 3. Future: Why this specific engineering role aligns with current growth",
-        "explanation": "A structured introduction stays focused, relevant, and under 90 seconds."
-      },
-      "guided_practice_refs": [],
-      "independent_practice_refs": [],
-      "review_eligible": true,
-      "availability_status": "available"
+      "availability_status": "available",
+      "review_eligible": true
     }
   ]
 }
