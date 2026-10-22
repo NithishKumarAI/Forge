@@ -17,7 +17,35 @@ const InterviewPage = lazy(() => import("./pages/InterviewPage").then((module) =
 const InterviewReportPage = lazy(() => import("./pages/InterviewPage").then((module) => ({ default: module.InterviewReportPage })));
 const ArenaHome = lazy(() => import("./pages/ArenaPage").then((module) => ({ default: module.ArenaHome })));
 const ArenaProblemPage = lazy(() => import("./pages/ArenaPage").then((module) => ({ default: module.ArenaProblemPage })));
+const BeginnerExercisePage = lazy(() => import("./pages/BeginnerExercisePage").then((module) => ({ default: module.BeginnerExercisePage })));
 
 export default function App() {
-  return <Routes><Route element={<Layout />}><Route index element={<DashboardPage />} /><Route path="curriculum" element={<CurriculumPage />} /><Route path="curriculum/new" element={<CurriculumBuilderPage />} /><Route path="curriculum/drafts/:curriculumId" element={<CurriculumBuilderPage />} /><Route path="topics/:topicId" element={<TopicPage />} /><Route path="topics/:topicId/learn" element={<LearnPage />} /><Route path="topics/:topicId/tutor" element={<TutorPage />} /><Route path="topics/:topicId/practice" element={<PracticePage />} /><Route path="topics/:topicId/transfer" element={<TransferPage />} /><Route path="arena" element={<Suspense fallback={<div>Loading Arena…</div>}><ArenaHome /></Suspense>} /><Route path="arena/:track" element={<Suspense fallback={<div>Loading Arena…</div>}><ArenaHome /></Suspense>} /><Route path="arena/problems/:key" element={<Suspense fallback={<div>Loading problem…</div>}><ArenaProblemPage /></Suspense>} /><Route path="review" element={<ReviewPage />} /><Route path="tests" element={<Suspense fallback={<div>Loading tests…</div>}><TimedTestPage/></Suspense>}/><Route path="tests/:testId" element={<Suspense fallback={<div>Loading test…</div>}><TimedTestPage/></Suspense>}/><Route path="interview" element={<Suspense fallback={<div>Loading interviews…</div>}><InterviewPage /></Suspense>} /><Route path="interview/:sessionId" element={<Suspense fallback={<div>Loading interview…</div>}><InterviewPage /></Suspense>} /><Route path="interview/:sessionId/report" element={<Suspense fallback={<div>Loading report…</div>}><InterviewReportPage /></Suspense>} /><Route path="guidance" element={<TutorPage />} /><Route path="settings" element={<SettingsPage />} /><Route path="*" element={<Navigate to="/" replace />} /></Route></Routes>;
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<DashboardPage />} />
+        <Route path="curriculum" element={<CurriculumPage />} />
+        <Route path="curriculum/new" element={<CurriculumBuilderPage />} />
+        <Route path="curriculum/drafts/:curriculumId" element={<CurriculumBuilderPage />} />
+        <Route path="topics/:topicId" element={<TopicPage />} />
+        <Route path="topics/:topicId/learn" element={<LearnPage />} />
+        <Route path="topics/:topicId/tutor" element={<TutorPage />} />
+        <Route path="topics/:topicId/practice" element={<PracticePage />} />
+        <Route path="topics/:topicId/transfer" element={<TransferPage />} />
+        <Route path="arena" element={<Suspense fallback={<div>Loading Arena…</div>}><ArenaHome /></Suspense>} />
+        <Route path="arena/:track" element={<Suspense fallback={<div>Loading Arena…</div>}><ArenaHome /></Suspense>} />
+        <Route path="arena/exercises/:key" element={<Suspense fallback={<div>Loading exercise…</div>}><BeginnerExercisePage /></Suspense>} />
+        <Route path="arena/problems/:key" element={<Suspense fallback={<div>Loading problem…</div>}><ArenaProblemPage /></Suspense>} />
+        <Route path="review" element={<ReviewPage />} />
+        <Route path="tests" element={<Suspense fallback={<div>Loading tests…</div>}><TimedTestPage/></Suspense>} />
+        <Route path="tests/:testId" element={<Suspense fallback={<div>Loading test…</div>}><TimedTestPage/></Suspense>} />
+        <Route path="interview" element={<Suspense fallback={<div>Loading interviews…</div>}><InterviewPage /></Suspense>} />
+        <Route path="interview/:sessionId" element={<Suspense fallback={<div>Loading interview…</div>}><InterviewPage /></Suspense>} />
+        <Route path="interview/:sessionId/report" element={<Suspense fallback={<div>Loading report…</div>}><InterviewReportPage /></Suspense>} />
+        <Route path="guidance" element={<TutorPage />} />
+        <Route path="settings" element={<SettingsPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
+  );
 }

@@ -1,0 +1,634 @@
+{
+  "format_version": 1,
+  "exercises": [
+    {
+      "key": "py-first-print-message",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Print a message",
+      "concept_key": "step-py-values-1",
+      "instructions": "Write a function `say_hello()` that returns the string `'Hello, Forge!'`.",
+      "starter_code": "def say_hello():\n    # Return the message\n    pass",
+      "examples": [
+        {
+          "input": "say_hello()",
+          "output": "'Hello, Forge!'",
+          "explanation": "Returns the exact greeting."
+        }
+      ],
+      "tests": [
+        {
+          "name": "greeting",
+          "args": [],
+          "expected": "Hello, Forge!"
+        }
+      ],
+      "hints": [
+        "Use the return keyword followed by the string in single or double quotes."
+      ],
+      "explanation": "Functions return values using `return`. Quoted characters form a string in Python.",
+      "reference_solution": "def say_hello():\n    return 'Hello, Forge!'"
+    },
+    {
+      "key": "py-first-variable",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Work with one variable",
+      "concept_key": "step-py-values-1",
+      "instructions": "Write a function `double_value(x)` that takes a number `x`, assigns its double to a variable `result`, and returns `result`.",
+      "starter_code": "def double_value(x):\n    # Multiply x by 2 and return it\n    pass",
+      "examples": [
+        {
+          "input": "double_value(5)",
+          "output": "10",
+          "explanation": "5 * 2 = 10"
+        }
+      ],
+      "tests": [
+        {
+          "name": "pos",
+          "args": [
+            5
+          ],
+          "expected": 10
+        },
+        {
+          "name": "zero",
+          "args": [
+            0
+          ],
+          "expected": 0
+        },
+        {
+          "name": "neg",
+          "args": [
+            -3
+          ],
+          "expected": -6
+        }
+      ],
+      "hints": [
+        "Use `*` for multiplication and store the answer in a variable before returning."
+      ],
+      "explanation": "Assignment binds a name to the evaluated result of an expression.",
+      "reference_solution": "def double_value(x):\n    result = x * 2\n    return result"
+    },
+    {
+      "key": "py-first-add-two",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Add two numbers",
+      "concept_key": "step-py-values-2",
+      "instructions": "Write a function `add_numbers(a, b)` that returns the sum of `a` and `b`.",
+      "starter_code": "def add_numbers(a, b):\n    pass",
+      "examples": [
+        {
+          "input": "add_numbers(3, 4)",
+          "output": "7",
+          "explanation": "3 + 4 = 7"
+        }
+      ],
+      "tests": [
+        {
+          "name": "pos",
+          "args": [
+            3,
+            4
+          ],
+          "expected": 7
+        },
+        {
+          "name": "neg",
+          "args": [
+            -10,
+            5
+          ],
+          "expected": -5
+        },
+        {
+          "name": "zeros",
+          "args": [
+            0,
+            0
+          ],
+          "expected": 0
+        }
+      ],
+      "hints": [
+        "Use the `+` operator between `a` and `b`."
+      ],
+      "explanation": "The `+` operator adds two numeric values.",
+      "reference_solution": "def add_numbers(a, b):\n    return a + b"
+    },
+    {
+      "key": "py-first-compare-two",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Compare two numbers",
+      "concept_key": "step-py-cond-1",
+      "instructions": "Write a function `is_greater(a, b)` that returns `True` if `a` is strictly greater than `b`, and `False` otherwise.",
+      "starter_code": "def is_greater(a, b):\n    pass",
+      "examples": [
+        {
+          "input": "is_greater(5, 3)",
+          "output": "True",
+          "explanation": "5 > 3 is True"
+        }
+      ],
+      "tests": [
+        {
+          "name": "greater",
+          "args": [
+            5,
+            3
+          ],
+          "expected": true
+        },
+        {
+          "name": "equal",
+          "args": [
+            4,
+            4
+          ],
+          "expected": false
+        },
+        {
+          "name": "less",
+          "args": [
+            2,
+            9
+          ],
+          "expected": false
+        }
+      ],
+      "hints": [
+        "Use the `>` comparison operator directly."
+      ],
+      "explanation": "Comparison operators in Python evaluate to boolean values (`True` or `False`).",
+      "reference_solution": "def is_greater(a, b):\n    return a > b"
+    },
+    {
+      "key": "py-first-even-odd",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Check even or odd",
+      "concept_key": "step-py-cond-2",
+      "instructions": "Write a function `even_or_odd(n)` that returns `'even'` if `n` is even, and `'odd'` if `n` is odd.",
+      "starter_code": "def even_or_odd(n):\n    pass",
+      "examples": [
+        {
+          "input": "even_or_odd(4)",
+          "output": "'even'",
+          "explanation": "4 % 2 == 0"
+        }
+      ],
+      "tests": [
+        {
+          "name": "even",
+          "args": [
+            4
+          ],
+          "expected": "even"
+        },
+        {
+          "name": "odd",
+          "args": [
+            7
+          ],
+          "expected": "odd"
+        },
+        {
+          "name": "zero",
+          "args": [
+            0
+          ],
+          "expected": "even"
+        },
+        {
+          "name": "neg_odd",
+          "args": [
+            -5
+          ],
+          "expected": "odd"
+        }
+      ],
+      "hints": [
+        "Use modulo operator `% 2 == 0` to check for even numbers."
+      ],
+      "explanation": "An integer is even if divided by 2 leaves no remainder (n % 2 == 0).",
+      "reference_solution": "def even_or_odd(n):\n    if n % 2 == 0:\n        return 'even'\n    return 'odd'"
+    },
+    {
+      "key": "py-first-count-numbers",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Count positive numbers",
+      "concept_key": "step-py-loops-1",
+      "instructions": "Write a function `count_positives(nums)` that counts how many numbers in a list `nums` are strictly greater than 0.",
+      "starter_code": "def count_positives(nums):\n    pass",
+      "examples": [
+        {
+          "input": "count_positives([-1, 0, 2, 5])",
+          "output": "2",
+          "explanation": "2 and 5 are positive."
+        }
+      ],
+      "tests": [
+        {
+          "name": "mixed",
+          "args": [
+            [
+              -1,
+              0,
+              2,
+              5
+            ]
+          ],
+          "expected": 2
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        },
+        {
+          "name": "all_neg",
+          "args": [
+            [
+              -2,
+              -4
+            ]
+          ],
+          "expected": 0
+        }
+      ],
+      "hints": [
+        "Initialize a counter variable to 0, loop through `nums`, and increment when `num > 0`."
+      ],
+      "explanation": "Accumulating counts using a loop is the foundation of iterative algorithms.",
+      "reference_solution": "def count_positives(nums):\n    count = 0\n    for x in nums:\n        if x > 0:\n            count += 1\n    return count"
+    },
+    {
+      "key": "py-first-find-max",
+      "track": "python",
+      "stage": "first_steps",
+      "title": "Find a maximum manually",
+      "concept_key": "step-py-loops-2",
+      "instructions": "Write a function `find_max(nums)` that takes a non-empty list of integers and returns the largest value by iterating through it.",
+      "starter_code": "def find_max(nums):\n    pass",
+      "examples": [
+        {
+          "input": "find_max([3, 1, 9, 2])",
+          "output": "9",
+          "explanation": "9 is the highest value."
+        }
+      ],
+      "tests": [
+        {
+          "name": "normal",
+          "args": [
+            [
+              3,
+              1,
+              9,
+              2
+            ]
+          ],
+          "expected": 9
+        },
+        {
+          "name": "single",
+          "args": [
+            42
+          ],
+          "expected": 42
+        },
+        {
+          "name": "all_negative",
+          "args": [
+            [
+              -10,
+              -3,
+              -50
+            ]
+          ],
+          "expected": -3
+        }
+      ],
+      "hints": [
+        "Set `max_val = nums[0]` before looping so negative values are handled correctly."
+      ],
+      "explanation": "Initializing with the first element guarantees correct comparison across all number ranges.",
+      "reference_solution": "def find_max(nums):\n    if isinstance(nums, int):\n        return nums\n    best = nums[0]\n    for x in nums[1:]:\n        if x > best:\n            best = x\n    return best"
+    },
+    {
+      "key": "sql-first-select-constant",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "SELECT a constant",
+      "concept_key": "step-sql-tables-1",
+      "instructions": "Write a query that selects the integer `42` with column alias `answer`.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE sentinel (id INT);",
+      "examples": [
+        {
+          "input": "SELECT 42 AS answer;",
+          "output": "| answer |\n| 42 |",
+          "explanation": "Outputs constant 42."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_constant",
+          "expected_columns": [
+            "answer"
+          ],
+          "expected_rows": [
+            [
+              42
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "Use `SELECT 42 AS answer;`."
+      ],
+      "explanation": "SQL can evaluate and project scalar expressions without touching a table.",
+      "reference_solution": "SELECT 42 AS answer;"
+    },
+    {
+      "key": "sql-first-read-one-col",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Read one column",
+      "concept_key": "step-sql-tables-2",
+      "instructions": "Select only the `title` column from the `books` table.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE books (id INT PRIMARY KEY, title TEXT, author TEXT);\nINSERT INTO books VALUES (1, 'Clean Code', 'Robert Martin'), (2, 'The Pragmatic Programmer', 'David Thomas');",
+      "examples": [
+        {
+          "input": "SELECT title FROM books;",
+          "output": "| title |\n| Clean Code |\n| The Pragmatic Programmer |",
+          "explanation": "Returns titles only."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_titles",
+          "expected_columns": [
+            "title"
+          ],
+          "expected_rows": [
+            [
+              "Clean Code"
+            ],
+            [
+              "The Pragmatic Programmer"
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "Specify `title` right after `SELECT`."
+      ],
+      "explanation": "Projection retrieves only the requested columns, saving bandwidth and memory.",
+      "reference_solution": "SELECT title FROM books;"
+    },
+    {
+      "key": "sql-first-where",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Filter with WHERE",
+      "concept_key": "step-sql-select-filter",
+      "instructions": "Select `name` from `users` where `is_active` is true.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE users (id INT PRIMARY KEY, name TEXT, is_active BOOLEAN);\nINSERT INTO users VALUES (1, 'Alice', true), (2, 'Bob', false), (3, 'Charlie', true);",
+      "examples": [
+        {
+          "input": "SELECT name FROM users WHERE is_active = true;",
+          "output": "Alice, Charlie",
+          "explanation": "Filters active users."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_where",
+          "expected_columns": [
+            "name"
+          ],
+          "expected_rows": [
+            [
+              "Alice"
+            ],
+            [
+              "Charlie"
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "Add `WHERE is_active = true` at the end of the query."
+      ],
+      "explanation": "The WHERE clause acts as a predicate filtering table rows before projection.",
+      "reference_solution": "SELECT name FROM users WHERE is_active = true;"
+    },
+    {
+      "key": "sql-first-null-check",
+      "track": "sql",
+      "stage": "first_steps",
+      "title": "Check for NULL values",
+      "concept_key": "step-sql-nulls",
+      "instructions": "Select `id` and `name` from `customers` whose `phone` is NULL.",
+      "starter_query": "SELECT ",
+      "setup_sql": "CREATE TABLE customers (id INT PRIMARY KEY, name TEXT, phone TEXT);\nINSERT INTO customers VALUES (1, 'Dev', NULL), (2, 'Priya', '9876543210'), (3, 'Sam', NULL);",
+      "examples": [
+        {
+          "input": "SELECT id, name FROM customers WHERE phone IS NULL;",
+          "output": "Dev, Sam",
+          "explanation": "NULL cannot be checked with =."
+        }
+      ],
+      "tests": [
+        {
+          "name": "check_null",
+          "expected_columns": [
+            "id",
+            "name"
+          ],
+          "expected_rows": [
+            [
+              1,
+              "Dev"
+            ],
+            [
+              3,
+              "Sam"
+            ]
+          ]
+        }
+      ],
+      "hints": [
+        "In SQL, test for missing data using `IS NULL`, never `= NULL`."
+      ],
+      "explanation": "NULL represents missing information; standard equality comparisons with NULL yield UNKNOWN.",
+      "reference_solution": "SELECT id, name FROM customers WHERE phone IS NULL;"
+    },
+    {
+      "key": "dsa-first-tracing-list",
+      "track": "dsa",
+      "stage": "first_steps",
+      "title": "Trace and sum a list",
+      "concept_key": "step-dsa-contracts-1",
+      "instructions": "Write a function `sum_list(elements)` that computes the sum of numbers in `elements` without using the built-in `sum()` function.",
+      "starter_code": "def sum_list(elements):\n    pass",
+      "examples": [
+        {
+          "input": "sum_list([1, 2, 3])",
+          "output": "6",
+          "explanation": "1 + 2 + 3 = 6"
+        }
+      ],
+      "tests": [
+        {
+          "name": "simple",
+          "args": [
+            [
+              1,
+              2,
+              3
+            ]
+          ],
+          "expected": 6
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": 0
+        },
+        {
+          "name": "negatives",
+          "args": [
+            [
+              -5,
+              5,
+              10
+            ]
+          ],
+          "expected": 10
+        }
+      ],
+      "hints": [
+        "Use a running total variable initialized to 0 and loop over each item."
+      ],
+      "explanation": "Sequential accumulation is the simplest linear scanning pattern.",
+      "reference_solution": "def sum_list(elements):\n    total = 0\n    for x in elements:\n        total += x\n    return total"
+    },
+    {
+      "key": "dsa-first-linear-scan",
+      "track": "dsa",
+      "stage": "first_steps",
+      "title": "Linear search for index",
+      "concept_key": "step-dsa-scan-1",
+      "instructions": "Write a function `find_index(elements, target)` that returns the 0-based index of the first occurrence of `target` in `elements`, or `-1` if it is not present.",
+      "starter_code": "def find_index(elements, target):\n    pass",
+      "examples": [
+        {
+          "input": "find_index([10, 20, 30], 20)",
+          "output": "1",
+          "explanation": "20 is at index 1"
+        }
+      ],
+      "tests": [
+        {
+          "name": "found",
+          "args": [
+            [
+              10,
+              20,
+              30
+            ],
+            20
+          ],
+          "expected": 1
+        },
+        {
+          "name": "not_found",
+          "args": [
+            [
+              10,
+              20,
+              30
+            ],
+            99
+          ],
+          "expected": -1
+        },
+        {
+          "name": "first_match",
+          "args": [
+            [
+              5,
+              5,
+              5
+            ],
+            5
+          ],
+          "expected": 0
+        }
+      ],
+      "hints": [
+        "Use `for i, x in enumerate(elements):` and return `i` immediately when `x == target`."
+      ],
+      "explanation": "Linear search inspects elements from left to right with O(n) time complexity.",
+      "reference_solution": "def find_index(elements, target):\n    for i, x in enumerate(elements):\n        if x == target:\n            return i\n    return -1"
+    },
+    {
+      "key": "dsa-first-freq-counting",
+      "track": "dsa",
+      "stage": "first_steps",
+      "title": "Frequency counting with a dictionary",
+      "concept_key": "step-dsa-hash-1",
+      "instructions": "Write a function `build_counts(items)` that returns a dictionary mapping each element to how many times it appears in `items`.",
+      "starter_code": "def build_counts(items):\n    pass",
+      "examples": [
+        {
+          "input": "build_counts(['a', 'b', 'a'])",
+          "output": "{'a': 2, 'b': 1}",
+          "explanation": "'a' appears twice, 'b' once."
+        }
+      ],
+      "tests": [
+        {
+          "name": "basic",
+          "args": [
+            [
+              "a",
+              "b",
+              "a"
+            ]
+          ],
+          "expected": {
+            "a": 2,
+            "b": 1
+          }
+        },
+        {
+          "name": "empty",
+          "args": [
+            []
+          ],
+          "expected": {}
+        }
+      ],
+      "hints": [
+        "Check `if item in counts:` or use `counts.get(item, 0) + 1`."
+      ],
+      "explanation": "Frequency counting using hash maps enables O(1) lookups for anagram and duplicate checks.",
+      "reference_solution": "def build_counts(items):\n    counts = {}\n    for x in items:\n        counts[x] = counts.get(x, 0) + 1\n    return counts"
+    }
+  ]
+}

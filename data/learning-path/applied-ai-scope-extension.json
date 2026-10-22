@@ -1,0 +1,96 @@
+{
+  "format_version": 1,
+  "version": "1.0.0",
+  "status": "proposed_extension",
+  "rationale": "Audit of fresher readiness beyond isolated algorithmic interview puzzles. Bridges the gap to applied software engineering.",
+  "modules": [
+    {
+      "key": "ext-backend-fastapi",
+      "title": "Python Backend Development with FastAPI",
+      "description": "Constructing RESTful API endpoints, request validation with Pydantic, HTTP status codes, and dependency injection.",
+      "competencies": [
+        "Define GET/POST/PATCH/DELETE route handlers with typed parameters",
+        "Validate incoming JSON payloads with Pydantic schemas",
+        "Return appropriate HTTP status codes (200, 201, 400, 404, 422)",
+        "Organize modular router architectures with APIRouter"
+      ],
+      "prerequisites": [
+        "python-functions",
+        "python-collections"
+      ]
+    },
+    {
+      "key": "ext-db-integration",
+      "title": "PostgreSQL & Database Integration",
+      "description": "Connecting Python services to PostgreSQL, query parameterization to prevent SQL injection, and transaction safety.",
+      "competencies": [
+        "Execute parameterized queries safely via DB-API or SQLModel/SQLAlchemy",
+        "Manage connection pooling and session lifecycles",
+        "Handle database exceptions and rollback transactions on failure",
+        "Design normalized schema migrations"
+      ],
+      "prerequisites": [
+        "ext-backend-fastapi",
+        "sql-postgresql-tables-keys"
+      ]
+    },
+    {
+      "key": "ext-testing-debugging",
+      "title": "Deterministic Testing & Debugging",
+      "description": "Writing unit and integration tests with pytest, mocking external services, and debugging runtime exceptions.",
+      "competencies": [
+        "Write pytest test suites covering normal, boundary, and error cases",
+        "Use test fixtures and in-memory databases for fast isolated verification",
+        "Debug stack traces using pdb and structured logging",
+        "Measure and maintain test coverage on core business logic"
+      ],
+      "prerequisites": [
+        "ext-backend-fastapi"
+      ]
+    },
+    {
+      "key": "ext-git-docker",
+      "title": "Git & Containerization Fundamentals",
+      "description": "Version control best practices, branch workflows, and reproducible environments with Docker.",
+      "competencies": [
+        "Manage branches, staging, commits, and merge conflicts cleanly",
+        "Write clear, conventional commit messages and pull requests",
+        "Author Dockerfile definitions for Python applications",
+        "Run multi-container local environments using docker-compose"
+      ],
+      "prerequisites": [
+        "ext-backend-fastapi"
+      ]
+    },
+    {
+      "key": "ext-llm-rag-agents",
+      "title": "LLM Integration, Embeddings, RAG & Agents",
+      "description": "Integrating model providers via structured output, vector similarity search, retrieval augmented generation, and tool calling.",
+      "competencies": [
+        "Generate structured JSON from LLMs with schema enforcement",
+        "Compute and store text embeddings in vector stores (e.g. pgvector)",
+        "Implement chunking, retrieval, and citation verification pipelines",
+        "Construct bounded agentic loops with deterministic tool validation"
+      ],
+      "prerequisites": [
+        "ext-db-integration",
+        "ext-backend-fastapi"
+      ]
+    },
+    {
+      "key": "ext-project-deployment",
+      "title": "Deployment Fundamentals & Project Explanation",
+      "description": "Deploying web applications, environment configuration, health checks, and presenting technical architectural decisions.",
+      "competencies": [
+        "Configure 12-factor environment variables and secret isolation",
+        "Implement liveness and readiness health check endpoints",
+        "Articulate design tradeoffs, system bottlenecks, and failure modes",
+        "Defend architectural choices under senior engineer scrutiny"
+      ],
+      "prerequisites": [
+        "ext-llm-rag-agents",
+        "ext-git-docker"
+      ]
+    }
+  ]
+}

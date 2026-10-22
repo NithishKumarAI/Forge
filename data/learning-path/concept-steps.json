@@ -1,0 +1,719 @@
+{
+  "format_version": 1,
+  "version": "1.0.0",
+  "concepts": [
+    {
+      "key": "step-py-values-1",
+      "subject_key": "python",
+      "topic_slug": "python-values-expressions",
+      "title": "Values, variables and basic types",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Understand variables, basic types (int, float, str, bool), and assignments.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/python/python-values-expressions",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Variable assignment and type inspection",
+        "code": "x = 42\ny = 3.14\nname = 'Forge'\nis_active = True\nprint(type(x), type(y), type(name), type(is_active))",
+        "explanation": "Variables store references to values. Types are assigned dynamically at runtime."
+      },
+      "guided_practice_refs": [
+        "py-first-print-message",
+        "py-first-variable"
+      ],
+      "independent_practice_refs": [
+        "python-two-fer"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-py-values-2",
+      "subject_key": "python",
+      "topic_slug": "python-values-expressions",
+      "title": "Arithmetic expressions and precedence",
+      "stage": "first_steps",
+      "order_index": 2,
+      "prerequisite_keys": [
+        "step-py-values-1"
+      ],
+      "objective": "Evaluate arithmetic expressions using order of operations, floor division and modulo.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/python/python-values-expressions",
+        "section_slug": "worked-example"
+      },
+      "worked_example": {
+        "title": "Floor division and precedence",
+        "code": "total = 10 + 2 * 5\nquotient = 17 // 3\nremainder = 17 % 3\nprint(total, quotient, remainder)",
+        "explanation": "Multiplication has higher precedence than addition. // performs floor division, % gives remainder."
+      },
+      "guided_practice_refs": [
+        "py-first-add-two"
+      ],
+      "independent_practice_refs": [
+        "python-celsius-to-fahrenheit"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-py-cond-1",
+      "subject_key": "python",
+      "topic_slug": "python-conditions",
+      "title": "Comparisons and Boolean branching",
+      "stage": "beginner",
+      "order_index": 3,
+      "prerequisite_keys": [
+        "step-py-values-2"
+      ],
+      "objective": "Use relational operators (==, !=, <, >) and if/elif/else statements.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/python/control-flow",
+        "section_slug": "conditional-statements"
+      },
+      "worked_example": {
+        "title": "Branching with if/else",
+        "code": "score = 85\nif score >= 90:\n    grade = 'A'\nelif score >= 80:\n    grade = 'B'\nelse:\n    grade = 'C'\nprint(grade)",
+        "explanation": "Branches are evaluated from top to bottom; the first true condition executes its block."
+      },
+      "guided_practice_refs": [
+        "py-first-compare-two"
+      ],
+      "independent_practice_refs": [
+        "python-leap-year",
+        "python-raindrops"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-py-cond-2",
+      "subject_key": "python",
+      "topic_slug": "python-conditions",
+      "title": "Modulo and compound conditions",
+      "stage": "beginner",
+      "order_index": 4,
+      "prerequisite_keys": [
+        "step-py-cond-1"
+      ],
+      "objective": "Combine conditions using and, or, not, and modulo checks.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/python/control-flow",
+        "section_slug": "truthiness-and-falsiness"
+      },
+      "worked_example": {
+        "title": "Compound conditions",
+        "code": "n = 15\nis_fizzbuzz = (n % 3 == 0) and (n % 5 == 0)\nprint('Divisible by 3 and 5:', is_fizzbuzz)",
+        "explanation": "The and operator requires both operands to be truthy."
+      },
+      "guided_practice_refs": [
+        "py-first-even-odd"
+      ],
+      "independent_practice_refs": [
+        "python-fizzbuzz"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-py-loops-1",
+      "subject_key": "python",
+      "topic_slug": "python-loops",
+      "title": "For loops and range iteration",
+      "stage": "beginner",
+      "order_index": 5,
+      "prerequisite_keys": [
+        "step-py-cond-2"
+      ],
+      "objective": "Iterate using for loops over ranges and collections, updating accumulators.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/python/control-flow",
+        "section_slug": "loops"
+      },
+      "worked_example": {
+        "title": "Accumulation over range",
+        "code": "total = 0\nfor i in range(1, 6):\n    total += i\nprint('Sum 1 to 5:', total)",
+        "explanation": "range(start, stop) generates integers from start up to stop - 1."
+      },
+      "guided_practice_refs": [
+        "py-first-count-numbers"
+      ],
+      "independent_practice_refs": [
+        "python-collatz"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-py-loops-2",
+      "subject_key": "python",
+      "topic_slug": "python-loops",
+      "title": "Loop tracing and finding extremes",
+      "stage": "beginner",
+      "order_index": 6,
+      "prerequisite_keys": [
+        "step-py-loops-1"
+      ],
+      "objective": "Track loop state across iterations and identify minimums or maximums.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/python/control-flow",
+        "section_slug": "loop-control"
+      },
+      "worked_example": {
+        "title": "Tracing maximum value",
+        "code": "values = [12, 45, 7, 89, 23]\nlargest = values[0]\nfor v in values:\n    if v > largest:\n        largest = v\nprint('Largest:', largest)",
+        "explanation": "Comparing each item against the running maximum finds the peak in one pass."
+      },
+      "guided_practice_refs": [
+        "py-first-find-max"
+      ],
+      "independent_practice_refs": [
+        "python-running-sum",
+        "python-largest-product"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-py-strings-1",
+      "subject_key": "python",
+      "topic_slug": "python-strings",
+      "title": "String indexing and transformations",
+      "stage": "beginner",
+      "order_index": 7,
+      "prerequisite_keys": [
+        "step-py-loops-1"
+      ],
+      "objective": "Index characters, slice substrings, and check character properties.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/python/strings",
+        "section_slug": "string-basics"
+      },
+      "worked_example": {
+        "title": "Reversing and indexing strings",
+        "code": "word = 'level'\nis_palindrome = (word == word[::-1])\nprint(word, 'palindrome?', is_palindrome)",
+        "explanation": "Slice `[::-1]` produces the reversed string in Python."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [
+        "python-count-vowels",
+        "python-is-palindrome",
+        "python-normalize-name"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-py-collections-1",
+      "subject_key": "python",
+      "topic_slug": "python-collections",
+      "title": "Lists, sets, and frequency tracking",
+      "stage": "developing",
+      "order_index": 8,
+      "prerequisite_keys": [
+        "step-py-strings-1"
+      ],
+      "objective": "Use lists, sets for uniqueness, and dictionaries for frequency counts.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/python/collections",
+        "section_slug": "common-collections"
+      },
+      "worked_example": {
+        "title": "Deduplicating while counting",
+        "code": "items = ['apple', 'banana', 'apple', 'orange']\nunique = set(items)\nprint('Unique items:', sorted(unique))",
+        "explanation": "Sets drop duplicate entries in O(1) average lookup time."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [
+        "python-word-count",
+        "python-pangram",
+        "python-deduplicate-list"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-sql-tables-1",
+      "subject_key": "sql-postgresql",
+      "topic_slug": "sql-postgresql-tables-keys",
+      "title": "Tables, rows and scalar projection",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Understand relational tables, data types, and simple SELECT expressions.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-tables-keys",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Scalar SELECT",
+        "code": "SELECT 100 AS base_score, 'Active' AS status;",
+        "explanation": "SELECT computes and labels output columns."
+      },
+      "guided_practice_refs": [
+        "sql-first-select-constant"
+      ],
+      "independent_practice_refs": [
+        "sql-distinct-cities"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-sql-tables-2",
+      "subject_key": "sql-postgresql",
+      "topic_slug": "sql-postgresql-tables-keys",
+      "title": "Reading columns and table structure",
+      "stage": "first_steps",
+      "order_index": 2,
+      "prerequisite_keys": [
+        "step-sql-tables-1"
+      ],
+      "objective": "Project specific columns from an existing table.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/sql-postgresql/sql-postgresql-tables-keys",
+        "section_slug": "worked-example"
+      },
+      "worked_example": {
+        "title": "Column projection",
+        "code": "SELECT first_name, email FROM employees;",
+        "explanation": "Selecting specific columns reduces unnecessary data transfer."
+      },
+      "guided_practice_refs": [
+        "sql-first-read-one-col"
+      ],
+      "independent_practice_refs": [
+        "sql-products-in-stock"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-sql-select-filter",
+      "subject_key": "sql-postgresql",
+      "topic_slug": "sql-postgresql-select-filter",
+      "title": "Filtering rows with WHERE",
+      "stage": "first_steps",
+      "order_index": 3,
+      "prerequisite_keys": [
+        "step-sql-tables-2"
+      ],
+      "objective": "Filter rows using comparison operators, AND, OR, and string matches.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/sql-postgresql/select-basics",
+        "section_slug": "filtering-rows"
+      },
+      "worked_example": {
+        "title": "Row filtering with predicates",
+        "code": "SELECT id, product_name FROM products WHERE price > 50 AND in_stock = true;",
+        "explanation": "Only rows satisfying all WHERE predicates are returned."
+      },
+      "guided_practice_refs": [
+        "sql-first-where"
+      ],
+      "independent_practice_refs": [
+        "sql-active-users",
+        "sql-user-search"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-sql-nulls",
+      "subject_key": "sql-postgresql",
+      "topic_slug": "sql-postgresql-values-nulls",
+      "title": "Handling missing data (NULL)",
+      "stage": "first_steps",
+      "order_index": 4,
+      "prerequisite_keys": [
+        "step-sql-select-filter"
+      ],
+      "objective": "Distinguish NULL from empty values and use IS NULL and COALESCE.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/sql-postgresql/relational-foundations",
+        "section_slug": "nullability"
+      },
+      "worked_example": {
+        "title": "COALESCE fallback for NULL",
+        "code": "SELECT name, COALESCE(phone, 'No phone') AS contact_phone FROM customers;",
+        "explanation": "COALESCE returns the first non-null argument."
+      },
+      "guided_practice_refs": [
+        "sql-first-null-check"
+      ],
+      "independent_practice_refs": [
+        "sql-null-email",
+        "sql-coalesce-address"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-sql-ordering-limits",
+      "subject_key": "sql-postgresql",
+      "topic_slug": "sql-postgresql-ordering-limits",
+      "title": "Sorting and limiting results",
+      "stage": "first_steps",
+      "order_index": 5,
+      "prerequisite_keys": [
+        "step-sql-nulls"
+      ],
+      "objective": "Sort rows with ORDER BY ASC/DESC and truncate with LIMIT.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/sql-postgresql/select-basics",
+        "section_slug": "sorting-and-pagination"
+      },
+      "worked_example": {
+        "title": "ORDER BY and LIMIT",
+        "code": "SELECT product_name, price FROM products ORDER BY price DESC LIMIT 5;",
+        "explanation": "Sorts descending by price and returns the top 5 most expensive products."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [
+        "sql-recent-orders"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-sql-aggregations",
+      "subject_key": "sql-postgresql",
+      "topic_slug": "sql-postgresql-aggregation",
+      "title": "GROUP BY and summary aggregates",
+      "stage": "beginner",
+      "order_index": 6,
+      "prerequisite_keys": [
+        "step-sql-ordering-limits"
+      ],
+      "objective": "Aggregate rows using COUNT, SUM, AVG, and GROUP BY.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/sql-postgresql/aggregation",
+        "section_slug": "group-by-partitioning"
+      },
+      "worked_example": {
+        "title": "Department average salary",
+        "code": "SELECT department_id, COUNT(*) AS headcount, AVG(salary) AS avg_sal FROM employees GROUP BY department_id;",
+        "explanation": "GROUP BY collapses rows with identical department_id into summary rows."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [
+        "sql-dept-avg-salary",
+        "sql-daily-sales",
+        "sql-order-count-by-status"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-sql-joins",
+      "subject_key": "sql-postgresql",
+      "topic_slug": "sql-postgresql-joins",
+      "title": "Relational joins (INNER and LEFT)",
+      "stage": "developing",
+      "order_index": 7,
+      "prerequisite_keys": [
+        "step-sql-aggregations"
+      ],
+      "objective": "Combine related tables using explicit join predicates.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/sql-postgresql/joins",
+        "section_slug": "inner-and-outer-joins"
+      },
+      "worked_example": {
+        "title": "INNER JOIN on foreign key",
+        "code": "SELECT o.id, c.customer_name, o.amount FROM orders o JOIN customers c ON o.customer_id = c.id;",
+        "explanation": "Matches rows where order customer_id equals customer primary key id."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [
+        "sql-customers-with-orders",
+        "sql-dept-head-count",
+        "sql-customer-totals"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-dsa-contracts-1",
+      "subject_key": "dsa",
+      "topic_slug": "dsa-problem-contracts",
+      "title": "Problem contracts, input bounds, and tracing",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Trace algorithm execution step-by-step and verify boundary behavior.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/dsa/dsa-problem-contracts",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Tracing loop invariants",
+        "code": "def trace_sum(nums):\n    s = 0\n    for x in nums:\n        s += x\n    return s\nprint(trace_sum([1, 2, 3]))",
+        "explanation": "Before loop s=0; after element 1, s=1; after element 2, s=3; after 3, s=6."
+      },
+      "guided_practice_refs": [
+        "dsa-first-tracing-list"
+      ],
+      "independent_practice_refs": [
+        "dsa-reverse-string"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-dsa-scan-1",
+      "subject_key": "dsa",
+      "topic_slug": "dsa-arrays-strings",
+      "title": "Linear scanning and in-place manipulation",
+      "stage": "first_steps",
+      "order_index": 2,
+      "prerequisite_keys": [
+        "step-dsa-contracts-1"
+      ],
+      "objective": "Traverse arrays linearly, maintaining read and write pointers.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/dsa/arrays",
+        "section_slug": "linear-traversal"
+      },
+      "worked_example": {
+        "title": "Moving elements in a scan",
+        "code": "def move_zeros(nums):\n    write = 0\n    for read in range(len(nums)):\n        if nums[read] != 0:\n            nums[write] = nums[read]\n            write += 1\n    while write < len(nums):\n        nums[write] = 0\n        write += 1\n    return nums",
+        "explanation": "Separating read and write indices avoids allocating extra memory."
+      },
+      "guided_practice_refs": [
+        "dsa-first-linear-scan"
+      ],
+      "independent_practice_refs": [
+        "dsa-move-zeroes",
+        "dsa-range-sum-query"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-dsa-hash-1",
+      "subject_key": "dsa",
+      "topic_slug": "dsa-hashing-sets",
+      "title": "Hash maps and frequency counting",
+      "stage": "first_steps",
+      "order_index": 3,
+      "prerequisite_keys": [
+        "step-dsa-scan-1"
+      ],
+      "objective": "Trade space for time by caching element occurrences in a hash map.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/dsa/hash-tables",
+        "section_slug": "frequency-maps"
+      },
+      "worked_example": {
+        "title": "Two-sum hash map lookup",
+        "code": "def two_sum(nums, target):\n    seen = {}\n    for i, x in enumerate(nums):\n        diff = target - x\n        if diff in seen:\n            return (seen[diff], i)\n        seen[x] = i\n    return ()\nprint(two_sum([2, 7, 11, 15], 9))",
+        "explanation": "Looking up the complement in `seen` reduces time complexity from O(n^2) to O(n)."
+      },
+      "guided_practice_refs": [
+        "dsa-first-freq-counting"
+      ],
+      "independent_practice_refs": [
+        "dsa-valid-anagram",
+        "dsa-two-sum-indices",
+        "dsa-ransom-note"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-dsa-two-pointers",
+      "subject_key": "dsa",
+      "topic_slug": "dsa-two-pointers",
+      "title": "Two-pointer convergence and sorting",
+      "stage": "developing",
+      "order_index": 4,
+      "prerequisite_keys": [
+        "step-dsa-hash-1"
+      ],
+      "objective": "Use converging pointers on sorted arrays to achieve optimal O(n) solutions.",
+      "teaching_ref": {
+        "source_type": "legacy_lesson",
+        "content_key": "ai-engineer/v1/dsa/two-pointers",
+        "section_slug": "converging-pointers"
+      },
+      "worked_example": {
+        "title": "Pair sum on sorted array",
+        "code": "def find_pair(nums, target):\n    left, right = 0, len(nums) - 1\n    while left < right:\n        cur = nums[left] + nums[right]\n        if cur == target:\n            return (left, right)\n        elif cur < target:\n            left += 1\n        else:\n            right -= 1\n    return ()",
+        "explanation": "Adjusting either pointer deterministically moves the sum closer to target."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [
+        "dsa-first-pair",
+        "dsa-remove-duplicates-sorted"
+      ],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-apt-numbers-1",
+      "subject_key": "quantitative-aptitude",
+      "topic_slug": "quantitative-aptitude-number-operations",
+      "title": "Numbers, operations and precedence",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Apply order of operations (BODMAS/PEMDAS) and signed arithmetic to calculations.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/quantitative-aptitude/quantitative-aptitude-number-operations",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Order of operations",
+        "code": "# 8 + 4 * (6 - 2) / 2 = 8 + 4 * 4 / 2 = 8 + 16 / 2 = 8 + 8 = 16",
+        "explanation": "Brackets are evaluated first, then multiplication and division left-to-right, then addition."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-reason-patterns-1",
+      "subject_key": "logical-reasoning",
+      "topic_slug": "logical-reasoning-patterns-classification",
+      "title": "Pattern recognition and classification",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Identify underlying rules in sequences and classify items based on stated constraints.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/logical-reasoning/logical-reasoning-patterns-classification",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Rule deduction",
+        "code": "# Sequence: 2, 6, 12, 20, 30 ...\n# Differences: +4, +6, +8, +10 -> Next difference is +12 -> 42.",
+        "explanation": "Analyzing differences between consecutive terms reveals a linear progression of +2."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-verbal-structure-1",
+      "subject_key": "verbal-english",
+      "topic_slug": "verbal-english-sentence-structure",
+      "title": "Sentence structure and clause boundaries",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Identify subject, verb, and object components and avoid comma splices or run-on sentences.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/verbal-english/verbal-english-sentence-structure",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Subject-verb alignment",
+        "code": "# Incorrect: 'The group of students were studying.'\n# Correct: 'The group of students was studying.' (Subject is singular 'group')",
+        "explanation": "Prepositional phrases between the subject and verb do not alter subject number."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-sys-requirements-1",
+      "subject_key": "system-design",
+      "topic_slug": "system-design-requirements",
+      "title": "Functional vs non-functional requirements",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Distinguish feature capabilities (functional) from quality attributes like latency and uptime.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/system-design/system-design-requirements",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Requirement categorization",
+        "code": "# 'A user can upload an image' -> Functional requirement\n# 'The image must be processed within 500ms' -> Non-functional (performance)",
+        "explanation": "Functional requirements define what the system does; non-functional define how well it performs."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-ai-foundations-1",
+      "subject_key": "ai-fundamentals",
+      "topic_slug": "ai-fundamentals-ai-ml-dl",
+      "title": "AI, ML, and deep learning boundaries",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Understand the hierarchy between artificial intelligence, machine learning, and deep neural nets.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/ai-fundamentals/ai-fundamentals-ai-ml-dl",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Rule-based vs Learning-based",
+        "code": "# Rule-based: if email.contains('lottery') -> spam\n# ML-based: model trained on 100k labeled emails learns token statistical weights",
+        "explanation": "Traditional software relies on explicit coded rules; machine learning learns parameters from data."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [],
+      "review_eligible": true,
+      "availability_status": "available"
+    },
+    {
+      "key": "step-interview-intro-1",
+      "subject_key": "interview-communication",
+      "topic_slug": "interview-communication-introductions",
+      "title": "Structuring a technical self-introduction",
+      "stage": "first_steps",
+      "order_index": 1,
+      "prerequisite_keys": [],
+      "objective": "Deliver a concise 60-90 second introduction covering education, technical strengths, and recent projects.",
+      "teaching_ref": {
+        "source_type": "candidate_lesson",
+        "content_key": "forge/placement-foundations/interview-communication/interview-communication-introductions",
+        "section_slug": "intuition"
+      },
+      "worked_example": {
+        "title": "Present-Past-Future model",
+        "code": "# 1. Present: Current status and core strengths (e.g. backend Python & SQL)\n# 2. Past: Meaningful project built and deterministic test evidence\n# 3. Future: Why this specific engineering role aligns with current growth",
+        "explanation": "A structured introduction stays focused, relevant, and under 90 seconds."
+      },
+      "guided_practice_refs": [],
+      "independent_practice_refs": [],
+      "review_eligible": true,
+      "availability_status": "available"
+    }
+  ]
+}

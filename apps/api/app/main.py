@@ -21,6 +21,7 @@ from .routers.editions import router as editions_router
 from .routers.assessment import router as assessment_router
 from .routers.guidance import router as guidance_router
 from .routers.timed_tests import router as timed_tests_router
+from .routers.learning_path import router as learning_path_router
 from .services.course import sync_course_pack
 from .services.arena import sync_problem_bank
 from .schemas.api import HealthRead
@@ -71,6 +72,7 @@ def create_app() -> FastAPI:
     app.include_router(course_router)
     app.include_router(arena_router)
     app.include_router(editions_router)
+    app.include_router(learning_path_router)
     app.include_router(router)
 
     @app.get("/health", response_model=HealthRead)

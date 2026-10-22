@@ -4,6 +4,16 @@ import type { Attempt, Exercise, PracticeHistory, PracticePack, PythonTest, Exec
 import type { AdaptiveAttempt, AdaptiveSubmission, MasteryBreakdown, PlannerSettings, ReviewQueueItem, ReviewSessionItem, TodayPlan, TransferSession } from "../types/adaptive";
 import type { CourseTopic, LessonProgress } from "../types/course";
 import type { ArenaProblem, ArenaSummary, ArenaValidation } from "../types/arena";
+import type {
+  ArenaStageDetail,
+  BeginnerExerciseData,
+  BeginnerExerciseResult,
+  ConceptStepDetail,
+  ConceptStepSummary,
+  LearningPathDashboardData,
+  LearningStage,
+  SubjectProgressSummary,
+} from "../types/learningPath";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
@@ -59,4 +69,12 @@ export const api = {
   completePlanItem: (id: number) => request<{ status: string }>(`/api/planner/items/${id}/complete`, { method: "POST" }),
   plannerSettings: () => request<PlannerSettings>("/api/planner/settings"),
   updatePlannerSettings: (values: Partial<PlannerSettings>) => request<PlannerSettings>("/api/planner/settings", { method: "PUT", body: JSON.stringify(values) }),
+  learningPathDashboard: (activeSubject = "python") => request<LearningPathDashboardData>(`/api/learning-path/dashboard?active_subject=${encodeURIComponent(activeSubject)}`),
+  learningPathSubjects: () => request<SubjectProgressSummary[]>("/api/learning-path/subjects"),
+  learningPathConcepts: (subjectKey: string) => request<ConceptStepSummary[]>(`/api/learning-path/subjects/${encodeURIComponent(subjectKey)}`),
+  conceptStep: (stepKey: string) => request<ConceptStepDetail>(`/api/learning-path/steps/${encodeURIComponent(stepKey)}`),
+  updateStepProgress: (stepKey: string, state: LearningStage) => request<{ status: string; step_key: string; progress_state: LearningStage }>(`/api/learning-path/steps/${encodeURIComponent(stepKey)}/progress?state=${encodeURIComponent(state)}`, { method: "POST" }),
+  arenaStages: (track?: string) => request<ArenaStageDetail[]>(`/api/learning-path/arena/stages${track ? `?track=${encodeURIComponent(track)}` : ""}`),
+  beginnerExercise: (key: string) => request<BeginnerExerciseData>(`/api/learning-path/exercises/${encodeURIComponent(key)}`),
+  submitBeginnerExercise: (key: string, source: string) => request<BeginnerExerciseResult>(`/api/learning-path/exercises/${encodeURIComponent(key)}/submit`, { method: "POST", body: JSON.stringify({ source }) }),
 };
